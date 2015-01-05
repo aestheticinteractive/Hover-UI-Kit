@@ -1,5 +1,4 @@
 ﻿using System;
-using Leap;
 using UnityEngine;
 
 namespace HandMenu {
@@ -7,7 +6,7 @@ namespace HandMenu {
 	/*================================================================================================*/
 	public class FingerDisplay : MonoBehaviour {
 
-		public Func<Finger> GetCurrentFinger;
+		public Func<FingerData> GetCurrentData;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -21,17 +20,15 @@ namespace HandMenu {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			Finger finger = GetCurrentFinger();
+			FingerData data = GetCurrentData();
 
-			if ( finger == null ) {
+			if ( data == null ) {
 				return;
 			}
 
-			Vector3 tip = finger.TipPosition.ToUnityScaled();
-			Vector3 dir = finger.Bone(Bone.BoneType.TYPE_DISTAL).Direction.ToUnity();
-
-			gameObject.transform.localPosition = tip;
-			gameObject.transform.localRotation = Quaternion.FromToRotation(Vector3.back, dir);
+			gameObject.transform.localPosition = data.Position;
+			gameObject.transform.localRotation = 
+				Quaternion.FromToRotation(Vector3.back, data.Direction);
 		}
 
 	}
