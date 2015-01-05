@@ -44,7 +44,13 @@ namespace HandMenu {
 		/*--------------------------------------------------------------------------------------------*/
 		private void AddFingerDisplay(Finger.FingerType pType0, 
 													Finger.FingerType? pType1=null, float pAmount=0) {
-			var fingerObj = new GameObject("FingerDisplay");
+			string objName = "Finger-"+(int)pType0+"";
+
+			if ( pType1 != null ) {
+				objName += "-"+(int)pType1+"-"+pAmount;
+			}
+
+			var fingerObj = new GameObject(objName);
 			fingerObj.transform.parent = gameObject.transform;
 
 			FingerDisplay fingerDisp = fingerObj.AddComponent<FingerDisplay>();

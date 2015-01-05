@@ -19,15 +19,11 @@ namespace HandMenu {
 			vHandControlObj = GameObject.Find("HandController");
 			
 			var handLObj = new GameObject("HandDisplayL");
-			handLObj.transform.parent = vHandControlObj.transform;
-			handLObj.transform.position = vHandControlObj.transform.position;
-			handLObj.transform.rotation = vHandControlObj.transform.rotation;
+			SetAndMoveToParent(handLObj.transform, vHandControlObj.transform);
 			vHandL = handLObj.AddComponent<HandDisplay>();
 
 			var handRObj = new GameObject("HandDisplayR");
-			handRObj.transform.parent = vHandControlObj.transform;
-			handRObj.transform.position = vHandControlObj.transform.position;
-			handRObj.transform.rotation = vHandControlObj.transform.rotation;
+			SetAndMoveToParent(handRObj.transform, vHandControlObj.transform);
 			vHandR = handRObj.AddComponent<HandDisplay>();
 		}
 
@@ -45,6 +41,14 @@ namespace HandMenu {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private static void SetAndMoveToParent(Transform pChild, Transform pParent) {
+			pChild.parent = pParent;
+			pChild.position = pParent.position;
+			pChild.rotation = pParent.rotation;
+			pChild.localScale = Vector3.one;
+		}
+		
 		/*--------------------------------------------------------------------------------------------*/
 		private Hand GetHand(bool pIsLeft) {
 			return vControl.Frame().Hands
