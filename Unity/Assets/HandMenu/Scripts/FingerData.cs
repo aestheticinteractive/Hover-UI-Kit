@@ -1,4 +1,5 @@
-﻿using Leap;
+﻿using System;
+using Leap;
 using UnityEngine;
 
 namespace HandMenu {
@@ -9,6 +10,7 @@ namespace HandMenu {
 		public Vector3 Position { get; set; }
 		public Vector3 Direction { get; set; }
 		public Quaternion Rotation { get; set; }
+		public float Extension { get; set; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -17,7 +19,7 @@ namespace HandMenu {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public FingerData(Finger pFinger) {
+		public FingerData(Finger pFinger, Hand pHand) {
 			Bone bone = pFinger.Bone(Bone.BoneType.TYPE_DISTAL);
 			float[] mat = bone.Basis.ToArray4x4();
 			var column2 = new Vector3(mat[8], mat[9], -mat[10]);
@@ -26,6 +28,9 @@ namespace HandMenu {
 			Position = pFinger.TipPosition.ToUnityScaled();
 			Direction = bone.Direction.ToUnity();
 			Rotation = Quaternion.LookRotation(column2, column1);
+
+			Extension = Vector3.Dot(Direction, -pHand.Direction.ToUnity());
+			Extension = Math.Max(0, Extension);
 
 			//Quaternion created using notes from:
 			//answers.unity3d.com/questions/11363/converting-matrix4x4-to-quaternion-vector3.html

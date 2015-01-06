@@ -9,6 +9,7 @@ namespace HandMenu {
 
 		public bool IsLeft;
 		public Func<FingerData> GetCurrentData;
+		public float HandAlpha;
 
 		private const int Width = 200;
 		private const int Height = 40;
@@ -16,6 +17,7 @@ namespace HandMenu {
 
 		private GameObject vHold;
 		private GameObject vBackground;
+		private GameObject vCanvasGroupObj;
 		private GameObject vCanvasObj;
 		private GameObject vTextObj;
 
@@ -31,14 +33,19 @@ namespace HandMenu {
 			vBackground = GameObject.CreatePrimitive(PrimitiveType.Quad);
 			vBackground.transform.parent = vHold.transform;
 			vBackground.name = "Background";
-			vBackground.renderer.sharedMaterial.shader = Shader.Find("Transparent/Diffuse");
-			vBackground.renderer.sharedMaterial.color = new Color(0, 0, 0, 0.333f);
+			vBackground.renderer.sharedMaterial = new Material(Shader.Find("Transparent/Diffuse"));
 			vBackground.renderer.sharedMaterial.renderQueue -= 1;
 
 			////
 
+			vCanvasGroupObj = new GameObject("CanvasGroup");
+			vCanvasGroupObj.transform.parent = vHold.transform;
+			vCanvasGroupObj.AddComponent<CanvasGroup>();
+
+			////
+
 			vCanvasObj = new GameObject("Canvas");
-			vCanvasObj.transform.parent = vHold.transform;
+			vCanvasObj.transform.parent = vCanvasGroupObj.transform;
 			
 			Canvas canvas = vCanvasObj.AddComponent<Canvas>();
 			canvas.renderMode = RenderMode.WorldSpace;
@@ -94,15 +101,19 @@ namespace HandMenu {
 				return;
 			}
 
+			float alpha = HandAlpha*(float)Math.Pow(data.Extension, 2);
+
 			gameObject.transform.localPosition = data.Position;
 			gameObject.transform.localRotation = data.Rotation;
+			//gameObject.transform.localScale = new Vector3(1, 1, Math.Min(1, alpha*1.2f));
 
 			if ( !IsLeft ) {
 				gameObject.transform.localRotation *= 
 					Quaternion.FromToRotation(Vector3.left, Vector3.right);
 			}
 
-			//vTextObj.GetComponent<Text>().color = new Color(1, 1, 1, 0.1f);
+			vCanvasGroupObj.GetComponent<CanvasGroup>().alpha = alpha;
+			vBackground.renderer.sharedMaterial.color = new Color(0, 0, 0, 0.333f*alpha);
 		}
 
 	}

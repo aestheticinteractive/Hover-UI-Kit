@@ -37,8 +37,16 @@ namespace HandMenu {
 		public void Update() {
 			Hand hand = GetCurrentHand();
 			bool isActive = (hand != null);
+			float alpha = 0;
+
+			if ( hand != null ) {
+				alpha = Vector3.Dot(hand.PalmNormal.ToUnity(), Vector3.down);
+				alpha = Math.Max(0, (alpha-0.7f)/0.3f);
+				alpha = (float)Math.Pow(alpha, 2);
+			}
 
 			foreach ( FingerDisplay fingerDisp in vFingerDisplays ) {
+				fingerDisp.HandAlpha = alpha;
 				fingerDisp.gameObject.SetActive(isActive);
 			}
 		}
@@ -71,20 +79,15 @@ namespace HandMenu {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private Finger GetFinger(Finger.FingerType pType) {
+		private FingerData GetFingerData(Finger.FingerType pType) {
 			Hand hand = GetCurrentHand();
 
 			if ( hand == null ) {
 				return null;
 			}
 
-			return hand.Fingers.FingerType(pType).FirstOrDefault(f => f.IsValid);
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		private FingerData GetFingerData(Finger.FingerType pType) {
-			Finger finger = GetFinger(pType);
-			return (finger == null ? null : new FingerData(finger));
+			Finger finger = hand.Fingers.FingerType(pType).FirstOrDefault(f => f.IsValid);
+			return (finger == null ? null : new FingerData(finger, hand));
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -101,6 +104,7 @@ namespace HandMenu {
 			data.Position = Vector3.Slerp(data0.Position, data1.Position, pAmount);
 			data.Direction = Vector3.Slerp(data0.Direction, data1.Direction, pAmount);
 			data.Rotation = Quaternion.Slerp(data0.Rotation, data1.Rotation, pAmount);
+			data.Extension = data0.Extension*(1-pAmount) + data1.Extension*pAmount;
 			return data;
 		}
 
