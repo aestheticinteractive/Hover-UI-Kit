@@ -7,12 +7,14 @@ namespace HandMenu {
 	/*================================================================================================*/
 	public class FingerDisplay : MonoBehaviour {
 
+		public bool IsLeft;
 		public Func<FingerData> GetCurrentData;
 
 		private const int Width = 200;
 		private const int Height = 40;
 		private const float Scale = 0.0004f;
 
+		private GameObject vHold;
 		private GameObject vBackground;
 		private GameObject vCanvasObj;
 		private GameObject vTextObj;
@@ -21,22 +23,27 @@ namespace HandMenu {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
+			vHold = new GameObject("Hold");
+			vHold.transform.parent = gameObject.transform;
+
+			////
+
 			vBackground = GameObject.CreatePrimitive(PrimitiveType.Quad);
+			vBackground.transform.parent = vHold.transform;
 			vBackground.name = "Background";
 			vBackground.renderer.sharedMaterial.shader = Shader.Find("Transparent/Diffuse");
 			vBackground.renderer.sharedMaterial.color = new Color(0, 0, 0, 0.333f);
-			vBackground.transform.parent = gameObject.transform;
+			vBackground.renderer.sharedMaterial.renderQueue -= 1;
 
 			////
 
 			vCanvasObj = new GameObject("Canvas");
-			vCanvasObj.transform.parent = gameObject.transform;
+			vCanvasObj.transform.parent = vHold.transform;
 			
 			Canvas canvas = vCanvasObj.AddComponent<Canvas>();
 			canvas.renderMode = RenderMode.WorldSpace;
 
 			RectTransform rect = vCanvasObj.GetComponent<RectTransform>();
-			rect.pivot = new Vector2(0, 0.5f);
 			rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Width);
 			rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, Height);
 
@@ -45,27 +52,36 @@ namespace HandMenu {
 			vTextObj = new GameObject("Text");
 			vTextObj.transform.parent = vCanvasObj.transform;
 
-			var text = vTextObj.AddComponent<Text>();
+			Text text = vTextObj.AddComponent<Text>();
 			text.font = Resources.Load<Font>("GothamNarrowBook");
 			text.fontSize = 24;
-			text.alignment = TextAnchor.MiddleLeft;
 			text.text = gameObject.name;
 
 			rect = vTextObj.GetComponent<RectTransform>();
-			rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Width);
-			rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, Height);
+			rect.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 8, Width-16);
+			rect.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, 4, Height-8);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Start() {
-			Quaternion rot = Quaternion.FromToRotation(Vector3.back, Vector3.down)*
-				Quaternion.FromToRotation(Vector3.up, Vector3.right);
+			RectTransform rect = vCanvasObj.GetComponent<RectTransform>();
+			rect.pivot = new Vector2((IsLeft ? 0 : 1), 0.5f);
 
-			vBackground.transform.localPosition = new Vector3(0, 0.001f, 0.03f+Width*0.0002f);
+			Text text = vTextObj.GetComponent<Text>();
+			text.alignment = (IsLeft ? TextAnchor.MiddleLeft : TextAnchor.MiddleRight);
+			
+			////
+
+			Quaternion rot = Quaternion.FromToRotation(Vector3.back, Vector3.down)*
+				Quaternion.FromToRotation(Vector3.down, Vector3.right);
+			int mult = (IsLeft ? -1 : 1);
+
+			vHold.transform.localPosition = new Vector3(0, 0, 0.03f*mult);
+
+			vBackground.transform.localPosition = new Vector3(0, 0.001f, Width*Scale/2f*mult);
 			vBackground.transform.localRotation = rot;
 			vBackground.transform.localScale = new Vector3(Width*Scale, Height*Scale, 1);
 
-			vCanvasObj.transform.localPosition = new Vector3(0, 0, 0.03f);
 			vCanvasObj.transform.localRotation = rot;
 			vCanvasObj.transform.localScale = Vector3.one*Scale;
 		}
@@ -79,7 +95,12 @@ namespace HandMenu {
 			}
 
 			gameObject.transform.localPosition = data.Position;
-			gameObject.transform.localRotation = Quaternion.FromToRotation(Vector3.back,data.Direction);
+			gameObject.transform.localRotation = data.Rotation;
+
+			if ( !IsLeft ) {
+				gameObject.transform.localRotation *= 
+					Quaternion.FromToRotation(Vector3.left, Vector3.right);
+			}
 
 			//vTextObj.GetComponent<Text>().color = new Color(1, 1, 1, 0.1f);
 		}

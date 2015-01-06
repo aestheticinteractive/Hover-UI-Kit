@@ -9,6 +9,7 @@ namespace HandMenu {
 	/*================================================================================================*/
 	public class HandDisplay : MonoBehaviour {
 
+		public bool IsLeft;
 		public Func<Hand> GetCurrentHand;
 
 		private Controller vControl;
@@ -19,7 +20,10 @@ namespace HandMenu {
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
 			vFingerDisplays = new List<FingerDisplay>();
+		}
 
+		/*--------------------------------------------------------------------------------------------*/
+		public void Start() {
 			AddFingerDisplay(Finger.FingerType.TYPE_INDEX);
 			AddFingerDisplay(Finger.FingerType.TYPE_INDEX, Finger.FingerType.TYPE_MIDDLE, 0.5f);
 			AddFingerDisplay(Finger.FingerType.TYPE_MIDDLE);
@@ -54,6 +58,7 @@ namespace HandMenu {
 			fingerObj.transform.parent = gameObject.transform;
 
 			FingerDisplay fingerDisp = fingerObj.AddComponent<FingerDisplay>();
+			fingerDisp.IsLeft = IsLeft;
 			vFingerDisplays.Add(fingerDisp);
 
 			if ( pType1 == null ) {
@@ -93,8 +98,9 @@ namespace HandMenu {
 			}
 
 			var data = new FingerData();
-			data.Position = data0.Position*(1-pAmount) + data1.Position*pAmount;
-			data.Direction = data0.Direction*(1-pAmount) + data1.Direction*pAmount;
+			data.Position = Vector3.Slerp(data0.Position, data1.Position, pAmount);
+			data.Direction = Vector3.Slerp(data0.Direction, data1.Direction, pAmount);
+			data.Rotation = Quaternion.Slerp(data0.Rotation, data1.Rotation, pAmount);
 			return data;
 		}
 

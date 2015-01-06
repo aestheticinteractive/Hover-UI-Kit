@@ -21,10 +21,12 @@ namespace HandMenu {
 			var handLObj = new GameObject("HandDisplayL");
 			SetAndMoveToParent(handLObj.transform, vHandControlObj.transform);
 			vHandL = handLObj.AddComponent<HandDisplay>();
+			vHandL.IsLeft = true;
 
 			var handRObj = new GameObject("HandDisplayR");
 			SetAndMoveToParent(handRObj.transform, vHandControlObj.transform);
 			vHandR = handRObj.AddComponent<HandDisplay>();
+			vHandR.IsLeft = false;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
