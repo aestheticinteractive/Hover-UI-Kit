@@ -1,4 +1,6 @@
-﻿using HandMenu.Input;
+﻿using HandMenu.Display;
+using HandMenu.Input;
+using HandMenu.State;
 using Leap;
 using UnityEngine;
 
@@ -11,8 +13,9 @@ namespace HandMenu {
 
 		private HandController vHandControl;
 		private Controller vLeapControl;
-		private HandDisplay vHand;
 		private InputProvider vInputProv;
+		private MenuState vMenuState;
+		private MenuHandDisplay vMenuHandDisp;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -21,17 +24,18 @@ namespace HandMenu {
 			GameObject handControlObj = GameObject.Find("HandController");
 			vHandControl = handControlObj.GetComponent<HandController>();
 			vLeapControl = vHandControl.GetLeapController();
+
 			vInputProv = new InputProvider();
+			vMenuState = new MenuState(vInputProv, LeftHandMenu);
 
 			////
 
-			var handObj = new GameObject("HandDisplay");
-			SetAndMoveToParent(handObj.transform, handControlObj.transform);
+			var menuHandObj = new GameObject("MenuHandDisplay");
+			SetAndMoveToParent(menuHandObj.transform, handControlObj.transform);
 
-			vHand = handObj.AddComponent<HandDisplay>();
-			vHand.IsLeft = LeftHandMenu;
-			vHand.MenuHandProvider = vInputProv.GetHandProvider(LeftHandMenu);
-			vHand.SelectHandProvider = vInputProv.GetHandProvider(!LeftHandMenu);
+			vMenuHandDisp = menuHandObj.AddComponent<MenuHandDisplay>();
+			vMenuHandDisp.MenuHand = vMenuState.MenuHand;
+			vMenuHandDisp.SelectHand = vMenuState.SelectHand;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -41,6 +45,7 @@ namespace HandMenu {
 			}
 
 			vInputProv.UpdateWithFrame(vLeapControl.Frame());
+			vMenuState.UpdateAfterInput();
 		}
 
 

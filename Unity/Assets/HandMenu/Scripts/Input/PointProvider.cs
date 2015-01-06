@@ -30,6 +30,7 @@ namespace HandMenu.Input {
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateWithHand(Hand pHand) {
 			if ( pHand == null ) {
+				Data = null;
 				return;
 			}
 
@@ -45,18 +46,9 @@ namespace HandMenu.Input {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private PointData GetPointData(Hand pHand, Finger.FingerType pType) {
-			if ( pHand == null ) {
-				return null;
-			}
-
+		private static PointData GetPointData(Hand pHand, Finger.FingerType pType) {
 			Finger finger = pHand.Fingers.FingerType(pType).FirstOrDefault(f => f.IsValid);
-
-			if ( finger == null ) {
-				return null;
-			}
-
-			return new PointData(pHand, finger);
+			return (finger == null ? null : new PointData(pHand, finger));
 		}
 
 	}
