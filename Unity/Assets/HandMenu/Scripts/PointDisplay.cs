@@ -1,15 +1,15 @@
 ﻿using System;
+using HandMenu.Input;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace HandMenu {
 
 	/*================================================================================================*/
-	public class FingerDisplay : MonoBehaviour {
+	public class PointDisplay : MonoBehaviour {
 
-		public bool IsLeft;
-		public Func<FingerData> GetCurrentData;
-		public float HandAlpha;
+		public HandProvider HandProvider { get; set; }
+		public PointProvider PointProvider { get; set; }
 
 		private const int Width = 200;
 		private const int Height = 40;
@@ -24,7 +24,14 @@ namespace HandMenu {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Awake() {
+		public void Start() {
+			bool isLeft = HandProvider.IsLeft;
+			int mult = (isLeft ? -1 : 1);
+			Quaternion rot = Quaternion.FromToRotation(Vector3.back, Vector3.down)*
+				Quaternion.FromToRotation(Vector3.down, Vector3.right);
+
+			////
+
 			vHold = new GameObject("Hold");
 			vHold.transform.parent = gameObject.transform;
 
@@ -53,6 +60,7 @@ namespace HandMenu {
 			RectTransform rect = vCanvasObj.GetComponent<RectTransform>();
 			rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Width);
 			rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, Height);
+			rect.pivot = new Vector2((isLeft ? 0 : 1), 0.5f);
 
 			////
 
@@ -62,26 +70,14 @@ namespace HandMenu {
 			Text text = vTextObj.AddComponent<Text>();
 			text.font = Resources.Load<Font>("GothamNarrowBook");
 			text.fontSize = 24;
+			text.alignment = (isLeft ? TextAnchor.MiddleLeft : TextAnchor.MiddleRight);
 			text.text = gameObject.name;
 
 			rect = vTextObj.GetComponent<RectTransform>();
 			rect.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 8, Width-16);
 			rect.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, 4, Height-8);
-		}
 
-		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
-			RectTransform rect = vCanvasObj.GetComponent<RectTransform>();
-			rect.pivot = new Vector2((IsLeft ? 0 : 1), 0.5f);
-
-			Text text = vTextObj.GetComponent<Text>();
-			text.alignment = (IsLeft ? TextAnchor.MiddleLeft : TextAnchor.MiddleRight);
-			
 			////
-
-			Quaternion rot = Quaternion.FromToRotation(Vector3.back, Vector3.down)*
-				Quaternion.FromToRotation(Vector3.down, Vector3.right);
-			int mult = (IsLeft ? -1 : 1);
 
 			vHold.transform.localPosition = new Vector3(0, 0, 0.03f*mult);
 
@@ -95,19 +91,21 @@ namespace HandMenu {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			FingerData data = GetCurrentData();
+			HandData handData = HandProvider.Data;
+			PointData pointData = PointProvider.Data;
 
-			if ( data == null ) {
+			if ( pointData == null ) {
 				return;
 			}
+			
+			float handAlpha = Math.Max(0, (handData.PalmTowardEyes-0.7f)/0.3f);
+			float alpha = (float)Math.Pow(handAlpha*pointData.Extension, 2);
 
-			float alpha = HandAlpha*(float)Math.Pow(data.Extension, 2);
-
-			gameObject.transform.localPosition = data.Position;
-			gameObject.transform.localRotation = data.Rotation;
+			gameObject.transform.localPosition = pointData.Position;
+			gameObject.transform.localRotation = pointData.Rotation;
 			//gameObject.transform.localScale = new Vector3(1, 1, Math.Min(1, alpha*1.2f));
 
-			if ( !IsLeft ) {
+			if ( !HandProvider.IsLeft ) {
 				gameObject.transform.localRotation *= 
 					Quaternion.FromToRotation(Vector3.left, Vector3.right);
 			}

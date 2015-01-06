@@ -1,4 +1,4 @@
-﻿using System.Linq;
+﻿using HandMenu.Input;
 using Leap;
 using UnityEngine;
 
@@ -7,38 +7,40 @@ namespace HandMenu {
 	/*================================================================================================*/
 	public class HandMenuSetup : MonoBehaviour {
 
-		private GameObject vHandControlObj;
-		private Controller vControl;
-		private HandDisplay vHandL;
-		private HandDisplay vHandR;
+		public bool LeftHandMenu = true;
+
+		private HandController vHandControl;
+		private Controller vLeapControl;
+		private HandDisplay vHand;
+		private InputProvider vInputProv;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Awake() {
-			vHandControlObj = GameObject.Find("HandController");
-			
-			var handLObj = new GameObject("HandDisplayL");
-			SetAndMoveToParent(handLObj.transform, vHandControlObj.transform);
-			vHandL = handLObj.AddComponent<HandDisplay>();
-			vHandL.IsLeft = true;
-
-			var handRObj = new GameObject("HandDisplayR");
-			SetAndMoveToParent(handRObj.transform, vHandControlObj.transform);
-			vHandR = handRObj.AddComponent<HandDisplay>();
-			vHandR.IsLeft = false;
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
 		public void Start() {
-			vControl = vHandControlObj.GetComponent<HandController>().GetLeapController();
-			vHandL.GetCurrentHand = (() => GetHand(true));
-			vHandR.GetCurrentHand = (() => GetHand(false));
+			GameObject handControlObj = GameObject.Find("HandController");
+			vHandControl = handControlObj.GetComponent<HandController>();
+			vLeapControl = vHandControl.GetLeapController();
+			vInputProv = new InputProvider();
+
+			////
+
+			var handObj = new GameObject("HandDisplay");
+			SetAndMoveToParent(handObj.transform, handControlObj.transform);
+
+			vHand = handObj.AddComponent<HandDisplay>();
+			vHand.IsLeft = LeftHandMenu;
+			vHand.MenuHandProvider = vInputProv.GetHandProvider(LeftHandMenu);
+			vHand.SelectHandProvider = vInputProv.GetHandProvider(!LeftHandMenu);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			OVRManager.capiHmd.DismissHSWDisplay();
+			if ( OVRManager.capiHmd.GetHSWDisplayState().Displayed ) {
+				OVRManager.capiHmd.DismissHSWDisplay();
+			}
+
+			vInputProv.UpdateWithFrame(vLeapControl.Frame());
 		}
 
 
@@ -49,12 +51,6 @@ namespace HandMenu {
 			pChild.position = pParent.position;
 			pChild.rotation = pParent.rotation;
 			pChild.localScale = Vector3.one;
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		private Hand GetHand(bool pIsLeft) {
-			return vControl.Frame().Hands
-				.FirstOrDefault(h => h.IsValid && h.IsLeft == pIsLeft);
 		}
 
 	}
