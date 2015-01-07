@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using HandMenu.Input;
+using HandMenu.Navigation;
 using UnityEngine;
 
 namespace HandMenu.State {
@@ -18,22 +19,29 @@ namespace HandMenu.State {
 			PointData.PointZone.Pinky
 		};
 
+		public static float BackGrabThreshold = 0.9f;
+		public static float BackReleaseThreshold = 0.3f;
+
 		public bool IsActive { get; private set; }
 		public bool IsLeft { get; private set; }
 		public float Strength { get; private set; }
 
 		private readonly HandProvider vHandProv;
+		private readonly NavigationProvider vNavProv;
 		private readonly IDictionary<PointData.PointZone, MenuPointState> vPointStateMap;
+		private bool vIsGrabbing;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public MenuHandState(HandProvider pHandProv) {
+		public MenuHandState(HandProvider pHandProv, NavigationProvider pNavProv) {
 			vHandProv = pHandProv;
+			vNavProv = pNavProv;
 			vPointStateMap = new Dictionary<PointData.PointZone, MenuPointState>();
 
 			foreach ( PointData.PointZone zone in PointZones ) {
-				var pointState = new MenuPointState(zone, vHandProv.GetPointProvider(zone));
+				var pointState = new MenuPointState(zone, 
+					vHandProv.GetPointProvider(zone), vNavProv.GetItemProvider(zone));
 				vPointStateMap.Add(zone, pointState);
 			}
 
@@ -49,6 +57,7 @@ namespace HandMenu.State {
 
 			IsActive = (data != null);
 			Strength = Math.Max(0, (palmTowardEyes-0.7f)/0.3f);
+			CheckGrabGesture(data);
 
 			foreach ( MenuPointState point in vPointStateMap.Values ) {
 				point.UpdateAfterInput();
@@ -85,6 +94,26 @@ namespace HandMenu.State {
 		/*--------------------------------------------------------------------------------------------*/
 		public MenuPointState GetPointState(PointData.PointZone pZone) {
 			return vPointStateMap[pZone];
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private void CheckGrabGesture(HandData pData) {
+			if ( pData == null ) {
+				vIsGrabbing = false;
+				return;
+			}
+
+			if ( vIsGrabbing && pData.GrabStrength < BackReleaseThreshold ) {
+				vIsGrabbing = false;
+				return;
+			}
+
+			if ( !vIsGrabbing && pData.GrabStrength > BackGrabThreshold ) {
+				vIsGrabbing = true;
+				vNavProv.Back();
+			}
 		}
 
 	}

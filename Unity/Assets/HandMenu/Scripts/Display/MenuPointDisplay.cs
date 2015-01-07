@@ -78,7 +78,6 @@ namespace HandMenu.Display {
 			text.font = Resources.Load<Font>("GothamNarrowBook");
 			text.fontSize = 24;
 			text.alignment = (Hand.IsLeft ? TextAnchor.MiddleLeft : TextAnchor.MiddleRight);
-			text.text = gameObject.name;
 
 			rect = vTextObj.GetComponent<RectTransform>();
 			rect.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 8, Width-16);
@@ -130,6 +129,8 @@ namespace HandMenu.Display {
 			vSelect.transform.localScale = new Vector3(select, 1, 1);
 			vSelect.transform.localPosition = new Vector3(-0.5f+select/2f, 0, 0);
 			vSelect.renderer.sharedMaterial.color = new Color(0.1f, 1.0f, 0.2f, select*alpha);
+
+			vTextObj.GetComponent<Text>().text = Point.Data.Label;
 		}
 
 	}

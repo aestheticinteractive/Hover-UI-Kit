@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using HandMenu.State;
 
@@ -8,31 +7,28 @@ namespace HandMenu.Navigation {
 	/*================================================================================================*/
 	public class NavigationProvider {
 
-		private readonly INavigationDelegate vDelgate;
 		private readonly IDictionary<PointData.PointZone, ItemProvider> vItemProvMap;
 		private readonly Stack<ItemData[]> vHistory;
+		private INavigationDelegate vDelgate;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public NavigationProvider(INavigationDelegate pDelgate) {
-			vDelgate = pDelgate;
+		public NavigationProvider() {
 			vItemProvMap = new Dictionary<PointData.PointZone, ItemProvider>();
 			vHistory = new Stack<ItemData[]>();
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public void Init() {
-			if ( vItemProvMap.Count > 0 ) {
-				throw new Exception("Already initialized.");
-			}
 
 			foreach ( PointData.PointZone zone in MenuHandState.PointZones ) {
 				var itemProv = new ItemProvider(zone);
 				itemProv.OnSelection += HandleItemSelection;
 				vItemProvMap.Add(zone, itemProv);
 			}
+		}
 
+		/*--------------------------------------------------------------------------------------------*/
+		public void Init(INavigationDelegate pDelgate) {
+			vDelgate = pDelgate;
+			vHistory.Clear();
 			SetNewItems(vDelgate.GetTopLevelItems());
 		}
 

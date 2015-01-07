@@ -1,5 +1,6 @@
 ﻿using System;
 using HandMenu.Input;
+using HandMenu.Navigation;
 using UnityEngine;
 
 namespace HandMenu.State {
@@ -12,7 +13,6 @@ namespace HandMenu.State {
 		public static float SelectionMilliseconds = 500;
 
 		public PointData.PointZone Zone { get; set; }
-		public bool IsActive { get; private set; }
 		public Vector3 Position { get; private set; }
 		public Vector3 Direction { get; private set; }
 		public Quaternion Rotation { get; private set; }
@@ -23,15 +23,33 @@ namespace HandMenu.State {
 		public float HighlightProgress { get; private set; }
 
 		private readonly PointProvider vPointProv;
+		private readonly ItemProvider vItemProv;
+		private bool vIsActive;
 		private float vSelectionExtension;
 		private DateTime? vSelectionStart;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public MenuPointState(PointData.PointZone pZone, PointProvider pPointProv) {
+		public MenuPointState(PointData.PointZone pZone, 
+													PointProvider pPointProv, ItemProvider pItemProv) {
 			Zone = pZone;
 			vPointProv = pPointProv;
+			vItemProv = pItemProv;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool IsActive {
+			get {
+				return (vIsActive && vItemProv.Data != null);
+			}
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public ItemData Data {
+			get {
+				return vItemProv.Data;
+			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -97,7 +115,7 @@ namespace HandMenu.State {
 				return;
 			}
 
-			//OnSelection(this);
+			vItemProv.Select();
 			vSelectionStart = null;
 		}
 
@@ -105,7 +123,7 @@ namespace HandMenu.State {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void Reset() {
-			IsActive = false;
+			vIsActive = false;
 
 			Position = Vector3.zero;
 			Direction = Vector3.zero;
@@ -119,7 +137,7 @@ namespace HandMenu.State {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateWithData(PointData pData) {
-			IsActive = true;
+			vIsActive = true;
 
 			Position = pData.Position;
 			Direction = pData.Direction;

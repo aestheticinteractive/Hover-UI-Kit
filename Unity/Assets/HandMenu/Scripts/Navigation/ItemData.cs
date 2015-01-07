@@ -27,7 +27,7 @@ namespace HandMenu.Navigation {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void SetChildren(ItemData[] pChildren) {
-			if ( Children == null ) {
+			if ( Children != null ) {
 				throw new Exception("Children already set.");
 			}
 

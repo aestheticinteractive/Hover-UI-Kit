@@ -31,8 +31,8 @@ namespace HandMenu.Display {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			foreach ( MenuPointDisplay fingerDisp in vPointDisplays ) {
-				fingerDisp.gameObject.SetActive(MenuHand.IsActive);
+			foreach ( MenuPointDisplay pointDisp in vPointDisplays ) {
+				pointDisp.gameObject.SetActive(MenuHand.IsActive && pointDisp.Point.IsActive);
 			}
 		}
 

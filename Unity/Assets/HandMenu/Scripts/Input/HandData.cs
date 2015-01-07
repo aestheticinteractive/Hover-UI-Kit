@@ -7,6 +7,7 @@ namespace HandMenu {
 	public class HandData {
 
 		public bool IsLeft { get; set; }
+		public float GrabStrength { get; set; }
 		public float PalmTowardEyes { get; set; }
 
 
@@ -14,6 +15,7 @@ namespace HandMenu {
 		/*--------------------------------------------------------------------------------------------*/
 		public HandData(Hand pHand) {
 			IsLeft = pHand.IsLeft;
+			GrabStrength = pHand.GrabStrength;
 			PalmTowardEyes = Vector3.Dot(pHand.PalmNormal.ToUnity(), Vector3.down);
 		}
 

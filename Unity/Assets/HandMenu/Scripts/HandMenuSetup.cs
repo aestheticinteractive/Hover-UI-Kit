@@ -1,5 +1,7 @@
-﻿using HandMenu.Display;
+﻿using HandMenu.Demo;
+using HandMenu.Display;
 using HandMenu.Input;
+using HandMenu.Navigation;
 using HandMenu.State;
 using Leap;
 using UnityEngine;
@@ -14,6 +16,7 @@ namespace HandMenu {
 		private HandController vHandControl;
 		private Controller vLeapControl;
 		private InputProvider vInputProv;
+		private NavigationProvider vNavProv;
 		private MenuState vMenuState;
 		private MenuHandDisplay vMenuHandDisp;
 
@@ -26,7 +29,10 @@ namespace HandMenu {
 			vLeapControl = vHandControl.GetLeapController();
 
 			vInputProv = new InputProvider();
-			vMenuState = new MenuState(vInputProv, LeftHandMenu);
+			vNavProv = new NavigationProvider();
+			vMenuState = new MenuState(vInputProv, vNavProv, LeftHandMenu);
+
+			vNavProv.Init(new DemoData());
 
 			////
 
