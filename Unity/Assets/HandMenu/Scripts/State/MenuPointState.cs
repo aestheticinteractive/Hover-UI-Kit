@@ -10,11 +10,15 @@ namespace HandMenu.State {
 		public PointData.PointZone Zone { get; set; }
 		public bool IsActive { get; private set; }
 		public Vector3 Position { get; private set; }
+		public Vector3 Direction { get; private set; }
 		public Quaternion Rotation { get; private set; }
-		public float Extension { get; private set; }
+		public float Strength { get; private set; }
+		public Vector3 SelectionPosition { get; private set; }
+		public float SelectionDistance { get; private set; }
 		public float SelectionProgress { get; private set; }
 
 		private readonly PointProvider vPointProv;
+		private float vSelectionExtension;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -30,23 +34,50 @@ namespace HandMenu.State {
 		public void UpdateAfterInput() {
 			PointData data = vPointProv.Data;
 
-			IsActive = (data != null);
-			Position = (data == null ? Vector3.zero : data.Position);
-			Rotation = (data == null ? Quaternion.identity : data.Rotation);
-			Extension = (data == null ? 0 : data.Extension);
+			if ( data == null ) {
+				IsActive = false;
+				Position = Vector3.zero;
+				Direction = Vector3.zero;
+				Rotation = Quaternion.identity;
+				Strength = 0;
+				SelectionPosition = Vector3.zero;
+				SelectionDistance = 0;
+				SelectionProgress = 0;
+			}
+			else {
+				IsActive = true;
+				Position = data.Position;
+				Direction = data.Direction;
+				Rotation = data.Rotation;
+				Strength = data.Extension;
+				CalcSelectionPosition();
+			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateWithCursor(Vector3? pCursorPosition) {
-			if ( pCursorPosition == null ) {
+			if ( pCursorPosition == null || !IsActive ) {
 				SelectionProgress = 0;
 				return;
 			}
 
-			float dist = (Position-(Vector3)pCursorPosition).magnitude;
-			float prog = (0.08f-(dist-0.022f))/0.08f;
+			SelectionDistance = (SelectionPosition-(Vector3)pCursorPosition).magnitude;
 
-			SelectionProgress = Math.Max(0, Math.Min(1, prog));
+			float prog = (0.16f-SelectionDistance)/0.16f;
+			SelectionProgress = Math.Max(0, Math.Min(1, prog*1.2f));
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void SetSelectionExtension(float pExtension) {
+			vSelectionExtension = pExtension;
+			CalcSelectionPosition();
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private void CalcSelectionPosition() {
+			SelectionPosition = Position - Direction*vSelectionExtension;
 		}
 
 	}

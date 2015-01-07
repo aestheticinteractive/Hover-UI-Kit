@@ -91,6 +91,8 @@ namespace HandMenu.Display {
 
 			vCanvasObj.transform.localRotation = rot;
 			vCanvasObj.transform.localScale = Vector3.one*Scale;
+
+			Point.SetSelectionExtension(Width*Scale);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -100,7 +102,7 @@ namespace HandMenu.Display {
 			}
 			
 			float handAlpha = Math.Max(0, (Hand.PalmTowardEyes-0.7f)/0.3f);
-			float alpha = (float)Math.Pow(handAlpha*Point.Extension, 2);
+			float alpha = (float)Math.Pow(handAlpha*Point.Strength, 2);
 			float select = (float)Math.Pow(Point.SelectionProgress, 5);
 
 			Transform tx = gameObject.transform;
@@ -117,7 +119,7 @@ namespace HandMenu.Display {
 
 			vSelectFill.transform.localScale = new Vector3(select, 1, 1);
 			vSelectFill.transform.localPosition = new Vector3(-0.5f+select/2f, 0, 0);
-			vSelectFill.renderer.sharedMaterial.color = new Color(0.1f, 0.6f, 0.9f, select);
+			vSelectFill.renderer.sharedMaterial.color = new Color(0.1f, 0.6f, 0.9f, select*alpha);
 		}
 
 	}
