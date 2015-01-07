@@ -11,12 +11,13 @@ namespace HandMenu.Display {
 		public MenuHandState Hand { get; set; }
 		public MenuPointState Point { get; set; }
 
-		private const int Width = 200;
+		private const int Width = 240;
 		private const int Height = 40;
 		private const float Scale = 0.0004f;
 
 		private GameObject vHold;
 		private GameObject vBackground;
+		private GameObject vSelectFill;
 		private GameObject vCanvasGroupObj;
 		private GameObject vCanvasObj;
 		private GameObject vTextObj;
@@ -33,8 +34,14 @@ namespace HandMenu.Display {
 			vBackground = GameObject.CreatePrimitive(PrimitiveType.Quad);
 			vBackground.transform.parent = vHold.transform;
 			vBackground.name = "Background";
-			vBackground.renderer.sharedMaterial = new Material(Shader.Find("Transparent/Diffuse"));
-			vBackground.renderer.sharedMaterial.renderQueue -= 1;
+			vBackground.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
+			vBackground.renderer.sharedMaterial.renderQueue -= 2;
+
+			vSelectFill = GameObject.CreatePrimitive(PrimitiveType.Quad);
+			vSelectFill.transform.parent = vBackground.transform;
+			vSelectFill.name = "SelectFill";
+			vSelectFill.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
+			vSelectFill.renderer.sharedMaterial.renderQueue -= 1;
 
 			////
 
@@ -78,7 +85,7 @@ namespace HandMenu.Display {
 
 			vHold.transform.localPosition = new Vector3(0, 0, 0.03f*mult);
 
-			vBackground.transform.localPosition = new Vector3(0, 0.001f, Width*Scale/2f*mult);
+			vBackground.transform.localPosition = new Vector3(0, 0, Width*Scale/2f*mult);
 			vBackground.transform.localRotation = rot;
 			vBackground.transform.localScale = new Vector3(Width*Scale, Height*Scale, 1);
 
@@ -94,6 +101,7 @@ namespace HandMenu.Display {
 			
 			float handAlpha = Math.Max(0, (Hand.PalmTowardEyes-0.7f)/0.3f);
 			float alpha = (float)Math.Pow(handAlpha*Point.Extension, 2);
+			float select = (float)Math.Pow(Point.SelectionProgress, 5);
 
 			Transform tx = gameObject.transform;
 			tx.localPosition = Point.Position;
@@ -107,9 +115,9 @@ namespace HandMenu.Display {
 			vCanvasGroupObj.GetComponent<CanvasGroup>().alpha = alpha;
 			vBackground.renderer.sharedMaterial.color = new Color(0, 0, 0, 0.333f*alpha);
 
-			////
-
-			vTextObj.GetComponent<Text>().text = "Dist: "+(Point.SelectionProgress*100).ToString("0");
+			vSelectFill.transform.localScale = new Vector3(select, 1, 1);
+			vSelectFill.transform.localPosition = new Vector3(-0.5f+select/2f, 0, 0);
+			vSelectFill.renderer.sharedMaterial.color = new Color(0.1f, 0.6f, 0.9f, select);
 		}
 
 	}

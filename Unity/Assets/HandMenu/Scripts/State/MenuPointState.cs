@@ -44,7 +44,7 @@ namespace HandMenu.State {
 			}
 
 			float dist = (Position-(Vector3)pCursorPosition).magnitude;
-			float prog = (0.2f-(dist-0.02f))/0.2f;
+			float prog = (0.08f-(dist-0.022f))/0.08f;
 
 			SelectionProgress = Math.Max(0, Math.Min(1, prog));
 		}
