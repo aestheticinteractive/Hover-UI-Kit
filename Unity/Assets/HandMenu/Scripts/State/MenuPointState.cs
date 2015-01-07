@@ -11,10 +11,6 @@ namespace HandMenu.State {
 		public static float HighlightDistanceMax = 0.12f;
 		public static float SelectionMilliseconds = 500;
 
-		public delegate void SelectionHandler(MenuPointState pPointState);
-
-		public event SelectionHandler OnSelection;
-
 		public PointData.PointZone Zone { get; set; }
 		public bool IsActive { get; private set; }
 		public Vector3 Position { get; private set; }
@@ -36,7 +32,6 @@ namespace HandMenu.State {
 		public MenuPointState(PointData.PointZone pZone, PointProvider pPointProv) {
 			Zone = pZone;
 			vPointProv = pPointProv;
-			OnSelection += (s => {});
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -102,7 +97,7 @@ namespace HandMenu.State {
 				return;
 			}
 
-			OnSelection(this);
+			//OnSelection(this);
 			vSelectionStart = null;
 		}
 
