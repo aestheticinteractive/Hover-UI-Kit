@@ -7,18 +7,28 @@ namespace HandMenu.State {
 	/*================================================================================================*/
 	public class MenuPointState {
 
+		public static float HighlightDistanceMin = 0.025f;
+		public static float HighlightDistanceMax = 0.12f;
+		public static float SelectionMilliseconds = 500;
+
+		public delegate void SelectionHandler(MenuPointState pPointState);
+
+		public event SelectionHandler OnSelection;
+
 		public PointData.PointZone Zone { get; set; }
 		public bool IsActive { get; private set; }
 		public Vector3 Position { get; private set; }
 		public Vector3 Direction { get; private set; }
 		public Quaternion Rotation { get; private set; }
 		public float Strength { get; private set; }
+
 		public Vector3 SelectionPosition { get; private set; }
-		public float SelectionDistance { get; private set; }
-		public float SelectionProgress { get; private set; }
+		public float HighlightDistance { get; private set; }
+		public float HighlightProgress { get; private set; }
 
 		private readonly PointProvider vPointProv;
 		private float vSelectionExtension;
+		private DateTime? vSelectionStart;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -26,7 +36,21 @@ namespace HandMenu.State {
 		public MenuPointState(PointData.PointZone pZone, PointProvider pPointProv) {
 			Zone = pZone;
 			vPointProv = pPointProv;
+			OnSelection += (s => {});
 		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float SelectionProgress {
+			get {
+				if ( vSelectionStart == null ) {
+					return 0;
+				}
+
+				float ms = (float)(DateTime.UtcNow-(DateTime)vSelectionStart).TotalMilliseconds;
+				return Math.Min(1, ms/SelectionMilliseconds);
+			}
+		}
+
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -35,48 +59,83 @@ namespace HandMenu.State {
 			PointData data = vPointProv.Data;
 
 			if ( data == null ) {
-				IsActive = false;
-				Position = Vector3.zero;
-				Direction = Vector3.zero;
-				Rotation = Quaternion.identity;
-				Strength = 0;
-				SelectionPosition = Vector3.zero;
-				SelectionDistance = 0;
-				SelectionProgress = 0;
+				Reset();
 			}
 			else {
-				IsActive = true;
-				Position = data.Position;
-				Direction = data.Direction;
-				Rotation = data.Rotation;
-				Strength = data.Extension;
-				CalcSelectionPosition();
+				UpdateWithData(data);
 			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateWithCursor(Vector3? pCursorPosition) {
 			if ( pCursorPosition == null || !IsActive ) {
-				SelectionProgress = 0;
+				HighlightProgress = 0;
 				return;
 			}
 
-			SelectionDistance = (SelectionPosition-(Vector3)pCursorPosition).magnitude;
+			float dist = (SelectionPosition-(Vector3)pCursorPosition).magnitude;
+			float prog = 1-(dist-HighlightDistanceMin)/(HighlightDistanceMax-HighlightDistanceMin);
 
-			float prog = (0.16f-SelectionDistance)/0.16f;
-			SelectionProgress = Math.Max(0, Math.Min(1, prog*1.2f));
+			HighlightDistance = dist;
+			HighlightProgress = Math.Max(0, Math.Min(1, prog));
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void SetSelectionExtension(float pExtension) {
 			vSelectionExtension = pExtension;
-			CalcSelectionPosition();
+			CalcHighlightPosition();
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void ContinueSelectionProgress(bool pContinue) {
+			if ( !pContinue ) {
+				vSelectionStart = null;
+				return;
+			}
+
+			if ( vSelectionStart == null ) {
+				vSelectionStart = DateTime.UtcNow;
+				return;
+			}
+
+			if ( SelectionProgress < 1 ) {
+				return;
+			}
+
+			OnSelection(this);
+			vSelectionStart = null;
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void CalcSelectionPosition() {
+		private void Reset() {
+			IsActive = false;
+
+			Position = Vector3.zero;
+			Direction = Vector3.zero;
+			Rotation = Quaternion.identity;
+			Strength = 0;
+
+			SelectionPosition = Vector3.zero;
+			HighlightDistance = float.MaxValue;
+			HighlightProgress = 0;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateWithData(PointData pData) {
+			IsActive = true;
+
+			Position = pData.Position;
+			Direction = pData.Direction;
+			Rotation = pData.Rotation;
+			Strength = pData.Extension;
+
+			CalcHighlightPosition();
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		private void CalcHighlightPosition() {
 			SelectionPosition = Position - Direction*vSelectionExtension;
 		}
 

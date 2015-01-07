@@ -17,7 +17,8 @@ namespace HandMenu.Display {
 
 		private GameObject vHold;
 		private GameObject vBackground;
-		private GameObject vSelectFill;
+		private GameObject vHighlight;
+		private GameObject vSelect;
 		private GameObject vCanvasGroupObj;
 		private GameObject vCanvasObj;
 		private GameObject vTextObj;
@@ -35,13 +36,19 @@ namespace HandMenu.Display {
 			vBackground.transform.parent = vHold.transform;
 			vBackground.name = "Background";
 			vBackground.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
-			vBackground.renderer.sharedMaterial.renderQueue -= 2;
+			vBackground.renderer.sharedMaterial.renderQueue -= 3;
 
-			vSelectFill = GameObject.CreatePrimitive(PrimitiveType.Quad);
-			vSelectFill.transform.parent = vBackground.transform;
-			vSelectFill.name = "SelectFill";
-			vSelectFill.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
-			vSelectFill.renderer.sharedMaterial.renderQueue -= 1;
+			vHighlight = GameObject.CreatePrimitive(PrimitiveType.Quad);
+			vHighlight.transform.parent = vBackground.transform;
+			vHighlight.name = "Highlight";
+			vHighlight.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
+			vHighlight.renderer.sharedMaterial.renderQueue -= 2;
+
+			vSelect = GameObject.CreatePrimitive(PrimitiveType.Quad);
+			vSelect.transform.parent = vBackground.transform;
+			vSelect.name = "Select";
+			vSelect.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
+			vSelect.renderer.sharedMaterial.renderQueue -= 1;
 
 			////
 
@@ -100,15 +107,14 @@ namespace HandMenu.Display {
 			if ( !Point.IsActive ) {
 				return;
 			}
-			
-			float handAlpha = Math.Max(0, (Hand.PalmTowardEyes-0.7f)/0.3f);
-			float alpha = (float)Math.Pow(handAlpha*Point.Strength, 2);
-			float select = (float)Math.Pow(Point.SelectionProgress, 5);
+
+			float alpha = Hand.Strength*Point.Strength; //(float)Math.Pow(Hand.Strength*Point.Strength, 2);
+			float high = (float)Math.Pow(Point.HighlightProgress, 5);
+			float select = 1-(float)Math.Pow(1-Point.SelectionProgress, 2);
 
 			Transform tx = gameObject.transform;
 			tx.localPosition = Point.Position;
 			tx.localRotation = Point.Rotation;
-			//tx.localScale = new Vector3(1, 1, Math.Min(1, alpha*1.2f));
 
 			if ( !Hand.IsLeft ) {
 				tx.localRotation *= Quaternion.FromToRotation(Vector3.left, Vector3.right);
@@ -117,9 +123,13 @@ namespace HandMenu.Display {
 			vCanvasGroupObj.GetComponent<CanvasGroup>().alpha = alpha;
 			vBackground.renderer.sharedMaterial.color = new Color(0, 0, 0, 0.333f*alpha);
 
-			vSelectFill.transform.localScale = new Vector3(select, 1, 1);
-			vSelectFill.transform.localPosition = new Vector3(-0.5f+select/2f, 0, 0);
-			vSelectFill.renderer.sharedMaterial.color = new Color(0.1f, 0.6f, 0.9f, select*alpha);
+			vHighlight.transform.localScale = new Vector3(high, 1, 1);
+			vHighlight.transform.localPosition = new Vector3(-0.5f+high/2f, 0, 0);
+			vHighlight.renderer.sharedMaterial.color = new Color(0.1f, 0.5f, 0.9f, high*alpha);
+
+			vSelect.transform.localScale = new Vector3(select, 1, 1);
+			vSelect.transform.localPosition = new Vector3(-0.5f+select/2f, 0, 0);
+			vSelect.renderer.sharedMaterial.color = new Color(0.1f, 1.0f, 0.2f, select*alpha);
 		}
 
 	}
