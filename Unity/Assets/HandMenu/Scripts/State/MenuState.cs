@@ -27,6 +27,8 @@ namespace HandMenu.State {
 		public void UpdateAfterInput() {
 			MenuHand.UpdateAfterInput();
 			SelectHand.UpdateAfterInput();
+
+			MenuHand.UpdateWithCursor(SelectHand.CursorPosition);
 		}
 
 	}

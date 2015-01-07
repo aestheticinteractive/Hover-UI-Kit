@@ -20,7 +20,7 @@ namespace HandMenu {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
+		public void Awake() {
 			GameObject handControlObj = GameObject.Find("HandController");
 			vHandControl = handControlObj.GetComponent<HandController>();
 			vLeapControl = vHandControl.GetLeapController();
@@ -31,7 +31,10 @@ namespace HandMenu {
 			////
 
 			var menuHandObj = new GameObject("MenuHandDisplay");
-			SetAndMoveToParent(menuHandObj.transform, handControlObj.transform);
+			menuHandObj.transform.parent = handControlObj.transform;
+			menuHandObj.transform.localPosition = Vector3.zero;
+			menuHandObj.transform.localRotation = Quaternion.identity;
+			menuHandObj.transform.localScale = Vector3.one;
 
 			vMenuHandDisp = menuHandObj.AddComponent<MenuHandDisplay>();
 			vMenuHandDisp.MenuHand = vMenuState.MenuHand;
@@ -46,16 +49,6 @@ namespace HandMenu {
 
 			vInputProv.UpdateWithFrame(vLeapControl.Frame());
 			vMenuState.UpdateAfterInput();
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		private static void SetAndMoveToParent(Transform pChild, Transform pParent) {
-			pChild.parent = pParent;
-			pChild.position = pParent.position;
-			pChild.rotation = pParent.rotation;
-			pChild.localScale = Vector3.one;
 		}
 
 	}

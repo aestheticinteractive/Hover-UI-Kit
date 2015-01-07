@@ -16,7 +16,6 @@ namespace HandMenu.Display {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Start() {
-
 			vPointDisplays = new List<MenuPointDisplay>();
 
 			foreach ( PointData.PointZone zone in MenuHandState.PointZones ) {

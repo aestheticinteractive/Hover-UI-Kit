@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using HandMenu.Input;
+using UnityEngine;
 
 namespace HandMenu.State {
 
@@ -31,8 +32,8 @@ namespace HandMenu.State {
 			vPointStateMap = new Dictionary<PointData.PointZone, MenuPointState>();
 
 			foreach ( PointData.PointZone zone in PointZones ) {
-				vPointStateMap.Add(zone, 
-					new MenuPointState(zone, vHandProv.GetPointProvider(zone)));
+				var pointState = new MenuPointState(zone, vHandProv.GetPointProvider(zone));
+				vPointStateMap.Add(zone, pointState);
 			}
 
 			IsLeft = vHandProv.IsLeft;
@@ -52,6 +53,12 @@ namespace HandMenu.State {
 			}
 		}
 
+		/*--------------------------------------------------------------------------------------------*/
+		public void UpdateWithCursor(Vector3? pCursorPosition) {
+			foreach ( MenuPointState point in vPointStateMap.Values ) {
+				point.UpdateWithCursor(pCursorPosition);
+			}
+		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public MenuPointState GetPointState(PointData.PointZone pZone) {

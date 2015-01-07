@@ -1,4 +1,5 @@
-﻿using HandMenu.Input;
+﻿using System;
+using HandMenu.Input;
 using UnityEngine;
 
 namespace HandMenu.State {
@@ -11,6 +12,7 @@ namespace HandMenu.State {
 		public Vector3 Position { get; private set; }
 		public Quaternion Rotation { get; private set; }
 		public float Extension { get; private set; }
+		public float SelectionProgress { get; private set; }
 
 		private readonly PointProvider vPointProv;
 
@@ -32,6 +34,19 @@ namespace HandMenu.State {
 			Position = (data == null ? Vector3.zero : data.Position);
 			Rotation = (data == null ? Quaternion.identity : data.Rotation);
 			Extension = (data == null ? 0 : data.Extension);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void UpdateWithCursor(Vector3? pCursorPosition) {
+			if ( pCursorPosition == null ) {
+				SelectionProgress = 0;
+				return;
+			}
+
+			float dist = (Position-(Vector3)pCursorPosition).magnitude;
+			float prog = (0.2f-(dist-0.02f))/0.2f;
+
+			SelectionProgress = Math.Max(0, Math.Min(1, prog));
 		}
 
 	}

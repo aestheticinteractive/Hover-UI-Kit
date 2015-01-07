@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Leap;
 using UnityEngine;
 
@@ -36,6 +35,7 @@ namespace HandMenu {
 			Position = pFinger.TipPosition.ToUnityScaled();
 			Direction = bone.Direction.ToUnity();
 			Rotation = Quaternion.LookRotation(column2, column1);
+			//Rotation = Quaternion.FromToRotation(Vector3.forward, Direction);
 
 			Extension = Vector3.Dot(Direction, -pHand.Direction.ToUnity());
 			Extension = Math.Max(0, Extension);

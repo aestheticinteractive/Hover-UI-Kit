@@ -106,6 +106,10 @@ namespace HandMenu.Display {
 
 			vCanvasGroupObj.GetComponent<CanvasGroup>().alpha = alpha;
 			vBackground.renderer.sharedMaterial.color = new Color(0, 0, 0, 0.333f*alpha);
+
+			////
+
+			vTextObj.GetComponent<Text>().text = "Dist: "+(Point.SelectionProgress*100).ToString("0");
 		}
 
 	}
