@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using UnityEngine;
 
 namespace HandMenu.Display {
 
@@ -9,13 +8,8 @@ namespace HandMenu.Display {
 
 		public Type PointParent;
 		public Type PointSelection;
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public static Type GetType(Component pComp, Type pDefault) {
-			return (pComp == null ? pDefault : pComp.GetType());
-		}
+		public Type PointCheckbox;
+		public Type PointRadio;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -23,6 +17,8 @@ namespace HandMenu.Display {
 		public void Verify() {
 			VerifyType(PointParent, "PointParent");
 			VerifyType(PointSelection, "PointSelection");
+			VerifyType(PointCheckbox, "PointCheckbox");
+			VerifyType(PointRadio, "PointRadio");
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

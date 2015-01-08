@@ -59,16 +59,26 @@ namespace HandMenu.Navigation {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleItemSelection(NavItemProvider pNavItemProvider) {
-			NavItemData navItemData = pNavItemProvider.Data;
+			NavItemData itemData = pNavItemProvider.Data;
 
-			if ( navItemData == null ) {
+			if ( itemData == null ) {
 				return;
 			}
 
-			if ( navItemData.Type == NavItemData.ItemType.Parent ) {
-				PushCurrentItemsToHistory();
-				SetNewItems(navItemData.Children, 1);
-				return;
+			switch ( itemData.Type ) {
+				case NavItemData.ItemType.Parent:
+					PushCurrentItemsToHistory();
+					SetNewItems(itemData.Children, 1);
+					return;
+
+				case NavItemData.ItemType.Selection:
+				case NavItemData.ItemType.Checkbox:
+					itemData.Selected = !itemData.Selected;
+					return;
+
+				case NavItemData.ItemType.Radio:
+					SetRadioSelection(itemData);
+					return;
 			}
 		}
 
@@ -89,6 +99,17 @@ namespace HandMenu.Navigation {
 			}
 
 			OnLevelChange(pDirection);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void SetRadioSelection(NavItemData pSelectedItemData) {
+			foreach ( NavItemProvider itemProv in vItemProvMap.Values ) {
+				if ( itemProv.Data.Type != NavItemData.ItemType.Radio ) {
+					continue;
+				}
+
+				itemProv.Data.Selected = (itemProv.Data == pSelectedItemData);
+			}
 		}
 
 	}

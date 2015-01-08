@@ -119,8 +119,8 @@ namespace HandMenu.Display.Default {
 
 			vOverallAlpha = 1-(float)Math.Pow(1-vHand.Strength*vPoint.Strength*vAnimAlpha, 2);
 
-			float high = (float)Math.Pow(vPoint.HighlightProgress, 2);
-			float select = 1-(float)Math.Pow(1-vPoint.SelectionProgress, 2);
+			float high = vPoint.HighlightProgress;
+			float select = 1-(float)Math.Pow(1-vPoint.SelectionProgress, 1.5f);
 
 			vCanvasGroupObj.GetComponent<CanvasGroup>().alpha = vOverallAlpha;
 			vBackground.renderer.sharedMaterial.color = new Color(0, 0, 0, 0.333f*vOverallAlpha);

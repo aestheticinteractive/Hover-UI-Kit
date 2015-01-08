@@ -41,9 +41,7 @@ namespace HandMenu.Display.Default {
 				return;
 			}
 
-			float high = (float)Math.Pow(vPoint.HighlightProgress, 4);
-			float alpha = high*0.8f + 0.2f;
-
+			float alpha = vPoint.HighlightProgress*0.8f + 0.2f;
 			vArrow.renderer.sharedMaterial.color = new Color(1, 1, 1, alpha*vOverallAlpha);
 		}
 

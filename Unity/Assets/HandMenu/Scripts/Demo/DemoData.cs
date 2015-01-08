@@ -16,25 +16,45 @@ namespace HandMenu.Demo {
 
 			var topA = new NavItemData(NavItemData.ItemType.Parent, "Item A");
 			var topB = new NavItemData(NavItemData.ItemType.Parent, "Item B");
-			var topC = new NavItemData(NavItemData.ItemType.Selection, "Item C");
-			var topD = new NavItemData(NavItemData.ItemType.Selection, "Item D");
-			var topE = new NavItemData(NavItemData.ItemType.Selection, "Item E");
-			var topF = new NavItemData(NavItemData.ItemType.Selection, "Item F");
-			var topG = new NavItemData(NavItemData.ItemType.Selection, "Item G");
+			var topC = new NavItemData(NavItemData.ItemType.Parent, "Item C");
+			var topD = new NavItemData(NavItemData.ItemType.Checkbox, "Item D");
+			var topE = new NavItemData(NavItemData.ItemType.Checkbox, "Item E");
+			var topF = new NavItemData(NavItemData.ItemType.Checkbox, "Item F");
+			var topG = new NavItemData(NavItemData.ItemType.Checkbox, "Item G");
 
 			var topAItems = new List<NavItemData>();
-			topAItems.Add(new NavItemData(NavItemData.ItemType.Selection, "Item A1"));
-			topAItems.Add(new NavItemData(NavItemData.ItemType.Selection, "Item A2"));
-			topAItems.Add(new NavItemData(NavItemData.ItemType.Selection, "Item A3"));
-			topAItems.Add(new NavItemData(NavItemData.ItemType.Selection, "Item A4"));
-			topAItems.Add(new NavItemData(NavItemData.ItemType.Selection, "Item A5"));
+			topAItems.Add(new NavItemData(NavItemData.ItemType.Radio, "Item A1"));
+			topAItems.Add(new NavItemData(NavItemData.ItemType.Radio, "Item A2"));
+			topAItems.Add(new NavItemData(NavItemData.ItemType.Radio, "Item A3"));
+			topAItems.Add(new NavItemData(NavItemData.ItemType.Radio, "Item A4"));
+			topAItems.Add(new NavItemData(NavItemData.ItemType.Radio, "Item A5"));
 			topA.SetChildren(topAItems.ToArray());
 
 			var topBItems = new List<NavItemData>();
-			topBItems.Add(new NavItemData(NavItemData.ItemType.Selection, "Item B1"));
-			topBItems.Add(new NavItemData(NavItemData.ItemType.Selection, "Item B2"));
-			topBItems.Add(new NavItemData(NavItemData.ItemType.Selection, "Item B3"));
+			topBItems.Add(new NavItemData(NavItemData.ItemType.Checkbox, "Item B1"));
+			topBItems.Add(new NavItemData(NavItemData.ItemType.Checkbox, "Item B2"));
+			topBItems.Add(new NavItemData(NavItemData.ItemType.Checkbox, "Item B3"));
 			topB.SetChildren(topBItems.ToArray());
+
+			var topCItems = new List<NavItemData>();
+			topCItems.Add(new NavItemData(NavItemData.ItemType.Parent, "Item C1"));
+			topCItems.Add(new NavItemData(NavItemData.ItemType.Parent, "Item C2"));
+			topCItems.Add(new NavItemData(NavItemData.ItemType.Selection, "Item C3"));
+			topC.SetChildren(topCItems.ToArray());
+
+			var topC1Items = new List<NavItemData>();
+			topC1Items.Add(new NavItemData(NavItemData.ItemType.Selection, "Item C1a"));
+			topC1Items.Add(new NavItemData(NavItemData.ItemType.Selection, "Item C1b"));
+			topC1Items.Add(new NavItemData(NavItemData.ItemType.Selection, "Item C1c"));
+			topCItems[0].SetChildren(topC1Items.ToArray());
+
+			var topC2Items = new List<NavItemData>();
+			topC2Items.Add(new NavItemData(NavItemData.ItemType.Selection, "Item C2a"));
+			topC2Items.Add(new NavItemData(NavItemData.ItemType.Selection, "Item C2b"));
+			topC2Items.Add(new NavItemData(NavItemData.ItemType.Selection, "Item C2c"));
+			topC2Items.Add(new NavItemData(NavItemData.ItemType.Selection, "Item C2d"));
+			topC2Items.Add(new NavItemData(NavItemData.ItemType.Selection, "Item C2e"));
+			topCItems[1].SetChildren(topC2Items.ToArray());
 
 			items.Add(topA);
 			items.Add(topB);

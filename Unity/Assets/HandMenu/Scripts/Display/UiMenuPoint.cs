@@ -106,6 +106,14 @@ namespace HandMenu.Display {
 					rendererType = vRenderers.PointParent;
 					break;
 
+				case NavItemData.ItemType.Checkbox:
+					rendererType = vRenderers.PointCheckbox;
+					break;
+
+				case NavItemData.ItemType.Radio:
+					rendererType = vRenderers.PointRadio;
+					break;
+
 				default:
 					rendererType = vRenderers.PointSelection;
 					break;

@@ -10,7 +10,7 @@ namespace HandMenu.State {
 
 		public static float HighlightDistanceMin = 0.025f;
 		public static float HighlightDistanceMax = 0.12f;
-		public static float SelectionMilliseconds = 500;
+		public static float SelectionMilliseconds = 1000;
 
 		public delegate void DataChangeHandler(int pDirection);
 
@@ -91,6 +91,7 @@ namespace HandMenu.State {
 		public void UpdateWithCursor(Vector3? pCursorPosition) {
 			if ( pCursorPosition == null || !IsActive || vIsAnimating ) {
 				HighlightProgress = 0;
+				vSelectionStart = null;
 				return;
 			}
 
@@ -110,6 +111,13 @@ namespace HandMenu.State {
 		/*--------------------------------------------------------------------------------------------*/
 		public void ContinueSelectionProgress(bool pContinue) {
 			if ( !pContinue ) {
+				vSelectionStart = null;
+				return;
+			}
+
+			NavItemData itemData = vNavItemProv.Data;
+
+			if ( itemData.Selected && itemData.Type == NavItemData.ItemType.Radio ) {
 				vSelectionStart = null;
 				return;
 			}

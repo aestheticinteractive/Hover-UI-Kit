@@ -9,12 +9,14 @@ namespace HandMenu.Navigation {
 			Parent,
 			Selection,
 			Checkbox,
-			Slider
+			Radio
 		}
 
-		public ItemType Type { get; private set; }
 		public string Label { get; private set; }
+		public ItemType Type { get; private set; }
 		public NavItemData[] Children { get; private set; }
+
+		public bool Selected { get; set; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

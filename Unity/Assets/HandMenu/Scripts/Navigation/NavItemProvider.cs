@@ -29,7 +29,7 @@ namespace HandMenu.Navigation {
 		public void Select() {
 			OnSelection(this);
 		}
-		
+
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateWithData(NavItemData pData, int pDirection) {
 			Data = pData;

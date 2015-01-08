@@ -15,6 +15,8 @@ namespace HandMenu {
 		public bool LeftHandMenu = true;
 		public Component PointParentRenderer;
 		public Component PointSelectionRenderer;
+		public Component PointCheckboxRenderer;
+		public Component PointRadioRenderer;
 
 		private HandController vHandControl;
 		private Controller vLeapControl;
@@ -22,6 +24,7 @@ namespace HandMenu {
 		private NavigationProvider vNavProv;
 		private MenuState vMenuState;
 		private UiMenuHand vUiMenuHand;
+		private Renderers vRenderers;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -38,15 +41,8 @@ namespace HandMenu {
 			vNavProv.Init(new DemoData());
 
 			////
-			 
-			var renderers = new Renderers {
-				PointParent = Renderers.GetType(PointParentRenderer, typeof(UiPointParentRenderer)),
-				PointSelection = Renderers.GetType(PointSelectionRenderer, typeof(UiPointRenderer)),
-			};
 
-			renderers.Verify();
-
-			////
+			BuildRenderers();
 
 			var menuHandObj = new GameObject("MenuHand");
 			menuHandObj.transform.parent = handControlObj.transform;
@@ -55,7 +51,7 @@ namespace HandMenu {
 			menuHandObj.transform.localScale = Vector3.one;
 
 			vUiMenuHand = menuHandObj.AddComponent<UiMenuHand>();
-			vUiMenuHand.Build(vMenuState.MenuHand, renderers);
+			vUiMenuHand.Build(vMenuState.MenuHand, vRenderers);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -66,6 +62,36 @@ namespace HandMenu {
 
 			vInputProv.UpdateWithFrame(vLeapControl.Frame());
 			vMenuState.UpdateAfterInput();
+		}
+		
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private void BuildRenderers() {
+			vRenderers = new Renderers {
+				PointParent = typeof(UiPointParentRenderer),
+				PointSelection = typeof(UiPointRenderer),
+				PointCheckbox = typeof(UiPointCheckboxRenderer),
+				PointRadio = typeof(UiPointRadioRenderer)
+			};
+
+			if ( PointParentRenderer != null ) {
+				vRenderers.PointParent = PointParentRenderer.GetType();
+			}
+
+			if ( PointSelectionRenderer != null ) {
+				vRenderers.PointSelection = PointSelectionRenderer.GetType();
+			}
+
+			if ( PointCheckboxRenderer != null ) {
+				vRenderers.PointCheckbox = PointCheckboxRenderer.GetType();
+			}
+
+			if ( PointRadioRenderer != null ) {
+				vRenderers.PointRadio = PointRadioRenderer.GetType();
+			}
+
+			vRenderers.Verify();
 		}
 
 	}
