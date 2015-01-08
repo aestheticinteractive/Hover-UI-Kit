@@ -8,32 +8,33 @@ namespace HandMenu.Display.Default {
 	/*================================================================================================*/
 	public class UiPointRenderer : MonoBehaviour, IUiMenuPointRenderer {
 
-		private const int Width = 240;
-		private const int Height = 40;
-		private const float Scale = 0.0004f;
+		protected const int Width = 240;
+		protected const int Height = 40;
+		protected const float Scale = 0.0004f;
 
-		private MenuHandState vHand;
-		private MenuPointState vPoint;
-		private float vAnimAlpha;
+		protected MenuHandState vHand;
+		protected MenuPointState vPoint;
+		protected float vOverallAlpha;
+		protected float vAnimAlpha;
 
-		private GameObject vHold;
-		private GameObject vBackground;
-		private GameObject vHighlight;
-		private GameObject vSelect;
-		private GameObject vCanvasGroupObj;
-		private GameObject vCanvasObj;
-		private GameObject vTextObj;
+		protected GameObject vHold;
+		protected GameObject vBackground;
+		protected GameObject vHighlight;
+		protected GameObject vSelect;
+		protected GameObject vCanvasGroupObj;
+		protected GameObject vCanvasObj;
+		protected GameObject vTextObj;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Build(MenuHandState pHand, MenuPointState pPoint) {
+		public virtual void Build(MenuHandState pHand, MenuPointState pPoint) {
 			vHand = pHand;
 			vPoint = pPoint;
 
 			////
 
-			vHold = new GameObject("Hold");
+			vHold = new GameObject(GetType().Name);
 			vHold.transform.parent = gameObject.transform;
 
 			////
@@ -42,21 +43,21 @@ namespace HandMenu.Display.Default {
 			vBackground.transform.parent = vHold.transform;
 			vBackground.name = "Background";
 			vBackground.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
-			vBackground.renderer.sharedMaterial.renderQueue -= 3;
+			vBackground.renderer.sharedMaterial.renderQueue -= 300;
 			vBackground.renderer.sharedMaterial.color = Color.clear;
 
 			vHighlight = GameObject.CreatePrimitive(PrimitiveType.Quad);
 			vHighlight.transform.parent = vBackground.transform;
 			vHighlight.name = "Highlight";
 			vHighlight.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
-			vHighlight.renderer.sharedMaterial.renderQueue -= 2;
+			vHighlight.renderer.sharedMaterial.renderQueue -= 200;
 			vHighlight.renderer.sharedMaterial.color = Color.clear;
 
 			vSelect = GameObject.CreatePrimitive(PrimitiveType.Quad);
 			vSelect.transform.parent = vBackground.transform;
 			vSelect.name = "Select";
 			vSelect.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
-			vSelect.renderer.sharedMaterial.renderQueue -= 1;
+			vSelect.renderer.sharedMaterial.renderQueue -= 100;
 			vSelect.renderer.sharedMaterial.color = Color.clear;
 
 			////
@@ -111,31 +112,32 @@ namespace HandMenu.Display.Default {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void Update() {
+		public virtual void Update() {
 			if ( !vPoint.IsActive ) {
 				return;
 			}
 
-			float alpha = 1-(float)Math.Pow(1-vHand.Strength*vPoint.Strength*vAnimAlpha, 2);
+			vOverallAlpha = 1-(float)Math.Pow(1-vHand.Strength*vPoint.Strength*vAnimAlpha, 2);
+
 			float high = (float)Math.Pow(vPoint.HighlightProgress, 2);
 			float select = 1-(float)Math.Pow(1-vPoint.SelectionProgress, 2);
 
-			vCanvasGroupObj.GetComponent<CanvasGroup>().alpha = alpha;
-			vBackground.renderer.sharedMaterial.color = new Color(0, 0, 0, 0.333f*alpha);
+			vCanvasGroupObj.GetComponent<CanvasGroup>().alpha = vOverallAlpha;
+			vBackground.renderer.sharedMaterial.color = new Color(0, 0, 0, 0.333f*vOverallAlpha);
 
 			vHighlight.transform.localScale = new Vector3(high, 1, 1);
 			vHighlight.transform.localPosition = new Vector3(-0.5f+high/2f, 0, 0);
-			vHighlight.renderer.sharedMaterial.color = new Color(0.1f, 0.5f, 0.9f, high*alpha);
+			vHighlight.renderer.sharedMaterial.color = new Color(0.1f, 0.5f, 0.9f, high*vOverallAlpha);
 
 			vSelect.transform.localScale = new Vector3(select, 1, 1);
 			vSelect.transform.localPosition = new Vector3(-0.5f+select/2f, 0, 0);
-			vSelect.renderer.sharedMaterial.color = new Color(0.1f, 1.0f, 0.2f, select*alpha);
+			vSelect.renderer.sharedMaterial.color = new Color(0.1f, 1.0f, 0.2f, select*vOverallAlpha);
 
 			vTextObj.GetComponent<Text>().text = vPoint.Data.Label;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void HandleChangeAnimation(bool pFadeIn, int pDirection, float pProgress) {
+		public virtual void HandleChangeAnimation(bool pFadeIn, int pDirection, float pProgress) {
 			float a = 1-(float)Math.Pow(1-pProgress, 3);
 			vAnimAlpha = (pFadeIn ? a : 1-a);
 		}

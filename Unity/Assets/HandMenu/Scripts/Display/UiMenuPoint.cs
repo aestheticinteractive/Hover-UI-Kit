@@ -1,4 +1,5 @@
 ﻿using System;
+using HandMenu.Navigation;
 using HandMenu.State;
 using UnityEngine;
 
@@ -63,18 +64,54 @@ namespace HandMenu.Display {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleDataChange(int pDirection) {
-			if ( vPrevRendererObj != null ) {
-				vPrevRendererObj.SetActive(false);
-				Destroy(vPrevRendererObj);
-			}
-
+			DestroyPrevRenderer();
 			vPrevRendererObj = vCurrRendererObj;
 			vPrevRenderer = vCurrRenderer;
 
+			if ( vPoint.Data == null ) {
+				vCurrRendererObj = null;
+				vCurrRenderer = null;
+			}
+			else {
+				BuildCurrRenderer();
+			}
+
+			vChangeTime = DateTime.UtcNow;
+			vChangeDir = pDirection;
+			UpdateChangeAnimation();
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		private void DestroyPrevRenderer() {
+			if ( vPrevRendererObj == null ) {
+				return;
+			}
+
+			vPrevRendererObj.SetActive(false);
+			Destroy(vPrevRendererObj);
+
+			vPrevRendererObj = null;
+			vPrevRenderer = null;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void BuildCurrRenderer() {
 			vCurrRendererObj = new GameObject("Renderer"+vRendererCount);
 			vRendererCount++;
 
-			vCurrRenderer = (IUiMenuPointRenderer)vCurrRendererObj.AddComponent(vRenderers.PointParent);
+			Type rendererType;
+
+			switch ( vPoint.Data.Type ) {
+				case NavItemData.ItemType.Parent:
+					rendererType = vRenderers.PointParent;
+					break;
+
+				default:
+					rendererType = vRenderers.PointSelection;
+					break;
+			}
+
+			vCurrRenderer = (IUiMenuPointRenderer)vCurrRendererObj.AddComponent(rendererType);
 			vCurrRenderer.Build(vHand, vPoint);
 			vCurrRenderer.Update();
 
@@ -82,10 +119,6 @@ namespace HandMenu.Display {
 			vCurrRendererObj.transform.localPosition = Vector3.zero;
 			vCurrRendererObj.transform.localRotation = Quaternion.identity;
 			vCurrRendererObj.transform.localScale = Vector3.one;
-
-			vChangeTime = DateTime.UtcNow;
-			vChangeDir = pDirection;
-			UpdateChangeAnimation();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -104,11 +137,14 @@ namespace HandMenu.Display {
 				vPrevRendererObj.transform.localPosition = new Vector3(0, 0, -dist*push);
 			}
 
-			vCurrRenderer.HandleChangeAnimation(true, vChangeDir, prog);
-			vCurrRendererObj.transform.localPosition = new Vector3(0, 0, dist*(1-push));
+			if ( vCurrRenderer != null ) {
+				vCurrRenderer.HandleChangeAnimation(true, vChangeDir, prog);
+				vCurrRendererObj.transform.localPosition = new Vector3(0, 0, dist*(1-push));
+			}
 
 			if ( prog >= 1 ) {
 				vChangeTime = null;
+				DestroyPrevRenderer();
 			}
 
 			vPoint.SetIsAnimating(vChangeTime != null);

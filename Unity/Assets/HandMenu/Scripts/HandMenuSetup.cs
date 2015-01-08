@@ -40,7 +40,7 @@ namespace HandMenu {
 			////
 			 
 			var renderers = new Renderers {
-				PointParent = Renderers.GetType(PointParentRenderer, typeof(UiPointRenderer)),
+				PointParent = Renderers.GetType(PointParentRenderer, typeof(UiPointParentRenderer)),
 				PointSelection = Renderers.GetType(PointSelectionRenderer, typeof(UiPointRenderer)),
 			};
 
