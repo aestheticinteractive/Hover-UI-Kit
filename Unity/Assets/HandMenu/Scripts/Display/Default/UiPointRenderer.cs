@@ -85,7 +85,7 @@ namespace HandMenu.Display.Default {
 			vTextObj.transform.parent = vCanvasObj.transform;
 
 			Text text = vTextObj.AddComponent<Text>();
-			text.font = Resources.Load<Font>("GothamNarrowBook");
+			text.font = Resources.Load<Font>("Tahoma");
 			text.fontSize = 24;
 			text.alignment = (vHand.IsLeft ? TextAnchor.MiddleLeft : TextAnchor.MiddleRight);
 
