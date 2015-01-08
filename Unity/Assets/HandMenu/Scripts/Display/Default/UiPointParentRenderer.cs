@@ -1,5 +1,4 @@
-﻿using System;
-using HandMenu.State;
+﻿using HandMenu.State;
 using UnityEngine;
 
 namespace HandMenu.Display.Default {

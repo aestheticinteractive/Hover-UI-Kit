@@ -1,4 +1,4 @@
-﻿using HandMenu.Demo;
+﻿using System;
 using HandMenu.Display;
 using HandMenu.Display.Default;
 using HandMenu.Input;
@@ -13,6 +13,7 @@ namespace HandMenu {
 	public class HandMenuSetup : MonoBehaviour {
 
 		public bool LeftHandMenu = true;
+		public HandMenuNavDelegate Delegate;
 		public Component PointParentRenderer;
 		public Component PointSelectionRenderer;
 		public Component PointCheckboxRenderer;
@@ -38,7 +39,11 @@ namespace HandMenu {
 			vNavProv = new NavigationProvider();
 			vMenuState = new MenuState(vInputProv, vNavProv, LeftHandMenu);
 
-			vNavProv.Init(new DemoData());
+			if ( Delegate == null ) {
+				throw new Exception("No menu delegate was provided!");
+			}
+
+			vNavProv.Init(Delegate.GetNavDelegate());
 
 			////
 
