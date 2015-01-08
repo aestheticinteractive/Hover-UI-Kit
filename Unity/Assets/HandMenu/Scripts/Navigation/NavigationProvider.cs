@@ -7,6 +7,10 @@ namespace HandMenu.Navigation {
 	/*================================================================================================*/
 	public class NavigationProvider {
 
+		public delegate void LevelChangeHandler(int pDirection);
+
+		public event LevelChangeHandler OnLevelChange;
+
 		private readonly IDictionary<PointData.PointZone, ItemProvider> vItemProvMap;
 		private readonly Stack<ItemData[]> vHistory;
 		private INavigationDelegate vDelgate;
@@ -23,6 +27,8 @@ namespace HandMenu.Navigation {
 				itemProv.OnSelection += HandleItemSelection;
 				vItemProvMap.Add(zone, itemProv);
 			}
+
+			OnLevelChange += (d => { });
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -80,6 +86,8 @@ namespace HandMenu.Navigation {
 				ItemData itemData = (pItems == null || i >= pItems.Length ? null : pItems[i]);
 				itemProv.UpdateWithData(itemData, pDirection);
 			}
+
+			OnLevelChange(pDirection);
 		}
 
 	}

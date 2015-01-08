@@ -43,7 +43,7 @@ namespace HandMenu.State {
 			vItemProv = pItemProv;
 
 			OnDataChange = (d => {});
-			vItemProv.OnDataChange += ((o, n, d) => OnDataChange(d));
+			vItemProv.OnDataChange += (d => OnDataChange(d));
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

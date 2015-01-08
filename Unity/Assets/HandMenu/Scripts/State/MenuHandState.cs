@@ -19,6 +19,10 @@ namespace HandMenu.State {
 			PointData.PointZone.Pinky
 		};
 
+		public delegate void LevelChangeHandler(int pDirection);
+
+		public event LevelChangeHandler OnLevelChange;
+
 		public static float BackGrabThreshold = 0.6f;
 		public static float BackReleaseThreshold = 0.3f;
 
@@ -46,6 +50,9 @@ namespace HandMenu.State {
 			}
 
 			IsLeft = vHandProv.IsLeft;
+
+			OnLevelChange = (d => {});
+			vNavProv.OnLevelChange += (d => OnLevelChange(d));
 		}
 
 

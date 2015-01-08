@@ -44,18 +44,21 @@ namespace HandMenu.Demo {
 			vBackground.name = "Background";
 			vBackground.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
 			vBackground.renderer.sharedMaterial.renderQueue -= 3;
+			vBackground.renderer.sharedMaterial.color = Color.clear;
 
 			vHighlight = GameObject.CreatePrimitive(PrimitiveType.Quad);
 			vHighlight.transform.parent = vBackground.transform;
 			vHighlight.name = "Highlight";
 			vHighlight.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
 			vHighlight.renderer.sharedMaterial.renderQueue -= 2;
+			vHighlight.renderer.sharedMaterial.color = Color.clear;
 
 			vSelect = GameObject.CreatePrimitive(PrimitiveType.Quad);
 			vSelect.transform.parent = vBackground.transform;
 			vSelect.name = "Select";
 			vSelect.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
 			vSelect.renderer.sharedMaterial.renderQueue -= 1;
+			vSelect.renderer.sharedMaterial.color = Color.clear;
 
 			////
 
@@ -114,8 +117,8 @@ namespace HandMenu.Demo {
 				return;
 			}
 
-			float alpha = vHand.Strength*vPoint.Strength*vAnimAlpha;
-			float high = (float)Math.Pow(vPoint.HighlightProgress, 5);
+			float alpha = 1-(float)Math.Pow(1-vHand.Strength*vPoint.Strength*vAnimAlpha, 2);
+			float high = (float)Math.Pow(vPoint.HighlightProgress, 2);
 			float select = 1-(float)Math.Pow(1-vPoint.SelectionProgress, 2);
 
 			vCanvasGroupObj.GetComponent<CanvasGroup>().alpha = alpha;
@@ -134,7 +137,8 @@ namespace HandMenu.Demo {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void HandleChangeAnimation(bool pFadeIn, int pDirection, float pProgress) {
-			vAnimAlpha = (pFadeIn ? pProgress : 1-pProgress);
+			float a = 1-(float)Math.Pow(1-pProgress, 3);
+			vAnimAlpha = (pFadeIn ? a : 1-a);
 		}
 
 	}

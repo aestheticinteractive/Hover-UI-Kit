@@ -26,6 +26,8 @@ namespace HandMenu.Display {
 				pointDisp.Build(vMenuHand, vMenuHand.GetPointState(zone), pRenderers);
 				vPointDisplays.Add(pointDisp);
 			}
+
+			vMenuHand.OnLevelChange += HandleLevelChange;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -33,6 +35,13 @@ namespace HandMenu.Display {
 			foreach ( MenuPointDisplay pointDisp in vPointDisplays ) {
 				pointDisp.gameObject.SetActive(vMenuHand.IsActive && pointDisp.IsActive());
 			}
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private void HandleLevelChange(int pPdirection) {
+			Update(); //reset point visibility
 		}
 
 	}

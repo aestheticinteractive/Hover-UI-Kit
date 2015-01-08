@@ -7,6 +7,9 @@ namespace HandMenu.Display {
 	/*================================================================================================*/
 	public class MenuPointDisplay : MonoBehaviour {
 
+		public static float DataChangeMilliseconds = 1000;
+		public static float DataChangeDistance = 0.08f;
+
 		private MenuHandState vHand;
 		private MenuPointState vPoint;
 		private Renderers vRenderers;
@@ -46,10 +49,6 @@ namespace HandMenu.Display {
 				tx.localRotation *= Quaternion.FromToRotation(Vector3.left, Vector3.right);
 			}
 
-			if ( !vCurrRendererObj.activeSelf ) {
-				vCurrRendererObj.SetActive(true);
-			}
-
 			UpdateChangeAnimation();
 		}
 
@@ -73,11 +72,11 @@ namespace HandMenu.Display {
 			vPrevRenderer = vCurrRenderer;
 
 			vCurrRendererObj = new GameObject("Renderer"+vRendererCount);
-			vCurrRendererObj.SetActive(false);
 			vRendererCount++;
 
 			vCurrRenderer = (IMenuPointRenderer)vCurrRendererObj.AddComponent(vRenderers.PointParent);
 			vCurrRenderer.Build(vHand, vPoint);
+			vCurrRenderer.Update();
 
 			vCurrRendererObj.transform.parent = gameObject.transform;
 			vCurrRendererObj.transform.localPosition = Vector3.zero;
@@ -86,6 +85,7 @@ namespace HandMenu.Display {
 
 			vChangeTime = DateTime.UtcNow;
 			vChangeDir = pDirection;
+			UpdateChangeAnimation();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -95,9 +95,9 @@ namespace HandMenu.Display {
 			}
 
 			float ms = (float)(DateTime.UtcNow-(DateTime)vChangeTime).TotalMilliseconds;
-			float prog = Math.Min(1, ms/1000f);
+			float prog = Math.Min(1, ms/DataChangeMilliseconds);
 			float push = 1-(float)Math.Pow(1-prog, 3);
-			float dist = -0.05f*vChangeDir;
+			float dist = -DataChangeDistance*vChangeDir;
 
 			if ( vPrevRenderer != null ) {
 				vPrevRenderer.HandleChangeAnimation(false, vChangeDir, prog);
