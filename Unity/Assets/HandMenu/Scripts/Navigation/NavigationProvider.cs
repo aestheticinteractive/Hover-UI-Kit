@@ -29,7 +29,7 @@ namespace HandMenu.Navigation {
 		public void Init(INavigationDelegate pDelgate) {
 			vDelgate = pDelgate;
 			vHistory.Clear();
-			SetNewItems(vDelgate.GetTopLevelItems());
+			SetNewItems(vDelgate.GetTopLevelItems(), 0);
 		}
 
 
@@ -45,7 +45,7 @@ namespace HandMenu.Navigation {
 				return;
 			}
 
-			SetNewItems(vHistory.Pop());
+			SetNewItems(vHistory.Pop(), -1);
 		}
 
 
@@ -60,7 +60,7 @@ namespace HandMenu.Navigation {
 
 			if ( itemData.Type == ItemData.ItemType.Parent ) {
 				PushCurrentItemsToHistory();
-				SetNewItems(itemData.Children);
+				SetNewItems(itemData.Children, 1);
 				return;
 			}
 		}
@@ -72,13 +72,13 @@ namespace HandMenu.Navigation {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void SetNewItems(ItemData[] pItems) {
+		private void SetNewItems(ItemData[] pItems, int pDirection) {
 			ItemProvider[] itemProvs = vItemProvMap.Values.ToArray();
 
 			for ( int i = 0 ; i < itemProvs.Length ; ++i ) {
 				ItemProvider itemProv = itemProvs[i];
 				ItemData itemData = (pItems == null || i >= pItems.Length ? null : pItems[i]);
-				itemProv.UpdateWithData(itemData);
+				itemProv.UpdateWithData(itemData, pDirection);
 			}
 		}
 

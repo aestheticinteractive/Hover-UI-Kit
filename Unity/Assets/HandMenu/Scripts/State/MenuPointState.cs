@@ -12,6 +12,10 @@ namespace HandMenu.State {
 		public static float HighlightDistanceMax = 0.12f;
 		public static float SelectionMilliseconds = 500;
 
+		public delegate void DataChangeHandler(int pDirection);
+
+		public event DataChangeHandler OnDataChange;
+
 		public PointData.PointZone Zone { get; set; }
 		public Vector3 Position { get; private set; }
 		public Vector3 Direction { get; private set; }
@@ -27,6 +31,7 @@ namespace HandMenu.State {
 		private bool vIsActive;
 		private float vSelectionExtension;
 		private DateTime? vSelectionStart;
+		private bool vIsAnimating;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -36,6 +41,9 @@ namespace HandMenu.State {
 			Zone = pZone;
 			vPointProv = pPointProv;
 			vItemProv = pItemProv;
+
+			OnDataChange = (d => {});
+			vItemProv.OnDataChange += ((o, n, d) => OnDataChange(d));
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -81,7 +89,7 @@ namespace HandMenu.State {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateWithCursor(Vector3? pCursorPosition) {
-			if ( pCursorPosition == null || !IsActive ) {
+			if ( pCursorPosition == null || !IsActive || vIsAnimating ) {
 				HighlightProgress = 0;
 				return;
 			}
@@ -117,6 +125,11 @@ namespace HandMenu.State {
 
 			vItemProv.Select();
 			vSelectionStart = null;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void SetIsAnimating(bool pIsAnimating) {
+			vIsAnimating = pIsAnimating;
 		}
 
 

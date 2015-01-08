@@ -19,7 +19,7 @@ namespace HandMenu.State {
 			PointData.PointZone.Pinky
 		};
 
-		public static float BackGrabThreshold = 0.9f;
+		public static float BackGrabThreshold = 0.6f;
 		public static float BackReleaseThreshold = 0.3f;
 
 		public bool IsActive { get; private set; }

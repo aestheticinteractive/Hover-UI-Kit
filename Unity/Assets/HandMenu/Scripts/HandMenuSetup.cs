@@ -12,6 +12,8 @@ namespace HandMenu {
 	public class HandMenuSetup : MonoBehaviour {
 
 		public bool LeftHandMenu = true;
+		public Component PointParentRenderer;
+		public Component PointSelectionRenderer;
 
 		private HandController vHandControl;
 		private Controller vLeapControl;
@@ -35,6 +37,15 @@ namespace HandMenu {
 			vNavProv.Init(new DemoData());
 
 			////
+			 
+			var renderers = new Renderers {
+				PointParent = Renderers.GetType(PointParentRenderer, typeof(DemoPointRenderer)),
+				PointSelection = Renderers.GetType(PointSelectionRenderer, typeof(DemoPointRenderer)),
+			};
+
+			renderers.Verify();
+
+			////
 
 			var menuHandObj = new GameObject("MenuHandDisplay");
 			menuHandObj.transform.parent = handControlObj.transform;
@@ -43,8 +54,7 @@ namespace HandMenu {
 			menuHandObj.transform.localScale = Vector3.one;
 
 			vMenuHandDisp = menuHandObj.AddComponent<MenuHandDisplay>();
-			vMenuHandDisp.MenuHand = vMenuState.MenuHand;
-			vMenuHandDisp.SelectHand = vMenuState.SelectHand;
+			vMenuHandDisp.Build(vMenuState.MenuHand, renderers);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

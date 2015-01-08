@@ -1,136 +1,117 @@
 ﻿using System;
 using HandMenu.State;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace HandMenu.Display {
 
 	/*================================================================================================*/
 	public class MenuPointDisplay : MonoBehaviour {
 
-		public MenuHandState Hand { get; set; }
-		public MenuPointState Point { get; set; }
+		private MenuHandState vHand;
+		private MenuPointState vPoint;
+		private Renderers vRenderers;
 
-		private const int Width = 240;
-		private const int Height = 40;
-		private const float Scale = 0.0004f;
+		private GameObject vPrevRendererObj;
+		private GameObject vCurrRendererObj;
+		private IMenuPointRenderer vPrevRenderer;
+		private IMenuPointRenderer vCurrRenderer;
 
-		private GameObject vHold;
-		private GameObject vBackground;
-		private GameObject vHighlight;
-		private GameObject vSelect;
-		private GameObject vCanvasGroupObj;
-		private GameObject vCanvasObj;
-		private GameObject vTextObj;
+		private int vRendererCount;
+		private DateTime? vChangeTime;
+		private int vChangeDir;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
-			vHold = new GameObject("Hold");
-			vHold.transform.parent = gameObject.transform;
+		public void Build(MenuHandState pHand, MenuPointState pPoint, Renderers pRenderers) {
+			vHand = pHand;
+			vPoint = pPoint;
+			vRenderers = pRenderers;
 
-			////
-
-			vBackground = GameObject.CreatePrimitive(PrimitiveType.Quad);
-			vBackground.transform.parent = vHold.transform;
-			vBackground.name = "Background";
-			vBackground.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
-			vBackground.renderer.sharedMaterial.renderQueue -= 3;
-
-			vHighlight = GameObject.CreatePrimitive(PrimitiveType.Quad);
-			vHighlight.transform.parent = vBackground.transform;
-			vHighlight.name = "Highlight";
-			vHighlight.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
-			vHighlight.renderer.sharedMaterial.renderQueue -= 2;
-
-			vSelect = GameObject.CreatePrimitive(PrimitiveType.Quad);
-			vSelect.transform.parent = vBackground.transform;
-			vSelect.name = "Select";
-			vSelect.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
-			vSelect.renderer.sharedMaterial.renderQueue -= 1;
-
-			////
-
-			vCanvasGroupObj = new GameObject("CanvasGroup");
-			vCanvasGroupObj.transform.parent = vHold.transform;
-			vCanvasGroupObj.AddComponent<CanvasGroup>();
-
-			////
-
-			vCanvasObj = new GameObject("Canvas");
-			vCanvasObj.transform.parent = vCanvasGroupObj.transform;
-			
-			Canvas canvas = vCanvasObj.AddComponent<Canvas>();
-			canvas.renderMode = RenderMode.WorldSpace;
-
-			RectTransform rect = vCanvasObj.GetComponent<RectTransform>();
-			rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Width);
-			rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, Height);
-			rect.pivot = new Vector2((Hand.IsLeft ? 0 : 1), 0.5f);
-
-			////
-
-			vTextObj = new GameObject("Text");
-			vTextObj.transform.parent = vCanvasObj.transform;
-
-			Text text = vTextObj.AddComponent<Text>();
-			text.font = Resources.Load<Font>("GothamNarrowBook");
-			text.fontSize = 24;
-			text.alignment = (Hand.IsLeft ? TextAnchor.MiddleLeft : TextAnchor.MiddleRight);
-
-			rect = vTextObj.GetComponent<RectTransform>();
-			rect.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 8, Width-16);
-			rect.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, 4, Height-8);
-
-			////
-			
-			int mult = (Hand.IsLeft ? -1 : 1);
-			Quaternion rot = Quaternion.FromToRotation(Vector3.back, Vector3.down)*
-				Quaternion.FromToRotation(Vector3.down, Vector3.right);
-
-			vHold.transform.localPosition = new Vector3(0, 0, 0.03f*mult);
-
-			vBackground.transform.localPosition = new Vector3(0, 0, Width*Scale/2f*mult);
-			vBackground.transform.localRotation = rot;
-			vBackground.transform.localScale = new Vector3(Width*Scale, Height*Scale, 1);
-
-			vCanvasObj.transform.localRotation = rot;
-			vCanvasObj.transform.localScale = Vector3.one*Scale;
-
-			Point.SetSelectionExtension(Width*Scale);
+			vPoint.OnDataChange += HandleDataChange;
+			HandleDataChange(0);
 		}
-
+		
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			if ( !Point.IsActive ) {
+			if ( !vPoint.IsActive ) {
 				return;
 			}
 
-			float alpha = Hand.Strength*Point.Strength; //(float)Math.Pow(Hand.Strength*Point.Strength, 2);
-			float high = (float)Math.Pow(Point.HighlightProgress, 5);
-			float select = 1-(float)Math.Pow(1-Point.SelectionProgress, 2);
-
 			Transform tx = gameObject.transform;
-			tx.localPosition = Point.Position;
-			tx.localRotation = Point.Rotation;
+			tx.localPosition = vPoint.Position;
+			tx.localRotation = vPoint.Rotation;
 
-			if ( !Hand.IsLeft ) {
+			if ( !vHand.IsLeft ) {
 				tx.localRotation *= Quaternion.FromToRotation(Vector3.left, Vector3.right);
 			}
 
-			vCanvasGroupObj.GetComponent<CanvasGroup>().alpha = alpha;
-			vBackground.renderer.sharedMaterial.color = new Color(0, 0, 0, 0.333f*alpha);
+			if ( !vCurrRendererObj.activeSelf ) {
+				vCurrRendererObj.SetActive(true);
+			}
 
-			vHighlight.transform.localScale = new Vector3(high, 1, 1);
-			vHighlight.transform.localPosition = new Vector3(-0.5f+high/2f, 0, 0);
-			vHighlight.renderer.sharedMaterial.color = new Color(0.1f, 0.5f, 0.9f, high*alpha);
+			UpdateChangeAnimation();
+		}
 
-			vSelect.transform.localScale = new Vector3(select, 1, 1);
-			vSelect.transform.localPosition = new Vector3(-0.5f+select/2f, 0, 0);
-			vSelect.renderer.sharedMaterial.color = new Color(0.1f, 1.0f, 0.2f, select*alpha);
 
-			vTextObj.GetComponent<Text>().text = Point.Data.Label;
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public bool IsActive() {
+			return (vPoint != null && vPoint.IsActive);
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private void HandleDataChange(int pDirection) {
+			if ( vPrevRendererObj != null ) {
+				vPrevRendererObj.SetActive(false);
+				Destroy(vPrevRendererObj);
+			}
+
+			vPrevRendererObj = vCurrRendererObj;
+			vPrevRenderer = vCurrRenderer;
+
+			vCurrRendererObj = new GameObject("Renderer"+vRendererCount);
+			vCurrRendererObj.SetActive(false);
+			vRendererCount++;
+
+			vCurrRenderer = (IMenuPointRenderer)vCurrRendererObj.AddComponent(vRenderers.PointParent);
+			vCurrRenderer.Build(vHand, vPoint);
+
+			vCurrRendererObj.transform.parent = gameObject.transform;
+			vCurrRendererObj.transform.localPosition = Vector3.zero;
+			vCurrRendererObj.transform.localRotation = Quaternion.identity;
+			vCurrRendererObj.transform.localScale = Vector3.one;
+
+			vChangeTime = DateTime.UtcNow;
+			vChangeDir = pDirection;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateChangeAnimation() {
+			if ( vChangeTime == null ) {
+				return;
+			}
+
+			float ms = (float)(DateTime.UtcNow-(DateTime)vChangeTime).TotalMilliseconds;
+			float prog = Math.Min(1, ms/1000f);
+			float push = 1-(float)Math.Pow(1-prog, 3);
+			float dist = -0.05f*vChangeDir;
+
+			if ( vPrevRenderer != null ) {
+				vPrevRenderer.HandleChangeAnimation(false, vChangeDir, prog);
+				vPrevRendererObj.transform.localPosition = new Vector3(0, 0, -dist*push);
+			}
+
+			vCurrRenderer.HandleChangeAnimation(true, vChangeDir, prog);
+			vCurrRendererObj.transform.localPosition = new Vector3(0, 0, dist*(1-push));
+
+			if ( prog >= 1 ) {
+				vChangeTime = null;
+			}
+
+			vPoint.SetIsAnimating(vChangeTime != null);
 		}
 
 	}

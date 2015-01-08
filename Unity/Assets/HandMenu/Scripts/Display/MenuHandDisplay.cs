@@ -7,15 +7,15 @@ namespace HandMenu.Display {
 	/*================================================================================================*/
 	public class MenuHandDisplay : MonoBehaviour {
 
-		public MenuHandState MenuHand { get; set; }
-		public SelectHandState SelectHand { get; set; }
-
+		private MenuHandState vMenuHand;
 		private IList<MenuPointDisplay> vPointDisplays;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
+		public void Build(MenuHandState pMenuHand, Renderers pRenderers) {
+			vMenuHand = pMenuHand;
+
 			vPointDisplays = new List<MenuPointDisplay>();
 
 			foreach ( PointData.PointZone zone in MenuHandState.PointZones ) {
@@ -23,8 +23,7 @@ namespace HandMenu.Display {
 				pointObj.transform.parent = gameObject.transform;
 
 				MenuPointDisplay pointDisp = pointObj.AddComponent<MenuPointDisplay>();
-				pointDisp.Hand = MenuHand;
-				pointDisp.Point = MenuHand.GetPointState(zone);
+				pointDisp.Build(vMenuHand, vMenuHand.GetPointState(zone), pRenderers);
 				vPointDisplays.Add(pointDisp);
 			}
 		}
@@ -32,7 +31,7 @@ namespace HandMenu.Display {
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
 			foreach ( MenuPointDisplay pointDisp in vPointDisplays ) {
-				pointDisp.gameObject.SetActive(MenuHand.IsActive && pointDisp.Point.IsActive);
+				pointDisp.gameObject.SetActive(vMenuHand.IsActive && pointDisp.IsActive());
 			}
 		}
 
