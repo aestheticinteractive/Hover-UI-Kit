@@ -123,7 +123,7 @@ namespace HandMenu.Display.Default {
 			float select = 1-(float)Math.Pow(1-vPoint.SelectionProgress, 1.5f);
 
 			vCanvasGroupObj.GetComponent<CanvasGroup>().alpha = vOverallAlpha;
-			vBackground.renderer.sharedMaterial.color = new Color(0, 0, 0, 0.333f*vOverallAlpha);
+			vBackground.renderer.sharedMaterial.color = new Color(0.1f, 0.1f, 0.1f, 0.5f*vOverallAlpha);
 
 			vHighlight.transform.localScale = new Vector3(high, 1, 1);
 			vHighlight.transform.localPosition = new Vector3(-0.5f+high/2f, 0, 0);
