@@ -8,15 +8,15 @@ namespace HandMenu.Input {
 
 		public Frame Frame { get; private set; }
 
-		private readonly HandProvider vHandProvL;
-		private readonly HandProvider vHandProvR;
+		private readonly InputHandProvider vInputHandProvL;
+		private readonly InputHandProvider vInputHandProvR;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public InputProvider() {
-			vHandProvL = new HandProvider(true);
-			vHandProvR = new HandProvider(false);
+			vInputHandProvL = new InputHandProvider(true);
+			vInputHandProvR = new InputHandProvider(false);
 		}
 
 
@@ -24,13 +24,13 @@ namespace HandMenu.Input {
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateWithFrame(Frame pFrame) {
 			Frame = (pFrame.IsValid ? pFrame : null);
-			vHandProvL.UpdateWithHand(GetHand(true));
-			vHandProvR.UpdateWithHand(GetHand(false));
+			vInputHandProvL.UpdateWithHand(GetHand(true));
+			vInputHandProvR.UpdateWithHand(GetHand(false));
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public HandProvider GetHandProvider(bool pIsLeft) {
-			return (pIsLeft ? vHandProvL : vHandProvR);
+		public InputHandProvider GetHandProvider(bool pIsLeft) {
+			return (pIsLeft ? vInputHandProvL : vInputHandProvR);
 		}
 
 

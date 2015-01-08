@@ -9,15 +9,16 @@ namespace HandMenu.State {
 	/*================================================================================================*/
 	public class MenuHandState {
 
-		public static readonly List<PointData.PointZone> PointZones = new List<PointData.PointZone> {
-			PointData.PointZone.Index,
-			PointData.PointZone.IndexMiddle,
-			PointData.PointZone.Middle,
-			PointData.PointZone.MiddleRing,
-			PointData.PointZone.Ring,
-			PointData.PointZone.RingPinky,
-			PointData.PointZone.Pinky
-		};
+		public static readonly List<InputPointData.PointZone> PointZones = 
+			new List<InputPointData.PointZone> {
+				InputPointData.PointZone.Index,
+				InputPointData.PointZone.IndexMiddle,
+				InputPointData.PointZone.Middle,
+				InputPointData.PointZone.MiddleRing,
+				InputPointData.PointZone.Ring,
+				InputPointData.PointZone.RingPinky,
+				InputPointData.PointZone.Pinky
+			};
 
 		public delegate void LevelChangeHandler(int pDirection);
 
@@ -30,26 +31,26 @@ namespace HandMenu.State {
 		public bool IsLeft { get; private set; }
 		public float Strength { get; private set; }
 
-		private readonly HandProvider vHandProv;
+		private readonly InputHandProvider vInputHandProv;
 		private readonly NavigationProvider vNavProv;
-		private readonly IDictionary<PointData.PointZone, MenuPointState> vPointStateMap;
+		private readonly IDictionary<InputPointData.PointZone, MenuPointState> vPointStateMap;
 		private bool vIsGrabbing;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public MenuHandState(HandProvider pHandProv, NavigationProvider pNavProv) {
-			vHandProv = pHandProv;
+		public MenuHandState(InputHandProvider pInputHandProv, NavigationProvider pNavProv) {
+			vInputHandProv = pInputHandProv;
 			vNavProv = pNavProv;
-			vPointStateMap = new Dictionary<PointData.PointZone, MenuPointState>();
+			vPointStateMap = new Dictionary<InputPointData.PointZone, MenuPointState>();
 
-			foreach ( PointData.PointZone zone in PointZones ) {
+			foreach ( InputPointData.PointZone zone in PointZones ) {
 				var pointState = new MenuPointState(zone, 
-					vHandProv.GetPointProvider(zone), vNavProv.GetItemProvider(zone));
+					vInputHandProv.GetPointProvider(zone), vNavProv.GetItemProvider(zone));
 				vPointStateMap.Add(zone, pointState);
 			}
 
-			IsLeft = vHandProv.IsLeft;
+			IsLeft = vInputHandProv.IsLeft;
 
 			OnLevelChange = (d => {});
 			vNavProv.OnLevelChange += (d => OnLevelChange(d));
@@ -59,7 +60,7 @@ namespace HandMenu.State {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateAfterInput() {
-			HandData data = vHandProv.Data;
+			InputHandData data = vInputHandProv.Data;
 			float palmTowardEyes = (data == null ? 0 : data.PalmTowardEyes);
 
 			IsActive = (data != null);
@@ -99,14 +100,14 @@ namespace HandMenu.State {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public MenuPointState GetPointState(PointData.PointZone pZone) {
+		public MenuPointState GetPointState(InputPointData.PointZone pZone) {
 			return vPointStateMap[pZone];
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void CheckGrabGesture(HandData pData) {
+		private void CheckGrabGesture(InputHandData pData) {
 			if ( pData == null ) {
 				vIsGrabbing = false;
 				return;
@@ -120,6 +121,7 @@ namespace HandMenu.State {
 			if ( !vIsGrabbing && pData.GrabStrength > BackGrabThreshold ) {
 				vIsGrabbing = true;
 				vNavProv.Back();
+				return;
 			}
 		}
 

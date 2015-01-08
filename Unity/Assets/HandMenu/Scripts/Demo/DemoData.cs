@@ -4,36 +4,36 @@ using HandMenu.Navigation;
 namespace HandMenu.Demo {
 
 	/*================================================================================================*/
-	public class DemoData : INavigationDelegate {
+	public class DemoData : INavDelegate {
 
-		private readonly ItemData[] vItems;
+		private readonly NavItemData[] vNavItems;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public DemoData() {
-			var items = new List<ItemData>();
+			var items = new List<NavItemData>();
 
-			var topA = new ItemData(ItemData.ItemType.Parent, "Item A");
-			var topB = new ItemData(ItemData.ItemType.Parent, "Item B");
-			var topC = new ItemData(ItemData.ItemType.Selection, "Item C");
-			var topD = new ItemData(ItemData.ItemType.Selection, "Item D");
-			var topE = new ItemData(ItemData.ItemType.Selection, "Item E");
-			var topF = new ItemData(ItemData.ItemType.Selection, "Item F");
-			var topG = new ItemData(ItemData.ItemType.Selection, "Item G");
+			var topA = new NavItemData(NavItemData.ItemType.Parent, "Item A");
+			var topB = new NavItemData(NavItemData.ItemType.Parent, "Item B");
+			var topC = new NavItemData(NavItemData.ItemType.Selection, "Item C");
+			var topD = new NavItemData(NavItemData.ItemType.Selection, "Item D");
+			var topE = new NavItemData(NavItemData.ItemType.Selection, "Item E");
+			var topF = new NavItemData(NavItemData.ItemType.Selection, "Item F");
+			var topG = new NavItemData(NavItemData.ItemType.Selection, "Item G");
 
-			var topAItems = new List<ItemData>();
-			topAItems.Add(new ItemData(ItemData.ItemType.Selection, "Item A1"));
-			topAItems.Add(new ItemData(ItemData.ItemType.Selection, "Item A2"));
-			topAItems.Add(new ItemData(ItemData.ItemType.Selection, "Item A3"));
-			topAItems.Add(new ItemData(ItemData.ItemType.Selection, "Item A4"));
-			topAItems.Add(new ItemData(ItemData.ItemType.Selection, "Item A5"));
+			var topAItems = new List<NavItemData>();
+			topAItems.Add(new NavItemData(NavItemData.ItemType.Selection, "Item A1"));
+			topAItems.Add(new NavItemData(NavItemData.ItemType.Selection, "Item A2"));
+			topAItems.Add(new NavItemData(NavItemData.ItemType.Selection, "Item A3"));
+			topAItems.Add(new NavItemData(NavItemData.ItemType.Selection, "Item A4"));
+			topAItems.Add(new NavItemData(NavItemData.ItemType.Selection, "Item A5"));
 			topA.SetChildren(topAItems.ToArray());
 
-			var topBItems = new List<ItemData>();
-			topBItems.Add(new ItemData(ItemData.ItemType.Selection, "Item B1"));
-			topBItems.Add(new ItemData(ItemData.ItemType.Selection, "Item B2"));
-			topBItems.Add(new ItemData(ItemData.ItemType.Selection, "Item B3"));
+			var topBItems = new List<NavItemData>();
+			topBItems.Add(new NavItemData(NavItemData.ItemType.Selection, "Item B1"));
+			topBItems.Add(new NavItemData(NavItemData.ItemType.Selection, "Item B2"));
+			topBItems.Add(new NavItemData(NavItemData.ItemType.Selection, "Item B3"));
 			topB.SetChildren(topBItems.ToArray());
 
 			items.Add(topA);
@@ -44,14 +44,14 @@ namespace HandMenu.Demo {
 			items.Add(topF);
 			items.Add(topG);
 
-			vItems = items.ToArray();
+			vNavItems = items.ToArray();
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public ItemData[] GetTopLevelItems() {
-			return vItems;
+		public NavItemData[] GetTopLevelItems() {
+			return vNavItems;
 		}
 
 	}

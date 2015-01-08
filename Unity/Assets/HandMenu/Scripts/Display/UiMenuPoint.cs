@@ -5,7 +5,7 @@ using UnityEngine;
 namespace HandMenu.Display {
 
 	/*================================================================================================*/
-	public class MenuPointDisplay : MonoBehaviour {
+	public class UiMenuPoint : MonoBehaviour {
 
 		public static float DataChangeMilliseconds = 1000;
 		public static float DataChangeDistance = 0.08f;
@@ -16,8 +16,8 @@ namespace HandMenu.Display {
 
 		private GameObject vPrevRendererObj;
 		private GameObject vCurrRendererObj;
-		private IMenuPointRenderer vPrevRenderer;
-		private IMenuPointRenderer vCurrRenderer;
+		private IUiMenuPointRenderer vPrevRenderer;
+		private IUiMenuPointRenderer vCurrRenderer;
 
 		private int vRendererCount;
 		private DateTime? vChangeTime;
@@ -74,7 +74,7 @@ namespace HandMenu.Display {
 			vCurrRendererObj = new GameObject("Renderer"+vRendererCount);
 			vRendererCount++;
 
-			vCurrRenderer = (IMenuPointRenderer)vCurrRendererObj.AddComponent(vRenderers.PointParent);
+			vCurrRenderer = (IUiMenuPointRenderer)vCurrRendererObj.AddComponent(vRenderers.PointParent);
 			vCurrRenderer.Build(vHand, vPoint);
 			vCurrRenderer.Update();
 

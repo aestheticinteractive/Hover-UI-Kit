@@ -16,7 +16,7 @@ namespace HandMenu.State {
 
 		public event DataChangeHandler OnDataChange;
 
-		public PointData.PointZone Zone { get; set; }
+		public InputPointData.PointZone Zone { get; set; }
 		public Vector3 Position { get; private set; }
 		public Vector3 Direction { get; private set; }
 		public Quaternion Rotation { get; private set; }
@@ -26,8 +26,8 @@ namespace HandMenu.State {
 		public float HighlightDistance { get; private set; }
 		public float HighlightProgress { get; private set; }
 
-		private readonly PointProvider vPointProv;
-		private readonly ItemProvider vItemProv;
+		private readonly InputPointProvider vInputPointProv;
+		private readonly NavItemProvider vNavItemProv;
 		private bool vIsActive;
 		private float vSelectionExtension;
 		private DateTime? vSelectionStart;
@@ -36,27 +36,27 @@ namespace HandMenu.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public MenuPointState(PointData.PointZone pZone, 
-													PointProvider pPointProv, ItemProvider pItemProv) {
+		public MenuPointState(InputPointData.PointZone pZone, InputPointProvider pInputPointProv,
+																		NavItemProvider pNavItemProv) {
 			Zone = pZone;
-			vPointProv = pPointProv;
-			vItemProv = pItemProv;
+			vInputPointProv = pInputPointProv;
+			vNavItemProv = pNavItemProv;
 
 			OnDataChange = (d => {});
-			vItemProv.OnDataChange += (d => OnDataChange(d));
+			vNavItemProv.OnDataChange += (d => OnDataChange(d));
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public bool IsActive {
 			get {
-				return (vIsActive && vItemProv.Data != null);
+				return (vIsActive && vNavItemProv.Data != null);
 			}
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		public ItemData Data {
+		public NavItemData Data {
 			get {
-				return vItemProv.Data;
+				return vNavItemProv.Data;
 			}
 		}
 
@@ -77,7 +77,7 @@ namespace HandMenu.State {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateAfterInput() {
-			PointData data = vPointProv.Data;
+			InputPointData data = vInputPointProv.Data;
 
 			if ( data == null ) {
 				Reset();
@@ -123,7 +123,7 @@ namespace HandMenu.State {
 				return;
 			}
 
-			vItemProv.Select();
+			vNavItemProv.Select();
 			vSelectionStart = null;
 		}
 
@@ -149,7 +149,7 @@ namespace HandMenu.State {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateWithData(PointData pData) {
+		private void UpdateWithData(InputPointData pData) {
 			vIsActive = true;
 
 			Position = pData.Position;

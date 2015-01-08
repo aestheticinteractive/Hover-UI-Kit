@@ -2,10 +2,10 @@
 using Leap;
 using UnityEngine;
 
-namespace HandMenu {
+namespace HandMenu.Input {
 
 	/*================================================================================================*/
-	public class PointData {
+	public class InputPointData {
 
 		public enum PointZone {
 			Index,
@@ -26,7 +26,7 @@ namespace HandMenu {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public PointData(Hand pHand, Finger pFinger) {
+		public InputPointData(Hand pHand, Finger pFinger) {
 			Bone bone = pFinger.Bone(Bone.BoneType.TYPE_DISTAL);
 			float[] mat = bone.Basis.ToArray4x4();
 			var column2 = new Vector3(mat[8], mat[9], -mat[10]);
@@ -45,18 +45,18 @@ namespace HandMenu {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private PointData() {
+		private InputPointData() {
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public static PointData Lerp(PointData pData0, PointData pData1, float pAmount) {
+		public static InputPointData Lerp(InputPointData pData0, InputPointData pData1, float pAmount) {
 			if ( pData0 == null || pData1 == null ) {
 				return null;
 			}
 
-			var data = new PointData();
+			var data = new InputPointData();
 			data.Position = Vector3.Slerp(pData0.Position, pData1.Position, pAmount);
 			data.Direction = Vector3.Slerp(pData0.Direction, pData1.Direction, pAmount);
 			data.Rotation = Quaternion.Slerp(pData0.Rotation, pData1.Rotation, pAmount);

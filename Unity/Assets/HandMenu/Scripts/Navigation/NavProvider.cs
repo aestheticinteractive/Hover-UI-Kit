@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using HandMenu.Input;
 using HandMenu.State;
 
 namespace HandMenu.Navigation {
@@ -11,19 +12,19 @@ namespace HandMenu.Navigation {
 
 		public event LevelChangeHandler OnLevelChange;
 
-		private readonly IDictionary<PointData.PointZone, ItemProvider> vItemProvMap;
-		private readonly Stack<ItemData[]> vHistory;
-		private INavigationDelegate vDelgate;
+		private readonly IDictionary<InputPointData.PointZone, NavItemProvider> vItemProvMap;
+		private readonly Stack<NavItemData[]> vHistory;
+		private INavDelegate vDelgate;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public NavigationProvider() {
-			vItemProvMap = new Dictionary<PointData.PointZone, ItemProvider>();
-			vHistory = new Stack<ItemData[]>();
+			vItemProvMap = new Dictionary<InputPointData.PointZone, NavItemProvider>();
+			vHistory = new Stack<NavItemData[]>();
 
-			foreach ( PointData.PointZone zone in MenuHandState.PointZones ) {
-				var itemProv = new ItemProvider(zone);
+			foreach ( InputPointData.PointZone zone in MenuHandState.PointZones ) {
+				var itemProv = new NavItemProvider(zone);
 				itemProv.OnSelection += HandleItemSelection;
 				vItemProvMap.Add(zone, itemProv);
 			}
@@ -32,7 +33,7 @@ namespace HandMenu.Navigation {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void Init(INavigationDelegate pDelgate) {
+		public void Init(INavDelegate pDelgate) {
 			vDelgate = pDelgate;
 			vHistory.Clear();
 			SetNewItems(vDelgate.GetTopLevelItems(), 0);
@@ -41,7 +42,7 @@ namespace HandMenu.Navigation {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public ItemProvider GetItemProvider(PointData.PointZone pZone) {
+		public NavItemProvider GetItemProvider(InputPointData.PointZone pZone) {
 			return vItemProvMap[pZone];
 		}
 
@@ -57,33 +58,33 @@ namespace HandMenu.Navigation {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void HandleItemSelection(ItemProvider pItemProvider) {
-			ItemData itemData = pItemProvider.Data;
+		private void HandleItemSelection(NavItemProvider pNavItemProvider) {
+			NavItemData navItemData = pNavItemProvider.Data;
 
-			if ( itemData == null ) {
+			if ( navItemData == null ) {
 				return;
 			}
 
-			if ( itemData.Type == ItemData.ItemType.Parent ) {
+			if ( navItemData.Type == NavItemData.ItemType.Parent ) {
 				PushCurrentItemsToHistory();
-				SetNewItems(itemData.Children, 1);
+				SetNewItems(navItemData.Children, 1);
 				return;
 			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void PushCurrentItemsToHistory() {
-			ItemData[] items = vItemProvMap.Values.Select(itemProv => itemProv.Data).ToArray();
+			NavItemData[] items = vItemProvMap.Values.Select(itemProv => itemProv.Data).ToArray();
 			vHistory.Push(items);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void SetNewItems(ItemData[] pItems, int pDirection) {
-			ItemProvider[] itemProvs = vItemProvMap.Values.ToArray();
+		private void SetNewItems(NavItemData[] pItems, int pDirection) {
+			NavItemProvider[] itemProvs = vItemProvMap.Values.ToArray();
 
 			for ( int i = 0 ; i < itemProvs.Length ; ++i ) {
-				ItemProvider itemProv = itemProvs[i];
-				ItemData itemData = (pItems == null || i >= pItems.Length ? null : pItems[i]);
+				NavItemProvider itemProv = itemProvs[i];
+				NavItemData itemData = (pItems == null || i >= pItems.Length ? null : pItems[i]);
 				itemProv.UpdateWithData(itemData, pDirection);
 			}
 

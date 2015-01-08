@@ -4,9 +4,9 @@ using Leap;
 namespace HandMenu.Input {
 
 	/*================================================================================================*/
-	public class PointProvider {
+	public class InputPointProvider {
 
-		public PointData Data { get; private set; }
+		public InputPointData Data { get; private set; }
 
 		private readonly Finger.FingerType vFingerType0;
 		private readonly Finger.FingerType? vFingerType1;
@@ -14,13 +14,13 @@ namespace HandMenu.Input {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public PointProvider(Finger.FingerType pFingerType) {
+		public InputPointProvider(Finger.FingerType pFingerType) {
 			vFingerType0 = pFingerType;
 			vFingerType1 = null;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public PointProvider(Finger.FingerType pFingerType0, Finger.FingerType pFingerType1) {
+		public InputPointProvider(Finger.FingerType pFingerType0, Finger.FingerType pFingerType1) {
 			vFingerType0 = pFingerType0;
 			vFingerType1 = pFingerType1;
 		}
@@ -34,21 +34,21 @@ namespace HandMenu.Input {
 				return;
 			}
 
-			PointData point0 = GetPointData(pHand, vFingerType0);
+			InputPointData point0 = GetPointData(pHand, vFingerType0);
 			Data = point0;
 
 			if ( vFingerType1 != null ) {
-				PointData point1 = GetPointData(pHand, (Finger.FingerType)vFingerType1);
-				Data = PointData.Lerp(point0, point1, 0.5f);
+				InputPointData point1 = GetPointData(pHand, (Finger.FingerType)vFingerType1);
+				Data = InputPointData.Lerp(point0, point1, 0.5f);
 			}
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private static PointData GetPointData(Hand pHand, Finger.FingerType pType) {
+		private static InputPointData GetPointData(Hand pHand, Finger.FingerType pType) {
 			Finger finger = pHand.Fingers.FingerType(pType).FirstOrDefault(f => f.IsValid);
-			return (finger == null ? null : new PointData(pHand, finger));
+			return (finger == null ? null : new InputPointData(pHand, finger));
 		}
 
 	}

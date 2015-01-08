@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
+using HandMenu.Input;
 using HandMenu.State;
 using UnityEngine;
 
 namespace HandMenu.Display {
 
 	/*================================================================================================*/
-	public class MenuHandDisplay : MonoBehaviour {
+	public class UiMenuHand : MonoBehaviour {
 
 		private MenuHandState vMenuHand;
-		private IList<MenuPointDisplay> vPointDisplays;
+		private IList<UiMenuPoint> vUiPoints;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -16,15 +17,15 @@ namespace HandMenu.Display {
 		public void Build(MenuHandState pMenuHand, Renderers pRenderers) {
 			vMenuHand = pMenuHand;
 
-			vPointDisplays = new List<MenuPointDisplay>();
+			vUiPoints = new List<UiMenuPoint>();
 
-			foreach ( PointData.PointZone zone in MenuHandState.PointZones ) {
+			foreach ( InputPointData.PointZone zone in MenuHandState.PointZones ) {
 				var pointObj = new GameObject("Point-"+zone);
 				pointObj.transform.parent = gameObject.transform;
 
-				MenuPointDisplay pointDisp = pointObj.AddComponent<MenuPointDisplay>();
-				pointDisp.Build(vMenuHand, vMenuHand.GetPointState(zone), pRenderers);
-				vPointDisplays.Add(pointDisp);
+				UiMenuPoint uiPoint = pointObj.AddComponent<UiMenuPoint>();
+				uiPoint.Build(vMenuHand, vMenuHand.GetPointState(zone), pRenderers);
+				vUiPoints.Add(uiPoint);
 			}
 
 			vMenuHand.OnLevelChange += HandleLevelChange;
@@ -32,15 +33,15 @@ namespace HandMenu.Display {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			foreach ( MenuPointDisplay pointDisp in vPointDisplays ) {
-				pointDisp.gameObject.SetActive(vMenuHand.IsActive && pointDisp.IsActive());
+			foreach ( UiMenuPoint uiPoint in vUiPoints ) {
+				uiPoint.gameObject.SetActive(vMenuHand.IsActive && uiPoint.IsActive());
 			}
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void HandleLevelChange(int pPdirection) {
+		private void HandleLevelChange(int pDirection) {
 			Update(); //reset point visibility
 		}
 

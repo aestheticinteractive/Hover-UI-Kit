@@ -3,7 +3,7 @@
 namespace HandMenu.Navigation {
 
 	/*================================================================================================*/
-	public class ItemData {
+	public class NavItemData {
 
 		public enum ItemType {
 			Parent,
@@ -14,19 +14,19 @@ namespace HandMenu.Navigation {
 
 		public ItemType Type { get; private set; }
 		public string Label { get; private set; }
-		public ItemData[] Children { get; private set; }
+		public NavItemData[] Children { get; private set; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public ItemData(ItemType pType, string pLabel) {
+		public NavItemData(ItemType pType, string pLabel) {
 			Type = pType;
 			Label = pLabel;
 			Children = null;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void SetChildren(ItemData[] pChildren) {
+		public void SetChildren(NavItemData[] pChildren) {
 			if ( Children != null ) {
 				throw new Exception("Children already set.");
 			}

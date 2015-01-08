@@ -31,7 +31,7 @@ namespace HandMenu.Display {
 				throw new Exception("The ''"+pName+"' Renderer is not set.");
 			}
 
-			if ( !pType.GetInterfaces().Contains(typeof(IMenuPointRenderer)) ) {
+			if ( !pType.GetInterfaces().Contains(typeof(IUiMenuPointRenderer)) ) {
 				throw new Exception("The ''"+pName+"' Renderer must be an IMenuPointRenderer.");
 			}
 		}

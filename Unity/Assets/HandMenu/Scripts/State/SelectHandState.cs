@@ -8,20 +8,22 @@ namespace HandMenu.State {
 
 		public Vector3? CursorPosition { get; private set; }
 
-		private readonly HandProvider vHandProv;
+		private readonly InputHandProvider vInputHandProv;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public SelectHandState(HandProvider pHandProv) {
-			vHandProv = pHandProv;
+		public SelectHandState(InputHandProvider pInputHandProv) {
+			vInputHandProv = pInputHandProv;
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateAfterInput() {
-			PointProvider pointProv = vHandProv.GetPointProvider(PointData.PointZone.Index);
+			InputPointProvider pointProv = 
+				vInputHandProv.GetPointProvider(InputPointData.PointZone.Index);
+
 			CursorPosition = (pointProv.Data == null ? (Vector3?)null : pointProv.Data.Position);
 		}
 

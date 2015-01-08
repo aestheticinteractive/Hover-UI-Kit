@@ -1,13 +1,12 @@
 ﻿using System;
-using HandMenu.Display;
 using HandMenu.State;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace HandMenu.Demo {
+namespace HandMenu.Display.Default {
 
 	/*================================================================================================*/
-	public class DemoPointRenderer : MonoBehaviour, IMenuPointRenderer {
+	public class UiPointRenderer : MonoBehaviour, IUiMenuPointRenderer {
 
 		private const int Width = 240;
 		private const int Height = 40;

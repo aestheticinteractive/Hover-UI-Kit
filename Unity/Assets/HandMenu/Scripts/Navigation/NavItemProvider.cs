@@ -1,21 +1,23 @@
-﻿namespace HandMenu.Navigation {
+﻿using HandMenu.Input;
+
+namespace HandMenu.Navigation {
 
 	/*================================================================================================*/
-	public class ItemProvider {
+	public class NavItemProvider {
 
 		public delegate void DataChangeHandler(int pDirection);
-		public delegate void SelectionHandler(ItemProvider pItemProvider);
+		public delegate void SelectionHandler(NavItemProvider pNavItemProvider);
 
 		public event DataChangeHandler OnDataChange;
 		public event SelectionHandler OnSelection;
 
-		public PointData.PointZone Zone { get; private set; }
-		public ItemData Data { get; private set; }
+		public InputPointData.PointZone Zone { get; private set; }
+		public NavItemData Data { get; private set; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public ItemProvider(PointData.PointZone pZone) {
+		public NavItemProvider(InputPointData.PointZone pZone) {
 			Zone = pZone;
 			OnSelection += (p => {});
 			OnDataChange += (d => {});
@@ -29,7 +31,7 @@
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		public void UpdateWithData(ItemData pData, int pDirection) {
+		public void UpdateWithData(NavItemData pData, int pDirection) {
 			Data = pData;
 			OnDataChange(pDirection);
 		}

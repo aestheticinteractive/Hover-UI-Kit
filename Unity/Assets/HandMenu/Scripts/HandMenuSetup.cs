@@ -1,5 +1,6 @@
 ﻿using HandMenu.Demo;
 using HandMenu.Display;
+using HandMenu.Display.Default;
 using HandMenu.Input;
 using HandMenu.Navigation;
 using HandMenu.State;
@@ -20,7 +21,7 @@ namespace HandMenu {
 		private InputProvider vInputProv;
 		private NavigationProvider vNavProv;
 		private MenuState vMenuState;
-		private MenuHandDisplay vMenuHandDisp;
+		private UiMenuHand vUiMenuHand;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -39,8 +40,8 @@ namespace HandMenu {
 			////
 			 
 			var renderers = new Renderers {
-				PointParent = Renderers.GetType(PointParentRenderer, typeof(DemoPointRenderer)),
-				PointSelection = Renderers.GetType(PointSelectionRenderer, typeof(DemoPointRenderer)),
+				PointParent = Renderers.GetType(PointParentRenderer, typeof(UiPointRenderer)),
+				PointSelection = Renderers.GetType(PointSelectionRenderer, typeof(UiPointRenderer)),
 			};
 
 			renderers.Verify();
@@ -53,8 +54,8 @@ namespace HandMenu {
 			menuHandObj.transform.localRotation = Quaternion.identity;
 			menuHandObj.transform.localScale = Vector3.one;
 
-			vMenuHandDisp = menuHandObj.AddComponent<MenuHandDisplay>();
-			vMenuHandDisp.Build(vMenuState.MenuHand, renderers);
+			vUiMenuHand = menuHandObj.AddComponent<UiMenuHand>();
+			vUiMenuHand.Build(vMenuState.MenuHand, renderers);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
