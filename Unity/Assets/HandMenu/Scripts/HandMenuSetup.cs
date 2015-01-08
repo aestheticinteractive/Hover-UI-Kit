@@ -48,7 +48,7 @@ namespace HandMenu {
 
 			////
 
-			var menuHandObj = new GameObject("MenuHandDisplay");
+			var menuHandObj = new GameObject("MenuHand");
 			menuHandObj.transform.parent = handControlObj.transform;
 			menuHandObj.transform.localPosition = Vector3.zero;
 			menuHandObj.transform.localRotation = Quaternion.identity;
