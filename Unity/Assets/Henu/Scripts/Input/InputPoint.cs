@@ -46,12 +46,12 @@ namespace Henu.Input {
 				return null;
 			}
 
-			var data = new InputPoint();
-			data.Position = Vector3.Slerp(pPoint0.Position, pPoint1.Position, pAmount);
-			data.Direction = Vector3.Slerp(pPoint0.Direction, pPoint1.Direction, pAmount);
-			data.Rotation = Quaternion.Slerp(pPoint0.Rotation, pPoint1.Rotation, pAmount);
-			data.Extension = pPoint0.Extension*(1-pAmount) + pPoint1.Extension*pAmount;
-			return data;
+			var point = new InputPoint();
+			point.Position = Vector3.Slerp(pPoint0.Position, pPoint1.Position, pAmount);
+			point.Direction = Vector3.Slerp(pPoint0.Direction, pPoint1.Direction, pAmount);
+			point.Rotation = Quaternion.Slerp(pPoint0.Rotation, pPoint1.Rotation, pAmount);
+			point.Extension = pPoint0.Extension*(1-pAmount) + pPoint1.Extension*pAmount;
+			return point;
 		}
 
 	}

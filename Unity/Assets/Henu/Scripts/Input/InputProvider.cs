@@ -22,10 +22,10 @@ namespace Henu.Input {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void UpdateWithFrame(Frame pFrame) {
-			Frame = (pFrame.IsValid ? pFrame : null);
-			vInputHandProvL.UpdateWithHand(GetHand(true));
-			vInputHandProvR.UpdateWithHand(GetHand(false));
+		public void UpdateWithLeapFrame(Frame pLeapFrame) {
+			Frame = (pLeapFrame.IsValid ? pLeapFrame : null);
+			vInputHandProvL.UpdateWithLeapHand(GetHand(true));
+			vInputHandProvR.UpdateWithLeapHand(GetHand(false));
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

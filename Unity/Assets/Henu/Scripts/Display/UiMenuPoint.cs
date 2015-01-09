@@ -8,8 +8,8 @@ namespace Henu.Display {
 	/*================================================================================================*/
 	public class UiMenuPoint : MonoBehaviour {
 
-		public static float DataChangeMilliseconds = 1000;
-		public static float DataChangeDistance = 0.08f;
+		public static float ItemChangeMilliseconds = 1000;
+		public static float ItemChangeDistance = 0.08f;
 
 		private MenuHandState vHand;
 		private MenuPointState vPoint;
@@ -50,7 +50,7 @@ namespace Henu.Display {
 				tx.localRotation *= Quaternion.FromToRotation(Vector3.left, Vector3.right);
 			}
 
-			UpdateChangeAnimation();
+			UpdateItemChangeAnim();
 		}
 
 
@@ -78,7 +78,7 @@ namespace Henu.Display {
 
 			vChangeTime = DateTime.UtcNow;
 			vChangeDir = pDirection;
-			UpdateChangeAnimation();
+			UpdateItemChangeAnim();
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
@@ -130,15 +130,15 @@ namespace Henu.Display {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateChangeAnimation() {
+		private void UpdateItemChangeAnim() {
 			if ( vChangeTime == null ) {
 				return;
 			}
 
 			float ms = (float)(DateTime.UtcNow-(DateTime)vChangeTime).TotalMilliseconds;
-			float prog = Math.Min(1, ms/DataChangeMilliseconds);
+			float prog = Math.Min(1, ms/ItemChangeMilliseconds);
 			float push = 1-(float)Math.Pow(1-prog, 3);
-			float dist = -DataChangeDistance*vChangeDir;
+			float dist = -ItemChangeDistance*vChangeDir;
 
 			if ( vPrevRenderer != null ) {
 				vPrevRenderer.HandleChangeAnimation(false, vChangeDir, prog);

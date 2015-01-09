@@ -53,11 +53,11 @@ namespace Henu.Input {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void UpdateWithHand(Hand pLeapHand) {
+		public void UpdateWithLeapHand(Hand pLeapHand) {
 			Hand = (pLeapHand == null ? null : new InputHand(pLeapHand));
 
 			foreach ( InputPointProvider pointProv in vPointProvMap.Values ) {
-				pointProv.UpdateWithHand(pLeapHand);
+				pointProv.UpdateWithLeapHand(pLeapHand);
 			}
 		}
 		

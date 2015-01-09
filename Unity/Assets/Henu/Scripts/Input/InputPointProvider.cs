@@ -28,17 +28,17 @@ namespace Henu.Input {
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void UpdateWithHand(Hand pLeapHand) {
+		public void UpdateWithLeapHand(Hand pLeapHand) {
 			if ( pLeapHand == null ) {
 				Point = null;
 				return;
 			}
 
-			InputPoint point0 = GetPointData(pLeapHand, vFingerType0);
+			InputPoint point0 = GetPoint(pLeapHand, vFingerType0);
 			Point = point0;
 
 			if ( vFingerType1 != null ) {
-				InputPoint point1 = GetPointData(pLeapHand, (Finger.FingerType)vFingerType1);
+				InputPoint point1 = GetPoint(pLeapHand, (Finger.FingerType)vFingerType1);
 				Point = InputPoint.Lerp(point0, point1, 0.5f);
 			}
 		}
@@ -46,7 +46,7 @@ namespace Henu.Input {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private static InputPoint GetPointData(Hand pLeapHand, Finger.FingerType pType) {
+		private static InputPoint GetPoint(Hand pLeapHand, Finger.FingerType pType) {
 			Finger finger = pLeapHand.Fingers.FingerType(pType).FirstOrDefault(f => f.IsValid);
 			return (finger == null ? null : new InputPoint(pLeapHand, finger));
 		}

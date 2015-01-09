@@ -62,7 +62,7 @@ namespace Henu {
 				OVRManager.capiHmd.DismissHSWDisplay();
 			}
 
-			vInputProv.UpdateWithFrame(vHandControl.GetLeapController().Frame());
+			vInputProv.UpdateWithLeapFrame(vHandControl.GetLeapController().Frame());
 			vMenuState.UpdateAfterInput();
 		}
 		
