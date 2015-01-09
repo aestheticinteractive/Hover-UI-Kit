@@ -43,20 +43,23 @@ namespace HandMenu.Demo {
 				vCubes[i] = cube;
 			}
 
-			DemoData data = DemoNavDelegate.Data;
+			////
+
+			DemoNavDelegate navDel = DemoNavComponent.NavDelegate;
+			DemoNavItems navItems = navDel.Items;
 
 			vColorMap = new Dictionary<int, Color> {
-				{ data.ColorWhite.Id,	Color.white },
-				{ data.ColorRed.Id,		Color.red },
-				{ data.ColorOrange.Id,	new Color(1, 0.6f, 0) },
-				{ data.ColorYellow.Id,	Color.yellow },
-				{ data.ColorGreen.Id,	Color.green },
-				{ data.ColorBlue.Id,	Color.blue },
-				{ data.ColorPurple.Id,	new Color(0.8f, 0, 1f) }
+				{ navItems.ColorWhite.Id,	Color.white },
+				{ navItems.ColorRed.Id,		Color.red },
+				{ navItems.ColorOrange.Id,	new Color(1, 0.6f, 0) },
+				{ navItems.ColorYellow.Id,	Color.yellow },
+				{ navItems.ColorGreen.Id,	Color.green },
+				{ navItems.ColorBlue.Id,	Color.blue },
+				{ navItems.ColorPurple.Id,	new Color(0.8f, 0, 1f) }
 			};
 
-			data.OnColorChange += HandleColorChange;
-			HandleColorChange(data.ColorWhite);
+			navDel.OnColorChange += HandleColorChange;
+			HandleColorChange(navItems.ColorWhite);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

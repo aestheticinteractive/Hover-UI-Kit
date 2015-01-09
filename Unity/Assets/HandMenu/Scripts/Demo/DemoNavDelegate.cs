@@ -3,15 +3,43 @@
 namespace HandMenu.Demo {
 
 	/*================================================================================================*/
-	public class DemoNavDelegate : HandMenuNavDelegate {
+	public class DemoNavDelegate : INavDelegate {
 
-		public static DemoData Data = new DemoData();
+		public delegate void ColorChangeHandler(NavItemData pItem);
+		public event ColorChangeHandler OnColorChange;
+
+		public DemoNavItems Items { get; private set; }
+
+		private readonly NavItemData[] vTopLevelItems;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public override INavDelegate GetNavDelegate() {
-			return Data;
+		public DemoNavDelegate() {
+			Items = new DemoNavItems();
+			vTopLevelItems = new[] { Items.Colors };
+
+			OnColorChange += (i => {});
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public NavItemData[] GetTopLevelItems() {
+			return vTopLevelItems;
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public void HandleItemSelection(NavItemData pItemData) {
+			if ( Items.IsItemWithin(pItemData, Items.Colors) ) {
+				OnColorChange(pItemData);
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void HandleLevelChange(NavItemData[] pItemDataList, int pDirection) {
 		}
 
 	}

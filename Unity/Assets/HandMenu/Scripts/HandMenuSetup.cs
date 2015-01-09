@@ -13,7 +13,7 @@ namespace HandMenu {
 	public class HandMenuSetup : MonoBehaviour {
 
 		public bool LeftHandMenu = true;
-		public HandMenuNavDelegate Delegate;
+		public HandMenuNavComponent NavDelegateProvider;
 		public Component PointParentRenderer;
 		public Component PointSelectionRenderer;
 		public Component PointCheckboxRenderer;
@@ -39,11 +39,11 @@ namespace HandMenu {
 			vNavProv = new NavigationProvider();
 			vMenuState = new MenuState(vInputProv, vNavProv, LeftHandMenu);
 
-			if ( Delegate == null ) {
+			if ( NavDelegateProvider == null ) {
 				throw new Exception("No menu delegate was provided!");
 			}
 
-			vNavProv.Init(Delegate.GetNavDelegate());
+			vNavProv.Init(NavDelegateProvider.GetNavDelegate());
 
 			////
 

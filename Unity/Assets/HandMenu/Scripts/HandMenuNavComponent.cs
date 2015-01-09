@@ -4,7 +4,7 @@ using UnityEngine;
 namespace HandMenu {
 
 	/*================================================================================================*/
-	public class HandMenuNavDelegate : MonoBehaviour {
+	public class HandMenuNavComponent : MonoBehaviour {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
