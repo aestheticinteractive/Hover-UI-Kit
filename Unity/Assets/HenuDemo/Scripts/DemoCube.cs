@@ -10,7 +10,7 @@ namespace HenuDemo {
 
 		public Vector3 SpinAxis;
 		public float SpinSpeed;
-		public float SpinInitPos;
+		public Quaternion SpinInitRot;
 
 		public float BobSpeed;
 		public float BobInitPos;

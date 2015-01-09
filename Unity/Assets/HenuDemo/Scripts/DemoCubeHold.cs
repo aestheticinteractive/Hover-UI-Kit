@@ -7,7 +7,7 @@ namespace HenuDemo {
 
 		public Vector3 OrbitAxis;
 		public float OrbitSpeed;
-		public float OrbitInitPos;
+		public Quaternion OrbitInitRot;
 
 	}
 

@@ -8,7 +8,7 @@ namespace HenuDemo {
 	/*================================================================================================*/
 	public class DemoEnvironment : MonoBehaviour {
 
-		private const int Count = 200;
+		private const int Count = 400;
 
 		private GameObject[] vHolds;
 		private GameObject[] vCubes;
@@ -83,14 +83,18 @@ namespace HenuDemo {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void BuildCube(int pIndex) {
+			float radius = RandomFloat(4, 10);
+			float radiusPercent = (radius-4)/6f;
+			float orbitSpeed = (float)Math.Pow(1-radiusPercent, 2)*0.2f + 0.8f;
+
 			var hold = new GameObject("Hold"+pIndex);
 			hold.transform.parent = gameObject.transform;
 			vHolds[pIndex] = hold;
 
 			DemoCubeHold holdData = hold.AddComponent<DemoCubeHold>();
 			holdData.OrbitAxis = RandomUnitVector();
-			holdData.OrbitSpeed = RandomFloat(0.5f, 1, 2);
-			holdData.OrbitInitPos = RandomFloat(0, 360);
+			holdData.OrbitSpeed = RandomFloat(0.7f, 1, 2)*orbitSpeed;
+			holdData.OrbitInitRot = UnityEngine.Random.rotationUniform;
 
 			////
 
@@ -105,11 +109,11 @@ namespace HenuDemo {
 			cubeData.ColorDark = RandomUnitColor(0.1f, 0.5f);
 			cubeData.SpinAxis = RandomUnitVector();
 			cubeData.SpinSpeed = RandomFloat(0.5f, 1, 2);
-			cubeData.SpinInitPos = RandomFloat(0, 360);
+			cubeData.SpinInitRot = UnityEngine.Random.rotationUniform;
 			cubeData.BobSpeed = RandomFloat(0.5f, 1, 2);
 			cubeData.BobInitPos = RandomFloat(-1, 1);
-			cubeData.BobRadiusMin = 4;
-			cubeData.BobRadiusMax = 6;
+			cubeData.BobRadiusMin = radius;
+			cubeData.BobRadiusMax = cubeData.BobRadiusMin+3;
 			cubeData.GrowSpeed = RandomFloat(0.5f, 1, 2);
 			cubeData.GrowInitPos = RandomFloat(-1, 1);
 			cubeData.GrowScaleMin = RandomUnitVector(0.4f)*0.6f;
@@ -123,11 +127,13 @@ namespace HenuDemo {
 			DemoCubeHold holdData = hold.GetComponent<DemoCubeHold>();
 			DemoCube cubeData = cube.GetComponent<DemoCube>();
 
-			float orbitAngle = holdData.OrbitInitPos+vOrbitMotion.Position*holdData.OrbitSpeed;
-			hold.transform.localRotation = Quaternion.AngleAxis(orbitAngle, holdData.OrbitAxis);
+			float orbitAngle = vOrbitMotion.Position*holdData.OrbitSpeed;
+			hold.transform.localRotation = holdData.OrbitInitRot*
+				Quaternion.AngleAxis(orbitAngle, holdData.OrbitAxis);
 
-			float spinAngle = cubeData.SpinInitPos+vSpinMotion.Position*cubeData.SpinSpeed;
-			cube.transform.localRotation = Quaternion.AngleAxis(spinAngle, cubeData.SpinAxis);
+			float spinAngle = vSpinMotion.Position*cubeData.SpinSpeed;
+			cube.transform.localRotation = cubeData.SpinInitRot*
+				Quaternion.AngleAxis(spinAngle, cubeData.SpinAxis);
 
 			float bobPos = cubeData.BobInitPos+vBobMotion.Position*cubeData.BobSpeed;
 			bobPos = (float)Math.Sin(bobPos*Math.PI)/2f + 0.5f;
