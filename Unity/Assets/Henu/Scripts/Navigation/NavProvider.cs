@@ -12,7 +12,7 @@ namespace Henu.Navigation {
 
 		public event LevelChangeHandler OnLevelChange;
 
-		private readonly IDictionary<InputPointData.PointZone, NavItemProvider> vItemProvMap;
+		private readonly IDictionary<InputPointZone, NavItemProvider> vItemProvMap;
 		private readonly Stack<NavItemData[]> vHistory;
 		private INavDelegate vDelgate;
 
@@ -20,10 +20,10 @@ namespace Henu.Navigation {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public NavigationProvider() {
-			vItemProvMap = new Dictionary<InputPointData.PointZone, NavItemProvider>();
+			vItemProvMap = new Dictionary<InputPointZone, NavItemProvider>();
 			vHistory = new Stack<NavItemData[]>();
 
-			foreach ( InputPointData.PointZone zone in MenuHandState.PointZones ) {
+			foreach ( InputPointZone zone in MenuHandState.PointZones ) {
 				var itemProv = new NavItemProvider(zone);
 				itemProv.OnSelection += HandleItemSelection;
 				vItemProvMap.Add(zone, itemProv);
@@ -42,7 +42,7 @@ namespace Henu.Navigation {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public NavItemProvider GetItemProvider(InputPointData.PointZone pZone) {
+		public NavItemProvider GetItemProvider(InputPointZone pZone) {
 			return vItemProvMap[pZone];
 		}
 

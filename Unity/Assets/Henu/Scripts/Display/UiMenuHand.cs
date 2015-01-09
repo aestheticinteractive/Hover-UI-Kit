@@ -19,7 +19,7 @@ namespace Henu.Display {
 
 			vUiPoints = new List<UiMenuPoint>();
 
-			foreach ( InputPointData.PointZone zone in MenuHandState.PointZones ) {
+			foreach ( InputPointZone zone in MenuHandState.PointZones ) {
 				var pointObj = new GameObject("Point-"+zone);
 				pointObj.transform.parent = gameObject.transform;
 

@@ -11,13 +11,13 @@ namespace Henu.Navigation {
 		public event DataChangeHandler OnDataChange;
 		public event SelectionHandler OnSelection;
 
-		public InputPointData.PointZone Zone { get; private set; }
+		public InputPointZone Zone { get; private set; }
 		public NavItemData Data { get; private set; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public NavItemProvider(InputPointData.PointZone pZone) {
+		public NavItemProvider(InputPointZone pZone) {
 			Zone = pZone;
 			OnSelection += (p => {});
 			OnDataChange += (d => {});

@@ -16,7 +16,7 @@ namespace Henu.State {
 
 		public event DataChangeHandler OnDataChange;
 
-		public InputPointData.PointZone Zone { get; set; }
+		public InputPointZone Zone { get; set; }
 		public Vector3 Position { get; private set; }
 		public Vector3 Direction { get; private set; }
 		public Quaternion Rotation { get; private set; }
@@ -36,7 +36,7 @@ namespace Henu.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public MenuPointState(InputPointData.PointZone pZone, InputPointProvider pInputPointProv,
+		public MenuPointState(InputPointZone pZone, InputPointProvider pInputPointProv,
 																		NavItemProvider pNavItemProv) {
 			Zone = pZone;
 			vInputPointProv = pInputPointProv;
@@ -77,13 +77,13 @@ namespace Henu.State {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateAfterInput() {
-			InputPointData data = vInputPointProv.Data;
+			InputPoint inputPoint = vInputPointProv.Point;
 
-			if ( data == null ) {
+			if ( inputPoint == null ) {
 				Reset();
 			}
 			else {
-				UpdateWithData(data);
+				UpdateWithData(inputPoint);
 			}
 		}
 
@@ -157,13 +157,13 @@ namespace Henu.State {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateWithData(InputPointData pData) {
+		private void UpdateWithData(InputPoint pInputPoint) {
 			vIsActive = true;
 
-			Position = pData.Position;
-			Direction = pData.Direction;
-			Rotation = pData.Rotation;
-			Strength = pData.Extension;
+			Position = pInputPoint.Position;
+			Direction = pInputPoint.Direction;
+			Rotation = pInputPoint.Rotation;
+			Strength = pInputPoint.Extension;
 
 			CalcHighlightPosition();
 		}

@@ -22,9 +22,9 @@ namespace Henu.State {
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateAfterInput() {
 			InputPointProvider pointProv = 
-				vInputHandProv.GetPointProvider(InputPointData.PointZone.Index);
+				vInputHandProv.GetPointProvider(InputPointZone.Index);
 
-			CursorPosition = (pointProv.Data == null ? (Vector3?)null : pointProv.Data.Position);
+			CursorPosition = (pointProv.Point == null ? (Vector3?)null : pointProv.Point.Position);
 		}
 
 	}

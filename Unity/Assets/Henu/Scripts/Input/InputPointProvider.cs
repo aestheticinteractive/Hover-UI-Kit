@@ -6,7 +6,7 @@ namespace Henu.Input {
 	/*================================================================================================*/
 	public class InputPointProvider {
 
-		public InputPointData Data { get; private set; }
+		public InputPoint Point { get; private set; }
 
 		private readonly Finger.FingerType vFingerType0;
 		private readonly Finger.FingerType? vFingerType1;
@@ -28,27 +28,27 @@ namespace Henu.Input {
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void UpdateWithHand(Hand pHand) {
-			if ( pHand == null ) {
-				Data = null;
+		public void UpdateWithHand(Hand pLeapHand) {
+			if ( pLeapHand == null ) {
+				Point = null;
 				return;
 			}
 
-			InputPointData point0 = GetPointData(pHand, vFingerType0);
-			Data = point0;
+			InputPoint point0 = GetPointData(pLeapHand, vFingerType0);
+			Point = point0;
 
 			if ( vFingerType1 != null ) {
-				InputPointData point1 = GetPointData(pHand, (Finger.FingerType)vFingerType1);
-				Data = InputPointData.Lerp(point0, point1, 0.5f);
+				InputPoint point1 = GetPointData(pLeapHand, (Finger.FingerType)vFingerType1);
+				Point = InputPoint.Lerp(point0, point1, 0.5f);
 			}
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private static InputPointData GetPointData(Hand pHand, Finger.FingerType pType) {
-			Finger finger = pHand.Fingers.FingerType(pType).FirstOrDefault(f => f.IsValid);
-			return (finger == null ? null : new InputPointData(pHand, finger));
+		private static InputPoint GetPointData(Hand pLeapHand, Finger.FingerType pType) {
+			Finger finger = pLeapHand.Fingers.FingerType(pType).FirstOrDefault(f => f.IsValid);
+			return (finger == null ? null : new InputPoint(pLeapHand, finger));
 		}
 
 	}

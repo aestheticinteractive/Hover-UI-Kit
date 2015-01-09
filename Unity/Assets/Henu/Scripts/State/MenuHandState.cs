@@ -9,15 +9,15 @@ namespace Henu.State {
 	/*================================================================================================*/
 	public class MenuHandState {
 
-		public static readonly List<InputPointData.PointZone> PointZones = 
-			new List<InputPointData.PointZone> {
-				InputPointData.PointZone.Index,
-				InputPointData.PointZone.IndexMiddle,
-				InputPointData.PointZone.Middle,
-				InputPointData.PointZone.MiddleRing,
-				InputPointData.PointZone.Ring,
-				InputPointData.PointZone.RingPinky,
-				InputPointData.PointZone.Pinky
+		public static readonly List<InputPointZone> PointZones = 
+			new List<InputPointZone> {
+				InputPointZone.Index,
+				InputPointZone.IndexMiddle,
+				InputPointZone.Middle,
+				InputPointZone.MiddleRing,
+				InputPointZone.Ring,
+				InputPointZone.RingPinky,
+				InputPointZone.Pinky
 			};
 
 		public delegate void LevelChangeHandler(int pDirection);
@@ -33,7 +33,7 @@ namespace Henu.State {
 
 		private readonly InputHandProvider vInputHandProv;
 		private readonly NavigationProvider vNavProv;
-		private readonly IDictionary<InputPointData.PointZone, MenuPointState> vPointStateMap;
+		private readonly IDictionary<InputPointZone, MenuPointState> vPointStateMap;
 		private bool vIsGrabbing;
 
 
@@ -42,9 +42,9 @@ namespace Henu.State {
 		public MenuHandState(InputHandProvider pInputHandProv, NavigationProvider pNavProv) {
 			vInputHandProv = pInputHandProv;
 			vNavProv = pNavProv;
-			vPointStateMap = new Dictionary<InputPointData.PointZone, MenuPointState>();
+			vPointStateMap = new Dictionary<InputPointZone, MenuPointState>();
 
-			foreach ( InputPointData.PointZone zone in PointZones ) {
+			foreach ( InputPointZone zone in PointZones ) {
 				var pointState = new MenuPointState(zone, 
 					vInputHandProv.GetPointProvider(zone), vNavProv.GetItemProvider(zone));
 				vPointStateMap.Add(zone, pointState);
@@ -100,7 +100,7 @@ namespace Henu.State {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public MenuPointState GetPointState(InputPointData.PointZone pZone) {
+		public MenuPointState GetPointState(InputPointZone pZone) {
 			return vPointStateMap[pZone];
 		}
 
