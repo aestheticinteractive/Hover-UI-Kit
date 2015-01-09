@@ -6,13 +6,13 @@
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		NavItemData[] GetTopLevelItems();
+		NavItem[] GetTopLevelItems();
 
 		/*--------------------------------------------------------------------------------------------*/
-		void HandleItemSelection(NavItemData pItemData);
+		void HandleItemSelection(NavItem pItem);
 
 		/*--------------------------------------------------------------------------------------------*/
-		void HandleLevelChange(NavItemData[] pItemDataList, int pDirection);
+		void HandleLevelChange(NavItem[] pItemList, int pDirection);
 
 	}
 

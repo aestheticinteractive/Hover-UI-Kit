@@ -5,12 +5,12 @@ namespace HenuDemo {
 	/*================================================================================================*/
 	public class DemoNavDelegate : INavDelegate {
 
-		public delegate void ColorChangeHandler(NavItemData pItem);
+		public delegate void ColorChangeHandler(NavItem pItem);
 		public event ColorChangeHandler OnColorChange;
 
 		public DemoNavItems Items { get; private set; }
 
-		private readonly NavItemData[] vTopLevelItems;
+		private readonly NavItem[] vTopLevelItems;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -25,21 +25,21 @@ namespace HenuDemo {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public NavItemData[] GetTopLevelItems() {
+		public NavItem[] GetTopLevelItems() {
 			return vTopLevelItems;
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void HandleItemSelection(NavItemData pItemData) {
-			if ( Items.IsItemWithin(pItemData, Items.Colors) ) {
-				OnColorChange(pItemData);
+		public void HandleItemSelection(NavItem pItem) {
+			if ( Items.IsItemWithin(pItem, Items.Colors) ) {
+				OnColorChange(pItem);
 			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void HandleLevelChange(NavItemData[] pItemDataList, int pDirection) {
+		public void HandleLevelChange(NavItem[] pItemList, int pDirection) {
 		}
 
 	}

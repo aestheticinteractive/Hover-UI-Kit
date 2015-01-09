@@ -69,7 +69,7 @@ namespace HenuDemo {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void HandleColorChange(NavItemData pItem) {
+		private void HandleColorChange(NavItem pItem) {
 			vCubeMat.color = vColorMap[pItem.Id];
 		}
 

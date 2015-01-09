@@ -68,7 +68,7 @@ namespace Henu.Display.Default {
 
 			vOuter.renderer.sharedMaterial.color = new Color(1, 1, 1, alpha*vOverallAlpha);
 			vInner.renderer.sharedMaterial.color = new Color(1, 1, 1, alpha*vOverallAlpha);
-			vInner.renderer.enabled = vPoint.Data.Selected;
+			vInner.renderer.enabled = vPoint.NavItem.Selected;
 		}
 
 	}

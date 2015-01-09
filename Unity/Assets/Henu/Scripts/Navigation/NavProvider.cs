@@ -13,7 +13,7 @@ namespace Henu.Navigation {
 		public event LevelChangeHandler OnLevelChange;
 
 		private readonly IDictionary<InputPointZone, NavItemProvider> vItemProvMap;
-		private readonly Stack<NavItemData[]> vHistory;
+		private readonly Stack<NavItem[]> vHistory;
 		private INavDelegate vDelgate;
 
 
@@ -21,7 +21,7 @@ namespace Henu.Navigation {
 		/*--------------------------------------------------------------------------------------------*/
 		public NavigationProvider() {
 			vItemProvMap = new Dictionary<InputPointZone, NavItemProvider>();
-			vHistory = new Stack<NavItemData[]>();
+			vHistory = new Stack<NavItem[]>();
 
 			foreach ( InputPointZone zone in MenuHandState.PointZones ) {
 				var itemProv = new NavItemProvider(zone);
@@ -59,28 +59,28 @@ namespace Henu.Navigation {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleItemSelection(NavItemProvider pNavItemProvider) {
-			NavItemData itemData = pNavItemProvider.Data;
+			NavItem item = pNavItemProvider.Item;
 
-			if ( itemData == null ) {
+			if ( item == null ) {
 				return;
 			}
 
-			switch ( itemData.Type ) {
-				case NavItemData.ItemType.Parent:
+			switch ( item.Type ) {
+				case NavItem.ItemType.Parent:
 					PushCurrentItemsToHistory();
-					vDelgate.HandleItemSelection(itemData);
-					SetNewItems(itemData.Children, 1);
+					vDelgate.HandleItemSelection(item);
+					SetNewItems(item.Children, 1);
 					return;
 
-				case NavItemData.ItemType.Selection:
-				case NavItemData.ItemType.Checkbox:
-					itemData.Selected = !itemData.Selected;
-					vDelgate.HandleItemSelection(itemData);
+				case NavItem.ItemType.Selection:
+				case NavItem.ItemType.Checkbox:
+					item.Selected = !item.Selected;
+					vDelgate.HandleItemSelection(item);
 					return;
 
-				case NavItemData.ItemType.Radio:
-					SetRadioSelection(itemData);
-					vDelgate.HandleItemSelection(itemData);
+				case NavItem.ItemType.Radio:
+					SetRadioSelection(item);
+					vDelgate.HandleItemSelection(item);
 					return;
 			}
 
@@ -88,37 +88,37 @@ namespace Henu.Navigation {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void PushCurrentItemsToHistory() {
-			NavItemData[] items = vItemProvMap.Values.Select(itemProv => itemProv.Data).ToArray();
+			NavItem[] items = vItemProvMap.Values.Select(itemProv => itemProv.Item).ToArray();
 			vHistory.Push(items);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void SetNewItems(NavItemData[] pItems, int pDirection) {
+		private void SetNewItems(NavItem[] pItems, int pDirection) {
 			NavItemProvider[] itemProvs = vItemProvMap.Values.ToArray();
-			var itemDataList = new List<NavItemData>();
+			var items = new List<NavItem>();
 
 			for ( int i = 0 ; i < itemProvs.Length ; ++i ) {
 				NavItemProvider itemProv = itemProvs[i];
-				NavItemData itemData = (pItems == null || i >= pItems.Length ? null : pItems[i]);
-				itemProv.UpdateWithData(itemData, pDirection);
+				NavItem item = (pItems == null || i >= pItems.Length ? null : pItems[i]);
+				itemProv.UpdateWithItem(item, pDirection);
 
-				if ( itemData != null ) {
-					itemDataList.Add(itemData);
+				if ( item != null ) {
+					items.Add(item);
 				}
 			}
 
 			OnLevelChange(pDirection);
-			vDelgate.HandleLevelChange(itemDataList.ToArray(), pDirection);
+			vDelgate.HandleLevelChange(items.ToArray(), pDirection);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void SetRadioSelection(NavItemData pSelectedItemData) {
+		private void SetRadioSelection(NavItem pSelectedItem) {
 			foreach ( NavItemProvider itemProv in vItemProvMap.Values ) {
-				if ( itemProv.Data.Type != NavItemData.ItemType.Radio ) {
+				if ( itemProv.Item.Type != NavItem.ItemType.Radio ) {
 					continue;
 				}
 
-				itemProv.Data.Selected = (itemProv.Data == pSelectedItemData);
+				itemProv.Item.Selected = (itemProv.Item == pSelectedItem);
 			}
 		}
 

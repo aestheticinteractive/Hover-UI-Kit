@@ -3,7 +3,7 @@
 namespace Henu.Navigation {
 
 	/*================================================================================================*/
-	public class NavItemData {
+	public class NavItem {
 
 		public enum ItemType {
 			Parent,
@@ -17,14 +17,14 @@ namespace Henu.Navigation {
 		public int Id { get; private set; }
 		public string Label { get; private set; }
 		public ItemType Type { get; private set; }
-		public NavItemData[] Children { get; private set; }
+		public NavItem[] Children { get; private set; }
 
 		public bool Selected { get; set; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public NavItemData(ItemType pType, string pLabel) {
+		public NavItem(ItemType pType, string pLabel) {
 			Id = (++ItemCount);
 			Type = pType;
 			Label = pLabel;
@@ -32,7 +32,7 @@ namespace Henu.Navigation {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void SetChildren(NavItemData[] pChildren) {
+		public void SetChildren(NavItem[] pChildren) {
 			if ( Children != null ) {
 				throw new Exception("Children already set.");
 			}

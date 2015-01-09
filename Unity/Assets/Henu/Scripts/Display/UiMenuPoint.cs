@@ -32,8 +32,8 @@ namespace Henu.Display {
 			vPoint = pPoint;
 			vRenderers = pRenderers;
 
-			vPoint.OnDataChange += HandleDataChange;
-			HandleDataChange(0);
+			vPoint.OnNavItemChange += HandleNavItemChange;
+			HandleNavItemChange(0);
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
@@ -63,12 +63,12 @@ namespace Henu.Display {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void HandleDataChange(int pDirection) {
+		private void HandleNavItemChange(int pDirection) {
 			DestroyPrevRenderer();
 			vPrevRendererObj = vCurrRendererObj;
 			vPrevRenderer = vCurrRenderer;
 
-			if ( vPoint.Data == null ) {
+			if ( vPoint.NavItem == null ) {
 				vCurrRendererObj = null;
 				vCurrRenderer = null;
 			}
@@ -101,16 +101,16 @@ namespace Henu.Display {
 
 			Type rendererType;
 
-			switch ( vPoint.Data.Type ) {
-				case NavItemData.ItemType.Parent:
+			switch ( vPoint.NavItem.Type ) {
+				case NavItem.ItemType.Parent:
 					rendererType = vRenderers.PointParent;
 					break;
 
-				case NavItemData.ItemType.Checkbox:
+				case NavItem.ItemType.Checkbox:
 					rendererType = vRenderers.PointCheckbox;
 					break;
 
-				case NavItemData.ItemType.Radio:
+				case NavItem.ItemType.Radio:
 					rendererType = vRenderers.PointRadio;
 					break;
 

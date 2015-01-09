@@ -133,7 +133,7 @@ namespace Henu.Display.Default {
 			vSelect.transform.localPosition = new Vector3(-0.5f+select/2f, 0, 0);
 			vSelect.renderer.sharedMaterial.color = new Color(0.1f, 1.0f, 0.2f, select*vOverallAlpha);
 
-			vTextObj.GetComponent<Text>().text = vPoint.Data.Label;
+			vTextObj.GetComponent<Text>().text = vPoint.NavItem.Label;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

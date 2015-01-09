@@ -5,14 +5,14 @@ namespace Henu.Navigation {
 	/*================================================================================================*/
 	public class NavItemProvider {
 
-		public delegate void DataChangeHandler(int pDirection);
+		public delegate void ItemChangeHandler(int pDirection);
 		public delegate void SelectionHandler(NavItemProvider pNavItemProvider);
 
-		public event DataChangeHandler OnDataChange;
+		public event ItemChangeHandler OnItemChange;
 		public event SelectionHandler OnSelection;
 
 		public InputPointZone Zone { get; private set; }
-		public NavItemData Data { get; private set; }
+		public NavItem Item { get; private set; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -20,7 +20,7 @@ namespace Henu.Navigation {
 		public NavItemProvider(InputPointZone pZone) {
 			Zone = pZone;
 			OnSelection += (p => {});
-			OnDataChange += (d => {});
+			OnItemChange += (d => {});
 		}
 
 
@@ -31,9 +31,9 @@ namespace Henu.Navigation {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void UpdateWithData(NavItemData pData, int pDirection) {
-			Data = pData;
-			OnDataChange(pDirection);
+		public void UpdateWithItem(NavItem pItem, int pDirection) {
+			Item = pItem;
+			OnItemChange(pDirection);
 		}
 
 	}

@@ -12,9 +12,9 @@ namespace Henu.State {
 		public static float HighlightDistanceMax = 0.12f;
 		public static float SelectionMilliseconds = 1000;
 
-		public delegate void DataChangeHandler(int pDirection);
+		public delegate void NavItemChangeHandler(int pDirection);
 
-		public event DataChangeHandler OnDataChange;
+		public event NavItemChangeHandler OnNavItemChange;
 
 		public InputPointZone Zone { get; set; }
 		public Vector3 Position { get; private set; }
@@ -42,21 +42,21 @@ namespace Henu.State {
 			vInputPointProv = pInputPointProv;
 			vNavItemProv = pNavItemProv;
 
-			OnDataChange = (d => {});
-			vNavItemProv.OnDataChange += (d => OnDataChange(d));
+			OnNavItemChange = (d => {});
+			vNavItemProv.OnItemChange += (d => OnNavItemChange(d));
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public bool IsActive {
 			get {
-				return (vIsActive && vNavItemProv.Data != null);
+				return (vIsActive && vNavItemProv.Item != null);
 			}
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		public NavItemData Data {
+		public NavItem NavItem {
 			get {
-				return vNavItemProv.Data;
+				return vNavItemProv.Item;
 			}
 		}
 
@@ -83,7 +83,7 @@ namespace Henu.State {
 				Reset();
 			}
 			else {
-				UpdateWithData(inputPoint);
+				UpdateWithInputPoint(inputPoint);
 			}
 		}
 
@@ -115,9 +115,9 @@ namespace Henu.State {
 				return;
 			}
 
-			NavItemData itemData = vNavItemProv.Data;
+			NavItem item = vNavItemProv.Item;
 
-			if ( itemData.Selected && itemData.Type == NavItemData.ItemType.Radio ) {
+			if ( item.Selected && item.Type == NavItem.ItemType.Radio ) {
 				vSelectionStart = null;
 				return;
 			}
@@ -157,7 +157,7 @@ namespace Henu.State {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateWithData(InputPoint pInputPoint) {
+		private void UpdateWithInputPoint(InputPoint pInputPoint) {
 			vIsActive = true;
 
 			Position = pInputPoint.Position;
