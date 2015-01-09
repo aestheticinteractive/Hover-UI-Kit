@@ -83,7 +83,6 @@ namespace Henu.Navigation {
 					vDelgate.HandleItemSelection(item);
 					return;
 			}
-
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -114,7 +113,7 @@ namespace Henu.Navigation {
 		/*--------------------------------------------------------------------------------------------*/
 		private void SetRadioSelection(NavItem pSelectedItem) {
 			foreach ( NavItemProvider itemProv in vItemProvMap.Values ) {
-				if ( itemProv.Item.Type != NavItem.ItemType.Radio ) {
+				if ( itemProv.Item == null || itemProv.Item.Type != NavItem.ItemType.Radio ) {
 					continue;
 				}
 

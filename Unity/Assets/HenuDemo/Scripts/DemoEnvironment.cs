@@ -12,6 +12,7 @@ namespace HenuDemo {
 
 		private GameObject[] vHolds;
 		private GameObject[] vCubes;
+		private Light vLight;
 		private System.Random vRandom;
 
 		private DemoMotion vOrbitMotion;
@@ -19,8 +20,13 @@ namespace HenuDemo {
 		private DemoMotion vBobMotion;
 		private DemoMotion vGrowMotion;
 
+		private DemoAnimVector3 vLightPosAnim;
+		private DemoAnimFloat vLightIntenAnim;
+
 		private IDictionary<int, Color> vColorMap;
 		private IDictionary<int, DemoMotion> vMotionMap;
+		private IDictionary<int, Vector3> vLightPosMap;
+		private IDictionary<int, float> vLightIntenMap;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -28,6 +34,7 @@ namespace HenuDemo {
 		public void Start() {
 			vHolds = new GameObject[Count];
 			vCubes = new GameObject[Count];
+			vLight = GameObject.Find("Light").GetComponent<Light>();
 			vRandom = new System.Random();
 
 			for ( int i = 0 ; i < Count ; ++i ) {
@@ -40,6 +47,9 @@ namespace HenuDemo {
 			vSpinMotion = new DemoMotion(45, 600);
 			vBobMotion = new DemoMotion(0.5f, 600);
 			vGrowMotion = new DemoMotion(0.5f, 600);
+
+			vLightPosAnim = new DemoAnimVector3(2000);
+			vLightIntenAnim = new DemoAnimFloat(600);
 
 			////
 
@@ -61,10 +71,27 @@ namespace HenuDemo {
 				{ navItems.MotionGrow.Id,	vGrowMotion }
 			};
 
+			vLightPosMap = new Dictionary<int, Vector3> {
+				{ navItems.LightPosHighest.Id,	new Vector3(0,  9, 0) },
+				{ navItems.LightPosHigh.Id,		new Vector3(0,  3, 0) },
+				{ navItems.LightPosLow.Id,		new Vector3(0, -3, 0) },
+				{ navItems.LightPosLowest.Id,	new Vector3(0, -9, 0) }
+			};
+
+			vLightIntenMap = new Dictionary<int, float> {
+				{ navItems.LightIntenHigh.Id,	1.4f },
+				{ navItems.LightIntenMed.Id,	0.8f },
+				{ navItems.LightIntenLow.Id,	0.2f }
+			};
+
 			navDel.OnColorChange += HandleColorChange;
 			navDel.OnMotionChange += HandleMotionChange;
+			navDel.OnLightPosChange += HandleLightPosChange;
+			navDel.OnLightIntenChange += HandleLightIntenChange;
 
 			HandleColorChange(navItems.ColorWhite);
+			HandleLightPosChange(navItems.LightPosHigh);
+			HandleLightIntenChange(navItems.LightIntenMed);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -77,6 +104,9 @@ namespace HenuDemo {
 			for ( int i = 0 ; i < Count ; ++i ) {
 				UpdateCube(i);
 			}
+
+			vLight.gameObject.transform.localPosition = vLightPosAnim.GetValue();
+			vLight.intensity = vLightIntenAnim.GetValue();
 		}
 
 
@@ -179,6 +209,16 @@ namespace HenuDemo {
 			vMotionMap[pItem.Id].Enable(pItem.Selected);
 		}
 
+		/*--------------------------------------------------------------------------------------------*/
+		private void HandleLightPosChange(NavItem pItem) {
+			vLightPosAnim.Start(vLight.gameObject.transform.localPosition, vLightPosMap[pItem.Id]);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void HandleLightIntenChange(NavItem pItem) {
+			vLightIntenAnim.Start(vLight.intensity, vLightIntenMap[pItem.Id]);
+		}
+		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -236,13 +276,13 @@ namespace HenuDemo {
 			return (float)Math.Pow(RandomFloat(pMin, pMax), pPow);
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
-		private static float ClampFloat(float pValue, float pMin, float pMax) {
+		/*--------------------------------------------------------------------------------------------* /
+		public static float ClampFloat(float pValue, float pMin, float pMax) {
 			return Math.Min(pMax, Math.Max(pMin, pValue));
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private static float LerpFloat(float pMin, float pMax, float pAmount) {
+		public static float LerpFloat(float pMin, float pMax, float pAmount) {
 			return (pMax-pMin)*pAmount + pMin;
 		}
 
