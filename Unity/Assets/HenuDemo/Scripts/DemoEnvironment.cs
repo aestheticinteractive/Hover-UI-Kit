@@ -10,38 +10,36 @@ namespace HenuDemo {
 
 		private const int Count = 200;
 
-		private Material vCubeMat;
 		private GameObject[] vHolds;
 		private GameObject[] vCubes;
-		private IDictionary<int, Color> vColorMap;
 		private System.Random vRandom;
+
+		private DemoMotion vOrbitMotion;
+		private DemoMotion vSpinMotion;
+		private DemoMotion vBobMotion;
+		private DemoMotion vGrowMotion;
+
+		private IDictionary<int, Color> vColorMap;
+		private IDictionary<int, DemoMotion> vMotionMap;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Start() {
-			vCubeMat = new Material(Shader.Find("Diffuse"));
 			vHolds = new GameObject[Count];
 			vCubes = new GameObject[Count];
 			vRandom = new System.Random();
 
 			for ( int i = 0 ; i < Count ; ++i ) {
-				float scaleAmt = (float)Math.Pow(RandomFloat(0.6f, 1.2f), 3);
-
-				var hold = new GameObject("Hold"+i);
-				hold.transform.parent = gameObject.transform;
-				hold.transform.localRotation = RandomQuaternion();
-				vHolds[i] = hold;
-
-				GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-				cube.name = "Cube"+i;
-				cube.renderer.sharedMaterial = vCubeMat;
-				cube.transform.parent = hold.transform;
-				cube.transform.localPosition = Vector3.up*3;
-				cube.transform.localRotation = RandomQuaternion();
-				cube.transform.localScale = RandomUnitVector(0.3f)*scaleAmt;
-				vCubes[i] = cube;
+				BuildCube(i);
 			}
+
+			////
+
+			vOrbitMotion = new DemoMotion(10, 600);
+			vSpinMotion = new DemoMotion(45, 600);
+			vBobMotion = new DemoMotion(0.5f, 600);
+			vGrowMotion = new DemoMotion(0.5f, 600);
 
 			////
 
@@ -51,26 +49,128 @@ namespace HenuDemo {
 			vColorMap = new Dictionary<int, Color> {
 				{ navItems.ColorWhite.Id,	Color.white },
 				{ navItems.ColorRed.Id,		Color.red },
-				{ navItems.ColorOrange.Id,	new Color(1, 0.6f, 0) },
 				{ navItems.ColorYellow.Id,	Color.yellow },
 				{ navItems.ColorGreen.Id,	Color.green },
-				{ navItems.ColorBlue.Id,	Color.blue },
-				{ navItems.ColorPurple.Id,	new Color(0.8f, 0, 1f) }
+				{ navItems.ColorBlue.Id,	Color.blue }
+			};
+
+			vMotionMap = new Dictionary<int, DemoMotion> {
+				{ navItems.MotionOrbit.Id,	vOrbitMotion },
+				{ navItems.MotionSpin.Id,	vSpinMotion },
+				{ navItems.MotionBob.Id,	vBobMotion },
+				{ navItems.MotionGrow.Id,	vGrowMotion }
 			};
 
 			navDel.OnColorChange += HandleColorChange;
+			navDel.OnMotionChange += HandleMotionChange;
+
 			HandleColorChange(navItems.ColorWhite);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
+			vOrbitMotion.Update();
+			vSpinMotion.Update();
+			vBobMotion.Update();
+			vGrowMotion.Update();
+
+			for ( int i = 0 ; i < Count ; ++i ) {
+				UpdateCube(i);
+			}
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private void BuildCube(int pIndex) {
+			var hold = new GameObject("Hold"+pIndex);
+			hold.transform.parent = gameObject.transform;
+			vHolds[pIndex] = hold;
+
+			DemoCubeHold holdData = hold.AddComponent<DemoCubeHold>();
+			holdData.OrbitAxis = RandomUnitVector();
+			holdData.OrbitSpeed = RandomFloat(0.5f, 1, 2);
+			holdData.OrbitInitPos = RandomFloat(0, 360);
+
+			////
+
+			GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+			cube.transform.parent = hold.transform;
+			cube.name = "Cube"+pIndex;
+			cube.renderer.sharedMaterial = new Material(Shader.Find("Diffuse"));
+			vCubes[pIndex] = cube;
+
+			DemoCube cubeData = cube.AddComponent<DemoCube>();
+			cubeData.ColorLight = RandomUnitColor(0.2f, 1);
+			cubeData.ColorDark = RandomUnitColor(0.1f, 0.5f);
+			cubeData.SpinAxis = RandomUnitVector();
+			cubeData.SpinSpeed = RandomFloat(0.5f, 1, 2);
+			cubeData.SpinInitPos = RandomFloat(0, 360);
+			cubeData.BobSpeed = RandomFloat(0.5f, 1, 2);
+			cubeData.BobInitPos = RandomFloat(-1, 1);
+			cubeData.BobRadiusMin = 4;
+			cubeData.BobRadiusMax = 6;
+			cubeData.GrowSpeed = RandomFloat(0.5f, 1, 2);
+			cubeData.GrowInitPos = RandomFloat(-1, 1);
+			cubeData.GrowScaleMin = RandomUnitVector(0.4f)*0.6f;
+			cubeData.GrowScaleMax = RandomUnitVector(0.4f)*1.2f;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateCube(int pIndex) {
+			GameObject hold = vHolds[pIndex];
+			GameObject cube = vCubes[pIndex];
+			DemoCubeHold holdData = hold.GetComponent<DemoCubeHold>();
+			DemoCube cubeData = cube.GetComponent<DemoCube>();
+
+			float orbitAngle = holdData.OrbitInitPos+vOrbitMotion.Position*holdData.OrbitSpeed;
+			hold.transform.localRotation = Quaternion.AngleAxis(orbitAngle, holdData.OrbitAxis);
+
+			float spinAngle = cubeData.SpinInitPos+vSpinMotion.Position*cubeData.SpinSpeed;
+			cube.transform.localRotation = Quaternion.AngleAxis(spinAngle, cubeData.SpinAxis);
+
+			float bobPos = cubeData.BobInitPos+vBobMotion.Position*cubeData.BobSpeed;
+			bobPos = (float)Math.Sin(bobPos*Math.PI)/2f + 0.5f;
+			bobPos = LerpFloat(cubeData.BobRadiusMin, cubeData.BobRadiusMax, bobPos);
+			cube.transform.localPosition = new Vector3(0, 0, bobPos);
+
+			float growPos = cubeData.GrowInitPos+vGrowMotion.Position*cubeData.GrowSpeed;
+			growPos = (float)Math.Sin(growPos*Math.PI)/2f + 0.5f;
+			cube.transform.localScale = 
+				Vector3.Lerp(cubeData.GrowScaleMin, cubeData.GrowScaleMax, growPos);
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleColorChange(NavItem pItem) {
-			vCubeMat.color = vColorMap[pItem.Id];
+			Color color = Color.white;
+			DemoNavItems items = DemoNavComponent.NavDelegate.Items;
+			bool isRandLt = (pItem == items.ColorRandLt);
+			bool isRandDk = (pItem == items.ColorRandDk);
+
+			if ( vColorMap.ContainsKey(pItem.Id) ) {
+				color = vColorMap[pItem.Id];
+			}
+
+			for ( int i = 0 ; i < Count ; ++i ) {
+				GameObject cube = vCubes[i];
+				DemoCube cubeData = cube.GetComponent<DemoCube>();
+
+				if ( isRandLt ) {
+					color = cubeData.ColorLight;
+				}
+				else if ( isRandDk ) {
+					color = cubeData.ColorDark;
+				}
+
+				cube.renderer.sharedMaterial.color = color;
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void HandleMotionChange(NavItem pItem) {
+			vMotionMap[pItem.Id].Enable(pItem.Selected);
 		}
 
 
@@ -85,6 +185,26 @@ namespace HenuDemo {
 
 			return v.normalized;
 		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private Color RandomUnitColor(float pMin, float pMax) {
+			int major = vRandom.Next()%3;
+			int minor = (major+(vRandom.Next()%2)+1)%3;
+
+			Func<int, float> getVal = (i => {
+				if ( i == major ) {
+					return pMax;
+				}
+
+				if ( i == minor ) {
+					return RandomFloat(pMin, pMax);
+				}
+
+				return RandomFloat(0, pMin);
+			});
+
+			return new Color(getVal(0), getVal(1), getVal(2));
+		}
 		
 		/*--------------------------------------------------------------------------------------------*/
 		private Vector3 RandomUnitVector(float pMinDimension) {
@@ -95,7 +215,7 @@ namespace HenuDemo {
 			return v.normalized;
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		private Quaternion RandomQuaternion() {
 			return Quaternion.AngleAxis((float)vRandom.NextDouble()*360, RandomUnitVector());
 		}
@@ -103,6 +223,21 @@ namespace HenuDemo {
 		/*--------------------------------------------------------------------------------------------*/
 		private float RandomFloat(float pMin, float pMax) {
 			return (float)vRandom.NextDouble()*(pMax-pMin) + pMin;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private float RandomFloat(float pMin, float pMax, float pPow) {
+			return (float)Math.Pow(RandomFloat(pMin, pMax), pPow);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private static float ClampFloat(float pValue, float pMin, float pMax) {
+			return Math.Min(pMax, Math.Max(pMin, pValue));
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private static float LerpFloat(float pMin, float pMax, float pAmount) {
+			return (pMax-pMin)*pAmount + pMin;
 		}
 
 	}

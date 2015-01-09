@@ -10,17 +10,24 @@ namespace HenuDemo {
 		public NavItem Colors { get; private set; }
 		public NavItem ColorWhite { get; private set; }
 		public NavItem ColorRed { get; private set; }
-		public NavItem ColorOrange { get; private set; }
 		public NavItem ColorYellow { get; private set; }
 		public NavItem ColorGreen { get; private set; }
 		public NavItem ColorBlue { get; private set; }
-		public NavItem ColorPurple { get; private set; }
+		public NavItem ColorRandLt { get; private set; }
+		public NavItem ColorRandDk { get; private set; }
+
+		public NavItem Motions { get; private set; }
+		public NavItem MotionOrbit { get; private set; }
+		public NavItem MotionSpin { get; private set; }
+		public NavItem MotionBob { get; private set; }
+		public NavItem MotionGrow { get; private set; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public DemoNavItems() {
 			BuildColors();
+			BuildMotions();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -36,18 +43,29 @@ namespace HenuDemo {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void BuildColors() {
-			Colors = new NavItem(NavItem.ItemType.Parent, "Color");
+			Colors = new NavItem(NavItem.ItemType.Parent, "Cube Color");
 			ColorWhite = new NavItem(NavItem.ItemType.Radio, "White");
 			ColorWhite.Selected = true;
 			ColorRed = new NavItem(NavItem.ItemType.Radio, "Red");
-			ColorOrange = new NavItem(NavItem.ItemType.Radio, "Orange");
 			ColorYellow = new NavItem(NavItem.ItemType.Radio, "Yellow");
 			ColorGreen = new NavItem(NavItem.ItemType.Radio, "Green");
 			ColorBlue = new NavItem(NavItem.ItemType.Radio, "Blue");
-			ColorPurple = new NavItem(NavItem.ItemType.Radio, "Purple");
+			ColorRandLt = new NavItem(NavItem.ItemType.Radio, "Random Light");
+			ColorRandDk = new NavItem(NavItem.ItemType.Radio, "Random Dark");
 
-			Colors.SetChildren(new[] { ColorWhite, ColorRed, ColorOrange, ColorYellow,
-				ColorGreen, ColorBlue, ColorPurple });
+			Colors.SetChildren(new[] { ColorWhite, ColorRed, ColorYellow, ColorGreen, ColorBlue,
+				ColorRandLt, ColorRandDk });
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void BuildMotions() {
+			Motions = new NavItem(NavItem.ItemType.Parent, "Cube Motion");
+			MotionOrbit = new NavItem(NavItem.ItemType.Checkbox, "Orbit");
+			MotionSpin = new NavItem(NavItem.ItemType.Checkbox, "Spin");
+			MotionBob = new NavItem(NavItem.ItemType.Checkbox, "Bob");
+			MotionGrow = new NavItem(NavItem.ItemType.Checkbox, "Grow");
+
+			Motions.SetChildren(new[] { MotionOrbit, MotionSpin, MotionBob, MotionGrow });
 		}
 
 	}

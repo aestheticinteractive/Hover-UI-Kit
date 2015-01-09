@@ -10,7 +10,7 @@ namespace Henu.State {
 
 		public static float HighlightDistanceMin = 0.025f;
 		public static float HighlightDistanceMax = 0.12f;
-		public static float SelectionMilliseconds = 1000;
+		public static float SelectionMilliseconds = 600;
 
 		public delegate void NavItemChangeHandler(int pDirection);
 
