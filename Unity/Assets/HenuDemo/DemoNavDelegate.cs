@@ -1,6 +1,6 @@
 ﻿using Henu.Navigation;
 
-namespace Henu.Demo {
+namespace HenuDemo {
 
 	/*================================================================================================*/
 	public class DemoNavDelegate : INavDelegate {

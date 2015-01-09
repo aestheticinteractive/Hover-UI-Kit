@@ -2,7 +2,7 @@
 using System.Linq;
 using Henu.Navigation;
 
-namespace Henu.Demo {
+namespace HenuDemo {
 
 	/*================================================================================================*/
 	public class DemoNavItems {

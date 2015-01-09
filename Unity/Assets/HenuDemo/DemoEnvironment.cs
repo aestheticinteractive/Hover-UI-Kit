@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Henu.Navigation;
 using UnityEngine;
 
-namespace Henu.Demo {
+namespace HenuDemo {
 
 	/*================================================================================================*/
 	public class DemoEnvironment : MonoBehaviour {

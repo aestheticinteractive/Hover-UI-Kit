@@ -1,6 +1,7 @@
-﻿using Henu.Navigation;
+﻿using Henu;
+using Henu.Navigation;
 
-namespace Henu.Demo {
+namespace HenuDemo {
 
 	/*================================================================================================*/
 	public class DemoNavComponent : HenuNavComponent {
