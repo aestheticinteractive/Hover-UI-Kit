@@ -39,6 +39,16 @@ namespace HandMenu {
 			return vNavItems;
 		}
 
+		/*--------------------------------------------------------------------------------------------*/
+		public void HandleItemSelection(NavItemData pItemData) {
+			//do nothing...
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void HandleLevelChange(NavItemData[] pItemDataList, int pDirection) {
+			//do nothing...
+		}
+
 	}
 
 }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using HandMenu.Navigation;
 using UnityEngine;
 
 namespace HandMenu.Demo {
@@ -11,6 +13,7 @@ namespace HandMenu.Demo {
 		private Material vCubeMat;
 		private GameObject[] vHolds;
 		private GameObject[] vCubes;
+		private IDictionary<int, Color> vColorMap;
 		private System.Random vRandom;
 
 
@@ -39,36 +42,32 @@ namespace HandMenu.Demo {
 				cube.transform.localScale = RandomUnitVector(0.3f)*scaleAmt;
 				vCubes[i] = cube;
 			}
+
+			DemoData data = DemoNavDelegate.Data;
+
+			vColorMap = new Dictionary<int, Color> {
+				{ data.ColorWhite.Id,	Color.white },
+				{ data.ColorRed.Id,		Color.red },
+				{ data.ColorOrange.Id,	new Color(1, 0.6f, 0) },
+				{ data.ColorYellow.Id,	Color.yellow },
+				{ data.ColorGreen.Id,	Color.green },
+				{ data.ColorBlue.Id,	Color.blue },
+				{ data.ColorPurple.Id,	new Color(0.8f, 0, 1f) }
+			};
+
+			data.OnColorChange += HandleColorChange;
+			HandleColorChange(data.ColorWhite);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			DemoData data = DemoNavDelegate.Data;
-			Color color = Color.black;
+		}
 
-			if ( data.ColorWhite.Selected ) {
-				color = Color.white;
-			}
-			else if ( data.ColorRed.Selected ) {
-				color = Color.red;
-			}
-			else if ( data.ColorOrange.Selected ) {
-				color = new Color(1, 0.6f, 0);
-			}
-			else if ( data.ColorYellow.Selected ) {
-				color = Color.yellow;
-			}
-			else if ( data.ColorGreen.Selected ) {
-				color = Color.green;
-			}
-			else if ( data.ColorBlue.Selected ) {
-				color = Color.blue;
-			}
-			else if ( data.ColorPurple.Selected ) {
-				color = new Color(0.8f, 0, 1f);
-			}
 
-			vCubeMat.color = color;
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private void HandleColorChange(NavItemData pItem) {
+			vCubeMat.color = vColorMap[pItem.Id];
 		}
 
 

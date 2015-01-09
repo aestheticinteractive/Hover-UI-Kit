@@ -68,18 +68,22 @@ namespace HandMenu.Navigation {
 			switch ( itemData.Type ) {
 				case NavItemData.ItemType.Parent:
 					PushCurrentItemsToHistory();
+					vDelgate.HandleItemSelection(itemData);
 					SetNewItems(itemData.Children, 1);
 					return;
 
 				case NavItemData.ItemType.Selection:
 				case NavItemData.ItemType.Checkbox:
 					itemData.Selected = !itemData.Selected;
+					vDelgate.HandleItemSelection(itemData);
 					return;
 
 				case NavItemData.ItemType.Radio:
 					SetRadioSelection(itemData);
+					vDelgate.HandleItemSelection(itemData);
 					return;
 			}
+
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -91,14 +95,20 @@ namespace HandMenu.Navigation {
 		/*--------------------------------------------------------------------------------------------*/
 		private void SetNewItems(NavItemData[] pItems, int pDirection) {
 			NavItemProvider[] itemProvs = vItemProvMap.Values.ToArray();
+			var itemDataList = new List<NavItemData>();
 
 			for ( int i = 0 ; i < itemProvs.Length ; ++i ) {
 				NavItemProvider itemProv = itemProvs[i];
 				NavItemData itemData = (pItems == null || i >= pItems.Length ? null : pItems[i]);
 				itemProv.UpdateWithData(itemData, pDirection);
+
+				if ( itemData != null ) {
+					itemDataList.Add(itemData);
+				}
 			}
 
 			OnLevelChange(pDirection);
+			vDelgate.HandleLevelChange(itemDataList.ToArray(), pDirection);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

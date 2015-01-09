@@ -1,10 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Linq;
 using HandMenu.Navigation;
 
 namespace HandMenu.Demo {
 
 	/*================================================================================================*/
 	public class DemoData : INavDelegate {
+
+		public delegate void ColorChangeHandler(NavItemData pItem);
+
+		public event ColorChangeHandler OnColorChange;
 
 		public NavItemData Colors { get; private set; }
 		public NavItemData ColorWhite { get; private set; }
@@ -21,10 +26,6 @@ namespace HandMenu.Demo {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public DemoData() {
-			var items = new List<NavItemData>();
-			
-			////
-
 			Colors = new NavItemData(NavItemData.ItemType.Parent, "Color");
 			ColorWhite = new NavItemData(NavItemData.ItemType.Radio, "White");
 			ColorWhite.Selected = true;
@@ -41,6 +42,10 @@ namespace HandMenu.Demo {
 			////
 
 			vNavItems = new[] { Colors };
+
+			////
+			
+			OnColorChange += (i => {});
 		}
 
 
@@ -48,6 +53,28 @@ namespace HandMenu.Demo {
 		/*--------------------------------------------------------------------------------------------*/
 		public NavItemData[] GetTopLevelItems() {
 			return vNavItems;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void HandleItemSelection(NavItemData pItemData) {
+			if ( IsItemWithin(pItemData, Colors) ) {
+				OnColorChange(pItemData);
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void HandleLevelChange(NavItemData[] pItemDataList, int pDirection) {
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public bool IsItemWithin(NavItemData pItem, NavItemData pParent) {
+			if ( pParent.Children == null || pParent.Children.Length == 0 ) {
+				throw new Exception("Item '"+pParent.Label+"' has no children.");
+			}
+
+			return pParent.Children.Contains(pItem);
 		}
 
 	}
