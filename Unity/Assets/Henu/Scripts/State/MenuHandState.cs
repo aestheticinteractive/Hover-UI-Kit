@@ -60,12 +60,12 @@ namespace Henu.State {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateAfterInput() {
-			InputHandData data = vInputHandProv.Data;
-			float palmTowardEyes = (data == null ? 0 : data.PalmTowardEyes);
+			InputHand inputHand = vInputHandProv.Hand;
+			float palmTowardEyes = (inputHand == null ? 0 : inputHand.PalmTowardEyes);
 
-			IsActive = (data != null);
+			IsActive = (inputHand != null);
 			Strength = Math.Max(0, (palmTowardEyes-0.7f)/0.3f);
-			CheckGrabGesture(data);
+			CheckGrabGesture(inputHand);
 
 			foreach ( MenuPointState point in vPointStateMap.Values ) {
 				point.UpdateAfterInput();
@@ -107,18 +107,18 @@ namespace Henu.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void CheckGrabGesture(InputHandData pData) {
-			if ( pData == null ) {
+		private void CheckGrabGesture(InputHand pInputHand) {
+			if ( pInputHand == null ) {
 				vIsGrabbing = false;
 				return;
 			}
 
-			if ( vIsGrabbing && pData.GrabStrength < BackReleaseThreshold ) {
+			if ( vIsGrabbing && pInputHand.GrabStrength < BackReleaseThreshold ) {
 				vIsGrabbing = false;
 				return;
 			}
 
-			if ( !vIsGrabbing && pData.GrabStrength > BackGrabThreshold ) {
+			if ( !vIsGrabbing && pInputHand.GrabStrength > BackGrabThreshold ) {
 				vIsGrabbing = true;
 				vNavProv.Back();
 				return;

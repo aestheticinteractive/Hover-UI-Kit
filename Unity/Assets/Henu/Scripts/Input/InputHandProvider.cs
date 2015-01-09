@@ -7,7 +7,7 @@ namespace Henu.Input {
 	public class InputHandProvider {
 
 		public bool IsLeft { get; private set; }
-		public InputHandData Data { get; private set; }
+		public InputHand Hand { get; private set; }
 
 		private readonly IDictionary<InputPointData.PointZone, InputPointProvider> vPointProvMap;
 
@@ -53,11 +53,11 @@ namespace Henu.Input {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void UpdateWithHand(Hand pHand) {
-			Data = (pHand == null ? null : new InputHandData(pHand));
+		public void UpdateWithHand(Hand pLeapHand) {
+			Hand = (pLeapHand == null ? null : new InputHand(pLeapHand));
 
 			foreach ( InputPointProvider pointProv in vPointProvMap.Values ) {
-				pointProv.UpdateWithHand(pHand);
+				pointProv.UpdateWithHand(pLeapHand);
 			}
 		}
 		

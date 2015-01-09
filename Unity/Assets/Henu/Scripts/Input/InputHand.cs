@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Henu.Input {
 
 	/*================================================================================================*/
-	public class InputHandData {
+	public class InputHand {
 
 		public bool IsLeft { get; set; }
 		public float GrabStrength { get; set; }
@@ -13,7 +13,7 @@ namespace Henu.Input {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public InputHandData(Hand pHand) {
+		public InputHand(Hand pHand) {
 			IsLeft = pHand.IsLeft;
 			GrabStrength = pHand.GrabStrength;
 			PalmTowardEyes = Vector3.Dot(pHand.PalmNormal.ToUnity(), Vector3.down);
