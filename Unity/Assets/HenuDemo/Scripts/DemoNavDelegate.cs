@@ -9,11 +9,13 @@ namespace HenuDemo {
 		public delegate void MotionChangeHandler(NavItem pItem);
 		public delegate void LightPosChangeHandler(NavItem pItem);
 		public delegate void LightIntenChangeHandler(NavItem pItem);
+		public delegate void CameraPosChangeHandler(NavItem pItem);
 
 		public event ColorChangeHandler OnColorChange;
 		public event MotionChangeHandler OnMotionChange;
 		public event LightPosChangeHandler OnLightPosChange;
 		public event LightIntenChangeHandler OnLightIntenChange;
+		public event CameraPosChangeHandler OnCameraPosChange;
 
 		public DemoNavItems Items { get; private set; }
 
@@ -24,10 +26,14 @@ namespace HenuDemo {
 		/*--------------------------------------------------------------------------------------------*/
 		public DemoNavDelegate() {
 			Items = new DemoNavItems();
-			vTopLevelItems = new[] { Items.Colors, Items.Motions, Items.LightPos, Items.LightInten };
+			vTopLevelItems = new[] { Items.Colors, Items.Motions, Items.LightPos, Items.LightInten,
+				Items.CameraPos };
 
 			OnColorChange += (i => {});
 			OnMotionChange += (i => {});
+			OnLightPosChange += (i => { });
+			OnLightIntenChange += (i => { });
+			OnCameraPosChange += (i => { });
 		}
 
 
@@ -41,20 +47,24 @@ namespace HenuDemo {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void HandleItemSelection(NavItem pItem) {
-			if ( Items.IsItemWithin(pItem, Items.Colors) ) {
+			if ( DemoNavItems.IsItemWithin(pItem, Items.Colors) ) {
 				OnColorChange(pItem);
 			}
-			
-			if ( Items.IsItemWithin(pItem, Items.Motions) ) {
+
+			if ( DemoNavItems.IsItemWithin(pItem, Items.Motions) ) {
 				OnMotionChange(pItem);
 			}
 
-			if ( Items.IsItemWithin(pItem, Items.LightPos) ) {
+			if ( DemoNavItems.IsItemWithin(pItem, Items.LightPos) ) {
 				OnLightPosChange(pItem);
 			}
 
-			if ( Items.IsItemWithin(pItem, Items.LightInten) ) {
+			if ( DemoNavItems.IsItemWithin(pItem, Items.LightInten) ) {
 				OnLightIntenChange(pItem);
+			}
+
+			if ( DemoNavItems.IsItemWithin(pItem, Items.CameraPos) ) {
+				OnCameraPosChange(pItem);
 			}
 		}
 

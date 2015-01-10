@@ -13,6 +13,7 @@ namespace HenuDemo {
 		private GameObject[] vHolds;
 		private GameObject[] vCubes;
 		private Light vLight;
+		private GameObject vEnviro;
 		private System.Random vRandom;
 
 		private DemoMotion vOrbitMotion;
@@ -22,11 +23,15 @@ namespace HenuDemo {
 
 		private DemoAnimVector3 vLightPosAnim;
 		private DemoAnimFloat vLightIntenAnim;
+		private DemoAnimVector3 vCameraPosAnim;
+		private DemoAnimQuaternion vCameraRotAnim;
 
 		private IDictionary<int, Color> vColorMap;
 		private IDictionary<int, DemoMotion> vMotionMap;
 		private IDictionary<int, Vector3> vLightPosMap;
 		private IDictionary<int, float> vLightIntenMap;
+		private IDictionary<int, Vector3> vCameraPosMap;
+		private IDictionary<int, Quaternion> vCameraRotMap;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -35,6 +40,7 @@ namespace HenuDemo {
 			vHolds = new GameObject[Count];
 			vCubes = new GameObject[Count];
 			vLight = GameObject.Find("Light").GetComponent<Light>();
+			vEnviro = GameObject.Find("DemoEnvironment");
 			vRandom = new System.Random();
 
 			for ( int i = 0 ; i < Count ; ++i ) {
@@ -50,6 +56,8 @@ namespace HenuDemo {
 
 			vLightPosAnim = new DemoAnimVector3(2000);
 			vLightIntenAnim = new DemoAnimFloat(600);
+			vCameraPosAnim = new DemoAnimVector3(6000);
+			vCameraRotAnim = new DemoAnimQuaternion(6000);
 
 			////
 
@@ -84,18 +92,39 @@ namespace HenuDemo {
 				{ navItems.LightIntenLow.Id,	0.2f }
 			};
 
+			vCameraPosMap = new Dictionary<int, Vector3> {
+				{ navItems.CameraPosCenter.Id,	Vector3.zero },
+				{ navItems.CameraPosBack.Id,	new Vector3(0, 0, 20) },
+				{ navItems.CameraPosTop.Id,		new Vector3(0, 0, 20) }
+			};
+
+			vCameraRotMap = new Dictionary<int, Quaternion> {
+				{ navItems.CameraPosCenter.Id, Quaternion.identity },
+				{ navItems.CameraPosBack.Id, Quaternion.identity },
+				{ navItems.CameraPosTop.Id,	Quaternion.FromToRotation(Vector3.forward, Vector3.up) }
+			};
+
 			navDel.OnColorChange += HandleColorChange;
 			navDel.OnMotionChange += HandleMotionChange;
 			navDel.OnLightPosChange += HandleLightPosChange;
 			navDel.OnLightIntenChange += HandleLightIntenChange;
+			navDel.OnCameraPosChange += HandleCameraPosChange;
 
-			HandleColorChange(navItems.ColorWhite);
-			HandleLightPosChange(navItems.LightPosHigh);
-			HandleLightIntenChange(navItems.LightIntenMed);
+			vLight.transform.localPosition = Vector3.zero;
+			vLight.intensity = 0;
+
+			HandleColorChange(DemoNavItems.GetFirstSelectedChildItem(navItems.Colors));
+			HandleLightPosChange(DemoNavItems.GetFirstSelectedChildItem(navItems.LightPos));
+			HandleLightIntenChange(DemoNavItems.GetFirstSelectedChildItem(navItems.LightInten));
+			HandleCameraPosChange(DemoNavItems.GetFirstSelectedChildItem(navItems.CameraPos));
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
+			if ( Input.GetKey(KeyCode.R) ) {
+				OVRManager.display.RecenterPose();
+			}
+
 			vOrbitMotion.Update();
 			vSpinMotion.Update();
 			vBobMotion.Update();
@@ -107,6 +136,8 @@ namespace HenuDemo {
 
 			vLight.gameObject.transform.localPosition = vLightPosAnim.GetValue();
 			vLight.intensity = vLightIntenAnim.GetValue();
+			vEnviro.transform.localPosition = vCameraPosAnim.GetValue();
+			vEnviro.transform.localRotation = vCameraRotAnim.GetValue();
 		}
 
 
@@ -217,6 +248,12 @@ namespace HenuDemo {
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleLightIntenChange(NavItem pItem) {
 			vLightIntenAnim.Start(vLight.intensity, vLightIntenMap[pItem.Id]);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void HandleCameraPosChange(NavItem pItem) {
+			vCameraPosAnim.Start(vEnviro.transform.localPosition, vCameraPosMap[pItem.Id]);
+			vCameraRotAnim.Start(vEnviro.transform.localRotation, vCameraRotMap[pItem.Id]);
 		}
 		
 

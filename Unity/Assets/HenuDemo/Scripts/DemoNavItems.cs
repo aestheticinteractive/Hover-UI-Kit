@@ -27,10 +27,16 @@ namespace HenuDemo {
 		public NavItem LightPosHigh { get; private set; }
 		public NavItem LightPosLow { get; private set; }
 		public NavItem LightPosLowest { get; private set; }
+
 		public NavItem LightInten { get; private set; }
 		public NavItem LightIntenHigh { get; private set; }
 		public NavItem LightIntenMed { get; private set; }
 		public NavItem LightIntenLow { get; private set; }
+
+		public NavItem CameraPos { get; private set; }
+		public NavItem CameraPosCenter { get; private set; }
+		public NavItem CameraPosBack { get; private set; }
+		public NavItem CameraPosTop { get; private set; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -40,15 +46,30 @@ namespace HenuDemo {
 			BuildMotions();
 			BuildLightPos();
 			BuildLightInten();
+			BuildCameraPos();
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public static bool IsItemWithin(NavItem pItem, NavItem pParent) {
+			VerifyParent(pParent);
+			return pParent.Children.Contains(pItem);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public bool IsItemWithin(NavItem pItem, NavItem pParent) {
-			if ( pParent.Children == null || pParent.Children.Length == 0 ) {
-				throw new Exception("Item '"+pParent.Label+"' has no children.");
+		public static NavItem GetFirstSelectedChildItem(NavItem pParent) {
+			VerifyParent(pParent);
+			return pParent.Children.FirstOrDefault(x => x.Selected);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private static void VerifyParent(NavItem pParent) {
+			if ( pParent.Children != null && pParent.Children.Length != 0 ) {
+				return;
 			}
 
-			return pParent.Children.Contains(pItem);
+			throw new Exception("Item '"+pParent.Label+"' has no children.");
 		}
 
 
@@ -101,6 +122,17 @@ namespace HenuDemo {
 			LightIntenLow = new NavItem(NavItem.ItemType.Radio, "Dimmest");
 			LightIntenMed.Selected = true;
 			LightInten.SetChildren(new[] { LightIntenHigh, LightIntenMed, LightIntenLow });
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void BuildCameraPos() {
+			CameraPos = new NavItem(NavItem.ItemType.Parent, "Camera Position");
+
+			CameraPosCenter = new NavItem(NavItem.ItemType.Radio, "Center");
+			CameraPosBack = new NavItem(NavItem.ItemType.Radio, "Back");
+			CameraPosTop = new NavItem(NavItem.ItemType.Radio, "Top");
+			CameraPosCenter.Selected = true;
+			CameraPos.SetChildren(new[] { CameraPosCenter, CameraPosBack, CameraPosTop });
 		}
 
 	}

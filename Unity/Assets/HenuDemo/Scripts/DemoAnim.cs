@@ -94,4 +94,21 @@ namespace HenuDemo {
 
 	}
 
+
+	/*================================================================================================*/
+	public class DemoAnimQuaternion : DemoAnim<Quaternion> {
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public DemoAnimQuaternion(float pDurationMs) : base(pDurationMs) {
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public override Quaternion GetValue() {
+			return Quaternion.Slerp(BaseValue, TargetValue, GetEasedProgress());
+		}
+
+	}
+
 }
