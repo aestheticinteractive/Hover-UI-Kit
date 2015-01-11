@@ -1,3 +1,5 @@
+![Demo Image](http://www.aestheticinteractive.com/clients/handmenu/Henu-2015-01-11-image.jpg)
+
 ```
 Hand + Menu = Henu
 ```
@@ -9,6 +11,6 @@ This project is under active development, and the overall design and experience 
 The videos below show the demo experience that is included in this project. The demo allows you to change settings for the cubes, lighting, and camera.
 
 ---
-Click to view [full video on YouTube](http://youtu.be/MsNrTSH5wZw) from January 11, 2015:
+[View the full demo video](http://youtu.be/MsNrTSH5wZw) from January 11, 2015.
 
-[![Demo Clip](http://www.aestheticinteractive.com/clients/handmenu/Henu-2015-01-11-anim.gif)](http://www.youtube.com/watch?v=MsNrTSH5wZw)
+![Demo Clip](http://www.aestheticinteractive.com/clients/handmenu/Henu-2015-01-11-anim.gif)
