@@ -1,12 +1,14 @@
-Henu
-==============
-
 ```
 Hand + Menu = Henu
 ```
 
-Initial development work in progress. More details coming soon!
+This menu system places selectable items at your fingertips. This provides an effective, on-demand menu that can be part of your virtual reality experience. Hand information is collected via Leap Motion device, which can be mounted on the front of an Oculus Rift headset.
+
+This project is under active development, and the overall design and experience will likely change. 
+
+The videos below show the demo experience that is included in this project. The demo allows you to change settings for the cubes, lighting, and camera.
 
 ---
-Screen capture from January 8, 2015:
-![Screen Capture](http://www.aestheticinteractive.com/clients/handmenu/HandMenu-2015-01-08.gif)
+Click to view [full video on YouTube](http://youtu.be/MsNrTSH5wZw) from January 11, 2015:
+
+[![Demo Clip](http://www.aestheticinteractive.com/clients/handmenu/Henu-2015-01-11-anim.gif)](http://www.youtube.com/watch?v=MsNrTSH5wZw)
