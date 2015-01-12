@@ -22,7 +22,7 @@ namespace Henu {
 		private InputProvider vInputProv;
 		private NavigationProvider vNavProv;
 		private MenuState vMenuState;
-		private UiMenuHand vUiMenuHand;
+		private UiArc vUiArc;
 		private Renderers vRenderers;
 
 
@@ -32,28 +32,28 @@ namespace Henu {
 			GameObject handControlObj = GameObject.Find("HandController");
 			vHandControl = handControlObj.GetComponent<HandController>();
 
-			vInputProv = new InputProvider();
-			vNavProv = new NavigationProvider();
-			vMenuState = new MenuState(vInputProv, vNavProv, MenuIsOnLeftHand);
-
 			if ( NavDelegateProvider == null ) {
 				throw new Exception("No menu delegate was provided!");
 			}
 
+			vNavProv = new NavigationProvider();
 			vNavProv.Init(NavDelegateProvider.GetNavDelegate());
+
+			vInputProv = new InputProvider();
+			vMenuState = new MenuState(vInputProv, vNavProv, MenuIsOnLeftHand);
 
 			////
 
 			BuildRenderers();
 
-			var menuHandObj = new GameObject("MenuHand");
-			menuHandObj.transform.SetParent(handControlObj.transform, false);
-			menuHandObj.transform.localPosition = Vector3.zero;
-			menuHandObj.transform.localRotation = Quaternion.identity;
-			menuHandObj.transform.localScale = Vector3.one;
+			var arcObj = new GameObject("Arc");
+			arcObj.transform.SetParent(handControlObj.transform, false);
+			arcObj.transform.localPosition = Vector3.zero;
+			arcObj.transform.localRotation = Quaternion.identity;
+			arcObj.transform.localScale = Vector3.one;
 
-			vUiMenuHand = menuHandObj.AddComponent<UiMenuHand>();
-			vUiMenuHand.Build(vMenuState.MenuHand, vRenderers);
+			vUiArc = arcObj.AddComponent<UiArc>();
+			vUiArc.Build(vMenuState.Arc, vRenderers);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

@@ -12,6 +12,9 @@ namespace Henu.Navigation {
 			Radio
 		}
 
+		public delegate void SelectionHandler(NavItem pNavItem);
+		public event SelectionHandler OnSelection;
+
 		private static int ItemCount;
 
 		public int Id { get; private set; }
@@ -29,6 +32,8 @@ namespace Henu.Navigation {
 			Type = pType;
 			Label = pLabel;
 			Children = null;
+
+			OnSelection += (i => {});
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -42,6 +47,11 @@ namespace Henu.Navigation {
 			}
 
 			Children = pChildren;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void Select() {
+			OnSelection(this);
 		}
 
 	}

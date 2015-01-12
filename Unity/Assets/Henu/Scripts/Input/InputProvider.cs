@@ -6,8 +6,7 @@ namespace Henu.Input {
 	/*================================================================================================*/
 	public class InputProvider {
 
-		public Frame Frame { get; private set; }
-
+		private Frame vFrame;
 		private readonly InputHandProvider vInputHandProvL;
 		private readonly InputHandProvider vInputHandProvR;
 
@@ -23,9 +22,9 @@ namespace Henu.Input {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateWithLeapFrame(Frame pLeapFrame) {
-			Frame = (pLeapFrame.IsValid ? pLeapFrame : null);
-			vInputHandProvL.UpdateWithLeapHand(GetHand(true));
-			vInputHandProvR.UpdateWithLeapHand(GetHand(false));
+			vFrame = (pLeapFrame.IsValid ? pLeapFrame : null);
+			vInputHandProvL.UpdateWithLeapHand(GetLeapHand(true));
+			vInputHandProvR.UpdateWithLeapHand(GetLeapHand(false));
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -36,12 +35,12 @@ namespace Henu.Input {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private Hand GetHand(bool pIsLeft) {
-			if ( Frame == null ) {
+		private Hand GetLeapHand(bool pIsLeft) {
+			if ( vFrame == null ) {
 				return null;
 			}
 
-			return Frame.Hands.FirstOrDefault(h => h.IsValid && h.IsLeft == pIsLeft);
+			return vFrame.Hands.FirstOrDefault(h => h.IsValid && h.IsLeft == pIsLeft);
 		}
 
 	}

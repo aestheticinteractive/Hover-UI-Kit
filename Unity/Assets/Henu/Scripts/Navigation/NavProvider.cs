@@ -1,7 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using Henu.Input;
-using Henu.State;
 
 namespace Henu.Navigation {
 
@@ -9,41 +6,47 @@ namespace Henu.Navigation {
 	public class NavigationProvider {
 
 		public delegate void LevelChangeHandler(int pDirection);
-
 		public event LevelChangeHandler OnLevelChange;
 
-		private readonly IDictionary<InputPointZone, NavItemProvider> vItemProvMap;
 		private readonly Stack<NavItem[]> vHistory;
+		private NavItem[] vItems;
 		private INavDelegate vDelgate;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public NavigationProvider() {
-			vItemProvMap = new Dictionary<InputPointZone, NavItemProvider>();
 			vHistory = new Stack<NavItem[]>();
-
-			foreach ( InputPointZone zone in MenuHandState.PointZones ) {
-				var itemProv = new NavItemProvider(zone);
-				itemProv.OnSelection += HandleItemSelection;
-				vItemProvMap.Add(zone, itemProv);
-			}
-
-			OnLevelChange += (d => { });
+			OnLevelChange += (d => {});
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Init(INavDelegate pDelgate) {
 			vDelgate = pDelgate;
 			vHistory.Clear();
-			SetNewItems(vDelgate.GetTopLevelItems(), 0);
+
+			NavItem[] items = vDelgate.GetTopLevelItems();
+			PrepareItems(items);
+			SetNewItems(items, 0);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void PrepareItems(NavItem[] pItems) {
+			if ( pItems == null ) {
+				return;
+			}
+
+			foreach ( NavItem item in pItems ) {
+				item.OnSelection += HandleItemSelection;
+				PrepareItems(item.Children);
+			}
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public NavItemProvider GetItemProvider(InputPointZone pZone) {
-			return vItemProvMap[pZone];
+		public NavItem[] GetItems() {
+			return vItems;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -58,66 +61,51 @@ namespace Henu.Navigation {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void HandleItemSelection(NavItemProvider pNavItemProvider) {
-			NavItem item = pNavItemProvider.Item;
-
-			if ( item == null ) {
+		private void HandleItemSelection(NavItem pItem) {
+			if ( pItem == null ) {
 				return;
 			}
 
-			switch ( item.Type ) {
+			switch ( pItem.Type ) {
 				case NavItem.ItemType.Parent:
+					vDelgate.HandleItemSelection(pItem);
 					PushCurrentItemsToHistory();
-					vDelgate.HandleItemSelection(item);
-					SetNewItems(item.Children, 1);
+					SetNewItems(pItem.Children, 1);
 					return;
 
 				case NavItem.ItemType.Selection:
 				case NavItem.ItemType.Checkbox:
-					item.Selected = !item.Selected;
-					vDelgate.HandleItemSelection(item);
+					pItem.Selected = !pItem.Selected;
+					vDelgate.HandleItemSelection(pItem);
 					return;
 
 				case NavItem.ItemType.Radio:
-					SetRadioSelection(item);
-					vDelgate.HandleItemSelection(item);
+					SetRadioSelection(pItem);
+					vDelgate.HandleItemSelection(pItem);
 					return;
 			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void PushCurrentItemsToHistory() {
-			NavItem[] items = vItemProvMap.Values.Select(itemProv => itemProv.Item).ToArray();
-			vHistory.Push(items);
+			vHistory.Push(vItems);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void SetNewItems(NavItem[] pItems, int pDirection) {
-			NavItemProvider[] itemProvs = vItemProvMap.Values.ToArray();
-			var items = new List<NavItem>();
-
-			for ( int i = 0 ; i < itemProvs.Length ; ++i ) {
-				NavItemProvider itemProv = itemProvs[i];
-				NavItem item = (pItems == null || i >= pItems.Length ? null : pItems[i]);
-				itemProv.UpdateWithItem(item, pDirection);
-
-				if ( item != null ) {
-					items.Add(item);
-				}
-			}
-
+			vItems = pItems;
 			OnLevelChange(pDirection);
-			vDelgate.HandleLevelChange(items.ToArray(), pDirection);
+			vDelgate.HandleLevelChange(vItems, pDirection);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void SetRadioSelection(NavItem pSelectedItem) {
-			foreach ( NavItemProvider itemProv in vItemProvMap.Values ) {
-				if ( itemProv.Item == null || itemProv.Item.Type != NavItem.ItemType.Radio ) {
+			foreach ( NavItem item in vItems ) {
+				if ( item.Type != NavItem.ItemType.Radio ) {
 					continue;
 				}
 
-				itemProv.Item.Selected = (itemProv.Item == pSelectedItem);
+				item.Selected = (item == pSelectedItem);
 			}
 		}
 

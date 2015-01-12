@@ -21,7 +21,7 @@ namespace Henu.Display.Default {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public override void Build(MenuHandState pHand, MenuPointState pPoint) {
+		public override void Build(ArcState pHand, ArcSegmentState pPoint) {
 			base.Build(pHand, pPoint);
 
 			RectTransform rect = vTextObj.GetComponent<RectTransform>();
@@ -60,9 +60,9 @@ namespace Henu.Display.Default {
 		public override void Update() {
 			base.Update();
 
-			if ( !vPoint.IsActive ) {
+			/*if ( !vPoint.IsActive ) {
 				return;
-			}
+			}*/
 
 			float alpha = vPoint.HighlightProgress*0.5f + 0.5f;
 

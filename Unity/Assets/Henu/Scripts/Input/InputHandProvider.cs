@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using Leap;
 
 namespace Henu.Input {
@@ -9,61 +9,47 @@ namespace Henu.Input {
 		public bool IsLeft { get; private set; }
 		public InputHand Hand { get; private set; }
 
-		private readonly IDictionary<InputPointZone, InputPointProvider> vPointProvMap;
+		public InputPoint IndexPoint { get; private set; }
+		public InputPoint MiddlePoint { get; private set; }
+		public InputPoint RingPoint { get; private set; }
+		public InputPoint PinkyPoint { get; private set; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public InputHandProvider(bool pIsLeft) {
 			IsLeft = pIsLeft;
-
-			vPointProvMap = new Dictionary<InputPointZone, InputPointProvider> {
-				{
-					InputPointZone.Index, 
-					new InputPointProvider(Finger.FingerType.TYPE_INDEX)
-				},
-				{
-					InputPointZone.IndexMiddle,
-					new InputPointProvider(Finger.FingerType.TYPE_INDEX, Finger.FingerType.TYPE_MIDDLE)
-				},
-				{
-					InputPointZone.Middle, 
-					new InputPointProvider(Finger.FingerType.TYPE_MIDDLE)
-				},
-				{
-					InputPointZone.MiddleRing,
-					new InputPointProvider(Finger.FingerType.TYPE_MIDDLE, Finger.FingerType.TYPE_RING)
-				},
-				{
-					InputPointZone.Ring,
-					new InputPointProvider(Finger.FingerType.TYPE_RING)
-				},
-				{
-					InputPointZone.RingPinky,
-					new InputPointProvider(Finger.FingerType.TYPE_RING, Finger.FingerType.TYPE_PINKY)
-				},
-				{
-					InputPointZone.Pinky,
-					new InputPointProvider(Finger.FingerType.TYPE_PINKY)
-				}
-			};
 		}
+
 		
-
-
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateWithLeapHand(Hand pLeapHand) {
 			Hand = (pLeapHand == null ? null : new InputHand(pLeapHand));
 
-			foreach ( InputPointProvider pointProv in vPointProvMap.Values ) {
-				pointProv.UpdateWithLeapHand(pLeapHand);
-			}
+			IndexPoint = GetPoint(pLeapHand, Finger.FingerType.TYPE_INDEX);
+			MiddlePoint = GetPoint(pLeapHand, Finger.FingerType.TYPE_MIDDLE);
+			RingPoint = GetPoint(pLeapHand, Finger.FingerType.TYPE_RING);
+			PinkyPoint = GetPoint(pLeapHand, Finger.FingerType.TYPE_PINKY);
 		}
-		
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public InputPointProvider GetPointProvider(InputPointZone pZone) {
-			return vPointProvMap[pZone];
+		private static InputPoint GetPoint(Hand pLeapHand, Finger.FingerType pFingerType) {
+			if ( pLeapHand == null ) {
+				return null;
+			}
+
+			Finger leapFinger = pLeapHand.Fingers
+				.FingerType(pFingerType)
+				.FirstOrDefault(f => f.IsValid);
+
+			if ( leapFinger == null ) {
+				return null;
+			}
+
+			return new InputPoint(leapFinger);
 		}
 
 	}

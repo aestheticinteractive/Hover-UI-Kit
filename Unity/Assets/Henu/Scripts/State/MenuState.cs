@@ -9,8 +9,8 @@ namespace Henu.State {
 		public InputProvider InputProvider { get; private set; }
 		public NavigationProvider NavProv { get; private set; }
 		public bool IsLeftHenu { get; private set; }
-		public MenuHandState MenuHand { get; private set; }
-		public SelectHandState SelectHand { get; private set; }
+		public ArcState Arc { get; private set; }
+		public CursorState Cursor { get; private set; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -20,18 +20,17 @@ namespace Henu.State {
 			NavProv = pNavProv;
 			IsLeftHenu = pIsLeftHenu;
 
-			MenuHand = new MenuHandState(pInputProv.GetHandProvider(IsLeftHenu), NavProv);
-			SelectHand = new SelectHandState(pInputProv.GetHandProvider(!IsLeftHenu));
+			Arc = new ArcState(pInputProv.GetHandProvider(IsLeftHenu), NavProv);
+			Cursor = new CursorState(pInputProv.GetHandProvider(!IsLeftHenu));
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateAfterInput() {
-			MenuHand.UpdateAfterInput();
-			SelectHand.UpdateAfterInput();
-
-			MenuHand.UpdateWithCursor(SelectHand.CursorPosition);
+			Arc.UpdateAfterInput();
+			Cursor.UpdateAfterInput();
+			Arc.UpdateWithCursor(Cursor);
 		}
 
 	}

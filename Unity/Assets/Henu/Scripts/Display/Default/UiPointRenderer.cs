@@ -12,8 +12,8 @@ namespace Henu.Display.Default {
 		protected const int Height = 40;
 		protected const float Scale = 0.0004f;
 
-		protected MenuHandState vHand;
-		protected MenuPointState vPoint;
+		protected ArcState vHand;
+		protected ArcSegmentState vPoint;
 		protected float vOverallAlpha;
 		protected float vAnimAlpha;
 
@@ -28,7 +28,7 @@ namespace Henu.Display.Default {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Build(MenuHandState pHand, MenuPointState pPoint) {
+		public virtual void Build(ArcState pHand, ArcSegmentState pPoint) {
 			vHand = pHand;
 			vPoint = pPoint;
 
@@ -108,16 +108,16 @@ namespace Henu.Display.Default {
 			vCanvasObj.transform.localRotation = rot;
 			vCanvasObj.transform.localScale = Vector3.one*Scale;
 
-			vPoint.SetSelectionExtension(Width*Scale);
+			//vPoint.SetSelectionExtension(Width*Scale);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void Update() {
-			if ( !vPoint.IsActive ) {
+			/*if ( !vPoint.IsActive ) {
 				return;
-			}
+			}*/
 
-			vOverallAlpha = 1-(float)Math.Pow(1-vHand.Strength*vPoint.Strength*vAnimAlpha, 2);
+			vOverallAlpha = 1; //1-(float)Math.Pow(1-vHand.Strength*vPoint.Strength*vAnimAlpha, 2);
 
 			float high = vPoint.HighlightProgress;
 			float select = 1-(float)Math.Pow(1-vPoint.SelectionProgress, 1.5f);

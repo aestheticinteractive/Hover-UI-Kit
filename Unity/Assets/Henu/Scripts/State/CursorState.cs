@@ -4,16 +4,16 @@ using UnityEngine;
 namespace Henu.State {
 
 	/*================================================================================================*/
-	public class SelectHandState {
+	public class CursorState {
 
-		public Vector3? CursorPosition { get; private set; }
+		public Vector3? Position { get; private set; }
 
 		private readonly InputHandProvider vInputHandProv;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public SelectHandState(InputHandProvider pInputHandProv) {
+		public CursorState(InputHandProvider pInputHandProv) {
 			vInputHandProv = pInputHandProv;
 		}
 
@@ -21,10 +21,8 @@ namespace Henu.State {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateAfterInput() {
-			InputPointProvider pointProv = 
-				vInputHandProv.GetPointProvider(InputPointZone.Index);
-
-			CursorPosition = (pointProv.Point == null ? (Vector3?)null : pointProv.Point.Position);
+			InputPoint inputPoint = vInputHandProv.IndexPoint;
+			Position = (inputPoint == null ? (Vector3?)null : inputPoint.Position);
 		}
 
 	}

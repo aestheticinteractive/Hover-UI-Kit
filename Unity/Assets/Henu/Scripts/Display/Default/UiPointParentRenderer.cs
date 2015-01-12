@@ -14,7 +14,7 @@ namespace Henu.Display.Default {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public override void Build(MenuHandState pHand, MenuPointState pPoint) {
+		public override void Build(ArcState pHand, ArcSegmentState pPoint) {
 			base.Build(pHand, pPoint);
 
 			vArrow = GameObject.CreatePrimitive(PrimitiveType.Quad);
@@ -36,9 +36,9 @@ namespace Henu.Display.Default {
 		public override void Update() {
 			base.Update();
 
-			if ( !vPoint.IsActive ) {
+			/*if ( !vPoint.IsActive ) {
 				return;
-			}
+			}*/
 
 			float alpha = vPoint.HighlightProgress*0.8f + 0.2f;
 			vArrow.renderer.sharedMaterial.color = new Color(1, 1, 1, alpha*vOverallAlpha);
