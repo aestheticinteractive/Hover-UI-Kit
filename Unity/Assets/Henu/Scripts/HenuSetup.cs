@@ -47,7 +47,7 @@ namespace Henu {
 			BuildRenderers();
 
 			var menuHandObj = new GameObject("MenuHand");
-			menuHandObj.transform.parent = handControlObj.transform;
+			menuHandObj.transform.SetParent(handControlObj.transform, false);
 			menuHandObj.transform.localPosition = Vector3.zero;
 			menuHandObj.transform.localRotation = Quaternion.identity;
 			menuHandObj.transform.localScale = Vector3.one;

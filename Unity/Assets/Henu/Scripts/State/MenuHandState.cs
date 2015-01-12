@@ -29,7 +29,10 @@ namespace Henu.State {
 
 		public bool IsActive { get; private set; }
 		public bool IsLeft { get; private set; }
+		public Vector3 Center { get; private set; }
+		public Quaternion Rotation { get; private set; }
 		public float Strength { get; private set; }
+		public float GrabStrength { get; private set; }
 
 		private readonly InputHandProvider vInputHandProv;
 		private readonly NavigationProvider vNavProv;
@@ -62,9 +65,13 @@ namespace Henu.State {
 		public void UpdateAfterInput() {
 			InputHand inputHand = vInputHandProv.Hand;
 			float palmTowardEyes = (inputHand == null ? 0 : inputHand.PalmTowardEyes);
+			float grabStrength = (inputHand == null ? 0 : inputHand.GrabStrength);
 
 			IsActive = (inputHand != null);
+			Center = (inputHand == null ? Vector3.zero : inputHand.Center);
+			Rotation = (inputHand == null ? Quaternion.identity : inputHand.Rotation);
 			Strength = Math.Max(0, (palmTowardEyes-0.7f)/0.3f);
+			GrabStrength = Math.Min(1, grabStrength/BackGrabThreshold);
 			CheckGrabGesture(inputHand);
 
 			foreach ( MenuPointState point in vPointStateMap.Values ) {

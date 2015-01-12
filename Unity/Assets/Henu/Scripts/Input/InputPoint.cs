@@ -18,20 +18,13 @@ namespace Henu.Input {
 		/*--------------------------------------------------------------------------------------------*/
 		public InputPoint(Hand pLeapHand, Finger pLeapFinger) {
 			Bone bone = pLeapFinger.Bone(Bone.BoneType.TYPE_DISTAL);
-			float[] mat = bone.Basis.ToArray4x4();
-			var column2 = new Vector3(mat[8], mat[9], -mat[10]);
-			var column1 = new Vector3(mat[4], mat[5], -mat[6]);
 
 			Position = pLeapFinger.TipPosition.ToUnityScaled();
-			Direction = bone.Direction.ToUnity();
-			Rotation = Quaternion.LookRotation(column2, column1);
-			//Rotation = Quaternion.FromToRotation(Vector3.forward, Direction);
+			Direction = -bone.Direction.ToUnity();
+			Rotation = CalcQuaternion(bone.Basis);
 
 			Extension = Vector3.Dot(Direction, -pLeapHand.Direction.ToUnity());
 			Extension = Math.Max(0, Extension);
-
-			//Quaternion created using notes from:
-			//answers.unity3d.com/questions/11363/converting-matrix4x4-to-quaternion-vector3.html
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -52,6 +45,17 @@ namespace Henu.Input {
 			point.Rotation = Quaternion.Slerp(pPoint0.Rotation, pPoint1.Rotation, pAmount);
 			point.Extension = pPoint0.Extension*(1-pAmount) + pPoint1.Extension*pAmount;
 			return point;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public static Quaternion CalcQuaternion(Matrix pBasis) {
+			//Quaternion created using notes from:
+			//answers.unity3d.com/questions/11363/converting-matrix4x4-to-quaternion-vector3.html
+
+			float[] mat = pBasis.ToArray4x4();
+			var column2 = new Vector3(mat[8], mat[9], -mat[10]);
+			var column1 = new Vector3(mat[4], mat[5], -mat[6]);
+			return Quaternion.LookRotation(column2, column1);
 		}
 
 	}
