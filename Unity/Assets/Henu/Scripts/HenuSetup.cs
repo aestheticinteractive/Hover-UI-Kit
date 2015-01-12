@@ -48,9 +48,6 @@ namespace Henu {
 
 			var arcObj = new GameObject("Arc");
 			arcObj.transform.SetParent(handControlObj.transform, false);
-			arcObj.transform.localPosition = Vector3.zero;
-			arcObj.transform.localRotation = Quaternion.identity;
-			arcObj.transform.localScale = Vector3.one;
 
 			vUiArc = arcObj.AddComponent<UiArc>();
 			vUiArc.Build(vMenuState.Arc, vRenderers);

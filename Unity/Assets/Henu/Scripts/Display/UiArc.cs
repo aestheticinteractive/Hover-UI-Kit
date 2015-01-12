@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Henu.State;
 using UnityEngine;
 
@@ -8,20 +7,31 @@ namespace Henu.Display {
 	/*================================================================================================*/
 	public class UiArc : MonoBehaviour {
 
+		public static float LevelChangeMilliseconds = 1000;
+		public static float LevelChangeDistance = 0.5f;
+
 		private ArcState vArcState;
 		private Renderers vRenderers;
-		private IList<GameObject> vSegmentObjList;
+
+		private GameObject vPrevLevelObj;
+		private GameObject vCurrLevelObj;
+		private DateTime? vChangeTime;
+		private int vChangeDir;
+		//private bool vLevelChange;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Build(ArcState pArc, Renderers pRenderers) {
+		internal void Build(ArcState pArc, Renderers pRenderers) {
 			vArcState = pArc;
 			vRenderers = pRenderers;
-			vSegmentObjList = new List<GameObject>();
 
 			vArcState.OnLevelChange += HandleLevelChange;
 			HandleLevelChange(0);
+
+			/*var timer = new Timer(3000);
+			timer.Elapsed += (s, a) => { vLevelChange = true; };
+			timer.Start();*/
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -30,48 +40,95 @@ namespace Henu.Display {
 			gameObject.transform.localRotation = vArcState.Rotation;
 			gameObject.transform.localScale = Vector3.one*(vArcState.Size*1.1f);
 
-			foreach ( GameObject segObj in vSegmentObjList ) {
-				segObj.SetActive(vArcState.IsActive);
-			}
+			/*if ( vLevelChange ) {
+				HandleLevelChange(1);
+				vLevelChange = false;
+			}*/
+			
+			UpdateItemChangeAnim();
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleLevelChange(int pDirection) {
-			const float angleFull = (float)Math.PI/2f;
+			DestroyPrevLevel();
+			vPrevLevelObj = vCurrLevelObj;
 
-			ArcSegmentState[] segStates = vArcState.GetSegments();
-			int segCount = segStates.Length;
-			float angleInc = angleFull/segCount;
-			float angle = (float)Math.PI-angleFull*0.6f;
-
-			while ( vSegmentObjList.Count > segCount ) {
-				GameObject segObj = vSegmentObjList[0];
-				vSegmentObjList.RemoveAt(0);
-				Destroy(segObj);
+			if ( vPrevLevelObj != null ) {
+				vPrevLevelObj.name = "PrevLevel";
 			}
 
-			while ( vSegmentObjList.Count < segCount ) {
-				var segObj = new GameObject("Segment"+vSegmentObjList.Count);
-				segObj.transform.SetParent(gameObject.transform, false);
-				segObj.AddComponent<UiArcSegment>();
-				vSegmentObjList.Add(segObj);
-			}
+			BuildCurrLevel();
 
-			for ( int i = 0 ; i < segCount ; i++ ) {
-				ArcSegmentState segState = segStates[i];
-				GameObject segObj = vSegmentObjList[i];
-
-				UiArcSegment uiSeg = segObj.GetComponent<UiArcSegment>();
-				uiSeg.Build(vArcState, segState, angle, angle+angleInc, vRenderers);
-
-				angle += angleInc;
-			}
-
-			Update();
+			vChangeTime = DateTime.UtcNow;
+			vChangeDir = pDirection;
+			UpdateItemChangeAnim();
 		}
 		
+		/*--------------------------------------------------------------------------------------------*/
+		private void DestroyPrevLevel() {
+			if ( vPrevLevelObj == null ) {
+				return;
+			}
+
+			vPrevLevelObj.SetActive(false);
+			Destroy(vPrevLevelObj);
+			vPrevLevelObj = null;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void BuildCurrLevel() {
+			vCurrLevelObj = new GameObject("CurrLevel");
+			vCurrLevelObj.transform.SetParent(gameObject.transform, false);
+
+			UiArcLevel arcLevel = vCurrLevelObj.AddComponent<UiArcLevel>();
+			arcLevel.Build(vArcState, vRenderers);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateItemChangeAnim() {
+			if ( vChangeTime == null ) {
+				return;
+			}
+
+			float ms = (float)(DateTime.UtcNow-(DateTime)vChangeTime).TotalMilliseconds;
+			float prog = Math.Min(1, ms/LevelChangeMilliseconds);
+			float push = 1-(float)Math.Pow(1-prog, 3);
+			float dist = -LevelChangeDistance*vChangeDir;
+
+			if ( vPrevLevelObj != null ) {
+				float prevScale = -dist*push;
+
+				if ( vChangeDir < 0 ) {
+					prevScale *= 0.666f;
+				}
+
+				vPrevLevelObj.GetComponent<UiArcLevel>()
+					.HandleChangeAnimation(false, vChangeDir, prog);
+				vPrevLevelObj.transform.localScale = Vector3.one*(1+prevScale);
+			}
+
+			if ( vCurrLevelObj != null ) {
+				float currScale = dist*(1-push);
+
+				if ( vChangeDir > 0 ) {
+					currScale *= 0.666f;
+				}
+
+				vCurrLevelObj.GetComponent<UiArcLevel>()
+					.HandleChangeAnimation(true, vChangeDir, prog);
+				vCurrLevelObj.transform.localScale = Vector3.one*(1+currScale);
+			}
+
+			if ( prog < 1 ) {
+				return;
+			}
+
+			vChangeTime = null;
+			DestroyPrevLevel();
+		}
+
 	}
 
 }

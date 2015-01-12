@@ -8,31 +8,21 @@ namespace Henu.Display {
 	/*================================================================================================*/
 	public class UiArcSegment : MonoBehaviour {
 
-		public static float ItemChangeMilliseconds = 1000;
-		public static float ItemChangeDistance = 0.08f;
-
 		private ArcState vArcState;
 		private ArcSegmentState vSegState;
 		private GameObject vBg;
-		//private Renderers vRenderers;
+		private Renderers vRenderers;
 
-		/*private GameObject vPrevRendererObj;
-		private GameObject vCurrRendererObj;
-		private IUiMenuPointRenderer vPrevRenderer;
-		private IUiMenuPointRenderer vCurrRenderer;
-
-		private int vRendererCount;
-		private DateTime? vChangeTime;
-		private int vChangeDir;*/
+		private float vAnimAlpha;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Build(ArcState pHand, ArcSegmentState pPoint, float pAngle0, float pAngle1, 
+		internal void Build(ArcState pArcState, ArcSegmentState pSegState, float pAngle0, float pAngle1, 
 																				Renderers pRenderers) {
-			vArcState = pHand;
-			vSegState = pPoint;
-			//vRenderers = pRenderers;
+			vArcState = pArcState;
+			vSegState = pSegState;
+			vRenderers = pRenderers;
 
 			vBg = new GameObject("Background");
 			vBg.transform.SetParent(gameObject.transform, false);
@@ -48,68 +38,16 @@ namespace Henu.Display {
 		public void Update() {
 			float alpha = 1-(float)Math.Pow(1-vArcState.Strength, 2);
 			alpha -= (float)Math.Pow(vArcState.GrabStrength, 2);
+			alpha  = Math.Max(0, alpha*vAnimAlpha);
 
-			vBg.renderer.sharedMaterial.color = new Color(0, 1, 0, Math.Max(0, alpha));
-
-			/*if ( !vPoint.IsActive ) {
-				return;
-			}
-
-			Transform tx = gameObject.transform;
-			tx.localPosition = vPoint.Position;
-			tx.localRotation = vPoint.Rotation;
-
-			if ( !vHand.IsLeft ) {
-				tx.localRotation *= Quaternion.FromToRotation(Vector3.left, Vector3.right);
-			}*/
-
-			//UpdateItemChangeAnim();
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public bool IsActive() {
-			return false; //(vPoint != null && vPoint.IsActive);
+			vBg.renderer.sharedMaterial.color = new Color(0, 1, 0, alpha);
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------* /
-		private void HandleNavItemChange(int pDirection) {
-			DestroyPrevRenderer();
-			vPrevRendererObj = vCurrRendererObj;
-			vPrevRenderer = vCurrRenderer;
-
-			if ( vSegState.NavItem == null ) {
-				vCurrRendererObj = null;
-				vCurrRenderer = null;
-			}
-			else {
-				BuildCurrRenderer();
-			}
-
-			vChangeTime = DateTime.UtcNow;
-			vChangeDir = pDirection;
-			UpdateItemChangeAnim();
-		}
-		
-		/*--------------------------------------------------------------------------------------------* /
-		private void DestroyPrevRenderer() {
-			if ( vPrevRendererObj == null ) {
-				return;
-			}
-
-			vPrevRendererObj.SetActive(false);
-			Destroy(vPrevRendererObj);
-
-			vPrevRendererObj = null;
-			vPrevRenderer = null;
-		}
-
-		/*--------------------------------------------------------------------------------------------* /
-		private void BuildCurrRenderer() {
-			vCurrRendererObj = new GameObject("Renderer"+vRendererCount);
+		private void BuildCurrLevel() {
+			vCurrLevelObj = new GameObject("Renderer"+vRendererCount);
 			vRendererCount++;
 
 			Type rendererType;
@@ -132,45 +70,23 @@ namespace Henu.Display {
 					break;
 			}
 
-			vCurrRenderer = (IUiMenuPointRenderer)vCurrRendererObj.AddComponent(rendererType);
-			vCurrRenderer.Build(vHand, vPoint);
-			vCurrRenderer.Update();
+			vCurrLevel = (IUiMenuPointRenderer)vCurrLevelObj.AddComponent(rendererType);
+			vCurrLevel.Build(vHand, vPoint);
+			vCurrLevel.Update();
 
-			vCurrRendererObj.transform.parent = gameObject.transform;
-			vCurrRendererObj.transform.localPosition = Vector3.zero;
-			vCurrRendererObj.transform.localRotation = Quaternion.identity;
-			vCurrRendererObj.transform.localScale = Vector3.one;
+			vCurrLevelObj.transform.parent = gameObject.transform;
+			vCurrLevelObj.transform.localPosition = Vector3.zero;
+			vCurrLevelObj.transform.localRotation = Quaternion.identity;
+			vCurrLevelObj.transform.localScale = Vector3.one;
 		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		internal void HandleChangeAnimation(bool pFadeIn, int pDirection, float pProgress) {
+			float a = 1-(float)Math.Pow(1-pProgress, 3);
+			vAnimAlpha = (pFadeIn ? a : 1-a);
 
-		/*--------------------------------------------------------------------------------------------* /
-		private void UpdateItemChangeAnim() {
-			if ( vChangeTime == null ) {
-				return;
-			}
-
-			float ms = (float)(DateTime.UtcNow-(DateTime)vChangeTime).TotalMilliseconds;
-			float prog = Math.Min(1, ms/ItemChangeMilliseconds);
-			float push = 1-(float)Math.Pow(1-prog, 3);
-			float dist = -ItemChangeDistance*vChangeDir;
-
-			if ( vPrevRenderer != null ) {
-				vPrevRenderer.HandleChangeAnimation(false, vChangeDir, prog);
-				vPrevRendererObj.transform.localScale = Vector3.one*(-dist*push);
-			}
-
-			if ( vCurrRenderer != null ) {
-				vCurrRenderer.HandleChangeAnimation(true, vChangeDir, prog);
-				vCurrRendererObj.transform.localScale = Vector3.one*(dist*(1-push)));
-			}
-
-			if ( prog >= 1 ) {
-				vChangeTime = null;
-				DestroyPrevRenderer();
-			}
-
-			vSegState.SetIsAnimating(vChangeTime != null);
-		}*/
-
+			vSegState.SetIsAnimating(pProgress < 1);
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
