@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Henu.State;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,14 +11,15 @@ namespace Henu.Display.Default {
 
 		protected const int Width = 240;
 		protected const int Height = 40;
-		protected const float Scale = 0.0004f;
+		protected const float Scale = 0.002f;
 
-		protected ArcState vHand;
-		protected ArcSegmentState vPoint;
-		protected float vOverallAlpha;
+		protected ArcState vArcState;
+		protected ArcSegmentState vSegState;
+		protected float vAngle0;
+		protected float vAngle1;
+		protected float vMainAlpha;
 		protected float vAnimAlpha;
 
-		protected GameObject vHold;
 		protected GameObject vBackground;
 		protected GameObject vHighlight;
 		protected GameObject vSelect;
@@ -25,51 +27,68 @@ namespace Henu.Display.Default {
 		protected GameObject vCanvasObj;
 		protected GameObject vTextObj;
 
+		private List<Vector3> vSelectionPoints;
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Build(ArcState pHand, ArcSegmentState pPoint) {
-			vHand = pHand;
-			vPoint = pPoint;
+		public virtual void Build(ArcState pArcState, ArcSegmentState pSegState,
+																		float pAngle0, float pAngle1) {
+			vArcState = pArcState;
+			vSegState = pSegState;
+			vAngle0 = pAngle0;
+			vAngle1 = pAngle1-0.003f;
 
 			////
 
-			vHold = new GameObject(GetType().Name);
-			vHold.transform.parent = gameObject.transform;
-
-			////
-
-			vBackground = GameObject.CreatePrimitive(PrimitiveType.Quad);
-			vBackground.transform.parent = vHold.transform;
-			vBackground.name = "Background";
+			vBackground = new GameObject("Background");
+			vBackground.transform.SetParent(gameObject.transform, false);
+			vBackground.AddComponent<MeshFilter>();
+			vBackground.AddComponent<MeshRenderer>();
 			vBackground.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
 			vBackground.renderer.sharedMaterial.renderQueue -= 300;
 			vBackground.renderer.sharedMaterial.color = Color.clear;
 
-			vHighlight = GameObject.CreatePrimitive(PrimitiveType.Quad);
-			vHighlight.transform.parent = vBackground.transform;
-			vHighlight.name = "Highlight";
+			vHighlight = new GameObject("Highlight");
+			vHighlight.transform.SetParent(gameObject.transform, false);
+			vHighlight.AddComponent<MeshFilter>();
+			vHighlight.AddComponent<MeshRenderer>();
 			vHighlight.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
 			vHighlight.renderer.sharedMaterial.renderQueue -= 200;
 			vHighlight.renderer.sharedMaterial.color = Color.clear;
 
-			vSelect = GameObject.CreatePrimitive(PrimitiveType.Quad);
-			vSelect.transform.parent = vBackground.transform;
-			vSelect.name = "Select";
+			vSelect = new GameObject("Select");
+			vSelect.transform.SetParent(gameObject.transform, false);
+			vSelect.AddComponent<MeshFilter>();
+			vSelect.AddComponent<MeshRenderer>();
 			vSelect.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
-			vSelect.renderer.sharedMaterial.renderQueue -= 100;
+			vSelect.renderer.sharedMaterial.renderQueue -= 10;
 			vSelect.renderer.sharedMaterial.color = Color.clear;
 
 			////
 
-			vCanvasGroupObj = new GameObject("CanvasGroup");
-			vCanvasGroupObj.transform.parent = vHold.transform;
-			vCanvasGroupObj.AddComponent<CanvasGroup>();
+			Mesh bgMesh = vBackground.GetComponent<MeshFilter>().mesh;
+			BuildMesh(bgMesh, 1);
+
+			vSelectionPoints = new List<Vector3>();
+
+			for ( int i = 1 ; i < bgMesh.vertices.Length ; i += 2 ) {
+				vSelectionPoints.Add(bgMesh.vertices[i]);
+			}
 
 			////
 
+			vCanvasGroupObj = new GameObject("CanvasGroup");
+			vCanvasGroupObj.transform.SetParent(gameObject.transform, false);
+			vCanvasGroupObj.AddComponent<CanvasGroup>();
+			vCanvasGroupObj.transform.localPosition = new Vector3(0, 0, 1);
+			vCanvasGroupObj.transform.localRotation = 
+				Quaternion.FromToRotation(Vector3.back, Vector3.down)*
+				Quaternion.FromToRotation(Vector3.down, Vector3.left);
+			vCanvasGroupObj.transform.localScale = Vector3.one*Scale;
+
 			vCanvasObj = new GameObject("Canvas");
-			vCanvasObj.transform.parent = vCanvasGroupObj.transform;
+			vCanvasObj.transform.SetParent(vCanvasGroupObj.transform, false);
 			
 			Canvas canvas = vCanvasObj.AddComponent<Canvas>();
 			canvas.renderMode = RenderMode.WorldSpace;
@@ -77,69 +96,110 @@ namespace Henu.Display.Default {
 			RectTransform rect = vCanvasObj.GetComponent<RectTransform>();
 			rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Width);
 			rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, Height);
-			rect.pivot = new Vector2((vHand.IsLeft ? 0 : 1), 0.5f);
+			rect.pivot = new Vector2((vArcState.IsLeft ? 0 : 1), 0.5f);
 
 			////
 
 			vTextObj = new GameObject("Text");
-			vTextObj.transform.parent = vCanvasObj.transform;
+			vTextObj.transform.SetParent(vCanvasObj.transform, false);
 
 			Text text = vTextObj.AddComponent<Text>();
 			text.font = Resources.Load<Font>("Tahoma");
 			text.fontSize = 24;
-			text.alignment = (vHand.IsLeft ? TextAnchor.MiddleLeft : TextAnchor.MiddleRight);
+			text.alignment = (vArcState.IsLeft ? TextAnchor.MiddleLeft : TextAnchor.MiddleRight);
 
 			rect = vTextObj.GetComponent<RectTransform>();
-			rect.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 8, Width-16);
+			rect.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 10, Width-20);
 			rect.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, 4, Height-8);
-
-			////
-			
-			int mult = (vHand.IsLeft ? -1 : 1);
-			Quaternion rot = Quaternion.FromToRotation(Vector3.back, Vector3.down)*
-				Quaternion.FromToRotation(Vector3.down, Vector3.right);
-
-			vHold.transform.localPosition = new Vector3(0, 0, 0.03f*mult);
-
-			vBackground.transform.localPosition = new Vector3(0, 0, Width*Scale/2f*mult);
-			vBackground.transform.localRotation = rot;
-			vBackground.transform.localScale = new Vector3(Width*Scale, Height*Scale, 1);
-
-			vCanvasObj.transform.localRotation = rot;
-			vCanvasObj.transform.localScale = Vector3.one*Scale;
-
-			//vPoint.SetSelectionExtension(Width*Scale);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void Update() {
-			/*if ( !vPoint.IsActive ) {
-				return;
-			}*/
+			vMainAlpha = 1-(float)Math.Pow(1-vArcState.Strength, 2);
+			vMainAlpha -= (float)Math.Pow(vArcState.GrabStrength, 2);
+			vMainAlpha = Math.Max(0, vMainAlpha*vAnimAlpha);
 
-			vOverallAlpha = 1; //1-(float)Math.Pow(1-vHand.Strength*vPoint.Strength*vAnimAlpha, 2);
+			float high = vSegState.HighlightProgress;
+			float select = 1-(float)Math.Pow(1-vSegState.SelectionProgress, 1.5f);
 
-			float high = vPoint.HighlightProgress;
-			float select = 1-(float)Math.Pow(1-vPoint.SelectionProgress, 1.5f);
+			vCanvasGroupObj.GetComponent<CanvasGroup>().alpha = vMainAlpha;
+			vBackground.renderer.sharedMaterial.color = new Color(0.1f, 0.1f, 0.1f, 0.5f*vMainAlpha);
 
-			vCanvasGroupObj.GetComponent<CanvasGroup>().alpha = vOverallAlpha;
-			vBackground.renderer.sharedMaterial.color = new Color(0.1f, 0.1f, 0.1f, 0.5f*vOverallAlpha);
+			BuildMesh(vHighlight.GetComponent<MeshFilter>().mesh, high);
+			vHighlight.renderer.sharedMaterial.color = new Color(0.1f, 0.5f, 0.9f, high*vMainAlpha);
 
-			vHighlight.transform.localScale = new Vector3(high, 1, 1);
-			vHighlight.transform.localPosition = new Vector3(-0.5f+high/2f, 0, 0);
-			vHighlight.renderer.sharedMaterial.color = new Color(0.1f, 0.5f, 0.9f, high*vOverallAlpha);
+			BuildMesh(vSelect.GetComponent<MeshFilter>().mesh, select);
+			vSelect.renderer.sharedMaterial.color = new Color(0.1f, 1.0f, 0.2f, select*vMainAlpha);
 
-			vSelect.transform.localScale = new Vector3(select, 1, 1);
-			vSelect.transform.localPosition = new Vector3(-0.5f+select/2f, 0, 0);
-			vSelect.renderer.sharedMaterial.color = new Color(0.1f, 1.0f, 0.2f, select*vOverallAlpha);
-
-			vTextObj.GetComponent<Text>().text = vPoint.NavItem.Label;
+			vTextObj.GetComponent<Text>().text = vSegState.NavItem.Label;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void HandleChangeAnimation(bool pFadeIn, int pDirection, float pProgress) {
 			float a = 1-(float)Math.Pow(1-pProgress, 3);
 			vAnimAlpha = (pFadeIn ? a : 1-a);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float CalculateCursorDistance(Vector3 pCursorPosition) {
+			float sqrMagMin = float.MaxValue;
+
+			foreach ( Vector3 v in vSelectionPoints ) {
+				float sqrMag = (v-pCursorPosition).sqrMagnitude;
+				sqrMagMin = Math.Min(sqrMagMin, sqrMag);
+			}
+
+			return (float)Math.Sqrt(sqrMagMin);
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private void BuildMesh(Mesh pMesh, float pThickness) {
+			int steps = (int)Math.Round(Math.Max(2, (vAngle1-vAngle0)/Math.PI*60));
+			BuildMesh(pMesh, 1, 1+0.5f*pThickness, vAngle0, vAngle1, steps);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public static void BuildMesh(Mesh pMesh, float pInnerRadius, float pOuterRadius,
+															float pAngle0, float pAngle1, int pSteps) {
+			float angleFull = pAngle1-pAngle0;
+			float angleInc = angleFull/pSteps;
+			float angle = pAngle0;
+
+			var verts = new List<Vector3>();
+			var uvs = new List<Vector2>();
+			var tris = new List<int>();
+
+			for ( int i = 0 ; i <= pSteps ; ++i ) {
+				int vi = verts.Count;
+
+				verts.Add(UiArcSegment.GetRadialPoint(pInnerRadius, angle));
+				verts.Add(UiArcSegment.GetRadialPoint(pOuterRadius, angle));
+
+				uvs.Add(new Vector2(0, 0));
+				uvs.Add(new Vector2(0, 0));
+
+				if ( i > 0 ) {
+					tris.Add(vi-1);
+					tris.Add(vi-2);
+					tris.Add(vi);
+
+					tris.Add(vi+1);
+					tris.Add(vi-1);
+					tris.Add(vi);
+				}
+
+				angle += angleInc;
+			}
+
+			pMesh.Clear();
+			pMesh.vertices = verts.ToArray();
+			pMesh.uv = uvs.ToArray();
+			pMesh.triangles = tris.ToArray();
+			pMesh.RecalculateNormals();
+			pMesh.RecalculateBounds();
+			pMesh.Optimize();
 		}
 
 	}

@@ -7,8 +7,8 @@ namespace Henu.State {
 	/*================================================================================================*/
 	public class ArcSegmentState {
 
-		public static float HighlightDistanceMin = 0.025f;
-		public static float HighlightDistanceMax = 0.12f;
+		public static float HighlightDistanceMin = 0.04f;
+		public static float HighlightDistanceMax = 0.14f;
 		public static float SelectionMilliseconds = 600;
 
 		public NavItem NavItem { get; private set; }
@@ -73,28 +73,29 @@ namespace Henu.State {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		internal void ContinueSelectionProgress(bool pContinue) {
+		internal bool ContinueSelectionProgress(bool pContinue) {
 			if ( !pContinue ) {
 				vSelectionStart = null;
-				return;
+				return false;
 			}
 
 			if ( NavItem.Selected && NavItem.Type == NavItem.ItemType.Radio ) {
 				vSelectionStart = null;
-				return;
+				return false;
 			}
 
 			if ( vSelectionStart == null ) {
 				vSelectionStart = DateTime.UtcNow;
-				return;
+				return false;
 			}
 
 			if ( SelectionProgress < 1 ) {
-				return;
+				return false;
 			}
 
 			NavItem.Select();
 			vSelectionStart = null;
+			return true;
 		}
 
 	}

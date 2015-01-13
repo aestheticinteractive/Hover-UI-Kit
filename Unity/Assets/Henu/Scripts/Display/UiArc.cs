@@ -17,7 +17,6 @@ namespace Henu.Display {
 		private GameObject vCurrLevelObj;
 		private DateTime? vChangeTime;
 		private int vChangeDir;
-		//private bool vLevelChange;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -28,10 +27,6 @@ namespace Henu.Display {
 
 			vArcState.OnLevelChange += HandleLevelChange;
 			HandleLevelChange(0);
-
-			/*var timer = new Timer(3000);
-			timer.Elapsed += (s, a) => { vLevelChange = true; };
-			timer.Start();*/
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -40,11 +35,6 @@ namespace Henu.Display {
 			gameObject.transform.localRotation = vArcState.Rotation;
 			gameObject.transform.localScale = Vector3.one*(vArcState.Size*1.1f);
 
-			/*if ( vLevelChange ) {
-				HandleLevelChange(1);
-				vLevelChange = false;
-			}*/
-			
 			UpdateItemChangeAnim();
 		}
 
@@ -95,12 +85,12 @@ namespace Henu.Display {
 			float ms = (float)(DateTime.UtcNow-(DateTime)vChangeTime).TotalMilliseconds;
 			float prog = Math.Min(1, ms/LevelChangeMilliseconds);
 			float push = 1-(float)Math.Pow(1-prog, 3);
-			float dist = -LevelChangeDistance*vChangeDir;
+			float dist = LevelChangeDistance*vChangeDir;
 
 			if ( vPrevLevelObj != null ) {
 				float prevScale = -dist*push;
 
-				if ( vChangeDir < 0 ) {
+				if ( vChangeDir > 0 ) {
 					prevScale *= 0.666f;
 				}
 
@@ -112,7 +102,7 @@ namespace Henu.Display {
 			if ( vCurrLevelObj != null ) {
 				float currScale = dist*(1-push);
 
-				if ( vChangeDir > 0 ) {
+				if ( vChangeDir < 0 ) {
 					currScale *= 0.666f;
 				}
 

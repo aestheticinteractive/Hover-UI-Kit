@@ -116,7 +116,9 @@ namespace Henu.State {
 			}
 
 			foreach ( ArcSegmentState seg in vSegments ) {
-				seg.ContinueSelectionProgress(seg == selectSeg);
+				if ( seg.ContinueSelectionProgress(seg == selectSeg) ) {
+					break;
+				}
 			}
 		}
 
