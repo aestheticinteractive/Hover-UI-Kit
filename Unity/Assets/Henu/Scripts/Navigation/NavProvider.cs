@@ -66,23 +66,31 @@ namespace Henu.Navigation {
 				return;
 			}
 
-			switch ( pItem.Type ) {
-				case NavItem.ItemType.Parent:
-					vDelgate.HandleItemSelection(pItem);
-					PushCurrentItemsToHistory();
-					SetNewItems(pItem.Children, 1);
-					return;
+			if ( pItem.Type == NavItem.ItemType.Parent ) {
+				vDelgate.HandleItemSelection(pItem);
+				PushCurrentItemsToHistory();
+				SetNewItems(pItem.Children, 1);
+				return;
+			}
 
+			switch ( pItem.Type ) {
 				case NavItem.ItemType.Selection:
+					pItem.Selected = true;
+					break;
+
 				case NavItem.ItemType.Checkbox:
 					pItem.Selected = !pItem.Selected;
-					vDelgate.HandleItemSelection(pItem);
-					return;
+					break;
 
 				case NavItem.ItemType.Radio:
 					SetRadioSelection(pItem);
-					vDelgate.HandleItemSelection(pItem);
-					return;
+					break;
+			}
+
+			vDelgate.HandleItemSelection(pItem);
+
+			if ( pItem.NavigateBackUponSelect ) {
+				Back();
 			}
 		}
 

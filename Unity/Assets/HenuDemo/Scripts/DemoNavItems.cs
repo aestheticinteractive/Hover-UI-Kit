@@ -134,6 +134,7 @@ namespace HenuDemo {
 			CameraPosTop = new NavItem(NavItem.ItemType.Radio, "Top");
 			CameraPosReorient = new NavItem(NavItem.ItemType.Selection, "Re-orient");
 			CameraPosCenter.Selected = true;
+			//CameraPosReorient.NavigateBackUponSelect = true;
 			CameraPos.SetChildren(new[] { CameraPosCenter, CameraPosBack, CameraPosTop, 
 				CameraPosReorient });
 		}

@@ -23,6 +23,7 @@ namespace Henu.Navigation {
 		public NavItem[] Children { get; private set; }
 
 		public bool Selected { get; set; }
+		public bool NavigateBackUponSelect { get; set; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
