@@ -37,6 +37,7 @@ namespace HenuDemo {
 		public NavItem CameraPosCenter { get; private set; }
 		public NavItem CameraPosBack { get; private set; }
 		public NavItem CameraPosTop { get; private set; }
+		public NavItem CameraPosReorient { get; private set; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -131,8 +132,10 @@ namespace HenuDemo {
 			CameraPosCenter = new NavItem(NavItem.ItemType.Radio, "Center");
 			CameraPosBack = new NavItem(NavItem.ItemType.Radio, "Back");
 			CameraPosTop = new NavItem(NavItem.ItemType.Radio, "Top");
+			CameraPosReorient = new NavItem(NavItem.ItemType.Selection, "Re-orient");
 			CameraPosCenter.Selected = true;
-			CameraPos.SetChildren(new[] { CameraPosCenter, CameraPosBack, CameraPosTop });
+			CameraPos.SetChildren(new[] { CameraPosCenter, CameraPosBack, CameraPosTop, 
+				CameraPosReorient });
 		}
 
 	}

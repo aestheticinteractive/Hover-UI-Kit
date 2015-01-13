@@ -26,6 +26,7 @@ namespace HenuDemo {
 		private DemoAnimVector3 vCameraPosAnim;
 		private DemoAnimQuaternion vCameraRotAnim;
 
+		private DemoNavItems vNavItems;
 		private IDictionary<int, Color> vColorMap;
 		private IDictionary<int, DemoMotion> vMotionMap;
 		private IDictionary<int, Vector3> vLightPosMap;
@@ -62,46 +63,46 @@ namespace HenuDemo {
 			////
 
 			DemoNavDelegate navDel = DemoNavComponent.NavDelegate;
-			DemoNavItems navItems = navDel.Items;
+			vNavItems = navDel.Items;
 
 			vColorMap = new Dictionary<int, Color> {
-				{ navItems.ColorWhite.Id,	Color.white },
-				{ navItems.ColorRed.Id,		Color.red },
-				{ navItems.ColorYellow.Id,	Color.yellow },
-				{ navItems.ColorGreen.Id,	Color.green },
-				{ navItems.ColorBlue.Id,	Color.blue }
+				{ vNavItems.ColorWhite.Id,	Color.white },
+				{ vNavItems.ColorRed.Id,	Color.red },
+				{ vNavItems.ColorYellow.Id,	Color.yellow },
+				{ vNavItems.ColorGreen.Id,	Color.green },
+				{ vNavItems.ColorBlue.Id,	Color.blue }
 			};
 
 			vMotionMap = new Dictionary<int, DemoMotion> {
-				{ navItems.MotionOrbit.Id,	vOrbitMotion },
-				{ navItems.MotionSpin.Id,	vSpinMotion },
-				{ navItems.MotionBob.Id,	vBobMotion },
-				{ navItems.MotionGrow.Id,	vGrowMotion }
+				{ vNavItems.MotionOrbit.Id,	vOrbitMotion },
+				{ vNavItems.MotionSpin.Id,	vSpinMotion },
+				{ vNavItems.MotionBob.Id,	vBobMotion },
+				{ vNavItems.MotionGrow.Id,	vGrowMotion }
 			};
 
 			vLightPosMap = new Dictionary<int, Vector3> {
-				{ navItems.LightPosHighest.Id,	new Vector3(0,  9, 0) },
-				{ navItems.LightPosHigh.Id,		new Vector3(0,  3, 0) },
-				{ navItems.LightPosLow.Id,		new Vector3(0, -3, 0) },
-				{ navItems.LightPosLowest.Id,	new Vector3(0, -9, 0) }
+				{ vNavItems.LightPosHighest.Id,	new Vector3(0,  9, 0) },
+				{ vNavItems.LightPosHigh.Id,	new Vector3(0,  3, 0) },
+				{ vNavItems.LightPosLow.Id,		new Vector3(0, -3, 0) },
+				{ vNavItems.LightPosLowest.Id,	new Vector3(0, -9, 0) }
 			};
 
 			vLightIntenMap = new Dictionary<int, float> {
-				{ navItems.LightIntenHigh.Id,	1.4f },
-				{ navItems.LightIntenMed.Id,	0.8f },
-				{ navItems.LightIntenLow.Id,	0.2f }
+				{ vNavItems.LightIntenHigh.Id,	1.4f },
+				{ vNavItems.LightIntenMed.Id,	0.8f },
+				{ vNavItems.LightIntenLow.Id,	0.2f }
 			};
 
 			vCameraPosMap = new Dictionary<int, Vector3> {
-				{ navItems.CameraPosCenter.Id,	Vector3.zero },
-				{ navItems.CameraPosBack.Id,	new Vector3(0, 0, 20) },
-				{ navItems.CameraPosTop.Id,		new Vector3(0, 0, 20) }
+				{ vNavItems.CameraPosCenter.Id,	Vector3.zero },
+				{ vNavItems.CameraPosBack.Id,	new Vector3(0, 0, 20) },
+				{ vNavItems.CameraPosTop.Id,	new Vector3(0, 0, 20) }
 			};
 
 			vCameraRotMap = new Dictionary<int, Quaternion> {
-				{ navItems.CameraPosCenter.Id, Quaternion.identity },
-				{ navItems.CameraPosBack.Id, Quaternion.identity },
-				{ navItems.CameraPosTop.Id,	Quaternion.FromToRotation(Vector3.forward, Vector3.up) }
+				{ vNavItems.CameraPosCenter.Id, Quaternion.identity },
+				{ vNavItems.CameraPosBack.Id,	Quaternion.identity },
+				{ vNavItems.CameraPosTop.Id,	Quaternion.FromToRotation(Vector3.forward, Vector3.up) }
 			};
 
 			navDel.OnColorChange += HandleColorChange;
@@ -113,10 +114,10 @@ namespace HenuDemo {
 			vLight.transform.localPosition = Vector3.zero;
 			vLight.intensity = 0;
 
-			HandleColorChange(DemoNavItems.GetFirstSelectedChildItem(navItems.Colors));
-			HandleLightPosChange(DemoNavItems.GetFirstSelectedChildItem(navItems.LightPos));
-			HandleLightIntenChange(DemoNavItems.GetFirstSelectedChildItem(navItems.LightInten));
-			HandleCameraPosChange(DemoNavItems.GetFirstSelectedChildItem(navItems.CameraPos));
+			HandleColorChange(DemoNavItems.GetFirstSelectedChildItem(vNavItems.Colors));
+			HandleLightPosChange(DemoNavItems.GetFirstSelectedChildItem(vNavItems.LightPos));
+			HandleLightIntenChange(DemoNavItems.GetFirstSelectedChildItem(vNavItems.LightInten));
+			HandleCameraPosChange(DemoNavItems.GetFirstSelectedChildItem(vNavItems.CameraPos));
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -212,9 +213,8 @@ namespace HenuDemo {
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleColorChange(NavItem pItem) {
 			Color color = Color.white;
-			DemoNavItems items = DemoNavComponent.NavDelegate.Items;
-			bool isRandLt = (pItem == items.ColorRandLt);
-			bool isRandDk = (pItem == items.ColorRandDk);
+			bool isRandLt = (pItem == vNavItems.ColorRandLt);
+			bool isRandDk = (pItem == vNavItems.ColorRandDk);
 
 			if ( vColorMap.ContainsKey(pItem.Id) ) {
 				color = vColorMap[pItem.Id];
@@ -252,6 +252,11 @@ namespace HenuDemo {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleCameraPosChange(NavItem pItem) {
+			if ( pItem == vNavItems.CameraPosReorient ) {
+				OVRManager.display.RecenterPose();
+				return;
+			}
+
 			vCameraPosAnim.Start(vEnviro.transform.localPosition, vCameraPosMap[pItem.Id]);
 			vCameraRotAnim.Start(vEnviro.transform.localRotation, vCameraRotMap[pItem.Id]);
 		}
