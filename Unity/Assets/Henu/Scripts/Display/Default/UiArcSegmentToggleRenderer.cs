@@ -26,7 +26,8 @@ namespace Henu.Display.Default {
 			base.Build(pArcState, pSegState, pAngle0, pAngle1);
 
 			RectTransform rect = vTextObj.GetComponent<RectTransform>();
-			rect.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, Height, Width-Height-8);
+			var edge = (vArcState.IsLeft ? RectTransform.Edge.Left : RectTransform.Edge.Right);
+			rect.SetInsetAndSizeFromParentEdge(edge, Height, Width-Height-8);
 
 			////
 			
@@ -48,7 +49,7 @@ namespace Henu.Display.Default {
 			
 			int mult = (vArcState.IsLeft ? 1 : -1);
 
-			vOuter.transform.localPosition = new Vector3(0, 0, 1+(Height/2f)*Scale*mult);
+			vOuter.transform.localPosition = new Vector3(0, 0, 1+(Height/2f)*Scale);
 			vOuter.transform.localRotation = vCanvasGroupObj.transform.localRotation;
 			vOuter.transform.localScale = new Vector3(-IconSize*Scale*mult, IconSize*Scale, 1);
 

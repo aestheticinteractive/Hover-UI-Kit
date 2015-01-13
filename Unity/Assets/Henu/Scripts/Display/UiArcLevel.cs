@@ -20,16 +20,17 @@ namespace Henu.Display {
 
 			ArcSegmentState[] segStates = vArcState.GetSegments();
 			int segCount = segStates.Length;
+			bool isLeft = vArcState.IsLeft;
 
 			const float pi = (float)Math.PI;
 			const float angleFull = (float)Math.PI/2f;
 			float segAngleFull = angleFull/segCount;
 			float segAngleHalf = segAngleFull/2f;
 			float degreeInc = segAngleFull/pi*180;
-			float degrees = 210;
+			float degrees = (isLeft ? 207 : 227);
 
 			for ( int i = 0 ; i < segCount ; i++ ) {
-				ArcSegmentState segState = segStates[i];
+				ArcSegmentState segState = segStates[isLeft ? i : segCount-i-1];
 
 				var segObj = new GameObject("Segment"+vSegmentObjList.Count);
 				segObj.transform.SetParent(gameObject.transform, false);

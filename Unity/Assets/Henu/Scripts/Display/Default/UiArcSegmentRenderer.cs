@@ -84,7 +84,8 @@ namespace Henu.Display.Default {
 			vCanvasGroupObj.transform.localPosition = new Vector3(0, 0, 1);
 			vCanvasGroupObj.transform.localRotation = 
 				Quaternion.FromToRotation(Vector3.back, Vector3.down)*
-				Quaternion.FromToRotation(Vector3.down, Vector3.left);
+				Quaternion.FromToRotation(Vector3.down, 
+					(vArcState.IsLeft ? Vector3.left : Vector3.right));
 			vCanvasGroupObj.transform.localScale = Vector3.one*Scale;
 
 			vCanvasObj = new GameObject("Canvas");

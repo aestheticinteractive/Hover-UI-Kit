@@ -28,7 +28,7 @@ namespace Henu.Display.Default {
 			
 			int mult = (vArcState.IsLeft ? 1 : -1);
 
-			vArrow.transform.localPosition = new Vector3(0, 0, 1+(Width-Height/2f)*Scale*mult);
+			vArrow.transform.localPosition = new Vector3(0, 0, 1+(Width-Height/2f)*Scale);
 			vArrow.transform.localRotation = vCanvasGroupObj.transform.localRotation;
 			vArrow.transform.localScale = new Vector3(ArrowSize*Scale*mult, ArrowSize*Scale, 1);
 		}
