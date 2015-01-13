@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Henu.Display.Default {
 
 	/*================================================================================================*/
-	public abstract class UiPointToggleIconRenderer : UiPointRenderer {
+	public abstract class UiArcSegmentToggleRenderer : UiArcSegmentRenderer {
 
 		public static float IconSize = 16;
 

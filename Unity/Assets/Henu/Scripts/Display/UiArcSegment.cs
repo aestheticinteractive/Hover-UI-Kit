@@ -11,7 +11,7 @@ namespace Henu.Display {
 		private ArcState vArcState;
 		private ArcSegmentState vSegState;
 		private GameObject vRendererObj;
-		private IUiMenuPointRenderer vRenderer;
+		private IUiArcSegmentRenderer vRenderer;
 		private Transform vCursorBaseTx;
 
 
@@ -60,7 +60,7 @@ namespace Henu.Display {
 					break;
 			}
 
-			vRenderer = (IUiMenuPointRenderer)vRendererObj.AddComponent(rendererType);
+			vRenderer = (IUiArcSegmentRenderer)vRendererObj.AddComponent(rendererType);
 			vRenderer.Build(vArcState, vSegState, pAngle0, pAngle1);
 			vRenderer.Update();
 		}

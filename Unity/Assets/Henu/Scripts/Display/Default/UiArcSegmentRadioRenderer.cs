@@ -1,7 +1,7 @@
 ﻿namespace Henu.Display.Default {
 
 	/*================================================================================================*/
-	public class UiPointRadioRenderer : UiPointToggleIconRenderer {
+	public class UiArcSegmentRadioRenderer : UiArcSegmentToggleRenderer {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

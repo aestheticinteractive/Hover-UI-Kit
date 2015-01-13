@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Henu.Display.Default {
 
 	/*================================================================================================*/
-	public class UiPointParentRenderer : UiPointRenderer {
+	public class UiArcSegmentParentRenderer : UiArcSegmentRenderer {
 
 		public static float ArrowSize = 16;
 		public static Texture2D ArrowTexture = Resources.Load<Texture2D>("Arrow");

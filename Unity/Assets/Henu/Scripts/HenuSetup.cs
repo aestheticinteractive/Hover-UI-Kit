@@ -73,10 +73,10 @@ namespace Henu {
 		/*--------------------------------------------------------------------------------------------*/
 		private void BuildRenderers() {
 			vRenderers = new Renderers {
-				PointParent = typeof(UiPointParentRenderer),
-				PointSelection = typeof(UiPointRenderer),
-				PointCheckbox = typeof(UiPointCheckboxRenderer),
-				PointRadio = typeof(UiPointRadioRenderer)
+				PointParent = typeof(UiArcSegmentParentRenderer),
+				PointSelection = typeof(UiArcSegmentRenderer),
+				PointCheckbox = typeof(UiArcSegmentCheckboxRenderer),
+				PointRadio = typeof(UiArcSegmentRadioRenderer)
 			};
 
 			if ( PointParentRenderer != null ) {

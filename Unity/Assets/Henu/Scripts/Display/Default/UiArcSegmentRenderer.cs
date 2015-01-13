@@ -7,7 +7,7 @@ using UnityEngine.UI;
 namespace Henu.Display.Default {
 
 	/*================================================================================================*/
-	public class UiPointRenderer : MonoBehaviour, IUiMenuPointRenderer {
+	public class UiArcSegmentRenderer : MonoBehaviour, IUiArcSegmentRenderer {
 
 		protected const int Width = 240;
 		protected const int Height = 40;

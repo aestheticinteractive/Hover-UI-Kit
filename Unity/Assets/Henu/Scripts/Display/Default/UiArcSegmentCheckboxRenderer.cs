@@ -1,7 +1,7 @@
 ﻿namespace Henu.Display.Default {
 
 	/*================================================================================================*/
-	public class UiPointCheckboxRenderer : UiPointToggleIconRenderer {
+	public class UiArcSegmentCheckboxRenderer : UiArcSegmentToggleRenderer {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

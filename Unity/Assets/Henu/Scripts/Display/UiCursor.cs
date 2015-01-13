@@ -12,7 +12,7 @@ namespace Henu.Display {
 		private CursorState vCursorState;
 		private Mesh vTestMesh;
 		private GameObject vRendererObj;
-		private IUiMenuPointRenderer vRenderer;
+		private IUiArcSegmentRenderer vRenderer;
 		private Transform vCameraTx;
 
 		private float vCurrInnerRadius;
@@ -50,7 +50,7 @@ namespace Henu.Display {
 
 			ArcSegmentState nearSeg = vArcState.NearestSegment;
 			bool high = (nearSeg != null && nearSeg.HighlightProgress > 0);
-			float alpha = (high ? 1 : 0.75f)*UiPointRenderer.GetArcAlpha(vArcState); 
+			float alpha = (high ? 1 : 0.75f)*UiArcSegmentRenderer.GetArcAlpha(vArcState); 
 
 			vRendererObj.renderer.sharedMaterial.color = new Color(1, 1, 1, alpha);
 			BuildMesh(high ? 0.35f : 0.45f);

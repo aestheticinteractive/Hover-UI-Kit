@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Henu.Display {
 
 	/*================================================================================================*/
-	public interface IUiMenuPointRenderer {
+	public interface IUiArcSegmentRenderer {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

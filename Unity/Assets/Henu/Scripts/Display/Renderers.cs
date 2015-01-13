@@ -27,7 +27,7 @@ namespace Henu.Display {
 				throw new Exception("The ''"+pName+"' Renderer is not set.");
 			}
 
-			if ( !pType.GetInterfaces().Contains(typeof(IUiMenuPointRenderer)) ) {
+			if ( !pType.GetInterfaces().Contains(typeof(IUiArcSegmentRenderer)) ) {
 				throw new Exception("The ''"+pName+"' Renderer must be an IMenuPointRenderer.");
 			}
 		}
