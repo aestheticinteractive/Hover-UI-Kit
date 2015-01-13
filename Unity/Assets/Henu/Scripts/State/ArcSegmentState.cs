@@ -19,6 +19,7 @@ namespace Henu.State {
 		private Func<Vector3, float> vCursorDistanceFunc;
 		private DateTime? vSelectionStart;
 		private bool vIsAnimating;
+		private bool vPreventSelection;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -58,6 +59,7 @@ namespace Henu.State {
 			if ( pCursorPosition == null || vIsAnimating ) {
 				HighlightProgress = 0;
 				vSelectionStart = null;
+				vPreventSelection = false;
 				return;
 			}
 
@@ -70,11 +72,21 @@ namespace Henu.State {
 
 			HighlightDistance = dist;
 			HighlightProgress = Math.Max(0, Math.Min(1, prog));
+
+			if ( HighlightProgress < 1 ) {
+				vPreventSelection = false;
+			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		internal bool ContinueSelectionProgress(bool pContinue) {
 			if ( !pContinue ) {
+				vSelectionStart = null;
+				vPreventSelection = false;
+				return false;
+			}
+
+			if ( vPreventSelection ) {
 				vSelectionStart = null;
 				return false;
 			}
@@ -95,6 +107,7 @@ namespace Henu.State {
 
 			NavItem.Select();
 			vSelectionStart = null;
+			vPreventSelection = true;
 			return true;
 		}
 
