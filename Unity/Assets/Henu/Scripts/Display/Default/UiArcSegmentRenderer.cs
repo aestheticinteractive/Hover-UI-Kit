@@ -10,7 +10,7 @@ namespace Henu.Display.Default {
 	public class UiArcSegmentRenderer : MonoBehaviour, IUiArcSegmentRenderer {
 
 		protected const int Width = 240;
-		protected const int Height = 40;
+		protected const int Height = 42;
 		protected const float Scale = 0.002f;
 
 		protected ArcState vArcState;
@@ -105,7 +105,7 @@ namespace Henu.Display.Default {
 
 			Text text = vTextObj.AddComponent<Text>();
 			text.font = Resources.Load<Font>("Tahoma");
-			text.fontSize = 24;
+			text.fontSize = 26;
 			text.alignment = (vArcState.IsLeft ? TextAnchor.MiddleLeft : TextAnchor.MiddleRight);
 
 			rect = vTextObj.GetComponent<RectTransform>();

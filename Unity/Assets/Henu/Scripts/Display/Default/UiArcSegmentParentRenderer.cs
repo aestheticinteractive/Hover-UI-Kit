@@ -6,7 +6,7 @@ namespace Henu.Display.Default {
 	/*================================================================================================*/
 	public class UiArcSegmentParentRenderer : UiArcSegmentRenderer {
 
-		public static float ArrowSize = 16;
+		public static float ArrowSize = 20;
 		public static Texture2D ArrowTexture = Resources.Load<Texture2D>("Arrow");
 
 		private GameObject vArrow;
@@ -37,7 +37,7 @@ namespace Henu.Display.Default {
 		public override void Update() {
 			base.Update();
 
-			float alpha = vSegState.HighlightProgress*0.8f + 0.2f;
+			float alpha = vSegState.HighlightProgress*0.75f + 0.25f;
 			vArrow.renderer.sharedMaterial.color = new Color(1, 1, 1, alpha*vMainAlpha);
 		}
 

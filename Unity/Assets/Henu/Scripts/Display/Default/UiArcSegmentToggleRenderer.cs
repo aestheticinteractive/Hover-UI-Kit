@@ -6,7 +6,7 @@ namespace Henu.Display.Default {
 	/*================================================================================================*/
 	public abstract class UiArcSegmentToggleRenderer : UiArcSegmentRenderer {
 
-		public static float IconSize = 16;
+		public static float IconSize = 20;
 
 		private Texture2D ToggleOuterTexture;
 		private Texture2D ToggleInnerTexture;
@@ -61,7 +61,7 @@ namespace Henu.Display.Default {
 		public override void Update() {
 			base.Update();
 
-			float alpha = vSegState.HighlightProgress*0.5f + 0.5f;
+			float alpha = vSegState.HighlightProgress*0.25f + 0.75f;
 
 			vOuter.renderer.sharedMaterial.color = new Color(1, 1, 1, alpha*vMainAlpha);
 			vInner.renderer.sharedMaterial.color = new Color(1, 1, 1, alpha*vMainAlpha);
