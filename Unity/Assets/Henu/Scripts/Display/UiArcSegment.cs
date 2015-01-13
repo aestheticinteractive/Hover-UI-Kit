@@ -28,11 +28,6 @@ namespace Henu.Display {
 			vSegState.SetCursorDistanceFunction(CalcCursorDistance);
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
-		public void Update() {
-			vRenderer.Update();
-		}
-
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -44,25 +39,24 @@ namespace Henu.Display {
 
 			switch ( vSegState.NavItem.Type ) {
 				case NavItem.ItemType.Parent:
-					rendererType = pRenderers.PointParent;
+					rendererType = pRenderers.ArcSegmentParent;
 					break;
 
 				case NavItem.ItemType.Checkbox:
-					rendererType = pRenderers.PointCheckbox;
+					rendererType = pRenderers.ArcSegmentCheckbox;
 					break;
 
 				case NavItem.ItemType.Radio:
-					rendererType = pRenderers.PointRadio;
+					rendererType = pRenderers.ArcSegmentRadio;
 					break;
 
 				default:
-					rendererType = pRenderers.PointSelection;
+					rendererType = pRenderers.ArcSegmentSelection;
 					break;
 			}
 
 			vRenderer = (IUiArcSegmentRenderer)vRendererObj.AddComponent(rendererType);
 			vRenderer.Build(vArcState, vSegState, pAngle0, pAngle1);
-			vRenderer.Update();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

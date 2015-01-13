@@ -13,10 +13,11 @@ namespace Henu {
 
 		public bool MenuIsOnLeftHand = true;
 		public HenuNavComponent NavDelegateProvider;
-		public Component PointParentRenderer;
-		public Component PointSelectionRenderer;
-		public Component PointCheckboxRenderer;
-		public Component PointRadioRenderer;
+		public Component ArcSegmentParentRenderer;
+		public Component ArcSegmentSelectionRenderer;
+		public Component ArcSegmentCheckboxRenderer;
+		public Component ArcSegmentRadioRenderer;
+		public Component CursorRenderer;
 
 		private HandController vHandControl;
 		private InputProvider vInputProv;
@@ -73,26 +74,31 @@ namespace Henu {
 		/*--------------------------------------------------------------------------------------------*/
 		private void BuildRenderers() {
 			vRenderers = new Renderers {
-				PointParent = typeof(UiArcSegmentParentRenderer),
-				PointSelection = typeof(UiArcSegmentRenderer),
-				PointCheckbox = typeof(UiArcSegmentCheckboxRenderer),
-				PointRadio = typeof(UiArcSegmentRadioRenderer)
+				ArcSegmentParent = typeof(UiArcSegmentParentRenderer),
+				ArcSegmentSelection = typeof(UiArcSegmentRenderer),
+				ArcSegmentCheckbox = typeof(UiArcSegmentCheckboxRenderer),
+				ArcSegmentRadio = typeof(UiArcSegmentRadioRenderer),
+				Cursor = typeof(UiCursorRenderer)
 			};
 
-			if ( PointParentRenderer != null ) {
-				vRenderers.PointParent = PointParentRenderer.GetType();
+			if ( ArcSegmentParentRenderer != null ) {
+				vRenderers.ArcSegmentParent = ArcSegmentParentRenderer.GetType();
 			}
 
-			if ( PointSelectionRenderer != null ) {
-				vRenderers.PointSelection = PointSelectionRenderer.GetType();
+			if ( ArcSegmentSelectionRenderer != null ) {
+				vRenderers.ArcSegmentSelection = ArcSegmentSelectionRenderer.GetType();
 			}
 
-			if ( PointCheckboxRenderer != null ) {
-				vRenderers.PointCheckbox = PointCheckboxRenderer.GetType();
+			if ( ArcSegmentCheckboxRenderer != null ) {
+				vRenderers.ArcSegmentCheckbox = ArcSegmentCheckboxRenderer.GetType();
 			}
 
-			if ( PointRadioRenderer != null ) {
-				vRenderers.PointRadio = PointRadioRenderer.GetType();
+			if ( ArcSegmentRadioRenderer != null ) {
+				vRenderers.ArcSegmentRadio = ArcSegmentRadioRenderer.GetType();
+			}
+
+			if ( CursorRenderer != null ) {
+				vRenderers.Cursor = CursorRenderer.GetType();
 			}
 
 			vRenderers.Verify();

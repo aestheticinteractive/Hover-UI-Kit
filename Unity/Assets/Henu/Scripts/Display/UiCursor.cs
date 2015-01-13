@@ -1,6 +1,4 @@
-﻿using System;
-using Henu.Display.Default;
-using Henu.State;
+﻿using Henu.State;
 using UnityEngine;
 
 namespace Henu.Display {
@@ -10,9 +8,8 @@ namespace Henu.Display {
 
 		private ArcState vArcState;
 		private CursorState vCursorState;
-		private Mesh vTestMesh;
 		private GameObject vRendererObj;
-		private IUiArcSegmentRenderer vRenderer;
+		private IUiCursorRenderer vRenderer;
 		private Transform vCameraTx;
 
 		private float vCurrInnerRadius;
@@ -45,15 +42,6 @@ namespace Henu.Display {
 			Vector3 camWorld = vCameraTx.transform.TransformPoint(Vector3.zero);
 			Vector3 camLocal = tx.InverseTransformPoint(camWorld);
 			tx.localRotation = Quaternion.FromToRotation(Vector3.down, camLocal);
-
-			////
-
-			ArcSegmentState nearSeg = vArcState.NearestSegment;
-			bool high = (nearSeg != null && nearSeg.HighlightProgress > 0);
-			float alpha = (high ? 1 : 0.75f)*UiArcSegmentRenderer.GetArcAlpha(vArcState); 
-
-			vRendererObj.renderer.sharedMaterial.color = new Color(1, 1, 1, alpha);
-			BuildMesh(high ? 0.35f : 0.45f);
 		}
 
 
@@ -62,29 +50,9 @@ namespace Henu.Display {
 		private void BuildRenderer(Renderers pRenderers) {
 			vRendererObj = new GameObject("Renderer");
 			vRendererObj.transform.SetParent(gameObject.transform, false);
-			vRendererObj.transform.localScale = Vector3.one*0.012f;
-			vRendererObj.transform.localPosition = new Vector3(0, -0.02f, 0); //keep in front of finger
-			vRendererObj.AddComponent<MeshRenderer>();
-			vRendererObj.AddComponent<MeshFilter>();
-			vRendererObj.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
 
-			vTestMesh = vRendererObj.GetComponent<MeshFilter>().mesh;
-
-			/*vRenderer = (IUiMenuPointRenderer)vRendererObj.AddComponent(rendererType);
-			vRenderer.Build(vArcState, vSegState, pAngle0, pAngle1);
-			vRenderer.Update();*/
-		}
-		
-		
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		private void BuildMesh(float pInnerRadius) {
-			if ( pInnerRadius == vCurrInnerRadius ) {
-				return;
-			}
-
-			vCurrInnerRadius = pInnerRadius;
-			MeshUtil.BuildRingMesh(vTestMesh, pInnerRadius, 0.5f, 0, (float)Math.PI*2, 24);
+			vRenderer = (IUiCursorRenderer)vRendererObj.AddComponent(pRenderers.Cursor);
+			vRenderer.Build(vArcState, vCursorState);
 		}
 
 	}
