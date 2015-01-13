@@ -7,8 +7,8 @@ namespace Henu.State {
 	/*================================================================================================*/
 	public class ArcSegmentState {
 
-		public static float HighlightDistanceMin = 0.04f;
-		public static float HighlightDistanceMax = 0.14f;
+		public static float HighlightDistanceMin = 0.05f;
+		public static float HighlightDistanceMax = 0.15f;
 		public static float SelectionMilliseconds = 600;
 
 		public NavItem NavItem { get; private set; }

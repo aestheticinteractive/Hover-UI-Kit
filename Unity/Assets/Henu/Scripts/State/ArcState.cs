@@ -23,6 +23,7 @@ namespace Henu.State {
 		public float Size { get; private set; }
 		public float Strength { get; private set; }
 		public float GrabStrength { get; private set; }
+		public ArcSegmentState NearestSegment { get; private set; }
 
 		private readonly InputHandProvider vInputHandProv;
 		private readonly NavigationProvider vNavProv;
@@ -96,7 +97,7 @@ namespace Henu.State {
 		/*--------------------------------------------------------------------------------------------*/
 		internal void UpdateWithCursor(CursorState pCursor) {
 			bool allowSelect = (pCursor != null && Strength > 0);
-			ArcSegmentState selectSeg = null;
+			NearestSegment = null;
 
 			foreach ( ArcSegmentState seg in vSegments ) {
 				seg.UpdateWithCursor(pCursor != null ? pCursor.Position : null);
@@ -105,18 +106,18 @@ namespace Henu.State {
 					continue;
 				}
 
-				if ( selectSeg == null ) {
-					selectSeg = seg;
+				if ( NearestSegment == null ) {
+					NearestSegment = seg;
 					continue;
 				}
 
-				if ( seg.HighlightDistance < selectSeg.HighlightDistance ) {
-					selectSeg = seg;
+				if ( seg.HighlightDistance < NearestSegment.HighlightDistance ) {
+					NearestSegment = seg;
 				}
 			}
 
 			foreach ( ArcSegmentState seg in vSegments ) {
-				if ( seg.ContinueSelectionProgress(seg == selectSeg) ) {
+				if ( seg.ContinueSelectionProgress(seg == NearestSegment) ) {
 					break;
 				}
 			}

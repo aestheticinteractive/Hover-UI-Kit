@@ -79,15 +79,6 @@ namespace Henu.Display {
 			vRenderer.HandleChangeAnimation(pFadeIn, pDirection, pProgress);
 		}
 
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public static Vector3 GetRadialPoint(float pRadius, float pAngle) {
-			float x = (float)Math.Sin(pAngle);
-			float y = (float)Math.Cos(pAngle);
-			return new Vector3(x*pRadius, 0, y*pRadius);
-		}
-
 	}
 
 }

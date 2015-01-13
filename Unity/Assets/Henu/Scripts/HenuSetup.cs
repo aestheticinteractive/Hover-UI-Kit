@@ -22,8 +22,9 @@ namespace Henu {
 		private InputProvider vInputProv;
 		private NavigationProvider vNavProv;
 		private MenuState vMenuState;
-		private UiArc vUiArc;
 		private Renderers vRenderers;
+		private UiArc vUiArc;
+		private UiCursor vUiCursor;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -48,9 +49,13 @@ namespace Henu {
 
 			var arcObj = new GameObject("Arc");
 			arcObj.transform.SetParent(handControlObj.transform, false);
-
 			vUiArc = arcObj.AddComponent<UiArc>();
 			vUiArc.Build(vMenuState.Arc, vRenderers);
+
+			var cursorObj = new GameObject("Cursor");
+			cursorObj.transform.SetParent(handControlObj.transform, false);
+			vUiCursor = cursorObj.AddComponent<UiCursor>();
+			vUiCursor.Build(vMenuState.Arc, vMenuState.Cursor, vRenderers);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

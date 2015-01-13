@@ -115,9 +115,7 @@ namespace Henu.Display.Default {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void Update() {
-			vMainAlpha = 1-(float)Math.Pow(1-vArcState.Strength, 2);
-			vMainAlpha -= (float)Math.Pow(vArcState.GrabStrength, 2);
-			vMainAlpha = Math.Max(0, vMainAlpha*vAnimAlpha);
+			vMainAlpha = GetArcAlpha(vArcState)*vAnimAlpha;
 
 			float high = vSegState.HighlightProgress;
 			float select = 1-(float)Math.Pow(1-vSegState.SelectionProgress, 1.5f);
@@ -157,49 +155,16 @@ namespace Henu.Display.Default {
 		/*--------------------------------------------------------------------------------------------*/
 		private void BuildMesh(Mesh pMesh, float pThickness) {
 			int steps = (int)Math.Round(Math.Max(2, (vAngle1-vAngle0)/Math.PI*60));
-			BuildMesh(pMesh, 1, 1+0.5f*pThickness, vAngle0, vAngle1, steps);
+			MeshUtil.BuildRingMesh(pMesh, 1, 1+0.5f*pThickness, vAngle0, vAngle1, steps);
 		}
 
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public static void BuildMesh(Mesh pMesh, float pInnerRadius, float pOuterRadius,
-															float pAngle0, float pAngle1, int pSteps) {
-			float angleFull = pAngle1-pAngle0;
-			float angleInc = angleFull/pSteps;
-			float angle = pAngle0;
-
-			var verts = new List<Vector3>();
-			var uvs = new List<Vector2>();
-			var tris = new List<int>();
-
-			for ( int i = 0 ; i <= pSteps ; ++i ) {
-				int vi = verts.Count;
-
-				verts.Add(UiArcSegment.GetRadialPoint(pInnerRadius, angle));
-				verts.Add(UiArcSegment.GetRadialPoint(pOuterRadius, angle));
-
-				uvs.Add(new Vector2(0, 0));
-				uvs.Add(new Vector2(0, 0));
-
-				if ( i > 0 ) {
-					tris.Add(vi-1);
-					tris.Add(vi-2);
-					tris.Add(vi);
-
-					tris.Add(vi+1);
-					tris.Add(vi-1);
-					tris.Add(vi);
-				}
-
-				angle += angleInc;
-			}
-
-			pMesh.Clear();
-			pMesh.vertices = verts.ToArray();
-			pMesh.uv = uvs.ToArray();
-			pMesh.triangles = tris.ToArray();
-			pMesh.RecalculateNormals();
-			pMesh.RecalculateBounds();
-			pMesh.Optimize();
+		public static float GetArcAlpha(ArcState pArcState) {
+			float alpha = 1-(float)Math.Pow(1-pArcState.Strength, 2);
+			alpha -= (float)Math.Pow(pArcState.GrabStrength, 2);
+			return Math.Max(0, alpha);
 		}
 
 	}
