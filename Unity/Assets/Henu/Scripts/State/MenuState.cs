@@ -1,5 +1,6 @@
 ﻿using Henu.Input;
 using Henu.Navigation;
+using Henu.Settings;
 
 namespace Henu.State {
 
@@ -15,12 +16,13 @@ namespace Henu.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public MenuState(IInputProvider pInputProv, NavigationProvider pNavProv, bool pIsLeftHenu) {
+		public MenuState(IInputProvider pInputProv, NavigationProvider pNavProv, 
+													InteractionSettings pSettings, bool pIsLeftHenu) {
 			InputProvider = pInputProv;
 			NavProv = pNavProv;
 			IsLeftMenu = pIsLeftHenu;
 
-			Arc = new ArcState(pInputProv.GetHandProvider(IsLeftMenu), NavProv);
+			Arc = new ArcState(pInputProv.GetHandProvider(IsLeftMenu), NavProv, pSettings);
 			Cursor = new CursorState(pInputProv.GetHandProvider(!IsLeftMenu));
 		}
 

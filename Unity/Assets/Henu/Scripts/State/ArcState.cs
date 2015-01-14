@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Henu.Input;
 using Henu.Navigation;
+using Henu.Settings;
 using UnityEngine;
 
 namespace Henu.State {
@@ -12,9 +13,6 @@ namespace Henu.State {
 
 		public delegate void LevelChangeHandler(int pDirection);
 		public event LevelChangeHandler OnLevelChange;
-
-		public static float BackGrabThreshold = 0.6f;
-		public static float BackReleaseThreshold = 0.3f;
 
 		public bool IsActive { get; private set; }
 		public bool IsLeft { get; private set; }
@@ -28,15 +26,18 @@ namespace Henu.State {
 		private readonly IInputHandProvider vInputHandProv;
 		private readonly NavigationProvider vNavProv;
 		private readonly IList<ArcSegmentState> vSegments;
+		private readonly InteractionSettings vSettings;
 		private bool vIsGrabbing;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public ArcState(IInputHandProvider pInputHandProv, NavigationProvider pNavProv) {
+		public ArcState(IInputHandProvider pInputHandProv, NavigationProvider pNavProv, 
+																		InteractionSettings pSettings) {
 			vInputHandProv = pInputHandProv;
 			vNavProv = pNavProv;
 			vSegments = new List<ArcSegmentState>();
+			vSettings = pSettings;
 
 			IsLeft = vInputHandProv.IsLeft;
 
@@ -90,7 +91,7 @@ namespace Henu.State {
 
 			Size = (float)Math.Sqrt(Size);
 			Strength = Math.Max(0, (inputHand.PalmTowardEyes-0.7f)/0.3f);
-			GrabStrength = Math.Min(1, inputHand.GrabStrength/BackGrabThreshold);
+			GrabStrength = Math.Min(1, inputHand.GrabStrength/vSettings.NavBackGrabThreshold);
 			CheckGrabGesture(inputHand);
 		}
 
@@ -132,12 +133,12 @@ namespace Henu.State {
 				return;
 			}
 
-			if ( vIsGrabbing && pInputHand.GrabStrength < BackReleaseThreshold ) {
+			if ( vIsGrabbing && pInputHand.GrabStrength < vSettings.NavBackUngrabThreshold ) {
 				vIsGrabbing = false;
 				return;
 			}
 
-			if ( !vIsGrabbing && pInputHand.GrabStrength > BackGrabThreshold ) {
+			if ( !vIsGrabbing && pInputHand.GrabStrength > vSettings.NavBackGrabThreshold ) {
 				vIsGrabbing = true;
 				vNavProv.Back();
 				return;
@@ -151,7 +152,7 @@ namespace Henu.State {
 			NavItem[] navItems = vNavProv.GetItems();
 
 			foreach ( NavItem navItem in navItems ) {
-				var seg = new ArcSegmentState(navItem);
+				var seg = new ArcSegmentState(navItem, vSettings);
 				vSegments.Add(seg);
 			}
 

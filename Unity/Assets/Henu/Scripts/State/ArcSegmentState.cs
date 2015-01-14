@@ -1,5 +1,6 @@
 ﻿using System;
 using Henu.Navigation;
+using Henu.Settings;
 using UnityEngine;
 
 namespace Henu.State {
@@ -7,15 +8,13 @@ namespace Henu.State {
 	/*================================================================================================*/
 	public class ArcSegmentState {
 
-		public static float HighlightDistanceMin = 0.05f;
-		public static float HighlightDistanceMax = 0.15f;
-		public static float SelectionMilliseconds = 600;
-
 		public NavItem NavItem { get; private set; }
 
 		public float HighlightDistance { get; private set; }
 		public float HighlightProgress { get; private set; }
 
+		private readonly InteractionSettings vSettings;
+		private readonly float vHighlightDistRange;
 		private Func<Vector3, float> vCursorDistanceFunc;
 		private DateTime? vSelectionStart;
 		private bool vIsAnimating;
@@ -24,8 +23,10 @@ namespace Henu.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public ArcSegmentState(NavItem pNavItem) {
+		public ArcSegmentState(NavItem pNavItem, InteractionSettings pSettings) {
 			NavItem = pNavItem;
+			vSettings = pSettings;
+			vHighlightDistRange = vSettings.HighlightDistanceMax-vSettings.HighlightDistanceMin;
 		}
 
 
@@ -38,7 +39,7 @@ namespace Henu.State {
 				}
 
 				float ms = (float)(DateTime.UtcNow-(DateTime)vSelectionStart).TotalMilliseconds;
-				return Math.Min(1, ms/SelectionMilliseconds);
+				return Math.Min(1, ms/vSettings.SelectionMilliseconds);
 			}
 		}
 
@@ -68,7 +69,7 @@ namespace Henu.State {
 			}
 
 			float dist = vCursorDistanceFunc((Vector3)pCursorPosition);
-			float prog = 1-(dist-HighlightDistanceMin)/(HighlightDistanceMax-HighlightDistanceMin);
+			float prog = 1-(dist-vSettings.HighlightDistanceMin)/vHighlightDistRange;
 
 			HighlightDistance = dist;
 			HighlightProgress = Math.Max(0, Math.Min(1, prog));

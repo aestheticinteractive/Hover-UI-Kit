@@ -16,6 +16,13 @@ namespace Henu.Settings {
 		public Color HighlightColor = new Color(0.1f, 0.5f, 0.9f);
 		public Color SelectionColor = new Color(0.1f, 0.9f, 0.2f);
 
+		public float NavigationBackGrabThreshold = 0.5f;
+		public float NavigationBackUngrabThreshold = 0.25f;
+
+		public float HighlightDistanceMin = 0.05f;
+		public float HighlightDistanceMax = 0.15f;
+		public float SelectionMilliseconds = 600;
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -29,6 +36,17 @@ namespace Henu.Settings {
 			colors.HighlightColor = HighlightColor;
 			colors.SelectionColor = SelectionColor;
 			return colors;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public override InteractionSettings GetInteractionSettings() {
+			var inter = new InteractionSettings();
+			inter.NavBackGrabThreshold = NavigationBackGrabThreshold;
+			inter.NavBackUngrabThreshold = NavigationBackUngrabThreshold;
+			inter.HighlightDistanceMin = HighlightDistanceMin;
+			inter.HighlightDistanceMax = HighlightDistanceMax;
+			inter.SelectionMilliseconds = SelectionMilliseconds;
+			return inter;
 		}
 
 

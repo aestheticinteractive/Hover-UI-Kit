@@ -41,7 +41,8 @@ namespace Henu {
 			vNavProv.Init(NavDelegateProvider.GetNavDelegate());
 
 			vInputProv = new InputProvider();
-			vMenuState = new MenuState(GetInputProv(), vNavProv, MenuIsOnLeftHand);
+			vMenuState = new MenuState(GetInputProv(), vNavProv, 
+				SettingsProvider.GetInteractionSettings(), MenuIsOnLeftHand);
 
 			////
 

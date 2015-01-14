@@ -15,6 +15,7 @@ namespace Henu.Display.Default {
 		protected float vAngle0;
 		protected float vAngle1;
 		protected ArcSegmentSettings vSettings;
+		protected int vMeshSteps;
 
 		protected float vTextPadW;
 		protected float vTextPadH;
@@ -38,12 +39,14 @@ namespace Henu.Display.Default {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Build(ArcState pArcState, ArcSegmentState pSegState,																			float pAngle0, float pAngle1, ArcSegmentSettings pSettings) {
+		public virtual void Build(ArcState pArcState, ArcSegmentState pSegState,																			
+										float pAngle0, float pAngle1, ArcSegmentSettings pSettings) {
 			vArcState = pArcState;
 			vSegState = pSegState;
 			vAngle0 = pAngle0+0.001f;
 			vAngle1 = pAngle1-0.001f;
 			vSettings = pSettings;
+			vMeshSteps = (int)Math.Round(Math.Max(2, (vAngle1-vAngle0)/Math.PI*60));
 
 			vTextPadW = vSettings.TextSize*0.6f;
 			vTextPadH = 0;
@@ -177,8 +180,7 @@ namespace Henu.Display.Default {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void BuildMesh(Mesh pMesh, float pThickness) {
-			int steps = (int)Math.Round(Math.Max(2, (vAngle1-vAngle0)/Math.PI*60));
-			MeshUtil.BuildRingMesh(pMesh, 1, 1+0.5f*pThickness, vAngle0, vAngle1, steps);
+			MeshUtil.BuildRingMesh(pMesh, 1, 1+0.5f*pThickness, vAngle0, vAngle1, vMeshSteps);
 		}
 
 
