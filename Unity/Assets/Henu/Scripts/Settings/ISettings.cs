@@ -1,25 +1,21 @@
-﻿using Henu.Settings;
-using Henu.State;
-using UnityEngine;
+﻿using System;
+using Henu.Navigation;
 
-namespace Henu.Display {
+namespace Henu.Settings {
 
 	/*================================================================================================*/
-	public interface IUiArcSegmentRenderer {
+	public interface ISettings {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		void Build(ArcState pArcState, ArcSegmentState pSegState, float pAlpha0, float pAlpha1, 
-																		ArcSegmentSettings pSettings);
+		Type GetUiArcSegmentRendererType(NavItem pNavItem);
 
 		/*--------------------------------------------------------------------------------------------*/
-		void HandleChangeAnimation(bool pFadeIn, int pDirection, float pProgress);
+		Type GetUiCursorRendererType();
 
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		float CalculateCursorDistance(Vector3 pCursorPosition);
+		ArcSegmentSettings GetArcSegmentSettings(NavItem pNavItem);
 
 	}
 

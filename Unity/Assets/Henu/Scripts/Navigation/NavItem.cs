@@ -31,7 +31,7 @@ namespace Henu.Navigation {
 		public NavItem(ItemType pType, string pLabel) {
 			Id = (++ItemCount);
 			Type = pType;
-			Label = pLabel;
+			Label = (pLabel ?? "");
 			Children = null;
 
 			OnSelection += (i => {});

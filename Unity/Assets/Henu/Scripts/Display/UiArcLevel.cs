@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Henu.Settings;
 using Henu.State;
 using UnityEngine;
 
@@ -14,7 +15,7 @@ namespace Henu.Display {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal void Build(ArcState pArcState, Renderers pRenderers) {
+		internal void Build(ArcState pArcState, ISettings pSettings) {
 			vArcState = pArcState;
 			vSegmentObjList = new List<GameObject>();
 
@@ -38,7 +39,7 @@ namespace Henu.Display {
 				vSegmentObjList.Add(segObj);
 
 				UiArcSegment uiSeg = segObj.AddComponent<UiArcSegment>();
-				uiSeg.Build(vArcState, segState, -segAngleHalf, segAngleHalf, pRenderers);
+				uiSeg.Build(vArcState, segState, -segAngleHalf, segAngleHalf, pSettings);
 
 				degrees -= degreeInc;
 			}

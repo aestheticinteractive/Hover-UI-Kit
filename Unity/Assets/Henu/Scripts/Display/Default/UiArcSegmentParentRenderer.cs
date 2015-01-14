@@ -1,4 +1,5 @@
-﻿using Henu.State;
+﻿using Henu.Settings;
+using Henu.State;
 using UnityEngine;
 
 namespace Henu.Display.Default {
@@ -15,8 +16,8 @@ namespace Henu.Display.Default {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public override void Build(ArcState pArcState, ArcSegmentState pSegState,
-																		float pAngle0, float pAngle1) {
-			base.Build(pArcState, pSegState, pAngle0, pAngle1);
+										float pAngle0, float pAngle1, ArcSegmentSettings pSettings) {
+			base.Build(pArcState, pSegState, pAngle0, pAngle1, pSettings);
 
 			vArrow = GameObject.CreatePrimitive(PrimitiveType.Quad);
 			vArrow.transform.SetParent(gameObject.transform, false);
@@ -37,8 +38,10 @@ namespace Henu.Display.Default {
 		public override void Update() {
 			base.Update();
 
-			float alpha = vSegState.HighlightProgress*0.75f + 0.25f;
-			vArrow.renderer.sharedMaterial.color = new Color(1, 1, 1, alpha*vMainAlpha);
+			Color color = vSettings.ArrowIconColor;
+			color.a *= (vSegState.HighlightProgress*0.75f + 0.25f)*vMainAlpha;
+
+			vArrow.renderer.sharedMaterial.color = color;
 		}
 
 	}

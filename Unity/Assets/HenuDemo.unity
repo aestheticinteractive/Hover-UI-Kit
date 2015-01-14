@@ -820,6 +820,7 @@ GameObject:
   - 4: {fileID: 1830828396}
   - 114: {fileID: 1830828397}
   - 114: {fileID: 1830828398}
+  - 114: {fileID: 1830828399}
   m_Layer: 0
   m_Name: HandController
   m_TagString: Untagged
@@ -879,8 +880,21 @@ MonoBehaviour:
   MenuIsOnLeftHand: 1
   TestMode: 0
   NavDelegateProvider: {fileID: 906675229}
-  ArcSegmentParentRenderer: {fileID: 0}
-  ArcSegmentSelectionRenderer: {fileID: 0}
-  ArcSegmentCheckboxRenderer: {fileID: 0}
-  ArcSegmentRadioRenderer: {fileID: 0}
-  CursorRenderer: {fileID: 0}
+  SettingsProvider: {fileID: 1830828399}
+--- !u!114 &1830828399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1830828395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 858c981b7d1ade64e8d3f1393561eaae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextColor: {r: 1, g: 1, b: 1, a: 1}
+  ArrowIconColor: {r: 1, g: 1, b: 1, a: 1}
+  ToggleIconColor: {r: 1, g: 1, b: 1, a: 1}
+  BackgroundColor: {r: .100000001, g: .100000001, b: .100000001, a: .5}
+  HighlightColor: {r: .100000001, g: .5, b: .899999976, a: 1}
+  SelectionColor: {r: .100000001, g: .899999976, b: .200000003, a: 1}

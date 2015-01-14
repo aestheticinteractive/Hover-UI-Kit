@@ -1,4 +1,6 @@
-﻿using Henu.State;
+﻿using System;
+using Henu.Settings;
+using Henu.State;
 using UnityEngine;
 
 namespace Henu.Display {
@@ -17,13 +19,20 @@ namespace Henu.Display {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal void Build(ArcState pArcState, CursorState pCursorState, Renderers pRenderers) {
+		internal void Build(ArcState pArcState, CursorState pCursorState, ISettings pSettings) {
 			vArcState = pArcState;
 			vCursorState = pCursorState;
-
-			BuildRenderer(pRenderers);
-
 			vCameraTx = GameObject.Find("HandController").transform;
+
+			////
+			
+			Type rendType = pSettings.GetUiCursorRendererType();
+
+			vRendererObj = new GameObject("Renderer");
+			vRendererObj.transform.SetParent(gameObject.transform, false);
+
+			vRenderer = (IUiCursorRenderer)vRendererObj.AddComponent(rendType);
+			vRenderer.Build(vArcState, vCursorState);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -42,17 +51,6 @@ namespace Henu.Display {
 			Vector3 camWorld = vCameraTx.transform.TransformPoint(Vector3.zero);
 			Vector3 camLocal = tx.InverseTransformPoint(camWorld);
 			tx.localRotation = Quaternion.FromToRotation(Vector3.down, camLocal);
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		private void BuildRenderer(Renderers pRenderers) {
-			vRendererObj = new GameObject("Renderer");
-			vRendererObj.transform.SetParent(gameObject.transform, false);
-
-			vRenderer = (IUiCursorRenderer)vRendererObj.AddComponent(pRenderers.Cursor);
-			vRenderer.Build(vArcState, vCursorState);
 		}
 
 	}

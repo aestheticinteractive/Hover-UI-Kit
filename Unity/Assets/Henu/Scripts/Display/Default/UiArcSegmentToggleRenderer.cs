@@ -1,4 +1,5 @@
-﻿using Henu.State;
+﻿using Henu.Settings;
+using Henu.State;
 using UnityEngine;
 
 namespace Henu.Display.Default {
@@ -22,8 +23,8 @@ namespace Henu.Display.Default {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public override void Build(ArcState pArcState, ArcSegmentState pSegState,
-																		float pAngle0, float pAngle1) {
-			base.Build(pArcState, pSegState, pAngle0, pAngle1);
+										float pAngle0, float pAngle1, ArcSegmentSettings pSettings) {
+			base.Build(pArcState, pSegState, pAngle0, pAngle1, pSettings);
 
 			RectTransform rect = vTextObj.GetComponent<RectTransform>();
 			var edge = (vArcState.IsLeft ? RectTransform.Edge.Left : RectTransform.Edge.Right);
@@ -62,10 +63,11 @@ namespace Henu.Display.Default {
 		public override void Update() {
 			base.Update();
 
-			float alpha = vSegState.HighlightProgress*0.25f + 0.75f;
+			Color color = vSettings.ToggleIconColor;
+			color.a *= (vSegState.HighlightProgress*0.25f + 0.75f)*vMainAlpha;
 
-			vOuter.renderer.sharedMaterial.color = new Color(1, 1, 1, alpha*vMainAlpha);
-			vInner.renderer.sharedMaterial.color = new Color(1, 1, 1, alpha*vMainAlpha);
+			vOuter.renderer.sharedMaterial.color = color;
+			vInner.renderer.sharedMaterial.color = color;
 			vInner.renderer.enabled = vSegState.NavItem.Selected;
 		}
 

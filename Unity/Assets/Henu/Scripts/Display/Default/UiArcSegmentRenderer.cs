@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Henu.Settings;
 using Henu.State;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,6 +18,7 @@ namespace Henu.Display.Default {
 		protected ArcSegmentState vSegState;
 		protected float vAngle0;
 		protected float vAngle1;
+		protected ArcSegmentSettings vSettings;
 		protected float vMainAlpha;
 		protected float vAnimAlpha;
 
@@ -32,12 +34,12 @@ namespace Henu.Display.Default {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Build(ArcState pArcState, ArcSegmentState pSegState,
-																		float pAngle0, float pAngle1) {
+		public virtual void Build(ArcState pArcState, ArcSegmentState pSegState,																			float pAngle0, float pAngle1, ArcSegmentSettings pSettings) {
 			vArcState = pArcState;
 			vSegState = pSegState;
 			vAngle0 = pAngle0;
 			vAngle1 = pAngle1-0.003f;
+			vSettings = pSettings;
 
 			////
 
@@ -108,6 +110,7 @@ namespace Henu.Display.Default {
 			text.font = Resources.Load<Font>("Tahoma");
 			text.fontSize = 26;
 			text.alignment = (vArcState.IsLeft ? TextAnchor.MiddleLeft : TextAnchor.MiddleRight);
+			text.color = vSettings.TextColor;
 
 			rect = vTextObj.GetComponent<RectTransform>();
 			rect.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 10, Width-20);
@@ -121,14 +124,21 @@ namespace Henu.Display.Default {
 			float high = vSegState.HighlightProgress;
 			float select = 1-(float)Math.Pow(1-vSegState.SelectionProgress, 1.5f);
 
-			vCanvasGroupObj.GetComponent<CanvasGroup>().alpha = vMainAlpha;
-			vBackground.renderer.sharedMaterial.color = new Color(0.1f, 0.1f, 0.1f, 0.5f*vMainAlpha);
+			Color colBg = vSettings.BackgroundColor;
+			Color colHigh = vSettings.HighlightColor;
+			Color colSel = vSettings.SelectionColor;
+
+			colBg.a *= vMainAlpha;
+			colHigh.a *= vMainAlpha;
+			colSel.a *= vMainAlpha;
 
 			BuildMesh(vHighlight.GetComponent<MeshFilter>().mesh, high);
-			vHighlight.renderer.sharedMaterial.color = new Color(0.1f, 0.5f, 0.9f, high*vMainAlpha);
-
 			BuildMesh(vSelect.GetComponent<MeshFilter>().mesh, select);
-			vSelect.renderer.sharedMaterial.color = new Color(0.1f, 1.0f, 0.2f, select*vMainAlpha);
+
+			vCanvasGroupObj.GetComponent<CanvasGroup>().alpha = vMainAlpha;
+			vBackground.renderer.sharedMaterial.color = colBg;
+			vHighlight.renderer.sharedMaterial.color = colHigh;
+			vSelect.renderer.sharedMaterial.color = colSel;
 
 			vTextObj.GetComponent<Text>().text = vSegState.NavItem.Label;
 		}

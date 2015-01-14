@@ -1,6 +1,5 @@
 ﻿using System;
 using Henu.Display;
-using Henu.Display.Default;
 using Henu.Input;
 using Henu.Navigation;
 using Henu.State;
@@ -14,17 +13,12 @@ namespace Henu {
 		public bool MenuIsOnLeftHand = true;
 		public bool TestMode;
 		public HenuNavComponent NavDelegateProvider;
-		public Component ArcSegmentParentRenderer;
-		public Component ArcSegmentSelectionRenderer;
-		public Component ArcSegmentCheckboxRenderer;
-		public Component ArcSegmentRadioRenderer;
-		public Component CursorRenderer;
+		public HenuSettingsComponent SettingsProvider;
 
 		private HandController vHandControl;
 		private InputProvider vInputProv;
 		private NavigationProvider vNavProv;
 		private MenuState vMenuState;
-		private Renderers vRenderers;
 		private UiArc vUiArc;
 		private UiCursor vUiCursor;
 
@@ -36,7 +30,11 @@ namespace Henu {
 			vHandControl = handControlObj.GetComponent<HandController>();
 
 			if ( NavDelegateProvider == null ) {
-				throw new Exception("No menu delegate was provided!");
+				throw new Exception("NavDelegateProvider must be set.");
+			}
+
+			if ( SettingsProvider == null ) {
+				throw new Exception("SettingsProvider must be set.");
 			}
 
 			vNavProv = new NavigationProvider();
@@ -47,17 +45,15 @@ namespace Henu {
 
 			////
 
-			BuildRenderers();
-
 			var arcObj = new GameObject("Arc");
 			arcObj.transform.SetParent(handControlObj.transform, false);
 			vUiArc = arcObj.AddComponent<UiArc>();
-			vUiArc.Build(vMenuState.Arc, vRenderers);
+			vUiArc.Build(vMenuState.Arc, SettingsProvider);
 
 			var cursorObj = new GameObject("Cursor");
 			cursorObj.transform.SetParent(handControlObj.transform, false);
 			vUiCursor = cursorObj.AddComponent<UiCursor>();
-			vUiCursor.Build(vMenuState.Arc, vMenuState.Cursor, vRenderers);
+			vUiCursor.Build(vMenuState.Arc, vMenuState.Cursor, SettingsProvider);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -72,39 +68,6 @@ namespace Henu {
 		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		private void BuildRenderers() {
-			vRenderers = new Renderers {
-				ArcSegmentParent = typeof(UiArcSegmentParentRenderer),
-				ArcSegmentSelection = typeof(UiArcSegmentRenderer),
-				ArcSegmentCheckbox = typeof(UiArcSegmentCheckboxRenderer),
-				ArcSegmentRadio = typeof(UiArcSegmentRadioRenderer),
-				Cursor = typeof(UiCursorRenderer)
-			};
-
-			if ( ArcSegmentParentRenderer != null ) {
-				vRenderers.ArcSegmentParent = ArcSegmentParentRenderer.GetType();
-			}
-
-			if ( ArcSegmentSelectionRenderer != null ) {
-				vRenderers.ArcSegmentSelection = ArcSegmentSelectionRenderer.GetType();
-			}
-
-			if ( ArcSegmentCheckboxRenderer != null ) {
-				vRenderers.ArcSegmentCheckbox = ArcSegmentCheckboxRenderer.GetType();
-			}
-
-			if ( ArcSegmentRadioRenderer != null ) {
-				vRenderers.ArcSegmentRadio = ArcSegmentRadioRenderer.GetType();
-			}
-
-			if ( CursorRenderer != null ) {
-				vRenderers.Cursor = CursorRenderer.GetType();
-			}
-
-			vRenderers.Verify();
-		}
-
 		/*--------------------------------------------------------------------------------------------*/
 		private IInputProvider GetInputProv() {
 			if ( !TestMode ) {

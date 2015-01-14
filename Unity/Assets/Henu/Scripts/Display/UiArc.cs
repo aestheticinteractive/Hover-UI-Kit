@@ -1,4 +1,5 @@
 ﻿using System;
+using Henu.Settings;
 using Henu.State;
 using UnityEngine;
 
@@ -11,7 +12,7 @@ namespace Henu.Display {
 		public static float LevelChangeDistance = 0.5f;
 
 		private ArcState vArcState;
-		private Renderers vRenderers;
+		private ISettings vSettings;
 
 		private GameObject vPrevLevelObj;
 		private GameObject vCurrLevelObj;
@@ -21,9 +22,9 @@ namespace Henu.Display {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal void Build(ArcState pArc, Renderers pRenderers) {
+		internal void Build(ArcState pArc, ISettings pSettings) {
 			vArcState = pArc;
-			vRenderers = pRenderers;
+			vSettings = pSettings;
 
 			vArcState.OnLevelChange += HandleLevelChange;
 			HandleLevelChange(0);
@@ -49,7 +50,15 @@ namespace Henu.Display {
 				vPrevLevelObj.name = "PrevLevel";
 			}
 
-			BuildCurrLevel();
+			////
+
+			vCurrLevelObj = new GameObject("CurrLevel");
+			vCurrLevelObj.transform.SetParent(gameObject.transform, false);
+
+			UiArcLevel arcLevel = vCurrLevelObj.AddComponent<UiArcLevel>();
+			arcLevel.Build(vArcState, vSettings);
+
+			////
 
 			vChangeTime = DateTime.UtcNow;
 			vChangeDir = pDirection;
@@ -65,15 +74,6 @@ namespace Henu.Display {
 			vPrevLevelObj.SetActive(false);
 			Destroy(vPrevLevelObj);
 			vPrevLevelObj = null;
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		private void BuildCurrLevel() {
-			vCurrLevelObj = new GameObject("CurrLevel");
-			vCurrLevelObj.transform.SetParent(gameObject.transform, false);
-
-			UiArcLevel arcLevel = vCurrLevelObj.AddComponent<UiArcLevel>();
-			arcLevel.Build(vArcState, vRenderers);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
