@@ -25,7 +25,7 @@ namespace Henu.State {
 		public float GrabStrength { get; private set; }
 		public ArcSegmentState NearestSegment { get; private set; }
 
-		private readonly InputHandProvider vInputHandProv;
+		private readonly IInputHandProvider vInputHandProv;
 		private readonly NavigationProvider vNavProv;
 		private readonly IList<ArcSegmentState> vSegments;
 		private bool vIsGrabbing;
@@ -33,7 +33,7 @@ namespace Henu.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public ArcState(InputHandProvider pInputHandProv, NavigationProvider pNavProv) {
+		public ArcState(IInputHandProvider pInputHandProv, NavigationProvider pNavProv) {
 			vInputHandProv = pInputHandProv;
 			vNavProv = pNavProv;
 			vSegments = new List<ArcSegmentState>();
@@ -56,7 +56,7 @@ namespace Henu.State {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		internal void UpdateAfterInput() {
-			InputHand inputHand = vInputHandProv.Hand;
+			IInputHand inputHand = vInputHandProv.Hand;
 
 			if ( inputHand == null ) {
 				IsActive = false;
@@ -67,7 +67,7 @@ namespace Henu.State {
 				return;
 			}
 
-			var inputPoints = new List<InputPoint>(new[] {
+			var inputPoints = new List<IInputPoint>(new[] {
 				vInputHandProv.IndexPoint,
 				vInputHandProv.MiddlePoint,
 				vInputHandProv.RingPoint,
@@ -79,7 +79,7 @@ namespace Henu.State {
 			Size = 0;
 			Rotation = inputHand.Rotation;
 
-			foreach ( InputPoint inputPoint in inputPoints ) {
+			foreach ( IInputPoint inputPoint in inputPoints ) {
 				if ( inputPoint == null ) {
 					continue;
 				}
@@ -126,7 +126,7 @@ namespace Henu.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void CheckGrabGesture(InputHand pInputHand) {
+		private void CheckGrabGesture(IInputHand pInputHand) {
 			if ( pInputHand == null ) {
 				vIsGrabbing = false;
 				return;

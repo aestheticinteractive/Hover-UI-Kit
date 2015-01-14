@@ -8,12 +8,12 @@ namespace Henu.State {
 
 		public Vector3? Position { get; private set; }
 
-		private readonly InputHandProvider vInputHandProv;
+		private readonly IInputHandProvider vInputHandProv;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public CursorState(InputHandProvider pInputHandProv) {
+		public CursorState(IInputHandProvider pInputHandProv) {
 			vInputHandProv = pInputHandProv;
 		}
 
@@ -21,7 +21,7 @@ namespace Henu.State {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateAfterInput() {
-			InputPoint inputPoint = vInputHandProv.IndexPoint;
+			IInputPoint inputPoint = vInputHandProv.IndexPoint;
 			Position = (inputPoint == null ? (Vector3?)null : inputPoint.Position);
 		}
 

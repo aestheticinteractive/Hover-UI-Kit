@@ -12,6 +12,7 @@ namespace Henu {
 	public class HenuSetup : MonoBehaviour {
 
 		public bool MenuIsOnLeftHand = true;
+		public bool TestMode;
 		public HenuNavComponent NavDelegateProvider;
 		public Component ArcSegmentParentRenderer;
 		public Component ArcSegmentSelectionRenderer;
@@ -42,7 +43,7 @@ namespace Henu {
 			vNavProv.Init(NavDelegateProvider.GetNavDelegate());
 
 			vInputProv = new InputProvider();
-			vMenuState = new MenuState(vInputProv, vNavProv, MenuIsOnLeftHand);
+			vMenuState = new MenuState(GetInputProv(), vNavProv, MenuIsOnLeftHand);
 
 			////
 
@@ -61,7 +62,7 @@ namespace Henu {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			if ( OVRManager.capiHmd.GetHSWDisplayState().Displayed ) {
+			if ( OVRManager.capiHmd != null && OVRManager.capiHmd.GetHSWDisplayState().Displayed ) {
 				OVRManager.capiHmd.DismissHSWDisplay();
 			}
 
@@ -102,6 +103,26 @@ namespace Henu {
 			}
 
 			vRenderers.Verify();
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private IInputProvider GetInputProv() {
+			if ( !TestMode ) {
+				return vInputProv;
+			}
+
+			GameObject obj = GameObject.Find("TestInput");
+			int count = obj.transform.childCount;
+
+			for ( int i = 0 ; i < count ; ++i ) {
+				object comp = obj.GetComponent(typeof(IInputProvider));
+
+				if ( comp != null ) {
+					return (IInputProvider)comp;
+				}
+			}
+
+			return null;
 		}
 
 	}

@@ -4,15 +4,15 @@ using Leap;
 namespace Henu.Input {
 
 	/*================================================================================================*/
-	public class InputHandProvider {
+	public class InputHandProvider : IInputHandProvider {
 
 		public bool IsLeft { get; private set; }
-		public InputHand Hand { get; private set; }
+		public IInputHand Hand { get; private set; }
 
-		public InputPoint IndexPoint { get; private set; }
-		public InputPoint MiddlePoint { get; private set; }
-		public InputPoint RingPoint { get; private set; }
-		public InputPoint PinkyPoint { get; private set; }
+		public IInputPoint IndexPoint { get; private set; }
+		public IInputPoint MiddlePoint { get; private set; }
+		public IInputPoint RingPoint { get; private set; }
+		public IInputPoint PinkyPoint { get; private set; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -31,6 +31,19 @@ namespace Henu.Input {
 			MiddlePoint = GetPoint(pLeapHand, Finger.FingerType.TYPE_MIDDLE);
 			RingPoint = GetPoint(pLeapHand, Finger.FingerType.TYPE_RING);
 			PinkyPoint = GetPoint(pLeapHand, Finger.FingerType.TYPE_PINKY);
+
+			/*if ( Hand == null ) {
+				return;
+			}
+
+			Debug.Log("HAND\n"+
+				Hand.Center.ToString("0.000")+" / "+Hand.Rotation.ToString("0.000")+"\n"+
+				IndexPoint.Position.ToString("0.000")+" / "+IndexPoint.Rotation.ToString("0.000")+"\n"+
+				MiddlePoint.Position.ToString("0.000")+" / "+
+					MiddlePoint.Rotation.ToString("0.000")+"\n"+
+				RingPoint.Position.ToString("0.000")+" / "+RingPoint.Rotation.ToString("0.000")+"\n"+
+				PinkyPoint.Position.ToString("0.000")+" / "+PinkyPoint.Rotation.ToString("0.000")+"\n"
+			);*/
 		}
 
 

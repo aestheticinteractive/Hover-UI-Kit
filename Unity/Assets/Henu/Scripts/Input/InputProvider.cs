@@ -4,7 +4,7 @@ using Leap;
 namespace Henu.Input {
 
 	/*================================================================================================*/
-	public class InputProvider {
+	public class InputProvider : IInputProvider {
 
 		private Frame vFrame;
 		private readonly InputHandProvider vInputHandProvL;
@@ -28,7 +28,7 @@ namespace Henu.Input {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public InputHandProvider GetHandProvider(bool pIsLeft) {
+		public IInputHandProvider GetHandProvider(bool pIsLeft) {
 			return (pIsLeft ? vInputHandProvL : vInputHandProvR);
 		}
 
