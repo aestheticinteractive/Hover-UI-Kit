@@ -53,6 +53,18 @@ namespace Henu.State {
 			return vSegments.ToArray();
 		}
 
+		/*--------------------------------------------------------------------------------------------*/
+		public NavItem GetLevelParentItem() {
+			return (vNavProv.IsAtTopLevelMenu() ? 
+				vNavProv.GetItems()[0] : vNavProv.ActiveParentItem);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public string GetLevelTitle() {
+			return (vNavProv.IsAtTopLevelMenu() ? 
+				vNavProv.GetTopLevelTitle() : vNavProv.ActiveParentItem.Label);
+		}
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/

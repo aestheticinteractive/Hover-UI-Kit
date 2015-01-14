@@ -8,6 +8,8 @@ namespace Henu.Navigation {
 		public delegate void LevelChangeHandler(int pDirection);
 		public event LevelChangeHandler OnLevelChange;
 
+		public NavItem ActiveParentItem { get; private set; }
+
 		private readonly Stack<NavItem[]> vHistory;
 		private NavItem[] vItems;
 		private INavDelegate vDelgate;
@@ -50,23 +52,53 @@ namespace Henu.Navigation {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
+		public bool IsAtTopLevelMenu() {
+			return (vHistory.Count == 0);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public string GetTopLevelTitle() {
+			return vDelgate.GetTopLevelTitle();
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
 		public void Back() {
 			if ( vHistory.Count == 0 ) {
 				return;
 			}
 
-			SetNewItems(vHistory.Pop(), -1);
+			NavItem[] items = vHistory.Pop();
+
+			foreach ( NavItem item in items ) {
+				if ( item.Type == NavItem.ItemType.Parent ) {
+					item.Selected = false;
+				}
+			}
+
+			if ( vHistory.Count > 0 ) {
+				NavItem[] parentItems = vHistory.Peek();
+
+				foreach ( NavItem item in parentItems ) {
+					if ( item.Type == NavItem.ItemType.Parent && item.Selected ) {
+						ActiveParentItem = item;
+					}
+				}
+			}
+			else {
+				ActiveParentItem = null;
+			}
+
+			SetNewItems(items, -1);
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleItemSelection(NavItem pItem) {
-			if ( pItem == null ) {
-				return;
-			}
-
 			if ( pItem.Type == NavItem.ItemType.Parent ) {
+				pItem.Selected = true;
+				ActiveParentItem = pItem;
+
 				vDelgate.HandleItemSelection(pItem);
 				PushCurrentItemsToHistory();
 				SetNewItems(pItem.Children, 1);

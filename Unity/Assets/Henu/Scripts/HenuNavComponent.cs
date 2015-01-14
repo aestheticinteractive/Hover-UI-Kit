@@ -40,6 +40,11 @@ namespace Henu {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
+		public string GetTopLevelTitle() {
+			return "Main Menu";
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
 		public void HandleItemSelection(NavItem pItem) {
 			//do nothing...
 		}
