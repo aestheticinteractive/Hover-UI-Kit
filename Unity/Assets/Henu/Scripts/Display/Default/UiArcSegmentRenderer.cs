@@ -10,15 +10,19 @@ namespace Henu.Display.Default {
 	/*================================================================================================*/
 	public class UiArcSegmentRenderer : MonoBehaviour, IUiArcSegmentRenderer {
 
-		protected const int Width = 240;
-		protected const int Height = 42;
-		protected const float Scale = 0.002f;
-
 		protected ArcState vArcState;
 		protected ArcSegmentState vSegState;
 		protected float vAngle0;
 		protected float vAngle1;
 		protected ArcSegmentSettings vSettings;
+
+		protected float vTextPadW;
+		protected float vTextPadH;
+		protected float vCanvasW;
+		protected float vCanvasH;
+		protected float vTextW;
+		protected float vTextH;
+		protected float vTextScale;
 		protected float vMainAlpha;
 		protected float vAnimAlpha;
 
@@ -37,9 +41,17 @@ namespace Henu.Display.Default {
 		public virtual void Build(ArcState pArcState, ArcSegmentState pSegState,																			float pAngle0, float pAngle1, ArcSegmentSettings pSettings) {
 			vArcState = pArcState;
 			vSegState = pSegState;
-			vAngle0 = pAngle0;
-			vAngle1 = pAngle1-0.003f;
+			vAngle0 = pAngle0+0.001f;
+			vAngle1 = pAngle1-0.001f;
 			vSettings = pSettings;
+
+			vTextPadW = vSettings.TextSize*0.6f;
+			vTextPadH = 0;
+			vCanvasW = 250;
+			vCanvasH = vSettings.TextSize*1.25f+vTextPadH*2;
+			vTextW = vCanvasW-vTextPadW*2;
+			vTextH = vCanvasH-vTextPadH*2;
+			vTextScale = 0.002f;
 
 			////
 
@@ -88,7 +100,7 @@ namespace Henu.Display.Default {
 				Quaternion.FromToRotation(Vector3.back, Vector3.down)*
 				Quaternion.FromToRotation(Vector3.down, 
 					(vArcState.IsLeft ? Vector3.left : Vector3.right));
-			vCanvasGroupObj.transform.localScale = Vector3.one*Scale;
+			vCanvasGroupObj.transform.localScale = Vector3.one*vTextScale;
 
 			vCanvasObj = new GameObject("Canvas");
 			vCanvasObj.transform.SetParent(vCanvasGroupObj.transform, false);
@@ -97,8 +109,8 @@ namespace Henu.Display.Default {
 			canvas.renderMode = RenderMode.WorldSpace;
 
 			RectTransform rect = vCanvasObj.GetComponent<RectTransform>();
-			rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Width);
-			rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, Height);
+			rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, vCanvasW);
+			rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, vCanvasH);
 			rect.pivot = new Vector2((vArcState.IsLeft ? 0 : 1), 0.5f);
 
 			////
@@ -108,13 +120,13 @@ namespace Henu.Display.Default {
 
 			Text text = vTextObj.AddComponent<Text>();
 			text.font = Resources.Load<Font>("Tahoma");
-			text.fontSize = 26;
-			text.alignment = (vArcState.IsLeft ? TextAnchor.MiddleLeft : TextAnchor.MiddleRight);
+			text.fontSize = vSettings.TextSize;
 			text.color = vSettings.TextColor;
+			text.alignment = (vArcState.IsLeft ? TextAnchor.MiddleLeft : TextAnchor.MiddleRight);
 
 			rect = vTextObj.GetComponent<RectTransform>();
-			rect.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 10, Width-20);
-			rect.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, 4, Height-8);
+			rect.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, vTextPadW, vTextW);
+			rect.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, vTextPadH*0.75f, vTextH);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

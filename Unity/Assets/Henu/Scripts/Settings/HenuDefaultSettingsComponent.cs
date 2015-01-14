@@ -8,6 +8,7 @@ namespace Henu.Settings {
 	/*================================================================================================*/
 	public class HenuDefaultSettingsComponent : HenuSettingsComponent {
 
+		public int TextSize = 26;
 		public Color TextColor = new Color(1, 1, 1);
 		public Color ArrowIconColor = new Color(1, 1, 1);
 		public Color ToggleIconColor = new Color(1, 1, 1);
@@ -20,6 +21,7 @@ namespace Henu.Settings {
 		/*--------------------------------------------------------------------------------------------*/
 		public override ArcSegmentSettings GetArcSegmentSettings(NavItem pNavItem) {
 			var colors = new ArcSegmentSettings();
+			colors.TextSize = TextSize;
 			colors.TextColor = TextColor;
 			colors.ArrowIconColor = ArrowIconColor;
 			colors.ToggleIconColor = ToggleIconColor;
