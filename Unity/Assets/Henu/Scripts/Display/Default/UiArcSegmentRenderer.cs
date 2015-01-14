@@ -144,8 +144,8 @@ namespace Henu.Display.Default {
 			Color colSel = vSettings.SelectionColor;
 
 			colBg.a *= vMainAlpha;
-			colHigh.a *= vMainAlpha;
-			colSel.a *= vMainAlpha;
+			colHigh.a *= high*vMainAlpha;
+			colSel.a *= select*vMainAlpha;
 
 			BuildMesh(vHighlight.GetComponent<MeshFilter>().mesh, high);
 			BuildMesh(vSelect.GetComponent<MeshFilter>().mesh, select);
