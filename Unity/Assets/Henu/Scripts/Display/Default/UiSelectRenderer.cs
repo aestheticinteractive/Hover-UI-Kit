@@ -142,6 +142,12 @@ namespace Henu.Display.Default {
 
 			float high = vSegState.HighlightProgress;
 			float select = 1-(float)Math.Pow(1-vSegState.SelectionProgress, 1.5f);
+			float selectAlpha = select;
+
+			if ( vSegState.NavItem.UsesStickySelection() && vSegState.NavItem.Selected ) {
+				high = 0;
+				selectAlpha = 1;
+			}
 
 			Color colBg = vSettings.BackgroundColor;
 			Color colHigh = vSettings.HighlightColor;
@@ -149,7 +155,7 @@ namespace Henu.Display.Default {
 
 			colBg.a *= vMainAlpha;
 			colHigh.a *= high*vMainAlpha;
-			colSel.a *= select*vMainAlpha;
+			colSel.a *= selectAlpha*vMainAlpha;
 
 			BuildMesh(vHighlight.GetComponent<MeshFilter>().mesh, high);
 			BuildMesh(vSelect.GetComponent<MeshFilter>().mesh, select);
@@ -158,6 +164,9 @@ namespace Henu.Display.Default {
 			vBackground.renderer.sharedMaterial.color = colBg;
 			vHighlight.renderer.sharedMaterial.color = colHigh;
 			vSelect.renderer.sharedMaterial.color = colSel;
+
+			vHighlight.SetActive(high > 0);
+			vSelect.SetActive(select > 0);
 
 			vTextObj.GetComponent<Text>().text = vSegState.NavItem.Label;
 		}

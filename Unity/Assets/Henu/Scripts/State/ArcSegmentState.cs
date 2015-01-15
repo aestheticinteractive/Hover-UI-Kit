@@ -35,6 +35,10 @@ namespace Henu.State {
 		public float SelectionProgress {
 			get {
 				if ( vSelectionStart == null ) {
+					if ( NavItem.UsesStickySelection() && NavItem.Selected ) {
+						return HighlightProgress;
+					}
+
 					return 0;
 				}
 
@@ -77,7 +81,7 @@ namespace Henu.State {
 
 		/*--------------------------------------------------------------------------------------------*/
 		internal bool SetAsNearestSegment(bool pIsNearest) {
-			if ( NavItem.Type == NavItem.ItemType.Slider && NavItem.Selected ) {
+			if ( NavItem.UsesStickySelection() && NavItem.Selected ) {
 				if ( !pIsNearest || HighlightProgress <= 0 ) {
 					NavItem.Selected = false;
 				}
