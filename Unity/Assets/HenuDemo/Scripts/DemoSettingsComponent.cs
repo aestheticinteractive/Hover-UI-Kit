@@ -1,12 +1,11 @@
 ﻿using Henu.Navigation;
 using Henu.Settings;
-using UnityEngine;
 
 namespace HenuDemo {
 
 	/*================================================================================================*/
 	public class DemoSettingsComponent : HenuDefaultSettingsComponent {
-		
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -19,7 +18,7 @@ namespace HenuDemo {
 				sett.ArrowIconColor = ArrowIconColor;
 				sett.ToggleIconColor = ToggleIconColor;
 				sett.BackgroundColor = BackgroundColor;
-				sett.HighlightColor = new Color(0.3f, 0.3f, 0.3f);
+				sett.HighlightColor = HighlightColor;
 				return sett;
 			}
 

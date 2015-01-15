@@ -140,6 +140,10 @@ namespace Henu.Display.Default {
 		public virtual void Update() {
 			vMainAlpha = GetArcAlpha(vArcState)*vAnimAlpha;
 
+			if ( !vSegState.NavItem.IsEnabled ) {
+				vMainAlpha *= 0.333f;
+			}
+
 			float high = vSegState.HighlightProgress;
 			float select = 1-(float)Math.Pow(1-vSegState.SelectionProgress, 1.5f);
 			float selectAlpha = select;

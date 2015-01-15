@@ -23,25 +23,19 @@ namespace Henu.Settings {
 			get {
 				return GetColor(1);
 			}
-			set {
-			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public override Color SliderTrackColor {
 			get {
-				return GetColor(0.2f);
-			}
-			set {
+				return GetColor(0.25f);
 			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public override Color SliderFillColor {
 			get {
-				return GetColor(0.2f);
-			}
-			set {
+				return GetColor(0.25f);
 			}
 		}
 
@@ -50,7 +44,7 @@ namespace Henu.Settings {
 		/*--------------------------------------------------------------------------------------------*/
 		private Color GetColor(float pAlpha) {
 			float value = ((NavItemSlider)vNavItem).CurrentValue;
-			Color col = DemoEnvironment.HsvToColor(value*360, 1, 0.5f);
+			Color col = DemoEnvironment.HsvToColor(value*360, 1, 0.666f);
 			col.a = pAlpha;
 			return col;
 		}

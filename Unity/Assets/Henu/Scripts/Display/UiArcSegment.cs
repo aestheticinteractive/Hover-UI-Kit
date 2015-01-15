@@ -73,7 +73,7 @@ namespace Henu.Display {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateSliderValue() {
-			if ( !vSegState.NavItem.Selected ) {
+			if ( !vSegState.NavItem.IsSelected ) {
 				return;
 			}
 

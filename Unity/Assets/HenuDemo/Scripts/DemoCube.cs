@@ -5,8 +5,7 @@ namespace HenuDemo {
 	/*================================================================================================*/
 	public class DemoCube : MonoBehaviour {
 
-		public Color ColorLight;
-		public Color ColorDark;
+		public Color ColorRandom;
 
 		public Vector3 SpinAxis;
 		public float SpinSpeed;

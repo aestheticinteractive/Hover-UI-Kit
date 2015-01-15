@@ -87,6 +87,10 @@ namespace Henu.Display.Default {
 		public virtual void Update() {
 			vMainAlpha = GetArcAlpha(vArcState)*vAnimAlpha;
 
+			if ( !vSegState.NavItem.IsEnabled ) {
+				vMainAlpha *= 0.333f;
+			}
+
 			float currVal = vNavSlider.CurrentValue;
 			float showVal = currVal;
 

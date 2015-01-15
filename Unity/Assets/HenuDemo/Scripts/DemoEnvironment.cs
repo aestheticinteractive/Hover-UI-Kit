@@ -101,20 +101,21 @@ namespace HenuDemo {
 				{ vNavItems.CameraPosTop.Id,	Quaternion.FromToRotation(Vector3.forward, Vector3.up) }
 			};
 
-			navDel.OnColorChange += HandleColorChange;
 			navDel.OnMotionChange += HandleMotionChange;
 			navDel.OnLightPosChange += HandleLightPosChange;
 			navDel.OnLightIntenChange += HandleLightIntenChange;
 			navDel.OnCameraPosChange += HandleCameraPosChange;
 
-			vNavItems.ColorHue.OnSelection += HandleCustomColorSelect;
+			vNavItems.ColorWhite.OnSelected += HandleColorWhiteSelect;
+			vNavItems.ColorRandom.OnSelected += HandleColorRandomSelect;
+			vNavItems.ColorCustom.OnSelected += HandleColorCustomSelect;
 			vNavItems.ColorHue.ValueToLabel = (v => "Hue: "+Math.Round(v*360));
 			vNavItems.ColorHue.CurrentValue = 0.333f;
 
 			vLight.transform.localPosition = Vector3.zero;
 			vLight.intensity = 0;
 
-			HandleColorChange(DemoNavItems.GetFirstSelectedChildItem(vNavItems.Colors));
+			HandleColorWhiteSelect(null);
 			HandleLightPosChange(DemoNavItems.GetFirstSelectedChildItem(vNavItems.LightPos));
 			HandleLightIntenChange(DemoNavItems.GetFirstSelectedChildItem(vNavItems.LightInten));
 			HandleCameraPosChange(DemoNavItems.GetFirstSelectedChildItem(vNavItems.CameraPos));
@@ -167,8 +168,7 @@ namespace HenuDemo {
 			vCubes[pIndex] = cube;
 
 			DemoCube cubeData = cube.AddComponent<DemoCube>();
-			cubeData.ColorLight = RandomUnitColor(0.2f, 1);
-			cubeData.ColorDark = RandomUnitColor(0.1f, 0.5f);
+			cubeData.ColorRandom = RandomUnitColor(0.1f, 1);
 			cubeData.SpinAxis = RandomUnitVector();
 			cubeData.SpinSpeed = RandomFloat(0.5f, 1, 2);
 			cubeData.SpinInitRot = UnityEngine.Random.rotationUniform;
@@ -207,7 +207,7 @@ namespace HenuDemo {
 			cube.transform.localScale = 
 				Vector3.Lerp(cubeData.GrowScaleMin, cubeData.GrowScaleMax, growPos);
 
-			if ( vNavItems.ColorHue.Selected ) {
+			if ( vNavItems.ColorHue.IsSelected ) {
 				float value = vNavItems.ColorHue.CurrentValue;
 				cube.renderer.sharedMaterial.color = HsvToColor(value*360, 1, 1);
 			}
@@ -216,42 +216,38 @@ namespace HenuDemo {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void HandleColorChange(NavItem pItem) {
-			if ( pItem.Type != NavItem.ItemType.Radio ) {
-				return;
+		private void HandleColorWhiteSelect(NavItem pItem) {
+			foreach ( GameObject cube in vCubes ) {
+				cube.renderer.sharedMaterial.color = Color.white;
 			}
 
-			Color color = Color.white;
-			bool isRand = (pItem == vNavItems.ColorRandom);
-
-			if ( vColorMap.ContainsKey(pItem.Id) ) {
-				color = vColorMap[pItem.Id];
-			}
-
+			vNavItems.ColorHue.IsEnabled = false;
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		private void HandleColorRandomSelect(NavItem pItem) {
 			for ( int i = 0 ; i < Count ; ++i ) {
 				GameObject cube = vCubes[i];
 				DemoCube cubeData = cube.GetComponent<DemoCube>();
-
-				if ( isRand ) {
-					color = cubeData.ColorLight;
-				}
-
-				cube.renderer.sharedMaterial.color = color;
+				cube.renderer.sharedMaterial.color = cubeData.ColorRandom;
 			}
+
+			vNavItems.ColorHue.IsEnabled = false;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void HandleCustomColorSelect(NavItem pItem) {
-			foreach ( NavItem item in vNavItems.Colors.Children ) {
-				if ( item.Type == NavItem.ItemType.Radio ) {
-					item.Deselect();
-				}
+		private void HandleColorCustomSelect(NavItem pItem) {
+			foreach ( GameObject cube in vCubes ) {
+				float value = vNavItems.ColorHue.CurrentValue;
+				cube.renderer.sharedMaterial.color = HsvToColor(value*360, 1, 1);
 			}
+
+			vNavItems.ColorHue.IsEnabled = true;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleMotionChange(NavItem pItem) {
-			vMotionMap[pItem.Id].Enable(pItem.Selected);
+			vMotionMap[pItem.Id].Enable(pItem.IsSelected);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

@@ -39,7 +39,7 @@ namespace Henu.Navigation {
 			}
 
 			foreach ( NavItem item in pItems ) {
-				item.OnSelection += HandleItemSelection;
+				item.OnSelected += HandleItemSelected;
 				PrepareItems(item.Children);
 			}
 		}
@@ -71,7 +71,7 @@ namespace Henu.Navigation {
 
 			foreach ( NavItem item in items ) {
 				if ( item.Type == NavItem.ItemType.Parent ) {
-					item.Deselect();
+					item.IsSelected = false;
 				}
 			}
 
@@ -79,7 +79,7 @@ namespace Henu.Navigation {
 				NavItem[] parentItems = vHistory.Peek();
 
 				foreach ( NavItem item in parentItems ) {
-					if ( item.Type == NavItem.ItemType.Parent && item.Selected ) {
+					if ( item.Type == NavItem.ItemType.Parent && item.IsSelected ) {
 						ActiveParentItem = item;
 					}
 				}
@@ -94,9 +94,9 @@ namespace Henu.Navigation {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void HandleItemSelection(NavItem pItem) {
+		private void HandleItemSelected(NavItem pItem) {
 			if ( pItem.Type == NavItem.ItemType.Parent ) {
-				pItem.Select();
+				pItem.IsSelected = true;
 				ActiveParentItem = pItem;
 
 				vDelgate.HandleItemSelection(pItem);
@@ -109,11 +109,11 @@ namespace Henu.Navigation {
 				case NavItem.ItemType.Selection:
 				case NavItem.ItemType.Slider:
 				case NavItem.ItemType.Sticky:
-					pItem.Select();
+					pItem.IsSelected = true;
 					break;
 
 				case NavItem.ItemType.Checkbox:
-					pItem.ToggleSelect();
+					pItem.IsSelected = !pItem.IsSelected;
 					break;
 
 				case NavItem.ItemType.Radio:
@@ -138,7 +138,7 @@ namespace Henu.Navigation {
 			if ( vItems != null ) {
 				foreach ( NavItem item in vItems ) {
 					if ( item.IsStickySelected() ) {
-						item.Deselect();
+						item.IsSelected = false;
 					}
 				}
 			}
@@ -156,10 +156,10 @@ namespace Henu.Navigation {
 				}
 
 				if ( item == pSelectedItem ) {
-					item.Select();
+					item.IsSelected = true;
 				}
 				else {
-					item.Deselect();
+					item.IsSelected = false;
 				}
 			}
 		}

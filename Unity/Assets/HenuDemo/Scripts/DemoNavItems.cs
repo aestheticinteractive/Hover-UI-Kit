@@ -10,6 +10,7 @@ namespace HenuDemo {
 		public NavItem Colors { get; private set; }
 		public NavItem ColorWhite { get; private set; }
 		public NavItem ColorRandom { get; private set; }
+		public NavItem ColorCustom { get; private set; }
 		public NavItemSlider ColorHue { get; private set; }
 
 		public NavItem Motions { get; private set; }
@@ -61,7 +62,7 @@ namespace HenuDemo {
 		/*--------------------------------------------------------------------------------------------*/
 		public static NavItem GetFirstSelectedChildItem(NavItem pParent) {
 			VerifyParent(pParent);
-			return pParent.Children.FirstOrDefault(x => x.Selected);
+			return pParent.Children.FirstOrDefault(x => x.IsSelected);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -81,9 +82,11 @@ namespace HenuDemo {
 
 			ColorWhite = new NavItem(NavItem.ItemType.Radio, "White");
 			ColorRandom = new NavItem(NavItem.ItemType.Radio, "Random");
-			ColorHue = new NavItemSlider("Hue", 6);
-			ColorWhite.Select();
-			Colors.SetChildren(new[] { ColorWhite, ColorRandom, ColorHue });
+			ColorCustom = new NavItem(NavItem.ItemType.Radio, "Custom");
+			ColorHue = new NavItemSlider("Hue", 4);
+			ColorWhite.IsSelected = true;
+			ColorHue.IsEnabled = false;
+			Colors.SetChildren(new[] { ColorWhite, ColorRandom, ColorCustom, ColorHue });
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -105,7 +108,7 @@ namespace HenuDemo {
 			LightPosHigh = new NavItem(NavItem.ItemType.Radio, "High");
 			LightPosLow = new NavItem(NavItem.ItemType.Radio, "Low");
 			LightPosLowest = new NavItem(NavItem.ItemType.Radio, "Lowest");
-			LightPosHigh.Select();
+			LightPosHigh.IsSelected = true;
 			LightPos.SetChildren(new[] { LightPosHighest, LightPosHigh, LightPosLow, LightPosLowest });
 		}
 
@@ -116,7 +119,7 @@ namespace HenuDemo {
 			LightIntenHigh = new NavItem(NavItem.ItemType.Radio, "Brighest");
 			LightIntenMed = new NavItem(NavItem.ItemType.Radio, "Medium");
 			LightIntenLow = new NavItem(NavItem.ItemType.Radio, "Dimmest");
-			LightIntenMed.Select();
+			LightIntenMed.IsSelected = true;
 			LightInten.SetChildren(new[] { LightIntenHigh, LightIntenMed, LightIntenLow });
 		}
 
@@ -128,7 +131,7 @@ namespace HenuDemo {
 			CameraPosBack = new NavItem(NavItem.ItemType.Radio, "Back");
 			CameraPosTop = new NavItem(NavItem.ItemType.Radio, "Top");
 			CameraPosReorient = new NavItem(NavItem.ItemType.Selection, "Re-orient");
-			CameraPosCenter.Select();
+			CameraPosCenter.IsSelected = true;
 			//CameraPosReorient.NavigateBackUponSelect = true;
 			CameraPos.SetChildren(new[] { CameraPosCenter, CameraPosBack, CameraPosTop, 
 				CameraPosReorient });

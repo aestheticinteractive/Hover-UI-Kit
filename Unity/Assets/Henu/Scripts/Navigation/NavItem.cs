@@ -14,11 +14,15 @@ namespace Henu.Navigation {
 			Slider
 		}
 
-		public delegate void SelectionHandler(NavItem pNavItem);
-		public delegate void DeselectionHandler(NavItem pNavItem);
+		public delegate void SelectedHandler(NavItem pNavItem);
+		public delegate void DeselectedHandler(NavItem pNavItem);
+		public delegate void EnabledHandler(NavItem pNavItem);
+		public delegate void DisabledHandler(NavItem pNavItem);
 
-		public event SelectionHandler OnSelection;
-		public event DeselectionHandler OnDeselection;
+		public event SelectedHandler OnSelected;
+		public event DeselectedHandler OnDeselected;
+		public event EnabledHandler OnEnabled;
+		public event DisabledHandler OnDisabled;
 
 		private static int ItemCount;
 
@@ -28,8 +32,10 @@ namespace Henu.Navigation {
 		public float RelativeSize { get; private set; }
 		public NavItem[] Children { get; private set; }
 
-		public bool Selected { get; private set; }
 		public bool NavigateBackUponSelect { get; set; }
+
+		private bool vIsSelected;
+		private bool vIsEnabled;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -40,9 +46,12 @@ namespace Henu.Navigation {
 			Label = (pLabel ?? "");
 			RelativeSize = pRelativeSize;
 			Children = null;
+			vIsEnabled = true;
 
-			OnSelection += (i => {});
-			OnDeselection += (i => {});
+			OnSelected += (i => {});
+			OnDeselected += (i => {});
+			OnEnabled += (i => {});
+			OnDisabled += (i => {});
 		}
 
 
@@ -61,35 +70,43 @@ namespace Henu.Navigation {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void Select() {
-			if ( Selected ) {
-				return;
+		public bool IsSelected {
+			get {
+				return vIsSelected;
 			}
+			set {
+				if ( value && !vIsSelected ) {
+					vIsSelected = true;
+					OnSelected(this);
+				}
 
-			Selected = true;
-			OnSelection(this);
+				if ( !value && vIsSelected ) {
+					vIsSelected = false;
+					OnDeselected(this);
+				}
+			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void Deselect() {
-			if ( !Selected ) {
-				return;
+		public bool IsEnabled {
+			get {
+				return vIsEnabled;
 			}
+			set {
+				if ( value && !vIsEnabled ) {
+					vIsEnabled = true;
+					OnEnabled(this);
+				}
 
-			Selected = false;
-			OnDeselection(this);
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public void ToggleSelect() {
-			if ( Selected ) {
-				Deselect();
-			}
-			else {
-				Select();
+				if ( !value && vIsEnabled ) {
+					vIsEnabled = false;
+					OnDisabled(this);
+				}
 			}
 		}
 
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public bool UsesStickySelection() {
 			return (Type == ItemType.Sticky || Type == ItemType.Slider);
@@ -97,7 +114,7 @@ namespace Henu.Navigation {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public bool IsStickySelected() {
-			return (Selected && UsesStickySelection());
+			return (IsSelected && UsesStickySelection());
 		}
 
 	}

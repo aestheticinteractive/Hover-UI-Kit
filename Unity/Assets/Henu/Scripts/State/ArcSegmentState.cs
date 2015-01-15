@@ -68,6 +68,12 @@ namespace Henu.State {
 				throw new Exception("No CursorDistanceFunction has been set.");
 			}
 
+			if ( !NavItem.IsEnabled ) {
+				HighlightDistance = float.MaxValue;
+				HighlightProgress = 0;
+				return;
+			}
+
 			float dist = vCursorDistanceFunc((Vector3)pCursorPosition);
 			float prog = 1-(dist-vSettings.HighlightDistanceMin)/vHighlightDistRange;
 
@@ -79,7 +85,7 @@ namespace Henu.State {
 		internal bool SetAsNearestSegment(bool pIsNearest) {
 			if ( NavItem.IsStickySelected() ) {
 				if ( !pIsNearest || HighlightProgress <= 0 ) {
-					NavItem.Deselect();
+					NavItem.IsSelected = false;
 				}
 			}
 
@@ -94,7 +100,7 @@ namespace Henu.State {
 				return false;
 			}
 
-			if ( NavItem.Selected && NavItem.Type == NavItem.ItemType.Radio ) {
+			if ( NavItem.IsSelected && NavItem.Type == NavItem.ItemType.Radio ) {
 				vSelectionStart = null;
 				return false;
 			}
@@ -108,7 +114,7 @@ namespace Henu.State {
 				return false;
 			}
 
-			NavItem.Select();
+			NavItem.IsSelected = true;
 			vSelectionStart = null;
 			vPreventSelection = true;
 			return true;

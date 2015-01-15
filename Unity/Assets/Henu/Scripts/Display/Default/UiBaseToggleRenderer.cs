@@ -66,7 +66,7 @@ namespace Henu.Display.Default {
 
 			vOuter.renderer.sharedMaterial.color = color;
 			vInner.renderer.sharedMaterial.color = color;
-			vInner.renderer.enabled = vSegState.NavItem.Selected;
+			vInner.renderer.enabled = vSegState.NavItem.IsSelected;
 		}
 
 	}
