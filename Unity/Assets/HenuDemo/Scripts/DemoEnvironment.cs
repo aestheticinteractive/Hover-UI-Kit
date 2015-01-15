@@ -341,7 +341,7 @@ namespace HenuDemo {
 		public static float LerpFloat(float pMin, float pMax, float pAmount) {
 			return (pMax-pMin)*pAmount + pMin;
 		}
-
+		
 		/*--------------------------------------------------------------------------------------------*/
 		//based on: http://stackoverflow.com/questions/1335426
 		public static Color HsvToColor(float pHue, float pSat, float pVal) {

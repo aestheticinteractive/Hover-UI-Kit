@@ -5,12 +5,12 @@ namespace Henu.Settings {
 	/*================================================================================================*/
 	public class CursorSettings {
 
-		public Color ColorNorm { get; set; }
-		public Color ColorHigh { get; set; }
-		public float RadiusNorm { get; set; }
-		public float RadiusHigh { get; set; }
-		public float ThickNorm { get; set; }
-		public float ThickHigh { get; set; }
+		public virtual Color ColorNorm { get; set; }
+		public virtual Color ColorHigh { get; set; }
+		public virtual float RadiusNorm { get; set; }
+		public virtual float RadiusHigh { get; set; }
+		public virtual float ThickNorm { get; set; }
+		public virtual float ThickHigh { get; set; }
 
 	}
 
