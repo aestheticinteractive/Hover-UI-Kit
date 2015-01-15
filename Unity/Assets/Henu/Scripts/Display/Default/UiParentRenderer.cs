@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Henu.Display.Default {
 
 	/*================================================================================================*/
-	public class UiArcSegmentParentRenderer : UiArcSegmentRenderer {
+	public class UiParentRenderer : UiSelectRenderer {
 
 		public static Texture2D ArrowTexture = Resources.Load<Texture2D>("Arrow");
 

@@ -35,8 +35,8 @@ namespace Henu.Display.Default {
 			vMeshSteps = (int)Math.Round(Math.Max(2, (vAngle1-vAngle0)/Math.PI*60));
 
 			vInnerRadius = 0.1f;
-			vDiameter = UiArcSegmentRenderer.ArcCanvasThickness;
-			vTextScale = UiArcSegmentRenderer.ArcCanvasScale;
+			vDiameter = UiSelectRenderer.ArcCanvasThickness;
+			vTextScale = UiSelectRenderer.ArcCanvasScale;
 
 			////
 
@@ -99,7 +99,7 @@ namespace Henu.Display.Default {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void Update() {
-			vMainAlpha = UiArcSegmentRenderer.GetArcAlpha(vArcState);
+			vMainAlpha = UiSelectRenderer.GetArcAlpha(vArcState);
 
 			Color colBg = vSettings.BackgroundColor;
 			colBg.a *= vMainAlpha;

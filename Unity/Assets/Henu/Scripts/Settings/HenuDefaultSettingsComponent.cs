@@ -76,19 +76,19 @@ namespace Henu.Settings {
 		protected override Type GetUiArcSegmentRendererTypeInner(NavItem pNavItem) {
 			switch ( pNavItem.Type ) {
 				case NavItem.ItemType.Parent:
-					return typeof(UiArcSegmentParentRenderer);
+					return typeof(UiParentRenderer);
 
 				case NavItem.ItemType.Checkbox:
-					return typeof(UiArcSegmentCheckboxRenderer);
+					return typeof(UiCheckboxRenderer);
 
 				case NavItem.ItemType.Radio:
-					return typeof(UiArcSegmentRadioRenderer);
+					return typeof(UiRadioRenderer);
 
 				case NavItem.ItemType.Slider:
-					return typeof(UiArcSegmentSliderRenderer);
+					return typeof(UiSliderRenderer);
 			}
 
-			return typeof(UiArcSegmentRenderer);
+			return typeof(UiSelectRenderer);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

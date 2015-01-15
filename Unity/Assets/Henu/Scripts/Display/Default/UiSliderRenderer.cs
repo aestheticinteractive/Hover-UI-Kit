@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Henu.Display.Default {
 
 	/*================================================================================================*/
-	public class UiArcSegmentSliderRenderer : MonoBehaviour, IUiArcSegmentRenderer {
+	public class UiSliderRenderer : MonoBehaviour, IUiArcSegmentRenderer {
 
 		protected ArcState vArcState;
 		protected ArcSegmentState vSegState;
@@ -29,7 +29,7 @@ namespace Henu.Display.Default {
 		protected GameObject vBackground;
 		protected GameObject vFill;
 		protected GameObject vGrabHold;
-		protected UiArcSegmentSliderGrabRenderer vGrab;
+		protected UiSliderGrabRenderer vGrab;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -79,7 +79,7 @@ namespace Henu.Display.Default {
 			var grabObj = new GameObject("Grab");
 			grabObj.transform.SetParent(vGrabHold.transform, false);
 
-			vGrab = grabObj.AddComponent<UiArcSegmentSliderGrabRenderer>();
+			vGrab = grabObj.AddComponent<UiSliderGrabRenderer>();
 			vGrab.Build(vArcState, vSegState, -vSliderAngleHalf, vSliderAngleHalf, pSettings);
 		}
 

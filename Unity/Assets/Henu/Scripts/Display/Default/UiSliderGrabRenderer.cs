@@ -6,7 +6,7 @@ using UnityEngine.UI;
 namespace Henu.Display.Default {
 
 	/*================================================================================================*/
-	public class UiArcSegmentSliderGrabRenderer : UiArcSegmentRenderer {
+	public class UiSliderGrabRenderer : UiSelectRenderer {
 
 		private NavItemSlider vNavSlider;
 		private Text vText;

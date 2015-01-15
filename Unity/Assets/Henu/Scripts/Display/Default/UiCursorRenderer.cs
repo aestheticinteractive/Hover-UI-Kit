@@ -37,7 +37,7 @@ namespace Henu.Display.Default {
 		public void Update() {
 			ArcSegmentState nearSeg = vArcState.NearestSegment;
 			bool high = (nearSeg != null && nearSeg.HighlightProgress > 0);
-			float alpha = UiArcSegmentRenderer.GetArcAlpha(vArcState);
+			float alpha = UiSelectRenderer.GetArcAlpha(vArcState);
 
 			Color col = (high ? vSettings.ColorHigh : vSettings.ColorNorm);
 			col.a *= alpha;

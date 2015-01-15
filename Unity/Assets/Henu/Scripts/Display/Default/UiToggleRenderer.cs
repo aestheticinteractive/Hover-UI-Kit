@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Henu.Display.Default {
 
 	/*================================================================================================*/
-	public abstract class UiArcSegmentToggleRenderer : UiArcSegmentRenderer {
+	public abstract class UiToggleRenderer : UiSelectRenderer {
 
 		private Texture2D ToggleOuterTexture;
 		private Texture2D ToggleInnerTexture;

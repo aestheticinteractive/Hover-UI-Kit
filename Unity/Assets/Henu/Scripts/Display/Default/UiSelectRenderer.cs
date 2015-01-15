@@ -8,7 +8,7 @@ using UnityEngine.UI;
 namespace Henu.Display.Default {
 
 	/*================================================================================================*/
-	public class UiArcSegmentRenderer : MonoBehaviour, IUiArcSegmentRenderer {
+	public class UiSelectRenderer : MonoBehaviour, IUiArcSegmentRenderer {
 
 		public const float ArcCanvasThickness = 250;
 		public const float ArcCanvasScale = 0.002f;
