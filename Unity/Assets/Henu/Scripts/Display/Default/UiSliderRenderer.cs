@@ -20,8 +20,6 @@ namespace Henu.Display.Default {
 		protected float vSliderAngleHalf;
 		protected float vSlideDegree0;
 		protected float vSlideDegrees;
-		protected Vector3 vSlideDir0;
-		protected Vector3 vCursorWorldPos;
 
 		protected float vMainAlpha;
 		protected float vAnimAlpha;
@@ -49,7 +47,6 @@ namespace Henu.Display.Default {
 			vSliderAngleHalf = pi/80f;
 			vSlideDegree0 = (vAngle0+vSliderAngleHalf)/pi*180;
 			vSlideDegrees = (vAngle1-vAngle0-vSliderAngleHalf*2)/pi*180;
-			vSlideDir0 = MeshUtil.GetRingPoint(1, vAngle0);
 
 			////
 
@@ -58,7 +55,7 @@ namespace Henu.Display.Default {
 			vBackground.AddComponent<MeshFilter>();
 			vBackground.AddComponent<MeshRenderer>();
 			vBackground.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
-			vBackground.renderer.sharedMaterial.renderQueue -= 300;
+			vBackground.renderer.sharedMaterial.renderQueue -= 200;
 			vBackground.renderer.sharedMaterial.color = Color.clear;
 
 			vFill = new GameObject("Fill");
@@ -66,7 +63,7 @@ namespace Henu.Display.Default {
 			vFill.AddComponent<MeshFilter>();
 			vFill.AddComponent<MeshRenderer>();
 			vFill.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
-			vFill.renderer.sharedMaterial.renderQueue -= 200;
+			vFill.renderer.sharedMaterial.renderQueue -= 100;
 			vFill.renderer.sharedMaterial.color = Color.clear;
 
 			////
@@ -83,8 +80,6 @@ namespace Henu.Display.Default {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void Update() {
-			UpdateCurrentValue();
-
 			vMainAlpha = GetArcAlpha(vArcState)*vAnimAlpha;
 
 			float currVal = vNavSlider.CurrentValue;
@@ -113,30 +108,11 @@ namespace Henu.Display.Default {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public float CalculateCursorDistance(Vector3 pCursorWorldPosition) {
-			vCursorWorldPos = pCursorWorldPosition;
 			return vGrab.CalculateCursorDistance(pCursorWorldPosition);
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public virtual void UpdateCurrentValue() {
-			if ( !vSegState.NavItem.Selected ) {
-				return;
-			}
-
-			Vector3 cursorRel = gameObject.transform.InverseTransformPoint(vCursorWorldPos);
-			cursorRel.y = 0;
-			Vector3 cursorDir = cursorRel.normalized;
-			Quaternion diff = Quaternion.FromToRotation(vSlideDir0, cursorDir);
-
-			float cursorDeg;
-			Vector3 cursorAxis;
-			diff.ToAngleAxis(out cursorDeg, out cursorAxis);
-
-			vNavSlider.CurrentValue = cursorDeg/vSlideDegrees;
-		}
-
 		/*--------------------------------------------------------------------------------------------*/
 		private void BuildMesh(Mesh pMesh, float pAmount0, float pAmount1, bool pIsFill) {
 			float sliderAngle = (vSliderAngleHalf+UiSelectRenderer.AngleInset)*2;

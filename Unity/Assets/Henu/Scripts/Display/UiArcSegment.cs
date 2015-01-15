@@ -1,4 +1,5 @@
 ﻿using System;
+using Henu.Navigation;
 using Henu.Settings;
 using Henu.State;
 using UnityEngine;
@@ -10,7 +11,12 @@ namespace Henu.Display {
 
 		private ArcState vArcState;
 		private ArcSegmentState vSegState;
+
 		private Transform vCursorBaseTx;
+		private float vDegreesFull;
+		private Vector3 vSlideDir0;
+		private Vector3 vCursorWorldPos;
+
 		private IUiArcSegmentRenderer vRenderer;
 
 
@@ -20,8 +26,12 @@ namespace Henu.Display {
 																				ISettings pSettings) {
 			vArcState = pArcState;
 			vSegState = pSegState;
-			vCursorBaseTx = GameObject.Find("HandController").transform;
+
 			vSegState.SetCursorDistanceFunction(CalcCursorDistance);
+
+			vCursorBaseTx = GameObject.Find("HandController").transform;
+			vDegreesFull = (pAngle1-pAngle0)/(float)Math.PI*180;
+			vSlideDir0 = MeshUtil.GetRingPoint(1, pAngle0);
 
 			////
 
@@ -35,12 +45,19 @@ namespace Henu.Display {
 			vRenderer.Build(vArcState, vSegState, pAngle0, pAngle1, colors);
 		}
 
+		/*--------------------------------------------------------------------------------------------*/
+		public virtual void Update() {
+			if ( vSegState.NavItem.Type == NavItem.ItemType.Slider ) {
+				UpdateSliderValue();
+			}
+		}
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private float CalcCursorDistance(Vector3 pCursorPos) {
-			Vector3 worldCursor = vCursorBaseTx.TransformPoint(pCursorPos);
-			float dist = vRenderer.CalculateCursorDistance(worldCursor);
+			vCursorWorldPos = vCursorBaseTx.TransformPoint(pCursorPos);
+			float dist = vRenderer.CalculateCursorDistance(vCursorWorldPos);
 			return gameObject.transform.TransformVector(Vector3.up*dist).magnitude;
 		}
 		
@@ -48,6 +65,25 @@ namespace Henu.Display {
 		internal void HandleChangeAnimation(bool pFadeIn, int pDirection, float pProgress) {
 			vSegState.SetIsAnimating(pProgress < 1);
 			vRenderer.HandleChangeAnimation(pFadeIn, pDirection, pProgress);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateSliderValue() {
+			if ( !vSegState.NavItem.Selected ) {
+				return;
+			}
+
+			Vector3 cursorRel = gameObject.transform.InverseTransformPoint(vCursorWorldPos);
+			cursorRel.y = 0;
+
+			Vector3 cursorDir = cursorRel.normalized;
+			Quaternion diff = Quaternion.FromToRotation(vSlideDir0, cursorDir);
+
+			float cursorDeg;
+			Vector3 cursorAxis;
+			diff.ToAngleAxis(out cursorDeg, out cursorAxis);
+
+			((NavItemSlider)vSegState.NavItem).CurrentValue = cursorDeg/vDegreesFull;
 		}
 
 	}
