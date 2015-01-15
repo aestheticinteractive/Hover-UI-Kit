@@ -72,6 +72,11 @@ namespace Henu.Settings {
 			return typeof(UiCursorRenderer);
 		}
 
+		/*--------------------------------------------------------------------------------------------*/
+		protected override Type GetUiPalmRendererTypeInner() {
+			return typeof(UiPalmRenderer);
+		}
+
 	}
 
 }

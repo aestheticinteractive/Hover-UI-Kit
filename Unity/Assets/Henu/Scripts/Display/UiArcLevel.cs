@@ -9,6 +9,8 @@ namespace Henu.Display {
 	/*================================================================================================*/
 	public class UiArcLevel : MonoBehaviour {
 
+		public const float AngleFull = (float)Math.PI/2f;
+
 		private ArcState vArcState;
 		private IList<GameObject> vSegmentObjList;
 
@@ -19,16 +21,17 @@ namespace Henu.Display {
 			vArcState = pArcState;
 			vSegmentObjList = new List<GameObject>();
 
+			gameObject.transform.localPosition = new Vector3(0, -0.2f, 0);
+
 			ArcSegmentState[] segStates = vArcState.GetSegments();
 			int segCount = segStates.Length;
 			bool isLeft = vArcState.IsLeft;
 
 			const float pi = (float)Math.PI;
-			const float angleFull = (float)Math.PI/2f;
-			float segAngleFull = angleFull/segCount;
+			float segAngleFull = AngleFull/segCount;
 			float segAngleHalf = segAngleFull/2f;
 			float degreeInc = segAngleFull/pi*180;
-			float degrees = (isLeft ? 207 : 227);
+			float degrees = (isLeft ? 170 : 190)+degreeInc*(segCount-1)/2f;
 
 			for ( int i = 0 ; i < segCount ; i++ ) {
 				ArcSegmentState segState = segStates[isLeft ? i : segCount-i-1];

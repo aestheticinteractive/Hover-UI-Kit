@@ -27,6 +27,14 @@ namespace Henu {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
+		public Type GetUiPalmRendererType() {
+			Type type = GetUiPalmRendererTypeInner();
+			VerifyPalmType(type, "Palm");
+			return type;
+		}
+
+
+		/*--------------------------------------------------------------------------------------------*/
 		public abstract ArcSegmentSettings GetArcSegmentSettings(NavItem pNavItem);
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -39,6 +47,9 @@ namespace Henu {
 
 		/*--------------------------------------------------------------------------------------------*/
 		protected abstract Type GetUiCursorRendererTypeInner();
+
+		/*--------------------------------------------------------------------------------------------*/
+		protected abstract Type GetUiPalmRendererTypeInner();
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -64,6 +75,15 @@ namespace Henu {
 
 			if ( !pType.GetInterfaces().Contains(typeof(IUiCursorRenderer)) ) {
 				throw new Exception("The ''"+pName+"' Renderer must implement IUiCursorRenderer.");
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private static void VerifyPalmType(Type pType, string pName) {
+			VerifyType(pType, pName);
+
+			if ( !pType.GetInterfaces().Contains(typeof(IUiPalmRenderer)) ) {
+				throw new Exception("The ''"+pName+"' Renderer must implement IUiPalmRenderer.");
 			}
 		}
 
