@@ -24,8 +24,8 @@ namespace Henu.Display.Default {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public override void Build(ArcState pArcState, ArcSegmentState pSegState,
-										float pAngle0, float pAngle1, ArcSegmentSettings pSettings) {
-			base.Build(pArcState, pSegState, pAngle0, pAngle1, pSettings);
+														float pArcAngle, ArcSegmentSettings pSettings) {
+			base.Build(pArcState, pSegState, pArcAngle, pSettings);
 
 			Vector3 scale = GetIconScale();
 			scale.x *= (vArcState.IsLeft ? 1 : -1);

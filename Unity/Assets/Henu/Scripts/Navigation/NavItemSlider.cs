@@ -13,7 +13,8 @@ namespace Henu.Navigation {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public NavItemSlider(string pLabel) : base(ItemType.Slider, pLabel) {
+		public NavItemSlider(string pLabel, float pRelativeSize=1) : 
+														base(ItemType.Slider, pLabel, pRelativeSize) {
 			ValueToLabel = (v => 
 				(string.IsNullOrEmpty(Label) ? "" : Label+": ")+(v*100).ToString("0.0")+"%"
 			);

@@ -10,7 +10,7 @@ namespace Henu.Display {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		void Build(ArcState pArcState, ArcSegmentState pSegState, float pAlpha0, float pAlpha1, 
+		void Build(ArcState pArcState, ArcSegmentState pSegState, float pArcAngle,
 																		ArcSegmentSettings pSettings);
 
 		/*--------------------------------------------------------------------------------------------*/

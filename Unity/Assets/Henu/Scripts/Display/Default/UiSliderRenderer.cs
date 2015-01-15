@@ -34,12 +34,12 @@ namespace Henu.Display.Default {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Build(ArcState pArcState, ArcSegmentState pSegState,																									
-										float pAngle0, float pAngle1, ArcSegmentSettings pSettings) {
+		public virtual void Build(ArcState pArcState, ArcSegmentState pSegState,
+														float pArcAngle, ArcSegmentSettings pSettings) {
 			vArcState = pArcState;
 			vSegState = pSegState;
-			vAngle0 = pAngle0+UiSelectRenderer.AngleInset;
-			vAngle1 = pAngle1-UiSelectRenderer.AngleInset;
+			vAngle0 = -pArcAngle/2f+UiSelectRenderer.AngleInset;
+			vAngle1 = pArcAngle/2f-UiSelectRenderer.AngleInset;
 			vSettings = pSettings;
 			vNavSlider = (NavItemSlider)vSegState.NavItem;
 			vMeshSteps = (int)Math.Round(Math.Max(2, (vAngle1-vAngle0)/Math.PI*60));
@@ -80,7 +80,7 @@ namespace Henu.Display.Default {
 			grabObj.transform.SetParent(vGrabHold.transform, false);
 
 			vGrab = grabObj.AddComponent<UiSliderGrabRenderer>();
-			vGrab.Build(vArcState, vSegState, -vSliderAngleHalf, vSliderAngleHalf, pSettings);
+			vGrab.Build(vArcState, vSegState, vSliderAngleHalf*2, pSettings);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

@@ -20,8 +20,9 @@ namespace Henu.Navigation {
 		private static int ItemCount;
 
 		public int Id { get; private set; }
-		public string Label { get; private set; }
 		public ItemType Type { get; private set; }
+		public string Label { get; private set; }
+		public float RelativeSize { get; private set; }
 		public NavItem[] Children { get; private set; }
 
 		public bool Selected { get; set; }
@@ -30,10 +31,11 @@ namespace Henu.Navigation {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public NavItem(ItemType pType, string pLabel) {
+		public NavItem(ItemType pType, string pLabel, float pRelativeSize=1) {
 			Id = (++ItemCount);
 			Type = pType;
 			Label = (pLabel ?? "");
+			RelativeSize = pRelativeSize;
 			Children = null;
 
 			OnSelection += (i => {});

@@ -22,7 +22,7 @@ namespace Henu.Display {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal void Build(ArcState pArcState, ArcSegmentState pSegState, float pAngle0, float pAngle1, 
+		internal void Build(ArcState pArcState, ArcSegmentState pSegState, float pArcAngle, 
 																				ISettings pSettings) {
 			vArcState = pArcState;
 			vSegState = pSegState;
@@ -34,8 +34,8 @@ namespace Henu.Display {
 			const float pi = (float)Math.PI;
 			const float slideBufferAngle = pi/80f;
 
-			vSlideDegrees = (pAngle1-pAngle0-slideBufferAngle*2)/(float)Math.PI*180;
-			vSlideDir0 = MeshUtil.GetRingPoint(1, pAngle0+slideBufferAngle);
+			vSlideDegrees = (pArcAngle-slideBufferAngle*2)/(float)Math.PI*180;
+			vSlideDir0 = MeshUtil.GetRingPoint(1, -pArcAngle/2f+slideBufferAngle);
 
 			////
 
@@ -46,7 +46,7 @@ namespace Henu.Display {
 			rendObj.transform.SetParent(gameObject.transform, false);
 
 			vRenderer = (IUiArcSegmentRenderer)rendObj.AddComponent(rendType);
-			vRenderer.Build(vArcState, vSegState, pAngle0, pAngle1, colors);
+			vRenderer.Build(vArcState, vSegState, pArcAngle, colors);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
