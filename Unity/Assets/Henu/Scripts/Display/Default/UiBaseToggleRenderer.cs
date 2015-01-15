@@ -37,6 +37,7 @@ namespace Henu.Display.Default {
 			rect.SetInsetAndSizeFromParentEdge(edge, push, vCanvasW-push-vTextPadW);
 
 			vOuter = GameObject.CreatePrimitive(PrimitiveType.Quad);
+			vOuter.name = "ToggleOuter";
 			vOuter.transform.SetParent(gameObject.transform, false);
 			vOuter.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
 			vOuter.renderer.sharedMaterial.color = Color.clear;
@@ -46,6 +47,7 @@ namespace Henu.Display.Default {
 			vOuter.transform.localScale = new Vector3(scale*mult, scale, 1);
 
 			vInner = GameObject.CreatePrimitive(PrimitiveType.Quad);
+			vInner.name = "ToggleInner";
 			vInner.transform.SetParent(gameObject.transform, false);
 			vInner.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
 			vInner.renderer.sharedMaterial.color = Color.clear;

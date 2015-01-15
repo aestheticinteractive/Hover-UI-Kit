@@ -7,7 +7,7 @@ namespace Henu.Display.Default {
 	/*================================================================================================*/
 	public abstract class UiBaseIconRenderer : UiSelectRenderer {
 
-		private GameObject vArrow;
+		private GameObject vIcon;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -39,14 +39,15 @@ namespace Henu.Display.Default {
 			RectTransform rect = vTextObj.GetComponent<RectTransform>();
 			rect.SetInsetAndSizeFromParentEdge(edge, push, vCanvasW-push-vTextPadW);
 
-			vArrow = GameObject.CreatePrimitive(PrimitiveType.Quad);
-			vArrow.transform.SetParent(gameObject.transform, false);
-			vArrow.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
-			vArrow.renderer.sharedMaterial.color = Color.clear;
-			vArrow.renderer.sharedMaterial.mainTexture = GetIconTexture();
-			vArrow.transform.localPosition = new Vector3(0, 0, pos);
-			vArrow.transform.localRotation = vCanvasGroupObj.transform.localRotation;
-			vArrow.transform.localScale = scale;
+			vIcon = GameObject.CreatePrimitive(PrimitiveType.Quad);
+			vIcon.name = "Icon";
+			vIcon.transform.SetParent(gameObject.transform, false);
+			vIcon.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
+			vIcon.renderer.sharedMaterial.color = Color.clear;
+			vIcon.renderer.sharedMaterial.mainTexture = GetIconTexture();
+			vIcon.transform.localPosition = new Vector3(0, 0, pos);
+			vIcon.transform.localRotation = vCanvasGroupObj.transform.localRotation;
+			vIcon.transform.localScale = scale;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -56,7 +57,7 @@ namespace Henu.Display.Default {
 			Color color = vSettings.ArrowIconColor;
 			color.a *= (vSegState.HighlightProgress*0.75f + 0.25f)*vMainAlpha;
 
-			vArrow.renderer.sharedMaterial.color = color;
+			vIcon.renderer.sharedMaterial.color = color;
 		}
 
 	}
