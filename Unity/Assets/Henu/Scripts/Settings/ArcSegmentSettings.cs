@@ -13,6 +13,8 @@ namespace Henu.Settings {
 		public Color BackgroundColor { get; set; }
 		public Color HighlightColor { get; set; }
 		public Color SelectionColor { get; set; }
+		public Color SliderTrackColor { get; set; }
+		public Color SliderFillColor { get; set; }
 
 	}
 

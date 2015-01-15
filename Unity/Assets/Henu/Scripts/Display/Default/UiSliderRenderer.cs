@@ -24,10 +24,10 @@ namespace Henu.Display.Default {
 		protected float vMainAlpha;
 		protected float vAnimAlpha;
 
-		protected GameObject vBackground;
+		protected GameObject vTrack;
 		protected GameObject vFill;
 		protected GameObject vGrabHold;
-		protected Mesh vBackgroundMesh;
+		protected Mesh vTrackMesh;
 		protected Mesh vFillMesh;
 		protected UiSliderGrabRenderer vGrab;
 
@@ -52,13 +52,13 @@ namespace Henu.Display.Default {
 
 			////
 
-			vBackground = new GameObject("Background");
-			vBackground.transform.SetParent(gameObject.transform, false);
-			vBackground.AddComponent<MeshFilter>();
-			vBackground.AddComponent<MeshRenderer>();
-			vBackground.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
-			vBackground.renderer.sharedMaterial.renderQueue -= 200;
-			vBackground.renderer.sharedMaterial.color = Color.clear;
+			vTrack = new GameObject("Track");
+			vTrack.transform.SetParent(gameObject.transform, false);
+			vTrack.AddComponent<MeshFilter>();
+			vTrack.AddComponent<MeshRenderer>();
+			vTrack.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
+			vTrack.renderer.sharedMaterial.renderQueue -= 200;
+			vTrack.renderer.sharedMaterial.color = Color.clear;
 
 			vFill = new GameObject("Fill");
 			vFill.transform.SetParent(gameObject.transform, false);
@@ -68,7 +68,7 @@ namespace Henu.Display.Default {
 			vFill.renderer.sharedMaterial.renderQueue -= 100;
 			vFill.renderer.sharedMaterial.color = Color.clear;
 
-			vBackgroundMesh = vBackground.GetComponent<MeshFilter>().mesh;
+			vTrackMesh = vTrack.GetComponent<MeshFilter>().mesh;
 			vFillMesh = vFill.GetComponent<MeshFilter>().mesh;
 
 			////
@@ -91,22 +91,22 @@ namespace Henu.Display.Default {
 			float showVal = currVal;
 
 			if ( vArcState.IsLeft ) {
-				BuildMesh(vBackgroundMesh, showVal, 1, false);
+				BuildMesh(vTrackMesh, showVal, 1, false);
 				BuildMesh(vFillMesh, 0, showVal, true);
 			}
 			else {
 				showVal = 1-currVal;
-				BuildMesh(vBackgroundMesh, 0, showVal, true);
+				BuildMesh(vTrackMesh, 0, showVal, true);
 				BuildMesh(vFillMesh, showVal, 1, false);
 			}
 
-			Color colBg = vSettings.BackgroundColor;
-			Color colFill = vSettings.HighlightColor;
+			Color colTrack = vSettings.SliderTrackColor;
+			Color colFill = vSettings.SliderFillColor;
 
-			colBg.a *= vMainAlpha;
+			colTrack.a *= vMainAlpha;
 			colFill.a *= vMainAlpha;
 
-			vBackground.renderer.sharedMaterial.color = colBg;
+			vTrack.renderer.sharedMaterial.color = colTrack;
 			vFill.renderer.sharedMaterial.color = colFill;
 
 			float slideDeg = vSlideDegree0 + vSlideDegrees*showVal;
