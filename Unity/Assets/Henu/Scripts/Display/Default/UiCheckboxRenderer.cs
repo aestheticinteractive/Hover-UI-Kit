@@ -1,13 +1,23 @@
-﻿namespace Henu.Display.Default {
+﻿using UnityEngine;
+
+namespace Henu.Display.Default {
 
 	/*================================================================================================*/
-	public class UiCheckboxRenderer : UiToggleRenderer {
+	public class UiCheckboxRenderer : UiBaseToggleRenderer {
+
+		private static readonly Texture2D OuterTex = Resources.Load<Texture2D>("CheckboxOuter");
+		private static readonly Texture2D InnerTex = Resources.Load<Texture2D>("CheckboxInner");
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected override string GetIconName() {
-			return "Checkbox";
+		protected override Texture2D GetOuterTexture() {
+			return OuterTex;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		protected override Texture2D GetInnerTexture() {
+			return InnerTex;
 		}
 
 	}

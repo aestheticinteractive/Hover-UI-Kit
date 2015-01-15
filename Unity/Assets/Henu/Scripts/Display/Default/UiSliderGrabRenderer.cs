@@ -1,15 +1,31 @@
 ﻿using Henu.Navigation;
 using Henu.Settings;
 using Henu.State;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Henu.Display.Default {
 
 	/*================================================================================================*/
-	public class UiSliderGrabRenderer : UiSelectRenderer {
+	public class UiSliderGrabRenderer : UiBaseIconRenderer {
+
+		private static readonly Texture2D IconTex = Resources.Load<Texture2D>("Slider");
 
 		private NavItemSlider vNavSlider;
 		private Text vText;
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		protected override Texture2D GetIconTexture() {
+			return IconTex;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		protected override Vector3 GetIconScale() {
+			float sx = vSettings.TextSize*0.75f*vTextScale;
+			float sy = vSettings.TextSize*1.0f*vTextScale;
+			return new Vector3(sx, sy, 1);
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
