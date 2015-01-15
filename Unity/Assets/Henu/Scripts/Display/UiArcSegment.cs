@@ -13,7 +13,7 @@ namespace Henu.Display {
 		private ArcSegmentState vSegState;
 
 		private Transform vCursorBaseTx;
-		private float vDegreesFull;
+		private float vSlideDegrees;
 		private Vector3 vSlideDir0;
 		private Vector3 vCursorWorldPos;
 
@@ -30,8 +30,12 @@ namespace Henu.Display {
 			vSegState.SetCursorDistanceFunction(CalcCursorDistance);
 
 			vCursorBaseTx = GameObject.Find("HandController").transform;
-			vDegreesFull = (pAngle1-pAngle0)/(float)Math.PI*180;
-			vSlideDir0 = MeshUtil.GetRingPoint(1, pAngle0);
+
+			const float pi = (float)Math.PI;
+			const float slideBufferAngle = pi/80f;
+
+			vSlideDegrees = (pAngle1-pAngle0-slideBufferAngle*2)/(float)Math.PI*180;
+			vSlideDir0 = MeshUtil.GetRingPoint(1, pAngle0+slideBufferAngle);
 
 			////
 
@@ -87,7 +91,7 @@ namespace Henu.Display {
 				cursorDeg = 0;
 			}
 
-			float currVal = cursorDeg/vDegreesFull;
+			float currVal = cursorDeg/vSlideDegrees;
 
 			if ( !vArcState.IsLeft ) {
 				currVal = 1-currVal;
