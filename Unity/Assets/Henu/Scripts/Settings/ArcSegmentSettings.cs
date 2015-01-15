@@ -7,6 +7,7 @@ namespace Henu.Settings {
 
 		public int TextSize { get; set; }
 		public Color TextColor { get; set; }
+		public string TextFont { get; set; }
 		public Color ArrowIconColor { get; set; }
 		public Color ToggleIconColor { get; set; }
 		public Color BackgroundColor { get; set; }

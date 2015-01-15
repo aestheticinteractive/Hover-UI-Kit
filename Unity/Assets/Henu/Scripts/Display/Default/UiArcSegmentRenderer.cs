@@ -121,7 +121,7 @@ namespace Henu.Display.Default {
 			vTextObj.transform.SetParent(vCanvasObj.transform, false);
 
 			Text text = vTextObj.AddComponent<Text>();
-			text.font = Resources.Load<Font>("Tahoma");
+			text.font = Resources.Load<Font>(vSettings.TextFont);
 			text.fontSize = vSettings.TextSize;
 			text.color = vSettings.TextColor;
 			text.alignment = (vArcState.IsLeft ? TextAnchor.MiddleLeft : TextAnchor.MiddleRight);

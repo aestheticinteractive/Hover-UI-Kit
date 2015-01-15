@@ -10,6 +10,7 @@ namespace Henu.Settings {
 
 		public int TextSize = 26;
 		public Color TextColor = new Color(1, 1, 1);
+		public string TextFont = "Tahoma";
 		public Color ArrowIconColor = new Color(1, 1, 1);
 		public Color ToggleIconColor = new Color(1, 1, 1);
 		public Color BackgroundColor = new Color(0.1f, 0.1f, 0.1f, 0.5f);
@@ -27,15 +28,16 @@ namespace Henu.Settings {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public override ArcSegmentSettings GetArcSegmentSettings(NavItem pNavItem) {
-			var colors = new ArcSegmentSettings();
-			colors.TextSize = TextSize;
-			colors.TextColor = TextColor;
-			colors.ArrowIconColor = ArrowIconColor;
-			colors.ToggleIconColor = ToggleIconColor;
-			colors.BackgroundColor = BackgroundColor;
-			colors.HighlightColor = HighlightColor;
-			colors.SelectionColor = SelectionColor;
-			return colors;
+			var sett = new ArcSegmentSettings();
+			sett.TextSize = TextSize;
+			sett.TextColor = TextColor;
+			sett.TextFont = TextFont;
+			sett.ArrowIconColor = ArrowIconColor;
+			sett.ToggleIconColor = ToggleIconColor;
+			sett.BackgroundColor = BackgroundColor;
+			sett.HighlightColor = HighlightColor;
+			sett.SelectionColor = SelectionColor;
+			return sett;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
