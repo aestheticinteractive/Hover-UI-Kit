@@ -10,6 +10,7 @@ namespace Henu.Display {
 	public class UiArcLevel : MonoBehaviour {
 
 		public const float AngleFull = (float)Math.PI/2f;
+		public static readonly Vector3 PushFromHand = new Vector3(0, -0.2f, 0);
 
 		private ArcState vArcState;
 		private IList<GameObject> vSegmentObjList;
@@ -21,7 +22,7 @@ namespace Henu.Display {
 			vArcState = pArcState;
 			vSegmentObjList = new List<GameObject>();
 
-			gameObject.transform.localPosition = new Vector3(0, -0.2f, 0);
+			gameObject.transform.localPosition = PushFromHand;
 
 			ArcSegmentState[] segStates = vArcState.GetSegments();
 			int segCount = segStates.Length;

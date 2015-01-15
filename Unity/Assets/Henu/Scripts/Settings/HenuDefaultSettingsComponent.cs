@@ -19,8 +19,8 @@ namespace Henu.Settings {
 
 		public Color CursorColorNormal = new Color(1, 1, 1, 0.75f);
 		public Color CursorColorHighlighted = new Color(1, 1, 1, 1);
-		public float CursorRadiusNormal = 0.012f;
-		public float CursorRadiusHighlighted = 0.012f;
+		public float CursorRadiusNormal = 0.1f;
+		public float CursorRadiusHighlighted = 0.1f;
 		public float CursorThicknessNormal = 0.1f;
 		public float CursorThicknessHighlighted = 0.3f;
 

@@ -10,6 +10,9 @@ namespace Henu.Display.Default {
 	/*================================================================================================*/
 	public class UiArcSegmentRenderer : MonoBehaviour, IUiArcSegmentRenderer {
 
+		public const float ArcCanvasThickness = 250;
+		public const float ArcCanvasScale = 0.002f;
+
 		protected ArcState vArcState;
 		protected ArcSegmentState vSegState;
 		protected float vAngle0;
@@ -49,11 +52,11 @@ namespace Henu.Display.Default {
 
 			vTextPadW = vSettings.TextSize*0.6f;
 			vTextPadH = 0;
-			vCanvasW = 250;
+			vCanvasW = ArcCanvasThickness;
 			vCanvasH = vSettings.TextSize*1.25f+vTextPadH*2;
 			vTextW = vCanvasW-vTextPadW*2;
 			vTextH = vCanvasH-vTextPadH*2;
-			vTextScale = 0.002f;
+			vTextScale = ArcCanvasScale;
 
 			////
 

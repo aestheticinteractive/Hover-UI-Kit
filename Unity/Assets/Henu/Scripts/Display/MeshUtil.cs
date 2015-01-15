@@ -59,7 +59,7 @@ namespace Henu.Display {
 			pMesh.Optimize();
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		public static void BuildCircleMesh(Mesh pMesh, float pRadius, int pSteps) {
 			const float angleFull = (float)Math.PI*2;
 			float angleInc = angleFull/pSteps;
@@ -95,7 +95,7 @@ namespace Henu.Display {
 			pMesh.RecalculateNormals();
 			pMesh.RecalculateBounds();
 			pMesh.Optimize();
-		}
+		}*/
 
 	}
 

@@ -35,8 +35,8 @@ namespace Henu.Display.Default {
 			vMeshSteps = (int)Math.Round(Math.Max(2, (vAngle1-vAngle0)/Math.PI*60));
 
 			vInnerRadius = 0.1f;
-			vDiameter = 250;
-			vTextScale = 0.002f;
+			vDiameter = UiArcSegmentRenderer.ArcCanvasThickness;
+			vTextScale = UiArcSegmentRenderer.ArcCanvasScale;
 
 			////
 

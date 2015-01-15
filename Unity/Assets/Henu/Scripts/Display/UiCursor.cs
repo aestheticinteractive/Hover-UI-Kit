@@ -10,6 +10,7 @@ namespace Henu.Display {
 
 		private ArcState vArcState;
 		private CursorState vCursorState;
+		private GameObject vRendererHold;
 		private GameObject vRendererObj;
 		private IUiCursorRenderer vRenderer;
 		private Transform vCameraTx;
@@ -28,8 +29,12 @@ namespace Henu.Display {
 			
 			Type rendType = pSettings.GetUiCursorRendererType();
 
+			vRendererHold = new GameObject("RendererHold");
+			vRendererHold.transform.SetParent(gameObject.transform, false);
+			vRendererHold.transform.localPosition = UiArcLevel.PushFromHand;
+
 			vRendererObj = new GameObject("Renderer");
-			vRendererObj.transform.SetParent(gameObject.transform, false);
+			vRendererObj.transform.SetParent(vRendererHold.transform, false);
 
 			vRenderer = (IUiCursorRenderer)vRendererObj.AddComponent(rendType);
 			vRenderer.Build(vArcState, vCursorState, pSettings.GetCursorSettings());
@@ -47,6 +52,7 @@ namespace Henu.Display {
 			Transform tx = gameObject.transform;
 			tx.localPosition = (Vector3)vCursorState.Position;
 			tx.localRotation = Quaternion.identity;
+			tx.localScale = Vector3.one*(vArcState.Size*UiArc.ScaleArcSize);
 
 			Vector3 camWorld = vCameraTx.transform.TransformPoint(Vector3.zero);
 			Vector3 camLocal = tx.InverseTransformPoint(camWorld);

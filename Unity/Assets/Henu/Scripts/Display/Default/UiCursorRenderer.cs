@@ -26,7 +26,6 @@ namespace Henu.Display.Default {
 
 			vRingObj = new GameObject("Ring");
 			vRingObj.transform.SetParent(gameObject.transform, false);
-			vRingObj.transform.localPosition = new Vector3(0, -0.02f, 0); //keep in front of finger
 			vRingObj.AddComponent<MeshRenderer>();
 			vRingObj.AddComponent<MeshFilter>();
 			vRingObj.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));

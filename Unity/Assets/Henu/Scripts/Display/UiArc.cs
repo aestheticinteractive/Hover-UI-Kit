@@ -8,8 +8,9 @@ namespace Henu.Display {
 	/*================================================================================================*/
 	public class UiArc : MonoBehaviour {
 
-		public static float LevelChangeMilliseconds = 1000;
-		public static float LevelChangeDistance = 0.5f;
+		private const float LevelChangeMilliseconds = 1000;
+		private const float LevelChangeDistance = 0.5f;
+		public static readonly float ScaleArcSize = 1.1f;
 
 		private ArcState vArcState;
 		private ISettings vSettings;
@@ -34,7 +35,7 @@ namespace Henu.Display {
 		public void Update() {
 			gameObject.transform.localPosition = vArcState.Center;
 			gameObject.transform.localRotation = vArcState.Rotation;
-			gameObject.transform.localScale = Vector3.one*(vArcState.Size*1.1f);
+			gameObject.transform.localScale = Vector3.one*(vArcState.Size*ScaleArcSize);
 
 			UpdateItemChangeAnim();
 		}

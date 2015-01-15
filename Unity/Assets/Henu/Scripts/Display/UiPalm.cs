@@ -28,9 +28,9 @@ namespace Henu.Display {
 
 			vRendererHold = new GameObject("RendererHold");
 			vRendererHold.transform.SetParent(gameObject.transform, false);
-			vRendererHold.transform.localPosition = new Vector3(0, -0.2f, 0);
+			vRendererHold.transform.localPosition = UiArcLevel.PushFromHand;
 			vRendererHold.transform.localRotation = 
-				Quaternion.AngleAxis((vArcState.IsLeft ? 170 : 190), Vector3.up);
+				Quaternion.AngleAxis(180+10*(vArcState.IsLeft ? -1 : 1), Vector3.up);
 
 			vRendererObj = new GameObject("Renderer");
 			vRendererObj.transform.SetParent(vRendererHold.transform, false);
@@ -48,7 +48,7 @@ namespace Henu.Display {
 		public void Update() {
 			gameObject.transform.localPosition = vArcState.Center;
 			gameObject.transform.localRotation = vArcState.Rotation;
-			gameObject.transform.localScale = Vector3.one*(vArcState.Size*1.1f);
+			gameObject.transform.localScale = Vector3.one*(vArcState.Size*UiArc.ScaleArcSize);
 		}
 
 
