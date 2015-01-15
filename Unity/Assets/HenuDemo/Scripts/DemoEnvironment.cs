@@ -67,10 +67,6 @@ namespace HenuDemo {
 
 			vColorMap = new Dictionary<int, Color> {
 				{ vNavItems.ColorWhite.Id,	Color.white },
-				{ vNavItems.ColorRed.Id,	Color.red },
-				{ vNavItems.ColorYellow.Id,	Color.yellow },
-				{ vNavItems.ColorGreen.Id,	Color.green },
-				{ vNavItems.ColorBlue.Id,	Color.blue }
 			};
 
 			vMotionMap = new Dictionary<int, DemoMotion> {
@@ -110,6 +106,10 @@ namespace HenuDemo {
 			navDel.OnLightPosChange += HandleLightPosChange;
 			navDel.OnLightIntenChange += HandleLightIntenChange;
 			navDel.OnCameraPosChange += HandleCameraPosChange;
+
+			vNavItems.ColorHue.OnSelection += HandleCustomColorSelect;
+			vNavItems.ColorHue.ValueToLabel = (v => "Hue: "+Math.Round(v*360));
+			vNavItems.ColorHue.CurrentValue = 0.333f;
 
 			vLight.transform.localPosition = Vector3.zero;
 			vLight.intensity = 0;
@@ -206,15 +206,23 @@ namespace HenuDemo {
 			growPos = (float)Math.Sin(growPos*Math.PI)/2f + 0.5f;
 			cube.transform.localScale = 
 				Vector3.Lerp(cubeData.GrowScaleMin, cubeData.GrowScaleMax, growPos);
+
+			if ( vNavItems.ColorHue.Selected ) {
+				float value = vNavItems.ColorHue.CurrentValue;
+				cube.renderer.sharedMaterial.color = HsvToColor(value*360, 1, 1);
+			}
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleColorChange(NavItem pItem) {
+			if ( pItem.Type != NavItem.ItemType.Radio ) {
+				return;
+			}
+
 			Color color = Color.white;
-			bool isRandLt = (pItem == vNavItems.ColorRandLt);
-			bool isRandDk = (pItem == vNavItems.ColorRandDk);
+			bool isRand = (pItem == vNavItems.ColorRandom);
 
 			if ( vColorMap.ContainsKey(pItem.Id) ) {
 				color = vColorMap[pItem.Id];
@@ -224,14 +232,20 @@ namespace HenuDemo {
 				GameObject cube = vCubes[i];
 				DemoCube cubeData = cube.GetComponent<DemoCube>();
 
-				if ( isRandLt ) {
+				if ( isRand ) {
 					color = cubeData.ColorLight;
-				}
-				else if ( isRandDk ) {
-					color = cubeData.ColorDark;
 				}
 
 				cube.renderer.sharedMaterial.color = color;
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void HandleCustomColorSelect(NavItem pItem) {
+			foreach ( NavItem item in vNavItems.Colors.Children ) {
+				if ( item.Type == NavItem.ItemType.Radio ) {
+					item.Deselect();
+				}
 			}
 		}
 
@@ -326,6 +340,30 @@ namespace HenuDemo {
 		/*--------------------------------------------------------------------------------------------*/
 		public static float LerpFloat(float pMin, float pMax, float pAmount) {
 			return (pMax-pMin)*pAmount + pMin;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		//based on: http://stackoverflow.com/questions/1335426
+		public static Color HsvToColor(float pHue, float pSat, float pVal) {
+			float hue60 = pHue/60f;
+			int i = (int)Math.Floor(hue60)%6;
+			float f = hue60 - (int)Math.Floor(hue60);
+
+			float v = pVal;
+			float p = pVal * (1-pSat);
+			float q = pVal * (1-f*pSat);
+			float t = pVal * (1-(1-f)*pSat);
+
+			switch ( i ) {
+				case 0: return new Color(v, t, p);
+				case 1: return new Color(q, v, p);
+				case 2: return new Color(p, v, t);
+				case 3: return new Color(p, q, v);
+				case 4: return new Color(t, p, v);
+				case 5: return new Color(v, p, q);
+			}
+
+			return Color.black;
 		}
 
 	}

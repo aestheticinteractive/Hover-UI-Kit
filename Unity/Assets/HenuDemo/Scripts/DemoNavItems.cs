@@ -9,12 +9,8 @@ namespace HenuDemo {
 
 		public NavItem Colors { get; private set; }
 		public NavItem ColorWhite { get; private set; }
-		public NavItem ColorRed { get; private set; }
-		public NavItem ColorYellow { get; private set; }
-		public NavItem ColorGreen { get; private set; }
-		public NavItem ColorBlue { get; private set; }
-		public NavItem ColorRandLt { get; private set; }
-		public NavItem ColorRandDk { get; private set; }
+		public NavItem ColorRandom { get; private set; }
+		public NavItemSlider ColorHue { get; private set; }
 
 		public NavItem Motions { get; private set; }
 		public NavItem MotionOrbit { get; private set; }
@@ -28,9 +24,6 @@ namespace HenuDemo {
 		public NavItem LightPosLow { get; private set; }
 		public NavItem LightPosLowest { get; private set; }
 
-		public NavItem Custom { get; private set; }
-		public NavItemSlider CustomSlider { get; private set; }
-
 		public NavItem LightInten { get; private set; }
 		public NavItem LightIntenHigh { get; private set; }
 		public NavItem LightIntenMed { get; private set; }
@@ -42,8 +35,6 @@ namespace HenuDemo {
 		public NavItem CameraPosTop { get; private set; }
 		public NavItem CameraPosReorient { get; private set; }
 
-		public NavItem Sticky { get; private set; }
-
 		public NavItem[] TopLevelItems { get; private set; }
 
 
@@ -53,13 +44,10 @@ namespace HenuDemo {
 			BuildColors();
 			BuildMotions();
 			BuildLightPos();
-			BuildCustom();
 			BuildLightInten();
 			BuildCameraPos();
 
-			Sticky = new NavItem(NavItem.ItemType.Sticky, "Sticky");
-
-			TopLevelItems = new[] { Colors, Motions, LightPos, Custom, LightInten, CameraPos, Sticky };
+			TopLevelItems = new[] { Colors, Motions, LightPos, LightInten, CameraPos };
 		}
 
 
@@ -92,15 +80,10 @@ namespace HenuDemo {
 			Colors = new NavItem(NavItem.ItemType.Parent, "Cube Color");
 
 			ColorWhite = new NavItem(NavItem.ItemType.Radio, "White");
-			ColorRed = new NavItem(NavItem.ItemType.Radio, "Red");
-			ColorYellow = new NavItem(NavItem.ItemType.Radio, "Yellow");
-			ColorGreen = new NavItem(NavItem.ItemType.Radio, "Green");
-			ColorBlue = new NavItem(NavItem.ItemType.Radio, "Blue");
-			ColorRandLt = new NavItem(NavItem.ItemType.Radio, "Random Light");
-			ColorRandDk = new NavItem(NavItem.ItemType.Radio, "Random Dark");
-			ColorWhite.Selected = true;
-			Colors.SetChildren(new[] { ColorWhite, ColorRed, ColorYellow, ColorGreen, ColorBlue,
-				ColorRandLt, ColorRandDk });
+			ColorRandom = new NavItem(NavItem.ItemType.Radio, "Random");
+			ColorHue = new NavItemSlider("Hue", 6);
+			ColorWhite.Select();
+			Colors.SetChildren(new[] { ColorWhite, ColorRandom, ColorHue });
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -122,16 +105,8 @@ namespace HenuDemo {
 			LightPosHigh = new NavItem(NavItem.ItemType.Radio, "High");
 			LightPosLow = new NavItem(NavItem.ItemType.Radio, "Low");
 			LightPosLowest = new NavItem(NavItem.ItemType.Radio, "Lowest");
-			LightPosHigh.Selected = true;
+			LightPosHigh.Select();
 			LightPos.SetChildren(new[] { LightPosHighest, LightPosHigh, LightPosLow, LightPosLowest });
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		private void BuildCustom() {
-			Custom = new NavItem(NavItem.ItemType.Parent, "Custom");
-
-			CustomSlider = new NavItemSlider("Slider");
-			Custom.SetChildren(new[] { CustomSlider });
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -141,7 +116,7 @@ namespace HenuDemo {
 			LightIntenHigh = new NavItem(NavItem.ItemType.Radio, "Brighest");
 			LightIntenMed = new NavItem(NavItem.ItemType.Radio, "Medium");
 			LightIntenLow = new NavItem(NavItem.ItemType.Radio, "Dimmest");
-			LightIntenMed.Selected = true;
+			LightIntenMed.Select();
 			LightInten.SetChildren(new[] { LightIntenHigh, LightIntenMed, LightIntenLow });
 		}
 
@@ -153,7 +128,7 @@ namespace HenuDemo {
 			CameraPosBack = new NavItem(NavItem.ItemType.Radio, "Back");
 			CameraPosTop = new NavItem(NavItem.ItemType.Radio, "Top");
 			CameraPosReorient = new NavItem(NavItem.ItemType.Selection, "Re-orient");
-			CameraPosCenter.Selected = true;
+			CameraPosCenter.Select();
 			//CameraPosReorient.NavigateBackUponSelect = true;
 			CameraPos.SetChildren(new[] { CameraPosCenter, CameraPosBack, CameraPosTop, 
 				CameraPosReorient });

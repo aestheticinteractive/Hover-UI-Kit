@@ -15,7 +15,10 @@ namespace Henu.Navigation {
 		}
 
 		public delegate void SelectionHandler(NavItem pNavItem);
+		public delegate void DeselectionHandler(NavItem pNavItem);
+
 		public event SelectionHandler OnSelection;
+		public event DeselectionHandler OnDeselection;
 
 		private static int ItemCount;
 
@@ -25,7 +28,7 @@ namespace Henu.Navigation {
 		public float RelativeSize { get; private set; }
 		public NavItem[] Children { get; private set; }
 
-		public bool Selected { get; set; }
+		public bool Selected { get; private set; }
 		public bool NavigateBackUponSelect { get; set; }
 
 
@@ -39,6 +42,7 @@ namespace Henu.Navigation {
 			Children = null;
 
 			OnSelection += (i => {});
+			OnDeselection += (i => {});
 		}
 
 
@@ -58,7 +62,32 @@ namespace Henu.Navigation {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Select() {
+			if ( Selected ) {
+				return;
+			}
+
+			Selected = true;
 			OnSelection(this);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void Deselect() {
+			if ( !Selected ) {
+				return;
+			}
+
+			Selected = false;
+			OnDeselection(this);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void ToggleSelect() {
+			if ( Selected ) {
+				Deselect();
+			}
+			else {
+				Select();
+			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

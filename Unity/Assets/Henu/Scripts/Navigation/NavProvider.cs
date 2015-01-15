@@ -71,7 +71,7 @@ namespace Henu.Navigation {
 
 			foreach ( NavItem item in items ) {
 				if ( item.Type == NavItem.ItemType.Parent ) {
-					item.Selected = false;
+					item.Deselect();
 				}
 			}
 
@@ -96,7 +96,7 @@ namespace Henu.Navigation {
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleItemSelection(NavItem pItem) {
 			if ( pItem.Type == NavItem.ItemType.Parent ) {
-				pItem.Selected = true;
+				pItem.Select();
 				ActiveParentItem = pItem;
 
 				vDelgate.HandleItemSelection(pItem);
@@ -109,11 +109,11 @@ namespace Henu.Navigation {
 				case NavItem.ItemType.Selection:
 				case NavItem.ItemType.Slider:
 				case NavItem.ItemType.Sticky:
-					pItem.Selected = true;
+					pItem.Select();
 					break;
 
 				case NavItem.ItemType.Checkbox:
-					pItem.Selected = !pItem.Selected;
+					pItem.ToggleSelect();
 					break;
 
 				case NavItem.ItemType.Radio:
@@ -135,6 +135,14 @@ namespace Henu.Navigation {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void SetNewItems(NavItem[] pItems, int pDirection) {
+			if ( vItems != null ) {
+				foreach ( NavItem item in vItems ) {
+					if ( item.IsStickySelected() ) {
+						item.Deselect();
+					}
+				}
+			}
+
 			vItems = pItems;
 			OnLevelChange(pDirection);
 			vDelgate.HandleLevelChange(vItems, pDirection);
@@ -147,7 +155,12 @@ namespace Henu.Navigation {
 					continue;
 				}
 
-				item.Selected = (item == pSelectedItem);
+				if ( item == pSelectedItem ) {
+					item.Select();
+				}
+				else {
+					item.Deselect();
+				}
 			}
 		}
 

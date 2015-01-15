@@ -79,7 +79,7 @@ namespace Henu.State {
 		internal bool SetAsNearestSegment(bool pIsNearest) {
 			if ( NavItem.IsStickySelected() ) {
 				if ( !pIsNearest || HighlightProgress <= 0 ) {
-					NavItem.Selected = false;
+					NavItem.Deselect();
 				}
 			}
 
