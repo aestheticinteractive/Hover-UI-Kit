@@ -32,7 +32,7 @@ namespace Henu.Display {
 			vRendererObj.transform.SetParent(gameObject.transform, false);
 
 			vRenderer = (IUiCursorRenderer)vRendererObj.AddComponent(rendType);
-			vRenderer.Build(vArcState, vCursorState);
+			vRenderer.Build(vArcState, vCursorState, pSettings.GetCursorSettings());
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

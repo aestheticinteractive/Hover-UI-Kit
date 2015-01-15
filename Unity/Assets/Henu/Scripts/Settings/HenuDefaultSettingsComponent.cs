@@ -17,6 +17,13 @@ namespace Henu.Settings {
 		public Color HighlightColor = new Color(0.1f, 0.5f, 0.9f);
 		public Color SelectionColor = new Color(0.1f, 0.9f, 0.2f);
 
+		public Color CursorColorNormal = new Color(1, 1, 1, 0.75f);
+		public Color CursorColorHighlighted = new Color(1, 1, 1, 1);
+		public float CursorRadiusNormal = 0.012f;
+		public float CursorRadiusHighlighted = 0.012f;
+		public float CursorThicknessNormal = 0.1f;
+		public float CursorThicknessHighlighted = 0.3f;
+
 		public float NavigationBackGrabThreshold = 0.5f;
 		public float NavigationBackUngrabThreshold = 0.25f;
 
@@ -37,6 +44,18 @@ namespace Henu.Settings {
 			sett.BackgroundColor = BackgroundColor;
 			sett.HighlightColor = HighlightColor;
 			sett.SelectionColor = SelectionColor;
+			return sett;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public override CursorSettings GetCursorSettings() {
+			var sett = new CursorSettings();
+			sett.ColorNorm = CursorColorNormal;
+			sett.ColorHigh = CursorColorHighlighted;
+			sett.RadiusNorm = CursorRadiusNormal;
+			sett.RadiusHigh = CursorRadiusHighlighted;
+			sett.ThickNorm = CursorThicknessNormal;
+			sett.ThickHigh = CursorThicknessHighlighted;
 			return sett;
 		}
 

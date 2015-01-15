@@ -1,4 +1,5 @@
-﻿using Henu.State;
+﻿using Henu.Settings;
+using Henu.State;
 
 namespace Henu.Display {
 
@@ -8,7 +9,7 @@ namespace Henu.Display {
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		void Build(ArcState pArcState, CursorState pCursorState);
+		void Build(ArcState pArcState, CursorState pCursorState, CursorSettings pSettings);
 
 	}
 

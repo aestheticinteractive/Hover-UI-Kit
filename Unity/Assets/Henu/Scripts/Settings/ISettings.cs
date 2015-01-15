@@ -19,6 +19,9 @@ namespace Henu.Settings {
 
 		/*--------------------------------------------------------------------------------------------*/
 		ArcSegmentSettings GetArcSegmentSettings(NavItem pNavItem);
+		
+		/*--------------------------------------------------------------------------------------------*/
+		CursorSettings GetCursorSettings();
 
 		/*--------------------------------------------------------------------------------------------*/
 		InteractionSettings GetInteractionSettings();

@@ -1,4 +1,5 @@
 ﻿using System;
+using Henu.Settings;
 using Henu.State;
 using UnityEngine;
 
@@ -9,21 +10,22 @@ namespace Henu.Display.Default {
 
 		private ArcState vArcState;
 		private CursorState vCursorState;
+		private CursorSettings vSettings;
 		private Mesh vRingMesh;
 		private GameObject vRingObj;
 
-		private float vCurrInnerRadius;
+		private float vCurrThickness;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Build(ArcState pArcState, CursorState pCursorState) {
+		public void Build(ArcState pArcState, CursorState pCursorState, CursorSettings pSettings) {
 			vArcState = pArcState;
 			vCursorState = pCursorState;
+			vSettings = pSettings;
 
 			vRingObj = new GameObject("Ring");
 			vRingObj.transform.SetParent(gameObject.transform, false);
-			vRingObj.transform.localScale = Vector3.one*0.012f;
 			vRingObj.transform.localPosition = new Vector3(0, -0.02f, 0); //keep in front of finger
 			vRingObj.AddComponent<MeshRenderer>();
 			vRingObj.AddComponent<MeshFilter>();
@@ -36,22 +38,28 @@ namespace Henu.Display.Default {
 		public void Update() {
 			ArcSegmentState nearSeg = vArcState.NearestSegment;
 			bool high = (nearSeg != null && nearSeg.HighlightProgress > 0);
-			float alpha = (high ? 1 : 0.75f)*UiArcSegmentRenderer.GetArcAlpha(vArcState); 
+			float alpha = UiArcSegmentRenderer.GetArcAlpha(vArcState);
 
-			vRingObj.renderer.sharedMaterial.color = new Color(1, 1, 1, alpha);
-			BuildMesh(high ? 0.35f : 0.45f);
+			Color col = (high ? vSettings.ColorHigh : vSettings.ColorNorm);
+			col.a *= alpha;
+
+			vRingObj.transform.localScale = 
+				Vector3.one*(high ? vSettings.RadiusHigh : vSettings.RadiusNorm);
+
+			vRingObj.renderer.sharedMaterial.color = col;
+			BuildMesh(high ? vSettings.ThickHigh : vSettings.ThickNorm);
 		}
 		
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void BuildMesh(float pInnerRadius) {
-			if ( pInnerRadius == vCurrInnerRadius ) {
+		private void BuildMesh(float pThickness) {
+			if ( pThickness == vCurrThickness ) {
 				return;
 			}
 
-			vCurrInnerRadius = pInnerRadius;
-			MeshUtil.BuildRingMesh(vRingMesh, pInnerRadius, 0.5f, 0, (float)Math.PI*2, 24);
+			vCurrThickness = pThickness;
+			MeshUtil.BuildRingMesh(vRingMesh, (1-pThickness)/2f, 0.5f, 0, (float)Math.PI*2, 24);
 		}
 
 	}
