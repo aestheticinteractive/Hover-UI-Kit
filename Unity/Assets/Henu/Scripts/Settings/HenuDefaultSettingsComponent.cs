@@ -83,6 +83,9 @@ namespace Henu.Settings {
 
 				case NavItem.ItemType.Radio:
 					return typeof(UiArcSegmentRadioRenderer);
+
+				case NavItem.ItemType.Slider:
+					return typeof(UiArcSegmentSliderRenderer);
 			}
 
 			return typeof(UiArcSegmentRenderer);

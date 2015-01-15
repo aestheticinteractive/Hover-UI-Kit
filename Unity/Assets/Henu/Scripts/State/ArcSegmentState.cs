@@ -73,15 +73,17 @@ namespace Henu.State {
 
 			HighlightDistance = dist;
 			HighlightProgress = Math.Max(0, Math.Min(1, prog));
-
-			if ( HighlightProgress < 1 ) {
-				vPreventSelection = false;
-			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		internal bool ContinueSelectionProgress(bool pContinue) {
-			if ( !pContinue ) {
+		internal bool SetAsNearestSegment(bool pIsNearest) {
+			if ( NavItem.Type == NavItem.ItemType.Slider && NavItem.Selected ) {
+				if ( !pIsNearest || HighlightProgress <= 0 ) {
+					NavItem.Selected = false;
+				}
+			}
+
+			if ( !pIsNearest || HighlightProgress < 1 ) {
 				vSelectionStart = null;
 				vPreventSelection = false;
 				return false;

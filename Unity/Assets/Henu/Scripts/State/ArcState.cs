@@ -115,7 +115,7 @@ namespace Henu.State {
 			foreach ( ArcSegmentState seg in vSegments ) {
 				seg.UpdateWithCursor(pCursor != null ? pCursor.Position : null);
 
-				if ( !allowSelect || seg.HighlightProgress < 1 ) {
+				if ( !allowSelect ) {
 					continue;
 				}
 
@@ -130,7 +130,7 @@ namespace Henu.State {
 			}
 
 			foreach ( ArcSegmentState seg in vSegments ) {
-				if ( seg.ContinueSelectionProgress(seg == NearestSegment) ) {
+				if ( seg.SetAsNearestSegment(seg == NearestSegment) ) {
 					break;
 				}
 			}

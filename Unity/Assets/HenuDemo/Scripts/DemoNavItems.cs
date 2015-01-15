@@ -28,6 +28,9 @@ namespace HenuDemo {
 		public NavItem LightPosLow { get; private set; }
 		public NavItem LightPosLowest { get; private set; }
 
+		public NavItem Custom { get; private set; }
+		public NavItemSlider CustomSlider { get; private set; }
+
 		public NavItem LightInten { get; private set; }
 		public NavItem LightIntenHigh { get; private set; }
 		public NavItem LightIntenMed { get; private set; }
@@ -46,6 +49,7 @@ namespace HenuDemo {
 			BuildColors();
 			BuildMotions();
 			BuildLightPos();
+			BuildCustom();
 			BuildLightInten();
 			BuildCameraPos();
 		}
@@ -112,6 +116,14 @@ namespace HenuDemo {
 			LightPosLowest = new NavItem(NavItem.ItemType.Radio, "Lowest");
 			LightPosHigh.Selected = true;
 			LightPos.SetChildren(new[] { LightPosHighest, LightPosHigh, LightPosLow, LightPosLowest });
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void BuildCustom() {
+			Custom = new NavItem(NavItem.ItemType.Parent, "Custom");
+
+			CustomSlider = new NavItemSlider("Slider");
+			Custom.SetChildren(new[] { CustomSlider });
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

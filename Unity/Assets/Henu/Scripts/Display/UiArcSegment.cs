@@ -40,8 +40,7 @@ namespace Henu.Display {
 		/*--------------------------------------------------------------------------------------------*/
 		private float CalcCursorDistance(Vector3 pCursorPos) {
 			Vector3 worldCursor = vCursorBaseTx.TransformPoint(pCursorPos);
-			Vector3 relCursor = gameObject.transform.InverseTransformPoint(worldCursor);
-			float dist = vRenderer.CalculateCursorDistance(relCursor);
+			float dist = vRenderer.CalculateCursorDistance(worldCursor);
 			return gameObject.transform.TransformVector(Vector3.up*dist).magnitude;
 		}
 		

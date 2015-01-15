@@ -9,7 +9,8 @@ namespace Henu.Navigation {
 			Parent,
 			Selection,
 			Checkbox,
-			Radio
+			Radio,
+			Slider
 		}
 
 		public delegate void SelectionHandler(NavItem pNavItem);

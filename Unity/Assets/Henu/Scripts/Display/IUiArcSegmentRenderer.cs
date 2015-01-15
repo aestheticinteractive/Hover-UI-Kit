@@ -19,7 +19,7 @@ namespace Henu.Display {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		float CalculateCursorDistance(Vector3 pCursorPosition);
+		float CalculateCursorDistance(Vector3 pCursorWorldPosition);
 
 	}
 

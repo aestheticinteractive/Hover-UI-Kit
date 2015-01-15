@@ -26,8 +26,8 @@ namespace HenuDemo {
 		/*--------------------------------------------------------------------------------------------*/
 		public DemoNavDelegate() {
 			Items = new DemoNavItems();
-			vTopLevelItems = new[] { Items.Colors, Items.Motions, Items.LightPos, Items.LightInten,
-				Items.CameraPos };
+			vTopLevelItems = new[] { Items.Colors, Items.Motions, Items.LightPos, Items.Custom,
+				Items.LightInten, Items.CameraPos };
 
 			OnColorChange += (i => {});
 			OnMotionChange += (i => {});

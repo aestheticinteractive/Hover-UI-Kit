@@ -167,11 +167,12 @@ namespace Henu.Display.Default {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public float CalculateCursorDistance(Vector3 pCursorPosition) {
+		public float CalculateCursorDistance(Vector3 pCursorWorldPosition) {
 			float sqrMagMin = float.MaxValue;
+			Vector3 relCursor = gameObject.transform.InverseTransformPoint(pCursorWorldPosition);
 
 			foreach ( Vector3 v in vSelectionPoints ) {
-				float sqrMag = (v-pCursorPosition).sqrMagnitude;
+				float sqrMag = (v-relCursor).sqrMagnitude;
 				sqrMagMin = Math.Min(sqrMagMin, sqrMag);
 			}
 

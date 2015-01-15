@@ -107,6 +107,7 @@ namespace Henu.Navigation {
 
 			switch ( pItem.Type ) {
 				case NavItem.ItemType.Selection:
+				case NavItem.ItemType.Slider:
 					pItem.Selected = true;
 					break;
 
