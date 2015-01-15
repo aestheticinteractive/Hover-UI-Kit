@@ -144,7 +144,7 @@ namespace Henu.Display.Default {
 			float select = 1-(float)Math.Pow(1-vSegState.SelectionProgress, 1.5f);
 			float selectAlpha = select;
 
-			if ( vSegState.NavItem.UsesStickySelection() && vSegState.NavItem.Selected ) {
+			if ( vSegState.NavItem.IsStickySelected() ) {
 				high = 0;
 				selectAlpha = 1;
 			}

@@ -78,6 +78,12 @@ namespace Henu.Settings {
 				case NavItem.ItemType.Parent:
 					return typeof(UiParentRenderer);
 
+				case NavItem.ItemType.Selection:
+					return typeof(UiSelectRenderer);
+
+				case NavItem.ItemType.Sticky:
+					return typeof(UiStickyRenderer);
+
 				case NavItem.ItemType.Checkbox:
 					return typeof(UiCheckboxRenderer);
 

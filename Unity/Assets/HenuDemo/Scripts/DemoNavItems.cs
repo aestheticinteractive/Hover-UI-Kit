@@ -42,6 +42,10 @@ namespace HenuDemo {
 		public NavItem CameraPosTop { get; private set; }
 		public NavItem CameraPosReorient { get; private set; }
 
+		public NavItem Sticky { get; private set; }
+
+		public NavItem[] TopLevelItems { get; private set; }
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -52,6 +56,10 @@ namespace HenuDemo {
 			BuildCustom();
 			BuildLightInten();
 			BuildCameraPos();
+
+			Sticky = new NavItem(NavItem.ItemType.Sticky, "Sticky");
+
+			TopLevelItems = new[] { Colors, Motions, LightPos, Custom, LightInten, CameraPos, Sticky };
 		}
 
 

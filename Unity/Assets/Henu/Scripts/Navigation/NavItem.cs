@@ -8,6 +8,7 @@ namespace Henu.Navigation {
 		public enum ItemType {
 			Parent,
 			Selection,
+			Sticky,
 			Checkbox,
 			Radio,
 			Slider
@@ -60,7 +61,12 @@ namespace Henu.Navigation {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public bool UsesStickySelection() {
-			return (Type == ItemType.Slider);
+			return (Type == ItemType.Sticky || Type == ItemType.Slider);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool IsStickySelected() {
+			return (Selected && UsesStickySelection());
 		}
 
 	}

@@ -108,6 +108,7 @@ namespace Henu.Navigation {
 			switch ( pItem.Type ) {
 				case NavItem.ItemType.Selection:
 				case NavItem.ItemType.Slider:
+				case NavItem.ItemType.Sticky:
 					pItem.Selected = true;
 					break;
 

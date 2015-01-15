@@ -19,15 +19,11 @@ namespace HenuDemo {
 
 		public DemoNavItems Items { get; private set; }
 
-		private readonly NavItem[] vTopLevelItems;
-
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public DemoNavDelegate() {
 			Items = new DemoNavItems();
-			vTopLevelItems = new[] { Items.Colors, Items.Motions, Items.LightPos, Items.Custom,
-				Items.LightInten, Items.CameraPos };
 
 			OnColorChange += (i => {});
 			OnMotionChange += (i => {});
@@ -40,7 +36,7 @@ namespace HenuDemo {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public NavItem[] GetTopLevelItems() {
-			return vTopLevelItems;
+			return Items.TopLevelItems;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
