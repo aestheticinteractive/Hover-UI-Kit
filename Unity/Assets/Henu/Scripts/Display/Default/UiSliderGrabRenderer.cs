@@ -30,7 +30,8 @@ namespace Henu.Display.Default {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public override void Build(ArcState pArcState, ArcSegmentState pSegState,																									float pAngle0, float pAngle1, ArcSegmentSettings pSettings) {
+		public override void Build(ArcState pArcState, ArcSegmentState pSegState,																									
+										float pAngle0, float pAngle1, ArcSegmentSettings pSettings) {
 			base.Build(pArcState, pSegState, pAngle0, pAngle1, pSettings);
 			vNavSlider = (NavItemSlider)vSegState.NavItem;
 			vText = vTextObj.GetComponent<Text>();

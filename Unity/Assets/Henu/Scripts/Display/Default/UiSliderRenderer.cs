@@ -34,7 +34,8 @@ namespace Henu.Display.Default {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Build(ArcState pArcState, ArcSegmentState pSegState,																									float pAngle0, float pAngle1, ArcSegmentSettings pSettings) {
+		public virtual void Build(ArcState pArcState, ArcSegmentState pSegState,																									
+										float pAngle0, float pAngle1, ArcSegmentSettings pSettings) {
 			vArcState = pArcState;
 			vSegState = pSegState;
 			vAngle0 = pAngle0+UiSelectRenderer.AngleInset;
