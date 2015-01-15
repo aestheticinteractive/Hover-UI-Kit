@@ -37,8 +37,8 @@ namespace Henu.Display.Default {
 		public virtual void Build(ArcState pArcState, ArcSegmentState pSegState,																									float pAngle0, float pAngle1, ArcSegmentSettings pSettings) {
 			vArcState = pArcState;
 			vSegState = pSegState;
-			vAngle0 = pAngle0+0.001f;
-			vAngle1 = pAngle1-0.001f;
+			vAngle0 = pAngle0+UiSelectRenderer.AngleInset;
+			vAngle1 = pAngle1-UiSelectRenderer.AngleInset;
 			vSettings = pSettings;
 			vNavSlider = (NavItemSlider)vSegState.NavItem;
 			vMeshSteps = (int)Math.Round(Math.Max(2, (vAngle1-vAngle0)/Math.PI*60));
@@ -48,6 +48,7 @@ namespace Henu.Display.Default {
 			vSliderAngleHalf = pi/80f;
 			vSlideDegree0 = (vAngle0+vSliderAngleHalf)/pi*180;
 			vSlideDegrees = (vAngle1-vAngle0-vSliderAngleHalf*2)/pi*180;
+			vSlideDir0 = MeshUtil.GetRingPoint(1, vAngle0);
 
 			////
 
@@ -58,10 +59,6 @@ namespace Henu.Display.Default {
 			vBackground.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
 			vBackground.renderer.sharedMaterial.renderQueue -= 300;
 			vBackground.renderer.sharedMaterial.color = Color.clear;
-
-			Mesh mesh = vBackground.GetComponent<MeshFilter>().mesh;
-			BuildMesh(mesh, 1);
-			vSlideDir0 = mesh.vertices[0].normalized;
 
 			vFill = new GameObject("Fill");
 			vFill.transform.SetParent(gameObject.transform, false);
@@ -89,18 +86,20 @@ namespace Henu.Display.Default {
 
 			vMainAlpha = GetArcAlpha(vArcState)*vAnimAlpha;
 
+			float currVal = vNavSlider.CurrentValue;
 			Color colBg = vSettings.BackgroundColor;
 			Color colFill = vSettings.HighlightColor;
 
 			colBg.a *= vMainAlpha;
 			colFill.a *= vMainAlpha;
 
-			BuildMesh(vFill.GetComponent<MeshFilter>().mesh, vNavSlider.CurrentValue);
+			BuildMesh(vBackground.GetComponent<MeshFilter>().mesh, currVal, 1, false);
+			BuildMesh(vFill.GetComponent<MeshFilter>().mesh, 0, currVal, true);
 
 			vBackground.renderer.sharedMaterial.color = colBg;
 			vFill.renderer.sharedMaterial.color = colFill;
 
-			float slideDeg = vSlideDegree0 + vSlideDegrees*vNavSlider.CurrentValue;
+			float slideDeg = vSlideDegree0 + vSlideDegrees*currVal;
 			vGrabHold.transform.localRotation = Quaternion.AngleAxis(slideDeg, Vector3.up);
 		}
 
@@ -138,10 +137,19 @@ namespace Henu.Display.Default {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void BuildMesh(Mesh pMesh, float pFillAmount) {
-			float fillAngle1 = vAngle0 + (vAngle1-vAngle0)*pFillAmount;
-			int fillSteps = (int)Math.Round((vMeshSteps-2)*pFillAmount)+2;
-			MeshUtil.BuildRingMesh(pMesh, 1, 1+0.4f, vAngle0, fillAngle1, fillSteps);
+		private void BuildMesh(Mesh pMesh, float pAmount0, float pAmount1, bool pIsFill) {
+			float sliderAngle = (vSliderAngleHalf+UiSelectRenderer.AngleInset)*2;
+			float angleRange = vAngle1-vAngle0-sliderAngle;
+			int fillSteps = (int)Math.Round((vMeshSteps-2)*(pAmount1-pAmount0))+2;
+			float a0 = vAngle0 + angleRange*pAmount0;
+			float a1 = vAngle0 + angleRange*pAmount1;
+
+			if ( !pIsFill ) {
+				a0 += sliderAngle;
+				a1 += sliderAngle;
+			}
+
+			MeshUtil.BuildRingMesh(pMesh, 1.04f, 1.46f, a0, a1, fillSteps);
 		}
 
 

@@ -12,6 +12,7 @@ namespace Henu.Display.Default {
 
 		public const float ArcCanvasThickness = 250;
 		public const float ArcCanvasScale = 0.002f;
+		public const float AngleInset = 0.0012f;
 
 		protected ArcState vArcState;
 		protected ArcSegmentState vSegState;
@@ -45,8 +46,8 @@ namespace Henu.Display.Default {
 		public virtual void Build(ArcState pArcState, ArcSegmentState pSegState,																		float pAngle0, float pAngle1, ArcSegmentSettings pSettings) {
 			vArcState = pArcState;
 			vSegState = pSegState;
-			vAngle0 = pAngle0+0.001f;
-			vAngle1 = pAngle1-0.001f;
+			vAngle0 = pAngle0+AngleInset;
+			vAngle1 = pAngle1-AngleInset;
 			vSettings = pSettings;
 			vMeshSteps = (int)Math.Round(Math.Max(2, (vAngle1-vAngle0)/Math.PI*60));
 
@@ -131,7 +132,7 @@ namespace Henu.Display.Default {
 
 			rect = vTextObj.GetComponent<RectTransform>();
 			rect.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, vTextPadW, vTextW);
-			rect.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, vTextPadH*0.75f, vTextH);
+			rect.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, vTextPadH, vTextH);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
