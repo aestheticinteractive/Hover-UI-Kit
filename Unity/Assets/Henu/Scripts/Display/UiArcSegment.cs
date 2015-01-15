@@ -83,7 +83,17 @@ namespace Henu.Display {
 			Vector3 cursorAxis;
 			diff.ToAngleAxis(out cursorDeg, out cursorAxis);
 
-			((NavItemSlider)vSegState.NavItem).CurrentValue = cursorDeg/vDegreesFull;
+			if ( cursorAxis.y < 0 ) {
+				cursorDeg = 0;
+			}
+
+			float currVal = cursorDeg/vDegreesFull;
+
+			if ( !vArcState.IsLeft ) {
+				currVal = 1-currVal;
+			}
+
+			((NavItemSlider)vSegState.NavItem).CurrentValue = currVal;
 		}
 
 	}

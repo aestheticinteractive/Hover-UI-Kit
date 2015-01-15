@@ -27,6 +27,8 @@ namespace Henu.Display.Default {
 		protected GameObject vBackground;
 		protected GameObject vFill;
 		protected GameObject vGrabHold;
+		protected Mesh vBackgroundMesh;
+		protected Mesh vFillMesh;
 		protected UiSliderGrabRenderer vGrab;
 
 
@@ -66,6 +68,9 @@ namespace Henu.Display.Default {
 			vFill.renderer.sharedMaterial.renderQueue -= 100;
 			vFill.renderer.sharedMaterial.color = Color.clear;
 
+			vBackgroundMesh = vBackground.GetComponent<MeshFilter>().mesh;
+			vFillMesh = vFill.GetComponent<MeshFilter>().mesh;
+
 			////
 
 			vGrabHold = new GameObject("GrabHold");
@@ -83,19 +88,28 @@ namespace Henu.Display.Default {
 			vMainAlpha = GetArcAlpha(vArcState)*vAnimAlpha;
 
 			float currVal = vNavSlider.CurrentValue;
+			float showVal = currVal;
+
+			if ( vArcState.IsLeft ) {
+				BuildMesh(vBackgroundMesh, showVal, 1, false);
+				BuildMesh(vFillMesh, 0, showVal, true);
+			}
+			else {
+				showVal = 1-currVal;
+				BuildMesh(vBackgroundMesh, 0, showVal, true);
+				BuildMesh(vFillMesh, showVal, 1, false);
+			}
+
 			Color colBg = vSettings.BackgroundColor;
 			Color colFill = vSettings.HighlightColor;
 
 			colBg.a *= vMainAlpha;
 			colFill.a *= vMainAlpha;
 
-			BuildMesh(vBackground.GetComponent<MeshFilter>().mesh, currVal, 1, false);
-			BuildMesh(vFill.GetComponent<MeshFilter>().mesh, 0, currVal, true);
-
 			vBackground.renderer.sharedMaterial.color = colBg;
 			vFill.renderer.sharedMaterial.color = colFill;
 
-			float slideDeg = vSlideDegree0 + vSlideDegrees*currVal;
+			float slideDeg = vSlideDegree0 + vSlideDegrees*showVal;
 			vGrabHold.transform.localRotation = Quaternion.AngleAxis(slideDeg, Vector3.up);
 		}
 
