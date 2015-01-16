@@ -5,7 +5,7 @@
 ---
 **Henu** is a powerful, customizable menu system that can be attached to any three-dimensional input device. It features various buttons, sliders, checkboxes, radio sets, and nested levels.
 
-This project includes a complete demo application that shows several examples of how to configure and use **Henu**. The demo places you in the center of a collection of cubes, where you can use the menu to control the colors, animation, lighting, and camera.
+This project includes a complete [demo application](https://github.com/aestheticinteractive/Henu/tree/master/Unity/Assets/HenuDemo/Scripts) that provides several examples of **Henu** configuration and usage. The demo places you in the center of a collection of cubes, where you can use the menu to control the colors, animation, lighting, and camera.
 
 **[Watch the Henu Demo video](https://www.youtube.com/watch?v=rI2oU7NgZEk)**
 
