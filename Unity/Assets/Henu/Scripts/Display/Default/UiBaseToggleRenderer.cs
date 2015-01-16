@@ -18,6 +18,9 @@ namespace Henu.Display.Default {
 		/*--------------------------------------------------------------------------------------------*/
 		protected abstract Texture2D GetInnerTexture();
 
+		/*--------------------------------------------------------------------------------------------*/
+		protected abstract bool IsToggled();
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -66,7 +69,7 @@ namespace Henu.Display.Default {
 
 			vOuter.renderer.sharedMaterial.color = color;
 			vInner.renderer.sharedMaterial.color = color;
-			vInner.renderer.enabled = vSegState.NavItem.IsSelected;
+			vInner.renderer.enabled = IsToggled();
 		}
 
 	}

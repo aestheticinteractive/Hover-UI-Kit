@@ -3,11 +3,11 @@
 namespace Henu.Navigation {
 
 	/*================================================================================================*/
-	public class NavItem {
+	public abstract class NavItem {
 
 		public enum ItemType {
 			Parent,
-			Selection,
+			Selector,
 			Sticky,
 			Checkbox,
 			Radio,
@@ -32,15 +32,15 @@ namespace Henu.Navigation {
 		public float RelativeSize { get; private set; }
 		public NavItem[] Children { get; private set; }
 
+		public bool IsStickySelected { get; private set; }
 		public bool NavigateBackUponSelect { get; set; }
 
-		private bool vIsSelected;
-		private bool vIsEnabled;
+		protected bool vIsEnabled;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public NavItem(ItemType pType, string pLabel, float pRelativeSize=1) {
+		protected NavItem(ItemType pType, string pLabel, float pRelativeSize=1) {
 			Id = (++ItemCount);
 			Type = pType;
 			Label = (pLabel ?? "");
@@ -70,21 +70,19 @@ namespace Henu.Navigation {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual bool IsSelected {
-			get {
-				return vIsSelected;
-			}
-			set {
-				if ( value && !vIsSelected ) {
-					vIsSelected = true;
-					OnSelected(this);
-				}
+		public virtual void Select() {
+			IsStickySelected = UsesStickySelection();
+			OnSelected(this);
+		}
 
-				if ( !value && vIsSelected ) {
-					vIsSelected = false;
-					OnDeselected(this);
-				}
+		/*--------------------------------------------------------------------------------------------*/
+		public virtual void DeselectStickySelections() {
+			if ( !IsStickySelected ) {
+				return;
 			}
+
+			IsStickySelected = false;
+			OnDeselected(this);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -105,16 +103,59 @@ namespace Henu.Navigation {
 			}
 		}
 
+		/*--------------------------------------------------------------------------------------------*/
+		public virtual bool AllowSelection {
+			get {
+				return vIsEnabled;
+			}
+		}
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public bool UsesStickySelection() {
-			return (Type == ItemType.Sticky || Type == ItemType.Slider);
+		protected virtual bool UsesStickySelection() {
+			return false;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public bool IsStickySelected() {
-			return (IsSelected && UsesStickySelection());
+		internal virtual void UpdateValueOnLevelChange(int pDirection) {
+			IsStickySelected = false;
+		}
+
+	}
+
+
+	/*================================================================================================*/
+	public abstract class NavItem<T> : NavItem where T : IComparable {
+
+		public delegate void ValueChangedHandler(NavItem<T> pNavItem);
+		public event ValueChangedHandler OnValueChanged;
+
+		protected T vValue;
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		protected NavItem(ItemType pType, string pLabel, float pRelativeSize=1) : 
+																	base(pType, pLabel, pRelativeSize) {
+			OnValueChanged += (i => {});
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public virtual T Value {
+			get {
+				return vValue;
+			}
+			set {
+				if ( value.CompareTo(vValue) == 0 ) {
+					return;
+				}
+
+				vValue = value;
+				OnValueChanged(this);
+			}
 		}
 
 	}

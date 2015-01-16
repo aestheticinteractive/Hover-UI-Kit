@@ -35,7 +35,7 @@ namespace Henu.State {
 		public float SelectionProgress {
 			get {
 				if ( vSelectionStart == null ) {
-					return (NavItem.IsStickySelected() ? HighlightProgress : 0);
+					return (NavItem.IsStickySelected ? HighlightProgress : 0);
 				}
 
 				float ms = (float)(DateTime.UtcNow-(DateTime)vSelectionStart).TotalMilliseconds;
@@ -83,10 +83,8 @@ namespace Henu.State {
 
 		/*--------------------------------------------------------------------------------------------*/
 		internal bool SetAsNearestSegment(bool pIsNearest) {
-			if ( NavItem.IsStickySelected() ) {
-				if ( !pIsNearest || HighlightProgress <= 0 ) {
-					NavItem.IsSelected = false;
-				}
+			if ( !pIsNearest || HighlightProgress <= 0 ) {
+				NavItem.DeselectStickySelections();
 			}
 
 			if ( !pIsNearest || HighlightProgress < 1 ) {
@@ -95,12 +93,7 @@ namespace Henu.State {
 				return false;
 			}
 
-			if ( vPreventSelection ) {
-				vSelectionStart = null;
-				return false;
-			}
-
-			if ( NavItem.IsSelected && NavItem.Type == NavItem.ItemType.Radio ) {
+			if ( vPreventSelection || !NavItem.AllowSelection ) {
 				vSelectionStart = null;
 				return false;
 			}
@@ -114,9 +107,9 @@ namespace Henu.State {
 				return false;
 			}
 
-			NavItem.IsSelected = true;
 			vSelectionStart = null;
 			vPreventSelection = true;
+			NavItem.Select();
 			return true;
 		}
 

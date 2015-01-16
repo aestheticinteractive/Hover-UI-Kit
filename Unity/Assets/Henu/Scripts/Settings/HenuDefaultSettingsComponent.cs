@@ -84,7 +84,7 @@ namespace Henu.Settings {
 				case NavItem.ItemType.Parent:
 					return typeof(UiParentRenderer);
 
-				case NavItem.ItemType.Selection:
+				case NavItem.ItemType.Selector:
 					return typeof(UiSelectRenderer);
 
 				case NavItem.ItemType.Sticky:

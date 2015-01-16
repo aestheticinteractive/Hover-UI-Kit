@@ -8,7 +8,7 @@ namespace Henu.Navigation {
 		public delegate void LevelChangeHandler(int pDirection);
 		public event LevelChangeHandler OnLevelChange;
 
-		public NavItem ActiveParentItem { get; private set; }
+		public NavItemParent ActiveParentItem { get; private set; }
 
 		private readonly Stack<NavItem[]> vHistory;
 		private NavItem[] vItems;
@@ -70,24 +70,10 @@ namespace Henu.Navigation {
 			NavItem[] items = vHistory.Pop();
 
 			foreach ( NavItem item in items ) {
-				if ( item.Type == NavItem.ItemType.Parent ) {
-					item.IsSelected = false;
-				}
+				item.UpdateValueOnLevelChange(-1);
 			}
 
-			if ( vHistory.Count > 0 ) {
-				NavItem[] parentItems = vHistory.Peek();
-
-				foreach ( NavItem item in parentItems ) {
-					if ( item.Type == NavItem.ItemType.Parent && item.IsSelected ) {
-						ActiveParentItem = item;
-					}
-				}
-			}
-			else {
-				ActiveParentItem = null;
-			}
-
+			FindNewActiveParentItem();
 			SetNewItems(items, -1);
 		}
 
@@ -96,8 +82,7 @@ namespace Henu.Navigation {
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleItemSelected(NavItem pItem) {
 			if ( pItem.Type == NavItem.ItemType.Parent ) {
-				pItem.IsSelected = true;
-				ActiveParentItem = pItem;
+				ActiveParentItem = (NavItemParent)pItem;
 
 				vDelgate.HandleItemSelection(pItem);
 				PushCurrentItemsToHistory();
@@ -105,20 +90,10 @@ namespace Henu.Navigation {
 				return;
 			}
 
-			switch ( pItem.Type ) {
-				case NavItem.ItemType.Selection:
-				case NavItem.ItemType.Slider:
-				case NavItem.ItemType.Sticky:
-					pItem.IsSelected = true;
-					break;
+			////
 
-				case NavItem.ItemType.Checkbox:
-					pItem.IsSelected = !pItem.IsSelected;
-					break;
-
-				case NavItem.ItemType.Radio:
-					SetRadioSelection(pItem);
-					break;
+			if ( pItem.Type == NavItem.ItemType.Radio ) {
+				DeselectRadioSiblings(pItem);
 			}
 
 			vDelgate.HandleItemSelection(pItem);
@@ -134,12 +109,31 @@ namespace Henu.Navigation {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
+		private void FindNewActiveParentItem() {
+			if ( vHistory.Count == 0 ) {
+				ActiveParentItem = null;
+				return;
+			}
+
+			NavItem[] parItems = vHistory.Peek();
+
+			foreach ( NavItem item in parItems ) {
+				NavItemParent parItem = (item as NavItemParent);
+
+				if ( parItem == null || !parItem.Value ) {
+					continue;
+				}
+
+				ActiveParentItem = parItem;
+				break;
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
 		private void SetNewItems(NavItem[] pItems, int pDirection) {
 			if ( vItems != null ) {
 				foreach ( NavItem item in vItems ) {
-					if ( item.IsStickySelected() ) {
-						item.IsSelected = false;
-					}
+					item.DeselectStickySelections();
 				}
 			}
 
@@ -149,18 +143,19 @@ namespace Henu.Navigation {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void SetRadioSelection(NavItem pSelectedItem) {
+		private void DeselectRadioSiblings(NavItem pSelectedItem) {
 			foreach ( NavItem item in vItems ) {
-				if ( item.Type != NavItem.ItemType.Radio ) {
+				if ( item == pSelectedItem ) {
 					continue;
 				}
 
-				if ( item == pSelectedItem ) {
-					item.IsSelected = true;
+				NavItemRadio radItem = (item as NavItemRadio);
+
+				if ( radItem == null ) {
+					continue;
 				}
-				else {
-					item.IsSelected = false;
-				}
+
+				radItem.Value = false;
 			}
 		}
 

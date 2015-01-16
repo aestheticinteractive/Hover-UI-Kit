@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Henu.Navigation;
+using UnityEngine;
 
 namespace Henu.Display.Default {
 
@@ -18,6 +19,11 @@ namespace Henu.Display.Default {
 		/*--------------------------------------------------------------------------------------------*/
 		protected override Texture2D GetInnerTexture() {
 			return InnerTex;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		protected override bool IsToggled() {
+			return ((NavItemCheckbox)vSegState.NavItem).Value;
 		}
 
 	}

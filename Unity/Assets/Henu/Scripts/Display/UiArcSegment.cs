@@ -73,7 +73,7 @@ namespace Henu.Display {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateSliderValue() {
-			if ( !vSegState.NavItem.IsSelected ) {
+			if ( !vSegState.NavItem.IsStickySelected ) {
 				return;
 			}
 
@@ -97,7 +97,7 @@ namespace Henu.Display {
 				currVal = 1-currVal;
 			}
 
-			((NavItemSlider)vSegState.NavItem).CurrentValue = currVal;
+			((NavItemSlider)vSegState.NavItem).Value = currVal;
 		}
 
 	}

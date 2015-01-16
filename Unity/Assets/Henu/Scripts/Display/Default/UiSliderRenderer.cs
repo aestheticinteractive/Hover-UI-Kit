@@ -166,7 +166,7 @@ namespace Henu.Display.Default {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private float GetEasedValue() {
-			float currVal = vNavSlider.CurrentValue;
+			float currVal = vNavSlider.Value;
 
 			if ( vNavSlider.Snaps < 2 ) {
 				return currVal;

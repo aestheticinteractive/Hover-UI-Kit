@@ -110,15 +110,15 @@ namespace HenuDemo {
 			vNavItems.ColorRandom.OnSelected += HandleColorRandomSelect;
 			vNavItems.ColorCustom.OnSelected += HandleColorCustomSelect;
 			vNavItems.ColorHue.ValueToLabel = (v => "Hue: "+Math.Round(v*360));
-			vNavItems.ColorHue.CurrentValue = 0.333f;
+			vNavItems.ColorHue.Value = 0.333f;
 
 			vLight.transform.localPosition = Vector3.zero;
 			vLight.intensity = 0;
 
 			HandleColorWhiteSelect(null);
-			HandleLightPosChange(DemoNavItems.GetFirstSelectedChildItem(vNavItems.LightPos));
-			HandleLightIntenChange(DemoNavItems.GetFirstSelectedChildItem(vNavItems.LightInten));
-			HandleCameraPosChange(DemoNavItems.GetFirstSelectedChildItem(vNavItems.CameraPos));
+			HandleLightPosChange(DemoNavItems.GetChosenRadioItem(vNavItems.LightPos));
+			HandleLightIntenChange(DemoNavItems.GetChosenRadioItem(vNavItems.LightInten));
+			HandleCameraPosChange(DemoNavItems.GetChosenRadioItem(vNavItems.CameraPos));
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -207,8 +207,8 @@ namespace HenuDemo {
 			cube.transform.localScale = 
 				Vector3.Lerp(cubeData.GrowScaleMin, cubeData.GrowScaleMax, growPos);
 
-			if ( vNavItems.ColorHue.IsSelected ) {
-				float value = vNavItems.ColorHue.CurrentValue;
+			if ( vNavItems.ColorHue.IsStickySelected ) {
+				float value = vNavItems.ColorHue.Value;
 				cube.renderer.sharedMaterial.color = HsvToColor(value*360, 1, 1);
 			}
 		}
@@ -238,7 +238,7 @@ namespace HenuDemo {
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleColorCustomSelect(NavItem pItem) {
 			foreach ( GameObject cube in vCubes ) {
-				float value = vNavItems.ColorHue.CurrentValue;
+				float value = vNavItems.ColorHue.Value;
 				cube.renderer.sharedMaterial.color = HsvToColor(value*360, 1, 1);
 			}
 
@@ -247,7 +247,7 @@ namespace HenuDemo {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleMotionChange(NavItem pItem) {
-			vMotionMap[pItem.Id].Enable(pItem.IsSelected);
+			vMotionMap[pItem.Id].Enable(((NavItemCheckbox)pItem).Value);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

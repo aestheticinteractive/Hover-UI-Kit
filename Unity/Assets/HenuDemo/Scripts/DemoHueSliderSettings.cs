@@ -43,7 +43,7 @@ namespace Henu.Settings {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private Color GetColor(float pAlpha) {
-			float value = ((NavItemSlider)vNavItem).CurrentValue;
+			float value = ((NavItemSlider)vNavItem).Value;
 			Color col = DemoEnvironment.HsvToColor(value*360, 1, 0.666f);
 			col.a = pAlpha;
 			return col;
