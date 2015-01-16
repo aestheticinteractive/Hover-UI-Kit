@@ -122,15 +122,14 @@ namespace Henu.Display.Default {
 				vMainAlpha *= 0.333f;
 			}
 
-			float currVal = vNavSlider.CurrentValue;
-			float showVal = currVal;
+			float showVal = GetEasedValue();
 
 			if ( vArcState.IsLeft ) {
 				BuildMesh(vTrackMesh, showVal, 1, false);
 				BuildMesh(vFillMesh, 0, showVal, true);
 			}
 			else {
-				showVal = 1-currVal;
+				showVal = 1-showVal;
 				BuildMesh(vTrackMesh, 0, showVal, true);
 				BuildMesh(vFillMesh, showVal, 1, false);
 			}
@@ -165,6 +164,37 @@ namespace Henu.Display.Default {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private float GetEasedValue() {
+			float currVal = vNavSlider.CurrentValue;
+
+			if ( vNavSlider.Snaps < 2 ) {
+				return currVal;
+			}
+
+			float showVal = vNavSlider.SnappedValue;
+			int snaps = vNavSlider.Snaps-1;
+			float diff = currVal-showVal;
+			int sign = Math.Sign(diff);
+
+			diff = Math.Abs(diff); //between 0 and 1
+			diff *= snaps;
+
+			if ( diff < 0.5 ) {
+				diff *= 2;
+				diff = (float)Math.Pow(diff, 3);
+				diff /= 2f;
+			}
+			else {
+				diff = (diff-0.5f)*2;
+				diff = 1-(float)Math.Pow(1-diff, 3);
+				diff = diff/2f+0.5f;
+			}
+
+			diff /= snaps;
+			return showVal + diff*sign;
+		}
+		
 		/*--------------------------------------------------------------------------------------------*/
 		private void BuildMesh(Mesh pMesh, float pAmount0, float pAmount1, bool pIsFill) {
 			float sliderAngle = (vSliderAngleHalf+UiSelectRenderer.AngleInset)*2;

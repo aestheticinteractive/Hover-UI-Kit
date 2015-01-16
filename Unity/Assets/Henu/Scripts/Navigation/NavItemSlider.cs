@@ -6,6 +6,7 @@ namespace Henu.Navigation {
 	public class NavItemSlider : NavItem {
 
 		public int Ticks { get; set; }
+		public int Snaps { get; set; }
 		public Func<float, string> ValueToLabel { get; set; }
 
 		private float vCurrValue;
@@ -29,6 +30,30 @@ namespace Henu.Navigation {
 			}
 			set {
 				vCurrValue = Math.Max(0, Math.Min(1, value));
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public override bool IsSelected {
+			set {
+				if ( base.IsSelected && !value ) {
+					CurrentValue = SnappedValue;
+				}
+
+				base.IsSelected = value;
+			}
+		}
+
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float SnappedValue {
+			get {
+				if ( Snaps < 2 ) {
+					return CurrentValue;
+				}
+
+				int s = Snaps-1;
+				return (float)Math.Round(CurrentValue*s)/s;
 			}
 		}
 

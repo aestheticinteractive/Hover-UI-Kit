@@ -70,7 +70,7 @@ namespace Henu.Navigation {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public bool IsSelected {
+		public virtual bool IsSelected {
 			get {
 				return vIsSelected;
 			}
@@ -88,7 +88,7 @@ namespace Henu.Navigation {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public bool IsEnabled {
+		public virtual bool IsEnabled {
 			get {
 				return vIsEnabled;
 			}
