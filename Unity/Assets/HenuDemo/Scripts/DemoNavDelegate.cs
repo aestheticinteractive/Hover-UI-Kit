@@ -39,11 +39,11 @@ namespace HenuDemo {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void HandleItemSelection(NavItem pItem) {
-			if ( DemoNavItems.IsItemWithin(pItem, Items.Motions) ) {
+			if ( DemoNavItems.IsItemWithin(pItem, Items.Motion, NavItem.ItemType.Checkbox) ) {
 				OnMotionChange(pItem);
 			}
 
-			if ( DemoNavItems.IsItemWithin(pItem, Items.Camera) ) {
+			if ( DemoNavItems.IsItemWithin(pItem, Items.Camera, NavItem.ItemType.Radio) ) {
 				OnCameraChange(pItem);
 			}
 		}

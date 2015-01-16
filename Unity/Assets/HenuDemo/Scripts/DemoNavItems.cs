@@ -7,17 +7,18 @@ namespace HenuDemo {
 	/*================================================================================================*/
 	public class DemoNavItems {
 
-		public NavItemParent Colors { get; private set; }
+		public NavItemParent Color { get; private set; }
 		public NavItemRadio ColorWhite { get; private set; }
 		public NavItemRadio ColorRandom { get; private set; }
 		public NavItemRadio ColorCustom { get; private set; }
 		public NavItemSlider ColorHue { get; private set; }
 
-		public NavItemParent Motions { get; private set; }
-		public NavItem MotionOrbit { get; private set; }
-		public NavItem MotionSpin { get; private set; }
-		public NavItem MotionBob { get; private set; }
-		public NavItem MotionGrow { get; private set; }
+		public NavItemParent Motion { get; private set; }
+		public NavItemCheckbox MotionOrbit { get; private set; }
+		public NavItemCheckbox MotionSpin { get; private set; }
+		public NavItemCheckbox MotionBob { get; private set; }
+		public NavItemCheckbox MotionGrow { get; private set; }
+		public NavItemSlider MotionSpeed { get; private set; }
 
 		public NavItemParent Light { get; private set; }
 		public NavItemSlider LightPos { get; private set; }
@@ -41,15 +42,15 @@ namespace HenuDemo {
 			BuildLight();
 			BuildCamera();
 
-			TopLevelItems = new[] { Colors, Motions, Light, Camera };
+			TopLevelItems = new[] { Color, Motion, Light, Camera };
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public static bool IsItemWithin(NavItem pItem, NavItemParent pParent) {
+		public static bool IsItemWithin(NavItem pItem, NavItemParent pParent, NavItem.ItemType pType) {
 			VerifyParent(pParent);
-			return pParent.Children.Contains(pItem);
+			return (pItem.Type == pType && pParent.Children.Contains(pItem));
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -80,22 +81,24 @@ namespace HenuDemo {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void BuildColors() {
-			Colors = new NavItemParent("Cube Color");
+			Color = new NavItemParent("Color");
 			ColorWhite = new NavItemRadio("White");
 			ColorRandom = new NavItemRadio("Random");
 			ColorCustom = new NavItemRadio("Custom");
 			ColorHue = new NavItemSlider("Hue", 3);
-			Colors.SetChildren(new NavItem[] { ColorWhite, ColorRandom, ColorCustom, ColorHue });
+			Color.SetChildren(new NavItem[] { ColorWhite, ColorRandom, ColorCustom, ColorHue });
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void BuildMotions() {
-			Motions = new NavItemParent("Cube Motion");
+			Motion = new NavItemParent("Motion");
 			MotionOrbit = new NavItemCheckbox("Orbit");
 			MotionSpin = new NavItemCheckbox("Spin");
 			MotionBob = new NavItemCheckbox("Bob");
 			MotionGrow = new NavItemCheckbox("Grow");
-			Motions.SetChildren(new[] { MotionOrbit, MotionSpin, MotionBob, MotionGrow });
+			MotionSpeed = new NavItemSlider("Speed", 4);
+			Motion.SetChildren(new NavItem[] { MotionOrbit, MotionSpin, MotionBob, MotionGrow, 
+				MotionSpeed });
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -109,8 +112,7 @@ namespace HenuDemo {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void BuildCamera() {
-			Camera = new NavItemParent("Camera Position");
-
+			Camera = new NavItemParent("Camera");
 			CameraCenter = new NavItemRadio("Center");
 			CameraBack = new NavItemRadio("Back");
 			CameraTop = new NavItemRadio("Top");

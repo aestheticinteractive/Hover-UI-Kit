@@ -9,6 +9,7 @@ namespace HenuDemo {
 		public float Speed { get; private set; }
 		public float MaxSpeed { get; private set; }
 		public float AccelMs { get; private set; }
+		public float GlobalSpeed { get; set; }
 
 		private DateTime? vLastUpdate;
 		private DateTime? vStart;
@@ -23,6 +24,7 @@ namespace HenuDemo {
 			Speed = 0;
 			MaxSpeed = pMaxSpeed;
 			AccelMs = pAccelMs;
+			GlobalSpeed = 1;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -65,7 +67,7 @@ namespace HenuDemo {
 
 			float ms = (float)(DateTime.UtcNow-(DateTime)vLastUpdate).TotalSeconds;
 
-			Position += Speed*ms;
+			Position += Speed*GlobalSpeed*ms;
 			vLastUpdate = DateTime.UtcNow;
 		}
 

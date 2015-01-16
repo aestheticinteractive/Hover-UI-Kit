@@ -9,6 +9,9 @@ namespace HenuDemo {
 	public class DemoEnvironment : MonoBehaviour {
 
 		private const int Count = 400;
+		private const float SpeedMax = 4;
+		private const float SpeedMin = 0.4f;
+		private const float SpeedRange = SpeedMax-SpeedMin;
 
 		private GameObject[] vHolds;
 		private GameObject[] vCubes;
@@ -118,8 +121,13 @@ namespace HenuDemo {
 
 			vNavItems.CameraCenter.Value = true;
 
+			vNavItems.MotionSpeed.Value = (1-SpeedMin)/SpeedRange;
+			vNavItems.MotionSpeed.ValueToLabel = 
+				((v, sv) => "Speed: "+((sv*SpeedRange)+SpeedMin).ToString("0.0")+"x");
+
 			UpdateLightPos();
-			UpdateLighInten();
+			UpdateLightInten();
+			UpdateMotionSpeed();
 			vSpotlight.enabled = false;
 		}
 
@@ -143,7 +151,11 @@ namespace HenuDemo {
 			}
 
 			if ( vNavItems.LightInten.IsStickySelected ) {
-				UpdateLighInten();
+				UpdateLightInten();
+			}
+
+			if ( vNavItems.MotionSpeed.IsStickySelected ) {
+				UpdateMotionSpeed();
 			}
 
 			vSpotlight.intensity = vLightSpotAnim.GetValue();
@@ -238,11 +250,21 @@ namespace HenuDemo {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateLighInten() {
+		private void UpdateLightInten() {
 			float sv = vNavItems.LightInten.SnappedValue;
 			vLight.intensity = sv*1.2f+0.2f;
 		}
-		
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateMotionSpeed() {
+			float speed = vNavItems.MotionSpeed.SnappedValue*SpeedRange + SpeedMin;
+
+			vOrbitMotion.GlobalSpeed = speed;
+			vSpinMotion.GlobalSpeed = speed;
+			vBobMotion.GlobalSpeed = speed;
+			vGrowMotion.GlobalSpeed = speed;
+		}
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
