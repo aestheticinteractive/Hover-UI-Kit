@@ -40,7 +40,7 @@ namespace Henu.Display.Default {
 		/*--------------------------------------------------------------------------------------------*/
 		public override void Update() {
 			base.Update();
-			vText.text = vNavSlider.ValueToLabel(vNavSlider.SnappedValue);
+			vText.text = vNavSlider.Label;
 		}
 
 	}

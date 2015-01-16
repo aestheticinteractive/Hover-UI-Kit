@@ -28,7 +28,7 @@ namespace Henu.Navigation {
 
 		public int Id { get; private set; }
 		public ItemType Type { get; private set; }
-		public string Label { get; private set; }
+		public virtual string Label { get; private set; }
 		public float RelativeSize { get; private set; }
 		public NavItem[] Children { get; private set; }
 

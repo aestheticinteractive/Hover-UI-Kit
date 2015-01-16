@@ -21,17 +21,12 @@ namespace HenuDemo {
 		private DemoMotion vBobMotion;
 		private DemoMotion vGrowMotion;
 
-		private DemoAnimVector3 vLightPosAnim;
-		private DemoAnimFloat vLightIntenAnim;
-		private DemoAnimVector3 vCameraPosAnim;
+		private DemoAnimVector3 vCameraAnim;
 		private DemoAnimQuaternion vCameraRotAnim;
 
 		private DemoNavItems vNavItems;
-		private IDictionary<int, Color> vColorMap;
 		private IDictionary<int, DemoMotion> vMotionMap;
-		private IDictionary<int, Vector3> vLightPosMap;
-		private IDictionary<int, float> vLightIntenMap;
-		private IDictionary<int, Vector3> vCameraPosMap;
+		private IDictionary<int, Vector3> vCameraMap;
 		private IDictionary<int, Quaternion> vCameraRotMap;
 
 
@@ -55,19 +50,13 @@ namespace HenuDemo {
 			vBobMotion = new DemoMotion(0.5f, 600);
 			vGrowMotion = new DemoMotion(0.5f, 600);
 
-			vLightPosAnim = new DemoAnimVector3(2000);
-			vLightIntenAnim = new DemoAnimFloat(600);
-			vCameraPosAnim = new DemoAnimVector3(6000);
+			vCameraAnim = new DemoAnimVector3(6000);
 			vCameraRotAnim = new DemoAnimQuaternion(6000);
 
 			////
 
 			DemoNavDelegate navDel = DemoNavComponent.NavDelegate;
 			vNavItems = navDel.Items;
-
-			vColorMap = new Dictionary<int, Color> {
-				{ vNavItems.ColorWhite.Id,	Color.white },
-			};
 
 			vMotionMap = new Dictionary<int, DemoMotion> {
 				{ vNavItems.MotionOrbit.Id,	vOrbitMotion },
@@ -76,49 +65,55 @@ namespace HenuDemo {
 				{ vNavItems.MotionGrow.Id,	vGrowMotion }
 			};
 
-			vLightPosMap = new Dictionary<int, Vector3> {
-				{ vNavItems.LightPosHighest.Id,	new Vector3(0,  9, 0) },
-				{ vNavItems.LightPosHigh.Id,	new Vector3(0,  3, 0) },
-				{ vNavItems.LightPosLow.Id,		new Vector3(0, -3, 0) },
-				{ vNavItems.LightPosLowest.Id,	new Vector3(0, -9, 0) }
-			};
-
-			vLightIntenMap = new Dictionary<int, float> {
-				{ vNavItems.LightIntenHigh.Id,	1.4f },
-				{ vNavItems.LightIntenMed.Id,	0.8f },
-				{ vNavItems.LightIntenLow.Id,	0.2f }
-			};
-
-			vCameraPosMap = new Dictionary<int, Vector3> {
-				{ vNavItems.CameraPosCenter.Id,	Vector3.zero },
-				{ vNavItems.CameraPosBack.Id,	new Vector3(0, 0, 20) },
-				{ vNavItems.CameraPosTop.Id,	new Vector3(0, 0, 20) }
+			vCameraMap = new Dictionary<int, Vector3> {
+				{ vNavItems.CameraCenter.Id,	Vector3.zero },
+				{ vNavItems.CameraBack.Id,	new Vector3(0, 0, 20) },
+				{ vNavItems.CameraTop.Id,	new Vector3(0, 0, 20) }
 			};
 
 			vCameraRotMap = new Dictionary<int, Quaternion> {
-				{ vNavItems.CameraPosCenter.Id, Quaternion.identity },
-				{ vNavItems.CameraPosBack.Id,	Quaternion.identity },
-				{ vNavItems.CameraPosTop.Id,	Quaternion.FromToRotation(Vector3.forward, Vector3.up) }
+				{ vNavItems.CameraCenter.Id, Quaternion.identity },
+				{ vNavItems.CameraBack.Id,	Quaternion.identity },
+				{ vNavItems.CameraTop.Id,	Quaternion.FromToRotation(Vector3.forward, Vector3.up) }
 			};
 
 			navDel.OnMotionChange += HandleMotionChange;
-			navDel.OnLightPosChange += HandleLightPosChange;
-			navDel.OnLightIntenChange += HandleLightIntenChange;
-			navDel.OnCameraPosChange += HandleCameraPosChange;
+			navDel.OnCameraChange += HandleCameraChange;
 
-			vNavItems.ColorWhite.OnSelected += HandleColorWhiteSelect;
-			vNavItems.ColorRandom.OnSelected += HandleColorRandomSelect;
-			vNavItems.ColorCustom.OnSelected += HandleColorCustomSelect;
-			vNavItems.ColorHue.ValueToLabel = (v => "Hue: "+Math.Round(v*360));
+			vNavItems.ColorWhite.OnValueChanged += HandleColorWhiteToggle;
+			vNavItems.ColorRandom.OnValueChanged += HandleColorRandomToggle;
+			vNavItems.ColorCustom.OnValueChanged += HandleColorCustomToggle;
+
+			////
+
+			vNavItems.ColorWhite.Value = true;
+			vNavItems.ColorHue.IsEnabled = false;
+			vNavItems.ColorHue.ValueToLabel = ((v,sv) => "Hue: "+Math.Round(sv*360));
 			vNavItems.ColorHue.Value = 0.333f;
 
-			vLight.transform.localPosition = Vector3.zero;
-			vLight.intensity = 0;
+			vNavItems.LightPos.Snaps = 4;
+			vNavItems.LightPos.Ticks = 4;
+			vNavItems.LightPos.Value = 2/3f;
+			vNavItems.LightPos.ValueToLabel = ((v, sv) => {
+				string lbl = "";
 
-			HandleColorWhiteSelect(null);
-			HandleLightPosChange(DemoNavItems.GetChosenRadioItem(vNavItems.LightPos));
-			HandleLightIntenChange(DemoNavItems.GetChosenRadioItem(vNavItems.LightInten));
-			HandleCameraPosChange(DemoNavItems.GetChosenRadioItem(vNavItems.CameraPos));
+				switch ( (int)Math.Round(sv*3) ) {
+					case 0: lbl = "Lowest"; break;
+					case 1: lbl = "Low"; break;
+					case 2: lbl = "High"; break;
+					case 3: lbl = "Highest"; break;
+				}
+
+				return "Position: "+lbl;
+			});
+
+			vNavItems.LightInten.Value = 0.5f;
+			vNavItems.LightInten.ValueToLabel = ((v, sv) => "Intensity: "+Math.Round((sv*120)+20)+"%");
+
+			vNavItems.CameraCenter.Value = true;
+
+			UpdateLightPos();
+			UpdateLighInten();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -136,9 +131,15 @@ namespace HenuDemo {
 				UpdateCube(i);
 			}
 
-			vLight.gameObject.transform.localPosition = vLightPosAnim.GetValue();
-			vLight.intensity = vLightIntenAnim.GetValue();
-			vEnviro.transform.localPosition = vCameraPosAnim.GetValue();
+			if ( vNavItems.LightPos.IsStickySelected ) {
+				UpdateLightPos();
+			}
+
+			if ( vNavItems.LightInten.IsStickySelected ) {
+				UpdateLighInten();
+			}
+
+			vEnviro.transform.localPosition = vCameraAnim.GetValue();
 			vEnviro.transform.localRotation = vCameraRotAnim.GetValue();
 		}
 
@@ -208,15 +209,38 @@ namespace HenuDemo {
 				Vector3.Lerp(cubeData.GrowScaleMin, cubeData.GrowScaleMax, growPos);
 
 			if ( vNavItems.ColorHue.IsStickySelected ) {
+				UpdateCubeHue(cube);
 				float value = vNavItems.ColorHue.Value;
 				cube.renderer.sharedMaterial.color = HsvToColor(value*360, 1, 1);
 			}
 		}
 
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateCubeHue(GameObject pCube) {
+			float sv = vNavItems.ColorHue.SnappedValue;
+			pCube.renderer.sharedMaterial.color = HsvToColor(sv*360, 1, 1);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateLightPos() {
+			float sv = vNavItems.LightPos.SnappedValue;
+			vLight.gameObject.transform.localPosition = new Vector3(0, (sv*2-1)*9, 0);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateLighInten() {
+			float sv = vNavItems.LightInten.SnappedValue;
+			vLight.intensity = sv*1.2f+0.2f;
+		}
+		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void HandleColorWhiteSelect(NavItem pItem) {
+		private void HandleColorWhiteToggle(NavItem<bool> pItem) {
+			if ( !pItem.Value ) {
+				return;
+			}
+
 			foreach ( GameObject cube in vCubes ) {
 				cube.renderer.sharedMaterial.color = Color.white;
 			}
@@ -225,7 +249,11 @@ namespace HenuDemo {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		private void HandleColorRandomSelect(NavItem pItem) {
+		private void HandleColorRandomToggle(NavItem<bool> pItem) {
+			if ( !pItem.Value ) {
+				return;
+			}
+
 			for ( int i = 0 ; i < Count ; ++i ) {
 				GameObject cube = vCubes[i];
 				DemoCube cubeData = cube.GetComponent<DemoCube>();
@@ -236,10 +264,13 @@ namespace HenuDemo {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void HandleColorCustomSelect(NavItem pItem) {
+		private void HandleColorCustomToggle(NavItem<bool> pItem) {
+			if ( !pItem.Value ) {
+				return;
+			}
+
 			foreach ( GameObject cube in vCubes ) {
-				float value = vNavItems.ColorHue.Value;
-				cube.renderer.sharedMaterial.color = HsvToColor(value*360, 1, 1);
+				UpdateCubeHue(cube);
 			}
 
 			vNavItems.ColorHue.IsEnabled = true;
@@ -251,23 +282,13 @@ namespace HenuDemo {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void HandleLightPosChange(NavItem pItem) {
-			vLightPosAnim.Start(vLight.gameObject.transform.localPosition, vLightPosMap[pItem.Id]);
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		private void HandleLightIntenChange(NavItem pItem) {
-			vLightIntenAnim.Start(vLight.intensity, vLightIntenMap[pItem.Id]);
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		private void HandleCameraPosChange(NavItem pItem) {
-			if ( pItem == vNavItems.CameraPosReorient ) {
+		private void HandleCameraChange(NavItem pItem) {
+			if ( pItem == vNavItems.CameraReorient ) {
 				OVRManager.display.RecenterPose();
 				return;
 			}
 
-			vCameraPosAnim.Start(vEnviro.transform.localPosition, vCameraPosMap[pItem.Id]);
+			vCameraAnim.Start(vEnviro.transform.localPosition, vCameraMap[pItem.Id]);
 			vCameraRotAnim.Start(vEnviro.transform.localRotation, vCameraRotMap[pItem.Id]);
 		}
 		
@@ -311,11 +332,6 @@ namespace HenuDemo {
 			v.y = Math.Max(v.y, pMinDimension);
 			v.z = Math.Max(v.z, pMinDimension);
 			return v.normalized;
-		}
-
-		/*--------------------------------------------------------------------------------------------* /
-		private Quaternion RandomQuaternion() {
-			return Quaternion.AngleAxis((float)vRandom.NextDouble()*360, RandomUnitVector());
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

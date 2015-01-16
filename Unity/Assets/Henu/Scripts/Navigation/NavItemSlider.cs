@@ -7,20 +7,27 @@ namespace Henu.Navigation {
 
 		public int Ticks { get; set; }
 		public int Snaps { get; set; }
-		public Func<float, string> ValueToLabel { get; set; }
+		public Func<float, float, string> ValueToLabel { get; set; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public NavItemSlider(string pLabel, float pRelativeSize=1) : 
 														base(ItemType.Slider, pLabel, pRelativeSize) {
-			ValueToLabel = (v => 
-				(string.IsNullOrEmpty(Label) ? "" : Label+": ")+(v*100).ToString("0.0")+"%"
+			ValueToLabel = ((v, sv) =>
+				(string.IsNullOrEmpty(Label) ? "" : Label+": ")+(sv*100).ToString("0.0")+"%"
 			);
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public override string Label {
+			get {
+				return ValueToLabel(Value, SnappedValue);
+			}
+		}
+		
 		/*--------------------------------------------------------------------------------------------*/
 		public override float Value {
 			get {

@@ -19,22 +19,16 @@ namespace HenuDemo {
 		public NavItem MotionBob { get; private set; }
 		public NavItem MotionGrow { get; private set; }
 
-		public NavItemParent LightPos { get; private set; }
-		public NavItemRadio LightPosHighest { get; private set; }
-		public NavItemRadio LightPosHigh { get; private set; }
-		public NavItemRadio LightPosLow { get; private set; }
-		public NavItemRadio LightPosLowest { get; private set; }
+		public NavItemParent Light { get; private set; }
+		public NavItemSlider LightPos { get; private set; }
+		public NavItemSlider LightInten { get; private set; }
+		public NavItemSticky LightSpot { get; private set; }
 
-		public NavItemParent LightInten { get; private set; }
-		public NavItemRadio LightIntenHigh { get; private set; }
-		public NavItemRadio LightIntenMed { get; private set; }
-		public NavItemRadio LightIntenLow { get; private set; }
-
-		public NavItemParent CameraPos { get; private set; }
-		public NavItemRadio CameraPosCenter { get; private set; }
-		public NavItemRadio CameraPosBack { get; private set; }
-		public NavItemRadio CameraPosTop { get; private set; }
-		public NavItemSelector CameraPosReorient { get; private set; }
+		public NavItemParent Camera { get; private set; }
+		public NavItemRadio CameraCenter { get; private set; }
+		public NavItemRadio CameraBack { get; private set; }
+		public NavItemRadio CameraTop { get; private set; }
+		public NavItemSelector CameraReorient { get; private set; }
 
 		public NavItem[] TopLevelItems { get; private set; }
 
@@ -44,11 +38,10 @@ namespace HenuDemo {
 		public DemoNavItems() {
 			BuildColors();
 			BuildMotions();
-			BuildLightPos();
-			BuildLightInten();
-			BuildCameraPos();
+			BuildLight();
+			BuildCamera();
 
-			TopLevelItems = new[] { Colors, Motions, LightPos, LightInten, CameraPos };
+			TopLevelItems = new[] { Colors, Motions, Light, Camera };
 		}
 
 
@@ -88,20 +81,16 @@ namespace HenuDemo {
 		/*--------------------------------------------------------------------------------------------*/
 		private void BuildColors() {
 			Colors = new NavItemParent("Cube Color");
-
 			ColorWhite = new NavItemRadio("White");
 			ColorRandom = new NavItemRadio("Random");
 			ColorCustom = new NavItemRadio("Custom");
-			ColorHue = new NavItemSlider("Hue", 4);
-			ColorWhite.Value = true;
-			ColorHue.IsEnabled = false;
+			ColorHue = new NavItemSlider("Hue", 3);
 			Colors.SetChildren(new NavItem[] { ColorWhite, ColorRandom, ColorCustom, ColorHue });
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void BuildMotions() {
 			Motions = new NavItemParent("Cube Motion");
-
 			MotionOrbit = new NavItemCheckbox("Orbit");
 			MotionSpin = new NavItemCheckbox("Spin");
 			MotionBob = new NavItemCheckbox("Bob");
@@ -110,41 +99,24 @@ namespace HenuDemo {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void BuildLightPos() {
-			LightPos = new NavItemParent("Light Position");
-
-			LightPosHighest = new NavItemRadio("Highest");
-			LightPosHigh = new NavItemRadio("High");
-			LightPosLow = new NavItemRadio("Low");
-			LightPosLowest = new NavItemRadio("Lowest");
-			LightPosHigh.Value = true;
-			LightPos.SetChildren(new NavItem[] { LightPosHighest, LightPosHigh, LightPosLow, 
-				LightPosLowest });
+		private void BuildLight() {
+			Light = new NavItemParent("Lighting");
+			LightPos = new NavItemSlider("Position", 2);
+			LightInten = new NavItemSlider("Intensity", 2);
+			LightSpot = new NavItemSticky("Spotlight");
+			Light.SetChildren(new NavItem[] { LightPos, LightInten, LightSpot });
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void BuildLightInten() {
-			LightInten = new NavItemParent("Light Intensity");
+		private void BuildCamera() {
+			Camera = new NavItemParent("Camera Position");
 
-			LightIntenHigh = new NavItemRadio("Brighest");
-			LightIntenMed = new NavItemRadio("Medium");
-			LightIntenLow = new NavItemRadio("Dimmest");
-			LightIntenMed.Value = true;
-			LightInten.SetChildren(new NavItem[] { LightIntenHigh, LightIntenMed, LightIntenLow });
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		private void BuildCameraPos() {
-			CameraPos = new NavItemParent("Camera Position");
-
-			CameraPosCenter = new NavItemRadio("Center");
-			CameraPosBack = new NavItemRadio("Back");
-			CameraPosTop = new NavItemRadio("Top");
-			CameraPosReorient = new NavItemSelector("Re-orient");
-			CameraPosCenter.Value = true;
-			//CameraPosReorient.NavigateBackUponSelect = true;
-			CameraPos.SetChildren(new NavItem[] { CameraPosCenter, CameraPosBack, CameraPosTop, 
-				CameraPosReorient });
+			CameraCenter = new NavItemRadio("Center");
+			CameraBack = new NavItemRadio("Back");
+			CameraTop = new NavItemRadio("Top");
+			CameraReorient = new NavItemSelector("Re-orient");
+			Camera.SetChildren(new NavItem[] { CameraCenter, CameraBack, CameraTop, 
+				CameraReorient });
 		}
 
 	}
