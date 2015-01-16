@@ -13,6 +13,7 @@ namespace HenuDemo {
 		private GameObject[] vHolds;
 		private GameObject[] vCubes;
 		private Light vLight;
+		private Light vSpotlight;
 		private GameObject vEnviro;
 		private System.Random vRandom;
 
@@ -21,6 +22,7 @@ namespace HenuDemo {
 		private DemoMotion vBobMotion;
 		private DemoMotion vGrowMotion;
 
+		private DemoAnimFloat vLightSpotAnim;
 		private DemoAnimVector3 vCameraAnim;
 		private DemoAnimQuaternion vCameraRotAnim;
 
@@ -36,6 +38,7 @@ namespace HenuDemo {
 			vHolds = new GameObject[Count];
 			vCubes = new GameObject[Count];
 			vLight = GameObject.Find("Light").GetComponent<Light>();
+			vSpotlight = GameObject.Find("Spotlight").GetComponent<Light>();
 			vEnviro = GameObject.Find("DemoEnvironment");
 			vRandom = new System.Random();
 
@@ -50,6 +53,7 @@ namespace HenuDemo {
 			vBobMotion = new DemoMotion(0.5f, 600);
 			vGrowMotion = new DemoMotion(0.5f, 600);
 
+			vLightSpotAnim = new DemoAnimFloat(600);
 			vCameraAnim = new DemoAnimVector3(6000);
 			vCameraRotAnim = new DemoAnimQuaternion(6000);
 
@@ -83,6 +87,8 @@ namespace HenuDemo {
 			vNavItems.ColorWhite.OnValueChanged += HandleColorWhiteToggle;
 			vNavItems.ColorRandom.OnValueChanged += HandleColorRandomToggle;
 			vNavItems.ColorCustom.OnValueChanged += HandleColorCustomToggle;
+			vNavItems.LightSpot.OnSelected += HandleLightSpotSelected;
+			vNavItems.LightSpot.OnDeselected += HandleLightSpotSelected;
 
 			////
 
@@ -114,6 +120,7 @@ namespace HenuDemo {
 
 			UpdateLightPos();
 			UpdateLighInten();
+			vSpotlight.enabled = false;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -138,6 +145,9 @@ namespace HenuDemo {
 			if ( vNavItems.LightInten.IsStickySelected ) {
 				UpdateLighInten();
 			}
+
+			vSpotlight.intensity = vLightSpotAnim.GetValue();
+			vSpotlight.enabled = (vSpotlight.intensity > 0);
 
 			vEnviro.transform.localPosition = vCameraAnim.GetValue();
 			vEnviro.transform.localRotation = vCameraRotAnim.GetValue();
@@ -274,6 +284,11 @@ namespace HenuDemo {
 			}
 
 			vNavItems.ColorHue.IsEnabled = true;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void HandleLightSpotSelected(NavItem pItem) {
+			vLightSpotAnim.Start(vSpotlight.intensity, (pItem.IsStickySelected ? 3 : 0));
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
