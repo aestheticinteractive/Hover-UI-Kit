@@ -15,6 +15,7 @@ namespace Henu.Settings {
 		public virtual Color SelectionColor { get; set; }
 		public virtual Color SliderTrackColor { get; set; }
 		public virtual Color SliderFillColor { get; set; }
+		public virtual Color SliderTickColor { get; set; }
 
 	}
 

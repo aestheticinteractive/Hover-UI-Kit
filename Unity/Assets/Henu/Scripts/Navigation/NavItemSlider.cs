@@ -5,7 +5,7 @@ namespace Henu.Navigation {
 	/*================================================================================================*/
 	public class NavItemSlider : NavItem {
 
-		public int? Steps { get; set; }
+		public int Ticks { get; set; }
 		public Func<float, string> ValueToLabel { get; set; }
 
 		private float vCurrValue;

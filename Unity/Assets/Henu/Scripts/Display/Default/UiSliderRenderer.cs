@@ -26,9 +26,11 @@ namespace Henu.Display.Default {
 
 		protected GameObject vTrack;
 		protected GameObject vFill;
+		protected GameObject[] vTicks;
 		protected GameObject vGrabHold;
 		protected Mesh vTrackMesh;
 		protected Mesh vFillMesh;
+		protected Material vTickMat;
 		protected UiSliderGrabRenderer vGrab;
 
 
@@ -57,7 +59,7 @@ namespace Henu.Display.Default {
 			vTrack.AddComponent<MeshFilter>();
 			vTrack.AddComponent<MeshRenderer>();
 			vTrack.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
-			vTrack.renderer.sharedMaterial.renderQueue -= 200;
+			vTrack.renderer.sharedMaterial.renderQueue -= 600;
 			vTrack.renderer.sharedMaterial.color = Color.clear;
 
 			vFill = new GameObject("Fill");
@@ -65,11 +67,40 @@ namespace Henu.Display.Default {
 			vFill.AddComponent<MeshFilter>();
 			vFill.AddComponent<MeshRenderer>();
 			vFill.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
-			vFill.renderer.sharedMaterial.renderQueue -= 100;
+			vFill.renderer.sharedMaterial.renderQueue -= 500;
 			vFill.renderer.sharedMaterial.color = Color.clear;
 
 			vTrackMesh = vTrack.GetComponent<MeshFilter>().mesh;
 			vFillMesh = vFill.GetComponent<MeshFilter>().mesh;
+
+			////
+
+			vTickMat = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
+			vTickMat.renderQueue -= 400;
+			vTickMat.color = Color.clear;
+
+			if ( vNavSlider.Ticks > 1 ) {
+				Vector3 quadScale = new Vector3(UiSelectRenderer.AngleInset*2, 0.36f, 0.1f);
+				float percPerTick = 1/(float)(vNavSlider.Ticks-1);
+
+				vTicks = new GameObject[vNavSlider.Ticks];
+
+				for ( int i = 0 ; i < vNavSlider.Ticks ; ++i ) {
+					var tick = new GameObject("Tick"+i);
+					tick.transform.SetParent(gameObject.transform, false);
+					tick.transform.localRotation = Quaternion.AngleAxis(
+						vSlideDegree0+vSlideDegrees*i*percPerTick, Vector3.up);
+					vTicks[i] = tick;
+
+					var quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
+					quad.renderer.sharedMaterial = vTickMat;
+					quad.transform.SetParent(tick.transform, false);
+					quad.transform.localPosition = new Vector3(0, 0, 1.25f);
+					quad.transform.localRotation = 
+						Quaternion.FromToRotation(Vector3.back, Vector3.down);
+					quad.transform.localScale = quadScale;
+				}
+			}
 
 			////
 
@@ -106,12 +137,15 @@ namespace Henu.Display.Default {
 
 			Color colTrack = vSettings.SliderTrackColor;
 			Color colFill = vSettings.SliderFillColor;
+			Color colTick = vSettings.SliderTickColor;
 
 			colTrack.a *= vMainAlpha;
 			colFill.a *= vMainAlpha;
+			colTick.a *= vMainAlpha;
 
 			vTrack.renderer.sharedMaterial.color = colTrack;
 			vFill.renderer.sharedMaterial.color = colFill;
+			vTickMat.color = colTick;
 
 			float slideDeg = vSlideDegree0 + vSlideDegrees*showVal;
 			vGrabHold.transform.localRotation = Quaternion.AngleAxis(slideDeg, Vector3.up);

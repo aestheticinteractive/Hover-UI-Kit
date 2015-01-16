@@ -18,6 +18,7 @@ namespace Henu.Settings {
 		public Color SelectionColor = new Color(0.1f, 0.9f, 0.2f);
 		public Color SliderTrackColor = new Color(0.1f, 0.1f, 0.1f, 0.5f);
 		public Color SliderFillColor = new Color(0.1f, 0.9f, 0.2f, 0.5f);
+		public Color SliderTickColor = new Color(1, 1, 1, 0.1f);
 
 		public Color CursorColorNormal = new Color(1, 1, 1, 0.75f);
 		public Color CursorColorHighlighted = new Color(1, 1, 1, 1);
@@ -48,6 +49,7 @@ namespace Henu.Settings {
 			sett.SelectionColor = SelectionColor;
 			sett.SliderTrackColor = SliderTrackColor;
 			sett.SliderFillColor = SliderFillColor;
+			sett.SliderTickColor = SliderTickColor;
 			return sett;
 		}
 
