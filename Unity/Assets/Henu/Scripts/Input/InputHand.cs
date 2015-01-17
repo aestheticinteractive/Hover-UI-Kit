@@ -15,12 +15,12 @@ namespace Henu.Input {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public InputHand(Hand pHand) {
+		public InputHand(Hand pHand, Vector3 pPalmDirection) {
 			IsLeft = pHand.IsLeft;
 			Center = pHand.PalmPosition.ToUnityScaled();
 			Rotation = CalcQuaternion(pHand.Basis);
 			GrabStrength = pHand.GrabStrength;
-			PalmTowardEyes = Vector3.Dot(pHand.PalmNormal.ToUnity(), Vector3.down);
+			PalmTowardEyes = Vector3.Dot(pHand.PalmNormal.ToUnity(), pPalmDirection);
 		}
 
 

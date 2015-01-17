@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Leap;
+using UnityEngine;
 
 namespace Henu.Input {
 
@@ -13,9 +14,9 @@ namespace Henu.Input {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public InputProvider() {
-			vInputHandProvL = new InputHandProvider(true);
-			vInputHandProvR = new InputHandProvider(false);
+		public InputProvider(Vector3 pPalmDirection) {
+			vInputHandProvL = new InputHandProvider(true, pPalmDirection);
+			vInputHandProvR = new InputHandProvider(false, pPalmDirection);
 		}
 
 

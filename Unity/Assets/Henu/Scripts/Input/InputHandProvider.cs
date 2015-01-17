@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Leap;
+using UnityEngine;
 
 namespace Henu.Input {
 
@@ -14,18 +15,21 @@ namespace Henu.Input {
 		public IInputPoint RingPoint { get; private set; }
 		public IInputPoint PinkyPoint { get; private set; }
 
+		private readonly Vector3 vPalmDirection;
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public InputHandProvider(bool pIsLeft) {
+		public InputHandProvider(bool pIsLeft, Vector3 pPalmDirection) {
 			IsLeft = pIsLeft;
+			vPalmDirection = pPalmDirection;
 		}
 
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateWithLeapHand(Hand pLeapHand) {
-			Hand = (pLeapHand == null ? null : new InputHand(pLeapHand));
+			Hand = (pLeapHand == null ? null : new InputHand(pLeapHand, vPalmDirection));
 
 			IndexPoint = GetPoint(pLeapHand, Finger.FingerType.TYPE_INDEX);
 			MiddlePoint = GetPoint(pLeapHand, Finger.FingerType.TYPE_MIDDLE);
