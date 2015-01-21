@@ -141,7 +141,7 @@ namespace HenuDemo {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void BuildNested() {
-			Nested = new NavItemParent("Nested Example");
+			Nested = new NavItemParent("Nested Menu");
 
 			NestedA = new NavItemParent("Menu A");
 			NestedB = new NavItemParent("Menu B");
