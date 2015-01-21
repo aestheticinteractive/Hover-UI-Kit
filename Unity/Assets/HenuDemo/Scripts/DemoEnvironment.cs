@@ -51,6 +51,15 @@ namespace HenuDemo {
 
 			////
 
+			GameObject ovrPlayerObj = GameObject.Find("LeapOVRPlayerController");
+
+			if ( ovrPlayerObj != null ) {
+				OVRPlayerController ovrPlayer = ovrPlayerObj.GetComponent<OVRPlayerController>();
+				ovrPlayer.SetSkipMouseRotation(true);
+			}
+
+			////
+
 			vOrbitMotion = new DemoMotion(10, 600);
 			vSpinMotion = new DemoMotion(45, 600);
 			vBobMotion = new DemoMotion(0.5f, 600);
@@ -92,6 +101,7 @@ namespace HenuDemo {
 			vNavItems.ColorCustom.OnValueChanged += HandleColorCustomToggle;
 			vNavItems.LightSpot.OnSelected += HandleLightSpotSelected;
 			vNavItems.LightSpot.OnDeselected += HandleLightSpotSelected;
+			vNavItems.CameraReorient.OnSelected += HandleCameraReorient;
 
 			////
 
@@ -133,9 +143,7 @@ namespace HenuDemo {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			if ( Input.GetKey(KeyCode.R) ) {
-				OVRManager.display.RecenterPose();
-			}
+			UpdateOculus();
 
 			vOrbitMotion.Update();
 			vSpinMotion.Update();
@@ -167,6 +175,24 @@ namespace HenuDemo {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private static void UpdateOculus() {
+			if ( OVRManager.capiHmd == null ) {
+				return;
+			}
+
+			if ( Input.GetKey(KeyCode.R) ) {
+				OVRManager.display.RecenterPose();
+			}
+
+			if ( !OVRManager.capiHmd.GetHSWDisplayState().Displayed ) {
+				return;
+			}
+
+			OVRManager.capiHmd.DismissHSWDisplay();
+			OVRManager.display.RecenterPose();
+		}
+
 		/*--------------------------------------------------------------------------------------------*/
 		private void BuildCube(int pIndex) {
 			float radius = RandomFloat(4, 10);
@@ -320,13 +346,13 @@ namespace HenuDemo {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleCameraChange(NavItem pItem) {
-			if ( pItem == vNavItems.CameraReorient ) {
-				OVRManager.display.RecenterPose();
-				return;
-			}
-
 			vCameraAnim.Start(vEnviro.transform.localPosition, vCameraMap[pItem.Id]);
 			vCameraRotAnim.Start(vEnviro.transform.localRotation, vCameraRotMap[pItem.Id]);
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		private void HandleCameraReorient(NavItem pItem) {
+			OVRManager.display.RecenterPose();
 		}
 		
 
