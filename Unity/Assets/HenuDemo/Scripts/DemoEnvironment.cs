@@ -123,7 +123,7 @@ namespace HenuDemo {
 					case 3: lbl = "Highest"; break;
 				}
 
-				return "Position: "+lbl;
+				return "Pos: "+lbl;
 			});
 
 			vNavItems.LightInten.Value = 0.5f;
