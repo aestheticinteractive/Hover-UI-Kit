@@ -31,6 +31,7 @@ namespace Henu.Settings {
 		public float NavigationBackUngrabThreshold = 0.25f;
 		public float HighlightDistanceMin = 0.05f;
 		public float HighlightDistanceMax = 0.1f;
+		public float StickyReleaseDistance = 0.07f;
 		public float SelectionMilliseconds = 600;
 		public float CursorForwardDistance = 0.01f;
 
@@ -72,6 +73,7 @@ namespace Henu.Settings {
 			inter.NavBackUngrabThreshold = NavigationBackUngrabThreshold;
 			inter.HighlightDistanceMin = HighlightDistanceMin;
 			inter.HighlightDistanceMax = HighlightDistanceMax;
+			inter.StickyReleaseDistance = StickyReleaseDistance;
 			inter.SelectionMilliseconds = SelectionMilliseconds;
 			inter.CursorForwardDistance = CursorForwardDistance;
 			return inter;

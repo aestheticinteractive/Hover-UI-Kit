@@ -14,11 +14,11 @@ namespace Henu.State {
 		public float HighlightProgress { get; private set; }
 
 		private readonly InteractionSettings vSettings;
-		private readonly float vHighlightDistRange;
 		private Func<Vector3, float> vCursorDistanceFunc;
 		private DateTime? vSelectionStart;
 		private bool vIsAnimating;
 		private bool vPreventSelection;
+		private float vDistanceUponSelection;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -26,7 +26,6 @@ namespace Henu.State {
 		public ArcSegmentState(NavItem pNavItem, InteractionSettings pSettings) {
 			NavItem = pNavItem;
 			vSettings = pSettings;
-			vHighlightDistRange = vSettings.HighlightDistanceMax-vSettings.HighlightDistanceMin;
 		}
 
 
@@ -35,7 +34,12 @@ namespace Henu.State {
 		public float SelectionProgress {
 			get {
 				if ( vSelectionStart == null ) {
-					return (NavItem.IsStickySelected ? HighlightProgress : 0);
+					if ( !NavItem.IsStickySelected ) {
+						return 0;
+					}
+
+					return Mathf.InverseLerp(vSettings.StickyReleaseDistance,
+						vDistanceUponSelection, HighlightDistance);
 				}
 
 				float ms = (float)(DateTime.UtcNow-(DateTime)vSelectionStart).TotalMilliseconds;
@@ -75,15 +79,16 @@ namespace Henu.State {
 			}
 
 			float dist = vCursorDistanceFunc((Vector3)pCursorPosition);
-			float prog = 1-(dist-vSettings.HighlightDistanceMin)/vHighlightDistRange;
+			float prog = Mathf.InverseLerp(vSettings.HighlightDistanceMax,
+				vSettings.HighlightDistanceMin, dist);
 
 			HighlightDistance = dist;
-			HighlightProgress = Math.Max(0, Math.Min(1, prog));
+			HighlightProgress = prog;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		internal bool SetAsNearestSegment(bool pIsNearest) {
-			if ( !pIsNearest || HighlightProgress <= 0 ) {
+			if ( !pIsNearest || SelectionProgress <= 0 ) {
 				NavItem.DeselectStickySelections();
 			}
 
@@ -109,6 +114,7 @@ namespace Henu.State {
 
 			vSelectionStart = null;
 			vPreventSelection = true;
+			vDistanceUponSelection = HighlightDistance;
 			NavItem.Select();
 			return true;
 		}
