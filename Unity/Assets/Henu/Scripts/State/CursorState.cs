@@ -7,24 +7,30 @@ namespace Henu.State {
 	/*================================================================================================*/
 	public class CursorState {
 
+		public bool IsLeft { get; private set; }
 		public Vector3? Position { get; private set; }
 
-		private readonly IInputHandProvider vInputHandProv;
+		private readonly IInputProvider vInputProv;
 		private readonly InteractionSettings vSettings;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public CursorState(IInputHandProvider pInputHandProv, InteractionSettings pSettings) {
-			vInputHandProv = pInputHandProv;
+		public CursorState(IInputProvider pInputProv, InteractionSettings pSettings) {
+			vInputProv = pInputProv;
 			vSettings = pSettings;
+
+			IsLeft = vSettings.IsMenuOnLeftSide;
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		internal void UpdateAfterInput() {
-			IInputPoint inputPoint = vInputHandProv.IndexPoint;
+			IsLeft = !vSettings.IsMenuOnLeftSide;
+
+			IInputSide inputSide = vInputProv.GetSide(IsLeft);
+			IInputPoint inputPoint = inputSide.Points[0];
 
 			if ( inputPoint == null ) {
 				Position = null;

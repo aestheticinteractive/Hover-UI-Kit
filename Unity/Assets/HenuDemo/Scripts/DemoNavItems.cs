@@ -46,7 +46,7 @@ namespace HenuDemo {
 		public NavItemCheckbox NestedC2 { get; private set; }
 		public NavItemCheckbox NestedC3 { get; private set; }
 		public NavItemCheckbox NestedC4 { get; private set; }
-		public NavItemCheckbox NestedC5 { get; private set; }
+		public NavItemSelector NestedC5 { get; private set; }
 
 		public NavLevel TopLevel { get; private set; }
 
@@ -166,7 +166,8 @@ namespace HenuDemo {
 			NestedC2 = new NavItemCheckbox("Checkbox C2");
 			NestedC3 = new NavItemCheckbox("Checkbox C3");
 			NestedC4 = new NavItemCheckbox("Checkbox C4");
-			NestedC5 = new NavItemCheckbox("Checkbox C5");
+			NestedC5 = new NavItemSelector("Switch Hands");
+			NestedC5.OnSelected += HandleSwitchHands;
 
 			NestedC = new NavItemParent("Menu C");
 			NestedC.ChildLevel.Items = new NavItem[] { NestedC1, NestedC2, NestedC3, NestedC4,
@@ -195,6 +196,12 @@ namespace HenuDemo {
 			else {
 				Nested.ChildLevel.Items = new NavItem[] { NestedA, NestedB, NestedC };
 			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void HandleSwitchHands(NavItem pNavItem) {
+			DemoSettingsComponent.InteractionSettings.IsMenuOnLeftSide = 
+				!DemoSettingsComponent.InteractionSettings.IsMenuOnLeftSide;
 		}
 
 	}

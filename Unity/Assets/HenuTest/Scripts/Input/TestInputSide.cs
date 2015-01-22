@@ -4,11 +4,12 @@ using UnityEngine;
 namespace HenuTest.Input {
 
 	/*================================================================================================*/
-	public class TestInputHandProvider : IInputHandProvider {
+	public class TestInputSide : IInputSide {
 
 		public bool IsLeft { get; private set; }
-		public IInputHand Hand { get; private set; }
+		public IInputCenter Center { get; private set; }
 
+		public IInputPoint[] Points { get; private set; }
 		public IInputPoint IndexPoint { get; private set; }
 		public IInputPoint MiddlePoint { get; private set; }
 		public IInputPoint RingPoint { get; private set; }
@@ -25,19 +26,21 @@ namespace HenuTest.Input {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public TestInputHandProvider(bool pIsLeft, TestInputHand pHand) {
+		public TestInputSide(bool pIsLeft, TestInputCenter pCenter) {
 			IsLeft = pIsLeft;
-			Hand = pHand;
+			Center = pCenter;
 
-			GameObject indexObj = pHand.gameObject.transform.FindChild("IndexPoint").gameObject;
-			GameObject midObj = pHand.gameObject.transform.FindChild("MiddlePoint").gameObject;
-			GameObject ringObj = pHand.gameObject.transform.FindChild("RingPoint").gameObject;
-			GameObject pinkyObj = pHand.gameObject.transform.FindChild("PinkyPoint").gameObject;
+			GameObject indexObj = pCenter.gameObject.transform.FindChild("IndexPoint").gameObject;
+			GameObject midObj = pCenter.gameObject.transform.FindChild("MiddlePoint").gameObject;
+			GameObject ringObj = pCenter.gameObject.transform.FindChild("RingPoint").gameObject;
+			GameObject pinkyObj = pCenter.gameObject.transform.FindChild("PinkyPoint").gameObject;
 
 			IndexPoint = indexObj.gameObject.GetComponent<TestInputPoint>();
 			MiddlePoint = midObj.gameObject.GetComponent<TestInputPoint>();
 			RingPoint = ringObj.gameObject.GetComponent<TestInputPoint>();
 			PinkyPoint = pinkyObj.gameObject.GetComponent<TestInputPoint>();
+
+			Points = new[] { IndexPoint, MiddlePoint, RingPoint, PinkyPoint };
 		}
 
 	}

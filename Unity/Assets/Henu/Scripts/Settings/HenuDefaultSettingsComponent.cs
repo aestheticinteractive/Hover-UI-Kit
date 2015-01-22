@@ -27,6 +27,7 @@ namespace Henu.Settings {
 		public float CursorThicknessNormal = 0.1f;
 		public float CursorThicknessHighlighted = 0.4f;
 
+		public bool IsMenuOnLeftSide = true;
 		public float NavigationBackGrabThreshold = 0.5f;
 		public float NavigationBackUngrabThreshold = 0.25f;
 		public float HighlightDistanceMin = 0.05f;
@@ -69,6 +70,7 @@ namespace Henu.Settings {
 		/*--------------------------------------------------------------------------------------------*/
 		public override InteractionSettings GetInteractionSettings() {
 			var inter = new InteractionSettings();
+			inter.IsMenuOnLeftSide = IsMenuOnLeftSide;
 			inter.NavBackGrabThreshold = NavigationBackGrabThreshold;
 			inter.NavBackUngrabThreshold = NavigationBackUngrabThreshold;
 			inter.HighlightDistanceMin = HighlightDistanceMin;

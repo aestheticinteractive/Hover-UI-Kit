@@ -5,22 +5,24 @@ using UnityEngine;
 namespace Henu.Input {
 
 	/*================================================================================================*/
-	public class InputHandProvider : IInputHandProvider {
+	public class InputSide : IInputSide {
 
 		public bool IsLeft { get; private set; }
-		public IInputHand Hand { get; private set; }
+		public IInputCenter Center { get; private set; }
 
+		public IInputPoint[] Points { get; private set; }
 		public IInputPoint IndexPoint { get; private set; }
 		public IInputPoint MiddlePoint { get; private set; }
 		public IInputPoint RingPoint { get; private set; }
 		public IInputPoint PinkyPoint { get; private set; }
 
+		private readonly IInputPoint[] vPoints;
 		private readonly Vector3 vPalmDirection;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public InputHandProvider(bool pIsLeft, Vector3 pPalmDirection) {
+		public InputSide(bool pIsLeft, Vector3 pPalmDirection) {
 			IsLeft = pIsLeft;
 			vPalmDirection = pPalmDirection;
 		}
@@ -29,12 +31,14 @@ namespace Henu.Input {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateWithLeapHand(Hand pLeapHand) {
-			Hand = (pLeapHand == null ? null : new InputHand(pLeapHand, vPalmDirection));
+			Center = (pLeapHand == null ? null : new InputCenter(pLeapHand, vPalmDirection));
 
 			IndexPoint = GetPoint(pLeapHand, Finger.FingerType.TYPE_INDEX);
 			MiddlePoint = GetPoint(pLeapHand, Finger.FingerType.TYPE_MIDDLE);
 			RingPoint = GetPoint(pLeapHand, Finger.FingerType.TYPE_RING);
 			PinkyPoint = GetPoint(pLeapHand, Finger.FingerType.TYPE_PINKY);
+
+			Points = new [] { IndexPoint, MiddlePoint, RingPoint, PinkyPoint };
 
 			/*if ( Hand == null ) {
 				return;

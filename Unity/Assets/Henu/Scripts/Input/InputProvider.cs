@@ -8,15 +8,15 @@ namespace Henu.Input {
 	public class InputProvider : IInputProvider {
 
 		private Frame vFrame;
-		private readonly InputHandProvider vInputHandProvL;
-		private readonly InputHandProvider vInputHandProvR;
+		private readonly InputSide vInputHandProvL;
+		private readonly InputSide vInputHandProvR;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public InputProvider(Vector3 pPalmDirection) {
-			vInputHandProvL = new InputHandProvider(true, pPalmDirection);
-			vInputHandProvR = new InputHandProvider(false, pPalmDirection);
+			vInputHandProvL = new InputSide(true, pPalmDirection);
+			vInputHandProvR = new InputSide(false, pPalmDirection);
 		}
 
 
@@ -29,7 +29,7 @@ namespace Henu.Input {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public IInputHandProvider GetHandProvider(bool pIsLeft) {
+		public IInputSide GetSide(bool pIsLeft) {
 			return (pIsLeft ? vInputHandProvL : vInputHandProvR);
 		}
 

@@ -12,7 +12,10 @@ namespace Henu.State {
 	public class ArcState {
 
 		public delegate void LevelChangeHandler(int pDirection);
+		public delegate void IsLeftChangeHandler();
+
 		public event LevelChangeHandler OnLevelChange;
+		public event IsLeftChangeHandler OnIsLeftChange;
 
 		public bool IsActive { get; private set; }
 		public bool IsLeft { get; private set; }
@@ -23,7 +26,7 @@ namespace Henu.State {
 		public float GrabStrength { get; private set; }
 		public ArcSegmentState NearestSegment { get; private set; }
 
-		private readonly IInputHandProvider vInputHandProv;
+		private readonly IInputProvider vInputProv;
 		private readonly NavigationProvider vNavProv;
 		private readonly IList<ArcSegmentState> vSegments;
 		private readonly InteractionSettings vSettings;
@@ -32,16 +35,18 @@ namespace Henu.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public ArcState(IInputHandProvider pInputHandProv, NavigationProvider pNavProv, 
+		public ArcState(IInputProvider pInputProv, NavigationProvider pNavProv, 
 																		InteractionSettings pSettings) {
-			vInputHandProv = pInputHandProv;
+			vInputProv = pInputProv;
 			vNavProv = pNavProv;
 			vSegments = new List<ArcSegmentState>();
 			vSettings = pSettings;
 
-			IsLeft = vInputHandProv.IsLeft;
+			IsLeft = vSettings.IsMenuOnLeftSide;
 
 			OnLevelChange = (d => {});
+			OnIsLeftChange = (() => {});
+
 			vNavProv.OnLevelChange += HandleLevelChange;
 			HandleLevelChange(0);
 		}
@@ -68,9 +73,15 @@ namespace Henu.State {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		internal void UpdateAfterInput() {
-			IInputHand inputHand = vInputHandProv.Hand;
+			if ( vSettings.IsMenuOnLeftSide != IsLeft ) {
+				IsLeft = vSettings.IsMenuOnLeftSide;
+				OnIsLeftChange();
+			}
 
-			if ( inputHand == null ) {
+			IInputSide inputSide = vInputProv.GetSide(IsLeft);
+			IInputCenter inputCenter = inputSide.Center;
+
+			if ( inputCenter == null ) {
 				IsActive = false;
 				Center = Vector3.zero;
 				Rotation = Quaternion.identity;
@@ -79,19 +90,12 @@ namespace Henu.State {
 				return;
 			}
 
-			var inputPoints = new List<IInputPoint>(new[] {
-				vInputHandProv.IndexPoint,
-				vInputHandProv.MiddlePoint,
-				vInputHandProv.RingPoint,
-				vInputHandProv.PinkyPoint
-			});
-
 			IsActive = true;
-			Center = inputHand.Center;
+			Center = inputCenter.Position;
 			Size = 0;
-			Rotation = inputHand.Rotation;
+			Rotation = inputCenter.Rotation;
 
-			foreach ( IInputPoint inputPoint in inputPoints ) {
+			foreach ( IInputPoint inputPoint in inputSide.Points ) {
 				if ( inputPoint == null ) {
 					continue;
 				}
@@ -101,9 +105,9 @@ namespace Henu.State {
 			}
 
 			Size = (float)Math.Sqrt(Size);
-			Strength = Math.Max(0, (inputHand.PalmTowardEyes-0.7f)/0.3f);
-			GrabStrength = Math.Min(1, inputHand.GrabStrength/vSettings.NavBackGrabThreshold);
-			CheckGrabGesture(inputHand);
+			Strength = Math.Max(0, (inputCenter.PalmTowardEyes-0.7f)/0.3f);
+			GrabStrength = Math.Min(1, inputCenter.GrabStrength/vSettings.NavBackGrabThreshold);
+			CheckGrabGesture(inputCenter);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -138,18 +142,18 @@ namespace Henu.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void CheckGrabGesture(IInputHand pInputHand) {
-			if ( pInputHand == null ) {
+		private void CheckGrabGesture(IInputCenter pInputCenter) {
+			if ( pInputCenter == null ) {
 				vIsGrabbing = false;
 				return;
 			}
 
-			if ( vIsGrabbing && pInputHand.GrabStrength < vSettings.NavBackUngrabThreshold ) {
+			if ( vIsGrabbing && pInputCenter.GrabStrength < vSettings.NavBackUngrabThreshold ) {
 				vIsGrabbing = false;
 				return;
 			}
 
-			if ( !vIsGrabbing && pInputHand.GrabStrength > vSettings.NavBackGrabThreshold ) {
+			if ( !vIsGrabbing && pInputCenter.GrabStrength > vSettings.NavBackGrabThreshold ) {
 				vIsGrabbing = true;
 				vNavProv.Back();
 				return;

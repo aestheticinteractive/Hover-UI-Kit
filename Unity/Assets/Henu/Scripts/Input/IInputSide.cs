@@ -1,11 +1,12 @@
 ﻿namespace Henu.Input {
 
 	/*================================================================================================*/
-	public interface IInputHandProvider {
+	public interface IInputSide {
 
 		bool IsLeft { get; }
-		IInputHand Hand { get; }
+		IInputCenter Center { get; }
 
+		IInputPoint[] Points { get; }
 		IInputPoint IndexPoint { get; }
 		IInputPoint MiddlePoint { get; }
 		IInputPoint RingPoint { get; }

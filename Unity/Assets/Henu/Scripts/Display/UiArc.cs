@@ -28,7 +28,8 @@ namespace Henu.Display {
 			vSettings = pSettings;
 
 			vArcState.OnLevelChange += HandleLevelChange;
-			HandleLevelChange(0);
+			vArcState.OnIsLeftChange += HandleIsLeftChange;
+			HandleIsLeftChange();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -64,6 +65,20 @@ namespace Henu.Display {
 			vChangeTime = DateTime.UtcNow;
 			vChangeDir = pDirection;
 			UpdateItemChangeAnim();
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void HandleIsLeftChange() {
+			vPrevLevelObj = vCurrLevelObj;
+			DestroyPrevLevel();
+
+			vCurrLevelObj = new GameObject("CurrLevel");
+			vCurrLevelObj.transform.SetParent(gameObject.transform, false);
+			vCurrLevelObj.transform.localScale = Vector3.one;
+
+			UiArcLevel arcLevel = vCurrLevelObj.AddComponent<UiArcLevel>();
+			arcLevel.Build(vArcState, vSettings);
+			arcLevel.HandleChangeAnimation(true, 0, 1);
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/

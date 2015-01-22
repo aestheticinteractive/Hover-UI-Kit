@@ -3,10 +3,10 @@
 namespace Henu.Input {
 
 	/*================================================================================================*/
-	public interface IInputHand {
+	public interface IInputCenter {
 
 		bool IsLeft { get; }
-		Vector3 Center { get; }
+		Vector3 Position { get; }
 		Quaternion Rotation { get; }
 		float GrabStrength { get; }
 		float PalmTowardEyes { get; }

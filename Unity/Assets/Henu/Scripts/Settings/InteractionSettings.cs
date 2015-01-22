@@ -3,6 +3,8 @@
 	/*================================================================================================*/
 	public class InteractionSettings {
 
+		public virtual bool IsMenuOnLeftSide { get; set; }
+
 		public virtual float NavBackGrabThreshold { get; set; }
 		public virtual float NavBackUngrabThreshold { get; set; }
 

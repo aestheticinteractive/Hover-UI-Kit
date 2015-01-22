@@ -6,15 +6,15 @@ namespace HenuTest.Input {
 	/*================================================================================================*/
 	public class TestInputProvider : MonoBehaviour, IInputProvider {
 
-		private TestInputHandProvider vInputHandProvL;
-		private TestInputHandProvider vInputHandProvR;
-		private TestInputHand vInputHandL;
-		private TestInputHand vInputHandR;
+		private TestInputSide vInputHandProvL;
+		private TestInputSide vInputHandProvR;
+		private TestInputCenter vInputCenterL;
+		private TestInputCenter vInputCenterR;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public IInputHandProvider GetHandProvider(bool pIsLeft) {
+		public IInputSide GetSide(bool pIsLeft) {
 			if ( vInputHandProvL == null ) {
 				Init();
 			}
@@ -29,14 +29,14 @@ namespace HenuTest.Input {
 			GameObject leftObj = gameObject.transform.FindChild("LeftHand").gameObject;
 			GameObject rightObj = gameObject.transform.FindChild("RightHand").gameObject;
 
-			vInputHandL = leftObj.GetComponent<TestInputHand>();
-			vInputHandR = rightObj.GetComponent<TestInputHand>();
+			vInputCenterL = leftObj.GetComponent<TestInputCenter>();
+			vInputCenterR = rightObj.GetComponent<TestInputCenter>();
 
-			vInputHandL.IsLeft = true;
-			vInputHandR.IsLeft = false;
+			vInputCenterL.IsLeft = true;
+			vInputCenterR.IsLeft = false;
 
-			vInputHandProvL = new TestInputHandProvider(true, vInputHandL);
-			vInputHandProvR = new TestInputHandProvider(false, vInputHandR);
+			vInputHandProvL = new TestInputSide(true, vInputCenterL);
+			vInputHandProvR = new TestInputSide(false, vInputCenterR);
 		}
 
 	}

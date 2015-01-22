@@ -10,7 +10,6 @@ namespace Henu {
 	/*================================================================================================*/
 	public class HenuSetup : MonoBehaviour {
 
-		public bool MenuIsOnLeftHand = true;
 		public Vector3 PalmDirection = Vector3.down;
 		public bool TestMode;
 		public HenuNavComponent NavDelegateProvider;
@@ -44,7 +43,7 @@ namespace Henu {
 
 			vInputProv = new InputProvider(PalmDirection);
 			vMenuState = new MenuState(GetInputProv(), vNavProv, 
-				SettingsProvider.GetInteractionSettings(), MenuIsOnLeftHand);
+				SettingsProvider.GetInteractionSettings());
 
 			////
 

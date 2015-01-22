@@ -71,6 +71,24 @@ namespace Henu.Display {
 					.HandleChangeAnimation(pFadeIn, pDirection, pProgress);
 			}
 		}
+
+		/*--------------------------------------------------------------------------------------------* /
+		private void HandleIsLeftChange() {
+			int segCount = vSegmentObjList.Count;
+			bool isLeft = vArcState.IsLeft;
+			float degree = 180+10*(isLeft ? -1 : 1) + DegreeFull/2f;
+
+			for ( int i = 0 ; i < segCount ; i++ ) {
+				GameObject segObj = vSegmentObjList[isLeft ? i : segCount-i-1];
+				UiArcSegment uiSeg = segObj.GetComponent<UiArcSegment>();
+				float segDegHalf = uiSeg.ArcAngle*ToDegrees/2f;
+
+				degree -= segDegHalf;
+				segObj.transform.localRotation = Quaternion.AngleAxis(degree, Vector3.up);
+				degree -= segDegHalf;
+			}
+		}*/
+
 	}
 
 }

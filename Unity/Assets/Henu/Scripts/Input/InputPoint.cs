@@ -16,7 +16,7 @@ namespace Henu.Input {
 			Bone bone = pLeapFinger.Bone(Bone.BoneType.TYPE_DISTAL);
 
 			Position = pLeapFinger.TipPosition.ToUnityScaled();
-			Rotation = InputHand.CalcQuaternion(bone.Basis);
+			Rotation = InputCenter.CalcQuaternion(bone.Basis);
 		}
 
 	}

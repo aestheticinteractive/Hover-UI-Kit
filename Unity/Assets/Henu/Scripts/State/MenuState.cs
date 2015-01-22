@@ -9,7 +9,6 @@ namespace Henu.State {
 
 		public IInputProvider InputProvider { get; private set; }
 		public NavigationProvider NavProv { get; private set; }
-		public bool IsLeftMenu { get; private set; }
 		public ArcState Arc { get; private set; }
 		public CursorState Cursor { get; private set; }
 
@@ -17,13 +16,12 @@ namespace Henu.State {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public MenuState(IInputProvider pInputProv, NavigationProvider pNavProv, 
-													InteractionSettings pSettings, bool pIsLeftHenu) {
+																		InteractionSettings pSettings) {
 			InputProvider = pInputProv;
 			NavProv = pNavProv;
-			IsLeftMenu = pIsLeftHenu;
 
-			Arc = new ArcState(pInputProv.GetHandProvider(IsLeftMenu), NavProv, pSettings);
-			Cursor = new CursorState(pInputProv.GetHandProvider(!IsLeftMenu), pSettings);
+			Arc = new ArcState(pInputProv, NavProv, pSettings);
+			Cursor = new CursorState(pInputProv, pSettings);
 		}
 
 

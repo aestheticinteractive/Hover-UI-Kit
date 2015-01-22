@@ -6,6 +6,8 @@ namespace HenuDemo {
 	/*================================================================================================*/
 	public class DemoSettingsComponent : HenuDefaultSettingsComponent {
 
+		public static InteractionSettings InteractionSettings;
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -24,6 +26,15 @@ namespace HenuDemo {
 			}
 
 			return base.GetArcSegmentSettings(pNavItem);
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public override InteractionSettings  GetInteractionSettings() {
+			if ( InteractionSettings == null ) {
+				InteractionSettings = base.GetInteractionSettings();
+			}
+
+			return InteractionSettings;
 		}
 
 	}

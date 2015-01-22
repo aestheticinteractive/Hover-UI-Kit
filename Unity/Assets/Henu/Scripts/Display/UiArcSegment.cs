@@ -9,6 +9,8 @@ namespace Henu.Display {
 	/*================================================================================================*/
 	public class UiArcSegment : MonoBehaviour {
 
+		public float ArcAngle { get; private set; }
+
 		private ArcState vArcState;
 		private ArcSegmentState vSegState;
 
@@ -26,6 +28,7 @@ namespace Henu.Display {
 																				ISettings pSettings) {
 			vArcState = pArcState;
 			vSegState = pSegState;
+			ArcAngle = pArcAngle;
 
 			vSegState.SetCursorDistanceFunction(CalcCursorDistance);
 

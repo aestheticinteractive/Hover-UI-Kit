@@ -4,10 +4,10 @@ using UnityEngine;
 namespace Henu.Input {
 
 	/*================================================================================================*/
-	public class InputHand : IInputHand {
+	public class InputCenter : IInputCenter {
 
 		public bool IsLeft { get; set; }
-		public Vector3 Center { get; set; }
+		public Vector3 Position { get; set; }
 		public Quaternion Rotation { get; set; }
 		public float GrabStrength { get; set; }
 		public float PalmTowardEyes { get; set; }
@@ -15,9 +15,9 @@ namespace Henu.Input {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public InputHand(Hand pHand, Vector3 pPalmDirection) {
+		public InputCenter(Hand pHand, Vector3 pPalmDirection) {
 			IsLeft = pHand.IsLeft;
-			Center = pHand.PalmPosition.ToUnityScaled();
+			Position = pHand.PalmPosition.ToUnityScaled();
 			Rotation = CalcQuaternion(pHand.Basis);
 			GrabStrength = pHand.GrabStrength;
 			PalmTowardEyes = Vector3.Dot(pHand.PalmNormal.ToUnity(), pPalmDirection);

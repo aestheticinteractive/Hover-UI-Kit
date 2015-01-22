@@ -16,6 +16,8 @@ namespace Henu.Display {
 		private GameObject vRendererObj;
 		private IUiPalmRenderer vRenderer;
 
+		private bool? vPrevIsLeft;
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -23,25 +25,14 @@ namespace Henu.Display {
 			vArcState = pArc;
 			vSettings = pSettings;
 
-			const float halfAngle = UiArcLevel.AngleFull/2f;
-			Type rendType = pSettings.GetUiPalmRendererType();
-
 			vRendererHold = new GameObject("RendererHold");
 			vRendererHold.transform.SetParent(gameObject.transform, false);
 			vRendererHold.transform.localPosition = UiArcLevel.PushFromHand;
-			vRendererHold.transform.localRotation = 
-				Quaternion.AngleAxis(180+10*(vArcState.IsLeft ? -1 : 1), Vector3.up);
 
-			vRendererObj = new GameObject("Renderer");
-			vRendererObj.transform.SetParent(vRendererHold.transform, false);
-
-			vRenderer = (IUiPalmRenderer)vRendererObj.AddComponent(rendType);
-			vRenderer.Build(vArcState, -halfAngle, halfAngle);
-
-			////
-
+			vArcState.OnIsLeftChange += HandleIsLeftChange;
 			vArcState.OnLevelChange += HandleLevelChange;
-			HandleLevelChange(0);
+
+			HandleIsLeftChange();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -58,6 +49,28 @@ namespace Henu.Display {
 			NavItem parNavItem = vArcState.GetLevelParentItem();
 			var arcSegSett = vSettings.GetArcSegmentSettings(parNavItem);
 			vRenderer.SetSettings(arcSegSett);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void HandleIsLeftChange() {
+			if ( vRendererObj != null ) {
+				vRendererObj.SetActive(false);
+				Destroy(vRendererObj);
+			}
+
+			const float halfAngle = UiArcLevel.AngleFull/2f;
+			Type rendType = vSettings.GetUiPalmRendererType();
+
+			vRendererHold.transform.localRotation = 
+				Quaternion.AngleAxis(180+10*(vArcState.IsLeft ? -1 : 1), Vector3.up);
+
+			vRendererObj = new GameObject("Renderer");
+			vRendererObj.transform.SetParent(vRendererHold.transform, false);
+
+			vRenderer = (IUiPalmRenderer)vRendererObj.AddComponent(rendType);
+			vRenderer.Build(vArcState, -halfAngle, halfAngle);
+
+			HandleLevelChange(0);
 		}
 
 	}
