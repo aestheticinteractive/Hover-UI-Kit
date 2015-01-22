@@ -40,7 +40,7 @@ namespace HenuDemo {
 		public NavItemCheckbox NestedB1 { get; private set; }
 		public NavItemCheckbox NestedB2 { get; private set; }
 		public NavItemCheckbox NestedB3 { get; private set; }
-		public NavItemCheckbox NestedB4 { get; private set; }
+		public NavItemSelector NestedB4 { get; private set; }
 		public NavItemParent NestedC { get; private set; }
 		public NavItemCheckbox NestedC1 { get; private set; }
 		public NavItemCheckbox NestedC2 { get; private set; }
@@ -154,8 +154,10 @@ namespace HenuDemo {
 
 			NestedB1 = new NavItemCheckbox("Checkbox B1");
 			NestedB2 = new NavItemCheckbox("Checkbox B2");
-			NestedB3 = new NavItemCheckbox("Checkbox B3");
-			NestedB4 = new NavItemCheckbox("Checkbox B4");
+			NestedB3 = new NavItemCheckbox("Hide Menu C");
+			NestedB3.OnValueChanged += HandleHideMenuCValueChanged;
+			NestedB4 = new NavItemSelector("Go Back");
+			NestedB4.NavigateBackUponSelect = true;
 
 			NestedB = new NavItemParent("Menu B");
 			NestedB.ChildLevel.Items = new NavItem[] { NestedB1, NestedB2, NestedB3, NestedB4 };
@@ -164,14 +166,35 @@ namespace HenuDemo {
 			NestedC2 = new NavItemCheckbox("Checkbox C2");
 			NestedC3 = new NavItemCheckbox("Checkbox C3");
 			NestedC4 = new NavItemCheckbox("Checkbox C4");
-
 			NestedC5 = new NavItemCheckbox("Checkbox C5");
+
 			NestedC = new NavItemParent("Menu C");
 			NestedC.ChildLevel.Items = new NavItem[] { NestedC1, NestedC2, NestedC3, NestedC4,
 				NestedC5 };
 
+			/*var items = new List<NavItem>();
+
+			for ( int i = 0 ; i < 26 ; ++i ) {
+				var item = new NavItemSelector("                   "+char.ConvertFromUtf32(i+65));
+				items.Add(item);
+			}
+			NestedC = new NavItemParent("Keyboard");
+			NestedC.ChildLevel.Items = items.ToArray();*/
+
 			Nested = new NavItemParent("Nested Menu");
 			Nested.ChildLevel.Items = new NavItem[] { NestedA, NestedB, NestedC };
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private void HandleHideMenuCValueChanged(NavItem<bool> pItem) {
+			if ( pItem.Value ) {
+				Nested.ChildLevel.Items = new NavItem[] { NestedA, NestedB };
+			}
+			else {
+				Nested.ChildLevel.Items = new NavItem[] { NestedA, NestedB, NestedC };
+			}
 		}
 
 	}
