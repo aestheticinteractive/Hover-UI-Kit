@@ -89,7 +89,7 @@ namespace HenuDemo {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public override float GetValue() {
-			return DemoEnvironment.LerpFloat(BaseValue, TargetValue, GetEasedProgress());
+			return Mathf.Lerp(BaseValue, TargetValue, GetEasedProgress());
 		}
 
 	}

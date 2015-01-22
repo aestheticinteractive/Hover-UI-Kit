@@ -36,17 +36,17 @@ namespace Henu.Display.Default {
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
 			ArcSegmentState nearSeg = vArcState.NearestSegment;
-			bool high = (nearSeg != null && nearSeg.HighlightProgress >= 1);
-			float alpha = UiSelectRenderer.GetArcAlpha(vArcState);
+			float highProg = (nearSeg == null ? 0 : nearSeg.HighlightProgress);
+			bool high = (highProg >= 1);
+			float thick = Mathf.Lerp(vSettings.ThickNorm, vSettings.ThickHigh, highProg);
+			float scale = Mathf.Lerp(vSettings.RadiusNorm, vSettings.RadiusHigh, highProg);
 
 			Color col = (high ? vSettings.ColorHigh : vSettings.ColorNorm);
-			col.a *= alpha;
+			col.a *= UiSelectRenderer.GetArcAlpha(vArcState);
 
-			vRingObj.transform.localScale = 
-				Vector3.one*(high ? vSettings.RadiusHigh : vSettings.RadiusNorm);
-
+			BuildMesh(thick);
+			vRingObj.transform.localScale = Vector3.one*scale;
 			vRingObj.renderer.sharedMaterial.color = col;
-			BuildMesh(high ? vSettings.ThickHigh : vSettings.ThickNorm);
 		}
 		
 		

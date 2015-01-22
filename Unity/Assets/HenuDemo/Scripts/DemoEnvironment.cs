@@ -248,7 +248,7 @@ namespace HenuDemo {
 
 			float bobPos = cubeData.BobInitPos+vBobMotion.Position*cubeData.BobSpeed;
 			bobPos = (float)Math.Sin(bobPos*Math.PI)/2f + 0.5f;
-			bobPos = LerpFloat(cubeData.BobRadiusMin, cubeData.BobRadiusMax, bobPos);
+			bobPos = Mathf.Lerp(cubeData.BobRadiusMin, cubeData.BobRadiusMax, bobPos);
 			cube.transform.localPosition = new Vector3(0, 0, bobPos);
 
 			float growPos = cubeData.GrowInitPos+vGrowMotion.Position*cubeData.GrowSpeed;
@@ -407,16 +407,6 @@ namespace HenuDemo {
 			return (float)Math.Pow(RandomFloat(pMin, pMax), pPow);
 		}
 
-		/*--------------------------------------------------------------------------------------------* /
-		public static float ClampFloat(float pValue, float pMin, float pMax) {
-			return Math.Min(pMax, Math.Max(pMin, pValue));
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public static float LerpFloat(float pMin, float pMax, float pAmount) {
-			return (pMax-pMin)*pAmount + pMin;
-		}
-		
 		/*--------------------------------------------------------------------------------------------*/
 		//based on: http://stackoverflow.com/questions/1335426
 		public static Color HsvToColor(float pHue, float pSat, float pVal) {

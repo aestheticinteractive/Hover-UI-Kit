@@ -1,4 +1,5 @@
 ﻿using Henu.Input;
+using Henu.Settings;
 using UnityEngine;
 
 namespace Henu.State {
@@ -9,20 +10,29 @@ namespace Henu.State {
 		public Vector3? Position { get; private set; }
 
 		private readonly IInputHandProvider vInputHandProv;
+		private readonly InteractionSettings vSettings;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public CursorState(IInputHandProvider pInputHandProv) {
+		public CursorState(IInputHandProvider pInputHandProv, InteractionSettings pSettings) {
 			vInputHandProv = pInputHandProv;
+			vSettings = pSettings;
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void UpdateAfterInput() {
+		internal void UpdateAfterInput() {
 			IInputPoint inputPoint = vInputHandProv.IndexPoint;
-			Position = (inputPoint == null ? (Vector3?)null : inputPoint.Position);
+
+			if ( inputPoint == null ) {
+				Position = null;
+				return;
+			}
+
+			Position = inputPoint.Position+
+				inputPoint.Rotation*Vector3.back*vSettings.CursorForwardDistance;
 		}
 
 	}

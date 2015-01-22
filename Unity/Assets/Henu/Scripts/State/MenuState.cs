@@ -23,7 +23,7 @@ namespace Henu.State {
 			IsLeftMenu = pIsLeftHenu;
 
 			Arc = new ArcState(pInputProv.GetHandProvider(IsLeftMenu), NavProv, pSettings);
-			Cursor = new CursorState(pInputProv.GetHandProvider(!IsLeftMenu));
+			Cursor = new CursorState(pInputProv.GetHandProvider(!IsLeftMenu), pSettings);
 		}
 
 

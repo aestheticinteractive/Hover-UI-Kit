@@ -8,7 +8,7 @@ namespace Henu.Settings {
 	/*================================================================================================*/
 	public class HenuDefaultSettingsComponent : HenuSettingsComponent {
 
-		public int TextSize = 26;
+		public int TextSize = 30;
 		public Color TextColor = new Color(1, 1, 1);
 		public string TextFont = "Tahoma";
 		public Color ArrowIconColor = new Color(1, 1, 1);
@@ -20,19 +20,19 @@ namespace Henu.Settings {
 		public Color SliderFillColor = new Color(0.1f, 0.9f, 0.2f, 0.5f);
 		public Color SliderTickColor = new Color(1, 1, 1, 0.1f);
 
-		public Color CursorColorNormal = new Color(1, 1, 1, 0.75f);
+		public Color CursorColorNormal = new Color(1, 1, 1, 0.6f);
 		public Color CursorColorHighlighted = new Color(1, 1, 1, 1);
-		public float CursorRadiusNormal = 0.1f;
-		public float CursorRadiusHighlighted = 0.1f;
+		public float CursorRadiusNormal = 0.12f;
+		public float CursorRadiusHighlighted = 0.06f;
 		public float CursorThicknessNormal = 0.1f;
-		public float CursorThicknessHighlighted = 0.3f;
+		public float CursorThicknessHighlighted = 0.4f;
 
 		public float NavigationBackGrabThreshold = 0.5f;
 		public float NavigationBackUngrabThreshold = 0.25f;
-
 		public float HighlightDistanceMin = 0.05f;
-		public float HighlightDistanceMax = 0.15f;
+		public float HighlightDistanceMax = 0.1f;
 		public float SelectionMilliseconds = 600;
+		public float CursorForwardDistance = 0.01f;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -73,6 +73,7 @@ namespace Henu.Settings {
 			inter.HighlightDistanceMin = HighlightDistanceMin;
 			inter.HighlightDistanceMax = HighlightDistanceMax;
 			inter.SelectionMilliseconds = SelectionMilliseconds;
+			inter.CursorForwardDistance = CursorForwardDistance;
 			return inter;
 		}
 

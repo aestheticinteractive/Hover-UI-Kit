@@ -31,7 +31,6 @@ namespace Henu.Display {
 
 			vRendererHold = new GameObject("RendererHold");
 			vRendererHold.transform.SetParent(gameObject.transform, false);
-			vRendererHold.transform.localPosition = UiArcLevel.PushFromHand;
 
 			vRendererObj = new GameObject("Renderer");
 			vRendererObj.transform.SetParent(vRendererHold.transform, false);
