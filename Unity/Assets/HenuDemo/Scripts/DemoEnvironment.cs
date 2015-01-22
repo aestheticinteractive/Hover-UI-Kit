@@ -143,6 +143,11 @@ namespace HenuDemo {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
+			if ( Input.GetKey(KeyCode.Escape) ) {
+				Application.Quit();
+				return;
+			}
+
 			UpdateOculus();
 
 			vOrbitMotion.Update();
