@@ -30,10 +30,10 @@ namespace Henu.Navigation {
 		public ItemType Type { get; private set; }
 		public virtual string Label { get; private set; }
 		public float RelativeSize { get; private set; }
-		public NavItem[] Children { get; private set; }
+		public NavLevel ChildLevel { get; protected set; }
 
 		public bool IsStickySelected { get; private set; }
-		public bool NavigateBackUponSelect { get; set; }
+		public virtual bool NavigateBackUponSelect { get; set; }
 
 		protected bool vIsEnabled;
 
@@ -45,7 +45,6 @@ namespace Henu.Navigation {
 			Type = pType;
 			Label = (pLabel ?? "");
 			RelativeSize = pRelativeSize;
-			Children = null;
 			vIsEnabled = true;
 
 			OnSelected += (i => {});
@@ -56,19 +55,6 @@ namespace Henu.Navigation {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public void SetChildren(NavItem[] pChildren) {
-			if ( Children != null ) {
-				throw new Exception("Children already set.");
-			}
-
-			if ( Type != ItemType.Parent ) {
-				throw new Exception("Only items of type 'Parent' can have children.");
-			}
-
-			Children = pChildren;
-		}
-
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void Select() {
 			IsStickySelected = UsesStickySelection();

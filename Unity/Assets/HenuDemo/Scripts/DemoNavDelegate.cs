@@ -26,8 +26,8 @@ namespace HenuDemo {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public NavItem[] GetTopLevelItems() {
-			return Items.TopLevelItems;
+		public NavLevel GetTopLevel() {
+			return Items.TopLevel;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -38,7 +38,7 @@ namespace HenuDemo {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void HandleItemSelection(NavItem pItem) {
+		public void HandleItemSelection(NavLevel pLevel, NavItem pItem) {
 			if ( DemoNavItems.IsItemWithin(pItem, Items.Motion, NavItem.ItemType.Checkbox) ) {
 				OnMotionChange(pItem);
 			}
@@ -49,7 +49,7 @@ namespace HenuDemo {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void HandleLevelChange(NavItem[] pItemList, int pDirection) {
+		public void HandleLevelChange(NavLevel pNewLevel, int pDirection) {
 		}
 
 	}

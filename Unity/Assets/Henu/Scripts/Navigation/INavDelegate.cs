@@ -6,16 +6,16 @@
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		NavItem[] GetTopLevelItems();
+		NavLevel GetTopLevel();
 
 		/*--------------------------------------------------------------------------------------------*/
 		string GetTopLevelTitle();
 
 		/*--------------------------------------------------------------------------------------------*/
-		void HandleItemSelection(NavItem pItem);
+		void HandleItemSelection(NavLevel pLevel, NavItem pItem);
 
 		/*--------------------------------------------------------------------------------------------*/
-		void HandleLevelChange(NavItem[] pItemList, int pDirection);
+		void HandleLevelChange(NavLevel pNewLevel, int pDirection);
 
 	}
 

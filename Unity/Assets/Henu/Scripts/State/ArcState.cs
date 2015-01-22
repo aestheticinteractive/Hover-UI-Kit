@@ -55,14 +55,13 @@ namespace Henu.State {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public NavItem GetLevelParentItem() {
-			return (vNavProv.IsAtTopLevelMenu() ? 
-				vNavProv.GetItems()[0] : vNavProv.ActiveParentItem);
+			NavLevel parNavLevel = vNavProv.GetParentLevel();
+			return (parNavLevel == null ? null : parNavLevel.LastSelectedParentItem);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public string GetLevelTitle() {
-			return (vNavProv.IsAtTopLevelMenu() ? 
-				vNavProv.GetTopLevelTitle() : vNavProv.ActiveParentItem.Label);
+			return vNavProv.GetLevelTitle();
 		}
 
 
@@ -161,9 +160,9 @@ namespace Henu.State {
 		private void HandleLevelChange(int pDirection) {
 			vSegments.Clear();
 
-			NavItem[] navItems = vNavProv.GetItems();
+			NavLevel navLevel = vNavProv.GetLevel();
 
-			foreach ( NavItem navItem in navItems ) {
+			foreach ( NavItem navItem in navLevel.Items ) {
 				var seg = new ArcSegmentState(navItem, vSettings);
 				vSegments.Add(seg);
 			}

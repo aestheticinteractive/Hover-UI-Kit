@@ -48,7 +48,7 @@ namespace HenuDemo {
 		public NavItemCheckbox NestedC4 { get; private set; }
 		public NavItemCheckbox NestedC5 { get; private set; }
 
-		public NavItem[] TopLevelItems { get; private set; }
+		public NavLevel TopLevel { get; private set; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -60,7 +60,7 @@ namespace HenuDemo {
 			BuildCamera();
 			BuildNested();
 
-			TopLevelItems = new[] { Color, Motion, Light, Camera, Nested };
+			TopLevel = new NavLevel(Color, Motion, Light, Camera, Nested);
 		}
 
 
@@ -68,14 +68,14 @@ namespace HenuDemo {
 		/*--------------------------------------------------------------------------------------------*/
 		public static bool IsItemWithin(NavItem pItem, NavItemParent pParent, NavItem.ItemType pType) {
 			VerifyParent(pParent);
-			return (pItem.Type == pType && pParent.Children.Contains(pItem));
+			return (pItem.Type == pType && pParent.ChildLevel.Items.Contains(pItem));
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public static NavItemRadio GetChosenRadioItem(NavItemParent pParent) {
 			VerifyParent(pParent);
 
-			foreach ( NavItem item in pParent.Children ) {
+			foreach ( NavItem item in pParent.ChildLevel.Items ) {
 				NavItemRadio radItem = (item as NavItemRadio);
 
 				if ( radItem != null && radItem.Value ) {
@@ -88,7 +88,7 @@ namespace HenuDemo {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private static void VerifyParent(NavItemParent pParent) {
-			if ( pParent.Children != null && pParent.Children.Length != 0 ) {
+			if ( pParent.ChildLevel != null && pParent.ChildLevel.Items.Length != 0 ) {
 				return;
 			}
 
@@ -99,73 +99,79 @@ namespace HenuDemo {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void BuildColors() {
-			Color = new NavItemParent("Color");
 			ColorWhite = new NavItemRadio("White");
 			ColorRandom = new NavItemRadio("Random");
 			ColorCustom = new NavItemRadio("Custom");
 			ColorHue = new NavItemSlider("Hue", 3);
-			Color.SetChildren(new NavItem[] { ColorWhite, ColorRandom, ColorCustom, ColorHue });
+
+			Color = new NavItemParent("Color");
+			Color.ChildLevel.Items = new NavItem[] { ColorWhite, ColorRandom, ColorCustom, ColorHue };
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void BuildMotions() {
-			Motion = new NavItemParent("Motion");
 			MotionOrbit = new NavItemCheckbox("Orbit");
 			MotionSpin = new NavItemCheckbox("Spin");
 			MotionBob = new NavItemCheckbox("Bob");
 			MotionGrow = new NavItemCheckbox("Grow");
 			MotionSpeed = new NavItemSlider("Speed", 4);
-			Motion.SetChildren(new NavItem[] { MotionOrbit, MotionSpin, MotionBob, MotionGrow, 
-				MotionSpeed });
+
+			Motion = new NavItemParent("Motion");
+			Motion.ChildLevel.Items = new NavItem[] { MotionOrbit, MotionSpin, MotionBob, MotionGrow, 
+				MotionSpeed };
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void BuildLight() {
-			Light = new NavItemParent("Lighting");
 			LightPos = new NavItemSlider("Position", 2);
 			LightInten = new NavItemSlider("Intensity", 2);
 			LightSpot = new NavItemSticky("Spotlight");
-			Light.SetChildren(new NavItem[] { LightPos, LightInten, LightSpot });
+
+			Light = new NavItemParent("Lighting");
+			Light.ChildLevel.Items = new NavItem[] { LightPos, LightInten, LightSpot };
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void BuildCamera() {
-			Camera = new NavItemParent("Camera");
 			CameraCenter = new NavItemRadio("Center");
 			CameraBack = new NavItemRadio("Back");
 			CameraTop = new NavItemRadio("Top");
 			CameraReorient = new NavItemSelector("Re-orient");
-			Camera.SetChildren(new NavItem[] { CameraCenter, CameraBack, CameraTop, 
-				CameraReorient });
+
+			Camera = new NavItemParent("Camera");
+			Camera.ChildLevel.Items = new NavItem[] { CameraCenter, CameraBack, CameraTop, 
+				CameraReorient };
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void BuildNested() {
-			Nested = new NavItemParent("Nested Menu");
-
-			NestedA = new NavItemParent("Menu A");
-			NestedB = new NavItemParent("Menu B");
-			NestedC = new NavItemParent("Menu C");
-
 			NestedA1 = new NavItemCheckbox("Checkbox A1");
 			NestedA2 = new NavItemCheckbox("Checkbox A2");
 			NestedA3 = new NavItemCheckbox("Checkbox A3");
-			NestedA.SetChildren(new NavItem[] { NestedA1, NestedA2, NestedA3 });
+
+			NestedA = new NavItemParent("Menu A");
+			NestedA.ChildLevel.Items = new NavItem[] { NestedA1, NestedA2, NestedA3 };
 
 			NestedB1 = new NavItemCheckbox("Checkbox B1");
 			NestedB2 = new NavItemCheckbox("Checkbox B2");
 			NestedB3 = new NavItemCheckbox("Checkbox B3");
 			NestedB4 = new NavItemCheckbox("Checkbox B4");
-			NestedB.SetChildren(new NavItem[] { NestedB1, NestedB2, NestedB3, NestedB4 });
+
+			NestedB = new NavItemParent("Menu B");
+			NestedB.ChildLevel.Items = new NavItem[] { NestedB1, NestedB2, NestedB3, NestedB4 };
 
 			NestedC1 = new NavItemCheckbox("Checkbox C1");
 			NestedC2 = new NavItemCheckbox("Checkbox C2");
 			NestedC3 = new NavItemCheckbox("Checkbox C3");
 			NestedC4 = new NavItemCheckbox("Checkbox C4");
-			NestedC5 = new NavItemCheckbox("Checkbox C5");
-			NestedC.SetChildren(new NavItem[] { NestedC1, NestedC2, NestedC3, NestedC4, NestedC5 });
 
-			Nested.SetChildren(new NavItem[] { NestedA, NestedB, NestedC });
+			NestedC5 = new NavItemCheckbox("Checkbox C5");
+			NestedC = new NavItemParent("Menu C");
+			NestedC.ChildLevel.Items = new NavItem[] { NestedC1, NestedC2, NestedC3, NestedC4,
+				NestedC5 };
+
+			Nested = new NavItemParent("Nested Menu");
+			Nested.ChildLevel.Items = new NavItem[] { NestedA, NestedB, NestedC };
 		}
 
 	}

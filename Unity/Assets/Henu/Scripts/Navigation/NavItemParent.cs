@@ -1,4 +1,6 @@
-﻿namespace Henu.Navigation {
+﻿using System;
+
+namespace Henu.Navigation {
 
 	/*================================================================================================*/
 	public class NavItemParent : NavItem<bool> {
@@ -8,6 +10,7 @@
 		/*--------------------------------------------------------------------------------------------*/
 		public NavItemParent(string pLabel, float pRelativeSize=1) : 
 														base(ItemType.Parent, pLabel, pRelativeSize) {
+			ChildLevel = new NavLevel();
 		}
 
 
@@ -18,6 +21,18 @@
 			base.Select();
 		}
 
+		/*--------------------------------------------------------------------------------------------*/
+		public override bool NavigateBackUponSelect {
+			get {
+				return false;
+			}
+			set {
+				throw new Exception("Cannot set NavigateBackUponSelect for 'Parent' NavItems.");
+			}
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		internal override void UpdateValueOnLevelChange(int pDirection) {
 			if ( pDirection == -1 ) {

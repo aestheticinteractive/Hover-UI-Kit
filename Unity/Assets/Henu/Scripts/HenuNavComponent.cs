@@ -19,24 +19,25 @@ namespace Henu {
 	/*================================================================================================*/
 	public class EmptyDelgate : INavDelegate {
 
-		private readonly NavItem[] vNavItems;
+		private readonly NavLevel vNavLevel;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public EmptyDelgate() {
-			vNavItems = new NavItem[7];
+			vNavLevel = new NavLevel();
+			vNavLevel.Items = new NavItem[7];
 
 			for ( int i = 0 ; i < 7 ; i++ ) {
-				vNavItems[i] = new NavItemCheckbox("Item "+i);
+				vNavLevel.Items[i] = new NavItemCheckbox("Item "+i);
 			}
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public NavItem[] GetTopLevelItems() {
-			return vNavItems;
+		public NavLevel GetTopLevel() {
+			return vNavLevel;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -45,12 +46,12 @@ namespace Henu {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void HandleItemSelection(NavItem pItem) {
+		public void HandleItemSelection(NavLevel pLevel, NavItem pItem) {
 			//do nothing...
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void HandleLevelChange(NavItem[] pItemList, int pDirection) {
+		public void HandleLevelChange(NavLevel pNewLevel, int pDirection) {
 			//do nothing...
 		}
 
