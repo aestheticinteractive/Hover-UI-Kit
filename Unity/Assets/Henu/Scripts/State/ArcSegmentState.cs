@@ -12,12 +12,13 @@ namespace Henu.State {
 
 		public float HighlightDistance { get; private set; }
 		public float HighlightProgress { get; private set; }
+		public bool IsNearestHighlight { get; private set; }
+		public bool IsSelectionPrevented { get; private set; }
 
 		private readonly InteractionSettings vSettings;
 		private Func<Vector3, float> vCursorDistanceFunc;
 		private DateTime? vSelectionStart;
 		private bool vIsAnimating;
-		private bool vPreventSelection;
 		private float vDistanceUponSelection;
 
 
@@ -64,7 +65,7 @@ namespace Henu.State {
 			if ( pCursorPosition == null || vIsAnimating ) {
 				HighlightProgress = 0;
 				vSelectionStart = null;
-				vPreventSelection = false;
+				IsSelectionPrevented = false;
 				return;
 			}
 
@@ -88,17 +89,19 @@ namespace Henu.State {
 
 		/*--------------------------------------------------------------------------------------------*/
 		internal bool SetAsNearestSegment(bool pIsNearest) {
+			IsNearestHighlight = pIsNearest;
+
 			if ( !pIsNearest || SelectionProgress <= 0 ) {
 				NavItem.DeselectStickySelections();
 			}
 
 			if ( !pIsNearest || HighlightProgress < 1 ) {
 				vSelectionStart = null;
-				vPreventSelection = false;
+				IsSelectionPrevented = false;
 				return false;
 			}
 
-			if ( vPreventSelection || !NavItem.AllowSelection ) {
+			if ( IsSelectionPrevented || !NavItem.AllowSelection ) {
 				vSelectionStart = null;
 				return false;
 			}
@@ -113,7 +116,7 @@ namespace Henu.State {
 			}
 
 			vSelectionStart = null;
-			vPreventSelection = true;
+			IsSelectionPrevented = true;
 			vDistanceUponSelection = HighlightDistance;
 			NavItem.Select();
 			return true;

@@ -14,6 +14,7 @@ namespace Henu.Settings {
 		public Color ArrowIconColor = new Color(1, 1, 1);
 		public Color ToggleIconColor = new Color(1, 1, 1);
 		public Color BackgroundColor = new Color(0.1f, 0.1f, 0.1f, 0.5f);
+		public Color EdgeColor = new Color(1, 1, 1, 0.5f);
 		public Color HighlightColor = new Color(0.1f, 0.5f, 0.9f);
 		public Color SelectionColor = new Color(0.1f, 0.9f, 0.2f);
 		public Color SliderTrackColor = new Color(0.1f, 0.1f, 0.1f, 0.5f);
@@ -47,6 +48,7 @@ namespace Henu.Settings {
 			sett.ArrowIconColor = ArrowIconColor;
 			sett.ToggleIconColor = ToggleIconColor;
 			sett.BackgroundColor = BackgroundColor;
+			sett.EdgeColor = EdgeColor;
 			sett.HighlightColor = HighlightColor;
 			sett.SelectionColor = SelectionColor;
 			sett.SliderTrackColor = SliderTrackColor;

@@ -20,6 +20,7 @@ namespace HenuDemo {
 				sett.ArrowIconColor = ArrowIconColor;
 				sett.ToggleIconColor = ToggleIconColor;
 				sett.BackgroundColor = BackgroundColor;
+				sett.EdgeColor = EdgeColor;
 				sett.HighlightColor = HighlightColor;
 				sett.SliderTickColor = SliderTickColor;
 				return sett;

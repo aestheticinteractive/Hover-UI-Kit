@@ -11,6 +11,7 @@ namespace Henu.Settings {
 		public virtual Color ArrowIconColor { get; set; }
 		public virtual Color ToggleIconColor { get; set; }
 		public virtual Color BackgroundColor { get; set; }
+		public virtual Color EdgeColor { get; set; }
 		public virtual Color HighlightColor { get; set; }
 		public virtual Color SelectionColor { get; set; }
 		public virtual Color SliderTrackColor { get; set; }

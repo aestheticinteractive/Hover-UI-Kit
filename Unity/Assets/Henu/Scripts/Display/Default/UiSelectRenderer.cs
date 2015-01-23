@@ -32,6 +32,7 @@ namespace Henu.Display.Default {
 		protected float vAnimAlpha;
 
 		protected GameObject vBackground;
+		protected GameObject vEdge;
 		protected GameObject vHighlight;
 		protected GameObject vSelect;
 		protected GameObject vCanvasGroupObj;
@@ -72,6 +73,14 @@ namespace Henu.Display.Default {
 			vBackground.renderer.sharedMaterial.renderQueue -= 300;
 			vBackground.renderer.sharedMaterial.color = Color.clear;
 
+			vEdge = new GameObject("Edge");
+			vEdge.transform.SetParent(gameObject.transform, false);
+			vEdge.AddComponent<MeshFilter>();
+			vEdge.AddComponent<MeshRenderer>();
+			vEdge.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
+			vEdge.renderer.sharedMaterial.renderQueue -= 300;
+			vEdge.renderer.sharedMaterial.color = Color.clear;
+
 			vHighlight = new GameObject("Highlight");
 			vHighlight.transform.SetParent(gameObject.transform, false);
 			vHighlight.AddComponent<MeshFilter>();
@@ -98,6 +107,9 @@ namespace Henu.Display.Default {
 			for ( int i = 1 ; i < bgMesh.vertices.Length ; i += 2 ) {
 				vSelectionPoints.Add(bgMesh.vertices[i]);
 			}
+
+			MeshUtil.BuildRingMesh(vEdge.GetComponent<MeshFilter>().mesh,
+				0.99f, 1.0f, vAngle0, vAngle1, vMeshSteps);
 
 			////
 
@@ -146,6 +158,8 @@ namespace Henu.Display.Default {
 			}
 
 			float high = vSegState.HighlightProgress;
+			float edge = (vSegState.IsNearestHighlight && !vSegState.IsSelectionPrevented && 
+				vSegState.NavItem.AllowSelection ? high : 0);
 			float select = 1-(float)Math.Pow(1-vSegState.SelectionProgress, 1.5f);
 			float selectAlpha = select;
 
@@ -154,10 +168,12 @@ namespace Henu.Display.Default {
 			}
 
 			Color colBg = vSettings.BackgroundColor;
+			Color colEdge = vSettings.EdgeColor;
 			Color colHigh = vSettings.HighlightColor;
 			Color colSel = vSettings.SelectionColor;
 
 			colBg.a *= vMainAlpha;
+			colEdge.a *= edge*vMainAlpha;
 			colHigh.a *= high*vMainAlpha;
 			colSel.a *= selectAlpha*vMainAlpha;
 
@@ -166,6 +182,7 @@ namespace Henu.Display.Default {
 
 			vCanvasGroupObj.GetComponent<CanvasGroup>().alpha = vMainAlpha;
 			vBackground.renderer.sharedMaterial.color = colBg;
+			vEdge.renderer.sharedMaterial.color = colEdge;
 			vHighlight.renderer.sharedMaterial.color = colHigh;
 			vSelect.renderer.sharedMaterial.color = colSel;
 
