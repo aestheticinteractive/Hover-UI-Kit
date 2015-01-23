@@ -28,8 +28,7 @@ namespace Henu.Display {
 
 			ArcSegmentState[] segStates = vArcState.GetSegments();
 			int segCount = segStates.Length;
-			bool isLeft = vArcState.IsLeft;
-			float degree = 180+10*(vArcState.IsLeft ? -1 : 1) + DegreeFull/2f;
+			float degree = 170 + DegreeFull/2f;
 			float sizeSum = 0;
 
 			for ( int i = 0 ; i < segCount ; i++ ) {
@@ -37,7 +36,7 @@ namespace Henu.Display {
 			}
 
 			for ( int i = 0 ; i < segCount ; i++ ) {
-				ArcSegmentState segState = segStates[isLeft ? i : segCount-i-1];
+				ArcSegmentState segState = segStates[i];
 				float segPerc = segState.NavItem.RelativeSize/sizeSum;
 				float segAngle = AngleFull*segPerc;
 				float segDegHalf = segAngle*ToDegrees/2f;
@@ -71,23 +70,6 @@ namespace Henu.Display {
 					.HandleChangeAnimation(pFadeIn, pDirection, pProgress);
 			}
 		}
-
-		/*--------------------------------------------------------------------------------------------* /
-		private void HandleIsLeftChange() {
-			int segCount = vSegmentObjList.Count;
-			bool isLeft = vArcState.IsLeft;
-			float degree = 180+10*(isLeft ? -1 : 1) + DegreeFull/2f;
-
-			for ( int i = 0 ; i < segCount ; i++ ) {
-				GameObject segObj = vSegmentObjList[isLeft ? i : segCount-i-1];
-				UiArcSegment uiSeg = segObj.GetComponent<UiArcSegment>();
-				float segDegHalf = uiSeg.ArcAngle*ToDegrees/2f;
-
-				degree -= segDegHalf;
-				segObj.transform.localRotation = Quaternion.AngleAxis(degree, Vector3.up);
-				degree -= segDegHalf;
-			}
-		}*/
 
 	}
 

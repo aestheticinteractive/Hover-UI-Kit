@@ -60,6 +60,8 @@ namespace Henu.Display.Default {
 			vTextH = vCanvasH-vTextPadH*2;
 			vTextScale = ArcCanvasScale;
 
+			bool isLeft = vArcState.IsLeft;
+
 			////
 
 			vBackground = new GameObject("Background");
@@ -105,9 +107,8 @@ namespace Henu.Display.Default {
 			vCanvasGroupObj.transform.localPosition = new Vector3(0, 0, 1);
 			vCanvasGroupObj.transform.localRotation = 
 				Quaternion.FromToRotation(Vector3.back, Vector3.down)*
-				Quaternion.FromToRotation(Vector3.down, 
-					(vArcState.IsLeft ? Vector3.left : Vector3.right));
-			vCanvasGroupObj.transform.localScale = Vector3.one*vTextScale;
+				Quaternion.FromToRotation(Vector3.down, Vector3.left);
+			vCanvasGroupObj.transform.localScale = new Vector3((isLeft ? 1 : -1), 1, 1)*vTextScale;
 
 			vCanvasObj = new GameObject("Canvas");
 			vCanvasObj.transform.SetParent(vCanvasGroupObj.transform, false);
@@ -118,7 +119,7 @@ namespace Henu.Display.Default {
 			RectTransform rect = vCanvasObj.GetComponent<RectTransform>();
 			rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, vCanvasW);
 			rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, vCanvasH);
-			rect.pivot = new Vector2((vArcState.IsLeft ? 0 : 1), 0.5f);
+			rect.pivot = new Vector2((isLeft ? 0 : 1), 0.5f);
 
 			////
 
@@ -129,7 +130,7 @@ namespace Henu.Display.Default {
 			text.font = Resources.Load<Font>(vSettings.TextFont);
 			text.fontSize = vSettings.TextSize;
 			text.color = vSettings.TextColor;
-			text.alignment = (vArcState.IsLeft ? TextAnchor.MiddleLeft : TextAnchor.MiddleRight);
+			text.alignment = (isLeft ? TextAnchor.MiddleLeft : TextAnchor.MiddleRight);
 
 			rect = vTextObj.GetComponent<RectTransform>();
 			rect.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, vTextPadW, vTextW);

@@ -19,8 +19,7 @@ namespace Henu {
 		private InputProvider vInputProv;
 		private NavigationProvider vNavProv;
 		private MenuState vMenuState;
-		private UiPalm vUiPalm;
-		private UiArc vUiArc;
+		private UiMenu vUiMenu;
 		private UiCursor vUiCursor;
 
 
@@ -42,20 +41,15 @@ namespace Henu {
 			vNavProv.Init(NavDelegateProvider.GetNavDelegate());
 
 			vInputProv = new InputProvider(PalmDirection);
-			vMenuState = new MenuState(GetInputProv(), vNavProv, 
+			vMenuState = new MenuState(GetInputProv(), vNavProv,
 				SettingsProvider.GetInteractionSettings());
 
 			////
 
-			var palmObj = new GameObject("Palm");
-			palmObj.transform.SetParent(handControlObj.transform, false);
-			vUiPalm = palmObj.AddComponent<UiPalm>();
-			vUiPalm.Build(vMenuState.Arc, SettingsProvider);
-
-			var arcObj = new GameObject("Arc");
-			arcObj.transform.SetParent(handControlObj.transform, false);
-			vUiArc = arcObj.AddComponent<UiArc>();
-			vUiArc.Build(vMenuState.Arc, SettingsProvider);
+			var menuObj = new GameObject("Menu");
+			menuObj.transform.SetParent(handControlObj.transform, false);
+			vUiMenu = menuObj.AddComponent<UiMenu>();
+			vUiMenu.Build(vMenuState, SettingsProvider);
 
 			var cursorObj = new GameObject("Cursor");
 			cursorObj.transform.SetParent(handControlObj.transform, false);

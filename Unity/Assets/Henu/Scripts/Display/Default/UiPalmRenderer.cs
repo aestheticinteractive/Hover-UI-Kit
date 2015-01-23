@@ -38,6 +38,8 @@ namespace Henu.Display.Default {
 			vDiameter = UiSelectRenderer.ArcCanvasThickness;
 			vTextScale = UiSelectRenderer.ArcCanvasScale;
 
+			bool isLeft = vArcState.IsLeft;
+
 			////
 
 			vBackground = new GameObject("Background");
@@ -58,9 +60,8 @@ namespace Henu.Display.Default {
 			vCanvasGroupObj.transform.localPosition = new Vector3(0, 0, vInnerRadius);
 			vCanvasGroupObj.transform.localRotation = 
 				Quaternion.FromToRotation(Vector3.back, Vector3.down)*
-				Quaternion.FromToRotation(Vector3.down, 
-					(vArcState.IsLeft ? Vector3.left : Vector3.right));
-			vCanvasGroupObj.transform.localScale = Vector3.one*vTextScale;
+				Quaternion.FromToRotation(Vector3.down, Vector3.left);
+			vCanvasGroupObj.transform.localScale = new Vector3((isLeft ? 1 : -1), 1, 1)*vTextScale;
 
 			vCanvasObj = new GameObject("Canvas");
 			vCanvasObj.transform.SetParent(vCanvasGroupObj.transform, false);
@@ -71,7 +72,7 @@ namespace Henu.Display.Default {
 			RectTransform rect = vCanvasObj.GetComponent<RectTransform>();
 			rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, vDiameter);
 			rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, vDiameter);
-			rect.pivot = new Vector2((vArcState.IsLeft ? 0 : 1), 0.5f);
+			rect.pivot = new Vector2((isLeft ? 0 : 1), 0.5f);
 
 			////
 

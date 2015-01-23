@@ -311,11 +311,14 @@ MonoBehaviour:
   CursorRadiusHighlighted: .100000001
   CursorThicknessNormal: .100000001
   CursorThicknessHighlighted: .300000012
+  IsMenuOnLeftSide: 1
   NavigationBackGrabThreshold: .5
   NavigationBackUngrabThreshold: .25
   HighlightDistanceMin: .0500000007
   HighlightDistanceMax: .150000006
+  StickyReleaseDistance: .0700000003
   SelectionMilliseconds: 600
+  CursorForwardDistance: .00999999978
 --- !u!1 &1670812126
 GameObject:
   m_ObjectHideFlags: 0
@@ -344,7 +347,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63524f5b0ab05254597d1b6d6c66bae2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MenuIsOnLeftHand: 1
   PalmDirection: {x: 0, y: -1, z: 0}
   TestMode: 0
   NavDelegateProvider: {fileID: 906675229}
@@ -381,7 +383,7 @@ Transform:
   m_PrefabParentObject: {fileID: 400012, guid: 3396c6816a092d647a68cbaade7c78bd, type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1670812126}
-  m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106709}
+  m_LocalRotation: {x: .707106888, y: 0, z: 0, w: .707106769}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.60000002, y: 1.60000002, z: 1.60000002}
   m_Children: []
@@ -636,7 +638,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63524f5b0ab05254597d1b6d6c66bae2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MenuIsOnLeftHand: 1
   PalmDirection: {x: 0, y: 0, z: -1}
   TestMode: 0
   NavDelegateProvider: {fileID: 906675229}

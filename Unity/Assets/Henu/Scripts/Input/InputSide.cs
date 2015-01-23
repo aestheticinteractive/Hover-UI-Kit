@@ -40,12 +40,12 @@ namespace Henu.Input {
 
 			Points = new [] { IndexPoint, MiddlePoint, RingPoint, PinkyPoint };
 
-			/*if ( Hand == null ) {
+			/*if ( Center == null ) {
 				return;
 			}
 
 			Debug.Log("HAND\n"+
-				Hand.Center.ToString("0.000")+" / "+Hand.Rotation.ToString("0.000")+"\n"+
+				Center.Position.ToString("0.000")+" / "+Center.Rotation.ToString("0.000")+"\n"+
 				IndexPoint.Position.ToString("0.000")+" / "+IndexPoint.Rotation.ToString("0.000")+"\n"+
 				MiddlePoint.Position.ToString("0.000")+" / "+
 					MiddlePoint.Rotation.ToString("0.000")+"\n"+

@@ -94,13 +94,7 @@ namespace Henu.Display {
 				cursorDeg = 0;
 			}
 
-			float currVal = cursorDeg/vSlideDegrees;
-
-			if ( !vArcState.IsLeft ) {
-				currVal = 1-currVal;
-			}
-
-			((NavItemSlider)vSegState.NavItem).Value = currVal;
+			((NavItemSlider)vSegState.NavItem).Value = cursorDeg/vSlideDegrees;
 		}
 
 	}

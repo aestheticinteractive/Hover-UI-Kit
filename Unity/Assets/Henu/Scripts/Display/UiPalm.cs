@@ -35,13 +35,6 @@ namespace Henu.Display {
 			HandleIsLeftChange();
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
-		public void Update() {
-			gameObject.transform.localPosition = vArcState.Center;
-			gameObject.transform.localRotation = vArcState.Rotation;
-			gameObject.transform.localScale = Vector3.one*(vArcState.Size*UiArc.ScaleArcSize);
-		}
-
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -61,8 +54,7 @@ namespace Henu.Display {
 			const float halfAngle = UiArcLevel.AngleFull/2f;
 			Type rendType = vSettings.GetUiPalmRendererType();
 
-			vRendererHold.transform.localRotation = 
-				Quaternion.AngleAxis(180+10*(vArcState.IsLeft ? -1 : 1), Vector3.up);
+			vRendererHold.transform.localRotation = Quaternion.AngleAxis(170, Vector3.up);
 
 			vRendererObj = new GameObject("Renderer");
 			vRendererObj.transform.SetParent(vRendererHold.transform, false);

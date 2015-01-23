@@ -29,7 +29,6 @@ namespace Henu.Display.Default {
 			base.Build(pArcState, pSegState, pArcAngle, pSettings);
 
 			float scale = vSettings.TextSize*0.75f*vTextScale;
-			int mult = (vArcState.IsLeft ? 1 : -1);
 			float push = vTextH+vTextPadW;
 			float pos = 1+push/2f*vTextScale;
 
@@ -47,7 +46,7 @@ namespace Henu.Display.Default {
 			vOuter.renderer.sharedMaterial.mainTexture = GetOuterTexture();
 			vOuter.transform.localPosition = new Vector3(0, 0, pos);
 			vOuter.transform.localRotation = vCanvasGroupObj.transform.localRotation;
-			vOuter.transform.localScale = new Vector3(scale*mult, scale, 1);
+			vOuter.transform.localScale = Vector3.one*scale;
 
 			vInner = GameObject.CreatePrimitive(PrimitiveType.Quad);
 			vInner.name = "ToggleInner";

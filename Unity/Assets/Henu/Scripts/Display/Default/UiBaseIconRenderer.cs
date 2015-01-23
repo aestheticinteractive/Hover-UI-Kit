@@ -27,9 +27,6 @@ namespace Henu.Display.Default {
 														float pArcAngle, ArcSegmentSettings pSettings) {
 			base.Build(pArcState, pSegState, pArcAngle, pSettings);
 
-			Vector3 scale = GetIconScale();
-			scale.x *= (vArcState.IsLeft ? 1 : -1);
-
 			float push = vTextH;
 			float pos = 1+(vCanvasW-push/2f-vTextPadW/4f)*vTextScale;
 
@@ -47,7 +44,7 @@ namespace Henu.Display.Default {
 			vIcon.renderer.sharedMaterial.mainTexture = GetIconTexture();
 			vIcon.transform.localPosition = new Vector3(0, 0, pos);
 			vIcon.transform.localRotation = vCanvasGroupObj.transform.localRotation;
-			vIcon.transform.localScale = scale;
+			vIcon.transform.localScale = GetIconScale();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

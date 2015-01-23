@@ -157,7 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63524f5b0ab05254597d1b6d6c66bae2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MenuIsOnLeftHand: 1
+  PalmDirection: {x: 0, y: -1, z: 0}
   TestMode: 1
   NavDelegateProvider: {fileID: 859585610}
   SettingsProvider: {fileID: 859585611}
@@ -225,11 +225,14 @@ MonoBehaviour:
   CursorRadiusHighlighted: .100000001
   CursorThicknessNormal: .100000001
   CursorThicknessHighlighted: .300000012
+  IsMenuOnLeftSide: 1
   NavigationBackGrabThreshold: .5
   NavigationBackUngrabThreshold: .25
   HighlightDistanceMin: .0500000007
   HighlightDistanceMax: .150000006
+  StickyReleaseDistance: .0700000003
   SelectionMilliseconds: 600
+  CursorForwardDistance: .00999999978
 --- !u!1 &1037135469
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,7 +333,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1281502895}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a69beda0e6f865b48bbc6d6afae94fcb, type: 3}
+  m_Script: {fileID: 11500000, guid: 2637b75d5da0e604681a9ef4e16dfbb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TestCenter: {x: .120999999, y: .118000001, z: -.0199999996}
@@ -417,8 +420,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc9b7d78e8c72464f9435e7cb14789b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TestPosition: {x: -.100000001, y: .140000001, z: -.0299999993}
-  TestRotation: {x: 0, y: 0, z: 0, w: 0}
+  TestPosition: {x: -.0130000003, y: .173999995, z: .00800000038}
+  TestRotation: {x: -.0260000005, y: .897000015, z: -.0260000005, w: -.441000015}
 --- !u!1 &1395554839
 GameObject:
   m_ObjectHideFlags: 0
@@ -458,8 +461,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc9b7d78e8c72464f9435e7cb14789b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TestPosition: {x: 0, y: 0, z: 0}
-  TestRotation: {x: 0, y: 0, z: 0, w: 0}
+  TestPosition: {x: .0170000009, y: .171000004, z: -.0270000007}
+  TestRotation: {x: -.103, y: -.81400001, z: .0970000029, w: .563000023}
 --- !u!1 &1434115878
 GameObject:
   m_ObjectHideFlags: 0
@@ -500,11 +503,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1434115878}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a69beda0e6f865b48bbc6d6afae94fcb, type: 3}
+  m_Script: {fileID: 11500000, guid: 2637b75d5da0e604681a9ef4e16dfbb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TestCenter: {x: 0, y: 0, z: 0}
-  TestRotation: {x: 0, y: 0, z: 0, w: 0}
+  TestCenter: {x: -.0769999996, y: .147, z: -.0659999996}
+  TestRotation: {x: -.112000003, y: .827000022, z: -.254000008, w: -.49000001}
   TestGrabStrength: 0
   TestPalmTowardEyes: 1
 --- !u!1 &1845323235
@@ -546,8 +549,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc9b7d78e8c72464f9435e7cb14789b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TestPosition: {x: 0, y: 0, z: 0}
-  TestRotation: {x: 0, y: 0, z: 0, w: 0}
+  TestPosition: {x: .0109999999, y: .155000001, z: -.0949999988}
+  TestRotation: {x: -.231999993, y: -.675000012, z: .221000001, w: .663999975}
 --- !u!1 &1866231507
 GameObject:
   m_ObjectHideFlags: 0
@@ -669,8 +672,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc9b7d78e8c72464f9435e7cb14789b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TestPosition: {x: 0, y: 0, z: 0}
-  TestRotation: {x: 0, y: 0, z: 0, w: 0}
+  TestPosition: {x: .0219999999, y: .165000007, z: -.057}
+  TestRotation: {x: -.149000004, y: -.77700001, z: .131999999, w: .59799999}
 --- !u!1 &2102121301
 GameObject:
   m_ObjectHideFlags: 0
@@ -719,7 +722,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2102121301}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d196025ccb8b6d4592b4d8ab210418a, type: 3}
   m_Name: 

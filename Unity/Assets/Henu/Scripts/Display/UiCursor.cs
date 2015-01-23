@@ -51,7 +51,7 @@ namespace Henu.Display {
 			Transform tx = gameObject.transform;
 			tx.localPosition = (Vector3)vCursorState.Position;
 			tx.localRotation = Quaternion.identity;
-			tx.localScale = Vector3.one*(vArcState.Size*UiArc.ScaleArcSize);
+			tx.localScale = Vector3.one*(vArcState.Size*UiMenu.ScaleArcSize);
 
 			Vector3 camWorld = vCameraTx.transform.TransformPoint(Vector3.zero);
 			Vector3 camLocal = tx.InverseTransformPoint(camWorld);

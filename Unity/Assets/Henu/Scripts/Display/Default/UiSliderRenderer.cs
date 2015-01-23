@@ -124,15 +124,8 @@ namespace Henu.Display.Default {
 
 			float showVal = GetEasedValue();
 
-			if ( vArcState.IsLeft ) {
-				BuildMesh(vTrackMesh, showVal, 1, false);
-				BuildMesh(vFillMesh, 0, showVal, true);
-			}
-			else {
-				showVal = 1-showVal;
-				BuildMesh(vTrackMesh, 0, showVal, true);
-				BuildMesh(vFillMesh, showVal, 1, false);
-			}
+			BuildMesh(vTrackMesh, showVal, 1, false);
+			BuildMesh(vFillMesh, 0, showVal, true);
 
 			Color colTrack = vSettings.SliderTrackColor;
 			Color colFill = vSettings.SliderFillColor;
