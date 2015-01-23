@@ -28,7 +28,7 @@ namespace Henu.Display.Default {
 			vRingObj.transform.SetParent(gameObject.transform, false);
 			vRingObj.AddComponent<MeshRenderer>();
 			vRingObj.AddComponent<MeshFilter>();
-			vRingObj.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
+			vRingObj.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllumTop"));
 
 			vRingMesh = vRingObj.GetComponent<MeshFilter>().mesh;
 		}

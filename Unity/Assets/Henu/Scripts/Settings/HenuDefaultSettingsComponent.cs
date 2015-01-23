@@ -34,7 +34,7 @@ namespace Henu.Settings {
 		public float HighlightDistanceMax = 0.1f;
 		public float StickyReleaseDistance = 0.07f;
 		public float SelectionMilliseconds = 600;
-		public float CursorForwardDistance = 0.01f;
+		public float CursorForwardDistance = 0.0f;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
