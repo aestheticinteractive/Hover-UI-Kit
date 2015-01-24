@@ -30,7 +30,7 @@ namespace Henu.Display.Default {
 			vAngle1 = pAngle1;
 			vMeshSteps = (int)Math.Round(Math.Max(2, (vAngle1-vAngle0)/Math.PI*60));
 
-			vInnerRadius = 0.1f;
+			vInnerRadius = 0.17f;
 			vDiameter = UiSelectRenderer.ArcCanvasThickness;
 
 			////
