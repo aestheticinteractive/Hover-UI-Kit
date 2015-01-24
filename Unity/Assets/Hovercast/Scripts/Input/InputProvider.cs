@@ -7,6 +7,8 @@ namespace Hovercast.Input {
 	/*================================================================================================*/
 	public class InputProvider : IInputProvider {
 
+		public Vector3 PalmDirection { get; private set; }
+
 		private Frame vFrame;
 		private readonly InputSide vInputHandProvL;
 		private readonly InputSide vInputHandProvR;
@@ -15,6 +17,7 @@ namespace Hovercast.Input {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public InputProvider(Vector3 pPalmDirection) {
+			PalmDirection = pPalmDirection;
 			vInputHandProvL = new InputSide(true, pPalmDirection);
 			vInputHandProvR = new InputSide(false, pPalmDirection);
 		}

@@ -16,6 +16,7 @@ namespace Hovercast.Display {
 		private Transform vCameraTx;
 
 		private float vCurrInnerRadius;
+		private Vector3 vStartRotDir;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -24,6 +25,12 @@ namespace Hovercast.Display {
 			vArcState = pArcState;
 			vCursorState = pCursorState;
 			vCameraTx = GameObject.Find("HandController").transform;
+
+			vStartRotDir = vCursorState.PalmDirection;
+
+			if ( vCursorState.PalmDirection.z == -1 ) { //TODO: find general solution
+				vStartRotDir *= -1;
+			}
 
 			////
 			
@@ -55,7 +62,7 @@ namespace Hovercast.Display {
 
 			Vector3 camWorld = vCameraTx.transform.TransformPoint(Vector3.zero);
 			Vector3 camLocal = tx.InverseTransformPoint(camWorld);
-			tx.localRotation = Quaternion.FromToRotation(Vector3.down, camLocal);
+			tx.localRotation = Quaternion.FromToRotation(vStartRotDir, camLocal);
 		}
 
 	}

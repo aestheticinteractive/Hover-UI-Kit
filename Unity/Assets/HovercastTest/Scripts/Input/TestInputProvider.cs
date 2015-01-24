@@ -6,6 +6,8 @@ namespace HovercastTest.Input {
 	/*================================================================================================*/
 	public class TestInputProvider : MonoBehaviour, IInputProvider {
 
+		public Vector3 PalmDirection { get; private set; }
+
 		private TestInputSide vInputHandProvL;
 		private TestInputSide vInputHandProvR;
 		private TestInputCenter vInputCenterL;
@@ -26,6 +28,8 @@ namespace HovercastTest.Input {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void Init() {
+			PalmDirection = Vector3.down;
+
 			GameObject leftObj = gameObject.transform.FindChild("LeftHand").gameObject;
 			GameObject rightObj = gameObject.transform.FindChild("RightHand").gameObject;
 

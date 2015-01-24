@@ -8,6 +8,7 @@ namespace Hovercast.State {
 	public class CursorState {
 
 		public bool IsLeft { get; private set; }
+		public Vector3 PalmDirection { get; private set; }
 		public Vector3? Position { get; private set; }
 
 		private readonly IInputProvider vInputProv;
@@ -21,6 +22,7 @@ namespace Hovercast.State {
 			vSettings = pSettings;
 
 			IsLeft = vSettings.IsMenuOnLeftSide;
+			PalmDirection = vInputProv.PalmDirection;
 		}
 
 

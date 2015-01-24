@@ -165,6 +165,7 @@ namespace HovercastDemo {
 
 			CustomizeDark = new NavItemRadio("Dark Theme");
 			CustomizeDark.OnSelected += HandleDarkThemeSelected;
+			CustomizeDark.Value = true;
 			CustomizeLight = new NavItemRadio("Light Theme");
 			CustomizeLight.OnSelected += HandleLightThemeSelected;
 			CustomizeColor = new NavItemRadio("Color Theme");
