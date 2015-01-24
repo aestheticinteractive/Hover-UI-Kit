@@ -1,4 +1,9 @@
 ![Demo Image](http://www.aestheticinteractive.com/clients/hovercast/HovercastDemo-2015-01-24a.jpg)
+[View more images >](https://github.com/aestheticinteractive/Hovercast-VR-Menu/wiki/Demo-Screenshots)
+
+---
+
+### Hovercast VR Menu
 
 **Hovercast** is a customizable menu interface for virtual reality applications. It provides menu navigation, buttons, sliders, and toggles – all using simple, reliable gestures.
 
@@ -13,7 +18,7 @@ Key features:
 -	Ability to support a variety of 3D input devices.
 
 ---
-This project includes a complete [demo application](https://github.com/aestheticinteractive/Hovercast/tree/master/Unity/Assets/HovercastDemo/Scripts) that provides several examples of **Hovercast** configuration and usage. The demo surrounds you with hundreds of cubes. Use the menu to control the scene's colors, animation, lighting, and camera.
+This project includes a complete [demo application](https://github.com/aestheticinteractive/Hovercast/tree/master/Unity/Assets/HovercastDemo/Scripts) that provides several examples of **Hovercast** configuration and usage. The demo surrounds you with hundreds of cubes. Use the menu to control the scene's colors, animation, lighting, and camera. You can also review the [Getting Started](https://github.com/aestheticinteractive/Hovercast-VR-Menu/wiki/Getting-Started) page to learn how to integrate Hovercast into a Unity project.
 
 **[Watch the latest Hovercast demo video >](https://www.youtube.com/watch?v=Phn3Ix-YxPA)**
 
