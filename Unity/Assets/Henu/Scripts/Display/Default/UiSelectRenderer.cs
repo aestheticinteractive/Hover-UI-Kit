@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Henu.Settings;
 using Henu.State;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Henu.Display.Default {
 
@@ -21,13 +20,6 @@ namespace Henu.Display.Default {
 		protected ArcSegmentSettings vSettings;
 		protected int vMeshSteps;
 
-		protected float vTextPadW;
-		protected float vTextPadH;
-		protected float vCanvasW;
-		protected float vCanvasH;
-		protected float vTextW;
-		protected float vTextH;
-		protected float vTextScale;
 		protected float vMainAlpha;
 		protected float vAnimAlpha;
 
@@ -35,9 +27,7 @@ namespace Henu.Display.Default {
 		protected GameObject vEdge;
 		protected GameObject vHighlight;
 		protected GameObject vSelect;
-		protected GameObject vCanvasGroupObj;
-		protected GameObject vCanvasObj;
-		protected GameObject vTextObj;
+		protected UiLabel vLabel;
 
 		private List<Vector3> vSelectionPoints;
 
@@ -52,16 +42,6 @@ namespace Henu.Display.Default {
 			vAngle1 = pArcAngle/2f-AngleInset;
 			vSettings = pSettings;
 			vMeshSteps = (int)Math.Round(Math.Max(2, (vAngle1-vAngle0)/Math.PI*60));
-
-			vTextPadW = vSettings.TextSize*0.6f;
-			vTextPadH = 0;
-			vCanvasW = ArcCanvasThickness;
-			vCanvasH = vSettings.TextSize*1.25f+vTextPadH*2;
-			vTextW = vCanvasW-vTextPadW*2;
-			vTextH = vCanvasH-vTextPadH*2;
-			vTextScale = ArcCanvasScale;
-
-			bool isLeft = vArcState.IsLeft;
 
 			////
 
@@ -113,40 +93,13 @@ namespace Henu.Display.Default {
 
 			////
 
-			vCanvasGroupObj = new GameObject("CanvasGroup");
-			vCanvasGroupObj.transform.SetParent(gameObject.transform, false);
-			vCanvasGroupObj.AddComponent<CanvasGroup>();
-			vCanvasGroupObj.transform.localPosition = new Vector3(0, 0, 1);
-			vCanvasGroupObj.transform.localRotation = 
-				Quaternion.FromToRotation(Vector3.back, Vector3.down)*
-				Quaternion.FromToRotation(Vector3.down, Vector3.left);
-			vCanvasGroupObj.transform.localScale = new Vector3((isLeft ? 1 : -1), 1, 1)*vTextScale;
-
-			vCanvasObj = new GameObject("Canvas");
-			vCanvasObj.transform.SetParent(vCanvasGroupObj.transform, false);
+			var labelObj = new GameObject("Label");
+			labelObj.transform.SetParent(gameObject.transform, false);
+			labelObj.transform.localPosition = new Vector3(0, 0, 1);
+			labelObj.transform.localScale = new Vector3(1, 1, (vArcState.IsLeft ? 1 : -1));
 			
-			Canvas canvas = vCanvasObj.AddComponent<Canvas>();
-			canvas.renderMode = RenderMode.WorldSpace;
-
-			RectTransform rect = vCanvasObj.GetComponent<RectTransform>();
-			rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, vCanvasW);
-			rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, vCanvasH);
-			rect.pivot = new Vector2((isLeft ? 0 : 1), 0.5f);
-
-			////
-
-			vTextObj = new GameObject("Text");
-			vTextObj.transform.SetParent(vCanvasObj.transform, false);
-
-			Text text = vTextObj.AddComponent<Text>();
-			text.font = Resources.Load<Font>(vSettings.TextFont);
-			text.fontSize = vSettings.TextSize;
-			text.color = vSettings.TextColor;
-			text.alignment = (isLeft ? TextAnchor.MiddleLeft : TextAnchor.MiddleRight);
-
-			rect = vTextObj.GetComponent<RectTransform>();
-			rect.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, vTextPadW, vTextW);
-			rect.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, vTextPadH, vTextH);
+			vLabel = labelObj.AddComponent<UiLabel>();
+			vLabel.IsLeft = vArcState.IsLeft;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -180,7 +133,6 @@ namespace Henu.Display.Default {
 			BuildMesh(vHighlight.GetComponent<MeshFilter>().mesh, high);
 			BuildMesh(vSelect.GetComponent<MeshFilter>().mesh, select);
 
-			vCanvasGroupObj.GetComponent<CanvasGroup>().alpha = vMainAlpha;
 			vBackground.renderer.sharedMaterial.color = colBg;
 			vEdge.renderer.sharedMaterial.color = colEdge;
 			vHighlight.renderer.sharedMaterial.color = colHigh;
@@ -189,7 +141,11 @@ namespace Henu.Display.Default {
 			vHighlight.SetActive(high > 0);
 			vSelect.SetActive(select > 0);
 
-			vTextObj.GetComponent<Text>().text = vSegState.NavItem.Label;
+			vLabel.Alpha = vMainAlpha;
+			vLabel.FontName = vSettings.TextFont;
+			vLabel.FontSize = vSettings.TextSize;
+			vLabel.Color = vSettings.TextColor;
+			vLabel.Label = vSegState.NavItem.Label;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

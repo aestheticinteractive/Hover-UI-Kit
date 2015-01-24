@@ -1,8 +1,4 @@
-﻿using Henu.Navigation;
-using Henu.Settings;
-using Henu.State;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 namespace Henu.Display.Default {
 
@@ -11,8 +7,6 @@ namespace Henu.Display.Default {
 
 		private static readonly Texture2D IconTex = Resources.Load<Texture2D>("Slider");
 
-		private NavItemSlider vNavSlider;
-		private Text vText;
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -22,25 +16,9 @@ namespace Henu.Display.Default {
 
 		/*--------------------------------------------------------------------------------------------*/
 		protected override Vector3 GetIconScale() {
-			float sx = vSettings.TextSize*vTextScale;
-			float sy = vSettings.TextSize*1.25f*vTextScale;
+			float sx = vSettings.TextSize*ArcCanvasScale;
+			float sy = vSettings.TextSize*1.25f*ArcCanvasScale;
 			return new Vector3(sx, sy, 1);
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public override void Build(ArcState pArcState, ArcSegmentState pSegState,
-														float pArcAngle, ArcSegmentSettings pSettings) {
-			base.Build(pArcState, pSegState, pArcAngle, pSettings);
-			vNavSlider = (NavItemSlider)vSegState.NavItem;
-			vText = vTextObj.GetComponent<Text>();
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public override void Update() {
-			base.Update();
-			vText.text = vNavSlider.Label;
 		}
 
 	}

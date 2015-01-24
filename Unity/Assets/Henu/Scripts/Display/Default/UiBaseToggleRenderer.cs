@@ -10,6 +10,8 @@ namespace Henu.Display.Default {
 		private GameObject vOuter;
 		private GameObject vInner;
 
+		private int vPrevTextSize;
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -28,25 +30,13 @@ namespace Henu.Display.Default {
 														float pArcAngle, ArcSegmentSettings pSettings) {
 			base.Build(pArcState, pSegState, pArcAngle, pSettings);
 
-			float scale = vSettings.TextSize*0.75f*vTextScale;
-			float push = vTextH+vTextPadW;
-			float pos = 1+push/2f*vTextScale;
-
-			RectTransform.Edge edge = (vArcState.IsLeft ? 
-				RectTransform.Edge.Left : RectTransform.Edge.Right);
-
-			RectTransform rect = vTextObj.GetComponent<RectTransform>();
-			rect.SetInsetAndSizeFromParentEdge(edge, push, vCanvasW-push-vTextPadW);
-
 			vOuter = GameObject.CreatePrimitive(PrimitiveType.Quad);
 			vOuter.name = "ToggleOuter";
 			vOuter.transform.SetParent(gameObject.transform, false);
 			vOuter.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
 			vOuter.renderer.sharedMaterial.color = Color.clear;
 			vOuter.renderer.sharedMaterial.mainTexture = GetOuterTexture();
-			vOuter.transform.localPosition = new Vector3(0, 0, pos);
-			vOuter.transform.localRotation = vCanvasGroupObj.transform.localRotation;
-			vOuter.transform.localScale = Vector3.one*scale;
+			vOuter.transform.localRotation = vLabel.CanvasLocalRotation;
 
 			vInner = GameObject.CreatePrimitive(PrimitiveType.Quad);
 			vInner.name = "ToggleInner";
@@ -54,9 +44,7 @@ namespace Henu.Display.Default {
 			vInner.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
 			vInner.renderer.sharedMaterial.color = Color.clear;
 			vInner.renderer.sharedMaterial.mainTexture = GetInnerTexture();
-			vInner.transform.localPosition = vOuter.transform.localPosition;
-			vInner.transform.localRotation = vOuter.transform.localRotation;
-			vInner.transform.localScale = vOuter.transform.localScale;
+			vInner.transform.localRotation = vLabel.CanvasLocalRotation;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -69,6 +57,22 @@ namespace Henu.Display.Default {
 			vOuter.renderer.sharedMaterial.color = color;
 			vInner.renderer.sharedMaterial.color = color;
 			vInner.renderer.enabled = IsToggled();
+
+			if ( vSettings.TextSize != vPrevTextSize ) {
+				vPrevTextSize = vSettings.TextSize;
+
+				float inset = vLabel.TextH*0.85f;
+				Vector3 pos = new Vector3(0, 0, 1+inset*0.75f*ArcCanvasScale);
+				Vector3 scale = Vector3.one*(vSettings.TextSize*0.75f*ArcCanvasScale);
+
+				vLabel.SetInset(vArcState.IsLeft, inset);
+
+				vOuter.transform.localPosition = pos;
+				vOuter.transform.localScale = scale;
+
+				vInner.transform.localPosition = pos;
+				vInner.transform.localScale = scale;
+			}
 		}
 
 	}

@@ -9,6 +9,8 @@ namespace Henu.Display.Default {
 
 		private GameObject vIcon;
 
+		private int vPrevTextSize;
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -16,7 +18,7 @@ namespace Henu.Display.Default {
 
 		/*--------------------------------------------------------------------------------------------*/
 		protected virtual Vector3 GetIconScale() {
-			float s = vSettings.TextSize*0.75f*vTextScale;
+			float s = vSettings.TextSize*0.75f*ArcCanvasScale;
 			return new Vector3(s, s, 1);
 		}
 
@@ -27,24 +29,13 @@ namespace Henu.Display.Default {
 														float pArcAngle, ArcSegmentSettings pSettings) {
 			base.Build(pArcState, pSegState, pArcAngle, pSettings);
 
-			float push = vTextH;
-			float pos = 1+(vCanvasW-push/2f-vTextPadW/4f)*vTextScale;
-
-			RectTransform.Edge edge = (vArcState.IsLeft ? 
-				RectTransform.Edge.Right : RectTransform.Edge.Left);
-
-			RectTransform rect = vTextObj.GetComponent<RectTransform>();
-			rect.SetInsetAndSizeFromParentEdge(edge, push, vCanvasW-push-vTextPadW);
-
 			vIcon = GameObject.CreatePrimitive(PrimitiveType.Quad);
 			vIcon.name = "Icon";
 			vIcon.transform.SetParent(gameObject.transform, false);
 			vIcon.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
 			vIcon.renderer.sharedMaterial.color = Color.clear;
 			vIcon.renderer.sharedMaterial.mainTexture = GetIconTexture();
-			vIcon.transform.localPosition = new Vector3(0, 0, pos);
-			vIcon.transform.localRotation = vCanvasGroupObj.transform.localRotation;
-			vIcon.transform.localScale = GetIconScale();
+			vIcon.transform.localRotation = vLabel.CanvasLocalRotation;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -55,6 +46,18 @@ namespace Henu.Display.Default {
 			color.a *= (vSegState.HighlightProgress*0.75f + 0.25f)*vMainAlpha;
 
 			vIcon.renderer.sharedMaterial.color = color;
+
+			if ( vSettings.TextSize != vPrevTextSize ) {
+				vPrevTextSize = vSettings.TextSize;
+
+				float inset = vLabel.TextH;
+
+				vLabel.SetInset(!vArcState.IsLeft, inset);
+
+				vIcon.transform.localPosition = 
+					new Vector3(0, 0, 1+(vLabel.CanvasW-inset*0.666f)*ArcCanvasScale);
+				vIcon.transform.localScale = GetIconScale();
+			}
 		}
 
 	}

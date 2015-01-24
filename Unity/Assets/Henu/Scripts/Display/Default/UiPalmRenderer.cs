@@ -2,7 +2,6 @@
 using Henu.Settings;
 using Henu.State;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Henu.Display.Default {
 
@@ -16,14 +15,11 @@ namespace Henu.Display.Default {
 
 		protected float vInnerRadius;
 		protected float vDiameter;
-		protected float vTextScale;
 		protected float vMainAlpha;
 		private ArcSegmentSettings vSettings;
 
 		protected GameObject vBackground;
-		protected GameObject vCanvasGroupObj;
-		protected GameObject vCanvasObj;
-		protected GameObject vTextObj;
+		protected UiLabel vLabel;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -36,9 +32,6 @@ namespace Henu.Display.Default {
 
 			vInnerRadius = 0.1f;
 			vDiameter = UiSelectRenderer.ArcCanvasThickness;
-			vTextScale = UiSelectRenderer.ArcCanvasScale;
-
-			bool isLeft = vArcState.IsLeft;
 
 			////
 
@@ -54,48 +47,18 @@ namespace Henu.Display.Default {
 
 			////
 
-			vCanvasGroupObj = new GameObject("CanvasGroup");
-			vCanvasGroupObj.transform.SetParent(gameObject.transform, false);
-			vCanvasGroupObj.AddComponent<CanvasGroup>();
-			vCanvasGroupObj.transform.localPosition = new Vector3(0, 0, vInnerRadius);
-			vCanvasGroupObj.transform.localRotation = 
-				Quaternion.FromToRotation(Vector3.back, Vector3.down)*
-				Quaternion.FromToRotation(Vector3.down, Vector3.left);
-			vCanvasGroupObj.transform.localScale = new Vector3((isLeft ? 1 : -1), 1, 1)*vTextScale;
+			var labelObj = new GameObject("Label");
+			labelObj.transform.SetParent(gameObject.transform, false);
+			labelObj.transform.localPosition = new Vector3(0, 0, vInnerRadius);
+			labelObj.transform.localScale = new Vector3(1, 1, (vArcState.IsLeft ? 1 : -1));
 
-			vCanvasObj = new GameObject("Canvas");
-			vCanvasObj.transform.SetParent(vCanvasGroupObj.transform, false);
-			
-			Canvas canvas = vCanvasObj.AddComponent<Canvas>();
-			canvas.renderMode = RenderMode.WorldSpace;
-
-			RectTransform rect = vCanvasObj.GetComponent<RectTransform>();
-			rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, vDiameter);
-			rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, vDiameter);
-			rect.pivot = new Vector2((isLeft ? 0 : 1), 0.5f);
-
-			////
-
-			vTextObj = new GameObject("Text");
-			vTextObj.transform.SetParent(vCanvasObj.transform, false);
-
-			Text text = vTextObj.AddComponent<Text>();
-			text.alignment = TextAnchor.MiddleCenter;
-
-			rect = vTextObj.GetComponent<RectTransform>();
-			rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, vDiameter);
-			rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, vDiameter);
+			vLabel = labelObj.AddComponent<UiLabel>();
+			vLabel.IsLeft = vArcState.IsLeft;
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void SetSettings(ArcSegmentSettings pSettings) {
 			vSettings = pSettings;
-
-			Text text = vTextObj.GetComponent<Text>();
-			text.font = Resources.Load<Font>(vSettings.TextFont);
-			text.fontSize = vSettings.TextSize;
-			text.color = vSettings.TextColor;
-			text.text = vArcState.GetLevelTitle();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -105,8 +68,13 @@ namespace Henu.Display.Default {
 			Color colBg = vSettings.BackgroundColor;
 			colBg.a *= vMainAlpha;
 
-			vCanvasGroupObj.GetComponent<CanvasGroup>().alpha = vMainAlpha;
 			vBackground.renderer.sharedMaterial.color = colBg;
+
+			vLabel.Alpha = vMainAlpha;
+			vLabel.FontName = vSettings.TextFont;
+			vLabel.FontSize = vSettings.TextSize;
+			vLabel.Color = vSettings.TextColor;
+			vLabel.Label = vArcState.GetLevelTitle();
 		}
 
 

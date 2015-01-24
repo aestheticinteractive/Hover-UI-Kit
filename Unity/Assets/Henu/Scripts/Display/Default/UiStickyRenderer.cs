@@ -16,7 +16,7 @@ namespace Henu.Display.Default {
 
 		/*--------------------------------------------------------------------------------------------*/
 		protected override Vector3 GetIconScale() {
-			float s = vSettings.TextSize*vTextScale;
+			float s = vSettings.TextSize*ArcCanvasScale;
 			return new Vector3(s, s, 1);
 		}
 
