@@ -15,6 +15,19 @@ namespace Henu.Settings {
 		public DemoHueSliderSettings(NavItem pNavItem) {
 			vNavItem = pNavItem;
 		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public void Fill(ArcSegmentSettings pSettings) {
+			TextSize = pSettings.TextSize;
+			TextColor = pSettings.TextColor;
+			TextFont = pSettings.TextFont;
+			ArrowIconColor = pSettings.ArrowIconColor;
+			ToggleIconColor = pSettings.ToggleIconColor;
+			BackgroundColor = pSettings.BackgroundColor;
+			EdgeColor = pSettings.EdgeColor;
+			HighlightColor = pSettings.HighlightColor;
+			SliderTickColor = pSettings.SliderTickColor;
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

@@ -16,9 +16,7 @@ namespace Henu.Display.Default {
 
 		private int vFontSize;
 		private bool? vIsLeft;
-		protected float vAlpha;
 		private string vFontName;
-		private Color vColor;
 		private float vLeftInset;
 		private float vRightInset;
 
@@ -35,6 +33,7 @@ namespace Henu.Display.Default {
 			TextPadH = 0;
 			CanvasW = UiSelectRenderer.ArcCanvasThickness;
 			vTextScale = UiSelectRenderer.ArcCanvasScale;
+			vFontSize = -1;
 
 			////
 
@@ -137,15 +136,16 @@ namespace Henu.Display.Default {
 		/*--------------------------------------------------------------------------------------------*/
 		public float Alpha {
 			get {
-				return vAlpha;
+				return vCanvasGroupObj.GetComponent<CanvasGroup>().alpha;
 			}
 			set {
-				if ( Math.Abs(value-vAlpha) < 0.001f ) {
+				CanvasGroup group = vCanvasGroupObj.GetComponent<CanvasGroup>();
+
+				if ( Math.Abs(value-group.alpha) < 0.001f ) {
 					return;
 				}
 
-				vAlpha = value;
-				vCanvasGroupObj.GetComponent<CanvasGroup>().alpha = vAlpha;
+				group.alpha = value;
 			}
 		}
 
@@ -167,15 +167,16 @@ namespace Henu.Display.Default {
 		/*--------------------------------------------------------------------------------------------*/
 		public Color Color {
 			get {
-				return vColor;
+				return vTextObj.GetComponent<Text>().color;
 			}
 			set {
-				if ( value == vColor ) {
+				Text text = vTextObj.GetComponent<Text>();
+
+				if ( value == text.color ) {
 					return;
 				}
 
-				vColor = value;
-				vTextObj.GetComponent<Text>().color = vColor;
+				text.color = value;
 			}
 		}
 

@@ -127,7 +127,7 @@ namespace HenuDemo {
 			});
 
 			vNavItems.LightInten.Value = 0.5f;
-			vNavItems.LightInten.ValueToLabel = ((v, sv) => "Intensity: "+Math.Round((sv*120)+20)+"%");
+			vNavItems.LightInten.ValueToLabel = ((v, sv) => "Power: "+Math.Round((sv*120)+20));
 
 			vNavItems.CameraCenter.Value = true;
 
