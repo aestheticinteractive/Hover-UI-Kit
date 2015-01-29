@@ -51,7 +51,7 @@ public struct LMDevice
     isRobustMode = false;
   }
 
-  public void UpdateRobustMode(int height) 
+  public void UpdateRobustMode(int height)
   {
     switch (type)
     {
@@ -88,6 +88,9 @@ public class LeapImageRetriever : MonoBehaviour
   private Shader IR_UNDISTORT_SHADER_FOREGROUND;
   private Shader RGB_NORMAL_SHADER;
   private Shader RGB_UNDISTORT_SHADER;
+
+  public bool doUpdate = true;
+  public bool rescaleController = true;
 
   public const int DEFAULT_DISTORTION_WIDTH = 64;
   public const int DEFAULT_DISTORTION_HEIGHT = 64;
@@ -144,15 +147,15 @@ public class LeapImageRetriever : MonoBehaviour
     {
       case LM_DEVICE.PERIPHERAL:
         renderer.material = (undistortImage) ? new Material((overlayImage) ? IR_UNDISTORT_SHADER_FOREGROUND : IR_UNDISTORT_SHADER) : new Material(IR_NORMAL_SHADER);
-        controller_.transform.localScale = Vector3.one * 1.6f;
+        if ( rescaleController ) { controller_.transform.localScale = Vector3.one * 1.6f; }
         break;
       case LM_DEVICE.DRAGONFLY:
         renderer.material = (undistortImage) ? new Material(RGB_UNDISTORT_SHADER) : new Material(RGB_NORMAL_SHADER);
-        controller_.transform.localScale = Vector3.one;
+        if ( rescaleController ) { controller_.transform.localScale = Vector3.one; }
         break;
       case LM_DEVICE.MANTIS:
         renderer.material = (undistortImage) ? new Material((overlayImage) ? IR_UNDISTORT_SHADER_FOREGROUND : IR_UNDISTORT_SHADER) : new Material(IR_NORMAL_SHADER);
-        controller_.transform.localScale = Vector3.one;
+        if ( rescaleController ) { controller_.transform.localScale = Vector3.one; }
         break;
       default:
         break;
@@ -402,6 +405,8 @@ public class LeapImageRetriever : MonoBehaviour
   {
     if (controller_ == null)
       return;
+
+    if ( doUpdate == false ) { return; }
 
     Frame frame = controller_.GetFrame();
 

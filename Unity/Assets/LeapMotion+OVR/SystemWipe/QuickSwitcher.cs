@@ -1,15 +1,20 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class QuickSwitcher : MonoBehaviour {
 
 	public bool m_enabled = false;
+  [SerializeField]
+  private HandController m_handController;
 	[SerializeField]
 	private float m_minProgressToStartTransition;
 	[SerializeField]
 	private float m_percentageToLockTransition;
 	[SerializeField]
 	private Vector3 m_wipeOutPosition;
+  [SerializeField]
+  private LeapImageRetriever m_imageRetriever;
 
 	private Vector3 m_startPosition;
 
@@ -32,6 +37,7 @@ public class QuickSwitcher : MonoBehaviour {
 		m_to = m_wipeOutPosition;
 		m_lastLockedState = TransitionState.ON;
 		SystemWipeRecognizerListener.Instance.SystemWipeUpdate += onWipeUpdate;
+    TweenToOffPosition();
 	}
 	
 	// Update is called once per frame
@@ -93,6 +99,7 @@ public class QuickSwitcher : MonoBehaviour {
 		m_lastLockedState = TransitionState.ON;
 		m_from = m_startPosition;
 		m_to = m_wipeOutPosition;
+    m_handController.gameObject.SetActive(false);
 	}
 
 	private void onOffPosition() {
@@ -101,16 +108,24 @@ public class QuickSwitcher : MonoBehaviour {
 		m_lastLockedState = TransitionState.OFF;
 		m_from = m_wipeOutPosition;
 		m_to = m_startPosition;
+    if ( m_imageRetriever != null ) {
+      m_imageRetriever.doUpdate = false;
+    }
+    else {
+      Debug.LogError("No image retreiver on: " + gameObject.name);
+    }
+    m_handController.gameObject.SetActive(true);
 	}
 
 	public void TweenToOnPosition() {
 		//Debug.Log("tweenToOnPosition");
+    m_imageRetriever.doUpdate = true;
 		StopAllCoroutines();
 		StartCoroutine(doPositionTween(0.0f, 0.1f, onOnPosition));
 	}
 
 	public void TweenToOffPosition() {
-		//Debug.Log("tweenToOffPosition");
+//		Debug.Log("tweenToOffPosition");
 		StopAllCoroutines();
 		StartCoroutine(doPositionTween(1.0f, 0.1f, onOffPosition));
 	}
@@ -122,7 +137,7 @@ public class QuickSwitcher : MonoBehaviour {
 	}
 
 	private IEnumerator doPositionTween(float goalPercent, float transitionTime, TweenCompleteDelegate onComplete = null) {
-		//Debug.Log("doPositionTween: " + goalPercent);
+//		Debug.Log("doPositionTween: " + goalPercent);
 		float startTime = Time.time;
 
 		Vector3 from = transform.localPosition;
@@ -130,7 +145,7 @@ public class QuickSwitcher : MonoBehaviour {
 
 		while ( true ) { 
 			float percentage = Mathf.Clamp01((Time.time - startTime)/transitionTime);
-			//Debug.Log("Tween step: " + percentage);
+//			Debug.Log("Tween step: " + percentage);
 
 			transform.localPosition = Vector3.Lerp(from, to, percentage);
 
