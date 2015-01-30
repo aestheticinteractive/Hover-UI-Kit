@@ -357,7 +357,9 @@ namespace Hovercast.Demo {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleCameraReorient(NavItem pItem) {
-			OVRManager.display.RecenterPose();
+			if ( OVRManager.display != null ) {
+				OVRManager.display.RecenterPose();
+			}
 		}
 		
 
