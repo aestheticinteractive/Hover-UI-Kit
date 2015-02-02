@@ -11,7 +11,7 @@ namespace Hovercast.Core.State {
 		public event SideChangeHandler OnSideChange;
 
 		public IInputProvider InputProvider { get; private set; }
-		public NavigationProvider NavProv { get; private set; }
+		public NavProvider NavProv { get; private set; }
 		public ArcState Arc { get; private set; }
 		public CursorState Cursor { get; private set; }
 
@@ -21,8 +21,7 @@ namespace Hovercast.Core.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public MenuState(IInputProvider pInputProv, NavigationProvider pNavProv, 
-																		InteractionSettings pSettings) {
+		public MenuState(IInputProvider pInputProv, NavProvider pNavProv,InteractionSettings pSettings){
 			InputProvider = pInputProv;
 			NavProv = pNavProv;
 			

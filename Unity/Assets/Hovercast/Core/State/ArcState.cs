@@ -22,7 +22,7 @@ namespace Hovercast.Core.State {
 		public float NavBackStrength { get; private set; }
 		public ArcSegmentState NearestSegment { get; private set; }
 
-		private readonly NavigationProvider vNavProv;
+		private readonly NavProvider vNavProv;
 		private readonly IList<ArcSegmentState> vSegments;
 		private readonly InteractionSettings vSettings;
 		private bool vIsGrabbing;
@@ -30,7 +30,7 @@ namespace Hovercast.Core.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public ArcState(NavigationProvider pNavProv, InteractionSettings pSettings) {
+		public ArcState(NavProvider pNavProv, InteractionSettings pSettings) {
 			vNavProv = pNavProv;
 			vSegments = new List<ArcSegmentState>();
 			vSettings = pSettings;

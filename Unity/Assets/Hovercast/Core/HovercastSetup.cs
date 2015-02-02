@@ -13,7 +13,7 @@ namespace Hovercast.Core {
 		public HovercastSettingsComponent SettingsProvider;
 		public HovercastInputProvider InputProvider;
 
-		private NavigationProvider vNavProv;
+		private NavProvider vNavProv;
 		private MenuState vMenuState;
 		private UiMenu vUiMenu;
 		private UiCursor vUiCursor;
@@ -34,7 +34,7 @@ namespace Hovercast.Core {
 				throw new Exception("HovercastSetup.InputProvider must be set.");
 			}
 
-			vNavProv = new NavigationProvider();
+			vNavProv = new NavProvider();
 			vNavProv.Init(NavDelegateProvider.GetNavDelegate());
 
 			vMenuState = new MenuState(InputProvider, vNavProv, 

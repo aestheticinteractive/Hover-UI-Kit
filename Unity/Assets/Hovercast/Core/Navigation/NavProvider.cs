@@ -3,7 +3,7 @@
 namespace Hovercast.Core.Navigation {
 
 	/*================================================================================================*/
-	public class NavigationProvider { //TODO: rename this class
+	public class NavProvider { 
 
 		public delegate void LevelChangeHandler(int pDirection);
 		public event LevelChangeHandler OnLevelChange;
@@ -15,7 +15,7 @@ namespace Hovercast.Core.Navigation {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public NavigationProvider() {
+		public NavProvider() {
 			vHistory = new Stack<NavLevel>();
 			OnLevelChange += (d => {});
 		}
