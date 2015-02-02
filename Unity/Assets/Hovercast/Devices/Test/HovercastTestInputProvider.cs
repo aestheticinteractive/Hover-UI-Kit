@@ -7,45 +7,40 @@ namespace Hovercast.Devices.Test {
 	/*================================================================================================*/
 	public class HovercastTestInputProvider : HovercastInputProvider {
 
-		//TODO: update testing input
-
-		private TestInputSide vInputHandProvL;
-		private TestInputSide vInputHandProvR;
-		private TestInputMenu vInputMenuL;
-		private TestInputMenu vInputMenuR;
+		private TestInputSide vSideL;
+		private TestInputSide vSideR;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public override void UpdateInput(bool pIsMenuOnLeftSide) {
+		public override void UpdateInput() {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public override IInputSide GetSide(bool pIsLeft) {
-			if ( vInputHandProvL == null ) {
+			if ( vSideL == null ) {
 				Init();
 			}
 
-			return (pIsLeft ? vInputHandProvL : vInputHandProvR);
+			return (pIsLeft ? vSideL : vSideR);
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void Init() {
-			PalmDirection = Vector3.down;
+			vSideL = GetChild<TestInputSide>(gameObject, "SideLeft");
+			vSideR = GetChild<TestInputSide>(gameObject, "SideRight");
 
-			GameObject leftObj = gameObject.transform.FindChild("LeftHand").gameObject;
-			GameObject rightObj = gameObject.transform.FindChild("RightHand").gameObject;
+			vSideL.Init(true);
+			vSideR.Init(false);
+		}
 
-			vInputMenuL = leftObj.GetComponent<TestInputMenu>();
-			vInputMenuR = rightObj.GetComponent<TestInputMenu>();
 
-			vInputMenuL.IsLeft = true;
-			vInputMenuR.IsLeft = false;
-
-			vInputHandProvL = new TestInputSide(true, vInputMenuL);
-			vInputHandProvR = new TestInputSide(false, vInputMenuR);
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		internal static T GetChild<T>(GameObject pParentObj, string pName) where T : Component {
+			return pParentObj.transform.FindChild(pName).gameObject.GetComponent<T>();
 		}
 
 	}

@@ -18,6 +18,7 @@ namespace Hovercast.Devices.Test {
 			Done
 		}
 
+		private HovercastTestInputProvider vInputProv;
 		private TestInputCursor vCursor;
 		private DemoAnimVector3 vAnimPos;
 		private ScenarioStage vStage;
@@ -26,14 +27,15 @@ namespace Hovercast.Devices.Test {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
-			vCursor = GameObject.Find("TestInput/RightHand/IndexPoint").GetComponent<TestInputCursor>();
+			vInputProv = gameObject.GetComponent<HovercastTestInputProvider>();
+			vCursor = (TestInputCursor)vInputProv.GetSide(false).Cursor;
 			vAnimPos = new DemoAnimVector3(2000);
 			vStage = ScenarioStage.SelectSliderParent;
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void Start() {
-			vAnimPos.Start(vCursor.TestPosition, vCursor.TestPosition+new Vector3(0.02f, 0, 0));
+			vAnimPos.Start(vCursor.Position, vCursor.Position+new Vector3(0.02f, 0, 0));
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -42,7 +44,7 @@ namespace Hovercast.Devices.Test {
 				return;
 			}
 
-			vCursor.TestPosition = vAnimPos.GetValue();
+			vCursor.gameObject.transform.position = vAnimPos.GetValue();
 
 			if ( vAnimPos.GetProgress() >= 1 ) {
 				SetupNextStage();
@@ -53,7 +55,7 @@ namespace Hovercast.Devices.Test {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void SetupNextStage() {
-			Vector3 pos = vCursor.TestPosition;
+			Vector3 pos = vCursor.Position;
 
 			switch ( vStage ) {
 				case ScenarioStage.SelectSliderParent:

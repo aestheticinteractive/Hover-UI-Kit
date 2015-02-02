@@ -42,7 +42,7 @@ namespace Hovercast.Devices.Leap {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public override void UpdateInput(bool pIsMenuOnLeftSide) {
+		public override void UpdateInput() {
 			UpdateSettings();
 
 			Frame frame = vHandControl.GetFrame();

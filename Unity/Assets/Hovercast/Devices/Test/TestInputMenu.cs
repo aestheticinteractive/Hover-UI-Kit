@@ -6,18 +6,16 @@ namespace Hovercast.Devices.Test {
 	/*================================================================================================*/
 	public class TestInputMenu : MonoBehaviour, IInputMenu {
 
-		public bool TestIsActive;
-		public Vector3 TestPosition;
-		public Quaternion TestRotation;
-		public float TestRadius;
+		public bool TestIsActive = true;
+		public float TestRadius = 0.1f;
 		public float TestNavigateBackStrength;
 		public float TestDisplayStrength = 1;
 
-		public bool IsLeft { get; set; }
+		public bool IsLeft { get; internal set; }
 		public bool IsActive { get { return TestIsActive; } }
-		
-		public Vector3 Position { get { return TestPosition; } }
-		public Quaternion Rotation { get { return TestRotation; } }
+
+		public Vector3 Position { get { return gameObject.transform.position; } }
+		public Quaternion Rotation { get { return gameObject.transform.rotation; } }
 		public float Radius { get { return TestRadius; } }
 
 		public float NavigateBackStrength { get { return TestNavigateBackStrength; } }

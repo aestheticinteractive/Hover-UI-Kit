@@ -1,25 +1,43 @@
 ﻿using Hovercast.Core.Input;
+using UnityEngine;
 
 namespace Hovercast.Devices.Test {
 
 	/*================================================================================================*/
-	public class TestInputSide : IInputSide {
+	public class TestInputSide : MonoBehaviour, IInputSide {
 
-		public bool IsLeft { get; private set; }
-		public bool IsCursor { get; set; }
+		public bool IsLeft { get; private set;  }
 
-		public IInputMenu Menu { get; private set; }
-		public IInputCursor Cursor { get; private set; }
-
-		// menu   | ( 0.121, 0.118, -0.020) / ( 0.100, 0.826, -0.030,  0.554)
-		// cursor | (-0.077, 0.147, -0.066) / (-0.112, 0.827, -0.254, -0.490)
+		private TestInputMenu vMenu;
+		private TestInputCursor vCursor;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public TestInputSide(bool pIsLeft, TestInputMenu pMenu) {
+		public void Init(bool pIsLeft) {
 			IsLeft = pIsLeft;
-			Menu = pMenu;
+
+			vMenu = HovercastTestInputProvider.GetChild<TestInputMenu>(gameObject, "Menu");
+			vCursor = HovercastTestInputProvider.GetChild<TestInputCursor>(gameObject, "Cursor");
+
+			vMenu.IsLeft = IsLeft;
+			vCursor.IsLeft = IsLeft;
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public IInputMenu Menu {
+			get {
+				return vMenu;
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public IInputCursor Cursor {
+			get {
+				return vCursor;
+			}
 		}
 
 	}
