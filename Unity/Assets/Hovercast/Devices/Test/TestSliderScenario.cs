@@ -18,7 +18,7 @@ namespace Hovercast.Devices.Test {
 			Done
 		}
 
-		private TestInputPoint vCursor;
+		private TestInputCursor vCursor;
 		private DemoAnimVector3 vAnimPos;
 		private ScenarioStage vStage;
 
@@ -26,7 +26,7 @@ namespace Hovercast.Devices.Test {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
-			vCursor = GameObject.Find("TestInput/RightHand/IndexPoint").GetComponent<TestInputPoint>();
+			vCursor = GameObject.Find("TestInput/RightHand/IndexPoint").GetComponent<TestInputCursor>();
 			vAnimPos = new DemoAnimVector3(2000);
 			vStage = ScenarioStage.SelectSliderParent;
 		}

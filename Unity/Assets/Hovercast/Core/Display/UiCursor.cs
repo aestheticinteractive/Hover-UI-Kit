@@ -16,7 +16,6 @@ namespace Hovercast.Core.Display {
 		private Transform vCameraTx;
 
 		private float vCurrInnerRadius;
-		private Vector3 vStartRotDir;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -24,13 +23,8 @@ namespace Hovercast.Core.Display {
 		internal void Build(ArcState pArcState, CursorState pCursorState, ISettings pSettings) {
 			vArcState = pArcState;
 			vCursorState = pCursorState;
+			//TODO: get the camera's transform, not HovercastSetup's transform
 			vCameraTx = gameObject.transform.parent; //HovercastSetup
-
-			vStartRotDir = vCursorState.PalmDirection;
-
-			if ( vCursorState.PalmDirection.z != 0 ) { //TODO: find general solution
-				vStartRotDir *= -1; //HACK: this approximates thes desired result
-			}
 
 			////
 			
@@ -48,7 +42,7 @@ namespace Hovercast.Core.Display {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			if ( vCursorState.Position == null || vArcState.Strength <= 0 ) {
+			if ( vCursorState.Position == null || vArcState.DisplayStrength <= 0 ) {
 				vRendererObj.SetActive(false);
 				return;
 			}
@@ -62,7 +56,7 @@ namespace Hovercast.Core.Display {
 
 			Vector3 camWorld = vCameraTx.transform.TransformPoint(Vector3.zero);
 			Vector3 camLocal = tx.InverseTransformPoint(camWorld);
-			tx.localRotation = Quaternion.FromToRotation(vStartRotDir, camLocal);
+			tx.localRotation = Quaternion.FromToRotation(Vector3.down, camLocal);
 		}
 
 	}

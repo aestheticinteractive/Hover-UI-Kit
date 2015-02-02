@@ -116,7 +116,7 @@ namespace Hovercast.Core.Display.Default {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void Update() {
-			vMainAlpha = GetArcAlpha(vArcState)*vAnimAlpha;
+			vMainAlpha = UiSelectRenderer.GetArcAlpha(vArcState)*vAnimAlpha;
 
 			if ( !vSegState.NavItem.IsEnabled ) {
 				vMainAlpha *= 0.333f;
@@ -202,15 +202,6 @@ namespace Hovercast.Core.Display.Default {
 			}
 
 			MeshUtil.BuildRingMesh(pMesh, 1.04f, 1.46f, a0, a1, fillSteps);
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public static float GetArcAlpha(ArcState pArcState) {
-			float alpha = 1-(float)Math.Pow(1-pArcState.Strength, 2);
-			alpha -= (float)Math.Pow(pArcState.GrabStrength, 2);
-			return Math.Max(0, alpha);
 		}
 
 	}

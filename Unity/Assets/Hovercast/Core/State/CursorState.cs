@@ -8,7 +8,7 @@ namespace Hovercast.Core.State {
 	public class CursorState {
 
 		public bool IsLeft { get; private set; }
-		public Vector3 PalmDirection { get; private set; }
+		//public Vector3 PalmDirection { get; private set; }
 		public Vector3? Position { get; private set; }
 
 		private readonly IInputProvider vInputProv;
@@ -22,7 +22,7 @@ namespace Hovercast.Core.State {
 			vSettings = pSettings;
 
 			IsLeft = vSettings.IsMenuOnLeftSide;
-			PalmDirection = vInputProv.PalmDirection;
+			//PalmDirection = vInputProv.PalmDirection;
 		}
 
 
@@ -32,15 +32,15 @@ namespace Hovercast.Core.State {
 			IsLeft = !vSettings.IsMenuOnLeftSide;
 
 			IInputSide inputSide = vInputProv.GetSide(IsLeft);
-			IInputPoint inputPoint = inputSide.Points[0];
+			IInputCursor inputCursor = inputSide.Cursor;
 
-			if ( inputPoint == null ) {
+			if ( inputCursor == null ) {
 				Position = null;
 				return;
 			}
 
-			Position = inputPoint.Position+
-				inputPoint.Rotation*Vector3.back*vSettings.CursorForwardDistance;
+			Position = inputCursor.Position+
+				inputCursor.Rotation*Vector3.back*vSettings.CursorForwardDistance;
 		}
 
 	}

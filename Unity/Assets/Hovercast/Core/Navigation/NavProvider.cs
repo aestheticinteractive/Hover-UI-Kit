@@ -3,7 +3,7 @@
 namespace Hovercast.Core.Navigation {
 
 	/*================================================================================================*/
-	public class NavigationProvider {
+	public class NavigationProvider { //TODO: rename this class
 
 		public delegate void LevelChangeHandler(int pDirection);
 		public event LevelChangeHandler OnLevelChange;

@@ -11,11 +11,15 @@ namespace Hovercast.Devices.Leap {
 	public class HovercastLeapInputProvider : HovercastInputProvider {
 
 		public Vector3 ActivePalmDirection = Vector3.down;
+		public Finger.FingerType CursorFinger = Finger.FingerType.TYPE_INDEX;
+		public float NavigationBackGrabThreshold = 0.3f;
+		public float NavigationBackUngrabThreshold = 0.15f;
 
 		private HandController vHandControl;
-		private Frame vFrame;
+		private LeapInputSettings vSettings;
 		private LeapInputSide vSideL;
 		private LeapInputSide vSideR;
+		private Frame vFrame;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -28,21 +32,19 @@ namespace Hovercast.Devices.Leap {
 					"same GameObject that contains the Leap Motion HandController component.");
 			}
 
-			vSideL = new LeapInputSide(true, PalmDirection);
-			vSideR = new LeapInputSide(false, PalmDirection);
+			vSettings = new LeapInputSettings();
+			UpdateSettings();
+
+			vSideL = new LeapInputSide(true, vSettings);
+			vSideR = new LeapInputSide(false, vSettings);
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public override Vector3 PalmDirection {
-			get {
-				return ActivePalmDirection.normalized;
-			}
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		public override void UpdateInput() {
+		public override void UpdateInput(bool pIsMenuOnLeftSide) {
+			UpdateSettings();
+
 			Frame frame = vHandControl.GetFrame();
 
 			vFrame = (frame != null && frame.IsValid ? frame : null);
@@ -57,6 +59,14 @@ namespace Hovercast.Devices.Leap {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateSettings() {
+			vSettings.PalmDirection = ActivePalmDirection;
+			vSettings.CursorFinger = CursorFinger;
+			vSettings.NavBackGrabThreshold = NavigationBackGrabThreshold;
+			vSettings.NavBackUngrabThreshold = NavigationBackUngrabThreshold;
+		}
+		
 		/*--------------------------------------------------------------------------------------------*/
 		private Hand GetLeapHand(bool pIsLeft) {
 			if ( vFrame == null ) {

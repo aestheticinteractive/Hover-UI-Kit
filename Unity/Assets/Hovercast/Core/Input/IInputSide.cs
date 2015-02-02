@@ -4,13 +4,10 @@
 	public interface IInputSide {
 
 		bool IsLeft { get; }
-		IInputCenter Center { get; }
+		bool IsActive { get; }
 
-		IInputPoint[] Points { get; }
-		IInputPoint IndexPoint { get; }
-		IInputPoint MiddlePoint { get; }
-		IInputPoint RingPoint { get; }
-		IInputPoint PinkyPoint { get; }
+		IInputMenu Menu { get; }
+		IInputCursor Cursor { get; }
 
 	}
 

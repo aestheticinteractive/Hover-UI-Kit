@@ -28,6 +28,7 @@ namespace Hovercast.Core.State {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateAfterInput() {
+			//TODO: find the corrent InputSide here, and pass them as parameters
 			Arc.UpdateAfterInput();
 			Cursor.UpdateAfterInput();
 			Arc.UpdateWithCursor(Cursor);

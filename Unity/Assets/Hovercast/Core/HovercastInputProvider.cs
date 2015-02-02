@@ -11,7 +11,7 @@ namespace Hovercast.Core {
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public abstract void UpdateInput();
+		public abstract void UpdateInput(bool pIsMenuOnLeftSide);
 
 		/*--------------------------------------------------------------------------------------------*/
 		public abstract IInputSide GetSide(bool pIsLeft);

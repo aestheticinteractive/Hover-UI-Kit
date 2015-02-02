@@ -1,6 +1,7 @@
 ﻿using System;
 using Hovercast.Core.Display;
 using Hovercast.Core.Navigation;
+using Hovercast.Core.Settings;
 using Hovercast.Core.State;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ namespace Hovercast.Core {
 		public HovercastInputProvider InputProvider;
 
 		private NavigationProvider vNavProv;
+		private InteractionSettings vInteractSettings;
 		private MenuState vMenuState;
 		private UiMenu vUiMenu;
 		private UiCursor vUiCursor;
@@ -37,8 +39,9 @@ namespace Hovercast.Core {
 			vNavProv = new NavigationProvider();
 			vNavProv.Init(NavDelegateProvider.GetNavDelegate());
 
-			vMenuState = new MenuState(InputProvider, vNavProv,
-				SettingsProvider.GetInteractionSettings());
+			vInteractSettings = SettingsProvider.GetInteractionSettings();
+
+			vMenuState = new MenuState(InputProvider, vNavProv, vInteractSettings);
 
 			////
 
@@ -55,7 +58,7 @@ namespace Hovercast.Core {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			InputProvider.UpdateInput();
+			InputProvider.UpdateInput(vInteractSettings.IsMenuOnLeftSide);
 			vMenuState.UpdateAfterInput();
 		}
 

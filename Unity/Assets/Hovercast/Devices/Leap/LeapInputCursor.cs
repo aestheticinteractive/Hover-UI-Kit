@@ -5,19 +5,25 @@ using UnityEngine;
 namespace Hovercast.Devices.Leap {
 
 	/*================================================================================================*/
-	public class LeapInputPoint : IInputPoint {
+	internal class LeapInputCursor : IInputCursor {
 
+		public bool IsLeft { get; private set; }
 		public Vector3 Position { get; private set; }
 		public Quaternion Rotation { get; private set; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public LeapInputPoint(Finger pLeapFinger) {
+		public LeapInputCursor(bool pIsLeft) {
+			IsLeft = pIsLeft;
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public void Rebuild(Finger pLeapFinger) {
 			Bone bone = pLeapFinger.Bone(Bone.BoneType.TYPE_DISTAL);
 
 			Position = pLeapFinger.TipPosition.ToUnityScaled();
-			Rotation = LeapInputCenter.CalcQuaternion(bone.Basis);
+			Rotation = LeapInputMenu.CalcQuaternion(bone.Basis);
 		}
 
 	}

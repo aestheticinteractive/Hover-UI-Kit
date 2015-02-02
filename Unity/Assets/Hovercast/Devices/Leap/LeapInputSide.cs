@@ -1,77 +1,63 @@
 ﻿using System.Linq;
 using Hovercast.Core.Input;
 using Leap;
-using UnityEngine;
 
 namespace Hovercast.Devices.Leap {
 
 	/*================================================================================================*/
-	public class LeapInputSide : IInputSide {
+	internal class LeapInputSide : IInputSide {
 
 		public bool IsLeft { get; private set; }
-		public IInputCenter Center { get; private set; }
+		public bool IsActive { get; private set; }
 
-		public IInputPoint[] Points { get; private set; }
-		public IInputPoint IndexPoint { get; private set; }
-		public IInputPoint MiddlePoint { get; private set; }
-		public IInputPoint RingPoint { get; private set; }
-		public IInputPoint PinkyPoint { get; private set; }
-
-		private readonly IInputPoint[] vPoints;
-		private readonly Vector3 vPalmDirection;
+		private readonly LeapInputSettings vSettings;
+		private readonly LeapInputMenu vMenu;
+		private readonly LeapInputCursor vCursor;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public LeapInputSide(bool pIsLeft, Vector3 pPalmDirection) {
+		public LeapInputSide(bool pIsLeft, LeapInputSettings pSettings) {
 			IsLeft = pIsLeft;
-			vPalmDirection = pPalmDirection;
+			vSettings = pSettings;
+
+			vMenu = new LeapInputMenu(IsLeft);
+			vCursor = new LeapInputCursor(IsLeft);
 		}
 
-		
+
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void UpdateWithLeapHand(Hand pLeapHand) {
-			Center = (pLeapHand == null ? null : new LeapInputCenter(pLeapHand, vPalmDirection));
+		public IInputMenu Menu {
+			get {
+				return (IsActive ? vMenu : null);
+			}
+		}
 
-			IndexPoint = GetPoint(pLeapHand, Finger.FingerType.TYPE_INDEX);
-			MiddlePoint = GetPoint(pLeapHand, Finger.FingerType.TYPE_MIDDLE);
-			RingPoint = GetPoint(pLeapHand, Finger.FingerType.TYPE_RING);
-			PinkyPoint = GetPoint(pLeapHand, Finger.FingerType.TYPE_PINKY);
+		/*--------------------------------------------------------------------------------------------*/
+		public IInputCursor Cursor {
+			get {
+				return (IsActive ? vCursor : null);
+			}
+		}
 
-			Points = new [] { IndexPoint, MiddlePoint, RingPoint, PinkyPoint };
 
-			/*if ( Center == null ) {
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		internal void UpdateWithLeapHand(Hand pLeapHand) {
+			bool isHandValid = (pLeapHand != null && pLeapHand.IsValid);
+			IsActive = isHandValid;
+
+			if ( !isHandValid ) {
 				return;
 			}
 
-			Debug.Log("HAND\n"+
-				Center.Position.ToString("0.000")+" / "+Center.Rotation.ToString("0.000")+"\n"+
-				IndexPoint.Position.ToString("0.000")+" / "+IndexPoint.Rotation.ToString("0.000")+"\n"+
-				MiddlePoint.Position.ToString("0.000")+" / "+
-					MiddlePoint.Rotation.ToString("0.000")+"\n"+
-				RingPoint.Position.ToString("0.000")+" / "+RingPoint.Rotation.ToString("0.000")+"\n"+
-				PinkyPoint.Position.ToString("0.000")+" / "+PinkyPoint.Rotation.ToString("0.000")+"\n"
-			);*/
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		private static LeapInputPoint GetPoint(Hand pLeapHand, Finger.FingerType pFingerType) {
-			if ( pLeapHand == null ) {
-				return null;
-			}
-
 			Finger leapFinger = pLeapHand.Fingers
-				.FingerType(pFingerType)
+				.FingerType(vSettings.CursorFinger)
 				.FirstOrDefault(f => f.IsValid);
 
-			if ( leapFinger == null ) {
-				return null;
-			}
-
-			return new LeapInputPoint(leapFinger);
+			vMenu.Rebuild(pLeapHand, vSettings);
+			vCursor.Rebuild(leapFinger);
 		}
 
 	}

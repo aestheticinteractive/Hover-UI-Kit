@@ -7,15 +7,17 @@ namespace Hovercast.Devices.Test {
 	/*================================================================================================*/
 	public class HovercastTestInputProvider : HovercastInputProvider {
 
+		//TODO: update testing input
+
 		private TestInputSide vInputHandProvL;
 		private TestInputSide vInputHandProvR;
-		private TestInputCenter vInputCenterL;
-		private TestInputCenter vInputCenterR;
+		private TestInputMenu vInputMenuL;
+		private TestInputMenu vInputMenuR;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public override void UpdateInput() {
+		public override void UpdateInput(bool pIsMenuOnLeftSide) {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
@@ -36,14 +38,14 @@ namespace Hovercast.Devices.Test {
 			GameObject leftObj = gameObject.transform.FindChild("LeftHand").gameObject;
 			GameObject rightObj = gameObject.transform.FindChild("RightHand").gameObject;
 
-			vInputCenterL = leftObj.GetComponent<TestInputCenter>();
-			vInputCenterR = rightObj.GetComponent<TestInputCenter>();
+			vInputMenuL = leftObj.GetComponent<TestInputMenu>();
+			vInputMenuR = rightObj.GetComponent<TestInputMenu>();
 
-			vInputCenterL.IsLeft = true;
-			vInputCenterR.IsLeft = false;
+			vInputMenuL.IsLeft = true;
+			vInputMenuR.IsLeft = false;
 
-			vInputHandProvL = new TestInputSide(true, vInputCenterL);
-			vInputHandProvR = new TestInputSide(false, vInputCenterR);
+			vInputHandProvL = new TestInputSide(true, vInputMenuL);
+			vInputHandProvR = new TestInputSide(false, vInputMenuR);
 		}
 
 	}

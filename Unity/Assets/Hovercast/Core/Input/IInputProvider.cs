@@ -1,16 +1,12 @@
-﻿using UnityEngine;
-
-namespace Hovercast.Core.Input {
+﻿namespace Hovercast.Core.Input {
 
 	/*================================================================================================*/
 	public interface IInputProvider {
 		
-		Vector3 PalmDirection { get; }
-
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		void UpdateInput();
+		void UpdateInput(bool pIsMenuOnLeftSide);
 
 		/*--------------------------------------------------------------------------------------------*/
 		IInputSide GetSide(bool pIsLeft);

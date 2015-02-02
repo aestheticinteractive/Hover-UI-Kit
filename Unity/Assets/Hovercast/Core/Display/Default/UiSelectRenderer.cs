@@ -178,8 +178,8 @@ namespace Hovercast.Core.Display.Default {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public static float GetArcAlpha(ArcState pArcState) {
-			float alpha = 1-(float)Math.Pow(1-pArcState.Strength, 2);
-			alpha -= (float)Math.Pow(pArcState.GrabStrength, 2);
+			float alpha = 1-(float)Math.Pow(1-pArcState.DisplayStrength, 2);
+			alpha -= (float)Math.Pow(pArcState.NavBackStrength, 2);
 			return Math.Max(0, alpha);
 		}
 

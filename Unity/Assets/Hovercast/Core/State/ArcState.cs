@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Hovercast.Core.Input;
 using Hovercast.Core.Navigation;
@@ -22,8 +21,8 @@ namespace Hovercast.Core.State {
 		public Vector3 Center { get; private set; }
 		public Quaternion Rotation { get; private set; }
 		public float Size { get; private set; }
-		public float Strength { get; private set; }
-		public float GrabStrength { get; private set; }
+		public float DisplayStrength { get; private set; }
+		public float NavBackStrength { get; private set; }
 		public ArcSegmentState NearestSegment { get; private set; }
 
 		private readonly IInputProvider vInputProv;
@@ -44,8 +43,8 @@ namespace Hovercast.Core.State {
 
 			IsLeft = vSettings.IsMenuOnLeftSide;
 
-			OnLevelChange = (d => {});
-			OnIsLeftChange = (() => {});
+			OnLevelChange += (d => {});
+			OnIsLeftChange += (() => {});
 
 			vNavProv.OnLevelChange += HandleLevelChange;
 			HandleLevelChange(0);
@@ -79,40 +78,31 @@ namespace Hovercast.Core.State {
 			}
 
 			IInputSide inputSide = vInputProv.GetSide(IsLeft);
-			IInputCenter inputCenter = inputSide.Center;
+			IsActive = inputSide.IsActive;
 
-			if ( inputCenter == null ) {
-				IsActive = false;
+			if ( !IsActive ) {
 				Center = Vector3.zero;
 				Rotation = Quaternion.identity;
-				Strength = 0;
-				GrabStrength = 0;
+				Size = 0;
+				DisplayStrength = 0;
+				NavBackStrength = 0;
 				return;
 			}
 
-			IsActive = true;
-			Center = inputCenter.Position;
-			Size = 0;
-			Rotation = inputCenter.Rotation;
+			IInputMenu inputMenu = inputSide.Menu;
 
-			foreach ( IInputPoint inputPoint in inputSide.Points ) {
-				if ( inputPoint == null ) {
-					continue;
-				}
+			Center = inputMenu.Position;
+			Rotation = inputMenu.Rotation;
+			Size = inputMenu.Radius;
+			DisplayStrength = inputMenu.DisplayStrength;
+			NavBackStrength = inputMenu.NavigateBackStrength;
 
-				Rotation = Quaternion.Slerp(Rotation, inputPoint.Rotation, 0.1f);
-				Size = Math.Max(Size, (inputPoint.Position-Center).sqrMagnitude);
-			}
-
-			Size = (float)Math.Sqrt(Size);
-			Strength = Math.Max(0, (inputCenter.PalmTowardEyes-0.7f)/0.3f);
-			GrabStrength = Math.Min(1, inputCenter.GrabStrength/vSettings.NavBackGrabThreshold);
-			CheckGrabGesture(inputCenter);
+			CheckGrabGesture(inputMenu);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		internal void UpdateWithCursor(CursorState pCursor) {
-			bool allowSelect = (pCursor != null && Strength > 0);
+			bool allowSelect = (pCursor != null && DisplayStrength > 0);
 			NearestSegment = null;
 
 			foreach ( ArcSegmentState seg in vSegments ) {
@@ -142,18 +132,18 @@ namespace Hovercast.Core.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void CheckGrabGesture(IInputCenter pInputCenter) {
-			if ( pInputCenter == null ) {
+		private void CheckGrabGesture(IInputMenu pInputMenu) {
+			if ( pInputMenu == null ) {
 				vIsGrabbing = false;
 				return;
 			}
 
-			if ( vIsGrabbing && pInputCenter.GrabStrength < vSettings.NavBackUngrabThreshold ) {
+			if ( vIsGrabbing && pInputMenu.NavigateBackStrength <= 0 ) {
 				vIsGrabbing = false;
 				return;
 			}
 
-			if ( !vIsGrabbing && pInputCenter.GrabStrength > vSettings.NavBackGrabThreshold ) {
+			if ( !vIsGrabbing && pInputMenu.NavigateBackStrength >= 1 ) {
 				vIsGrabbing = true;
 				vNavProv.Back();
 				return;

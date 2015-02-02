@@ -3,13 +3,12 @@
 namespace Hovercast.Core.Input {
 
 	/*================================================================================================*/
-	public interface IInputCenter {
+	public interface IInputCursor {
 
 		bool IsLeft { get; }
+
 		Vector3 Position { get; }
 		Quaternion Rotation { get; }
-		float GrabStrength { get; }
-		float PalmTowardEyes { get; }
 
 	}
 
