@@ -11,10 +11,7 @@ namespace Hovercast.Core.State {
 	public class ArcState {
 
 		public delegate void LevelChangeHandler(int pDirection);
-		public delegate void IsLeftChangeHandler();
-
 		public event LevelChangeHandler OnLevelChange;
-		public event IsLeftChangeHandler OnIsLeftChange;
 
 		public bool IsActive { get; private set; }
 		public bool IsLeft { get; private set; }
@@ -25,7 +22,6 @@ namespace Hovercast.Core.State {
 		public float NavBackStrength { get; private set; }
 		public ArcSegmentState NearestSegment { get; private set; }
 
-		private readonly IInputProvider vInputProv;
 		private readonly NavigationProvider vNavProv;
 		private readonly IList<ArcSegmentState> vSegments;
 		private readonly InteractionSettings vSettings;
@@ -34,9 +30,7 @@ namespace Hovercast.Core.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public ArcState(IInputProvider pInputProv, NavigationProvider pNavProv, 
-																		InteractionSettings pSettings) {
-			vInputProv = pInputProv;
+		public ArcState(NavigationProvider pNavProv, InteractionSettings pSettings) {
 			vNavProv = pNavProv;
 			vSegments = new List<ArcSegmentState>();
 			vSettings = pSettings;
@@ -44,7 +38,6 @@ namespace Hovercast.Core.State {
 			IsLeft = vSettings.IsMenuOnLeftSide;
 
 			OnLevelChange += (d => {});
-			OnIsLeftChange += (() => {});
 
 			vNavProv.OnLevelChange += HandleLevelChange;
 			HandleLevelChange(0);
@@ -71,42 +64,27 @@ namespace Hovercast.Core.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal void UpdateAfterInput() {
-			if ( vSettings.IsMenuOnLeftSide != IsLeft ) {
-				IsLeft = vSettings.IsMenuOnLeftSide;
-				OnIsLeftChange();
-			}
+		internal void UpdateAfterInput(IInputMenu pInputMenu) {
+			IsActive = pInputMenu.IsActive;
+			IsLeft = pInputMenu.IsLeft;
+			Center = pInputMenu.Position;
+			Rotation = pInputMenu.Rotation;
+			Size = pInputMenu.Radius;
+			DisplayStrength = pInputMenu.DisplayStrength;
+			NavBackStrength = pInputMenu.NavigateBackStrength;
 
-			IInputSide inputSide = vInputProv.GetSide(IsLeft);
-			IsActive = inputSide.IsActive;
-
-			if ( !IsActive ) {
-				Center = Vector3.zero;
-				Rotation = Quaternion.identity;
-				Size = 0;
-				DisplayStrength = 0;
-				NavBackStrength = 0;
-				return;
-			}
-
-			IInputMenu inputMenu = inputSide.Menu;
-
-			Center = inputMenu.Position;
-			Rotation = inputMenu.Rotation;
-			Size = inputMenu.Radius;
-			DisplayStrength = inputMenu.DisplayStrength;
-			NavBackStrength = inputMenu.NavigateBackStrength;
-
-			CheckGrabGesture(inputMenu);
+			CheckGrabGesture(pInputMenu);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		internal void UpdateWithCursor(CursorState pCursor) {
-			bool allowSelect = (pCursor != null && DisplayStrength > 0);
+			bool allowSelect = (pCursor.IsActive && DisplayStrength > 0);
+			Vector3? cursorPos = (pCursor.IsActive ? pCursor.Position : (Vector3?)null);
+
 			NearestSegment = null;
 
 			foreach ( ArcSegmentState seg in vSegments ) {
-				seg.UpdateWithCursor(pCursor != null ? pCursor.Position : null);
+				seg.UpdateWithCursor(cursorPos);
 
 				if ( !allowSelect ) {
 					continue;

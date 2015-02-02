@@ -7,7 +7,7 @@ namespace Hovercast.Core.Display {
 	/*================================================================================================*/
 	public class UiMenu : MonoBehaviour {
 
-		public static readonly float ScaleArcSize = 1.1f;
+		public const float ScaleArcSize = 1.1f;
 
 		private MenuState vMenuState;
 		private ArcState vArcState;
@@ -38,6 +38,8 @@ namespace Hovercast.Core.Display {
 			arcObj.transform.SetParent(gameObject.transform, false);
 			vUiArc = arcObj.AddComponent<UiArc>();
 			vUiArc.Build(vArcState, vSettings);
+
+			vMenuState.OnSideChange += HandleSideChange;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -55,6 +57,14 @@ namespace Hovercast.Core.Display {
 
 			vUiArc.gameObject.transform.localRotation = (isLeft ? vLeftRot : vRightRot);
 			vUiPalm.gameObject.transform.localRotation = (isLeft ? vLeftRot : vRightRot);
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private void HandleSideChange() {
+			vUiPalm.UpdateAfterSideChange();
+			vUiArc.UpdateAfterSideChange();
 		}
 
 	}

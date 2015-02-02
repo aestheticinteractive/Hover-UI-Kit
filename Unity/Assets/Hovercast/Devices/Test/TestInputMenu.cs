@@ -6,6 +6,7 @@ namespace Hovercast.Devices.Test {
 	/*================================================================================================*/
 	public class TestInputMenu : MonoBehaviour, IInputMenu {
 
+		public bool TestIsActive;
 		public Vector3 TestPosition;
 		public Quaternion TestRotation;
 		public float TestRadius;
@@ -13,6 +14,7 @@ namespace Hovercast.Devices.Test {
 		public float TestDisplayStrength = 1;
 
 		public bool IsLeft { get; set; }
+		public bool IsActive { get { return TestIsActive; } }
 		
 		public Vector3 Position { get { return TestPosition; } }
 		public Quaternion Rotation { get { return TestRotation; } }

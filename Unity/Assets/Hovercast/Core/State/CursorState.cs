@@ -7,40 +7,28 @@ namespace Hovercast.Core.State {
 	/*================================================================================================*/
 	public class CursorState {
 
+		public bool IsActive { get; private set; }
 		public bool IsLeft { get; private set; }
-		//public Vector3 PalmDirection { get; private set; }
-		public Vector3? Position { get; private set; }
+		public Vector3 Position { get; private set; }
 
-		private readonly IInputProvider vInputProv;
 		private readonly InteractionSettings vSettings;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public CursorState(IInputProvider pInputProv, InteractionSettings pSettings) {
-			vInputProv = pInputProv;
+		public CursorState(InteractionSettings pSettings) {
 			vSettings = pSettings;
-
-			IsLeft = vSettings.IsMenuOnLeftSide;
-			//PalmDirection = vInputProv.PalmDirection;
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal void UpdateAfterInput() {
-			IsLeft = !vSettings.IsMenuOnLeftSide;
+		internal void UpdateAfterInput(IInputCursor pInputCursor) {
+			IsLeft = pInputCursor.IsLeft;
+			IsActive = pInputCursor.IsActive;
 
-			IInputSide inputSide = vInputProv.GetSide(IsLeft);
-			IInputCursor inputCursor = inputSide.Cursor;
-
-			if ( inputCursor == null ) {
-				Position = null;
-				return;
-			}
-
-			Position = inputCursor.Position+
-				inputCursor.Rotation*Vector3.back*vSettings.CursorForwardDistance;
+			Position = pInputCursor.Position+
+				pInputCursor.Rotation*Vector3.back*vSettings.CursorForwardDistance;
 		}
 
 	}

@@ -6,7 +6,6 @@ namespace Hovercast.Devices.Test {
 	public class TestInputSide : IInputSide {
 
 		public bool IsLeft { get; private set; }
-		public bool IsActive { get; private set; }
 		public bool IsCursor { get; set; }
 
 		public IInputMenu Menu { get; private set; }

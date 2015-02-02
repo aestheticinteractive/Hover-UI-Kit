@@ -42,7 +42,7 @@ namespace Hovercast.Core.Display {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			if ( vCursorState.Position == null || vArcState.DisplayStrength <= 0 ) {
+			if ( !vCursorState.IsActive || vArcState.DisplayStrength <= 0 ) {
 				vRendererObj.SetActive(false);
 				return;
 			}
@@ -50,7 +50,7 @@ namespace Hovercast.Core.Display {
 			vRendererObj.SetActive(true);
 
 			Transform tx = gameObject.transform;
-			tx.localPosition = (Vector3)vCursorState.Position;
+			tx.localPosition = vCursorState.Position;
 			tx.localRotation = Quaternion.identity;
 			tx.localScale = Vector3.one*(vArcState.Size*UiMenu.ScaleArcSize);
 

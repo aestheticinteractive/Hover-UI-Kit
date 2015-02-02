@@ -8,11 +8,14 @@ namespace Hovercast.Devices.Leap {
 	internal class LeapInputSide : IInputSide {
 
 		public bool IsLeft { get; private set; }
-		public bool IsActive { get; private set; }
 
 		private readonly LeapInputSettings vSettings;
 		private readonly LeapInputMenu vMenu;
 		private readonly LeapInputCursor vCursor;
+
+		private Hand vLeapHand;
+		private bool vIsMenuStale;
+		private bool vIsCursorStale;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -30,14 +33,24 @@ namespace Hovercast.Devices.Leap {
 		/*--------------------------------------------------------------------------------------------*/
 		public IInputMenu Menu {
 			get {
-				return (IsActive ? vMenu : null);
+				if ( vIsMenuStale ) {
+					vMenu.Rebuild(vLeapHand, vSettings);
+					vIsMenuStale = false;
+				}
+
+				return vMenu;
 			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public IInputCursor Cursor {
 			get {
-				return (IsActive ? vCursor : null);
+				if ( vIsCursorStale ) {
+					vCursor.Rebuild(GetCursorLeapFinger());
+					vIsCursorStale = false;
+				}
+
+				return vCursor;
 			}
 		}
 
@@ -45,19 +58,20 @@ namespace Hovercast.Devices.Leap {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		internal void UpdateWithLeapHand(Hand pLeapHand) {
-			bool isHandValid = (pLeapHand != null && pLeapHand.IsValid);
-			IsActive = isHandValid;
+			vLeapHand = (pLeapHand != null && pLeapHand.IsValid ? pLeapHand : null);
+			vIsMenuStale = true;
+			vIsCursorStale = true;
+		}
 
-			if ( !isHandValid ) {
-				return;
+		/*--------------------------------------------------------------------------------------------*/
+		private Finger GetCursorLeapFinger() {
+			if ( vLeapHand == null ) {
+				return null;
 			}
 
-			Finger leapFinger = pLeapHand.Fingers
+			return vLeapHand.Fingers
 				.FingerType(vSettings.CursorFinger)
 				.FirstOrDefault(f => f.IsValid);
-
-			vMenu.Rebuild(pLeapHand, vSettings);
-			vCursor.Rebuild(leapFinger);
 		}
 
 	}

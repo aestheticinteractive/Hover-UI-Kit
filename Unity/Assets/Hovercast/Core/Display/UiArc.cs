@@ -27,13 +27,26 @@ namespace Hovercast.Core.Display {
 			vSettings = pSettings;
 
 			vArcState.OnLevelChange += HandleLevelChange;
-			vArcState.OnIsLeftChange += HandleIsLeftChange;
-			HandleIsLeftChange();
+			UpdateAfterSideChange();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
 			UpdateItemChangeAnim();
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		internal void UpdateAfterSideChange() {
+			vPrevLevelObj = vCurrLevelObj;
+			DestroyPrevLevel();
+
+			vCurrLevelObj = new GameObject("CurrLevel");
+			vCurrLevelObj.transform.SetParent(gameObject.transform, false);
+			vCurrLevelObj.transform.localScale = Vector3.one;
+
+			UiArcLevel arcLevel = vCurrLevelObj.AddComponent<UiArcLevel>();
+			arcLevel.Build(vArcState, vSettings);
+			arcLevel.HandleChangeAnimation(true, 0, 1);
 		}
 
 
@@ -60,20 +73,6 @@ namespace Hovercast.Core.Display {
 			vChangeTime = DateTime.UtcNow;
 			vChangeDir = pDirection;
 			UpdateItemChangeAnim();
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		private void HandleIsLeftChange() {
-			vPrevLevelObj = vCurrLevelObj;
-			DestroyPrevLevel();
-
-			vCurrLevelObj = new GameObject("CurrLevel");
-			vCurrLevelObj.transform.SetParent(gameObject.transform, false);
-			vCurrLevelObj.transform.localScale = Vector3.one;
-
-			UiArcLevel arcLevel = vCurrLevelObj.AddComponent<UiArcLevel>();
-			arcLevel.Build(vArcState, vSettings);
-			arcLevel.HandleChangeAnimation(true, 0, 1);
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/

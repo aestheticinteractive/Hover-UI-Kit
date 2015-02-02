@@ -16,8 +16,6 @@ namespace Hovercast.Core.Display {
 		private GameObject vRendererObj;
 		private IUiPalmRenderer vRenderer;
 
-		private bool? vPrevIsLeft;
-
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -29,23 +27,12 @@ namespace Hovercast.Core.Display {
 			vRendererHold.transform.SetParent(gameObject.transform, false);
 			vRendererHold.transform.localPosition = UiArcLevel.PushFromHand;
 
-			vArcState.OnIsLeftChange += HandleIsLeftChange;
 			vArcState.OnLevelChange += HandleLevelChange;
-
-			HandleIsLeftChange();
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		private void HandleLevelChange(int pDirection) {
-			NavItem parNavItem = vArcState.GetLevelParentItem();
-			var arcSegSett = vSettings.GetArcSegmentSettings(parNavItem);
-			vRenderer.SetSettings(arcSegSett);
+			UpdateAfterSideChange();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void HandleIsLeftChange() {
+		internal void UpdateAfterSideChange() {
 			if ( vRendererObj != null ) {
 				vRendererObj.SetActive(false);
 				Destroy(vRendererObj);
@@ -63,6 +50,15 @@ namespace Hovercast.Core.Display {
 			vRenderer.Build(vArcState, -halfAngle, halfAngle);
 
 			HandleLevelChange(0);
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private void HandleLevelChange(int pDirection) {
+			NavItem parNavItem = vArcState.GetLevelParentItem();
+			var arcSegSett = vSettings.GetArcSegmentSettings(parNavItem);
+			vRenderer.SetSettings(arcSegSett);
 		}
 
 	}

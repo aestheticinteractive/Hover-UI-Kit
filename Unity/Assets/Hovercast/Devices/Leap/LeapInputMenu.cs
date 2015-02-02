@@ -9,6 +9,7 @@ namespace Hovercast.Devices.Leap {
 	internal class LeapInputMenu : IInputMenu {
 
 		public bool IsLeft { get; private set; }
+		public bool IsActive { get; private set; }
 
 		public Vector3 Position { get; private set; }
 		public Quaternion Rotation { get; private set; }
@@ -26,6 +27,17 @@ namespace Hovercast.Devices.Leap {
 
 		/*--------------------------------------------------------------------------------------------*/
 		internal void Rebuild(Hand pLeapHand, LeapInputSettings pSettings) {
+			if ( pLeapHand == null ) {
+				IsActive = false;
+				Position = Vector3.zero;
+				Rotation = Quaternion.identity;
+				Radius = 0;
+				NavigateBackStrength = 0;
+				DisplayStrength = 0;
+				return;
+			}
+
+			IsActive = true;
 			Position = pLeapHand.PalmPosition.ToUnityScaled();
 			Rotation = CalcQuaternion(pLeapHand.Basis);
 			Radius = 0.01f;
