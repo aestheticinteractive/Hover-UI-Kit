@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Hovercast.Devices.Leap {
 
 	/*================================================================================================*/
-	public class InputSide : IInputSide {
+	public class LeapInputSide : IInputSide {
 
 		public bool IsLeft { get; private set; }
 		public IInputCenter Center { get; private set; }
@@ -23,7 +23,7 @@ namespace Hovercast.Devices.Leap {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public InputSide(bool pIsLeft, Vector3 pPalmDirection) {
+		public LeapInputSide(bool pIsLeft, Vector3 pPalmDirection) {
 			IsLeft = pIsLeft;
 			vPalmDirection = pPalmDirection;
 		}
@@ -32,7 +32,7 @@ namespace Hovercast.Devices.Leap {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateWithLeapHand(Hand pLeapHand) {
-			Center = (pLeapHand == null ? null : new InputCenter(pLeapHand, vPalmDirection));
+			Center = (pLeapHand == null ? null : new LeapInputCenter(pLeapHand, vPalmDirection));
 
 			IndexPoint = GetPoint(pLeapHand, Finger.FingerType.TYPE_INDEX);
 			MiddlePoint = GetPoint(pLeapHand, Finger.FingerType.TYPE_MIDDLE);
@@ -58,7 +58,7 @@ namespace Hovercast.Devices.Leap {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private static InputPoint GetPoint(Hand pLeapHand, Finger.FingerType pFingerType) {
+		private static LeapInputPoint GetPoint(Hand pLeapHand, Finger.FingerType pFingerType) {
 			if ( pLeapHand == null ) {
 				return null;
 			}
@@ -71,7 +71,7 @@ namespace Hovercast.Devices.Leap {
 				return null;
 			}
 
-			return new InputPoint(leapFinger);
+			return new LeapInputPoint(leapFinger);
 		}
 
 	}

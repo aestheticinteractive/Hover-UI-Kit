@@ -14,8 +14,8 @@ namespace Hovercast.Devices.Leap {
 
 		private HandController vHandControl;
 		private Frame vFrame;
-		private InputSide vInputHandProvL;
-		private InputSide vInputHandProvR;
+		private LeapInputSide vSideL;
+		private LeapInputSide vSideR;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -28,8 +28,8 @@ namespace Hovercast.Devices.Leap {
 					"same GameObject that contains the Leap Motion HandController component.");
 			}
 
-			vInputHandProvL = new InputSide(true, PalmDirection);
-			vInputHandProvR = new InputSide(false, PalmDirection);
+			vSideL = new LeapInputSide(true, PalmDirection);
+			vSideR = new LeapInputSide(false, PalmDirection);
 		}
 
 
@@ -46,13 +46,13 @@ namespace Hovercast.Devices.Leap {
 			Frame frame = vHandControl.GetFrame();
 
 			vFrame = (frame != null && frame.IsValid ? frame : null);
-			vInputHandProvL.UpdateWithLeapHand(GetLeapHand(true));
-			vInputHandProvR.UpdateWithLeapHand(GetLeapHand(false));
+			vSideL.UpdateWithLeapHand(GetLeapHand(true));
+			vSideR.UpdateWithLeapHand(GetLeapHand(false));
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public override IInputSide GetSide(bool pIsLeft) {
-			return (pIsLeft ? vInputHandProvL : vInputHandProvR);
+			return (pIsLeft ? vSideL : vSideR);
 		}
 
 

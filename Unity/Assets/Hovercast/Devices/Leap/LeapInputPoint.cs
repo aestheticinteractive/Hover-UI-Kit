@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Hovercast.Devices.Leap {
 
 	/*================================================================================================*/
-	public class InputPoint : IInputPoint {
+	public class LeapInputPoint : IInputPoint {
 
 		public Vector3 Position { get; private set; }
 		public Quaternion Rotation { get; private set; }
@@ -13,11 +13,11 @@ namespace Hovercast.Devices.Leap {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public InputPoint(Finger pLeapFinger) {
+		public LeapInputPoint(Finger pLeapFinger) {
 			Bone bone = pLeapFinger.Bone(Bone.BoneType.TYPE_DISTAL);
 
 			Position = pLeapFinger.TipPosition.ToUnityScaled();
-			Rotation = InputCenter.CalcQuaternion(bone.Basis);
+			Rotation = LeapInputCenter.CalcQuaternion(bone.Basis);
 		}
 
 	}

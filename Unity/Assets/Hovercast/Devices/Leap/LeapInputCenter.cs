@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Hovercast.Devices.Leap {
 
 	/*================================================================================================*/
-	public class InputCenter : IInputCenter {
+	public class LeapInputCenter : IInputCenter {
 
 		public bool IsLeft { get; set; }
 		public Vector3 Position { get; set; }
@@ -16,7 +16,7 @@ namespace Hovercast.Devices.Leap {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public InputCenter(Hand pHand, Vector3 pPalmDirection) {
+		public LeapInputCenter(Hand pHand, Vector3 pPalmDirection) {
 			IsLeft = pHand.IsLeft;
 			Position = pHand.PalmPosition.ToUnityScaled();
 			Rotation = CalcQuaternion(pHand.Basis);
