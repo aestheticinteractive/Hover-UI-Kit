@@ -25,6 +25,8 @@ This project includes a complete [demo application](https://github.com/aesthetic
 ---
 Want to try the demo for yourself?
 
-**[Download the `2015-01-24` build >](http://www.aestheticinteractive.com/clients/hovercast/HovercastDemo-2015-01-24.zip)**
+**[Download the `2015-02-04` build >](http://www.aestheticinteractive.com/clients/hovercast/HovercastDemo-2015-02-04.zip)**
 
-This package includes a full VR demo and a "Leap Only" demo (for both PC and Mac). All demos require a [Leap Motion controller](https://www.leapmotion.com/product/vr), and the VR demo requires an [Oculus Rift headset](https://www.oculus.com/). The "Leap Only" demo is experimental, and does not work as well as the VR demo.
+This package includes a full "LeapVR" demo and two "LeapOnly" demos (for both PC and Mac). All demos require a [Leap Motion controller](https://www.leapmotion.com/product/vr), and the VR demo requires an [Oculus Rift headset](https://www.oculus.com/). 
+
+The "LeapOnly" demos are experimental. For reasons related to usability and Leap tracking, these may not work as well as the "LeapVR" demo. The "LeapOnly-HeadMount" demo provides a closer feel to the "LeapVR" demo, but requires the Leap Motion controller to be attached near to your eyes (try mounting it via hat or headband).
