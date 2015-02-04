@@ -20,11 +20,11 @@ namespace Hovercast.Core.Display {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal void Build(ArcState pArcState, CursorState pCursorState, ISettings pSettings) {
+		internal void Build(ArcState pArcState, CursorState pCursorState, ISettings pSettings, 
+																		Transform pCameraTransform) {
 			vArcState = pArcState;
 			vCursorState = pCursorState;
-			//TODO: get the camera's transform, not HovercastSetup's transform
-			vCameraTx = gameObject.transform.parent; //HovercastSetup
+			vCameraTx = pCameraTransform;
 
 			////
 			
@@ -54,7 +54,7 @@ namespace Hovercast.Core.Display {
 			tx.localRotation = Quaternion.identity;
 			tx.localScale = Vector3.one*(vArcState.Size*UiMenu.ScaleArcSize);
 
-			Vector3 camWorld = vCameraTx.transform.TransformPoint(Vector3.zero);
+			Vector3 camWorld = vCameraTx.TransformPoint(Vector3.zero);
 			Vector3 camLocal = tx.InverseTransformPoint(camWorld);
 			tx.localRotation = Quaternion.FromToRotation(Vector3.down, camLocal);
 		}
