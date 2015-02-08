@@ -12,9 +12,7 @@ namespace Hovercast.Core.Navigation {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public override void Awake() {
-			base.Awake();
-
+		public NavItemSlider() {
 			ValueToLabel = ((v, sv) =>
 				(string.IsNullOrEmpty(Label) ? "" : Label+": ")+(sv*100).ToString("0.0")+"%"
 			);

@@ -19,9 +19,13 @@ namespace Hovercast.Core.Navigation {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public NavLevel(GameObject pParentObj) {
-			vParentObj = pParentObj;
+		public NavLevel() {
 			OnItemSelected += ((l,i) => {});
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void Build(GameObject pParentObj) {
+			vParentObj = pParentObj;
 		}
 
 
@@ -31,6 +35,11 @@ namespace Hovercast.Core.Navigation {
 			get {
 				if ( IsActive && vActiveItems != null ) {
 					return vActiveItems;
+				}
+
+				if ( vParentObj == null ) {
+					vActiveItems = null;
+					return new NavItem[0];
 				}
 
 				int childCount = vParentObj.transform.childCount;

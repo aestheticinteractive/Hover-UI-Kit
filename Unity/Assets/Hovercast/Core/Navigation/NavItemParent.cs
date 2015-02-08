@@ -8,16 +8,13 @@ namespace Hovercast.Core.Navigation {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public override void Awake() {
-			base.Awake();
-			ChildLevel = new NavLevel(gameObject);
+		public NavItemParent() {
+			ChildLevel = new NavLevel();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public override NavItem.ItemType Type {
-			get {
-				return NavItem.ItemType.Parent;
-			}
+		public void Awake() {
+			ChildLevel.Build(gameObject);
 		}
 
 
@@ -26,6 +23,13 @@ namespace Hovercast.Core.Navigation {
 		public override void Select() {
 			Value = true;
 			base.Select();
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public override NavItem.ItemType Type {
+			get {
+				return NavItem.ItemType.Parent;
+			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

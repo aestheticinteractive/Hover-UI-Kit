@@ -13,6 +13,7 @@ namespace Hovercast.Demo {
 		private const float SpeedMin = 0.4f;
 		private const float SpeedRange = SpeedMax-SpeedMin;
 
+		private GameObject vCubesObj;
 		private GameObject[] vHolds;
 		private GameObject[] vCubes;
 		private Light vLight;
@@ -38,6 +39,9 @@ namespace Hovercast.Demo {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Start() {
+			vCubesObj = new GameObject("Cubes");
+			vCubesObj.transform.SetParent(gameObject.transform, false);
+			
 			vHolds = new GameObject[Count];
 			vCubes = new GameObject[Count];
 			vLight = GameObject.Find("Light").GetComponent<Light>();
@@ -71,8 +75,7 @@ namespace Hovercast.Demo {
 
 			////
 
-			DemoNavDelegate navDel = DemoNavComponent.NavDelegate;
-			vNavItems = navDel.Items;
+			vNavItems = DemoNavProvider.Items;
 
 			vMotionMap = new Dictionary<int, DemoMotion> {
 				{ vNavItems.MotionOrbit.Id,	vOrbitMotion },
@@ -93,9 +96,7 @@ namespace Hovercast.Demo {
 				{ vNavItems.CameraTop.Id,	Quaternion.FromToRotation(Vector3.forward, Vector3.up) }
 			};
 
-			navDel.OnMotionChange += HandleMotionChange;
-			navDel.OnCameraChange += HandleCameraChange;
-
+			DemoNavProvider.Instance.GetRoot().OnItemSelection += HandleItemSelection;
 			vNavItems.ColorWhite.OnValueChanged += HandleColorWhiteToggle;
 			vNavItems.ColorRandom.OnValueChanged += HandleColorRandomToggle;
 			vNavItems.ColorCustom.OnValueChanged += HandleColorCustomToggle;
@@ -205,7 +206,7 @@ namespace Hovercast.Demo {
 			float orbitSpeed = (float)Math.Pow(1-radiusPercent, 2)*0.2f + 0.8f;
 
 			var hold = new GameObject("Hold"+pIndex);
-			hold.transform.parent = gameObject.transform;
+			hold.transform.parent = vCubesObj.transform;
 			vHolds[pIndex] = hold;
 
 			DemoCubeHold holdData = hold.AddComponent<DemoCubeHold>();
@@ -298,6 +299,19 @@ namespace Hovercast.Demo {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public void HandleItemSelection(NavLevel pLevel, NavItem pItem) {
+			DemoNavItems items = DemoNavProvider.Items;
+
+			if ( DemoNavItems.IsItemWithin(pItem, items.Motion, NavItem.ItemType.Checkbox) ) {
+				HandleMotionChange(pItem);
+			}
+			
+			if ( DemoNavItems.IsItemWithin(pItem, items.Camera, NavItem.ItemType.Radio) ) {
+				HandleCameraChange(pItem);
+			}
+		}
+
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleColorWhiteToggle(NavItem<bool> pItem) {
 			if ( !pItem.Value ) {

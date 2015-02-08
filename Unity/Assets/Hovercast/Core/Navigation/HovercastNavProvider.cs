@@ -9,24 +9,32 @@ namespace Hovercast.Core.Navigation {
 		public string Title = "Hovercast VR";
 
 		private NavRoot vRoot;
+		private NavLevel vRootLevel;
+		private bool vIsBuilt;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Awake() {
-			var rootLevel = new NavLevel(gameObject);
-			vRoot = new NavRoot(rootLevel);
+		public HovercastNavProvider() {
+			vRoot = new NavRoot();
+			vRootLevel = new NavLevel();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void Update() {
+		public virtual void Update() {
 			vRoot.Title = Title;
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public NavRoot GetRoot() {
+		public virtual NavRoot GetRoot() {
+			if ( !vIsBuilt ) {
+				vRootLevel.Build(gameObject);
+				vRoot.Build(vRootLevel);
+				vIsBuilt = true;
+			}
+
 			return vRoot;
 		}
 

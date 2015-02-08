@@ -63,24 +63,43 @@ namespace Hovercast.Demo {
 
 		public NavLevel TopLevel { get; private set; }
 
+		private GameObject vRootObj;
 		private float vMenuOpacity;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public DemoNavItems() {
-			/*BuildColors();
+		public void Build(GameObject pRootObj) {
+			vRootObj = pRootObj;
+
+			while ( vRootObj.transform.childCount > 0 ) {
+				GameObject.DestroyImmediate(vRootObj.transform.GetChild(0).gameObject);
+			}
+
+			////
+
+			BuildColors();
 			BuildMotions();
 			BuildLight();
 			BuildCamera();
 			BuildCustomize();
-			BuildNested();*/
-
-			//TopLevel = new NavLevel(Color, Motion, Light, Camera, Customize, Nested);
+			BuildNested();
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public static T AddItem<T>(GameObject pParentObj, string pLabel, float pRelSize=1) 
+																					where T : NavItem {
+			var obj = new GameObject(pLabel);
+			obj.transform.SetParent(pParentObj.transform, false);
+
+			T item = obj.AddComponent<T>();
+			item.BaseLabel = pLabel;
+			item.RelativeSize = pRelSize;
+			return item;
+		}
+
 		/*--------------------------------------------------------------------------------------------*/
 		public static bool IsItemWithin(NavItem pItem, NavItemParent pParent, NavItem.ItemType pType) {
 			VerifyParent(pParent);
@@ -113,114 +132,98 @@ namespace Hovercast.Demo {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------* /
+		/*--------------------------------------------------------------------------------------------*/
 		private void BuildColors() {
-			ColorWhite = new NavItemRadio("White");
-			ColorRandom = new NavItemRadio("Random");
-			ColorCustom = new NavItemRadio("Custom");
-			ColorHue = new NavItemSlider("Hue", 3);
-
-			Color = new NavItemParent("Color");
-			Color.ChildLevel.Items = new NavItem[] { ColorWhite, ColorRandom, ColorCustom, ColorHue };
+			Color = AddItem<NavItemParent>(vRootObj, "Color");
+			ColorWhite = AddItem<NavItemRadio>(Color.gameObject, "White");
+			ColorRandom = AddItem<NavItemRadio>(Color.gameObject, "Random");
+			ColorCustom = AddItem<NavItemRadio>(Color.gameObject, "Custom");
+			ColorHue = AddItem<NavItemSlider>(Color.gameObject, "Hue", 3);
 		}
 
-		/*--------------------------------------------------------------------------------------------* /
+		/*--------------------------------------------------------------------------------------------*/
 		private void BuildMotions() {
-			MotionOrbit = new NavItemCheckbox("Orbit");
-			MotionSpin = new NavItemCheckbox("Spin");
-			MotionBob = new NavItemCheckbox("Bob");
-			MotionGrow = new NavItemCheckbox("Grow");
-			MotionSpeed = new NavItemSlider("Speed", 4);
-
-			Motion = new NavItemParent("Motion");
-			Motion.ChildLevel.Items = new NavItem[] { MotionOrbit, MotionSpin, MotionBob, MotionGrow, 
-				MotionSpeed };
+			Motion = AddItem<NavItemParent>(vRootObj, "Motion");
+			MotionOrbit = AddItem<NavItemCheckbox>(Motion.gameObject, "Orbit");
+			MotionSpin = AddItem<NavItemCheckbox>(Motion.gameObject, "Spin");
+			MotionBob = AddItem<NavItemCheckbox>(Motion.gameObject, "Bob");
+			MotionGrow = AddItem<NavItemCheckbox>(Motion.gameObject, "Grow");
+			MotionSpeed = AddItem<NavItemSlider>(Motion.gameObject, "Speed", 4);
 		}
 
-		/*--------------------------------------------------------------------------------------------* /
+		/*--------------------------------------------------------------------------------------------*/
 		private void BuildLight() {
-			LightPos = new NavItemSlider("Position", 2);
-			LightInten = new NavItemSlider("Power", 2);
-			LightSpot = new NavItemSticky("Spotlight");
-
-			Light = new NavItemParent("Lighting");
-			Light.ChildLevel.Items = new NavItem[] { LightPos, LightInten, LightSpot };
+			Light = AddItem<NavItemParent>(vRootObj, "Lighting");
+			LightPos = AddItem<NavItemSlider>(Light.gameObject, "Position", 2);
+			LightInten = AddItem<NavItemSlider>(Light.gameObject, "Power", 2);
+			LightSpot = AddItem<NavItemSticky>(Light.gameObject, "Spotlight");
 		}
 
-		/*--------------------------------------------------------------------------------------------* /
+		/*--------------------------------------------------------------------------------------------*/
 		private void BuildCamera() {
-			CameraCenter = new NavItemRadio("Center");
-			CameraBack = new NavItemRadio("Back");
-			CameraTop = new NavItemRadio("Top");
-			CameraReorient = new NavItemSelector("Re-orient");
-
-			Camera = new NavItemParent("Camera");
-			Camera.ChildLevel.Items = new NavItem[] { CameraCenter, CameraBack, CameraTop, 
-				CameraReorient };
+			Camera = AddItem<NavItemParent>(vRootObj, "Camera");
+			CameraCenter = AddItem<NavItemRadio>(Camera.gameObject, "Center");
+			CameraBack = AddItem<NavItemRadio>(Camera.gameObject, "Back");
+			CameraTop = AddItem<NavItemRadio>(Camera.gameObject, "Top");
+			CameraReorient = AddItem<NavItemSelector>(Camera.gameObject, "Re-orient");
 		}
 
-		/*--------------------------------------------------------------------------------------------* /
+		/*--------------------------------------------------------------------------------------------*/
 		private void BuildCustomize() {
-			vMenuOpacity = 0.5f;
+			Customize = AddItem<NavItemParent>(vRootObj, "Customize");
+			CustomizeDark = AddItem<NavItemRadio>(Customize.gameObject, "Dark Theme");
+			CustomizeLight = AddItem<NavItemRadio>(Customize.gameObject, "Light Theme");
+			CustomizeColor = AddItem<NavItemRadio>(Customize.gameObject, "Color Theme");
+			CustomizeFontsize = AddItem<NavItemSlider>(Customize.gameObject, "Size", 3);
+			CustomizeOpacity = AddItem<NavItemSlider>(Customize.gameObject, "Bg Alpha", 3);
+			CustomizeSwitch = AddItem<NavItemSelector>(Customize.gameObject, "Switch Hands!");
 
-			CustomizeDark = new NavItemRadio("Dark Theme");
-			CustomizeDark.OnSelected += HandleDarkThemeSelected;
+			////
+
 			CustomizeDark.Value = true;
-			CustomizeLight = new NavItemRadio("Light Theme");
+			CustomizeDark.OnSelected += HandleDarkThemeSelected;
 			CustomizeLight.OnSelected += HandleLightThemeSelected;
-			CustomizeColor = new NavItemRadio("Color Theme");
 			CustomizeColor.OnSelected += HandleColorThemeSelected;
 
-			CustomizeFontsize = new NavItemSlider("Size", 3);
 			CustomizeFontsize.ValueToLabel = ((v, sv) =>
 				"Size: "+Math.Round(Mathf.Lerp(MinFontSize, MaxFontSize, sv)));
 			CustomizeFontsize.Value = Mathf.InverseLerp(MinFontSize, MaxFontSize, 30);
 			CustomizeFontsize.OnValueChanged += HandleFontSizeChanged;
 
-			CustomizeOpacity = new NavItemSlider("Bg Alpha", 3);
+			vMenuOpacity = 0.5f;
 			CustomizeOpacity.ValueToLabel = ((v, sv) => "Bg Alpha: "+Math.Round(v*100)+"%");
 			CustomizeOpacity.Value = vMenuOpacity;
 			CustomizeOpacity.OnValueChanged += HandleOpacityChanged;
 
-			CustomizeSwitch = new NavItemSelector("Switch Hands!");
 			CustomizeSwitch.OnSelected += HandleSwitchHands;
-
-			Customize = new NavItemParent("Customize");
-			Customize.ChildLevel.Items = new NavItem[] { CustomizeDark, CustomizeLight, CustomizeColor,
-			CustomizeFontsize, CustomizeOpacity, CustomizeSwitch };
 		}
 
-		/*--------------------------------------------------------------------------------------------* /
+		/*--------------------------------------------------------------------------------------------*/
 		private void BuildNested() {
-			NestedA1 = new NavItemCheckbox("Checkbox A1");
-			NestedA2 = new NavItemCheckbox("Checkbox A2");
-			NestedA3 = new NavItemCheckbox("Checkbox A3");
+			Nested = AddItem<NavItemParent>(vRootObj, "Nested Menu");
 
-			NestedA = new NavItemParent("Menu A");
-			NestedA.ChildLevel.Items = new NavItem[] { NestedA1, NestedA2, NestedA3 };
+			NestedA = AddItem<NavItemParent>(Nested.gameObject, "Menu A");
+			NestedA1 = AddItem<NavItemCheckbox>(NestedA.gameObject, "Checkbox A1");
+			NestedA2 = AddItem<NavItemCheckbox>(NestedA.gameObject, "Checkbox A2");
+			NestedA3 = AddItem<NavItemCheckbox>(NestedA.gameObject, "Checkbox A3");
 
-			NestedB1 = new NavItemCheckbox("Checkbox B1");
-			NestedB2 = new NavItemCheckbox("Checkbox B2");
-			NestedB3 = new NavItemCheckbox("Hide Menu C");
+			NestedB = AddItem<NavItemParent>(Nested.gameObject, "Menu B");
+			NestedB1 = AddItem<NavItemCheckbox>(NestedB.gameObject, "Checkbox B1");
+			NestedB2 = AddItem<NavItemCheckbox>(NestedB.gameObject, "Checkbox B2");
+			NestedB3 = AddItem<NavItemCheckbox>(NestedB.gameObject, "Checkbox B3");
+			NestedB4 = AddItem<NavItemSelector>(NestedB.gameObject, "Go Back");
+
+			NestedC = AddItem<NavItemParent>(Nested.gameObject, "Menu C");
+			NestedC1 = AddItem<NavItemCheckbox>(NestedC.gameObject, "Checkbox C1");
+			NestedC2 = AddItem<NavItemCheckbox>(NestedC.gameObject, "Checkbox C2");
+			NestedC3 = AddItem<NavItemCheckbox>(NestedC.gameObject, "Checkbox C3");
+			NestedC4 = AddItem<NavItemCheckbox>(NestedC.gameObject, "Checkbox C4");
+			NestedC5 = AddItem<NavItemCheckbox>(NestedC.gameObject, "Checkbox C5");
+
+			////
+
 			NestedB3.OnValueChanged += HandleHideMenuCValueChanged;
-			NestedB4 = new NavItemSelector("Go Back");
 			NestedB4.NavigateBackUponSelect = true;
-
-			NestedB = new NavItemParent("Menu B");
-			NestedB.ChildLevel.Items = new NavItem[] { NestedB1, NestedB2, NestedB3, NestedB4 };
-
-			NestedC1 = new NavItemCheckbox("Checkbox C1");
-			NestedC2 = new NavItemCheckbox("Checkbox C2");
-			NestedC3 = new NavItemCheckbox("Checkbox C3");
-			NestedC4 = new NavItemCheckbox("Checkbox C4");
-			NestedC5 = new NavItemCheckbox("Checkbox C5");
-
-			NestedC = new NavItemParent("Menu C");
-			NestedC.ChildLevel.Items = new NavItem[] { NestedC1, NestedC2, NestedC3, NestedC4,
-				NestedC5 };
-
-			Nested = new NavItemParent("Nested Menu");
-			Nested.ChildLevel.Items = new NavItem[] { NestedA, NestedB, NestedC };
 		}
 
 

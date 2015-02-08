@@ -20,12 +20,14 @@ namespace Hovercast.Core.Navigation {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public NavRoot(NavLevel pRootLevel) {
+		public NavRoot() {
 			vHistory = new Stack<NavLevel>();
-
 			OnLevelChange += (d => {});
 			OnItemSelection += ((l,i) => {});
+		}
 
+		/*--------------------------------------------------------------------------------------------*/
+		public void Build(NavLevel pRootLevel) {
 			SetNewLevel(pRootLevel, 0);
 		}
 

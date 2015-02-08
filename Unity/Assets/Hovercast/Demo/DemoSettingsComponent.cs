@@ -17,7 +17,7 @@ namespace Hovercast.Demo {
 				ArcSegmentSettings = base.GetArcSegmentSettings(null);
 			}
 			
-			if ( pNavItem == DemoNavComponent.NavDelegate.Items.ColorHue ) {
+			if ( pNavItem == DemoNavProvider.Items.ColorHue ) {
 				var sett = new DemoHueSliderSettings(pNavItem);
 				sett.Fill(ArcSegmentSettings);
 				return sett;
