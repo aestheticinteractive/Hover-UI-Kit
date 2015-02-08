@@ -25,11 +25,11 @@ namespace Hovercast.Core {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public EmptyDelgate() {
-			vNavLevel = new NavLevel();
-			vNavLevel.Items = new NavItem[7];
+			//vNavLevel = new NavLevel();
+			//vNavLevel.Items = new NavItem[7];
 
 			for ( int i = 0 ; i < 7 ; i++ ) {
-				vNavLevel.Items[i] = new NavItemCheckbox("Item "+i);
+				//vNavLevel.Items[i] = new NavItemCheckbox("Item "+i);
 			}
 		}
 

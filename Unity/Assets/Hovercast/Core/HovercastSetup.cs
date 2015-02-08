@@ -9,12 +9,11 @@ namespace Hovercast.Core {
 	/*================================================================================================*/
 	public class HovercastSetup : MonoBehaviour {
 
-		public HovercastNavComponent NavDelegateProvider;
+		public HovercastNavProvider NavigationProvider;
 		public HovercastSettingsComponent SettingsProvider;
 		public HovercastInputProvider InputProvider;
 		public Transform OptionalCameraReference;
 
-		private NavProvider vNavProv;
 		private MenuState vMenuState;
 		private UiMenu vUiMenu;
 		private UiCursor vUiCursor;
@@ -23,8 +22,8 @@ namespace Hovercast.Core {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
-			if ( NavDelegateProvider == null ) {
-				throw new Exception("HovercastSetup.NavDelegateProvider must be set.");
+			if ( NavigationProvider == null ) {
+				throw new Exception("HovercastSetup.NavigationProvider must be set.");
 			}
 
 			if ( SettingsProvider == null ) {
@@ -39,10 +38,7 @@ namespace Hovercast.Core {
 				OptionalCameraReference = gameObject.transform;
 			}
 
-			vNavProv = new NavProvider();
-			vNavProv.Init(NavDelegateProvider.GetNavDelegate());
-
-			vMenuState = new MenuState(InputProvider, vNavProv, 
+			vMenuState = new MenuState(InputProvider, NavigationProvider.GetRoot(), 
 				SettingsProvider.GetInteractionSettings());
 
 			////

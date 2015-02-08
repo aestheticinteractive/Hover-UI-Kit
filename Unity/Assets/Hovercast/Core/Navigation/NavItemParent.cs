@@ -8,9 +8,16 @@ namespace Hovercast.Core.Navigation {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public NavItemParent(string pLabel, float pRelativeSize=1) : 
-														base(ItemType.Parent, pLabel, pRelativeSize) {
-			ChildLevel = new NavLevel();
+		public override void Awake() {
+			base.Awake();
+			ChildLevel = new NavLevel(gameObject);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public override NavItem.ItemType Type {
+			get {
+				return NavItem.ItemType.Parent;
+			}
 		}
 
 

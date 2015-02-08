@@ -1,30 +1,33 @@
-﻿namespace Hovercast.Core.Navigation {
+﻿using System.Collections.Generic;
+using UnityEngine;
+
+namespace Hovercast.Core.Navigation {
 
 	/*================================================================================================*/
-	public class NavItemRadio : NavItem<bool> {
+	public class HovercastNavProvider : MonoBehaviour { 
+
+		public string Title = "Hovercast VR";
+
+		private NavRoot vRoot;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public override NavItem.ItemType Type {
-			get {
-				return NavItem.ItemType.Radio;
-			}
+		public void Awake() {
+			var rootLevel = new NavLevel(gameObject);
+			vRoot = new NavRoot(rootLevel);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void Update() {
+			vRoot.Title = Title;
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public override void Select() {
-			Value = true;
-			base.Select();
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public override bool AllowSelection {
-			get {
-				return (!Value && base.AllowSelection);
-			}
+		public NavRoot GetRoot() {
+			return vRoot;
 		}
 
 	}

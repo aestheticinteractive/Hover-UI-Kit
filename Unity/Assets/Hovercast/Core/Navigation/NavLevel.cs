@@ -1,4 +1,6 @@
 ﻿using System;
+using UnityEngine;
+using System.Collections.Generic;
 
 namespace Hovercast.Core.Navigation {
 
@@ -11,18 +13,15 @@ namespace Hovercast.Core.Navigation {
 		public bool IsActive { get; private set; }
 		public NavItemParent LastSelectedParentItem { get; private set; }
 
-		private NavItem[] vItems;
+		private GameObject vParentObj;
+		private NavItem[] vActiveItems;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public NavLevel(params NavItem[] pItems) {
-			vItems = pItems;
+		public NavLevel(GameObject pParentObj) {
+			vParentObj = pParentObj;
 			OnItemSelected += ((l,i) => {});
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public NavLevel() : this(new NavItem[0]) {
 		}
 
 
@@ -30,14 +29,20 @@ namespace Hovercast.Core.Navigation {
 		/*--------------------------------------------------------------------------------------------*/
 		public NavItem[] Items {
 			get {
-				return vItems;
-			}
-			set {
-				if ( IsActive ) {
-					throw new Exception("Cannot change the Items list while the level is active.");
+				if ( IsActive && vActiveItems != null ) {
+					return vActiveItems;
 				}
 
-				vItems = value;
+				int childCount = vParentObj.transform.childCount;
+				var items = new List<NavItem>();
+
+				for ( int i = 0 ; i < childCount ; ++i ) {
+					NavItem item = vParentObj.transform.GetChild(i).GetComponent<NavItem>();
+					items.Add(item);
+				}
+
+				vActiveItems = items.ToArray();
+				return vActiveItems;
 			}
 		}
 
@@ -49,7 +54,7 @@ namespace Hovercast.Core.Navigation {
 
 			IsActive = pIsActive;
 
-			foreach ( NavItem item in vItems ) {
+			foreach ( NavItem item in Items ) {
 				item.UpdateValueOnLevelChange(pDirection);
 
 				if ( IsActive ) {
@@ -79,7 +84,7 @@ namespace Hovercast.Core.Navigation {
 
 		/*--------------------------------------------------------------------------------------------*/
 		protected virtual void DeselectRadioSiblings(NavItem pSelectedItem) {
-			foreach ( NavItem item in vItems ) {
+			foreach ( NavItem item in Items ) {
 				if ( item == pSelectedItem ) {
 					continue;
 				}

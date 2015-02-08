@@ -69,14 +69,14 @@ namespace Hovercast.Demo {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public DemoNavItems() {
-			BuildColors();
+			/*BuildColors();
 			BuildMotions();
 			BuildLight();
 			BuildCamera();
 			BuildCustomize();
-			BuildNested();
+			BuildNested();*/
 
-			TopLevel = new NavLevel(Color, Motion, Light, Camera, Customize, Nested);
+			//TopLevel = new NavLevel(Color, Motion, Light, Camera, Customize, Nested);
 		}
 
 
@@ -113,7 +113,7 @@ namespace Hovercast.Demo {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		private void BuildColors() {
 			ColorWhite = new NavItemRadio("White");
 			ColorRandom = new NavItemRadio("Random");
@@ -124,7 +124,7 @@ namespace Hovercast.Demo {
 			Color.ChildLevel.Items = new NavItem[] { ColorWhite, ColorRandom, ColorCustom, ColorHue };
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		private void BuildMotions() {
 			MotionOrbit = new NavItemCheckbox("Orbit");
 			MotionSpin = new NavItemCheckbox("Spin");
@@ -137,7 +137,7 @@ namespace Hovercast.Demo {
 				MotionSpeed };
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		private void BuildLight() {
 			LightPos = new NavItemSlider("Position", 2);
 			LightInten = new NavItemSlider("Power", 2);
@@ -147,7 +147,7 @@ namespace Hovercast.Demo {
 			Light.ChildLevel.Items = new NavItem[] { LightPos, LightInten, LightSpot };
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		private void BuildCamera() {
 			CameraCenter = new NavItemRadio("Center");
 			CameraBack = new NavItemRadio("Back");
@@ -159,7 +159,7 @@ namespace Hovercast.Demo {
 				CameraReorient };
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		private void BuildCustomize() {
 			vMenuOpacity = 0.5f;
 
@@ -190,7 +190,7 @@ namespace Hovercast.Demo {
 			CustomizeFontsize, CustomizeOpacity, CustomizeSwitch };
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		private void BuildNested() {
 			NestedA1 = new NavItemCheckbox("Checkbox A1");
 			NestedA2 = new NavItemCheckbox("Checkbox A2");
@@ -312,10 +312,10 @@ namespace Hovercast.Demo {
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleHideMenuCValueChanged(NavItem<bool> pItem) {
 			if ( pItem.Value ) {
-				Nested.ChildLevel.Items = new NavItem[] { NestedA, NestedB };
+				//Nested.ChildLevel.Items = new NavItem[] { NestedA, NestedB };
 			}
 			else {
-				Nested.ChildLevel.Items = new NavItem[] { NestedA, NestedB, NestedC };
+				//Nested.ChildLevel.Items = new NavItem[] { NestedA, NestedB, NestedC };
 			}
 		}
 

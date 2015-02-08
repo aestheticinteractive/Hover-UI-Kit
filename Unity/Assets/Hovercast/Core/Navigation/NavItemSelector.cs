@@ -6,8 +6,10 @@
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public NavItemSelector(string pLabel, float pRelativeSize=1) : 
-														base(ItemType.Selector, pLabel, pRelativeSize) {
+		public override NavItem.ItemType Type {
+			get {
+				return NavItem.ItemType.Selector;
+			}
 		}
 
 	}

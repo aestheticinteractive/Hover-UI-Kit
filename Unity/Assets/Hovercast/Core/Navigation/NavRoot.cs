@@ -1,30 +1,32 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Hovercast.Core.Navigation {
 
 	/*================================================================================================*/
-	public class NavProvider { 
+	public class NavRoot { 
 
 		public delegate void LevelChangeHandler(int pDirection);
-		public event LevelChangeHandler OnLevelChange;
+		public delegate void ItemSelectionHandler(NavLevel pLevel, NavItem pItem);
 
-		private readonly Stack<NavLevel> vHistory;
+		public event LevelChangeHandler OnLevelChange;
+		public event ItemSelectionHandler OnItemSelection;
+
+		public string Title { get; internal set; }
+
 		private NavLevel vCurrLevel;
-		private INavDelegate vDelgate;
+		private Stack<NavLevel> vHistory;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public NavProvider() {
+		public NavRoot(NavLevel pRootLevel) {
 			vHistory = new Stack<NavLevel>();
-			OnLevelChange += (d => {});
-		}
 
-		/*--------------------------------------------------------------------------------------------*/
-		public void Init(INavDelegate pDelgate) {
-			vDelgate = pDelgate;
-			vHistory.Clear();
-			SetNewLevel(vDelgate.GetTopLevel(), 0);
+			OnLevelChange += (d => {});
+			OnItemSelection += ((l,i) => {});
+
+			SetNewLevel(pRootLevel, 0);
 		}
 
 
@@ -42,7 +44,7 @@ namespace Hovercast.Core.Navigation {
 		/*--------------------------------------------------------------------------------------------*/
 		public string GetLevelTitle() {
 			NavLevel level = GetParentLevel();
-			return (level == null ? vDelgate.GetTopLevelTitle() : level.LastSelectedParentItem.Label);
+			return (level == null ? Title : level.LastSelectedParentItem.Label);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -58,7 +60,7 @@ namespace Hovercast.Core.Navigation {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleItemSelected(NavLevel pLevel, NavItem pItem) {
-			vDelgate.HandleItemSelection(pLevel, pItem);
+			OnItemSelection(pLevel, pItem);
 
 			if ( pItem.Type == NavItem.ItemType.Parent ) {
 				vHistory.Push(vCurrLevel);
@@ -83,7 +85,6 @@ namespace Hovercast.Core.Navigation {
 			vCurrLevel.SetActiveOnLevelChange(true, pDirection);
 
 			OnLevelChange(pDirection);
-			vDelgate.HandleLevelChange(vCurrLevel, pDirection);
 		}
 
 	}

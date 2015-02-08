@@ -3,11 +3,13 @@
 	/*================================================================================================*/
 	public class NavItemCheckbox : NavItem<bool> {
 
-
+		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public NavItemCheckbox(string pLabel, float pRelativeSize=1) : 
-														base(ItemType.Checkbox, pLabel, pRelativeSize) {
+		public override NavItem.ItemType Type {
+			get {
+				return NavItem.ItemType.Checkbox;
+			}
 		}
 
 

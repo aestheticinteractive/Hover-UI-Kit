@@ -3,15 +3,15 @@
 	/*================================================================================================*/
 	public class NavItemSticky : NavItem {
 
-
+		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public NavItemSticky(string pLabel, float pRelativeSize=1) : 
-														base(ItemType.Sticky, pLabel, pRelativeSize) {
+		public override NavItem.ItemType Type {
+			get {
+				return NavItem.ItemType.Sticky;
+			}
 		}
 
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected override bool UsesStickySelection() {
 			return true;

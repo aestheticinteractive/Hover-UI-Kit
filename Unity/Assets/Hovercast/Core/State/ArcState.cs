@@ -22,7 +22,7 @@ namespace Hovercast.Core.State {
 		public float NavBackStrength { get; private set; }
 		public ArcSegmentState NearestSegment { get; private set; }
 
-		private readonly NavProvider vNavProv;
+		private readonly NavRoot vNavRoot;
 		private readonly IList<ArcSegmentState> vSegments;
 		private readonly InteractionSettings vSettings;
 		private bool vIsGrabbing;
@@ -30,8 +30,8 @@ namespace Hovercast.Core.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public ArcState(NavProvider pNavProv, InteractionSettings pSettings) {
-			vNavProv = pNavProv;
+		public ArcState(NavRoot pNavRoot, InteractionSettings pSettings) {
+			vNavRoot = pNavRoot;
 			vSegments = new List<ArcSegmentState>();
 			vSettings = pSettings;
 
@@ -39,7 +39,7 @@ namespace Hovercast.Core.State {
 
 			OnLevelChange += (d => {});
 
-			vNavProv.OnLevelChange += HandleLevelChange;
+			vNavRoot.OnLevelChange += HandleLevelChange;
 			HandleLevelChange(0);
 		}
 
@@ -52,13 +52,13 @@ namespace Hovercast.Core.State {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public NavItem GetLevelParentItem() {
-			NavLevel parNavLevel = vNavProv.GetParentLevel();
+			NavLevel parNavLevel = vNavRoot.GetParentLevel();
 			return (parNavLevel == null ? null : parNavLevel.LastSelectedParentItem);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public string GetLevelTitle() {
-			return vNavProv.GetLevelTitle();
+			return vNavRoot.GetLevelTitle();
 		}
 
 
@@ -123,7 +123,7 @@ namespace Hovercast.Core.State {
 
 			if ( !vIsGrabbing && pInputMenu.NavigateBackStrength >= 1 ) {
 				vIsGrabbing = true;
-				vNavProv.Back();
+				vNavRoot.Back();
 				return;
 			}
 		}
@@ -132,7 +132,7 @@ namespace Hovercast.Core.State {
 		private void HandleLevelChange(int pDirection) {
 			vSegments.Clear();
 
-			NavLevel navLevel = vNavProv.GetLevel();
+			NavLevel navLevel = vNavRoot.GetLevel();
 
 			foreach ( NavItem navItem in navLevel.Items ) {
 				var seg = new ArcSegmentState(navItem, vSettings);
