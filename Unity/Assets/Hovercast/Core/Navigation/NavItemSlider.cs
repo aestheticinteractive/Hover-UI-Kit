@@ -13,9 +13,7 @@ namespace Hovercast.Core.Navigation {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public NavItemSlider() : base(ItemType.Slider) {
-			ValueToLabel = ((v, sv) =>
-				(string.IsNullOrEmpty(Label) ? "" : Label+": ")+(sv*100).ToString("0.0")+"%"
-			);
+			ValueToLabel = ((v, sv) => base.Label+": "+(sv*100).ToString("0.0")+"%");
 		}
 
 
