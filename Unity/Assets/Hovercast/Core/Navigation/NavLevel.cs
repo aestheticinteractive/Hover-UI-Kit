@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Hovercast.Core.Navigation {
 
@@ -12,7 +11,7 @@ namespace Hovercast.Core.Navigation {
 		public bool IsActive { get; private set; }
 		public NavItemParent LastSelectedParentItem { get; private set; }
 
-		private Func<NavItem[]> vGetItems;
+		private readonly Func<NavItem[]> vGetItems;
 		private NavItem[] vActiveItems;
 
 

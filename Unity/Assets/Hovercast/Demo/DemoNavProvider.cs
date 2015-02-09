@@ -1,5 +1,4 @@
-﻿using Hovercast.Core;
-using Hovercast.Core.Navigation;
+﻿using Hovercast.Core.Navigation;
 using UnityEngine;
 
 namespace Hovercast.Demo {

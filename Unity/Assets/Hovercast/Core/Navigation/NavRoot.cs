@@ -14,7 +14,7 @@ namespace Hovercast.Core.Navigation {
 		public string Title { get; internal set; }
 
 		private NavLevel vCurrLevel;
-		private Stack<NavLevel> vHistory;
+		private readonly Stack<NavLevel> vHistory;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
