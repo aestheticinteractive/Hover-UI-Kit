@@ -782,6 +782,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 599358580}
   - 114: {fileID: 599358581}
+  - 114: {fileID: 599358582}
   m_Layer: 0
   m_Name: Dark Theme
   m_TagString: Untagged
@@ -820,12 +821,24 @@ MonoBehaviour:
   IsEnabled: 1
   NavigateBackUponSelect: 0
   CheckboxValue: 0
-  RadioValue: 0
+  RadioValue: 1
   SliderTicks: 0
   SliderSnaps: 0
   SliderRangeMin: 0
   SliderRangeMax: 1
   SliderValue: 0
+--- !u!114 &599358582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 599358579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59c12ddedbb55834f8eeb2d1e56b657b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 0
 --- !u!1 &651578018
 GameObject:
   m_ObjectHideFlags: 0
@@ -1576,6 +1589,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1110481826}
   - 114: {fileID: 1110481827}
+  - 114: {fileID: 1110481828}
   m_Layer: 0
   m_Name: Bg Alpha
   m_TagString: Untagged
@@ -1619,7 +1633,18 @@ MonoBehaviour:
   SliderSnaps: 0
   SliderRangeMin: 0
   SliderRangeMax: 1
-  SliderValue: 0
+  SliderValue: .5
+--- !u!114 &1110481828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1110481825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bfaf6d7545baf1479ca5f369c1d6ee3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1150909310
 GameObject:
   m_ObjectHideFlags: 0
@@ -1629,6 +1654,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1150909311}
   - 114: {fileID: 1150909312}
+  - 114: {fileID: 1150909313}
   m_Layer: 0
   m_Name: Color Theme
   m_TagString: Untagged
@@ -1673,6 +1699,18 @@ MonoBehaviour:
   SliderRangeMin: 0
   SliderRangeMax: 1
   SliderValue: 0
+--- !u!114 &1150909313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1150909310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59c12ddedbb55834f8eeb2d1e56b657b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 2
 --- !u!1 &1151805415
 GameObject:
   m_ObjectHideFlags: 0
@@ -2093,6 +2131,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1408984091}
   - 114: {fileID: 1408984092}
+  - 114: {fileID: 1408984093}
   m_Layer: 0
   m_Name: Light Theme
   m_TagString: Untagged
@@ -2137,6 +2176,18 @@ MonoBehaviour:
   SliderRangeMin: 0
   SliderRangeMax: 1
   SliderValue: 0
+--- !u!114 &1408984093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1408984090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59c12ddedbb55834f8eeb2d1e56b657b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 1
 --- !u!1 &1413077867
 GameObject:
   m_ObjectHideFlags: 0
@@ -2243,6 +2294,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1493235416}
   - 114: {fileID: 1493235417}
+  - 114: {fileID: 1493235418}
   m_Layer: 0
   m_Name: Size
   m_TagString: Untagged
@@ -2284,9 +2336,20 @@ MonoBehaviour:
   RadioValue: 0
   SliderTicks: 0
   SliderSnaps: 0
-  SliderRangeMin: 0
-  SliderRangeMax: 1
-  SliderValue: 0
+  SliderRangeMin: 20
+  SliderRangeMax: 40
+  SliderValue: 30
+--- !u!114 &1493235418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1493235415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dac2a3c0e86c7604e8d78f3354a4f985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1512781697
 GameObject:
   m_ObjectHideFlags: 0
@@ -3107,6 +3170,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 2084881152}
   - 114: {fileID: 2084881153}
+  - 114: {fileID: 2084881154}
   m_Layer: 0
   m_Name: Switch Hands!
   m_TagString: Untagged
@@ -3151,6 +3215,17 @@ MonoBehaviour:
   SliderRangeMin: 0
   SliderRangeMax: 1
   SliderValue: 0
+--- !u!114 &2084881154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2084881151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bfe8bff4ebd7124c9f774e921930bf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2102121301
 GameObject:
   m_ObjectHideFlags: 0

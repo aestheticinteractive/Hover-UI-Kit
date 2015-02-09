@@ -1,5 +1,6 @@
 ﻿using Hovercast.Core.Navigation;
 using Hovercast.Core.Settings;
+using UnityEngine;
 
 namespace Hovercast.Demo {
 
@@ -8,6 +9,7 @@ namespace Hovercast.Demo {
 
 		public static ArcSegmentSettings ArcSegmentSettings;
 		public static InteractionSettings InteractionSettings;
+		public static float BgAlpha;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -33,6 +35,21 @@ namespace Hovercast.Demo {
 			}
 
 			return InteractionSettings;
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public static void UpdateSettingsWithBgAlpha() {
+			ArcSegmentSettings sett = DemoSettingsComponent.ArcSegmentSettings;
+
+			Color c = sett.BackgroundColor;
+			c.a = BgAlpha;
+			sett.BackgroundColor = c;
+
+			c = sett.SliderFillColor;
+			c.a = 0.5f*BgAlpha;
+			sett.SliderFillColor = c;
 		}
 
 	}
