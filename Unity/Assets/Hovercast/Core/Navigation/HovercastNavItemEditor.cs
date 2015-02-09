@@ -19,6 +19,14 @@ namespace Hovercast.Core.Navigation {
 		/*--------------------------------------------------------------------------------------------*/
 		public override void OnInspectorGUI() {
 			Undo.RecordObject(vTarget, vTarget.GetType().Name);
+			bool enabled = !Application.isPlaying;
+
+			if ( !enabled ) {
+				EditorGUILayout.HelpBox("The following values are for initialization only. To make "+
+					"changes at runtime, modify the NavItem objects using scripts.", MessageType.Info);
+			}
+
+			GUI.enabled = enabled;
 
 			vTarget.Id = EditorGUILayout.TextField("ID (optional)", vTarget.Id);
 			vTarget.Label = EditorGUILayout.TextField("Label", vTarget.Label);
@@ -51,10 +59,12 @@ namespace Hovercast.Core.Navigation {
 						vTarget.SliderRangeMin, vTarget.SliderRangeMax);
 					break;
 			}
-			
+
 			if ( GUI.changed ) {
 				EditorUtility.SetDirty(vTarget);
 			}
+
+			GUI.enabled = true;
 		}
 
 	}
