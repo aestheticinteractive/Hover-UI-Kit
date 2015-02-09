@@ -7,13 +7,15 @@ namespace Hovercast.Core.Navigation {
 
 		public int Ticks { get; set; }
 		public int Snaps { get; set; }
-		public Func<float, float, string> ValueToLabel { get; set; }
+		public float RangeMin { get; set; }
+		public float RangeMax { get; set; }
+		public Func<NavItemSlider, string> ValueToLabel { get; set; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public NavItemSlider() : base(ItemType.Slider) {
-			ValueToLabel = ((v, sv) => base.Label+": "+(sv*100).ToString("0.0")+"%");
+			ValueToLabel = (s => base.Label+": "+(s.SnappedValue*100).ToString("0.0")+"%");
 		}
 
 
@@ -21,7 +23,7 @@ namespace Hovercast.Core.Navigation {
 		/*--------------------------------------------------------------------------------------------*/
 		public override string Label {
 			get {
-				return ValueToLabel(Value, SnappedValue);
+				return ValueToLabel(this);
 			}
 		}
 		
@@ -50,6 +52,20 @@ namespace Hovercast.Core.Navigation {
 
 				int s = Snaps-1;
 				return (float)Math.Round(Value*s)/s;
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float RangeValue {
+			get {
+				return Value*(RangeMax-RangeMin)+RangeMin;
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float RangeSnappedValue {
+			get {
+				return SnappedValue*(RangeMax-RangeMin)+RangeMin;
 			}
 		}
 

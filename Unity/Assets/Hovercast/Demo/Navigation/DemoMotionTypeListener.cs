@@ -1,26 +1,23 @@
 ﻿using Hovercast.Core.Navigation;
-using UnityEngine;
 
-namespace Hovercast.Demo {
+namespace Hovercast.Demo.Navigation {
 
 	/*================================================================================================*/
-	[ExecuteInEditMode]
-	public class DemoNavProvider : HovercastNavProvider {
+	public class DemoMotionTypeListener : DemoBaseListener<NavItemCheckbox> {
 
-		public static DemoNavProvider Instance;
-		public static DemoNavItems Items;
+		public DemoEnvironment.MotionType Type;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public DemoNavProvider() {
-			Instance = this;
-			Items = new DemoNavItems();
+		public override void Awake() {
+			base.Awake();
+			Item.OnValueChanged += HandleValueChanged;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void Awake() {
-			Items.Build(gameObject);
+		private void HandleValueChanged(NavItem<bool> pNavItem) {
+			Enviro.ToggleMotion(Type, pNavItem.Value);
 		}
 
 	}

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Hovercast.Core.Navigation {
 
@@ -33,6 +34,23 @@ namespace Hovercast.Core.Navigation {
 				
 				return vActiveItems;
 			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public T[] GetTypedItems<T>() where T : NavItem {
+			NavItem[] items = Items;
+			var typedItems = new List<T>();
+			Type targetType = typeof(T);
+
+			foreach ( NavItem item in items ) {
+				T tryItem = (item as T);
+
+				if ( tryItem != null ) {
+					typedItems.Add(tryItem);
+				}
+			}
+
+			return typedItems.ToArray();
 		}
 
 

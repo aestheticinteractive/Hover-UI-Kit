@@ -8,9 +8,18 @@ namespace Hovercast.Core.Navigation {
 		public NavItem.ItemType Type;
 		public string Label = "";
 		public float RelativeSize = 1;
+		public bool IsEnabled = true;
 		public bool NavigateBackUponSelect;
-		public bool ValueBool;
-		public float ValueFloat;
+
+		public bool CheckboxValue;
+
+		public bool RadioValue;
+
+		public int SliderTicks;
+		public int SliderSnaps;
+		public float SliderRangeMin;
+		public float SliderRangeMax = 1;
+		public float SliderValue;
 
 		private NavItem vItem;
 
@@ -61,17 +70,25 @@ namespace Hovercast.Core.Navigation {
 		private void FillItem() {
 			vItem.Label = (string.IsNullOrEmpty(Label) ? gameObject.name : Label);
 			vItem.RelativeSize = RelativeSize;
+			vItem.IsEnabled = IsEnabled;
 			vItem.NavigateBackUponSelect = NavigateBackUponSelect;
 
 			switch ( Type ) {
 				case NavItem.ItemType.Checkbox:
+					((NavItemCheckbox)vItem).Value = CheckboxValue;
+					break;
+
 				case NavItem.ItemType.Radio:
-					((NavItem<bool>)vItem).Value = ValueBool;
+					((NavItemRadio)vItem).Value = RadioValue;
 					break;
 
 				case NavItem.ItemType.Slider:
 					NavItemSlider sliderItem = (NavItemSlider)vItem;
-					sliderItem.Value = ValueFloat;
+					sliderItem.Ticks = SliderTicks;
+					sliderItem.Snaps = SliderSnaps;
+					sliderItem.RangeMin = SliderRangeMin;
+					sliderItem.RangeMax = SliderRangeMax;
+					sliderItem.Value = Mathf.InverseLerp(SliderRangeMin, SliderRangeMax, SliderValue);
 					break;
 			}
 		}

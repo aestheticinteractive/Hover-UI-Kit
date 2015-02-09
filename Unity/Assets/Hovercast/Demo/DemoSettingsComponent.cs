@@ -17,11 +17,12 @@ namespace Hovercast.Demo {
 				ArcSegmentSettings = base.GetArcSegmentSettings(null);
 			}
 			
-			if ( pNavItem == DemoNavProvider.Items.ColorHue ) {
+			//TODO: supply ID via Unity
+			/*if ( pNavItem == DemoNavProvider.Items.ColorHue ) {
 				var sett = new DemoHueSliderSettings(pNavItem);
 				sett.Fill(ArcSegmentSettings);
 				return sett;
-			}
+			}*/
 
 			return ArcSegmentSettings;
 		}

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Hovercast.Core.Navigation;
 using UnityEngine;
 
 namespace Hovercast.Demo {
@@ -9,9 +8,25 @@ namespace Hovercast.Demo {
 	public class DemoEnvironment : MonoBehaviour {
 
 		private const int Count = 400;
-		private const float SpeedMax = 4;
-		private const float SpeedMin = 0.4f;
-		private const float SpeedRange = SpeedMax-SpeedMin;
+
+		public enum ColorMode {
+			White,
+			Random,
+			Custom
+		}
+
+		public enum MotionType {
+			Orbit,
+			Spin,
+			Bob,
+			Grow
+		}
+
+		public enum CameraPlacement {
+			Center,
+			Back,
+			Top
+		}
 
 		private GameObject vCubesObj;
 		private GameObject[] vHolds;
@@ -30,10 +45,9 @@ namespace Hovercast.Demo {
 		private DemoAnimVector3 vCameraAnim;
 		private DemoAnimQuaternion vCameraRotAnim;
 
-		private DemoNavItems vNavItems;
-		private IDictionary<int, DemoMotion> vMotionMap;
-		private IDictionary<int, Vector3> vCameraMap;
-		private IDictionary<int, Quaternion> vCameraRotMap;
+		private IDictionary<MotionType, DemoMotion> vMotionMap;
+		private IDictionary<CameraPlacement, Vector3> vCameraMap;
+		private IDictionary<CameraPlacement, Quaternion> vCameraRotMap;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -75,71 +89,27 @@ namespace Hovercast.Demo {
 
 			////
 
-			vNavItems = DemoNavProvider.Items;
-
-			vMotionMap = new Dictionary<int, DemoMotion> {
-				{ vNavItems.MotionOrbit.Id,	vOrbitMotion },
-				{ vNavItems.MotionSpin.Id,	vSpinMotion },
-				{ vNavItems.MotionBob.Id,	vBobMotion },
-				{ vNavItems.MotionGrow.Id,	vGrowMotion }
+			vMotionMap = new Dictionary<MotionType, DemoMotion> {
+				{ MotionType.Orbit,	vOrbitMotion },
+				{ MotionType.Spin,	vSpinMotion },
+				{ MotionType.Bob,	vBobMotion },
+				{ MotionType.Grow,	vGrowMotion }
 			};
 
-			vCameraMap = new Dictionary<int, Vector3> {
-				{ vNavItems.CameraCenter.Id,	Vector3.zero },
-				{ vNavItems.CameraBack.Id,	new Vector3(0, 0, 20) },
-				{ vNavItems.CameraTop.Id,	new Vector3(0, 0, 20) }
+			vCameraMap = new Dictionary<CameraPlacement, Vector3> {
+				{ CameraPlacement.Center,	Vector3.zero },
+				{ CameraPlacement.Back,	new Vector3(0, 0, 20) },
+				{ CameraPlacement.Top,	new Vector3(0, 0, 20) }
 			};
 
-			vCameraRotMap = new Dictionary<int, Quaternion> {
-				{ vNavItems.CameraCenter.Id, Quaternion.identity },
-				{ vNavItems.CameraBack.Id,	Quaternion.identity },
-				{ vNavItems.CameraTop.Id,	Quaternion.FromToRotation(Vector3.forward, Vector3.up) }
+			vCameraRotMap = new Dictionary<CameraPlacement, Quaternion> {
+				{ CameraPlacement.Center, Quaternion.identity },
+				{ CameraPlacement.Back,	Quaternion.identity },
+				{ CameraPlacement.Top,	Quaternion.FromToRotation(Vector3.forward, Vector3.up) }
 			};
 
-			DemoNavProvider.Instance.GetRoot().OnItemSelection += HandleItemSelection;
-			vNavItems.ColorWhite.OnValueChanged += HandleColorWhiteToggle;
-			vNavItems.ColorRandom.OnValueChanged += HandleColorRandomToggle;
-			vNavItems.ColorCustom.OnValueChanged += HandleColorCustomToggle;
-			vNavItems.LightSpot.OnSelected += HandleLightSpotSelected;
-			vNavItems.LightSpot.OnDeselected += HandleLightSpotSelected;
-			vNavItems.CameraReorient.OnSelected += HandleCameraReorient;
-
-			////
-
-			vNavItems.ColorWhite.Value = true;
-			vNavItems.ColorHue.IsEnabled = false;
-			vNavItems.ColorHue.ValueToLabel = ((v,sv) => "Hue: "+Math.Round(sv*360));
-			vNavItems.ColorHue.Value = 0.333f;
-
-			vNavItems.LightPos.Snaps = 4;
-			vNavItems.LightPos.Ticks = 4;
-			vNavItems.LightPos.Value = 2/3f;
-			vNavItems.LightPos.ValueToLabel = ((v, sv) => {
-				string lbl = "";
-
-				switch ( (int)Math.Round(sv*3) ) {
-					case 0: lbl = "Lowest"; break;
-					case 1: lbl = "Low"; break;
-					case 2: lbl = "High"; break;
-					case 3: lbl = "Highest"; break;
-				}
-
-				return "Pos: "+lbl;
-			});
-
-			vNavItems.LightInten.Value = 0.5f;
-			vNavItems.LightInten.ValueToLabel = ((v, sv) => "Power: "+Math.Round((sv*120)+20));
-
-			vNavItems.CameraCenter.Value = true;
-
-			vNavItems.MotionSpeed.Value = (1-SpeedMin)/SpeedRange;
-			vNavItems.MotionSpeed.ValueToLabel = 
-				((v, sv) => "Speed: "+((sv*SpeedRange)+SpeedMin).ToString("0.0")+"x");
-
-			UpdateLightPos();
-			UpdateLightInten();
-			UpdateMotionSpeed();
 			vSpotlight.enabled = false;
+			//TODO: initialize
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -159,24 +129,74 @@ namespace Hovercast.Demo {
 			for ( int i = 0 ; i < Count ; ++i ) {
 				UpdateCube(i);
 			}
-
-			if ( vNavItems.LightPos.IsStickySelected ) {
-				UpdateLightPos();
-			}
-
-			if ( vNavItems.LightInten.IsStickySelected ) {
-				UpdateLightInten();
-			}
-
-			if ( vNavItems.MotionSpeed.IsStickySelected ) {
-				UpdateMotionSpeed();
-			}
-
+			
 			vSpotlight.intensity = vLightSpotAnim.GetValue();
 			vSpotlight.enabled = (vSpotlight.intensity > 0);
 
 			vEnviro.transform.localPosition = vCameraAnim.GetValue();
 			vEnviro.transform.localRotation = vCameraRotAnim.GetValue();
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public void SetColorMode(ColorMode pMode, float pHue=0) {
+			Color color = Color.white;
+
+			if ( pMode == ColorMode.Custom ) {
+				color = HsvToColor(pHue, 1, 1);
+			}
+
+			for ( int i = 0 ; i < Count ; ++i ) {
+				GameObject cube = vCubes[i];
+
+				if ( pMode == ColorMode.Random ) {
+					color = cube.GetComponent<DemoCube>().ColorRandom;
+				}
+
+				cube.renderer.sharedMaterial.color = color;
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void ToggleMotion(MotionType pType, bool pIsEnabled) {
+			vMotionMap[pType].Enable(pIsEnabled);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void SetMotionSpeed(float pSpeed) {
+			vOrbitMotion.GlobalSpeed = pSpeed;
+			vSpinMotion.GlobalSpeed = pSpeed;
+			vBobMotion.GlobalSpeed = pSpeed;
+			vGrowMotion.GlobalSpeed = pSpeed;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void SetLightPos(float pPosition) {
+			vLight.gameObject.transform.localPosition = new Vector3(0, pPosition, 0);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void SetLightIntensitiy(float pIntensity) {
+			vLight.intensity = pIntensity;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void ShowSpotlight(bool pShow) {
+			vLightSpotAnim.Start(vSpotlight.intensity, (pShow ? 3 : 0));
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public void SetCameraPlacement(CameraPlacement pPlace) {
+			vCameraAnim.Start(vEnviro.transform.localPosition, vCameraMap[pPlace]);
+			vCameraRotAnim.Start(vEnviro.transform.localRotation, vCameraRotMap[pPlace]);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void ReorientCamera() {
+			if ( OVRManager.display != null ) {
+				OVRManager.display.RecenterPose();
+			}
 		}
 
 
@@ -261,119 +281,6 @@ namespace Hovercast.Demo {
 			growPos = (float)Math.Sin(growPos*Math.PI)/2f + 0.5f;
 			cube.transform.localScale = 
 				Vector3.Lerp(cubeData.GrowScaleMin, cubeData.GrowScaleMax, growPos);
-
-			if ( vNavItems.ColorHue.IsStickySelected ) {
-				UpdateCubeHue(cube);
-				float value = vNavItems.ColorHue.Value;
-				cube.renderer.sharedMaterial.color = HsvToColor(value*360, 1, 1);
-			}
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateCubeHue(GameObject pCube) {
-			float sv = vNavItems.ColorHue.SnappedValue;
-			pCube.renderer.sharedMaterial.color = HsvToColor(sv*360, 1, 1);
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateLightPos() {
-			float sv = vNavItems.LightPos.SnappedValue;
-			vLight.gameObject.transform.localPosition = new Vector3(0, (sv*2-1)*9, 0);
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateLightInten() {
-			float sv = vNavItems.LightInten.SnappedValue;
-			vLight.intensity = sv*1.2f+0.2f;
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateMotionSpeed() {
-			float speed = vNavItems.MotionSpeed.SnappedValue*SpeedRange + SpeedMin;
-
-			vOrbitMotion.GlobalSpeed = speed;
-			vSpinMotion.GlobalSpeed = speed;
-			vBobMotion.GlobalSpeed = speed;
-			vGrowMotion.GlobalSpeed = speed;
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public void HandleItemSelection(NavLevel pLevel, NavItem pItem) {
-			DemoNavItems items = DemoNavProvider.Items;
-
-			if ( DemoNavItems.IsItemWithin(pItem, items.Motion, NavItem.ItemType.Checkbox) ) {
-				HandleMotionChange(pItem);
-			}
-			
-			if ( DemoNavItems.IsItemWithin(pItem, items.Camera, NavItem.ItemType.Radio) ) {
-				HandleCameraChange(pItem);
-			}
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		private void HandleColorWhiteToggle(NavItem<bool> pItem) {
-			if ( !pItem.Value ) {
-				return;
-			}
-
-			foreach ( GameObject cube in vCubes ) {
-				cube.renderer.sharedMaterial.color = Color.white;
-			}
-
-			vNavItems.ColorHue.IsEnabled = false;
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		private void HandleColorRandomToggle(NavItem<bool> pItem) {
-			if ( !pItem.Value ) {
-				return;
-			}
-
-			for ( int i = 0 ; i < Count ; ++i ) {
-				GameObject cube = vCubes[i];
-				DemoCube cubeData = cube.GetComponent<DemoCube>();
-				cube.renderer.sharedMaterial.color = cubeData.ColorRandom;
-			}
-
-			vNavItems.ColorHue.IsEnabled = false;
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		private void HandleColorCustomToggle(NavItem<bool> pItem) {
-			if ( !pItem.Value ) {
-				return;
-			}
-
-			foreach ( GameObject cube in vCubes ) {
-				UpdateCubeHue(cube);
-			}
-
-			vNavItems.ColorHue.IsEnabled = true;
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		private void HandleLightSpotSelected(NavItem pItem) {
-			vLightSpotAnim.Start(vSpotlight.intensity, (pItem.IsStickySelected ? 3 : 0));
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		private void HandleMotionChange(NavItem pItem) {
-			vMotionMap[pItem.Id].Enable(((NavItemCheckbox)pItem).Value);
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		private void HandleCameraChange(NavItem pItem) {
-			vCameraAnim.Start(vEnviro.transform.localPosition, vCameraMap[pItem.Id]);
-			vCameraRotAnim.Start(vEnviro.transform.localRotation, vCameraRotMap[pItem.Id]);
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		private void HandleCameraReorient(NavItem pItem) {
-			if ( OVRManager.display != null ) {
-				OVRManager.display.RecenterPose();
-			}
 		}
 		
 

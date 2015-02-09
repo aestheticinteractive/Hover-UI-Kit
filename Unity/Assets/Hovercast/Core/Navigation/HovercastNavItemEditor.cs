@@ -22,18 +22,28 @@ namespace Hovercast.Core.Navigation {
 			
 			vTarget.Label = EditorGUILayout.TextField("Label", vTarget.Label);
 			vTarget.RelativeSize = EditorGUILayout.FloatField("Relative Size", vTarget.RelativeSize);
-			vTarget.NavigateBackUponSelect= EditorGUILayout.Toggle(
+			vTarget.IsEnabled = EditorGUILayout.Toggle("Enabled", vTarget.IsEnabled);
+			vTarget.NavigateBackUponSelect = EditorGUILayout.Toggle(
 				"Navigate Back Upon Select", vTarget.NavigateBackUponSelect);
+
 			vTarget.Type = (NavItem.ItemType)EditorGUILayout.EnumPopup("Item Type", vTarget.Type);
 
 			switch ( vTarget.Type ) {
 				case NavItem.ItemType.Checkbox:
+					vTarget.CheckboxValue = EditorGUILayout.Toggle("Value", vTarget.CheckboxValue);
+					break;
+
 				case NavItem.ItemType.Radio:
-					vTarget.ValueBool = EditorGUILayout.Toggle("Value", vTarget.ValueBool);
+					vTarget.RadioValue = EditorGUILayout.Toggle("Value", vTarget.RadioValue);
 					break;
 
 				case NavItem.ItemType.Slider:
-					vTarget.ValueFloat = EditorGUILayout.Slider("Value", vTarget.ValueFloat, 0, 1);
+					vTarget.SliderTicks = EditorGUILayout.IntField("Ticks", vTarget.SliderTicks);
+					vTarget.SliderSnaps = EditorGUILayout.IntField("Snaps", vTarget.SliderSnaps);
+					vTarget.SliderRangeMin = EditorGUILayout.FloatField("Min", vTarget.SliderRangeMin);
+					vTarget.SliderRangeMax = EditorGUILayout.FloatField("Max", vTarget.SliderRangeMax);
+					vTarget.SliderValue = EditorGUILayout.Slider("Value", vTarget.SliderValue,	
+						vTarget.SliderRangeMin, vTarget.SliderRangeMax);
 					break;
 			}
 			
