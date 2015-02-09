@@ -28,55 +28,35 @@ namespace Hovercast.Demo {
 			Top
 		}
 
+		private readonly GameObject[] vHolds;
+		private readonly GameObject[] vCubes;
+		private readonly System.Random vRandom;
+
+		private readonly DemoMotion vOrbitMotion;
+		private readonly DemoMotion vSpinMotion;
+		private readonly DemoMotion vBobMotion;
+		private readonly DemoMotion vGrowMotion;
+
+		private readonly DemoAnimFloat vLightSpotAnim;
+		private readonly DemoAnimVector3 vCameraAnim;
+		private readonly DemoAnimQuaternion vCameraRotAnim;
+
+		private readonly IDictionary<MotionType, DemoMotion> vMotionMap;
+		private readonly IDictionary<CameraPlacement, Vector3> vCameraMap;
+		private readonly IDictionary<CameraPlacement, Quaternion> vCameraRotMap;
+
 		private GameObject vCubesObj;
-		private GameObject[] vHolds;
-		private GameObject[] vCubes;
 		private Light vLight;
 		private Light vSpotlight;
 		private GameObject vEnviro;
-		private System.Random vRandom;
-
-		private DemoMotion vOrbitMotion;
-		private DemoMotion vSpinMotion;
-		private DemoMotion vBobMotion;
-		private DemoMotion vGrowMotion;
-
-		private DemoAnimFloat vLightSpotAnim;
-		private DemoAnimVector3 vCameraAnim;
-		private DemoAnimQuaternion vCameraRotAnim;
-
-		private IDictionary<MotionType, DemoMotion> vMotionMap;
-		private IDictionary<CameraPlacement, Vector3> vCameraMap;
-		private IDictionary<CameraPlacement, Quaternion> vCameraRotMap;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
-			vCubesObj = new GameObject("Cubes");
-			vCubesObj.transform.SetParent(gameObject.transform, false);
-			
+		public DemoEnvironment() {
 			vHolds = new GameObject[Count];
 			vCubes = new GameObject[Count];
-			vLight = GameObject.Find("Light").GetComponent<Light>();
-			vSpotlight = GameObject.Find("Spotlight").GetComponent<Light>();
-			vEnviro = GameObject.Find("DemoEnvironment");
 			vRandom = new System.Random();
-
-			for ( int i = 0 ; i < Count ; ++i ) {
-				BuildCube(i);
-			}
-
-			////
-
-			GameObject ovrPlayerObj = GameObject.Find("LeapOVRPlayerController");
-
-			if ( ovrPlayerObj != null ) {
-				OVRPlayerController ovrPlayer = ovrPlayerObj.GetComponent<OVRPlayerController>();
-				ovrPlayer.SetSkipMouseRotation(true);
-			}
-
-			////
 
 			vOrbitMotion = new DemoMotion(10, 600);
 			vSpinMotion = new DemoMotion(45, 600);
@@ -86,8 +66,6 @@ namespace Hovercast.Demo {
 			vLightSpotAnim = new DemoAnimFloat(600);
 			vCameraAnim = new DemoAnimVector3(6000);
 			vCameraRotAnim = new DemoAnimQuaternion(6000);
-
-			////
 
 			vMotionMap = new Dictionary<MotionType, DemoMotion> {
 				{ MotionType.Orbit,	vOrbitMotion },
@@ -107,9 +85,33 @@ namespace Hovercast.Demo {
 				{ CameraPlacement.Back,	Quaternion.identity },
 				{ CameraPlacement.Top,	Quaternion.FromToRotation(Vector3.forward, Vector3.up) }
 			};
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public void Awake() {
+			vCubesObj = new GameObject("Cubes");
+			vCubesObj.transform.SetParent(gameObject.transform, false);
+			
+			vLight = GameObject.Find("Light").GetComponent<Light>();
+			vSpotlight = GameObject.Find("Spotlight").GetComponent<Light>();
+			vEnviro = GameObject.Find("DemoEnvironment");
+
+			for ( int i = 0 ; i < Count ; ++i ) {
+				BuildCube(i);
+			}
 
 			vSpotlight.enabled = false;
-			//TODO: initialize
+
+			////
+
+			GameObject ovrObj = GameObject.Find("LeapOVRPlayerController");
+
+			if ( ovrObj != null ) {
+				OVRPlayerController ovrPlayer = ovrObj.GetComponent<OVRPlayerController>();
+				ovrPlayer.SetSkipMouseRotation(true);
+			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

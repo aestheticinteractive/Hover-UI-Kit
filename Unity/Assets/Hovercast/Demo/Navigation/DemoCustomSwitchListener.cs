@@ -9,11 +9,18 @@ namespace Hovercast.Demo.Navigation {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public override void Awake() {
-			base.Awake();
+		protected override void Setup() {
+			base.Setup();
 			Item.OnSelected += HandleSelected;
 		}
 
+		/*--------------------------------------------------------------------------------------------*/
+		protected override void BroadcastInitialValue() {
+			//do nothing...
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleSelected(NavItem pNavItem) {
 			InteractionSettings sett = DemoSettingsComponent.InteractionSettings;

@@ -12,7 +12,7 @@ namespace Hovercast.Core.Navigation {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Awake() {
+		public void Awake() {
 			Component = gameObject.GetComponent<HovercastNavItem>();
 
 			if ( Component == null ) {
@@ -21,7 +21,21 @@ namespace Hovercast.Core.Navigation {
 			}
 
 			Item = (T)Component.GetItem();
+			Setup();
 		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void Start() {
+			BroadcastInitialValue();
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		protected abstract void Setup();
+
+		/*--------------------------------------------------------------------------------------------*/
+		protected abstract void BroadcastInitialValue();
 
 	}
 

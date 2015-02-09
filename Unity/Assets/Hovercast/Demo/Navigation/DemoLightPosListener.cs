@@ -9,8 +9,8 @@ namespace Hovercast.Demo.Navigation {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public override void Awake() {
-			base.Awake();
+		protected override void Setup() {
+			base.Setup();
 
 			Item.ValueToLabel = (s => {
 				string lbl = "";
@@ -28,6 +28,13 @@ namespace Hovercast.Demo.Navigation {
 			Item.OnValueChanged += HandleValueChanged;
 		}
 
+		/*--------------------------------------------------------------------------------------------*/
+		protected override void BroadcastInitialValue() {
+			HandleValueChanged(Item);
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleValueChanged(NavItem<float> pNavItem) {
 			Enviro.SetLightPos(Item.RangeSnappedValue);

@@ -10,11 +10,18 @@ namespace Hovercast.Demo.Navigation {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public override void Awake() {
-			base.Awake();
+		protected override void Setup() {
+			base.Setup();
 			Item.OnValueChanged += HandleValueChanged;
 		}
 
+		/*--------------------------------------------------------------------------------------------*/
+		protected override void BroadcastInitialValue() {
+			HandleValueChanged(Item);
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleValueChanged(NavItem<bool> pNavItem) {
 			if ( !pNavItem.Value ) {
