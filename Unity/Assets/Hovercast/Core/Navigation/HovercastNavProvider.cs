@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 namespace Hovercast.Core.Navigation {
 
@@ -9,7 +8,7 @@ namespace Hovercast.Core.Navigation {
 
 		public string Title = "Hovercast VR";
 
-		private NavRoot vRoot;
+		private readonly NavRoot vRoot;
 		private NavLevel vRootLevel;
 
 
@@ -20,14 +19,14 @@ namespace Hovercast.Core.Navigation {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Update() {
+		public void Update() {
 			vRoot.Title = Title;
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual NavRoot GetRoot() {
+		public NavRoot GetRoot() {
 			if ( vRootLevel == null ) {
 				vRootLevel = new NavLevel(GetChildItems);
 				vRoot.Build(vRootLevel);
@@ -51,7 +50,7 @@ namespace Hovercast.Core.Navigation {
 			
 			for ( int i = 0 ; i < childCount ; ++i ) {
 				HovercastNavItem hni = tx.GetChild(i).GetComponent<HovercastNavItem>();
-				items.Add(hni.GetGenericItem());
+				items.Add(hni.GetItem());
 			}
 
 			return items.ToArray();

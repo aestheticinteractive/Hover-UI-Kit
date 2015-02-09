@@ -61,8 +61,6 @@ namespace Hovercast.Demo {
 		public NavItemCheckbox NestedC4 { get; private set; }
 		public NavItemCheckbox NestedC5 { get; private set; }
 
-		public NavLevel TopLevel { get; private set; }
-
 		private GameObject vRootObj;
 		private float vMenuOpacity;
 
@@ -73,7 +71,7 @@ namespace Hovercast.Demo {
 			vRootObj = pRootObj;
 
 			while ( vRootObj.transform.childCount > 0 ) {
-				GameObject.DestroyImmediate(vRootObj.transform.GetChild(0).gameObject);
+				UnityEngine.Object.DestroyImmediate(vRootObj.transform.GetChild(0).gameObject);
 			}
 
 			////
@@ -89,28 +87,48 @@ namespace Hovercast.Demo {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public static N AddItem<T, N>(GameObject pParentObj, out GameObject pObj, string pLabel,
-									float pRelSize=1) where N : NavItem where T : HovercastNavItem<N> {
+		public static T AddItem<T>(GameObject pParentObj, out GameObject pObj, string pLabel,
+																float pRelSize=1) where T : NavItem {
 			pObj = new GameObject(pLabel);
 			pObj.transform.SetParent(pParentObj.transform, false);
-			
-			T item = pObj.AddComponent<T>();
+
+			HovercastNavItem item = pObj.AddComponent<HovercastNavItem>();
+
+			if ( typeof(T) == typeof(NavItemCheckbox) ) {
+				item.Type = NavItem.ItemType.Checkbox;
+			}
+			else if ( typeof(T) == typeof(NavItemParent) ) {
+				item.Type = NavItem.ItemType.Parent;
+			}
+			else if ( typeof(T) == typeof(NavItemRadio) ) {
+				item.Type = NavItem.ItemType.Radio;
+			}
+			else if ( typeof(T) == typeof(NavItemSelector) ) {
+				item.Type = NavItem.ItemType.Selector;
+			}
+			else if ( typeof(T) == typeof(NavItemSlider) ) {
+				item.Type = NavItem.ItemType.Slider;
+			}
+			else if ( typeof(T) == typeof(NavItemSticky) ) {
+				item.Type = NavItem.ItemType.Sticky;
+			}
+
 			item.Label = pLabel;
 			item.RelativeSize = pRelSize;
-			return item.GetItem();
+			return (T)item.GetItem();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public static N AddItem<T, N>(GameObject pParentObj, string pLabel, float pRelSize=1) 
-													where N : NavItem where T : HovercastNavItem<N> {
+		public static T AddItem<T>(GameObject pParentObj, string pLabel, float pRelSize=1) 
+																					where T : NavItem {
 			GameObject obj;
-			return AddItem<T, N>(pParentObj, out obj, pLabel, pRelSize);
+			return AddItem<T>(pParentObj, out obj, pLabel, pRelSize);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public static NavItemParent AddParent(GameObject pParentObj, out GameObject pObj, 
 		                                      						string pLabel, float pRelSize=1) {
-			return AddItem<HovercastNavParent, NavItemParent>(pParentObj, out pObj, pLabel, pRelSize);
+			return AddItem<NavItemParent>(pParentObj, out pObj, pLabel, pRelSize);
 		}
 
 
@@ -121,7 +139,7 @@ namespace Hovercast.Demo {
 			return (pItem.Type == pType && pParent.ChildLevel.Items.Contains(pItem));
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		public static NavItemRadio GetChosenRadioItem(NavItemParent pParent) {
 			VerifyParent(pParent);
 
@@ -152,10 +170,10 @@ namespace Hovercast.Demo {
 			GameObject colorObj;
 
 			Color = AddParent(vRootObj, out colorObj, "Color");
-			ColorWhite = AddItem<HovercastNavRadio, NavItemRadio>(colorObj, "White");
-			ColorRandom = AddItem<HovercastNavRadio, NavItemRadio>(colorObj, "Random");
-			ColorCustom = AddItem<HovercastNavRadio, NavItemRadio>(colorObj, "Custom");
-			ColorHue = AddItem<HovercastNavSlider, NavItemSlider>(colorObj, "Hue", 3);
+			ColorWhite = AddItem<NavItemRadio>(colorObj, "White");
+			ColorRandom = AddItem<NavItemRadio>(colorObj, "Random");
+			ColorCustom = AddItem<NavItemRadio>(colorObj, "Custom");
+			ColorHue = AddItem<NavItemSlider>(colorObj, "Hue", 3);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -163,11 +181,11 @@ namespace Hovercast.Demo {
 			GameObject motionObj;
 
 			Motion = AddParent(vRootObj, out motionObj, "Motion");
-			MotionOrbit = AddItem<HovercastNavCheckbox, NavItemCheckbox>(motionObj, "Orbit");
-			MotionSpin = AddItem<HovercastNavCheckbox, NavItemCheckbox>(motionObj, "Spin");
-			MotionBob = AddItem<HovercastNavCheckbox, NavItemCheckbox>(motionObj, "Bob");
-			MotionGrow = AddItem<HovercastNavCheckbox, NavItemCheckbox>(motionObj, "Grow");
-			MotionSpeed = AddItem<HovercastNavSlider, NavItemSlider>(motionObj, "Speed", 4);
+			MotionOrbit = AddItem<NavItemCheckbox>(motionObj, "Orbit");
+			MotionSpin = AddItem<NavItemCheckbox>(motionObj, "Spin");
+			MotionBob = AddItem<NavItemCheckbox>(motionObj, "Bob");
+			MotionGrow = AddItem<NavItemCheckbox>(motionObj, "Grow");
+			MotionSpeed = AddItem<NavItemSlider>(motionObj, "Speed", 4);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -175,9 +193,9 @@ namespace Hovercast.Demo {
 			GameObject lightObj;
 
 			Light = AddParent(vRootObj, out lightObj, "Lighting");
-			LightPos = AddItem<HovercastNavSlider, NavItemSlider>(lightObj, "Position", 2);
-			LightInten = AddItem<HovercastNavSlider, NavItemSlider>(lightObj, "Power", 2);
-			LightSpot = AddItem<HovercastNavSticky, NavItemSticky>(lightObj, "Spotlight");
+			LightPos = AddItem<NavItemSlider>(lightObj, "Position", 2);
+			LightInten = AddItem<NavItemSlider>(lightObj, "Power", 2);
+			LightSpot = AddItem<NavItemSticky>(lightObj, "Spotlight");
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -185,10 +203,10 @@ namespace Hovercast.Demo {
 			GameObject cameraObj;
 
 			Camera = AddParent(vRootObj, out cameraObj, "Camera");
-			CameraCenter = AddItem<HovercastNavRadio, NavItemRadio>(cameraObj, "Center");
-			CameraBack = AddItem<HovercastNavRadio, NavItemRadio>(cameraObj, "Back");
-			CameraTop = AddItem<HovercastNavRadio, NavItemRadio>(cameraObj, "Top");
-			CameraReorient = AddItem<HovercastNavSelector, NavItemSelector>(cameraObj, "Re-orient");
+			CameraCenter = AddItem<NavItemRadio>(cameraObj, "Center");
+			CameraBack = AddItem<NavItemRadio>(cameraObj, "Back");
+			CameraTop = AddItem<NavItemRadio>(cameraObj, "Top");
+			CameraReorient = AddItem<NavItemSelector>(cameraObj, "Re-orient");
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -199,29 +217,30 @@ namespace Hovercast.Demo {
 			GameObject opacObj;
 
 			Customize = AddParent(vRootObj, out customObj, "Customize");
-			CustomizeDark = AddItem<HovercastNavRadio, NavItemRadio>(customObj, out darkObj, "Dark Theme");
-			CustomizeLight = AddItem<HovercastNavRadio, NavItemRadio>(customObj, "Light Theme");
-			CustomizeColor = AddItem<HovercastNavRadio, NavItemRadio>(customObj, "Color Theme");
-			CustomizeFontsize = AddItem<HovercastNavSlider, NavItemSlider>(customObj, out sizeObj, "Size", 3);
-			CustomizeOpacity = AddItem<HovercastNavSlider, NavItemSlider>(customObj, out opacObj, "Bg Alpha", 3);
-			CustomizeSwitch = AddItem<HovercastNavSelector, NavItemSelector>(customObj, "Switch Hands!");
+			CustomizeDark = AddItem<NavItemRadio>(customObj, out darkObj, "Dark Theme");
+			CustomizeLight = AddItem<NavItemRadio>(customObj, "Light Theme");
+			CustomizeColor = AddItem<NavItemRadio>(customObj, "Color Theme");
+			CustomizeFontsize = AddItem<NavItemSlider>(customObj, out sizeObj, "Size", 3);
+			CustomizeOpacity = AddItem<NavItemSlider>(customObj, out opacObj, "Bg Alpha", 3);
+			CustomizeSwitch = AddItem<NavItemSelector>(customObj, "Switch Hands!");
 
 			////
 
-			darkObj.GetComponent<HovercastNavRadio>().Value = CustomizeDark.Value = true;
+			darkObj.GetComponent<HovercastNavItem>().ValueBool = CustomizeDark.Value = true;
 			CustomizeDark.OnSelected += HandleDarkThemeSelected;
 			CustomizeLight.OnSelected += HandleLightThemeSelected;
 			CustomizeColor.OnSelected += HandleColorThemeSelected;
 
 			CustomizeFontsize.ValueToLabel = ((v, sv) =>
 				"Size: "+Math.Round(Mathf.Lerp(MinFontSize, MaxFontSize, sv)));
-			sizeObj.GetComponent<HovercastNavSlider>().Value = CustomizeFontsize.Value = 
+			sizeObj.GetComponent<HovercastNavItem>().ValueFloat = CustomizeFontsize.Value = 
 				Mathf.InverseLerp(MinFontSize, MaxFontSize, 30);
 			CustomizeFontsize.OnValueChanged += HandleFontSizeChanged;
 
 			vMenuOpacity = 0.5f;
 			CustomizeOpacity.ValueToLabel = ((v, sv) => "Bg Alpha: "+Math.Round(v*100)+"%");
-			opacObj.GetComponent<HovercastNavSlider>().Value = CustomizeOpacity.Value = vMenuOpacity;
+			opacObj.GetComponent<HovercastNavItem>().ValueFloat = 
+				CustomizeOpacity.Value = vMenuOpacity;
 			CustomizeOpacity.OnValueChanged += HandleOpacityChanged;
 
 			CustomizeSwitch.OnSelected += HandleSwitchHands;
@@ -238,27 +257,27 @@ namespace Hovercast.Demo {
 			Nested = AddParent(vRootObj, out nestObj, "Nested Menu");
 
 			NestedA = AddParent(nestObj, out nestAObj, "Menu A");
-			NestedA1 = AddItem<HovercastNavCheckbox, NavItemCheckbox>(nestAObj, "Checkbox A1");
-			NestedA2 = AddItem<HovercastNavCheckbox, NavItemCheckbox>(nestAObj, "Checkbox A2");
-			NestedA3 = AddItem<HovercastNavCheckbox, NavItemCheckbox>(nestAObj, "Checkbox A3");
+			NestedA1 = AddItem<NavItemCheckbox>(nestAObj, "Checkbox A1");
+			NestedA2 = AddItem<NavItemCheckbox>(nestAObj, "Checkbox A2");
+			NestedA3 = AddItem<NavItemCheckbox>(nestAObj, "Checkbox A3");
 
 			NestedB = AddParent(nestObj, out nestBObj, "Menu B");
-			NestedB1 = AddItem<HovercastNavCheckbox, NavItemCheckbox>(nestBObj, "Checkbox B1");
-			NestedB2 = AddItem<HovercastNavCheckbox, NavItemCheckbox>(nestBObj, "Checkbox B2");
-			NestedB3 = AddItem<HovercastNavCheckbox, NavItemCheckbox>(nestBObj, "Checkbox B3");
-			NestedB4 = AddItem<HovercastNavSelector, NavItemSelector>(nestBObj, out nestB4Obj, "Go Back");
+			NestedB1 = AddItem<NavItemCheckbox>(nestBObj, "Checkbox B1");
+			NestedB2 = AddItem<NavItemCheckbox>(nestBObj, "Checkbox B2");
+			NestedB3 = AddItem<NavItemCheckbox>(nestBObj, "Checkbox B3");
+			NestedB4 = AddItem<NavItemSelector>(nestBObj, out nestB4Obj, "Go Back");
 
 			NestedC = AddParent(nestObj, out nestCObj, "Menu C");
-			NestedC1 = AddItem<HovercastNavCheckbox, NavItemCheckbox>(nestCObj, "Checkbox C1");
-			NestedC2 = AddItem<HovercastNavCheckbox, NavItemCheckbox>(nestCObj, "Checkbox C2");
-			NestedC3 = AddItem<HovercastNavCheckbox, NavItemCheckbox>(nestCObj, "Checkbox C3");
-			NestedC4 = AddItem<HovercastNavCheckbox, NavItemCheckbox>(nestCObj, "Checkbox C4");
-			NestedC5 = AddItem<HovercastNavCheckbox, NavItemCheckbox>(nestCObj, "Checkbox C5");
+			NestedC1 = AddItem<NavItemCheckbox>(nestCObj, "Checkbox C1");
+			NestedC2 = AddItem<NavItemCheckbox>(nestCObj, "Checkbox C2");
+			NestedC3 = AddItem<NavItemCheckbox>(nestCObj, "Checkbox C3");
+			NestedC4 = AddItem<NavItemCheckbox>(nestCObj, "Checkbox C4");
+			NestedC5 = AddItem<NavItemCheckbox>(nestCObj, "Checkbox C5");
 
 			////
 
 			NestedB3.OnValueChanged += HandleHideMenuCValueChanged;
-			nestB4Obj.GetComponent<HovercastNavSelector>().NavigateBackUponSelect = 
+			nestB4Obj.GetComponent<HovercastNavItem>().NavigateBackUponSelect = 
 				NestedB4.NavigateBackUponSelect = true;
 		}
 
@@ -323,6 +342,7 @@ namespace Hovercast.Demo {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleOpacityChanged(NavItem<float> pItem) {
+			Debug.Log("SIZE: "+pItem.Value);
 			vMenuOpacity = pItem.Value;
 			UpdateMenuColorOpacity();
 		}

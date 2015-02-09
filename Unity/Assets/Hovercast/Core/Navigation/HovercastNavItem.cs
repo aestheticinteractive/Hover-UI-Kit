@@ -1,58 +1,84 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Hovercast.Core.Navigation {
 	
 	/*================================================================================================*/
-	public abstract class HovercastNavItem : MonoBehaviour {
-		
+	public class HovercastNavItem : MonoBehaviour {
+
+		public NavItem.ItemType Type;
 		public string Label = "";
 		public float RelativeSize = 1;
 		public bool NavigateBackUponSelect;
+		public bool ValueBool;
+		public float ValueFloat;
+
+		private NavItem vItem;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal abstract NavItem GetGenericItem();
+		internal NavItem GetItem() {
+			if ( vItem == null ) {
+				BuildItem();
+			}
 
-	}
-
-
-	/*================================================================================================*/
-	public abstract class HovercastNavItem<N> : HovercastNavItem where N : NavItem {
+			FillItem();
+			return vItem;
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal override NavItem GetGenericItem() {
-			return GetItem();
+		private void BuildItem() {
+			switch ( Type ) {
+				case NavItem.ItemType.Checkbox:
+					vItem = new NavItemCheckbox();
+					break;
+
+				case NavItem.ItemType.Parent:
+					vItem = new NavItemParent(GetChildItems);
+					break;
+
+				case NavItem.ItemType.Radio:
+					vItem = new NavItemRadio();
+					break;
+
+				case NavItem.ItemType.Selector:
+					vItem = new NavItemSelector();
+					break;
+
+				case NavItem.ItemType.Slider:
+					vItem = new NavItemSlider();
+					break;
+
+				case NavItem.ItemType.Sticky:
+					vItem = new NavItemSticky();
+					break;
+			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		internal abstract N GetItem();
-		
-		/*--------------------------------------------------------------------------------------------*/
-		protected virtual void FillItem(N pItem) {
-			pItem.Label = (string.IsNullOrEmpty(Label) ? gameObject.name : Label);
-			pItem.RelativeSize = RelativeSize;
-			pItem.NavigateBackUponSelect = NavigateBackUponSelect;
+		private void FillItem() {
+			vItem.Label = (string.IsNullOrEmpty(Label) ? gameObject.name : Label);
+			vItem.RelativeSize = RelativeSize;
+			vItem.NavigateBackUponSelect = NavigateBackUponSelect;
+
+			switch ( Type ) {
+				case NavItem.ItemType.Checkbox:
+				case NavItem.ItemType.Radio:
+					((NavItem<bool>)vItem).Value = ValueBool;
+					break;
+
+				case NavItem.ItemType.Slider:
+					NavItemSlider sliderItem = (NavItemSlider)vItem;
+					sliderItem.Value = ValueFloat;
+					break;
+			}
 		}
 
-	}
-
-
-	/*================================================================================================*/
-	public abstract class HovercastNavItem<N, T> : HovercastNavItem<N> 
-														where N : NavItem<T> where T : IComparable  {
-
-		public T Value;
-
-		
-		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected override void FillItem(N pItem) {
-			base.FillItem(pItem);
-			pItem.Value = Value;
+		private NavItem[] GetChildItems() {
+			return HovercastNavProvider.GetChildItems(gameObject);
 		}
 
 	}
