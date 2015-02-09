@@ -3,13 +3,10 @@
 	/*================================================================================================*/
 	public class NavItemCheckbox : NavItem<bool> {
 
-		
+
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public override NavItem.ItemType Type {
-			get {
-				return NavItem.ItemType.Checkbox;
-			}
+		public NavItemCheckbox() : base(ItemType.Checkbox) {
 		}
 
 

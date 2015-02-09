@@ -12,7 +12,7 @@ namespace Hovercast.Core.Navigation {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public NavItemSlider() {
+		public NavItemSlider() : base(ItemType.Slider) {
 			ValueToLabel = ((v, sv) =>
 				(string.IsNullOrEmpty(Label) ? "" : Label+": ")+(sv*100).ToString("0.0")+"%"
 			);
@@ -20,13 +20,6 @@ namespace Hovercast.Core.Navigation {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public override NavItem.ItemType Type {
-			get {
-				return NavItem.ItemType.Slider;
-			}
-		}
-
 		/*--------------------------------------------------------------------------------------------*/
 		public override string Label {
 			get {

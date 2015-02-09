@@ -6,10 +6,7 @@
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public override NavItem.ItemType Type {
-			get {
-				return NavItem.ItemType.Radio;
-			}
+		public NavItemRadio() : base(ItemType.Radio) {
 		}
 
 

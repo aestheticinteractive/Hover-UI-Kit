@@ -1,14 +1,20 @@
-﻿namespace Hovercast.Core.Navigation {
+﻿using System;
+using UnityEngine;
+
+namespace Hovercast.Core.Navigation {
 
 	/*================================================================================================*/
-	public class NavItemSelector : NavItem {
+	public class HovercastNavCheckbox : HovercastNavItem<NavItemCheckbox> {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public NavItemSelector() : base(ItemType.Selector) {
+		internal override NavItemCheckbox GetItem() {
+			var item = new NavItemCheckbox();
+			FillItem(item);
+			return item;
 		}
-
+		
 	}
 
 }

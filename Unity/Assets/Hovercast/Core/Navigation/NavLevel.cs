@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEngine;
 using System.Collections.Generic;
 
 namespace Hovercast.Core.Navigation {
@@ -13,48 +12,32 @@ namespace Hovercast.Core.Navigation {
 		public bool IsActive { get; private set; }
 		public NavItemParent LastSelectedParentItem { get; private set; }
 
-		private GameObject vParentObj;
+		private Func<NavItem[]> vGetItems;
 		private NavItem[] vActiveItems;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public NavLevel() {
+		public NavLevel(Func<NavItem[]> pGetItems) {
+			vGetItems = pGetItems;
 			OnItemSelected += ((l,i) => {});
 		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public void Build(GameObject pParentObj) {
-			vParentObj = pParentObj;
-		}
-
-
+		
+		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public NavItem[] Items {
 			get {
-				if ( IsActive && vActiveItems != null ) {
-					return vActiveItems;
+				if ( vActiveItems == null ) {
+					vActiveItems = vGetItems();
 				}
-
-				if ( vParentObj == null ) {
-					vActiveItems = null;
-					return new NavItem[0];
-				}
-
-				int childCount = vParentObj.transform.childCount;
-				var items = new List<NavItem>();
-
-				for ( int i = 0 ; i < childCount ; ++i ) {
-					NavItem item = vParentObj.transform.GetChild(i).GetComponent<NavItem>();
-					items.Add(item);
-				}
-
-				vActiveItems = items.ToArray();
+				
 				return vActiveItems;
 			}
 		}
 
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		internal void SetActiveOnLevelChange(bool pIsActive, int pDirection) {
 			if ( pIsActive == IsActive ) {
@@ -62,6 +45,7 @@ namespace Hovercast.Core.Navigation {
 			}
 
 			IsActive = pIsActive;
+			vActiveItems = null;
 
 			foreach ( NavItem item in Items ) {
 				item.UpdateValueOnLevelChange(pDirection);

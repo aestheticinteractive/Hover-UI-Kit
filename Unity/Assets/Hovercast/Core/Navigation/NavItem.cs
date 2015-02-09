@@ -1,10 +1,9 @@
 ﻿using System;
-using UnityEngine;
 
 namespace Hovercast.Core.Navigation {
 
 	/*================================================================================================*/
-	public abstract class NavItem : MonoBehaviour {
+	public abstract class NavItem {
 
 		public enum ItemType {
 			Parent,
@@ -27,38 +26,28 @@ namespace Hovercast.Core.Navigation {
 
 		private static int ItemCount;
 
-		public string BaseLabel = "";
-		public float RelativeSize = 1;
-
 		public int Id { get; private set; }
-		public abstract ItemType Type { get; }
-		public NavLevel ChildLevel { get; protected set; }
-
+		public ItemType Type { get; private set; }
+		public virtual string Label { get; internal set; }
+		public float RelativeSize { get; internal set; }
+		public virtual bool NavigateBackUponSelect { get; internal set; }
+		public NavLevel ChildLevel { get; protected set; }		
 		public bool IsStickySelected { get; private set; }
-		public virtual bool NavigateBackUponSelect { get; set; }
 
 		protected bool vIsEnabled;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public NavItem() {
+		public NavItem(ItemType pType) {
 			Id = (++ItemCount);
+			Type = pType;
 			vIsEnabled = true;
 
 			OnSelected += (i => {});
 			OnDeselected += (i => {});
 			OnEnabled += (i => {});
 			OnDisabled += (i => {});
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public virtual string Label {
-			get {
-				return (BaseLabel ?? gameObject.name);
-			}
 		}
 
 
@@ -130,7 +119,7 @@ namespace Hovercast.Core.Navigation {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public NavItem() {
+		public NavItem(ItemType pType) : base(pType) {
 			OnValueChanged += (i => {});
 		}
 

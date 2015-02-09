@@ -89,17 +89,32 @@ namespace Hovercast.Demo {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public static T AddItem<T>(GameObject pParentObj, string pLabel, float pRelSize=1) 
-																					where T : NavItem {
-			var obj = new GameObject(pLabel);
-			obj.transform.SetParent(pParentObj.transform, false);
-
-			T item = obj.AddComponent<T>();
-			item.BaseLabel = pLabel;
+		public static N AddItem<T, N>(GameObject pParentObj, out GameObject pObj, string pLabel,
+									float pRelSize=1) where N : NavItem where T : HovercastNavItem<N> {
+			pObj = new GameObject(pLabel);
+			pObj.transform.SetParent(pParentObj.transform, false);
+			
+			T item = pObj.AddComponent<T>();
+			item.Label = pLabel;
 			item.RelativeSize = pRelSize;
-			return item;
+			return item.GetItem();
 		}
 
+		/*--------------------------------------------------------------------------------------------*/
+		public static N AddItem<T, N>(GameObject pParentObj, string pLabel, float pRelSize=1) 
+													where N : NavItem where T : HovercastNavItem<N> {
+			GameObject obj;
+			return AddItem<T, N>(pParentObj, out obj, pLabel, pRelSize);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public static NavItemParent AddParent(GameObject pParentObj, out GameObject pObj, 
+		                                      						string pLabel, float pRelSize=1) {
+			return AddItem<HovercastNavParent, NavItemParent>(pParentObj, out pObj, pLabel, pRelSize);
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public static bool IsItemWithin(NavItem pItem, NavItemParent pParent, NavItem.ItemType pType) {
 			VerifyParent(pParent);
@@ -134,65 +149,79 @@ namespace Hovercast.Demo {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void BuildColors() {
-			Color = AddItem<NavItemParent>(vRootObj, "Color");
-			ColorWhite = AddItem<NavItemRadio>(Color.gameObject, "White");
-			ColorRandom = AddItem<NavItemRadio>(Color.gameObject, "Random");
-			ColorCustom = AddItem<NavItemRadio>(Color.gameObject, "Custom");
-			ColorHue = AddItem<NavItemSlider>(Color.gameObject, "Hue", 3);
+			GameObject colorObj;
+
+			Color = AddParent(vRootObj, out colorObj, "Color");
+			ColorWhite = AddItem<HovercastNavRadio, NavItemRadio>(colorObj, "White");
+			ColorRandom = AddItem<HovercastNavRadio, NavItemRadio>(colorObj, "Random");
+			ColorCustom = AddItem<HovercastNavRadio, NavItemRadio>(colorObj, "Custom");
+			ColorHue = AddItem<HovercastNavSlider, NavItemSlider>(colorObj, "Hue", 3);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void BuildMotions() {
-			Motion = AddItem<NavItemParent>(vRootObj, "Motion");
-			MotionOrbit = AddItem<NavItemCheckbox>(Motion.gameObject, "Orbit");
-			MotionSpin = AddItem<NavItemCheckbox>(Motion.gameObject, "Spin");
-			MotionBob = AddItem<NavItemCheckbox>(Motion.gameObject, "Bob");
-			MotionGrow = AddItem<NavItemCheckbox>(Motion.gameObject, "Grow");
-			MotionSpeed = AddItem<NavItemSlider>(Motion.gameObject, "Speed", 4);
+			GameObject motionObj;
+
+			Motion = AddParent(vRootObj, out motionObj, "Motion");
+			MotionOrbit = AddItem<HovercastNavCheckbox, NavItemCheckbox>(motionObj, "Orbit");
+			MotionSpin = AddItem<HovercastNavCheckbox, NavItemCheckbox>(motionObj, "Spin");
+			MotionBob = AddItem<HovercastNavCheckbox, NavItemCheckbox>(motionObj, "Bob");
+			MotionGrow = AddItem<HovercastNavCheckbox, NavItemCheckbox>(motionObj, "Grow");
+			MotionSpeed = AddItem<HovercastNavSlider, NavItemSlider>(motionObj, "Speed", 4);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void BuildLight() {
-			Light = AddItem<NavItemParent>(vRootObj, "Lighting");
-			LightPos = AddItem<NavItemSlider>(Light.gameObject, "Position", 2);
-			LightInten = AddItem<NavItemSlider>(Light.gameObject, "Power", 2);
-			LightSpot = AddItem<NavItemSticky>(Light.gameObject, "Spotlight");
+			GameObject lightObj;
+
+			Light = AddParent(vRootObj, out lightObj, "Lighting");
+			LightPos = AddItem<HovercastNavSlider, NavItemSlider>(lightObj, "Position", 2);
+			LightInten = AddItem<HovercastNavSlider, NavItemSlider>(lightObj, "Power", 2);
+			LightSpot = AddItem<HovercastNavSticky, NavItemSticky>(lightObj, "Spotlight");
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void BuildCamera() {
-			Camera = AddItem<NavItemParent>(vRootObj, "Camera");
-			CameraCenter = AddItem<NavItemRadio>(Camera.gameObject, "Center");
-			CameraBack = AddItem<NavItemRadio>(Camera.gameObject, "Back");
-			CameraTop = AddItem<NavItemRadio>(Camera.gameObject, "Top");
-			CameraReorient = AddItem<NavItemSelector>(Camera.gameObject, "Re-orient");
+			GameObject cameraObj;
+
+			Camera = AddParent(vRootObj, out cameraObj, "Camera");
+			CameraCenter = AddItem<HovercastNavRadio, NavItemRadio>(cameraObj, "Center");
+			CameraBack = AddItem<HovercastNavRadio, NavItemRadio>(cameraObj, "Back");
+			CameraTop = AddItem<HovercastNavRadio, NavItemRadio>(cameraObj, "Top");
+			CameraReorient = AddItem<HovercastNavSelector, NavItemSelector>(cameraObj, "Re-orient");
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void BuildCustomize() {
-			Customize = AddItem<NavItemParent>(vRootObj, "Customize");
-			CustomizeDark = AddItem<NavItemRadio>(Customize.gameObject, "Dark Theme");
-			CustomizeLight = AddItem<NavItemRadio>(Customize.gameObject, "Light Theme");
-			CustomizeColor = AddItem<NavItemRadio>(Customize.gameObject, "Color Theme");
-			CustomizeFontsize = AddItem<NavItemSlider>(Customize.gameObject, "Size", 3);
-			CustomizeOpacity = AddItem<NavItemSlider>(Customize.gameObject, "Bg Alpha", 3);
-			CustomizeSwitch = AddItem<NavItemSelector>(Customize.gameObject, "Switch Hands!");
+			GameObject customObj;
+			GameObject darkObj;
+			GameObject sizeObj;
+			GameObject opacObj;
+
+			Customize = AddParent(vRootObj, out customObj, "Customize");
+			CustomizeDark = AddItem<HovercastNavRadio, NavItemRadio>(customObj, out darkObj, "Dark Theme");
+			CustomizeLight = AddItem<HovercastNavRadio, NavItemRadio>(customObj, "Light Theme");
+			CustomizeColor = AddItem<HovercastNavRadio, NavItemRadio>(customObj, "Color Theme");
+			CustomizeFontsize = AddItem<HovercastNavSlider, NavItemSlider>(customObj, out sizeObj, "Size", 3);
+			CustomizeOpacity = AddItem<HovercastNavSlider, NavItemSlider>(customObj, out opacObj, "Bg Alpha", 3);
+			CustomizeSwitch = AddItem<HovercastNavSelector, NavItemSelector>(customObj, "Switch Hands!");
 
 			////
 
-			CustomizeDark.Value = true;
+			darkObj.GetComponent<HovercastNavRadio>().Value = CustomizeDark.Value = true;
 			CustomizeDark.OnSelected += HandleDarkThemeSelected;
 			CustomizeLight.OnSelected += HandleLightThemeSelected;
 			CustomizeColor.OnSelected += HandleColorThemeSelected;
 
 			CustomizeFontsize.ValueToLabel = ((v, sv) =>
 				"Size: "+Math.Round(Mathf.Lerp(MinFontSize, MaxFontSize, sv)));
-			CustomizeFontsize.Value = Mathf.InverseLerp(MinFontSize, MaxFontSize, 30);
+			sizeObj.GetComponent<HovercastNavSlider>().Value = CustomizeFontsize.Value = 
+				Mathf.InverseLerp(MinFontSize, MaxFontSize, 30);
 			CustomizeFontsize.OnValueChanged += HandleFontSizeChanged;
 
 			vMenuOpacity = 0.5f;
 			CustomizeOpacity.ValueToLabel = ((v, sv) => "Bg Alpha: "+Math.Round(v*100)+"%");
-			CustomizeOpacity.Value = vMenuOpacity;
+			opacObj.GetComponent<HovercastNavSlider>().Value = CustomizeOpacity.Value = vMenuOpacity;
 			CustomizeOpacity.OnValueChanged += HandleOpacityChanged;
 
 			CustomizeSwitch.OnSelected += HandleSwitchHands;
@@ -200,30 +229,37 @@ namespace Hovercast.Demo {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void BuildNested() {
-			Nested = AddItem<NavItemParent>(vRootObj, "Nested Menu");
+			GameObject nestObj;
+			GameObject nestAObj;
+			GameObject nestBObj;
+			GameObject nestCObj;
+			GameObject nestB4Obj;
 
-			NestedA = AddItem<NavItemParent>(Nested.gameObject, "Menu A");
-			NestedA1 = AddItem<NavItemCheckbox>(NestedA.gameObject, "Checkbox A1");
-			NestedA2 = AddItem<NavItemCheckbox>(NestedA.gameObject, "Checkbox A2");
-			NestedA3 = AddItem<NavItemCheckbox>(NestedA.gameObject, "Checkbox A3");
+			Nested = AddParent(vRootObj, out nestObj, "Nested Menu");
 
-			NestedB = AddItem<NavItemParent>(Nested.gameObject, "Menu B");
-			NestedB1 = AddItem<NavItemCheckbox>(NestedB.gameObject, "Checkbox B1");
-			NestedB2 = AddItem<NavItemCheckbox>(NestedB.gameObject, "Checkbox B2");
-			NestedB3 = AddItem<NavItemCheckbox>(NestedB.gameObject, "Checkbox B3");
-			NestedB4 = AddItem<NavItemSelector>(NestedB.gameObject, "Go Back");
+			NestedA = AddParent(nestObj, out nestAObj, "Menu A");
+			NestedA1 = AddItem<HovercastNavCheckbox, NavItemCheckbox>(nestAObj, "Checkbox A1");
+			NestedA2 = AddItem<HovercastNavCheckbox, NavItemCheckbox>(nestAObj, "Checkbox A2");
+			NestedA3 = AddItem<HovercastNavCheckbox, NavItemCheckbox>(nestAObj, "Checkbox A3");
 
-			NestedC = AddItem<NavItemParent>(Nested.gameObject, "Menu C");
-			NestedC1 = AddItem<NavItemCheckbox>(NestedC.gameObject, "Checkbox C1");
-			NestedC2 = AddItem<NavItemCheckbox>(NestedC.gameObject, "Checkbox C2");
-			NestedC3 = AddItem<NavItemCheckbox>(NestedC.gameObject, "Checkbox C3");
-			NestedC4 = AddItem<NavItemCheckbox>(NestedC.gameObject, "Checkbox C4");
-			NestedC5 = AddItem<NavItemCheckbox>(NestedC.gameObject, "Checkbox C5");
+			NestedB = AddParent(nestObj, out nestBObj, "Menu B");
+			NestedB1 = AddItem<HovercastNavCheckbox, NavItemCheckbox>(nestBObj, "Checkbox B1");
+			NestedB2 = AddItem<HovercastNavCheckbox, NavItemCheckbox>(nestBObj, "Checkbox B2");
+			NestedB3 = AddItem<HovercastNavCheckbox, NavItemCheckbox>(nestBObj, "Checkbox B3");
+			NestedB4 = AddItem<HovercastNavSelector, NavItemSelector>(nestBObj, out nestB4Obj, "Go Back");
+
+			NestedC = AddParent(nestObj, out nestCObj, "Menu C");
+			NestedC1 = AddItem<HovercastNavCheckbox, NavItemCheckbox>(nestCObj, "Checkbox C1");
+			NestedC2 = AddItem<HovercastNavCheckbox, NavItemCheckbox>(nestCObj, "Checkbox C2");
+			NestedC3 = AddItem<HovercastNavCheckbox, NavItemCheckbox>(nestCObj, "Checkbox C3");
+			NestedC4 = AddItem<HovercastNavCheckbox, NavItemCheckbox>(nestCObj, "Checkbox C4");
+			NestedC5 = AddItem<HovercastNavCheckbox, NavItemCheckbox>(nestCObj, "Checkbox C5");
 
 			////
 
 			NestedB3.OnValueChanged += HandleHideMenuCValueChanged;
-			NestedB4.NavigateBackUponSelect = true;
+			nestB4Obj.GetComponent<HovercastNavSelector>().NavigateBackUponSelect = 
+				NestedB4.NavigateBackUponSelect = true;
 		}
 
 

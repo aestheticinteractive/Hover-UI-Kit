@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Hovercast.Core.Navigation {
 
@@ -8,13 +9,8 @@ namespace Hovercast.Core.Navigation {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public NavItemParent() {
-			ChildLevel = new NavLevel();
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public void Awake() {
-			ChildLevel.Build(gameObject);
+		public NavItemParent(Func<NavItem[]> pGetItems) : base(ItemType.Parent) {
+			ChildLevel = new NavLevel(pGetItems);
 		}
 
 
@@ -24,21 +20,16 @@ namespace Hovercast.Core.Navigation {
 			Value = true;
 			base.Select();
 		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		public override NavItem.ItemType Type {
-			get {
-				return NavItem.ItemType.Parent;
-			}
-		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public override bool NavigateBackUponSelect {
 			get {
 				return false;
 			}
-			set {
-				throw new Exception("Cannot set NavigateBackUponSelect for 'Parent' NavItems.");
+			internal set {
+				if ( value ) {
+					throw new Exception("Cannot set NavigateBackUponSelect for 'Parent' NavItems.");
+				}
 			}
 		}
 

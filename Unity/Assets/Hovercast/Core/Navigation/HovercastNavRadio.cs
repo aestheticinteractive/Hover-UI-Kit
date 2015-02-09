@@ -1,19 +1,20 @@
-﻿namespace Hovercast.Core.Navigation {
+﻿using System;
+using UnityEngine;
 
+namespace Hovercast.Core.Navigation {
+	
 	/*================================================================================================*/
-	public class NavItemSticky : NavItem {
-
+	public class HovercastNavRadio : HovercastNavItem<NavItemRadio, bool> {
+		
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public NavItemSticky() : base(ItemType.Sticky ) {
+		internal override NavItemRadio GetItem() {
+			var item = new NavItemRadio();
+			FillItem(item);
+			return item;
 		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		protected override bool UsesStickySelection() {
-			return true;
-		}
-
+		
 	}
 
 }

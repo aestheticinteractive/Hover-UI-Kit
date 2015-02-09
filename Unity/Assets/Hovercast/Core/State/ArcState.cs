@@ -132,9 +132,10 @@ namespace Hovercast.Core.State {
 		private void HandleLevelChange(int pDirection) {
 			vSegments.Clear();
 
-			NavLevel navLevel = vNavRoot.GetLevel();
+			NavItem[] items = vNavRoot.GetLevel().Items;
 
-			foreach ( NavItem navItem in navLevel.Items ) {
+			foreach ( NavItem navItem in items ) {
+				if ( navItem.Type == NavItem.ItemType.Slider ) { continue; } //TODO: why broken?
 				var seg = new ArcSegmentState(navItem, vSettings);
 				vSegments.Add(seg);
 			}

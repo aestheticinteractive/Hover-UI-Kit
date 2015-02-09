@@ -1,19 +1,26 @@
-﻿namespace Hovercast.Core.Navigation {
+﻿using System;
+using UnityEngine;
+using System.Collections.Generic;
 
+namespace Hovercast.Core.Navigation {
+	
 	/*================================================================================================*/
-	public class NavItemSticky : NavItem {
-
+	public class HovercastNavParent : HovercastNavItem<NavItemParent> {
+		
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public NavItemSticky() : base(ItemType.Sticky ) {
+		internal override NavItemParent GetItem() {
+			var item = new NavItemParent(GetChildItems);
+			FillItem(item);
+			return item;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		protected override bool UsesStickySelection() {
-			return true;
+		private NavItem[] GetChildItems() {
+			return HovercastNavProvider.GetChildItems(gameObject);
 		}
-
+		
 	}
 
 }
