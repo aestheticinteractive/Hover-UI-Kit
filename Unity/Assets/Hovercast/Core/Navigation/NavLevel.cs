@@ -40,7 +40,6 @@ namespace Hovercast.Core.Navigation {
 		public T[] GetTypedItems<T>() where T : NavItem {
 			NavItem[] items = Items;
 			var typedItems = new List<T>();
-			Type targetType = typeof(T);
 
 			foreach ( NavItem item in items ) {
 				T tryItem = (item as T);

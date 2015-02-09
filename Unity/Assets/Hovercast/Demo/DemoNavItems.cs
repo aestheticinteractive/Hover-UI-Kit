@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Linq;
 using Hovercast.Core.Navigation;
-using Hovercast.Core.Settings;
-using UnityEngine;
-
 namespace Hovercast.Demo {
 
 	/*================================================================================================*/
@@ -46,41 +43,6 @@ namespace Hovercast.Demo {
 			CustomizeOpacity.OnValueChanged += HandleOpacityChanged;
 
 			CustomizeSwitch.OnSelected += HandleSwitchHands;
-		}
-
-		/*--------------------------------------------------------------------------------------------* /
-		private void BuildNested() {
-			GameObject nestObj;
-			GameObject nestAObj;
-			GameObject nestBObj;
-			GameObject nestCObj;
-			GameObject nestB4Obj;
-
-			Nested = AddParent(vRootObj, out nestObj, "Nested Menu");
-
-			NestedA = AddParent(nestObj, out nestAObj, "Menu A");
-			NestedA1 = AddItem<NavItemCheckbox>(nestAObj, "Checkbox A1");
-			NestedA2 = AddItem<NavItemCheckbox>(nestAObj, "Checkbox A2");
-			NestedA3 = AddItem<NavItemCheckbox>(nestAObj, "Checkbox A3");
-
-			NestedB = AddParent(nestObj, out nestBObj, "Menu B");
-			NestedB1 = AddItem<NavItemCheckbox>(nestBObj, "Checkbox B1");
-			NestedB2 = AddItem<NavItemCheckbox>(nestBObj, "Checkbox B2");
-			NestedB3 = AddItem<NavItemCheckbox>(nestBObj, "Checkbox B3");
-			NestedB4 = AddItem<NavItemSelector>(nestBObj, out nestB4Obj, "Go Back");
-
-			NestedC = AddParent(nestObj, out nestCObj, "Menu C");
-			NestedC1 = AddItem<NavItemCheckbox>(nestCObj, "Checkbox C1");
-			NestedC2 = AddItem<NavItemCheckbox>(nestCObj, "Checkbox C2");
-			NestedC3 = AddItem<NavItemCheckbox>(nestCObj, "Checkbox C3");
-			NestedC4 = AddItem<NavItemCheckbox>(nestCObj, "Checkbox C4");
-			NestedC5 = AddItem<NavItemCheckbox>(nestCObj, "Checkbox C5");
-
-			////
-
-			NestedB3.OnValueChanged += HandleHideMenuCValueChanged;
-			nestB4Obj.GetComponent<HovercastNavItem>().NavigateBackUponSelect = 
-				NestedB4.NavigateBackUponSelect = true;
 		}
 
 
@@ -166,18 +128,6 @@ namespace Hovercast.Demo {
 			c = sett.SliderFillColor;
 			c.a = 0.5f*vMenuOpacity;
 			sett.SliderFillColor = c;
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------* /
-		private void HandleHideMenuCValueChanged(NavItem<bool> pItem) {
-			if ( pItem.Value ) {
-				//Nested.ChildLevel.Items = new NavItem[] { NestedA, NestedB };
-			}
-			else {
-				//Nested.ChildLevel.Items = new NavItem[] { NestedA, NestedB, NestedC };
-			}
 		}*/
 
 	}

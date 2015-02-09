@@ -9,6 +9,7 @@ namespace Hovercast.Core.Navigation {
 		public string Id = "";
 		public string Label = "";
 		public float RelativeSize = 1;
+		public bool IsVisible = true;
 		public bool IsEnabled = true;
 		public bool NavigateBackUponSelect;
 
@@ -30,9 +31,9 @@ namespace Hovercast.Core.Navigation {
 		public NavItem GetItem() {
 			if ( vItem == null ) {
 				BuildItem();
+				FillItem();
 			}
 
-			FillItem();
 			return vItem;
 		}
 
@@ -75,8 +76,12 @@ namespace Hovercast.Core.Navigation {
 
 			vItem.Label = (string.IsNullOrEmpty(Label) ? gameObject.name : Label);
 			vItem.RelativeSize = RelativeSize;
+			vItem.IsVisible = IsVisible;
 			vItem.IsEnabled = IsEnabled;
-			vItem.NavigateBackUponSelect = NavigateBackUponSelect;
+
+			if ( Type != NavItem.ItemType.Parent ) {
+				vItem.NavigateBackUponSelect = NavigateBackUponSelect;
+			}
 
 			switch ( Type ) {
 				case NavItem.ItemType.Checkbox:

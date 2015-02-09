@@ -33,6 +33,7 @@ namespace Hovercast.Core.Navigation {
 		public float RelativeSize { get; internal set; }
 		public virtual bool NavigateBackUponSelect { get; internal set; }
 		public NavLevel ChildLevel { get; protected set; }		
+		public bool IsVisible { get; set; }
 		public bool IsStickySelected { get; private set; }
 
 		protected bool vIsEnabled;

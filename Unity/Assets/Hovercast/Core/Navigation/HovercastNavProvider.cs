@@ -50,7 +50,13 @@ namespace Hovercast.Core.Navigation {
 			
 			for ( int i = 0 ; i < childCount ; ++i ) {
 				HovercastNavItem hni = tx.GetChild(i).GetComponent<HovercastNavItem>();
-				items.Add(hni.GetItem());
+				NavItem item = hni.GetItem();
+
+				if ( !item.IsVisible ) {
+					continue;
+				}
+
+				items.Add(item);
 			}
 
 			return items.ToArray();

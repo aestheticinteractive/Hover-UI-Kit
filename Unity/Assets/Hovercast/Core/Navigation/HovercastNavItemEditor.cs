@@ -23,11 +23,15 @@ namespace Hovercast.Core.Navigation {
 			vTarget.Id = EditorGUILayout.TextField("ID (optional)", vTarget.Id);
 			vTarget.Label = EditorGUILayout.TextField("Label", vTarget.Label);
 			vTarget.RelativeSize = EditorGUILayout.FloatField("Relative Size", vTarget.RelativeSize);
+			vTarget.IsVisible = EditorGUILayout.Toggle("Visible", vTarget.IsVisible);
 			vTarget.IsEnabled = EditorGUILayout.Toggle("Enabled", vTarget.IsEnabled);
-			vTarget.NavigateBackUponSelect = EditorGUILayout.Toggle(
-				"Navigate Back Upon Select", vTarget.NavigateBackUponSelect);
 
 			vTarget.Type = (NavItem.ItemType)EditorGUILayout.EnumPopup("Item Type", vTarget.Type);
+
+			if ( vTarget.Type != NavItem.ItemType.Parent ) {
+				vTarget.NavigateBackUponSelect = EditorGUILayout.Toggle(
+					"Navigate Back Upon Select", vTarget.NavigateBackUponSelect);
+			}
 
 			switch ( vTarget.Type ) {
 				case NavItem.ItemType.Checkbox:
