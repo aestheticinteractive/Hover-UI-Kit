@@ -19,7 +19,8 @@ namespace Hovercast.Core.Navigation {
 		/*--------------------------------------------------------------------------------------------*/
 		public override void OnInspectorGUI() {
 			Undo.RecordObject(vTarget, vTarget.GetType().Name);
-			
+
+			vTarget.Id = EditorGUILayout.TextField("ID (optional)", vTarget.Id);
 			vTarget.Label = EditorGUILayout.TextField("Label", vTarget.Label);
 			vTarget.RelativeSize = EditorGUILayout.FloatField("Relative Size", vTarget.RelativeSize);
 			vTarget.IsEnabled = EditorGUILayout.Toggle("Enabled", vTarget.IsEnabled);

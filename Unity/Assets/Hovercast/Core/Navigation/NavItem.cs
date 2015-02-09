@@ -26,7 +26,8 @@ namespace Hovercast.Core.Navigation {
 
 		private static int ItemCount;
 
-		public int Id { get; private set; }
+		public int AutoId { get; private set; }
+		public string Id { get; internal set; }
 		public ItemType Type { get; private set; }
 		public virtual string Label { get; internal set; }
 		public float RelativeSize { get; internal set; }
@@ -40,7 +41,8 @@ namespace Hovercast.Core.Navigation {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public NavItem(ItemType pType) {
-			Id = (++ItemCount);
+			AutoId = (++ItemCount);
+			Id = "NavItem"+AutoId;
 			Type = pType;
 			vIsEnabled = true;
 

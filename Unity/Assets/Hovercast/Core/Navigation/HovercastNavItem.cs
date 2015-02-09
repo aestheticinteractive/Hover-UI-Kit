@@ -6,6 +6,7 @@ namespace Hovercast.Core.Navigation {
 	public class HovercastNavItem : MonoBehaviour {
 
 		public NavItem.ItemType Type;
+		public string Id = "";
 		public string Label = "";
 		public float RelativeSize = 1;
 		public bool IsEnabled = true;
@@ -68,6 +69,10 @@ namespace Hovercast.Core.Navigation {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void FillItem() {
+			if ( !string.IsNullOrEmpty(Id) ) {
+				vItem.Id = Id;
+			}
+
 			vItem.Label = (string.IsNullOrEmpty(Label) ? gameObject.name : Label);
 			vItem.RelativeSize = RelativeSize;
 			vItem.IsEnabled = IsEnabled;
