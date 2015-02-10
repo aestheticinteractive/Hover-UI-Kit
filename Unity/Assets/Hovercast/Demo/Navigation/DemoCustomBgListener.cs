@@ -1,5 +1,6 @@
 ﻿using System;
 using Hovercast.Core.Navigation;
+using Hovercast.Demo.Settings;
 
 namespace Hovercast.Demo.Navigation {
 
@@ -17,15 +18,15 @@ namespace Hovercast.Demo.Navigation {
 
 		/*--------------------------------------------------------------------------------------------*/
 		protected override void BroadcastInitialValue() {
-			HandleValueChanged(Item);
+			//Don't automatically override the demo's default settings
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleValueChanged(NavItem<float> pNavItem) {
-			DemoSettingsComponent.BgAlpha = Item.RangeValue;
-			DemoSettingsComponent.UpdateSettingsWithBgAlpha();
+			DemoSettingsProvider.BgAlpha = Item.RangeValue;
+			DemoSettingsProvider.UpdateSettingsWithBgAlpha();
 		}
 
 	}

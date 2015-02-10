@@ -2,13 +2,12 @@
 using System.Linq;
 using Hovercast.Core.Display;
 using Hovercast.Core.Navigation;
-using Hovercast.Core.Settings;
 using UnityEngine;
 
-namespace Hovercast.Core {
+namespace Hovercast.Core.Settings {
 
 	/*================================================================================================*/
-	public abstract class HovercastSettingsComponent : MonoBehaviour, ISettings {
+	public abstract class HovercastSettingsProvider : MonoBehaviour, ISettings {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

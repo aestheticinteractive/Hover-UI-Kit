@@ -1,5 +1,6 @@
 ﻿using Hovercast.Core.Navigation;
 using Hovercast.Core.Settings;
+using Hovercast.Demo.Settings;
 using UnityEngine;
 
 namespace Hovercast.Demo.Navigation {
@@ -25,7 +26,7 @@ namespace Hovercast.Demo.Navigation {
 
 		/*--------------------------------------------------------------------------------------------*/
 		protected override void BroadcastInitialValue() {
-			HandleValueChanged(Item);
+			//Don't automatically override the demo's default settings
 		}
 
 
@@ -36,7 +37,7 @@ namespace Hovercast.Demo.Navigation {
 				return;
 			}
 
-			ArcSegmentSettings sett = DemoSettingsComponent.ArcSegmentSettings;
+			ArcSegmentSettings sett = DemoSettingsProvider.ArcSegmentSettings;
 
 			switch ( Type ) {
 				case ThemeType.Dark:
@@ -79,7 +80,7 @@ namespace Hovercast.Demo.Navigation {
 					break;
 			}
 
-			DemoSettingsComponent.UpdateSettingsWithBgAlpha();
+			DemoSettingsProvider.UpdateSettingsWithBgAlpha();
 		}
 
 	}

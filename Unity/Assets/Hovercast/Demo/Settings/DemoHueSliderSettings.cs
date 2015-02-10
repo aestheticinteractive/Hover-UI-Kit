@@ -2,7 +2,7 @@
 using Hovercast.Core.Settings;
 using UnityEngine;
 
-namespace Hovercast.Demo {
+namespace Hovercast.Demo.Settings {
 
 	/*================================================================================================*/
 	public class DemoHueSliderSettings : ArcSegmentSettings {

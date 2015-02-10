@@ -1,7 +1,6 @@
-﻿using Hovercast.Core.Input;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Hovercast.Core {
+namespace Hovercast.Core.Input {
 
 	/*================================================================================================*/
 	public abstract class HovercastInputProvider : MonoBehaviour, IInputProvider {

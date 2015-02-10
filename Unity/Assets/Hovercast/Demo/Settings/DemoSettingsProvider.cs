@@ -2,23 +2,27 @@
 using Hovercast.Core.Settings;
 using UnityEngine;
 
-namespace Hovercast.Demo {
+namespace Hovercast.Demo.Settings {
 
 	/*================================================================================================*/
-	public class DemoSettingsComponent : HovercastDefaultSettingsComponent {
+	public class DemoSettingsProvider : HovercastDefaultSettingsProvider {
 
 		public static ArcSegmentSettings ArcSegmentSettings;
 		public static InteractionSettings InteractionSettings;
 		public static float BgAlpha;
+		
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public DemoSettingsProvider() {
+			ArcSegmentSettings = vArcSegment;
+			InteractionSettings = vInteraction;
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public override ArcSegmentSettings GetArcSegmentSettings(NavItem pNavItem) {
-			if ( ArcSegmentSettings == null ) {
-				ArcSegmentSettings = base.GetArcSegmentSettings(null);
-			}
-			
 			if ( pNavItem != null && pNavItem.Id == "HUE" ) {
 				var sett = new DemoHueSliderSettings(pNavItem);
 				sett.Fill(ArcSegmentSettings);
@@ -27,21 +31,12 @@ namespace Hovercast.Demo {
 
 			return ArcSegmentSettings;
 		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		public override InteractionSettings  GetInteractionSettings() {
-			if ( InteractionSettings == null ) {
-				InteractionSettings = base.GetInteractionSettings();
-			}
-
-			return InteractionSettings;
-		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public static void UpdateSettingsWithBgAlpha() {
-			ArcSegmentSettings sett = DemoSettingsComponent.ArcSegmentSettings;
+			ArcSegmentSettings sett = ArcSegmentSettings;
 
 			Color c = sett.BackgroundColor;
 			c.a = BgAlpha;

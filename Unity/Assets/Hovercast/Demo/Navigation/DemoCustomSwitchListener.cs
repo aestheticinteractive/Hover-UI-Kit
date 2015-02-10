@@ -1,5 +1,6 @@
 ﻿using Hovercast.Core.Navigation;
 using Hovercast.Core.Settings;
+using Hovercast.Demo.Settings;
 
 namespace Hovercast.Demo.Navigation {
 
@@ -23,7 +24,7 @@ namespace Hovercast.Demo.Navigation {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleSelected(NavItem pNavItem) {
-			InteractionSettings sett = DemoSettingsComponent.InteractionSettings;
+			InteractionSettings sett = DemoSettingsProvider.InteractionSettings;
 			sett.IsMenuOnLeftSide = !sett.IsMenuOnLeftSide;
 		}
 

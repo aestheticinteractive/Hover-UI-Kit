@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Hovercast.Core.Settings {
 
 	/*================================================================================================*/
-	public class HovercastDefaultSettingsComponent : HovercastSettingsComponent {
+	public class HovercastDefaultSettingsProvider : HovercastSettingsProvider {
 
 		public int TextSize = 30;
 		public Color TextColor = new Color(1, 1, 1);
@@ -35,48 +35,60 @@ namespace Hovercast.Core.Settings {
 		public float SelectionMilliseconds = 600;
 		public float CursorForwardDistance = 0.0f;
 
+		protected readonly ArcSegmentSettings vArcSegment;
+		protected readonly CursorSettings vCursor;
+		protected readonly InteractionSettings vInteraction;
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public HovercastDefaultSettingsProvider() {
+			vArcSegment = new ArcSegmentSettings();
+			vArcSegment.TextSize = TextSize;
+			vArcSegment.TextColor = TextColor;
+			vArcSegment.TextFont = TextFont;
+			vArcSegment.ArrowIconColor = ArrowIconColor;
+			vArcSegment.ToggleIconColor = ToggleIconColor;
+			vArcSegment.BackgroundColor = BackgroundColor;
+			vArcSegment.EdgeColor = EdgeColor;
+			vArcSegment.HighlightColor = HighlightColor;
+			vArcSegment.SelectionColor = SelectionColor;
+			vArcSegment.SliderTrackColor = SliderTrackColor;
+			vArcSegment.SliderFillColor = SliderFillColor;
+			vArcSegment.SliderTickColor = SliderTickColor;
+
+			vCursor = new CursorSettings();
+			vCursor.ColorNorm = CursorColorNormal;
+			vCursor.ColorHigh = CursorColorHighlighted;
+			vCursor.RadiusNorm = CursorRadiusNormal;
+			vCursor.RadiusHigh = CursorRadiusHighlighted;
+			vCursor.ThickNorm = CursorThicknessNormal;
+			vCursor.ThickHigh = CursorThicknessHighlighted;
+
+			vInteraction = new InteractionSettings();
+			vInteraction.IsMenuOnLeftSide = IsMenuOnLeftSide;
+			vInteraction.HighlightDistanceMin = HighlightDistanceMin;
+			vInteraction.HighlightDistanceMax = HighlightDistanceMax;
+			vInteraction.StickyReleaseDistance = StickyReleaseDistance;
+			vInteraction.SelectionMilliseconds = SelectionMilliseconds;
+			vInteraction.CursorForwardDistance = CursorForwardDistance;
+		}
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public override ArcSegmentSettings GetArcSegmentSettings(NavItem pNavItem) {
-			var sett = new ArcSegmentSettings();
-			sett.TextSize = TextSize;
-			sett.TextColor = TextColor;
-			sett.TextFont = TextFont;
-			sett.ArrowIconColor = ArrowIconColor;
-			sett.ToggleIconColor = ToggleIconColor;
-			sett.BackgroundColor = BackgroundColor;
-			sett.EdgeColor = EdgeColor;
-			sett.HighlightColor = HighlightColor;
-			sett.SelectionColor = SelectionColor;
-			sett.SliderTrackColor = SliderTrackColor;
-			sett.SliderFillColor = SliderFillColor;
-			sett.SliderTickColor = SliderTickColor;
-			return sett;
+			return vArcSegment;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public override CursorSettings GetCursorSettings() {
-			var sett = new CursorSettings();
-			sett.ColorNorm = CursorColorNormal;
-			sett.ColorHigh = CursorColorHighlighted;
-			sett.RadiusNorm = CursorRadiusNormal;
-			sett.RadiusHigh = CursorRadiusHighlighted;
-			sett.ThickNorm = CursorThicknessNormal;
-			sett.ThickHigh = CursorThicknessHighlighted;
-			return sett;
+			return vCursor;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public override InteractionSettings GetInteractionSettings() {
-			var inter = new InteractionSettings();
-			inter.IsMenuOnLeftSide = IsMenuOnLeftSide;
-			inter.HighlightDistanceMin = HighlightDistanceMin;
-			inter.HighlightDistanceMax = HighlightDistanceMax;
-			inter.StickyReleaseDistance = StickyReleaseDistance;
-			inter.SelectionMilliseconds = SelectionMilliseconds;
-			inter.CursorForwardDistance = CursorForwardDistance;
-			return inter;
+			return vInteraction;
 		}
 
 

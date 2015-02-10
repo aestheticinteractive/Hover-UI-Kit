@@ -1,6 +1,8 @@
 ﻿using System;
 using Hovercast.Core.Display;
+using Hovercast.Core.Input;
 using Hovercast.Core.Navigation;
+using Hovercast.Core.Settings;
 using Hovercast.Core.State;
 using UnityEngine;
 
@@ -10,7 +12,7 @@ namespace Hovercast.Core {
 	public class HovercastSetup : MonoBehaviour {
 
 		public HovercastNavProvider NavigationProvider;
-		public HovercastSettingsComponent SettingsProvider;
+		public HovercastSettingsProvider SettingsProvider;
 		public HovercastInputProvider InputProvider;
 		public Transform OptionalCameraReference;
 

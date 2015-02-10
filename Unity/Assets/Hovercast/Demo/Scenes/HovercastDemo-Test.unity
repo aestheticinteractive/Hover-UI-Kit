@@ -149,8 +149,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 179689560}
   - 114: {fileID: 179689561}
+  - 114: {fileID: 179689562}
   m_Layer: 0
-  m_Name: Navigation
+  m_Name: MenuItems
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -186,6 +187,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Title: Hovercast VR
+--- !u!114 &179689562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 179689559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f445107836aa0cb4680e642de727d6a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextSize: 30
+  TextColor: {r: 1, g: 1, b: 1, a: 1}
+  TextFont: Tahoma
+  ArrowIconColor: {r: 1, g: 1, b: 1, a: 1}
+  ToggleIconColor: {r: 1, g: 1, b: 1, a: 1}
+  BackgroundColor: {r: .100000001, g: .100000001, b: .100000001, a: .5}
+  EdgeColor: {r: 1, g: 1, b: 1, a: .5}
+  HighlightColor: {r: .100000001, g: .5, b: .899999976, a: 1}
+  SelectionColor: {r: .100000001, g: .899999976, b: .200000003, a: 1}
+  SliderTrackColor: {r: .100000001, g: .100000001, b: .100000001, a: .5}
+  SliderFillColor: {r: .100000001, g: .899999976, b: .200000003, a: .5}
+  SliderTickColor: {r: 1, g: 1, b: 1, a: .100000001}
+  CursorColorNormal: {r: 1, g: 1, b: 1, a: .600000024}
+  CursorColorHighlighted: {r: 1, g: 1, b: 1, a: 1}
+  CursorRadiusNormal: .119999997
+  CursorRadiusHighlighted: .0599999987
+  CursorThicknessNormal: .100000001
+  CursorThicknessHighlighted: .400000006
+  IsMenuOnLeftSide: 1
+  HighlightDistanceMin: .0500000007
+  HighlightDistanceMax: .100000001
+  StickyReleaseDistance: .0700000003
+  SelectionMilliseconds: 600
+  CursorForwardDistance: 0
 --- !u!1 &182102232
 GameObject:
   m_ObjectHideFlags: 0
@@ -1220,7 +1256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NavigationProvider: {fileID: 179689561}
-  SettingsProvider: {fileID: 1810405384}
+  SettingsProvider: {fileID: 179689562}
   InputProvider: {fileID: 2102121303}
   OptionalCameraReference: {fileID: 0}
 --- !u!1 &924844660
@@ -2591,7 +2627,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1810405386}
   - 114: {fileID: 1810405385}
-  - 114: {fileID: 1810405384}
   m_Layer: 0
   m_Name: DemoEnvironment
   m_TagString: Untagged
@@ -2599,41 +2634,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1810405384
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1810405383}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f369e3a972d83a04c9d204f2c10bd280, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TextSize: 30
-  TextColor: {r: 1, g: 1, b: 1, a: 1}
-  TextFont: Tahoma
-  ArrowIconColor: {r: 1, g: 1, b: 1, a: 1}
-  ToggleIconColor: {r: 1, g: 1, b: 1, a: 1}
-  BackgroundColor: {r: .100000001, g: .100000001, b: .100000001, a: .5}
-  EdgeColor: {r: 1, g: 1, b: 1, a: .5}
-  HighlightColor: {r: .100000001, g: .5, b: .899999976, a: 1}
-  SelectionColor: {r: .100000001, g: .899999976, b: .200000003, a: 1}
-  SliderTrackColor: {r: .100000001, g: .100000001, b: .100000001, a: .5}
-  SliderFillColor: {r: .100000001, g: .899999976, b: .200000003, a: .5}
-  SliderTickColor: {r: 1, g: 1, b: 1, a: .100000001}
-  CursorColorNormal: {r: 1, g: 1, b: 1, a: .600000024}
-  CursorColorHighlighted: {r: 1, g: 1, b: 1, a: 1}
-  CursorRadiusNormal: .119999997
-  CursorRadiusHighlighted: .0599999987
-  CursorThicknessNormal: .100000001
-  CursorThicknessHighlighted: .400000006
-  IsMenuOnLeftSide: 1
-  HighlightDistanceMin: .0500000007
-  HighlightDistanceMax: .100000001
-  StickyReleaseDistance: .0700000003
-  SelectionMilliseconds: 600
-  CursorForwardDistance: 0
 --- !u!114 &1810405385
 MonoBehaviour:
   m_ObjectHideFlags: 0
