@@ -1,5 +1,5 @@
-﻿using Hovercast.Core.Input;
-using Hovercast.Core.Settings;
+﻿using Hovercast.Core.Custom;
+using Hovercast.Core.Input;
 using UnityEngine;
 
 namespace Hovercast.Core.State {

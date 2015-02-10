@@ -1,6 +1,6 @@
 ﻿using System;
+using Hovercast.Core.Custom;
 using Hovercast.Core.Navigation;
-using Hovercast.Core.Settings;
 using UnityEngine;
 
 namespace Hovercast.Demo.Navigation {
@@ -29,20 +29,20 @@ namespace Hovercast.Demo.Navigation {
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleValueChanged(NavItem<float> pNavItem) {
 			BgAlpha = Item.RangeValue;
-			UpdateSettingsWithBgAlpha(ArcSegSett);
+			UpdateSettingsWithBgAlpha(SegSett);
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal static void UpdateSettingsWithBgAlpha(ArcSegmentSettings pArcSegSett) {
-			Color c = pArcSegSett.BackgroundColor;
+		internal static void UpdateSettingsWithBgAlpha(SegmentSettings pSegSett) {
+			Color c = pSegSett.BackgroundColor;
 			c.a = BgAlpha;
-			pArcSegSett.BackgroundColor = c;
+			pSegSett.BackgroundColor = c;
 
-			c = pArcSegSett.SliderFillColor;
+			c = pSegSett.SliderFillColor;
 			c.a = 0.5f*BgAlpha;
-			pArcSegSett.SliderFillColor = c;
+			pSegSett.SliderFillColor = c;
 		}
 
 	}

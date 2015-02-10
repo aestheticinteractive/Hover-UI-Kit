@@ -1,5 +1,5 @@
 ﻿using System;
-using Hovercast.Core.Settings;
+using Hovercast.Core.Custom;
 using Hovercast.Core.State;
 using UnityEngine;
 
@@ -16,7 +16,7 @@ namespace Hovercast.Core.Display.Default {
 		protected float vInnerRadius;
 		protected float vDiameter;
 		protected float vMainAlpha;
-		private ArcSegmentSettings vSettings;
+		private SegmentSettings vSettings;
 
 		protected GameObject vBackground;
 		protected UiLabel vLabel;
@@ -24,8 +24,10 @@ namespace Hovercast.Core.Display.Default {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Build(ArcState pArcState, float pAngle0, float pAngle1) {
+		public virtual void Build(ArcState pArcState, SegmentSettings pSettings, 
+																		float pAngle0, float pAngle1) {
 			vArcState = pArcState;
+			vSettings = pSettings;
 			vAngle0 = pAngle0;
 			vAngle1 = pAngle1;
 			vMeshSteps = (int)Math.Round(Math.Max(2, (vAngle1-vAngle0)/Math.PI*60));
@@ -56,11 +58,6 @@ namespace Hovercast.Core.Display.Default {
 			vLabel.IsLeft = vArcState.IsLeft;
 		}
 		
-		/*--------------------------------------------------------------------------------------------*/
-		public virtual void SetSettings(ArcSegmentSettings pSettings) {
-			vSettings = pSettings;
-		}
-
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void Update() {
 			vMainAlpha = UiSelectRenderer.GetArcAlpha(vArcState);

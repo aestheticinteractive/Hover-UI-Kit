@@ -150,8 +150,12 @@ GameObject:
   - 4: {fileID: 179689560}
   - 114: {fileID: 179689561}
   - 114: {fileID: 179689562}
+  - 114: {fileID: 179689566}
+  - 114: {fileID: 179689565}
+  - 114: {fileID: 179689564}
+  - 114: {fileID: 179689563}
   m_Layer: 0
-  m_Name: MenuItems
+  m_Name: MenuData
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -195,7 +199,68 @@ MonoBehaviour:
   m_GameObject: {fileID: 179689559}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f445107836aa0cb4680e642de727d6a2, type: 3}
+  m_Script: {fileID: 11500000, guid: f058e6821ebdcb143aa23f05abbbf4e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &179689563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 179689559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01789e0003f901e45b47bec28c9b5c3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsMenuOnLeftSide: 1
+  HighlightDistanceMin: .0500000007
+  HighlightDistanceMax: .100000001
+  StickyReleaseDistance: .0700000003
+  SelectionMilliseconds: 600
+  CursorForwardDistance: 0
+--- !u!114 &179689564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 179689559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9657eedb7aa2e54bae70e00c97453c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ColorNormal: {r: 1, g: 1, b: 1, a: .600000024}
+  ColorHighlighted: {r: 1, g: 1, b: 1, a: 1}
+  RadiusNormal: .119999997
+  RadiusHighlighted: .0599999987
+  ThicknessNormal: .100000001
+  ThicknessHighlighted: .400000006
+--- !u!114 &179689565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 179689559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d01435548c2440b438cc85e31f4d6acd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InheritSettings: 1
+  TextSize: 30
+  TextColor: {r: 1, g: 1, b: 1, a: 1}
+  TextFont: Tahoma
+  BackgroundColor: {r: .100000001, g: .100000001, b: .100000001, a: .5}
+--- !u!114 &179689566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 179689559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c60c0f625fb138429679e18c0f7864c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TextSize: 30
@@ -210,18 +275,6 @@ MonoBehaviour:
   SliderTrackColor: {r: .100000001, g: .100000001, b: .100000001, a: .5}
   SliderFillColor: {r: .501960814, g: .501960814, b: .501960814, a: .250980407}
   SliderTickColor: {r: 1, g: 1, b: 1, a: .250980407}
-  CursorColorNormal: {r: 1, g: 1, b: 1, a: .627451003}
-  CursorColorHighlighted: {r: 1, g: 1, b: 1, a: 1}
-  CursorRadiusNormal: .119999997
-  CursorRadiusHighlighted: .0599999987
-  CursorThicknessNormal: .100000001
-  CursorThicknessHighlighted: .400000006
-  IsMenuOnLeftSide: 1
-  HighlightDistanceMin: .0500000007
-  HighlightDistanceMax: .100000001
-  StickyReleaseDistance: .0700000003
-  SelectionMilliseconds: 600
-  CursorForwardDistance: 0
 --- !u!1 &182102232
 GameObject:
   m_ObjectHideFlags: 0
@@ -1256,7 +1309,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NavigationProvider: {fileID: 179689561}
-  SettingsProvider: {fileID: 179689562}
+  CustomizationProvider: {fileID: 179689562}
   InputProvider: {fileID: 2102121303}
   OptionalCameraReference: {fileID: 0}
 --- !u!1 &924844660
@@ -2563,6 +2616,7 @@ GameObject:
   - 4: {fileID: 1706685256}
   - 114: {fileID: 1706685257}
   - 114: {fileID: 1706685258}
+  - 114: {fileID: 1706685259}
   m_Layer: 0
   m_Name: Hue
   m_TagString: Untagged
@@ -2606,7 +2660,7 @@ MonoBehaviour:
   SliderSnaps: 0
   SliderRangeMin: 0
   SliderRangeMax: 360
-  SliderValue: 100
+  SliderValue: 90
 --- !u!114 &1706685258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2618,6 +2672,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abc3eebb4c137244f9f5a26cff202ddf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1706685259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1706685255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b0957b8798d291459d4fcbfa8352f19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextSize: 30
+  TextColor: {r: 1, g: 1, b: 1, a: 1}
+  TextFont: Tahoma
+  ArrowIconColor: {r: 1, g: 1, b: 1, a: 1}
+  ToggleIconColor: {r: 1, g: 1, b: 1, a: 1}
+  BackgroundColor: {r: .100000001, g: .100000001, b: .100000001, a: .5}
+  EdgeColor: {r: 1, g: 1, b: 1, a: .5}
+  HighlightColor: {r: .100000001, g: .5, b: .899999976, a: 1}
+  SelectionColor: {r: .100000001, g: .899999976, b: .200000003, a: 1}
+  SliderTrackColor: {r: .100000001, g: .100000001, b: .100000001, a: .5}
+  SliderFillColor: {r: .100000001, g: .899999976, b: .200000003, a: .5}
+  SliderTickColor: {r: 1, g: 1, b: 1, a: .100000001}
 --- !u!1 &1810405383
 GameObject:
   m_ObjectHideFlags: 0

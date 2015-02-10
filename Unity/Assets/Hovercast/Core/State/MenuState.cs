@@ -1,6 +1,6 @@
-﻿using Hovercast.Core.Input;
+﻿using Hovercast.Core.Custom;
+using Hovercast.Core.Input;
 using Hovercast.Core.Navigation;
-using Hovercast.Core.Settings;
 
 namespace Hovercast.Core.State {
 

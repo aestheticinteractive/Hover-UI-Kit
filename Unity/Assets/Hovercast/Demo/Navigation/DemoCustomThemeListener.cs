@@ -1,5 +1,5 @@
-﻿using Hovercast.Core.Navigation;
-using Hovercast.Core.Settings;
+﻿using Hovercast.Core.Custom;
+using Hovercast.Core.Navigation;
 using UnityEngine;
 
 namespace Hovercast.Demo.Navigation {
@@ -36,7 +36,8 @@ namespace Hovercast.Demo.Navigation {
 				return;
 			}
 
-			ArcSegmentSettings sett = ArcSegSett;
+			//TODO: this isn't working correctly after the settings restructure
+			SegmentSettings sett = SegSett;
 
 			switch ( Type ) {
 				case ThemeType.Dark:

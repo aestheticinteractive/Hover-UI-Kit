@@ -1,4 +1,4 @@
-﻿using Hovercast.Core.Settings;
+﻿using Hovercast.Core.Custom;
 using Hovercast.Core.State;
 using UnityEngine;
 
@@ -11,7 +11,6 @@ namespace Hovercast.Core.Display {
 
 		private MenuState vMenuState;
 		private ArcState vArcState;
-		private ISettings vSettings;
 
 		private UiPalm vUiPalm;
 		private UiArc vUiArc;
@@ -22,22 +21,21 @@ namespace Hovercast.Core.Display {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal void Build(MenuState pMenuState, ISettings pSettings) {
+		internal void Build(MenuState pMenuState, ICustomSegment pCustomSeg, ICustomPalm pCustomPalm) {
 			vMenuState = pMenuState;
 			vArcState = vMenuState.Arc;
-			vSettings = pSettings;
 			vLeftRot = Quaternion.identity;
 			vRightRot = Quaternion.AngleAxis(180, Vector3.up);
 
 			var palmObj = new GameObject("Palm");
 			palmObj.transform.SetParent(gameObject.transform, false);
 			vUiPalm = palmObj.AddComponent<UiPalm>();
-			vUiPalm.Build(vArcState, vSettings);
+			vUiPalm.Build(vArcState, pCustomPalm);
 
 			var arcObj = new GameObject("Arc");
 			arcObj.transform.SetParent(gameObject.transform, false);
 			vUiArc = arcObj.AddComponent<UiArc>();
-			vUiArc.Build(vArcState, vSettings);
+			vUiArc.Build(vArcState, pCustomSeg);
 
 			vMenuState.OnSideChange += HandleSideChange;
 		}

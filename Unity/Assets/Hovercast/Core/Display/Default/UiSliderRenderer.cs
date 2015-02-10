@@ -1,19 +1,19 @@
 ﻿using System;
+using Hovercast.Core.Custom;
 using Hovercast.Core.Navigation;
-using Hovercast.Core.Settings;
 using Hovercast.Core.State;
 using UnityEngine;
 
 namespace Hovercast.Core.Display.Default {
 
 	/*================================================================================================*/
-	public class UiSliderRenderer : MonoBehaviour, IUiArcSegmentRenderer {
+	public class UiSliderRenderer : MonoBehaviour, IUiSegmentRenderer {
 
 		protected ArcState vArcState;
-		protected ArcSegmentState vSegState;
+		protected SegmentState vSegState;
 		protected float vAngle0;
 		protected float vAngle1;
-		protected ArcSegmentSettings vSettings;
+		protected SegmentSettings vSettings;
 		protected NavItemSlider vNavSlider;
 		protected int vMeshSteps;
 
@@ -36,8 +36,8 @@ namespace Hovercast.Core.Display.Default {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Build(ArcState pArcState, ArcSegmentState pSegState,
-														float pArcAngle, ArcSegmentSettings pSettings) {
+		public virtual void Build(ArcState pArcState, SegmentState pSegState,
+														float pArcAngle, SegmentSettings pSettings) {
 			vArcState = pArcState;
 			vSegState = pSegState;
 			vAngle0 = -pArcAngle/2f+UiSelectRenderer.AngleInset;

@@ -1,4 +1,4 @@
-﻿using Hovercast.Core.Settings;
+﻿using Hovercast.Core.Custom;
 using Hovercast.Core.State;
 using UnityEngine;
 
@@ -26,8 +26,8 @@ namespace Hovercast.Core.Display.Default {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public override void Build(ArcState pArcState, ArcSegmentState pSegState,
-														float pArcAngle, ArcSegmentSettings pSettings) {
+		public override void Build(ArcState pArcState, SegmentState pSegState,
+														float pArcAngle, SegmentSettings pSettings) {
 			base.Build(pArcState, pSegState, pArcAngle, pSettings);
 
 			vOuter = GameObject.CreatePrimitive(PrimitiveType.Quad);

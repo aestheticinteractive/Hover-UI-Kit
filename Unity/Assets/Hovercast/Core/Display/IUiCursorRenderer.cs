@@ -1,4 +1,4 @@
-﻿using Hovercast.Core.Settings;
+﻿using Hovercast.Core.Custom;
 using Hovercast.Core.State;
 
 namespace Hovercast.Core.Display {

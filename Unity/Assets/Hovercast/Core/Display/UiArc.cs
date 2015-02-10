@@ -1,5 +1,5 @@
 ﻿using System;
-using Hovercast.Core.Settings;
+using Hovercast.Core.Custom;
 using Hovercast.Core.State;
 using UnityEngine;
 
@@ -12,7 +12,7 @@ namespace Hovercast.Core.Display {
 		private const float LevelChangeDistance = 0.5f;
 
 		private ArcState vArcState;
-		private ISettings vSettings;
+		private ICustomSegment vCustom;
 
 		private GameObject vPrevLevelObj;
 		private GameObject vCurrLevelObj;
@@ -22,9 +22,9 @@ namespace Hovercast.Core.Display {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal void Build(ArcState pArc, ISettings pSettings) {
+		internal void Build(ArcState pArc, ICustomSegment pCustom) {
 			vArcState = pArc;
-			vSettings = pSettings;
+			vCustom = pCustom;
 
 			vArcState.OnLevelChange += HandleLevelChange;
 			UpdateAfterSideChange();
@@ -44,9 +44,9 @@ namespace Hovercast.Core.Display {
 			vCurrLevelObj.transform.SetParent(gameObject.transform, false);
 			vCurrLevelObj.transform.localScale = Vector3.one;
 
-			UiArcLevel arcLevel = vCurrLevelObj.AddComponent<UiArcLevel>();
-			arcLevel.Build(vArcState, vSettings);
-			arcLevel.HandleChangeAnimation(true, 0, 1);
+			UiLevel level = vCurrLevelObj.AddComponent<UiLevel>();
+			level.Build(vArcState, vCustom);
+			level.HandleChangeAnimation(true, 0, 1);
 		}
 
 
@@ -65,8 +65,8 @@ namespace Hovercast.Core.Display {
 			vCurrLevelObj = new GameObject("CurrLevel");
 			vCurrLevelObj.transform.SetParent(gameObject.transform, false);
 
-			UiArcLevel arcLevel = vCurrLevelObj.AddComponent<UiArcLevel>();
-			arcLevel.Build(vArcState, vSettings);
+			UiLevel level = vCurrLevelObj.AddComponent<UiLevel>();
+			level.Build(vArcState, vCustom);
 
 			////
 
@@ -104,7 +104,7 @@ namespace Hovercast.Core.Display {
 					prevScale *= 0.666f;
 				}
 
-				vPrevLevelObj.GetComponent<UiArcLevel>()
+				vPrevLevelObj.GetComponent<UiLevel>()
 					.HandleChangeAnimation(false, vChangeDir, prog);
 				vPrevLevelObj.transform.localScale = Vector3.one*(1+prevScale);
 			}
@@ -116,7 +116,7 @@ namespace Hovercast.Core.Display {
 					currScale *= 0.666f;
 				}
 
-				vCurrLevelObj.GetComponent<UiArcLevel>()
+				vCurrLevelObj.GetComponent<UiLevel>()
 					.HandleChangeAnimation(true, vChangeDir, prog);
 				vCurrLevelObj.transform.localScale = Vector3.one*(1+currScale);
 			}

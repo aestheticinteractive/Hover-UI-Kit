@@ -1,23 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using Hovercast.Core.Settings;
+using Hovercast.Core.Custom;
 using Hovercast.Core.State;
 using UnityEngine;
 
 namespace Hovercast.Core.Display.Default {
 
 	/*================================================================================================*/
-	public class UiSelectRenderer : MonoBehaviour, IUiArcSegmentRenderer {
+	public class UiSelectRenderer : MonoBehaviour, IUiSegmentRenderer {
 
 		public const float ArcCanvasThickness = 250;
 		public const float ArcCanvasScale = 0.002f;
 		public const float AngleInset = 0.0012f;
 
 		protected ArcState vArcState;
-		protected ArcSegmentState vSegState;
+		protected SegmentState vSegState;
 		protected float vAngle0;
 		protected float vAngle1;
-		protected ArcSegmentSettings vSettings;
+		protected SegmentSettings vSettings;
 		protected int vMeshSteps;
 
 		protected float vMainAlpha;
@@ -34,8 +34,8 @@ namespace Hovercast.Core.Display.Default {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Build(ArcState pArcState, ArcSegmentState pSegState,
-														float pArcAngle, ArcSegmentSettings pSettings) {
+		public virtual void Build(ArcState pArcState, SegmentState pSegState,
+														float pArcAngle, SegmentSettings pSettings) {
 			vArcState = pArcState;
 			vSegState = pSegState;
 			vAngle0 = -pArcAngle/2f+AngleInset;

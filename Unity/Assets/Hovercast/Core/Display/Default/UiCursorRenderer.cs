@@ -1,5 +1,5 @@
 ﻿using System;
-using Hovercast.Core.Settings;
+using Hovercast.Core.Custom;
 using Hovercast.Core.State;
 using UnityEngine;
 
@@ -35,7 +35,7 @@ namespace Hovercast.Core.Display.Default {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			ArcSegmentState nearSeg = vArcState.NearestSegment;
+			SegmentState nearSeg = vArcState.NearestSegment;
 			float highProg = (nearSeg == null ? 0 : nearSeg.HighlightProgress);
 			bool high = (highProg >= 1);
 			float thick = Mathf.Lerp(vSettings.ThickNorm, vSettings.ThickHigh, highProg);

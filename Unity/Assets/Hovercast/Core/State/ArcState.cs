@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Hovercast.Core.Custom;
 using Hovercast.Core.Input;
 using Hovercast.Core.Navigation;
-using Hovercast.Core.Settings;
 using UnityEngine;
 
 namespace Hovercast.Core.State {
@@ -20,10 +20,10 @@ namespace Hovercast.Core.State {
 		public float Size { get; private set; }
 		public float DisplayStrength { get; private set; }
 		public float NavBackStrength { get; private set; }
-		public ArcSegmentState NearestSegment { get; private set; }
+		public SegmentState NearestSegment { get; private set; }
 
 		private readonly NavRoot vNavRoot;
-		private readonly IList<ArcSegmentState> vSegments;
+		private readonly IList<SegmentState> vSegments;
 		private readonly InteractionSettings vSettings;
 		private bool vIsGrabbing;
 
@@ -32,7 +32,7 @@ namespace Hovercast.Core.State {
 		/*--------------------------------------------------------------------------------------------*/
 		public ArcState(NavRoot pNavRoot, InteractionSettings pSettings) {
 			vNavRoot = pNavRoot;
-			vSegments = new List<ArcSegmentState>();
+			vSegments = new List<SegmentState>();
 			vSettings = pSettings;
 
 			IsLeft = vSettings.IsMenuOnLeftSide;
@@ -46,7 +46,7 @@ namespace Hovercast.Core.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public ArcSegmentState[] GetSegments() {
+		public SegmentState[] GetSegments() {
 			return vSegments.ToArray();
 		}
 
@@ -83,7 +83,7 @@ namespace Hovercast.Core.State {
 
 			NearestSegment = null;
 
-			foreach ( ArcSegmentState seg in vSegments ) {
+			foreach ( SegmentState seg in vSegments ) {
 				seg.UpdateWithCursor(cursorPos);
 
 				if ( !allowSelect ) {
@@ -100,7 +100,7 @@ namespace Hovercast.Core.State {
 				}
 			}
 
-			foreach ( ArcSegmentState seg in vSegments ) {
+			foreach ( SegmentState seg in vSegments ) {
 				if ( seg.SetAsNearestSegment(seg == NearestSegment) ) {
 					break;
 				}
@@ -135,7 +135,7 @@ namespace Hovercast.Core.State {
 			NavItem[] items = vNavRoot.GetLevel().Items;
 
 			foreach ( NavItem navItem in items ) {
-				var seg = new ArcSegmentState(navItem, vSettings);
+				var seg = new SegmentState(navItem, vSettings);
 				vSegments.Add(seg);
 			}
 

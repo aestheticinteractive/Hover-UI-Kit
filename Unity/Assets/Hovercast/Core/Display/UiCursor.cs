@@ -1,5 +1,5 @@
 ﻿using System;
-using Hovercast.Core.Settings;
+using Hovercast.Core.Custom;
 using Hovercast.Core.State;
 using UnityEngine;
 
@@ -20,7 +20,7 @@ namespace Hovercast.Core.Display {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal void Build(ArcState pArcState, CursorState pCursorState, ISettings pSettings, 
+		internal void Build(ArcState pArcState, CursorState pCursorState, ICustomCursor pCustom, 
 																		Transform pCameraTransform) {
 			vArcState = pArcState;
 			vCursorState = pCursorState;
@@ -28,7 +28,7 @@ namespace Hovercast.Core.Display {
 
 			////
 			
-			Type rendType = pSettings.GetUiCursorRendererType();
+			Type rendType = pCustom.GetCursorRenderer();
 
 			vRendererHold = new GameObject("RendererHold");
 			vRendererHold.transform.SetParent(gameObject.transform, false);
@@ -37,7 +37,7 @@ namespace Hovercast.Core.Display {
 			vRendererObj.transform.SetParent(vRendererHold.transform, false);
 
 			vRenderer = (IUiCursorRenderer)vRendererObj.AddComponent(rendType);
-			vRenderer.Build(vArcState, vCursorState, pSettings.GetCursorSettings());
+			vRenderer.Build(vArcState, vCursorState, pCustom.GetCursorSettings());
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

@@ -24,7 +24,7 @@ namespace Hovercast.Demo.Navigation {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleValueChanged(NavItem<float> pNavItem) {
-			ArcSegSett.TextSize = (int)Math.Round(Item.RangeValue);
+			SegSett.TextSize = (int)Math.Round(Item.RangeValue);
 		}
 
 	}

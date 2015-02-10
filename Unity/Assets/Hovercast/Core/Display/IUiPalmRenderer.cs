@@ -1,4 +1,4 @@
-﻿using Hovercast.Core.Settings;
+﻿using Hovercast.Core.Custom;
 using Hovercast.Core.State;
 
 namespace Hovercast.Core.Display {
@@ -9,10 +9,7 @@ namespace Hovercast.Core.Display {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		void Build(ArcState pArcState, float pAngle0, float pAngle1);
-		
-		/*--------------------------------------------------------------------------------------------*/
-		void SetSettings(ArcSegmentSettings pSettings);
+		void Build(ArcState pArcState, SegmentSettings pSettings, float pAngle0, float pAngle1);
 
 	}
 
