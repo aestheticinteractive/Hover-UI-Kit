@@ -10,11 +10,10 @@ namespace Hovercast.Core.State {
 		public delegate void SideChangeHandler();
 		public event SideChangeHandler OnSideChange;
 
-		public IInputProvider InputProvider { get; private set; }
-		public NavRoot NavRoot { get; private set; }
 		public ArcState Arc { get; private set; }
 		public CursorState Cursor { get; private set; }
 
+		private readonly IInputProvider vInputProv;
 		private readonly InteractionSettings vSettings;
 		private bool? vCurrIsMenuOnLeftSide;
 
@@ -22,12 +21,10 @@ namespace Hovercast.Core.State {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public MenuState(IInputProvider pInputProv, NavRoot pNavRoot,InteractionSettings pSettings){
-			InputProvider = pInputProv;
-			NavRoot = pNavRoot;
-			
+			vInputProv = pInputProv;
 			vSettings = pSettings;
 
-			Arc = new ArcState(NavRoot, vSettings);
+			Arc = new ArcState(pNavRoot, vSettings);
 			Cursor = new CursorState(vSettings);
 
 			OnSideChange += (() => {});
@@ -38,8 +35,8 @@ namespace Hovercast.Core.State {
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateAfterInput() {
 			bool isMenuOnLeft = vSettings.IsMenuOnLeftSide;
-			IInputSide cursorSide = InputProvider.GetSide(!isMenuOnLeft);
-			IInputSide menuSide = InputProvider.GetSide(isMenuOnLeft);
+			IInputSide cursorSide = vInputProv.GetSide(!isMenuOnLeft);
+			IInputSide menuSide = vInputProv.GetSide(isMenuOnLeft);
 
 			Cursor.UpdateAfterInput(cursorSide.Cursor);
 			Arc.UpdateAfterInput(menuSide.Menu);

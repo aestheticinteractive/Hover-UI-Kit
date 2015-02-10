@@ -1,11 +1,14 @@
 ﻿using System;
 using Hovercast.Core.Navigation;
-using Hovercast.Demo.Settings;
+using Hovercast.Core.Settings;
+using UnityEngine;
 
 namespace Hovercast.Demo.Navigation {
 
 	/*================================================================================================*/
 	public class DemoCustomBgListener : DemoBaseListener<NavItemSlider> {
+
+		private static float BgAlpha;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -25,8 +28,21 @@ namespace Hovercast.Demo.Navigation {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleValueChanged(NavItem<float> pNavItem) {
-			DemoSettingsProvider.BgAlpha = Item.RangeValue;
-			DemoSettingsProvider.UpdateSettingsWithBgAlpha();
+			BgAlpha = Item.RangeValue;
+			UpdateSettingsWithBgAlpha(ArcSegSett);
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		internal static void UpdateSettingsWithBgAlpha(ArcSegmentSettings pArcSegSett) {
+			Color c = pArcSegSett.BackgroundColor;
+			c.a = BgAlpha;
+			pArcSegSett.BackgroundColor = c;
+
+			c = pArcSegSett.SliderFillColor;
+			c.a = 0.5f*BgAlpha;
+			pArcSegSett.SliderFillColor = c;
 		}
 
 	}

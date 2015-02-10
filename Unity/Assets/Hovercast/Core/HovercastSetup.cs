@@ -39,11 +39,12 @@ namespace Hovercast.Core {
 			if ( OptionalCameraReference == null ) {
 				OptionalCameraReference = gameObject.transform;
 			}
+		}
 
+		/*--------------------------------------------------------------------------------------------*/
+		public void Start() {
 			vMenuState = new MenuState(InputProvider, NavigationProvider.GetRoot(), 
 				SettingsProvider.GetInteractionSettings());
-
-			////
 
 			var menuObj = new GameObject("Menu");
 			menuObj.transform.SetParent(gameObject.transform, false);

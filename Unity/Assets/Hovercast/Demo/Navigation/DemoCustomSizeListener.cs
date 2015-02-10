@@ -1,6 +1,5 @@
 ﻿using System;
 using Hovercast.Core.Navigation;
-using Hovercast.Demo.Settings;
 
 namespace Hovercast.Demo.Navigation {
 
@@ -18,14 +17,14 @@ namespace Hovercast.Demo.Navigation {
 
 		/*--------------------------------------------------------------------------------------------*/
 		protected override void BroadcastInitialValue() {
-			HandleValueChanged(Item);
+			//Don't automatically override the demo's default settings
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleValueChanged(NavItem<float> pNavItem) {
-			DemoSettingsProvider.ArcSegmentSettings.TextSize = (int)Math.Round(Item.RangeValue);
+			ArcSegSett.TextSize = (int)Math.Round(Item.RangeValue);
 		}
 
 	}

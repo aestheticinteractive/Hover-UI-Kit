@@ -35,14 +35,14 @@ namespace Hovercast.Core.Settings {
 		public float SelectionMilliseconds = 600;
 		public float CursorForwardDistance = 0.0f;
 
-		protected readonly ArcSegmentSettings vArcSegment;
-		protected readonly CursorSettings vCursor;
-		protected readonly InteractionSettings vInteraction;
+		private ArcSegmentSettings vArcSegment;
+		private CursorSettings vCursor;
+		private InteractionSettings vInteraction;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public HovercastDefaultSettingsProvider() {
+		public virtual void Awake() {
 			vArcSegment = new ArcSegmentSettings();
 			vArcSegment.TextSize = TextSize;
 			vArcSegment.TextColor = TextColor;
