@@ -56,13 +56,13 @@ namespace Hovercast.Demo.Navigation {
 					sett.TextColor = new Color(0, 0, 0);
 					sett.ArrowIconColor = new Color(0, 0, 0);
 					sett.ToggleIconColor = new Color(0, 0, 0);
-					sett.BackgroundColor = new Color(0.9f, 0.9f, 0.9f, 0.5f);
+					sett.BackgroundColor = new Color(1, 1, 1, 0.25f);
 					sett.EdgeColor = new Color(1, 1, 1, 1);
-					sett.HighlightColor = new Color(0.75f, 0.75f, 0.75f, 0.57f);
-					sett.SelectionColor = new Color(0.5f, 0.5f, 0.5f, 1);
-					sett.SliderTrackColor = new Color(0.9f, 0.9f, 0.9f, 0.25f);
-					sett.SliderFillColor = new Color(0.5f, 0.5f, 0.5f, 0.25f);
-					sett.SliderTickColor = new Color(0, 0, 0, 0.25f);
+					sett.HighlightColor = new Color(1, 1, 1, 0.25f);
+					sett.SelectionColor = new Color(1, 1, 1, 1);
+					sett.SliderTrackColor = new Color(1, 1, 1, 0.15f);
+					sett.SliderFillColor = new Color(1, 1, 1, 0.5f);
+					sett.SliderTickColor = new Color(0, 0, 0, 0.5f);
 					break;
 
 				case ThemeType.Color:
