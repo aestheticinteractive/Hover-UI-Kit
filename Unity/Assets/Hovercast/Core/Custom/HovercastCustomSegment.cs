@@ -37,7 +37,7 @@ namespace Hovercast.Core.Custom {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private static string GetErrorPrefix(NavItem.ItemType pNavItemType) {
-			return "Hovercast | The 'ArcSegment' Renderer for '"+pNavItemType+"' NavItems ";
+			return "Hovercast | The 'Segment' Renderer for '"+pNavItemType+"' NavItems ";
 		}
 
 	}

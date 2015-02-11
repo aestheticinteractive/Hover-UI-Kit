@@ -1,11 +1,11 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Hovercast.Core.Custom {
+namespace Hovercast.Core.Custom.Editor {
 
 	/*================================================================================================*/
 	[CustomEditor(typeof(HovercastDefaultPalm))]
-	public class HovercastDefaultPalmEditor : Editor {
+	public class HovercastDefaultPalmEditor : UnityEditor.Editor {
 
 		private HovercastDefaultPalm vTarget;
 

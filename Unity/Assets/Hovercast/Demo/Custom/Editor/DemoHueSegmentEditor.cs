@@ -1,10 +1,10 @@
 using UnityEditor;
 
-namespace Hovercast.Demo.Custom {
+namespace Hovercast.Demo.Custom.Editor {
 
 	/*================================================================================================*/
 	[CustomEditor(typeof(DemoHueSegment))]
-	public class DemoHueSegmentEditor : Editor {
+	public class DemoHueSegmentEditor : UnityEditor.Editor {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

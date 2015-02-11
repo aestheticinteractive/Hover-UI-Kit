@@ -1,11 +1,11 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Hovercast.Core.Navigation {
+namespace Hovercast.Core.Navigation.Editor {
 
 	/*================================================================================================*/
 	[CustomEditor(typeof(HovercastNavItem))]
-	public class HovercastNavItemEditor : Editor {
+	public class HovercastNavItemEditor : UnityEditor.Editor {
 
 		private HovercastNavItem vTarget;
 
