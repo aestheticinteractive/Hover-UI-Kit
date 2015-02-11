@@ -11,8 +11,10 @@ namespace Hovercast.Core.Display {
 
 		private ArcState vArcState;
 		private ICustomPalm vCustom;
+		private bool vRebuildOnUpdate;
 
 		private GameObject vRendererHold;
+		private GameObject vPrevRendererObj;
 		private GameObject vRendererObj;
 		private IUiPalmRenderer vRenderer;
 
@@ -28,15 +30,38 @@ namespace Hovercast.Core.Display {
 			vRendererHold.transform.localPosition = UiLevel.PushFromHand;
 
 			vArcState.OnLevelChange += HandleLevelChange;
-			UpdateAfterSideChange();
+			Rebuild();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		internal void UpdateAfterSideChange() {
-			if ( vRendererObj != null ) {
-				vRendererObj.SetActive(false);
-				Destroy(vRendererObj);
+			vRebuildOnUpdate = true;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void Update() {
+			if ( vPrevRendererObj != null ) {
+				vPrevRendererObj.SetActive(false);
+				Destroy(vPrevRendererObj);
+				vPrevRendererObj = null;
 			}
+
+			if ( vRebuildOnUpdate ) {
+				vRebuildOnUpdate = false;
+				Rebuild();
+			}
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private void HandleLevelChange(int pDirection) {
+			vRebuildOnUpdate = true;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void Rebuild() {
+			vPrevRendererObj = vRendererObj;
 
 			const float halfAngle = UiLevel.AngleFull/2f;
 			NavItem navItem = vArcState.GetLevelParentItem();
@@ -50,13 +75,6 @@ namespace Hovercast.Core.Display {
 
 			vRenderer = (IUiPalmRenderer)vRendererObj.AddComponent(rendType);
 			vRenderer.Build(vArcState, sett, -halfAngle, halfAngle);
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		private void HandleLevelChange(int pDirection) {
-			UpdateAfterSideChange();
 		}
 
 	}
