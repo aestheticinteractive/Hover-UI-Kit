@@ -25,7 +25,6 @@ namespace Hovercast.Demo.Custom {
 			
 			vHueSlider = (NavItemSlider)gameObject.GetComponent<HovercastNavItem>().GetItem();
 			vHueSlider.OnValueChanged += HandleValueChanged;
-			HandleValueChanged(null);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -35,6 +34,7 @@ namespace Hovercast.Demo.Custom {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public override SegmentSettings GetSettings() {
+			HandleValueChanged(null);
 			return vHueSettings;
 		}
 
