@@ -1,37 +1,56 @@
-﻿using Hovercast.Core.Custom;
+﻿using System;
+using Hovercast.Core.Custom;
+using Hovercast.Core.Display.Default;
 using Hovercast.Core.Navigation;
 using UnityEngine;
 
 namespace Hovercast.Demo.Custom {
 
 	/*================================================================================================*/
-	public class DemoHueSegment : HovercastDefaultSegment {
+	public class DemoHueSegment : HovercastCustomSegment {
 
-		private SegmentSettings vSettings;
+		private SegmentSettings vRootSettings;
+		private SegmentSettings vHueSettings;
 		private NavItemSlider vHueSlider;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public override void Awake() {
-			base.Awake();
+		public void Awake() {
+			vRootSettings = GameObject.Find("DemoEnvironment/MenuData")
+				.GetComponent<HovercastCustomizationProvider>()
+				.GetSegmentSettings(null);
 
-			vSettings = GetSettings();
+			vHueSettings = new SegmentSettings();
 			
 			vHueSlider = (NavItemSlider)gameObject.GetComponent<HovercastNavItem>().GetItem();
 			vHueSlider.OnValueChanged += HandleValueChanged;
+			HandleValueChanged(null);
 		}
 
+		/*--------------------------------------------------------------------------------------------*/
+		protected override Type GetRendererForNavItemTypeInner(NavItem.ItemType pNavItemType) {
+			return typeof(UiSliderRenderer);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public override SegmentSettings GetSettings() {
+			return vHueSettings;
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleValueChanged(NavItem<float> pNavItem) {
 			Color col = DemoEnvironment.HsvToColor(vHueSlider.RangeValue, 1, 0.666f);
 
-			col.a = 1;
-			vSettings.SelectionColor = col;
+			Color colFade = col;
+			colFade.a = 0.25f;
 
-			col.a = 0.25f;
-			vSettings.SliderTrackColor = col;
-			vSettings.SliderFillColor = col;
+			SegmentSettings.Fill(vRootSettings, vHueSettings);
+			vHueSettings.SelectionColor = col;
+			vHueSettings.SliderTrackColor = colFade;
+			vHueSettings.SliderFillColor = colFade;
 		}
 
 	}

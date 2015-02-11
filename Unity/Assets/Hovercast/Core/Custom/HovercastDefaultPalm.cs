@@ -19,28 +19,25 @@ namespace Hovercast.Core.Custom {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Awake() {
-			if ( InheritSettings ) {
-				return;
-			}
-
-			vSettings = new SegmentSettings();
-			vSettings.TextSize = TextSize;
-			vSettings.TextColor = TextColor;
-			vSettings.TextFont = TextFont;
-			vSettings.BackgroundColor = BackgroundColor;
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
 		protected override Type GetRendererInner() {
 			return typeof(UiPalmRenderer);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public override SegmentSettings GetSettings() {
-			return vSettings; //can be null
+			if ( InheritSettings ) {
+				return null;
+			}
+
+			if ( vSettings == null ) {
+				vSettings = new SegmentSettings();
+				vSettings.TextSize = TextSize;
+				vSettings.TextColor = TextColor;
+				vSettings.TextFont = TextFont;
+				vSettings.BackgroundColor = BackgroundColor;
+			}
+
+			return vSettings;
 		}
 
 	}

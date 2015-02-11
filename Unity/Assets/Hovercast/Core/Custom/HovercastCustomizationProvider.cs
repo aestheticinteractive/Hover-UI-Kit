@@ -102,13 +102,13 @@ namespace Hovercast.Core.Custom {
 			}
 
 			if ( vMainPalm == null ) {
-				Debug.LogWarning("Hovercast | No '"+typeof(HovercastDefaultPalm).Name+
+				Debug.LogWarning("Hovercast | No '"+typeof(HovercastCustomPalm).Name+
 					"' provided; using default.");
 				vMainPalm = gameObject.AddComponent<HovercastDefaultPalm>();
 			}
 
 			if ( vCursor == null ) {
-				Debug.LogWarning("Hovercast | No '"+typeof(HovercastDefaultCursor).Name+
+				Debug.LogWarning("Hovercast | No '"+typeof(HovercastCustomCursor).Name+
 					"' provided; using default.");
 				vCursor = gameObject.AddComponent<HovercastDefaultCursor>();
 			}

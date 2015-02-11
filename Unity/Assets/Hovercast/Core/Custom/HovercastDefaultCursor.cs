@@ -19,25 +19,22 @@ namespace Hovercast.Core.Custom {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Awake() {
-			vSettings = new CursorSettings();
-			vSettings.ColorNorm = ColorNormal;
-			vSettings.ColorHigh = ColorHighlighted;
-			vSettings.RadiusNorm = RadiusNormal;
-			vSettings.RadiusHigh = RadiusHighlighted;
-			vSettings.ThickNorm = ThicknessNormal;
-			vSettings.ThickHigh = ThicknessHighlighted;
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
 		protected override Type GetRendererInner() {
 			return typeof(UiCursorRenderer);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public override CursorSettings GetSettings() {
+			if ( vSettings == null ) {
+				vSettings = new CursorSettings();
+				vSettings.ColorNorm = ColorNormal;
+				vSettings.ColorHigh = ColorHighlighted;
+				vSettings.RadiusNorm = RadiusNormal;
+				vSettings.RadiusHigh = RadiusHighlighted;
+				vSettings.ThickNorm = ThicknessNormal;
+				vSettings.ThickHigh = ThicknessHighlighted;
+			}
+
 			return vSettings;
 		}
 

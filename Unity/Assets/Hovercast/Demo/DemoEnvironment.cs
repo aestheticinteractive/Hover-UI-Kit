@@ -49,6 +49,7 @@ namespace Hovercast.Demo {
 		private Light vLight;
 		private Light vSpotlight;
 		private GameObject vEnviro;
+		private ColorMode vColorMode;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -142,17 +143,24 @@ namespace Hovercast.Demo {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
+		public ColorMode GetColorMode() {
+			return vColorMode;
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
 		public void SetColorMode(ColorMode pMode, float pHue=0) {
+			vColorMode = pMode;
+
 			Color color = Color.white;
 
-			if ( pMode == ColorMode.Custom ) {
+			if ( vColorMode == ColorMode.Custom ) {
 				color = HsvToColor(pHue, 1, 1);
 			}
 
 			for ( int i = 0 ; i < Count ; ++i ) {
 				GameObject cube = vCubes[i];
 
-				if ( pMode == ColorMode.Random ) {
+				if ( vColorMode == ColorMode.Random ) {
 					color = cube.GetComponent<DemoCube>().ColorRandom;
 				}
 

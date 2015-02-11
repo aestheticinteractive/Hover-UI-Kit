@@ -18,6 +18,25 @@ namespace Hovercast.Core.Custom {
 		public Color SliderFillColor { get; set; }
 		public Color SliderTickColor { get; set; }
 
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public static SegmentSettings Fill(SegmentSettings pSrc, SegmentSettings pDest) {
+			pDest.TextSize = pSrc.TextSize;
+			pDest.TextColor = pSrc.TextColor;
+			pDest.TextFont = pSrc.TextFont;
+			pDest.ArrowIconColor = pSrc.ArrowIconColor;
+			pDest.ToggleIconColor = pSrc.ToggleIconColor;
+			pDest.BackgroundColor = pSrc.BackgroundColor;
+			pDest.EdgeColor = pSrc.EdgeColor;
+			pDest.HighlightColor = pSrc.HighlightColor;
+			pDest.SelectionColor = pSrc.SelectionColor;
+			pDest.SliderTrackColor = pSrc.SliderTrackColor;
+			pDest.SliderFillColor = pSrc.SliderFillColor;
+			pDest.SliderTickColor = pSrc.SliderTickColor;
+			return pDest;
+		}
+
 	}
 
 }

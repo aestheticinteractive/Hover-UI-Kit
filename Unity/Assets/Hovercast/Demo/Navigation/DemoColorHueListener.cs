@@ -24,7 +24,7 @@ namespace Hovercast.Demo.Navigation {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleValueChanged(NavItem<float> pNavItem) {
-			Enviro.SetColorMode(DemoEnvironment.ColorMode.Custom, Item.RangeValue);
+			Enviro.SetColorMode(Enviro.GetColorMode(), Item.RangeValue);
 		}
 
 	}

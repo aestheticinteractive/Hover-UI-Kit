@@ -17,20 +17,17 @@ namespace Hovercast.Core.Custom {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Awake() {
-			vSettings = new InteractionSettings();
-			vSettings.IsMenuOnLeftSide = IsMenuOnLeftSide;
-			vSettings.HighlightDistanceMin = HighlightDistanceMin;
-			vSettings.HighlightDistanceMax = HighlightDistanceMax;
-			vSettings.StickyReleaseDistance = StickyReleaseDistance;
-			vSettings.SelectionMilliseconds = SelectionMilliseconds;
-			vSettings.CursorForwardDistance = CursorForwardDistance;
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
 		public virtual InteractionSettings GetSettings() {
+			if ( vSettings == null ) {
+				vSettings = new InteractionSettings();
+				vSettings.IsMenuOnLeftSide = IsMenuOnLeftSide;
+				vSettings.HighlightDistanceMin = HighlightDistanceMin;
+				vSettings.HighlightDistanceMax = HighlightDistanceMax;
+				vSettings.StickyReleaseDistance = StickyReleaseDistance;
+				vSettings.SelectionMilliseconds = SelectionMilliseconds;
+				vSettings.CursorForwardDistance = CursorForwardDistance;
+			}
+
 			return vSettings;
 		}
 

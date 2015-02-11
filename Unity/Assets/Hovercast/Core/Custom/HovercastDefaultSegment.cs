@@ -23,26 +23,6 @@ namespace Hovercast.Core.Custom {
 
 		private SegmentSettings vSettings;
 
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Awake() {
-			vSettings = new SegmentSettings();
-			vSettings.TextSize = TextSize;
-			vSettings.TextColor = TextColor;
-			vSettings.TextFont = TextFont;
-			vSettings.ArrowIconColor = ArrowIconColor;
-			vSettings.ToggleIconColor = ToggleIconColor;
-			vSettings.BackgroundColor = BackgroundColor;
-			vSettings.EdgeColor = EdgeColor;
-			vSettings.HighlightColor = HighlightColor;
-			vSettings.SelectionColor = SelectionColor;
-			vSettings.SliderTrackColor = SliderTrackColor;
-			vSettings.SliderFillColor = SliderFillColor;
-			vSettings.SliderTickColor = SliderTickColor;
-		}
-
-
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected override Type GetRendererForNavItemTypeInner(NavItem.ItemType pNavItemType) {
@@ -71,6 +51,22 @@ namespace Hovercast.Core.Custom {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public override SegmentSettings GetSettings() {
+			if ( vSettings == null ) {
+				vSettings = new SegmentSettings();
+				vSettings.TextSize = TextSize;
+				vSettings.TextColor = TextColor;
+				vSettings.TextFont = TextFont;
+				vSettings.ArrowIconColor = ArrowIconColor;
+				vSettings.ToggleIconColor = ToggleIconColor;
+				vSettings.BackgroundColor = BackgroundColor;
+				vSettings.EdgeColor = EdgeColor;
+				vSettings.HighlightColor = HighlightColor;
+				vSettings.SelectionColor = SelectionColor;
+				vSettings.SliderTrackColor = SliderTrackColor;
+				vSettings.SliderFillColor = SliderFillColor;
+				vSettings.SliderTickColor = SliderTickColor;
+			}
+
 			return vSettings;
 		}
 
