@@ -22,6 +22,7 @@ namespace Hovercast.Demo.Navigation {
 		/*--------------------------------------------------------------------------------------------*/
 		protected override void BroadcastInitialValue() {
 			//Don't automatically override the demo's default settings
+			BgAlpha = Item.RangeValue;
 		}
 
 

@@ -36,7 +36,6 @@ namespace Hovercast.Demo.Navigation {
 				return;
 			}
 
-			//TODO: this isn't working correctly after the settings restructure
 			SegmentSettings sett = SegSett;
 
 			switch ( Type ) {
