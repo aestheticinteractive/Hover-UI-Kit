@@ -84,7 +84,7 @@ namespace Hovercast.Core.Display.Default {
 
 			vSelectionPoints = new List<Vector3>();
 
-			for ( int i = 1 ; i < bgMesh.vertices.Length ; i += 2 ) {
+			for ( int i = 3 ; i < bgMesh.vertices.Length-2 ; i += 2 ) {
 				vSelectionPoints.Add(bgMesh.vertices[i]);
 			}
 
@@ -155,16 +155,27 @@ namespace Hovercast.Core.Display.Default {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public float CalculateCursorDistance(Vector3 pCursorWorldPosition) {
+		public Vector3 GetPointNearestToCursor(Vector3 pCursorLocalPos) {
 			float sqrMagMin = float.MaxValue;
-			Vector3 relCursor = gameObject.transform.InverseTransformPoint(pCursorWorldPosition);
+			Vector3 nearest = Vector3.zero;
+			//Vector3 worldCurs = gameObject.transform.TransformPoint(pCursorLocalPos);
+			//Vector3 worldPos;
 
-			foreach ( Vector3 v in vSelectionPoints ) {
-				float sqrMag = (v-relCursor).sqrMagnitude;
-				sqrMagMin = Math.Min(sqrMagMin, sqrMag);
+			foreach ( Vector3 pos in vSelectionPoints ) {
+				float sqrMag = (pos-pCursorLocalPos).sqrMagnitude;
+
+				if ( sqrMag < sqrMagMin ) {
+					sqrMagMin = sqrMag;
+					nearest = pos;
+				}
+
+				//worldPos = gameObject.transform.TransformPoint(pos);
+				//Debug.DrawLine(worldPos, worldCurs, Color.yellow);
 			}
 
-			return (float)Math.Sqrt(sqrMagMin);
+			//worldPos = gameObject.transform.TransformPoint(nearest);
+			//Debug.DrawLine(worldPos, worldCurs, Color.red);
+			return nearest;
 		}
 
 

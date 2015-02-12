@@ -151,8 +151,17 @@ namespace Hovercast.Core.Display.Default {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public float CalculateCursorDistance(Vector3 pCursorWorldPosition) {
-			return vGrab.CalculateCursorDistance(pCursorWorldPosition);
+		public Vector3 GetPointNearestToCursor(Vector3 pCursorLocalPos) {
+			Transform objTx = gameObject.transform;
+			Transform grabTx = vGrab.gameObject.transform;
+
+			Vector3 cursorWorld = objTx.TransformPoint(pCursorLocalPos);
+			Vector3 cursorGrab = grabTx.InverseTransformPoint(cursorWorld);
+			
+			Vector3 nearestGrab = vGrab.GetPointNearestToCursor(cursorGrab);
+			Vector3 nearestWorld = grabTx.TransformPoint(nearestGrab);
+
+			return objTx.InverseTransformPoint(nearestWorld);
 		}
 
 

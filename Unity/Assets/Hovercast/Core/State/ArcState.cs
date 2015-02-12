@@ -102,7 +102,7 @@ namespace Hovercast.Core.State {
 
 			foreach ( SegmentState seg in vSegments ) {
 				if ( seg.SetAsNearestSegment(seg == NearestSegment) ) {
-					break;
+					break; //stop loop upon actual selection because the segment list can change
 				}
 			}
 		}

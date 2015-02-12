@@ -17,7 +17,7 @@ namespace Hovercast.Core.Display {
 		private Transform vCursorBaseTx;
 		private float vSlideDegrees;
 		private Vector3 vSlideDir0;
-		private Vector3 vCursorWorldPos;
+		private Vector3 vCursorLocalPos;
 
 		private IUiSegmentRenderer vRenderer;
 
@@ -63,9 +63,11 @@ namespace Hovercast.Core.Display {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private float CalcCursorDistance(Vector3 pCursorPos) {
-			vCursorWorldPos = vCursorBaseTx.TransformPoint(pCursorPos);
-			float dist = vRenderer.CalculateCursorDistance(vCursorWorldPos);
-			return gameObject.transform.TransformVector(Vector3.up*dist).magnitude;
+			var cursorWorldPos = vCursorBaseTx.TransformPoint(pCursorPos);
+			vCursorLocalPos = gameObject.transform.InverseTransformPoint(cursorWorldPos);
+
+			Vector3 nearest = vRenderer.GetPointNearestToCursor(vCursorLocalPos);
+			return (nearest-vCursorLocalPos).magnitude;
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
@@ -80,10 +82,10 @@ namespace Hovercast.Core.Display {
 				return;
 			}
 
-			Vector3 cursorRel = gameObject.transform.InverseTransformPoint(vCursorWorldPos);
-			cursorRel.y = 0;
+			Vector3 cursorLocal = vCursorLocalPos;
+			cursorLocal.y = 0;
 
-			Vector3 cursorDir = cursorRel.normalized;
+			Vector3 cursorDir = cursorLocal.normalized;
 			Quaternion diff = Quaternion.FromToRotation(vSlideDir0, cursorDir);
 
 			float cursorDeg;

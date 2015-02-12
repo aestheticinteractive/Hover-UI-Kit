@@ -19,7 +19,7 @@ namespace Hovercast.Core.Display {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		float CalculateCursorDistance(Vector3 pCursorWorldPosition);
+		Vector3 GetPointNearestToCursor(Vector3 pCursorLocalPos);
 
 	}
 

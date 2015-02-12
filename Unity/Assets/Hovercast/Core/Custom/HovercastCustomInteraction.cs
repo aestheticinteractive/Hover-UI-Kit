@@ -6,9 +6,9 @@ namespace Hovercast.Core.Custom {
 	public class HovercastCustomInteraction : MonoBehaviour {
 
 		public bool IsMenuOnLeftSide = true;
-		public float HighlightDistanceMin = 0.05f;
-		public float HighlightDistanceMax = 0.1f;
-		public float StickyReleaseDistance = 0.07f;
+		public float HighlightDistanceMin = 0.45f;
+		public float HighlightDistanceMax = 0.9f;
+		public float StickyReleaseDistance = 0.6f;
 		public float SelectionMilliseconds = 600;
 		public float CursorForwardDistance = 0.0f;
 
