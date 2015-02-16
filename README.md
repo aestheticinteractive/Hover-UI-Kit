@@ -17,6 +17,8 @@ Key features:
 -	Complete customization options, via basic settings or custom item renderers
 -	Ability to support a variety of 3D input devices.
 
+**[Learn about Hovercast's GPLv3  licensing >](https://github.com/aestheticinteractive/Hovercast-VR-Menu/wiki/Hovercast-Licensing)**
+
 ---
 This project includes a complete [demo application](https://github.com/aestheticinteractive/Hovercast-VR-Menu/tree/master/Unity/Assets/Hovercast/Demo) that provides several examples of **Hovercast** configuration and usage. The demo surrounds you with hundreds of cubes. Use the menu to control the scene's colors, animation, lighting, and camera. You can also review the [Getting Started](https://github.com/aestheticinteractive/Hovercast-VR-Menu/wiki/Getting-Started) page to learn how to integrate Hovercast into a Unity project.
 
