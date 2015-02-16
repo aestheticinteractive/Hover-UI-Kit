@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Hovercast.Devices.Leap {
 
 	/*================================================================================================*/
-	internal class LeapInputSettings {
+	public class LeapInputSettings {
 
 		public Vector3 PalmDirection { get; set; }
 		public Finger.FingerType CursorFinger { get; set; }

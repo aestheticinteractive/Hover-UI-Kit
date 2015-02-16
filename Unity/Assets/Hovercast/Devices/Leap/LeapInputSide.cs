@@ -5,7 +5,7 @@ using Leap;
 namespace Hovercast.Devices.Leap {
 
 	/*================================================================================================*/
-	internal class LeapInputSide : IInputSide {
+	public class LeapInputSide : IInputSide {
 
 		public bool IsLeft { get; private set; }
 
@@ -15,7 +15,7 @@ namespace Hovercast.Devices.Leap {
 
 		private Hand vLeapHand;
 		private bool vIsMenuStale;
-		private bool vIsCursorStale;
+		protected bool vIsCursorStale;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -43,7 +43,7 @@ namespace Hovercast.Devices.Leap {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public IInputCursor Cursor {
+		public virtual IInputCursor Cursor {
 			get {
 				if ( vIsCursorStale ) {
 					vCursor.Rebuild(GetCursorLeapFinger());

@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Hovercast.Devices.Leap {
 
 	/*================================================================================================*/
-	internal class LeapInputMenu : IInputMenu {
+	public class LeapInputMenu : IInputMenu {
 
 		public bool IsLeft { get; private set; }
 		public bool IsActive { get; private set; }

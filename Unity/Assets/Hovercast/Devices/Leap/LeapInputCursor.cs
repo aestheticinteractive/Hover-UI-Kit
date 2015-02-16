@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Hovercast.Devices.Leap {
 
 	/*================================================================================================*/
-	internal class LeapInputCursor : IInputCursor {
+	public class LeapInputCursor : IInputCursor {
 
 		public bool IsLeft { get; private set; }
 		public bool IsActive { get; private set; }

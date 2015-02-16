@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using Hovercast.Core;
 using Hovercast.Core.Input;
 using Leap;
 using UnityEngine;
@@ -16,15 +15,15 @@ namespace Hovercast.Devices.Leap {
 		public float NavigationBackUngrabThreshold = 0.15f;
 
 		private HandController vHandControl;
-		private LeapInputSettings vSettings;
-		private LeapInputSide vSideL;
-		private LeapInputSide vSideR;
+		protected LeapInputSettings vSettings;
+		protected LeapInputSide vSideL;
+		protected LeapInputSide vSideR;
 		private Frame vFrame;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Awake() {
+		public virtual void Awake() {
 			vHandControl = gameObject.GetComponent<HandController>();
 
 			if ( vHandControl == null ) {
