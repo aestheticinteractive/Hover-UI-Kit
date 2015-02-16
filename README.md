@@ -1,4 +1,4 @@
-![Demo Image](http://www.aestheticinteractive.com/clients/hovercast/HovercastDemo-2015-01-24a.jpg)
+![Hovercast Slider Animation](http://www.aestheticinteractive.com/clients/hovercast/Hovercast-Slider.gif)
 [View more images >](https://github.com/aestheticinteractive/Hovercast-VR-Menu/wiki/Demo-Screenshots)
 
 ---
