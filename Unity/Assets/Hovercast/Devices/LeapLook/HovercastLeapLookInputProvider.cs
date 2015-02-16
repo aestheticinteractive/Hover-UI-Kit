@@ -8,6 +8,7 @@ namespace Hovercast.Devices.LeapLook {
 	public class HovercastLeapLookInputProvider : HovercastLeapInputProvider {
 
 		public Transform HeadsetCameraTransform;
+		public float CursorHorizontalOffset = 0.4f;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -20,16 +21,35 @@ namespace Hovercast.Devices.LeapLook {
 					"'Headset Camera Transform' to be set.");
 			}
 
-			Transform leapTx = gameObject.transform;
+			var sett = new LeapLookInputSettings();
+			sett.LeapTransform = gameObject.transform;
+			vSettings = sett;
+			UpdateSettings();
 
-			var sideL = new LeapLookInputSide(true, HeadsetCameraTransform, leapTx, vSettings);
-			var sideR = new LeapLookInputSide(false, HeadsetCameraTransform, leapTx, vSettings);
+			var sideL = new LeapLookInputSide(true, sett);
+			var sideR = new LeapLookInputSide(false, sett);
 
 			sideL.SetOppositeHandMenu(sideR.Menu);
 			sideR.SetOppositeHandMenu(sideL.Menu);
 
 			vSideL = sideL;
 			vSideR = sideR;
+		}
+
+		
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		protected override void UpdateSettings() {
+			base.UpdateSettings();
+
+			LeapLookInputSettings sett = (vSettings as LeapLookInputSettings);
+
+			if ( sett == null ) { //will only happen upon first UpdateSettings() call
+				return;
+			}
+
+			sett.CameraTransform = HeadsetCameraTransform;
+			sett.CursorHorizontalOffset = CursorHorizontalOffset;
 		}
 
 	}

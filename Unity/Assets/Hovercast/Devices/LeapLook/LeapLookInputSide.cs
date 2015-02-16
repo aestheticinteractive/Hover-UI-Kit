@@ -1,6 +1,5 @@
 ﻿using Hovercast.Core.Input;
 using Hovercast.Devices.Leap;
-using UnityEngine;
 
 namespace Hovercast.Devices.LeapLook {
 
@@ -13,9 +12,9 @@ namespace Hovercast.Devices.LeapLook {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public LeapLookInputSide(bool pIsLeft, Transform pCameraTx, Transform pLeapTx,
-											LeapInputSettings pSettings) : base(pIsLeft, pSettings) {
-			vCursor = new LeapLookInputCursor(pIsLeft, pCameraTx, pLeapTx);
+		public LeapLookInputSide(bool pIsLeft, LeapLookInputSettings pSettings) : 
+																			base(pIsLeft, pSettings) {
+			vCursor = new LeapLookInputCursor(pIsLeft, pSettings);
 		}
 
 

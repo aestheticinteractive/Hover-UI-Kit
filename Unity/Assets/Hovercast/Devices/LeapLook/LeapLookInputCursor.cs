@@ -1,4 +1,5 @@
 ﻿using Hovercast.Core.Input;
+using Hovercast.Devices.Leap;
 using UnityEngine;
 
 namespace Hovercast.Devices.LeapLook {
@@ -12,18 +13,15 @@ namespace Hovercast.Devices.LeapLook {
 		public Vector3 Position { get; private set; }
 		public Quaternion Rotation { get; private set; }
 
-		private readonly Transform vCameraTx;
-		private readonly Transform vLeapTx;
-
+		private readonly LeapLookInputSettings vSettings;
 		private IInputMenu vOppositeHandMenu;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public LeapLookInputCursor(bool pIsLeft, Transform pCameraTx, Transform pLeapTx) {
+		public LeapLookInputCursor(bool pIsLeft, LeapLookInputSettings pSettings) {
 			IsLeft = pIsLeft;
-			vCameraTx = pCameraTx;
-			vLeapTx = pLeapTx;
+			vSettings = pSettings;
 		}
 
 
@@ -47,10 +45,18 @@ namespace Hovercast.Devices.LeapLook {
 			//becomes the input module's responsibility to offset the menu position to provide enough
 			//space for things like 3D hand models.
 
-			Vector3 camPos = vLeapTx.InverseTransformPoint(vCameraTx.position);
-			Vector3 camDir = vLeapTx.InverseTransformDirection(vCameraTx.rotation*Vector3.forward);
+			Transform leapTx = vSettings.LeapTransform;
+			Transform camTx = vSettings.CameraTransform;
+
+			Vector3 camPos = leapTx.InverseTransformPoint(camTx.position);
+			Vector3 camDir = leapTx.InverseTransformDirection(camTx.rotation*Vector3.forward);
+			Vector3 camHoriz = leapTx.InverseTransformDirection(camTx.rotation*Vector3.left);
+
+			camPos += camHoriz*vSettings.CursorHorizontalOffset*(IsLeft ? 1 : -1)*0.1f;
+			
 			Vector3 planeNorm = vOppositeHandMenu.Rotation*Vector3.up;
 			Vector3 planePos = vOppositeHandMenu.Position - planeNorm*0.025f;
+			
 			float numer = Vector3.Dot(planePos-camPos, planeNorm);
 			float denom = Vector3.Dot(camDir, planeNorm);
 

@@ -59,7 +59,7 @@ namespace Hovercast.Devices.Leap {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateSettings() {
+		protected virtual void UpdateSettings() {
 			vSettings.PalmDirection = ActivePalmDirection;
 			vSettings.CursorFinger = CursorFinger;
 			vSettings.NavBackGrabThreshold = NavigationBackGrabThreshold;
