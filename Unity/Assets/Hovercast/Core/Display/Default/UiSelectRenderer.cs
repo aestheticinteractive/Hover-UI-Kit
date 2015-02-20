@@ -84,8 +84,15 @@ namespace Hovercast.Core.Display.Default {
 
 			vSelectionPoints = new List<Vector3>();
 
+			const int innerSteps = 5;
+
 			for ( int i = 3 ; i < bgMesh.vertices.Length-2 ; i += 2 ) {
-				vSelectionPoints.Add(bgMesh.vertices[i]);
+				Vector3 outer = bgMesh.vertices[i];
+				Vector3 inner = bgMesh.vertices[i-1];
+
+				for ( int j = 0 ; j < innerSteps ; ++j ) {
+					vSelectionPoints.Add(Vector3.Lerp(outer, inner, j/(float)(innerSteps-1)));
+				}
 			}
 
 			MeshUtil.BuildRingMesh(vEdge.GetComponent<MeshFilter>().mesh,
@@ -156,6 +163,10 @@ namespace Hovercast.Core.Display.Default {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public Vector3 GetPointNearestToCursor(Vector3 pCursorLocalPos) {
+			//TODO: Optimize this somehow, probably by reducing the number of points/distances to 
+			//check. This could be done by sampling some key points, finding the closest one, then only
+			//doing further checks for the points nearest to it.
+
 			float sqrMagMin = float.MaxValue;
 			Vector3 nearest = Vector3.zero;
 			//Vector3 worldCurs = gameObject.transform.TransformPoint(pCursorLocalPos);
