@@ -13,7 +13,7 @@ namespace Hovercast.Core.State {
 		public delegate void LevelChangeHandler(int pDirection);
 		public event LevelChangeHandler OnLevelChange;
 
-		public bool IsActive { get; private set; }
+		public bool IsInputAvailable { get; private set; }
 		public bool IsLeft { get; private set; }
 		public Vector3 Center { get; private set; }
 		public Quaternion Rotation { get; private set; }
@@ -65,7 +65,7 @@ namespace Hovercast.Core.State {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		internal void UpdateAfterInput(IInputMenu pInputMenu) {
-			IsActive = pInputMenu.IsActive;
+			IsInputAvailable = pInputMenu.IsAvailable;
 			IsLeft = pInputMenu.IsLeft;
 			Center = pInputMenu.Position;
 			Rotation = pInputMenu.Rotation;
@@ -78,8 +78,8 @@ namespace Hovercast.Core.State {
 
 		/*--------------------------------------------------------------------------------------------*/
 		internal void UpdateWithCursor(CursorState pCursor) {
-			bool allowSelect = (pCursor.IsActive && DisplayStrength > 0);
-			Vector3? cursorPos = (pCursor.IsActive ? pCursor.Position : (Vector3?)null);
+			bool allowSelect = (pCursor.IsInputAvailable && DisplayStrength > 0);
+			Vector3? cursorPos = (allowSelect ? pCursor.Position : (Vector3?)null);
 
 			NearestSegment = null;
 

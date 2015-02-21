@@ -50,6 +50,8 @@ namespace Hovercast.Core.Display {
 				vRebuildOnUpdate = false;
 				Rebuild();
 			}
+
+			vRendererHold.SetActive(vArcState.DisplayStrength > 0);
 		}
 
 

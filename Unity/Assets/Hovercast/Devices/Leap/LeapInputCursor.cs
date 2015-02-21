@@ -8,7 +8,7 @@ namespace Hovercast.Devices.Leap {
 	public class LeapInputCursor : IInputCursor {
 
 		public bool IsLeft { get; private set; }
-		public bool IsActive { get; private set; }
+		public bool IsAvailable { get; private set; }
 
 		public Vector3 Position { get; private set; }
 		public Quaternion Rotation { get; private set; }
@@ -23,7 +23,7 @@ namespace Hovercast.Devices.Leap {
 		/*--------------------------------------------------------------------------------------------*/
 		public void Rebuild(Finger pLeapFinger) {
 			if ( pLeapFinger == null ) {
-				IsActive = false;
+				IsAvailable = false;
 				Position = Vector3.zero;
 				Rotation = Quaternion.identity;
 				return;
@@ -31,7 +31,7 @@ namespace Hovercast.Devices.Leap {
 
 			Bone bone = pLeapFinger.Bone(Bone.BoneType.TYPE_DISTAL);
 
-			IsActive = true;
+			IsAvailable = true;
 			Position = pLeapFinger.TipPosition.ToUnityScaled();
 			Rotation = LeapInputMenu.CalcQuaternion(bone.Basis);
 		}

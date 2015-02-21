@@ -42,12 +42,12 @@ namespace Hovercast.Core.Display {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			if ( !vCursorState.IsActive || vArcState.DisplayStrength <= 0 ) {
-				vRendererObj.SetActive(false);
+			if ( !vCursorState.IsInputAvailable || vArcState.DisplayStrength <= 0 ) {
+				vRendererHold.SetActive(false);
 				return;
 			}
 
-			vRendererObj.SetActive(true);
+			vRendererHold.SetActive(true);
 
 			Transform tx = gameObject.transform;
 			tx.localPosition = vCursorState.Position;

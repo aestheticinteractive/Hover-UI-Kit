@@ -33,6 +33,7 @@ namespace Hovercast.Core.Display {
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
 			UpdateItemChangeAnim();
+			vCurrLevelObj.SetActive(vArcState.DisplayStrength > 0);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

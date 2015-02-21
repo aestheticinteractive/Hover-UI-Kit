@@ -12,13 +12,13 @@ namespace Hovercast.Core.State {
 		HovercastCustomizationProvider CustomizationProvider { get; }
 		HovercastInputProvider InputProvider { get; }
 
-		bool IsMenuSideAvailable { get; }
-		bool IsCursorSideAvailable { get; }
+		bool IsMenuInputAvailable { get; }
+		bool IsCursorInputAvailable { get; }
 		bool IsMenuVisible { get; }
 		float MenuDisplayStrength { get; }
 		float NavigateBackStrength { get; }
-		HovercastInputSide MenuSide { get; }
-		HovercastInputSide CursorSide { get; }
+		HovercastSideName MenuSide { get; }
+		HovercastSideName CursorSide { get; }
 
 		IHovercastItemState[] CurrentItems { get; }
 		IHovercastItemState NearestItem { get; }

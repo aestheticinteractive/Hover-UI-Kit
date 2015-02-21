@@ -40,16 +40,16 @@ namespace Hovercast.Core.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public bool IsMenuSideAvailable {
+		public bool IsMenuInputAvailable {
 			get {
-				return vMenuState.Arc.IsActive;
+				return vMenuState.Arc.IsInputAvailable;
 			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public bool IsCursorSideAvailable {
+		public bool IsCursorInputAvailable {
 			get {
-				return vMenuState.Cursor.IsActive;
+				return vMenuState.Cursor.IsInputAvailable;
 			}
 		}
 
@@ -75,16 +75,16 @@ namespace Hovercast.Core.State {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public HovercastInputSide MenuSide {
+		public HovercastSideName MenuSide {
 			get {
-				return (vMenuState.Arc.IsLeft ? HovercastInputSide.Left : HovercastInputSide.Right);
+				return (vMenuState.Arc.IsLeft ? HovercastSideName.Left : HovercastSideName.Right);
 			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public HovercastInputSide CursorSide {
+		public HovercastSideName CursorSide {
 			get {
-				return (vMenuState.Cursor.IsLeft ? HovercastInputSide.Left : HovercastInputSide.Right);
+				return (vMenuState.Cursor.IsLeft ? HovercastSideName.Left : HovercastSideName.Right);
 			}
 		}
 

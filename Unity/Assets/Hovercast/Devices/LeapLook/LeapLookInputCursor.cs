@@ -8,7 +8,7 @@ namespace Hovercast.Devices.LeapLook {
 	internal class LeapLookInputCursor : IInputCursor {
 
 		public bool IsLeft { get; private set; }
-		public bool IsActive { get; private set; }
+		public bool IsAvailable { get; private set; }
 
 		public Vector3 Position { get; private set; }
 		public Quaternion Rotation { get; private set; }
@@ -33,8 +33,8 @@ namespace Hovercast.Devices.LeapLook {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Rebuild() {
-			if ( !vOppositeHandMenu.IsActive ) {
-				IsActive = false;
+			if ( !vOppositeHandMenu.IsAvailable ) {
+				IsAvailable = false;
 				Position = Vector3.zero;
 				return;
 			}
@@ -61,14 +61,14 @@ namespace Hovercast.Devices.LeapLook {
 			float denom = Vector3.Dot(camDir, planeNorm);
 
 			if ( denom == 0 ) { //exactly parallel (very unlikely scenario)
-				IsActive = false;
+				IsAvailable = false;
 				Position = Vector3.zero;
 				return;
 			}
 
 			float t = numer/denom;
 
-			IsActive = true;
+			IsAvailable = true;
 			Position = camPos+camDir*t;
 		}
 

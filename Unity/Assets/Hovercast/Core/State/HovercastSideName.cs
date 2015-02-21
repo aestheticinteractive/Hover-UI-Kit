@@ -1,7 +1,7 @@
 ﻿namespace Hovercast.Core.State {
 
 	/*================================================================================================*/
-	public enum HovercastInputSide {
+	public enum HovercastSideName {
 		Left,
 		Right
 	}
