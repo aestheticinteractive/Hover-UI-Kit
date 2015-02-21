@@ -57,6 +57,13 @@ namespace Hovercast.Core.Display.Default {
 			vLabel = labelObj.AddComponent<UiLabel>();
 			vLabel.IsLeft = vArcState.IsLeft;
 		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void OnEnable() {
+			if ( vLabel != null ) {
+				vLabel.Alpha = 0;
+			}
+		}
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void Update() {

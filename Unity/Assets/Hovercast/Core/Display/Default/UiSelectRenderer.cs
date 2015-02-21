@@ -110,6 +110,13 @@ namespace Hovercast.Core.Display.Default {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
+		public void OnEnable() {
+			if ( vLabel != null ) {
+				vLabel.Alpha = 0;
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
 		public virtual void Update() {
 			vMainAlpha = GetArcAlpha(vArcState)*vAnimAlpha;
 
