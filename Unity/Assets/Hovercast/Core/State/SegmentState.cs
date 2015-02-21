@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Hovercast.Core.State {
 
 	/*================================================================================================*/
-	public class SegmentState {
+	public class SegmentState : IHovercastItemState {
 
 		public NavItem NavItem { get; private set; }
 

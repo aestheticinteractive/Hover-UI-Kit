@@ -16,6 +16,8 @@ namespace Hovercast.Core {
 		public HovercastInputProvider InputProvider;
 		public Transform OptionalCameraReference;
 
+		public IHovercastState State { get; private set; }
+
 		private bool vFailed;
 		private MenuState vMenuState;
 		private UiMenu vUiMenu;
@@ -40,6 +42,9 @@ namespace Hovercast.Core {
 			if ( OptionalCameraReference == null ) {
 				OptionalCameraReference = gameObject.transform;
 			}
+
+			State = new HovercastState(NavigationProvider, CustomizationProvider, 
+				InputProvider, OptionalCameraReference);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -61,6 +66,8 @@ namespace Hovercast.Core {
 			vUiCursor = cursorObj.AddComponent<UiCursor>();
 			vUiCursor.Build(vMenuState.Arc, vMenuState.Cursor,
 				CustomizationProvider, OptionalCameraReference);
+
+			((HovercastState)State).SetReferences(vMenuState, menuObj.transform, cursorObj.transform);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
