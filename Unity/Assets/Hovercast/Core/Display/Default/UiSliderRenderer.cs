@@ -169,10 +169,9 @@ namespace Hovercast.Core.Display.Default {
 				vHover.UpdateHighlight(colHigh, high);
 				vHover.UpdateSelect(colSel, select);
 
-				hoverArcHalf = vGrabArcHalf*high*0.25f - UiSlice.AngleInset;
+				hoverArcHalf = vGrabArcHalf*high*0.333f - UiSlice.AngleInset;
 			}
 
-			vHover.Resize(Math.Max(0, hoverArcHalf*2));
 			UpdateMeshes(easedVal, easedHover, hoverArcHalf);
 		}
 
@@ -222,18 +221,25 @@ namespace Hovercast.Core.Display.Default {
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateMeshes(float pValue, float pHoverValue, float pHoverArcHalf) {
 			float grabArc = (vGrabArcHalf+UiSlice.AngleInset)*2;
+			float hoverArc = Math.Max(0, pHoverArcHalf*2);
 			float hoverArcPad = vGrabArcHalf-pHoverArcHalf;
 			float fullArc = vAngle1-vAngle0-grabArc;
 			float valAngle = vAngle0 + fullArc*pValue;
 			float hovAngle = vAngle0 + fullArc*pHoverValue;
+			bool tooClose = (Math.Abs(valAngle-hovAngle) < grabArc/2+hoverArc);
 
-			if ( pHoverArcHalf == 0 ) {
+			if ( pHoverArcHalf == 0 || tooClose ) {
+				vHover.Resize(0);
 				vFillA.Resize(vAngle0, valAngle);
 				vFillB.Resize(0);
 				vTrackA.Resize(grabArc+valAngle, vAngle1);
 				vTrackB.Resize(0);
+				return;
 			}
-			else if ( pValue <= pHoverValue ) {
+
+			vHover.Resize(hoverArc);
+
+			if ( pValue <= pHoverValue ) {
 				vFillA.Resize(vAngle0, valAngle);
 				vFillB.Resize(0);
 				vTrackA.Resize(grabArc+valAngle, hovAngle+hoverArcPad);
