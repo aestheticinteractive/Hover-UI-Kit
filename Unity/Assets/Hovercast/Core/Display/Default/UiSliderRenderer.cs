@@ -16,7 +16,7 @@ namespace Hovercast.Core.Display.Default {
 		protected SegmentSettings vSettings;
 		protected NavItemSlider vNavSlider;
 
-		protected float vGrabAngleHalf;
+		protected float vGrabArcHalf;
 		protected float vSlideDegree0;
 		protected float vSlideDegrees;
 
@@ -54,9 +54,9 @@ namespace Hovercast.Core.Display.Default {
 			const float radInner = 1.04f;
 			const float radOuter = 1.46f;
 
-			vGrabAngleHalf = pi/80f;
-			vSlideDegree0 = (vAngle0+vGrabAngleHalf)/pi*180;
-			vSlideDegrees = (vAngle1-vAngle0-vGrabAngleHalf*2)/pi*180;
+			vGrabArcHalf = pi/80f;
+			vSlideDegree0 = (vAngle0+vGrabArcHalf)/pi*180;
+			vSlideDegrees = (vAngle1-vAngle0-vGrabArcHalf*2)/pi*180;
 
 			////
 
@@ -107,7 +107,7 @@ namespace Hovercast.Core.Display.Default {
 			grabObj.transform.SetParent(vGrabHold.transform, false);
 
 			vGrab = grabObj.AddComponent<UiSliderGrabRenderer>();
-			vGrab.Build(vArcState, vSegState, vGrabAngleHalf*2, pSettings);
+			vGrab.Build(vArcState, vSegState, vGrabArcHalf*2, pSettings);
 
 			////
 
@@ -131,7 +131,7 @@ namespace Hovercast.Core.Display.Default {
 			float easedVal = GetEasedValue(vNavSlider.Value, vNavSlider.SnappedValue);
 			float easedHover = (vNavSlider.HoverValue == null ? easedVal : 
 				GetEasedValue((float)vNavSlider.HoverValue, (float)vNavSlider.HoverSnappedValue));
-			float hoverAngleHalf = 0;
+			float hoverArcHalf = 0;
 
 			Color colTrack = vSettings.SliderTrackColor;
 			Color colFill = vSettings.SliderFillColor;
@@ -161,7 +161,7 @@ namespace Hovercast.Core.Display.Default {
 				Color colHigh = vSettings.HighlightColor;
 				Color colSel = vSettings.SelectionColor;
 
-				colBg.a *= vMainAlpha;
+				colBg.a *= high*vMainAlpha;
 				colHigh.a *= high*vMainAlpha;
 				colSel.a *= select*vMainAlpha;
 
@@ -169,11 +169,11 @@ namespace Hovercast.Core.Display.Default {
 				vHover.UpdateHighlight(colHigh, high);
 				vHover.UpdateSelect(colSel, select);
 
-				hoverAngleHalf = vGrabAngleHalf*high*0.25f;
+				hoverArcHalf = vGrabArcHalf*high*0.25f - UiSlice.AngleInset;
 			}
 
-			vHover.Resize(hoverAngleHalf);
-			UpdateMeshes(easedVal, easedHover, hoverAngleHalf);
+			vHover.Resize(Math.Max(0, hoverArcHalf*2));
+			UpdateMeshes(easedVal, easedHover, hoverArcHalf);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -220,14 +220,20 @@ namespace Hovercast.Core.Display.Default {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateMeshes(float pValue, float pHoverValue, float pHoverAngleHalf) {
-			float grabArc = (vGrabAngleHalf+UiSlice.AngleInset)*2;
-			float hoverArcPad = vGrabAngleHalf-pHoverAngleHalf;
+		private void UpdateMeshes(float pValue, float pHoverValue, float pHoverArcHalf) {
+			float grabArc = (vGrabArcHalf+UiSlice.AngleInset)*2;
+			float hoverArcPad = vGrabArcHalf-pHoverArcHalf;
 			float fullArc = vAngle1-vAngle0-grabArc;
 			float valAngle = vAngle0 + fullArc*pValue;
 			float hovAngle = vAngle0 + fullArc*pHoverValue;
 
-			if ( pValue <= pHoverValue ) {
+			if ( pHoverArcHalf == 0 ) {
+				vFillA.Resize(vAngle0, valAngle);
+				vFillB.Resize(0);
+				vTrackA.Resize(grabArc+valAngle, vAngle1);
+				vTrackB.Resize(0);
+			}
+			else if ( pValue <= pHoverValue ) {
 				vFillA.Resize(vAngle0, valAngle);
 				vFillB.Resize(0);
 				vTrackA.Resize(grabArc+valAngle, hovAngle+hoverArcPad);
