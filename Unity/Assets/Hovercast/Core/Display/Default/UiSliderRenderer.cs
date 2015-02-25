@@ -218,76 +218,27 @@ namespace Hovercast.Core.Display.Default {
 			diff /= snaps;
 			return showVal + diff*sign;
 		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		private void BuildMesh(UiSlice pSlice, float pAmount0, float pAmount1, bool pIsFill) {
-			float sliderAngle = (vGrabAngleHalf+UiSlice.AngleInset)*2;
-			float angleRange = vAngle1-vAngle0-sliderAngle;
-			float a0 = vAngle0 + angleRange*pAmount0;
-			float a1 = vAngle0 + angleRange*pAmount1;
-
-			if ( !pIsFill ) {
-				a0 += sliderAngle;
-				a1 += sliderAngle;
-			}
-
-			pSlice.Resize(a0, a1);
-		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateMeshes(float pValue, float pHoverValue, float pHoverAngleHalf) {
-			float grabAngle = (vGrabAngleHalf+UiSlice.AngleInset)*2;
-			float hoverAnglePad = vGrabAngleHalf-pHoverAngleHalf;
-			float angleRange = vAngle1-vAngle0-grabAngle;
-
-			////
-
-			float fillA0 = vAngle0;
-			float fillA1;
-			float fillB0;
-			float fillB1;
+			float grabArc = (vGrabAngleHalf+UiSlice.AngleInset)*2;
+			float hoverArcPad = vGrabAngleHalf-pHoverAngleHalf;
+			float fullArc = vAngle1-vAngle0-grabArc;
+			float valAngle = vAngle0 + fullArc*pValue;
+			float hovAngle = vAngle0 + fullArc*pHoverValue;
 
 			if ( pValue <= pHoverValue ) {
-				fillA1 = fillA0 + angleRange*pValue;
-				fillB0 = fillA1;
-				fillB1 = fillA1;
+				vFillA.Resize(vAngle0, valAngle);
+				vFillB.Resize(0);
+				vTrackA.Resize(grabArc+valAngle, hovAngle+hoverArcPad);
+				vTrackB.Resize(hovAngle+grabArc-hoverArcPad, vAngle1);
 			}
 			else {
-				fillA1 = fillA0 + angleRange*pHoverValue;
-				fillB0 = fillA1 + grabAngle;
-				fillB1 = fillA0 + angleRange*pValue;
-
-				fillA1 += hoverAnglePad;
-				fillB0 -= hoverAnglePad;
+				vFillA.Resize(vAngle0, hovAngle+hoverArcPad);
+				vFillB.Resize(hovAngle+grabArc-hoverArcPad, valAngle);
+				vTrackA.Resize(grabArc+valAngle, vAngle1);
+				vTrackB.Resize(0);
 			}
-
-			vFillA.Resize(fillA0, fillA1);
-			vFillB.Resize(fillB0, fillB1);
-
-			////
-
-			float trackA0 = fillB1+grabAngle;
-			float trackA1;
-			float trackB0;
-			float trackB1;
-
-			if ( pValue >= pHoverValue ) {
-				trackA1 = fillB1 + angleRange;
-				trackB0 = trackA1;
-				trackB1 = trackA1;
-			}
-			else {
-				//TODO: fix/finish this math
-				trackA1 = trackA0 + angleRange*pHoverValue;
-				trackB0 = trackA1 + grabAngle;
-				trackB1 = trackA0 + angleRange*pValue;
-
-				trackA1 += hoverAnglePad;
-				trackB0 -= hoverAnglePad;
-			}
-
-			vTrackA.Resize(trackA0, trackA1);
-			vTrackB.Resize(trackB0, trackB1);
 		}
 
 	}
