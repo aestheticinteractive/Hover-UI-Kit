@@ -24,13 +24,16 @@ namespace Hovercast.Core.Display.Default {
 		protected float vMainAlpha;
 		protected float vAnimAlpha;
 
-		protected GameObject vTrack;
-		protected GameObject vFill;
-		protected GameObject[] vTicks;
-		protected GameObject vGrabHold;
-		protected Mesh vTrackMesh;
-		protected Mesh vFillMesh;
+		protected UiSlice vHiddenSlice;
+		protected UiSlice vTrackA;
+		protected UiSlice vTrackB;
+		protected UiSlice vFillA;
+		protected UiSlice vFillB;
+
 		protected Material vTickMat;
+		protected GameObject[] vTicks;
+
+		protected GameObject vGrabHold;
 		protected UiSliderGrabRenderer vGrab;
 
 
@@ -40,13 +43,15 @@ namespace Hovercast.Core.Display.Default {
 														float pArcAngle, SegmentSettings pSettings) {
 			vArcState = pArcState;
 			vSegState = pSegState;
-			vAngle0 = -pArcAngle/2f+UiSelectRenderer.AngleInset;
-			vAngle1 = pArcAngle/2f-UiSelectRenderer.AngleInset;
+			vAngle0 = -pArcAngle/2f+UiSlice.AngleInset;
+			vAngle1 = pArcAngle/2f-UiSlice.AngleInset;
 			vSettings = pSettings;
 			vNavSlider = (NavItemSlider)vSegState.NavItem;
 			vMeshSteps = (int)Math.Round(Math.Max(2, (vAngle1-vAngle0)/Math.PI*60));
 
 			const float pi = (float)Math.PI;
+			const float radInner = 1.04f;
+			const float radOuter = 1.46f;
 
 			vSliderAngleHalf = pi/80f;
 			vSlideDegree0 = (vAngle0+vSliderAngleHalf)/pi*180;
@@ -54,24 +59,21 @@ namespace Hovercast.Core.Display.Default {
 
 			////
 
-			vTrack = new GameObject("Track");
-			vTrack.transform.SetParent(gameObject.transform, false);
-			vTrack.AddComponent<MeshFilter>();
-			vTrack.AddComponent<MeshRenderer>();
-			vTrack.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
-			vTrack.renderer.sharedMaterial.renderQueue -= 600;
-			vTrack.renderer.sharedMaterial.color = Color.clear;
+			vHiddenSlice = new UiSlice(gameObject, true);
+			vHiddenSlice.Resize(pArcAngle);
+			vHiddenSlice.UpdateBackground(Color.clear);
 
-			vFill = new GameObject("Fill");
-			vFill.transform.SetParent(gameObject.transform, false);
-			vFill.AddComponent<MeshFilter>();
-			vFill.AddComponent<MeshRenderer>();
-			vFill.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
-			vFill.renderer.sharedMaterial.renderQueue -= 500;
-			vFill.renderer.sharedMaterial.color = Color.clear;
+			vTrackA = new UiSlice(gameObject, true, "TrackA", radInner, radOuter);
+			vTrackA.Resize(pArcAngle);
 
-			vTrackMesh = vTrack.GetComponent<MeshFilter>().mesh;
-			vFillMesh = vFill.GetComponent<MeshFilter>().mesh;
+			vTrackB = new UiSlice(gameObject, true, "TrackB", radInner, radOuter);
+			vTrackB.Resize(pArcAngle);
+
+			vFillA = new UiSlice(gameObject, true, "FillA", radInner, radOuter);
+			vFillA.Resize(pArcAngle);
+
+			vFillB = new UiSlice(gameObject, true, "FillB", radInner, radOuter);
+			vFillB.Resize(pArcAngle);
 
 			////
 
@@ -80,7 +82,7 @@ namespace Hovercast.Core.Display.Default {
 			vTickMat.color = Color.clear;
 
 			if ( vNavSlider.Ticks > 1 ) {
-				Vector3 quadScale = new Vector3(UiSelectRenderer.AngleInset*2, 0.36f, 0.1f);
+				Vector3 quadScale = new Vector3(UiSlice.AngleInset*2, 0.36f, 0.1f);
 				float percPerTick = 1/(float)(vNavSlider.Ticks-1);
 
 				vTicks = new GameObject[vNavSlider.Ticks];
@@ -124,8 +126,10 @@ namespace Hovercast.Core.Display.Default {
 
 			float showVal = GetEasedValue();
 
-			BuildMesh(vTrackMesh, showVal, 1, false);
-			BuildMesh(vFillMesh, 0, showVal, true);
+			BuildMesh(vTrackA, showVal, 1, false);
+			BuildMesh(vTrackB, showVal, showVal, false);
+			BuildMesh(vFillA, 0, showVal, true);
+			BuildMesh(vFillB, showVal, showVal, true);
 
 			Color colTrack = vSettings.SliderTrackColor;
 			Color colFill = vSettings.SliderFillColor;
@@ -135,8 +139,10 @@ namespace Hovercast.Core.Display.Default {
 			colFill.a *= vMainAlpha;
 			colTick.a *= vMainAlpha;
 
-			vTrack.renderer.sharedMaterial.color = colTrack;
-			vFill.renderer.sharedMaterial.color = colFill;
+			vTrackA.UpdateBackground(colTrack);
+			vTrackB.UpdateBackground(colTrack);
+			vFillA.UpdateBackground(colFill);
+			vFillB.UpdateBackground(colFill);
 			vTickMat.color = colTick;
 
 			float slideDeg = vSlideDegree0 + vSlideDegrees*showVal;
@@ -152,16 +158,7 @@ namespace Hovercast.Core.Display.Default {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public Vector3 GetPointNearestToCursor(Vector3 pCursorLocalPos) {
-			Transform objTx = gameObject.transform;
-			Transform grabTx = vGrab.gameObject.transform;
-
-			Vector3 cursorWorld = objTx.TransformPoint(pCursorLocalPos);
-			Vector3 cursorGrab = grabTx.InverseTransformPoint(cursorWorld);
-			
-			Vector3 nearestGrab = vGrab.GetPointNearestToCursor(cursorGrab);
-			Vector3 nearestWorld = grabTx.TransformPoint(nearestGrab);
-
-			return objTx.InverseTransformPoint(nearestWorld);
+			return vHiddenSlice.GetPointNearestToCursor(pCursorLocalPos);
 		}
 
 
@@ -198,10 +195,9 @@ namespace Hovercast.Core.Display.Default {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		private void BuildMesh(Mesh pMesh, float pAmount0, float pAmount1, bool pIsFill) {
-			float sliderAngle = (vSliderAngleHalf+UiSelectRenderer.AngleInset)*2;
+		private void BuildMesh(UiSlice pSlice, float pAmount0, float pAmount1, bool pIsFill) {
+			float sliderAngle = (vSliderAngleHalf+UiSlice.AngleInset)*2;
 			float angleRange = vAngle1-vAngle0-sliderAngle;
-			int fillSteps = (int)Math.Round((vMeshSteps-2)*(pAmount1-pAmount0))+2;
 			float a0 = vAngle0 + angleRange*pAmount0;
 			float a1 = vAngle0 + angleRange*pAmount1;
 
@@ -210,7 +206,7 @@ namespace Hovercast.Core.Display.Default {
 				a1 += sliderAngle;
 			}
 
-			MeshUtil.BuildRingMesh(pMesh, 1.04f, 1.46f, a0, a1, fillSteps);
+			pSlice.Resize(a0, a1);
 		}
 
 	}

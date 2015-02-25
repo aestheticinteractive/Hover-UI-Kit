@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Hovercast.Core.Custom;
 using Hovercast.Core.State;
 using UnityEngine;
@@ -11,25 +10,16 @@ namespace Hovercast.Core.Display.Default {
 
 		public const float ArcCanvasThickness = 250;
 		public const float ArcCanvasScale = 0.002f;
-		public const float AngleInset = 0.0012f;
 
 		protected ArcState vArcState;
 		protected SegmentState vSegState;
-		protected float vAngle0;
-		protected float vAngle1;
 		protected SegmentSettings vSettings;
-		protected int vMeshSteps;
 
 		protected float vMainAlpha;
 		protected float vAnimAlpha;
 
-		protected GameObject vBackground;
-		protected GameObject vEdge;
-		protected GameObject vHighlight;
-		protected GameObject vSelect;
+		protected UiSlice vSlice;
 		protected UiLabel vLabel;
-
-		private List<Vector3> vSelectionPoints;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -38,65 +28,12 @@ namespace Hovercast.Core.Display.Default {
 														float pArcAngle, SegmentSettings pSettings) {
 			vArcState = pArcState;
 			vSegState = pSegState;
-			vAngle0 = -pArcAngle/2f+AngleInset;
-			vAngle1 = pArcAngle/2f-AngleInset;
 			vSettings = pSettings;
-			vMeshSteps = (int)Math.Round(Math.Max(2, (vAngle1-vAngle0)/Math.PI*60));
 
 			////
 
-			vBackground = new GameObject("Background");
-			vBackground.transform.SetParent(gameObject.transform, false);
-			vBackground.AddComponent<MeshFilter>();
-			vBackground.AddComponent<MeshRenderer>();
-			vBackground.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
-			vBackground.renderer.sharedMaterial.renderQueue -= 300;
-			vBackground.renderer.sharedMaterial.color = Color.clear;
-
-			vEdge = new GameObject("Edge");
-			vEdge.transform.SetParent(gameObject.transform, false);
-			vEdge.AddComponent<MeshFilter>();
-			vEdge.AddComponent<MeshRenderer>();
-			vEdge.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
-			vEdge.renderer.sharedMaterial.renderQueue -= 300;
-			vEdge.renderer.sharedMaterial.color = Color.clear;
-
-			vHighlight = new GameObject("Highlight");
-			vHighlight.transform.SetParent(gameObject.transform, false);
-			vHighlight.AddComponent<MeshFilter>();
-			vHighlight.AddComponent<MeshRenderer>();
-			vHighlight.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
-			vHighlight.renderer.sharedMaterial.renderQueue -= 200;
-			vHighlight.renderer.sharedMaterial.color = Color.clear;
-
-			vSelect = new GameObject("Select");
-			vSelect.transform.SetParent(gameObject.transform, false);
-			vSelect.AddComponent<MeshFilter>();
-			vSelect.AddComponent<MeshRenderer>();
-			vSelect.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
-			vSelect.renderer.sharedMaterial.renderQueue -= 10;
-			vSelect.renderer.sharedMaterial.color = Color.clear;
-
-			////
-
-			Mesh bgMesh = vBackground.GetComponent<MeshFilter>().mesh;
-			BuildMesh(bgMesh, 1);
-
-			vSelectionPoints = new List<Vector3>();
-
-			const int innerSteps = 5;
-
-			for ( int i = 3 ; i < bgMesh.vertices.Length-2 ; i += 2 ) {
-				Vector3 outer = bgMesh.vertices[i];
-				Vector3 inner = bgMesh.vertices[i-1];
-
-				for ( int j = 0 ; j < innerSteps ; ++j ) {
-					vSelectionPoints.Add(Vector3.Lerp(outer, inner, j/(float)(innerSteps-1)));
-				}
-			}
-
-			MeshUtil.BuildRingMesh(vEdge.GetComponent<MeshFilter>().mesh,
-				0.99f, 1.0f, vAngle0, vAngle1, vMeshSteps);
+			vSlice = new UiSlice(gameObject);
+			vSlice.Resize(pArcAngle);
 
 			////
 
@@ -144,16 +81,10 @@ namespace Hovercast.Core.Display.Default {
 			colHigh.a *= high*vMainAlpha;
 			colSel.a *= selectAlpha*vMainAlpha;
 
-			BuildMesh(vHighlight.GetComponent<MeshFilter>().mesh, high);
-			BuildMesh(vSelect.GetComponent<MeshFilter>().mesh, select);
-
-			vBackground.renderer.sharedMaterial.color = colBg;
-			vEdge.renderer.sharedMaterial.color = colEdge;
-			vHighlight.renderer.sharedMaterial.color = colHigh;
-			vSelect.renderer.sharedMaterial.color = colSel;
-
-			vHighlight.SetActive(high > 0);
-			vSelect.SetActive(select > 0);
+			vSlice.UpdateBackground(colBg);
+			vSlice.UpdateEdge(colEdge);
+			vSlice.UpdateHighlight(colHigh, high);
+			vSlice.UpdateSelect(colSel, select);
 
 			vLabel.Alpha = vMainAlpha;
 			vLabel.FontName = vSettings.TextFont;
@@ -170,37 +101,7 @@ namespace Hovercast.Core.Display.Default {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public Vector3 GetPointNearestToCursor(Vector3 pCursorLocalPos) {
-			//TODO: Optimize this somehow, probably by reducing the number of points/distances to 
-			//check. This could be done by sampling some key points, finding the closest one, then only
-			//doing further checks for the points nearest to it.
-
-			float sqrMagMin = float.MaxValue;
-			Vector3 nearest = Vector3.zero;
-			//Vector3 worldCurs = gameObject.transform.TransformPoint(pCursorLocalPos);
-			//Vector3 worldPos;
-
-			foreach ( Vector3 pos in vSelectionPoints ) {
-				float sqrMag = (pos-pCursorLocalPos).sqrMagnitude;
-
-				if ( sqrMag < sqrMagMin ) {
-					sqrMagMin = sqrMag;
-					nearest = pos;
-				}
-
-				//worldPos = gameObject.transform.TransformPoint(pos);
-				//Debug.DrawLine(worldPos, worldCurs, Color.yellow);
-			}
-
-			//worldPos = gameObject.transform.TransformPoint(nearest);
-			//Debug.DrawLine(worldPos, worldCurs, Color.red);
-			return nearest;
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		private void BuildMesh(Mesh pMesh, float pThickness) {
-			MeshUtil.BuildRingMesh(pMesh, 1, 1+0.5f*pThickness, vAngle0, vAngle1, vMeshSteps);
+			return vSlice.GetPointNearestToCursor(pCursorLocalPos);
 		}
 
 
