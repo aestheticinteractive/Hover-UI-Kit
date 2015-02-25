@@ -78,7 +78,10 @@ namespace Hovercast.Core.Display {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateSliderValue() {
-			if ( !vSegState.NavItem.IsStickySelected ) {
+			NavItemSlider slider = ((NavItemSlider)vSegState.NavItem);
+
+			if ( vSegState.HighlightProgress <= 0 ) {
+				slider.HoverValue = null;
 				return;
 			}
 
@@ -96,7 +99,13 @@ namespace Hovercast.Core.Display {
 				cursorDeg = 0;
 			}
 
-			((NavItemSlider)vSegState.NavItem).Value = cursorDeg/vSlideDegrees;
+			if ( slider.IsStickySelected ) {
+				slider.Value = cursorDeg/vSlideDegrees;
+				slider.HoverValue = null;
+			}
+			else {
+				slider.HoverValue = cursorDeg/vSlideDegrees;
+			}
 		}
 
 	}

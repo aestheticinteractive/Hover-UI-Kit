@@ -11,6 +11,8 @@ namespace Hovercast.Core.Navigation {
 		public float RangeMax { get; set; }
 		public Func<NavItemSlider, string> ValueToLabel { get; set; }
 
+		private float? vHoverValue;
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -26,7 +28,13 @@ namespace Hovercast.Core.Navigation {
 				return ValueToLabel(this);
 			}
 		}
-		
+
+		/*--------------------------------------------------------------------------------------------*/
+		public override void DeselectStickySelections() {
+			Value = SnappedValue;
+			base.DeselectStickySelections();
+		}
+
 		/*--------------------------------------------------------------------------------------------*/
 		public override float Value {
 			get {
@@ -38,20 +46,35 @@ namespace Hovercast.Core.Navigation {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public override void DeselectStickySelections() {
-			Value = SnappedValue;
-			base.DeselectStickySelections();
+		public float SnappedValue {
+			get {
+				return CalcSnappedValue(Value);
+			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public float SnappedValue {
+		public float? HoverValue {
 			get {
-				if ( Snaps < 2 ) {
-					return Value;
+				return vHoverValue;
+			}
+			set {
+				if ( value == null ) {
+					vHoverValue = null;
+					return;
 				}
 
-				int s = Snaps-1;
-				return (float)Math.Round(Value*s)/s;
+				vHoverValue = Math.Max(0, Math.Min(1, (float)value));
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float? HoverSnappedValue {
+			get {
+				if ( HoverValue == null ) {
+					return null;
+				}
+
+				return CalcSnappedValue((float)HoverValue);
 			}
 		}
 
@@ -74,6 +97,16 @@ namespace Hovercast.Core.Navigation {
 		/*--------------------------------------------------------------------------------------------*/
 		protected override bool UsesStickySelection() {
 			return true;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private float CalcSnappedValue(float pValue) {
+			if ( Snaps < 2 ) {
+				return pValue;
+			}
+
+			int s = Snaps-1;
+			return (float)Math.Round(pValue*s)/s;
 		}
 
 	}
