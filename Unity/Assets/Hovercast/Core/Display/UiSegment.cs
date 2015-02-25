@@ -80,7 +80,7 @@ namespace Hovercast.Core.Display {
 		private void UpdateSliderValue() {
 			NavItemSlider slider = ((NavItemSlider)vSegState.NavItem);
 
-			if ( vSegState.HighlightProgress <= 0 ) {
+			if ( !vSegState.IsNearestHighlight || vSegState.HighlightProgress <= 0 ) {
 				slider.HoverValue = null;
 				return;
 			}
