@@ -103,8 +103,11 @@ namespace Hovercast.Core.Display {
 				slider.Value = cursorDeg/vSlideDegrees;
 				slider.HoverValue = null;
 			}
-			else {
+			else if ( slider.AllowJump ) {
 				slider.HoverValue = cursorDeg/vSlideDegrees;
+			}
+			else {
+				slider.HoverValue = null;
 			}
 		}
 

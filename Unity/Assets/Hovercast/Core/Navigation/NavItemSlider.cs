@@ -10,6 +10,7 @@ namespace Hovercast.Core.Navigation {
 		public float RangeMin { get; set; }
 		public float RangeMax { get; set; }
 		public Func<NavItemSlider, string> ValueToLabel { get; set; }
+		public bool AllowJump { get; set; }
 
 		private float? vHoverValue;
 

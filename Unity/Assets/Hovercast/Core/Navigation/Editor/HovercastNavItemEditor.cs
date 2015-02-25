@@ -57,6 +57,8 @@ namespace Hovercast.Core.Navigation.Editor {
 					vTarget.SliderRangeMax = EditorGUILayout.FloatField("Max", vTarget.SliderRangeMax);
 					vTarget.SliderValue = EditorGUILayout.Slider("Value", vTarget.SliderValue,	
 						vTarget.SliderRangeMin, vTarget.SliderRangeMax);
+					vTarget.SliderAllowJump = EditorGUILayout.Toggle("Allow Jump-To-Value", 
+						vTarget.SliderAllowJump);
 					break;
 			}
 

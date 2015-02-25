@@ -22,6 +22,7 @@ namespace Hovercast.Core.Navigation {
 		public float SliderRangeMin;
 		public float SliderRangeMax = 1;
 		public float SliderValue;
+		public bool SliderAllowJump = true;
 
 		private NavItem vItem;
 
@@ -99,6 +100,7 @@ namespace Hovercast.Core.Navigation {
 					sliderItem.RangeMin = SliderRangeMin;
 					sliderItem.RangeMax = SliderRangeMax;
 					sliderItem.Value = Mathf.InverseLerp(SliderRangeMin, SliderRangeMax, SliderValue);
+					sliderItem.AllowJump = SliderAllowJump;
 					break;
 			}
 		}
