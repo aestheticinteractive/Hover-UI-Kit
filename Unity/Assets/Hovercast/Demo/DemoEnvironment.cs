@@ -7,6 +7,8 @@ namespace Hovercast.Demo {
 	/*================================================================================================*/
 	public class DemoEnvironment : MonoBehaviour {
 
+		public int RandomSeed = 0;
+
 		private const int Count = 400;
 
 		public enum ColorMode {
@@ -30,7 +32,6 @@ namespace Hovercast.Demo {
 
 		private readonly GameObject[] vHolds;
 		private readonly GameObject[] vCubes;
-		private readonly System.Random vRandom;
 
 		private readonly DemoMotion vOrbitMotion;
 		private readonly DemoMotion vSpinMotion;
@@ -45,6 +46,7 @@ namespace Hovercast.Demo {
 		private readonly IDictionary<CameraPlacement, Vector3> vCameraMap;
 		private readonly IDictionary<CameraPlacement, Quaternion> vCameraRotMap;
 
+		private System.Random vRandom;
 		private GameObject vCubesObj;
 		private Light vLight;
 		private Light vSpotlight;
@@ -57,7 +59,6 @@ namespace Hovercast.Demo {
 		public DemoEnvironment() {
 			vHolds = new GameObject[Count];
 			vCubes = new GameObject[Count];
-			vRandom = new System.Random();
 
 			vOrbitMotion = new DemoMotion(10, 600);
 			vSpinMotion = new DemoMotion(45, 600);
@@ -92,6 +93,14 @@ namespace Hovercast.Demo {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
+			if ( RandomSeed == 0 ) {
+				vRandom = new System.Random();
+			}
+			else {
+				vRandom = new System.Random(RandomSeed);
+				UnityEngine.Random.seed = RandomSeed;
+			}
+
 			vCubesObj = new GameObject("Cubes");
 			vCubesObj.transform.SetParent(gameObject.transform, false);
 			

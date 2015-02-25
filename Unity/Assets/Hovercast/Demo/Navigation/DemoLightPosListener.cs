@@ -37,7 +37,7 @@ namespace Hovercast.Demo.Navigation {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleValueChanged(NavItem<float> pNavItem) {
-			Enviro.SetLightPos(Item.RangeSnappedValue);
+			Enviro.SetLightPos(Item.RangeValue);
 		}
 
 	}
