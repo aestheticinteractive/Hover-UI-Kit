@@ -28,6 +28,7 @@ namespace Hovercast.Core.Display {
 			vRendererHold = new GameObject("RendererHold");
 			vRendererHold.transform.SetParent(gameObject.transform, false);
 			vRendererHold.transform.localPosition = UiLevel.PushFromHand;
+			vRendererHold.transform.localRotation = Quaternion.AngleAxis(170, Vector3.up);
 
 			vArcState.OnLevelChange += HandleLevelChange;
 			Rebuild();
@@ -70,7 +71,7 @@ namespace Hovercast.Core.Display {
 			Type rendType = vCustom.GetPalmRenderer(navItem);
 			SegmentSettings sett = vCustom.GetPalmSettings(navItem);
 
-			vRendererHold.transform.localRotation = Quaternion.AngleAxis(170, Vector3.up);
+			vRendererHold.SetActive(true); //ensures that Awake() is called in the renderers
 
 			vRendererObj = new GameObject("Renderer");
 			vRendererObj.transform.SetParent(vRendererHold.transform, false);
