@@ -1176,7 +1176,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63b5d2fc6ad28b548af74f6876c3b900, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HuePlus: {fileID: 1072115689}
   HueSlider: {fileID: 1706685257}
+  HueMinus: {fileID: 1056133837}
   Mode: 2
 --- !u!114 &784885207
 MonoBehaviour:
@@ -1666,6 +1668,77 @@ MonoBehaviour:
   SliderRangeMax: 1
   SliderValue: 0
   SliderAllowJump: 1
+--- !u!1 &1056133835
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100092, guid: 8163e658597aed24782fe5bb775ccf41, type: 2}
+  m_PrefabInternal: {fileID: 1819255403}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1056133836}
+  - 114: {fileID: 1056133837}
+  - 114: {fileID: 1056133838}
+  m_Layer: 0
+  m_Name: HueMinus
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1056133836
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400092, guid: 8163e658597aed24782fe5bb775ccf41, type: 2}
+  m_PrefabInternal: {fileID: 1819255403}
+  m_GameObject: {fileID: 1056133835}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2082140144}
+  m_RootOrder: 5
+--- !u!114 &1056133837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400152, guid: 8163e658597aed24782fe5bb775ccf41,
+    type: 2}
+  m_PrefabInternal: {fileID: 1819255403}
+  m_GameObject: {fileID: 1056133835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbb1afde76dd246e4bf5dbfea0fa497d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 2
+  Id: 
+  Label: Hue -
+  RelativeSize: .400000006
+  IsVisible: 1
+  IsEnabled: 1
+  NavigateBackUponSelect: 0
+  CheckboxValue: 0
+  RadioValue: 0
+  SliderTicks: 0
+  SliderSnaps: 0
+  SliderRangeMin: 0
+  SliderRangeMax: 1
+  SliderValue: 0
+  SliderAllowJump: 1
+--- !u!114 &1056133838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400148, guid: 8163e658597aed24782fe5bb775ccf41,
+    type: 2}
+  m_PrefabInternal: {fileID: 1819255403}
+  m_GameObject: {fileID: 1056133835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 470596e510936bb46a57182f9a3d6d4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HueSlider: {fileID: 1706685257}
+  Increment: -1
+  IncrementFrequency: 500
 --- !u!1 &1064528436
 GameObject:
   m_ObjectHideFlags: 0
@@ -1727,6 +1800,77 @@ MonoBehaviour:
   SliderRangeMax: 1
   SliderValue: 0
   SliderAllowJump: 1
+--- !u!1 &1072115687
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100094, guid: 8163e658597aed24782fe5bb775ccf41, type: 2}
+  m_PrefabInternal: {fileID: 1819255403}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1072115688}
+  - 114: {fileID: 1072115689}
+  - 114: {fileID: 1072115690}
+  m_Layer: 0
+  m_Name: HuePlus
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1072115688
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400094, guid: 8163e658597aed24782fe5bb775ccf41, type: 2}
+  m_PrefabInternal: {fileID: 1819255403}
+  m_GameObject: {fileID: 1072115687}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2082140144}
+  m_RootOrder: 3
+--- !u!114 &1072115689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400154, guid: 8163e658597aed24782fe5bb775ccf41,
+    type: 2}
+  m_PrefabInternal: {fileID: 1819255403}
+  m_GameObject: {fileID: 1072115687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbb1afde76dd246e4bf5dbfea0fa497d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 2
+  Id: 
+  Label: Hue +
+  RelativeSize: .400000006
+  IsVisible: 1
+  IsEnabled: 1
+  NavigateBackUponSelect: 0
+  CheckboxValue: 0
+  RadioValue: 0
+  SliderTicks: 0
+  SliderSnaps: 0
+  SliderRangeMin: 0
+  SliderRangeMax: 1
+  SliderValue: 0
+  SliderAllowJump: 1
+--- !u!114 &1072115690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400150, guid: 8163e658597aed24782fe5bb775ccf41,
+    type: 2}
+  m_PrefabInternal: {fileID: 1819255403}
+  m_GameObject: {fileID: 1072115687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 470596e510936bb46a57182f9a3d6d4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HueSlider: {fileID: 1706685257}
+  Increment: 1
+  IncrementFrequency: 500
 --- !u!1 &1110481825
 GameObject:
   m_ObjectHideFlags: 0
@@ -1974,7 +2118,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63b5d2fc6ad28b548af74f6876c3b900, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HuePlus: {fileID: 1072115689}
   HueSlider: {fileID: 1706685257}
+  HueMinus: {fileID: 1056133837}
   Mode: 1
 --- !u!114 &1190661416
 MonoBehaviour:
@@ -2758,7 +2904,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2082140144}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!114 &1706685257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3117,7 +3263,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63b5d2fc6ad28b548af74f6876c3b900, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HuePlus: {fileID: 1072115689}
   HueSlider: {fileID: 1706685257}
+  HueMinus: {fileID: 1056133837}
   Mode: 0
 --- !u!114 &1886497505
 MonoBehaviour:
@@ -3384,7 +3532,9 @@ Transform:
   - {fileID: 1886497503}
   - {fileID: 1190661414}
   - {fileID: 784885205}
+  - {fileID: 1072115688}
   - {fileID: 1706685256}
+  - {fileID: 1056133836}
   m_Father: {fileID: 179689560}
   m_RootOrder: 0
 --- !u!114 &2082140145

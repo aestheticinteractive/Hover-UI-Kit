@@ -5,7 +5,9 @@ namespace Hovercast.Demo.Navigation {
 	/*================================================================================================*/
 	public class DemoColorModeListener : DemoBaseListener<NavItemRadio> {
 
+		public HovercastNavItem HuePlus;
 		public HovercastNavItem HueSlider;
+		public HovercastNavItem HueMinus;
 		public DemoEnvironment.ColorMode Mode;
 
 
@@ -31,6 +33,8 @@ namespace Hovercast.Demo.Navigation {
 
 			NavItemSlider hue = (NavItemSlider)HueSlider.GetItem();
 			hue.IsEnabled = (Mode == DemoEnvironment.ColorMode.Custom);
+			HuePlus.GetItem().IsEnabled = hue.IsEnabled;
+			HueMinus.GetItem().IsEnabled = hue.IsEnabled;
 			Enviro.SetColorMode(Mode, hue.RangeValue);
 		}
 
