@@ -105,7 +105,7 @@ namespace Hovercast.Core.Navigation {
 
 		/*--------------------------------------------------------------------------------------------*/
 		internal virtual void UpdateValueOnLevelChange(int pDirection) {
-			OnDeselected(this);
+			DeselectStickySelections();
 		}
 
 	}
