@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Hovercast.Core.Custom;
 using Hovercast.Core.Navigation;
 using Hovercast.Core.State;
@@ -20,6 +21,7 @@ namespace Hovercast.Core.Display {
 		private Vector3 vCursorLocalPos;
 
 		private IUiSegmentRenderer vRenderer;
+		private Stopwatch vSliderFrameTime;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -50,12 +52,16 @@ namespace Hovercast.Core.Display {
 
 			vRenderer = (IUiSegmentRenderer)rendObj.AddComponent(rendType);
 			vRenderer.Build(vArcState, vSegState, pArcAngle, sett);
+
+			vSliderFrameTime = Stopwatch.StartNew();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void Update() {
 			if ( vSegState.NavItem.Type == NavItem.ItemType.Slider ) {
 				UpdateSliderValue();
+				vSliderFrameTime.Reset();
+				vSliderFrameTime.Start();
 			}
 		}
 
@@ -100,7 +106,11 @@ namespace Hovercast.Core.Display {
 			}
 
 			if ( slider.IsStickySelected ) {
-				slider.Value = cursorDeg/vSlideDegrees;
+				float valTarget = cursorDeg/vSlideDegrees;
+				float reactionTime = (float)Math.Pow(1-vSegState.ReleaseProgressRaw, 5)*6000f+1f;
+				float power = Math.Min(1, vSliderFrameTime.ElapsedMilliseconds/reactionTime);
+
+				slider.Value += (valTarget-slider.Value)*power;
 				slider.HoverValue = null;
 			}
 			else if ( slider.AllowJump ) {

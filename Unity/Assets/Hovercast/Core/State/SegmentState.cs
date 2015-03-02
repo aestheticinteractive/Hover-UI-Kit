@@ -47,6 +47,17 @@ namespace Hovercast.Core.State {
 				return Math.Min(1, ms/vSettings.SelectionMilliseconds);
 			}
 		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public float ReleaseProgressRaw {
+			get {
+				if ( !NavItem.IsStickySelected ) {
+					return 0;
+				}
+
+				return Mathf.InverseLerp(vSettings.StickyReleaseDistance, 0, HighlightDistance);
+			}
+		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void SetCursorDistanceFunction(Func<Vector3, float> pFunc) {
