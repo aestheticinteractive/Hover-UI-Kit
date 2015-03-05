@@ -4,16 +4,16 @@ using UnityEngine;
 namespace Hoverboard.Core.Navigation.Editor {
 
 	/*================================================================================================*/
-	[CustomEditor(typeof(HovercastNavItem))]
-	public class HovercastNavItemEditor : UnityEditor.Editor {
+	[CustomEditor(typeof(HoverboardNavItem))]
+	public class HoverboardNavItemEditor : UnityEditor.Editor {
 
-		private HovercastNavItem vTarget;
+		private HoverboardNavItem vTarget;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void OnEnable() {
-			vTarget = (HovercastNavItem)target;
+			vTarget = (HoverboardNavItem)target;
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/

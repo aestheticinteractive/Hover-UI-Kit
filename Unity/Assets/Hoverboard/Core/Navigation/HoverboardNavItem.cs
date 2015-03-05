@@ -3,7 +3,7 @@
 namespace Hoverboard.Core.Navigation {
 	
 	/*================================================================================================*/
-	public class HovercastNavItem : MonoBehaviour {
+	public class HoverboardNavItem : MonoBehaviour {
 
 		public NavItem.ItemType Type;
 		public string Id = "";

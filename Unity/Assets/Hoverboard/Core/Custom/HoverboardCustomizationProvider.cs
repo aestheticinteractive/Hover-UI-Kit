@@ -108,7 +108,7 @@ namespace Hoverboard.Core.Custom {
 		private void FillCustomItems<T>(T[] pComponentList, Action<CustomItem, T> pFillAction)
 																				where T : Component {
 			foreach ( T comp in pComponentList ) {
-				HovercastNavItem hni = comp.gameObject.GetComponent<HovercastNavItem>();
+				HoverboardNavItem hni = comp.gameObject.GetComponent<HoverboardNavItem>();
 
 				if ( hni == null ) {
 					continue;

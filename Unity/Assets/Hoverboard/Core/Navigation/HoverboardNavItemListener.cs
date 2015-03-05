@@ -4,19 +4,19 @@ using UnityEngine;
 namespace Hoverboard.Core.Navigation {
 
 	/*================================================================================================*/
-	public abstract class HovercastNavItemListener<T> : MonoBehaviour where T : NavItem {
+	public abstract class HoverboardNavItemListener<T> : MonoBehaviour where T : NavItem {
 
-		public HovercastNavItem Component { get; private set; }
+		public HoverboardNavItem Component { get; private set; }
 		public T Item { get; private set; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
-			Component = gameObject.GetComponent<HovercastNavItem>();
+			Component = gameObject.GetComponent<HoverboardNavItem>();
 
 			if ( Component == null ) {
-				throw new Exception("There must be a "+typeof(HovercastNavItem).Name+" component "+
+				throw new Exception("There must be a "+typeof(HoverboardNavItem).Name+" component "+
 					"attached to this GameObject.");
 			}
 

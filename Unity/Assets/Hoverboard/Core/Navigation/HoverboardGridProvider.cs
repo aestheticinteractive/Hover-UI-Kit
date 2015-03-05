@@ -32,7 +32,7 @@ namespace Hoverboard.Core.Navigation {
 			var items = new List<NavItem>();
 			
 			for ( int i = 0 ; i < childCount ; ++i ) {
-				HovercastNavItem hni = tx.GetChild(i).GetComponent<HovercastNavItem>();
+				HoverboardNavItem hni = tx.GetChild(i).GetComponent<HoverboardNavItem>();
 				NavItem item = hni.GetItem();
 
 				if ( !item.IsVisible ) {
