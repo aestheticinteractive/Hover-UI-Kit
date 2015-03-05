@@ -24,7 +24,7 @@ namespace Hoverboard.Devices.Leap {
 			vHandControl = gameObject.GetComponent<HandController>();
 
 			if ( vHandControl == null ) {
-				throw new Exception("The HovercastLeapInputProvider component must be added to the "+
+				throw new Exception("The HoverboardLeapInputProvider component must be added to the "+
 					"same GameObject that contains the Leap Motion HandController component.");
 			}
 

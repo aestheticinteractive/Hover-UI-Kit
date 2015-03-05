@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Hoverboard.Core.Custom {
 
 	/*================================================================================================*/
-	public class HovercastDefaultCursor : HovercastCustomCursor {
+	public class HoverboardDefaultCursor : HoverboardCustomCursor {
 
 		public Color ColorNormal = new Color(1, 1, 1, 0.6f);
 		public Color ColorHighlighted = new Color(1, 1, 1, 1);

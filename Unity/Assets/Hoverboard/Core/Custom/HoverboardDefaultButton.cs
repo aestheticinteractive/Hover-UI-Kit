@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Hoverboard.Core.Custom {
 
 	/*================================================================================================*/
-	public class HovercastDefaultButton : HovercastCustomButton {
+	public class HoverboardDefaultButton : HoverboardCustomButton {
 
 		public int TextSize = 30;
 		public Color TextColor = new Color(1, 1, 1);

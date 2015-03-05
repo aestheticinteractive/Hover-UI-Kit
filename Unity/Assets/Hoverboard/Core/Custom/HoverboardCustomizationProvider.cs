@@ -9,12 +9,12 @@ namespace Hoverboard.Core.Custom {
 	public class HoverboardCustomizationProvider : MonoBehaviour, ICustom {
 
 		private class CustomItem {
-			public HovercastCustomButton Seg;
+			public HoverboardCustomButton Seg;
 		}
 
-		private HovercastCustomButton vMainSeg;
-		private HovercastCustomCursor vCursor;
-		private HovercastCustomInteraction vInteract;
+		private HoverboardCustomButton vMainSeg;
+		private HoverboardCustomCursor vCursor;
+		private HoverboardCustomInteraction vInteract;
 		private IDictionary<int, CustomItem> vCustomMap;
 
 
@@ -29,12 +29,12 @@ namespace Hoverboard.Core.Custom {
 		/*--------------------------------------------------------------------------------------------*/
 		public Type GetSegmentRenderer(NavItem pNavItem) {
 			if ( pNavItem == null ) {
-				throw new ArgumentException("Hovercast | NavItem cannot be null.", "NavItem");
+				throw new ArgumentException("Hoverboard | NavItem cannot be null.", "NavItem");
 			}
 
 			InitOnce();
 
-			HovercastCustomButton seg = FindCustom(vMainSeg, pNavItem, (c => c.Seg));
+			HoverboardCustomButton seg = FindCustom(vMainSeg, pNavItem, (c => c.Seg));
 			return seg.GetRendererForNavItemType(pNavItem.Type);
 		}
 
@@ -42,7 +42,7 @@ namespace Hoverboard.Core.Custom {
 		public ButtonSettings GetSegmentSettings(NavItem pNavItem) {
 			InitOnce();
 
-			HovercastCustomButton seg = FindCustom(vMainSeg, pNavItem, (c => c.Seg));
+			HoverboardCustomButton seg = FindCustom(vMainSeg, pNavItem, (c => c.Seg));
 			return seg.GetSettings();
 		}
 
@@ -72,34 +72,34 @@ namespace Hoverboard.Core.Custom {
 				return;
 			}
 
-			vMainSeg = gameObject.GetComponent<HovercastCustomButton>();
-			vCursor = gameObject.GetComponent<HovercastCustomCursor>();
-			vInteract = gameObject.GetComponent<HovercastCustomInteraction>();
+			vMainSeg = gameObject.GetComponent<HoverboardCustomButton>();
+			vCursor = gameObject.GetComponent<HoverboardCustomCursor>();
+			vInteract = gameObject.GetComponent<HoverboardCustomInteraction>();
 
 			if ( vMainSeg == null ) {
-				Debug.LogWarning("Hovercast | No '"+typeof(HovercastCustomButton).Name+
+				Debug.LogWarning("Hoverboard | No '"+typeof(HoverboardCustomButton).Name+
 					"' provided; using default.");
-				vMainSeg = gameObject.AddComponent<HovercastDefaultButton>();
+				vMainSeg = gameObject.AddComponent<HoverboardDefaultButton>();
 			}
 
 			if ( vCursor == null ) {
-				Debug.LogWarning("Hovercast | No '"+typeof(HovercastCustomCursor).Name+
+				Debug.LogWarning("Hoverboard | No '"+typeof(HoverboardCustomCursor).Name+
 					"' provided; using default.");
-				vCursor = gameObject.AddComponent<HovercastDefaultCursor>();
+				vCursor = gameObject.AddComponent<HoverboardDefaultCursor>();
 			}
 
 			if ( vInteract == null ) {
-				Debug.LogWarning("Hovercast | No '"+typeof(HovercastCustomInteraction).Name+
+				Debug.LogWarning("Hoverboard | No '"+typeof(HoverboardCustomInteraction).Name+
 					"' provided; using default.");
-				vInteract = gameObject.AddComponent<HovercastCustomInteraction>();
+				vInteract = gameObject.AddComponent<HoverboardCustomInteraction>();
 			}
 
 			////
 
 			vCustomMap = new Dictionary<int, CustomItem>();
 
-			HovercastCustomButton[] segList = 
-				gameObject.GetComponentsInChildren<HovercastCustomButton>();
+			HoverboardCustomButton[] segList = 
+				gameObject.GetComponentsInChildren<HoverboardCustomButton>();
 
 			FillCustomItems(segList, ((c, s) => { c.Seg = s; }));
 		}

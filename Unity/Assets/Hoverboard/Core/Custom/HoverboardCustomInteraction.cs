@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Hoverboard.Core.Custom {
 
 	/*================================================================================================*/
-	public class HovercastCustomInteraction : MonoBehaviour {
+	public class HoverboardCustomInteraction : MonoBehaviour {
 
 		public float HighlightDistanceMin = 1;
 		public float HighlightDistanceMax = 2.5f;

@@ -3,7 +3,7 @@
 namespace Hoverboard.Core.State {
 
 	/*================================================================================================*/
-	public interface IHovercastItemState {
+	public interface IHoverboardItemState {
 
 		NavItem NavItem { get; }
 		float MinHighlightDistance { get; }

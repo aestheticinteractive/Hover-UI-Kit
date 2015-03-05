@@ -9,7 +9,7 @@ using UnityEngine;
 namespace Hoverboard.Core.State {
 
 	/*================================================================================================*/
-	public class ButtonState : IHovercastItemState {
+	public class ButtonState : IHoverboardItemState {
 
 		public NavItem NavItem { get; private set; }
 

@@ -18,7 +18,7 @@ namespace Hoverboard.Devices.LeapLook {
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
 			if ( HeadsetCameraTransform == null ) {
-				throw new Exception("The HovercastLeapLookInputProvider component requires the "+
+				throw new Exception("The HoverboardLeapLookInputProvider component requires the "+
 					"'Headset Camera Transform' to be set.");
 			}
 

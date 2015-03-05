@@ -98,7 +98,7 @@ namespace Hoverboard.Core {
 		private Exception FailMissing(string pName) {
 			vFailed = true;
 			gameObject.SetActive(false);
-			return new Exception("Hovercast | '"+pName+"' must be set.");
+			return new Exception("Hoverboard | '"+pName+"' must be set.");
 		}
 
 	}

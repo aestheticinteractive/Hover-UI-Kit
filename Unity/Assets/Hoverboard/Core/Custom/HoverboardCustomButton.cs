@@ -1,42 +1,43 @@
 ﻿using System;
 using System.Linq;
 using Hoverboard.Core.Display;
+using Hoverboard.Core.Navigation;
 using UnityEngine;
 
 namespace Hoverboard.Core.Custom {
 
 	/*================================================================================================*/
-	public abstract class HovercastCustomCursor : MonoBehaviour {
+	public abstract class HoverboardCustomButton : MonoBehaviour {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public Type GetRenderer() {
-			Type type = GetRendererInner();
+		public Type GetRendererForNavItemType(NavItem.ItemType pNavItemType) {
+			Type type = GetRendererForNavItemTypeInner(pNavItemType);
 
 			if ( type == null ) {
-				throw new Exception(GetErrorPrefix()+"cannot be null.");
+				throw new Exception(GetErrorPrefix(pNavItemType)+"cannot be null.");
 			}
 
-			if ( !type.GetInterfaces().Contains(typeof(IUiCursorRenderer)) ) {
-				throw new Exception(GetErrorPrefix()+"must implement the "+
-					typeof(IUiCursorRenderer).Name+" interface.");
+			if ( !type.GetInterfaces().Contains(typeof(IUiSegmentRenderer)) ) {
+				throw new Exception(GetErrorPrefix(pNavItemType)+"must implement the "+
+					typeof(IUiSegmentRenderer).Name+" interface.");
 			}
 
 			return type;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		protected abstract Type GetRendererInner();
+		protected abstract Type GetRendererForNavItemTypeInner(NavItem.ItemType pNavItemType);
 
 		/*--------------------------------------------------------------------------------------------*/
-		public abstract CursorSettings GetSettings();
+		public abstract ButtonSettings GetSettings();
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private static string GetErrorPrefix() {
-			return "Hovercast | The 'Cursor' Renderer ";
+		private static string GetErrorPrefix(NavItem.ItemType pNavItemType) {
+			return "Hoverboard | The 'Segment' Renderer for '"+pNavItemType+"' NavItems ";
 		}
 
 	}
