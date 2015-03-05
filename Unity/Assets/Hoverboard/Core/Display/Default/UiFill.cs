@@ -8,6 +8,7 @@ namespace Hoverboard.Core.Display.Default {
 	public class UiFill {
 
 		public const float AngleInset = UiButton.Size*0.01f;
+		public const float EdgeThick = AngleInset*2;
 
 		private readonly bool vCalcSelections;
 		private float vWidth;
@@ -40,13 +41,14 @@ namespace Hoverboard.Core.Display.Default {
 				return;
 			}
 
-			vEdge = GameObject.CreatePrimitive(PrimitiveType.Quad);
-			vEdge.name = "Edge";
+			vEdge = new GameObject("Edge");
 			vEdge.transform.SetParent(pGameObj.transform, false);
 			vEdge.transform.localRotation = rot;
+			vEdge.AddComponent<MeshRenderer>();
 			vEdge.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
-			vEdge.renderer.sharedMaterial.renderQueue -= 300;
+			vEdge.renderer.sharedMaterial.renderQueue -= 50;
 			vEdge.renderer.sharedMaterial.color = Color.clear;
+			vEdge.AddComponent<MeshFilter>();
 
 			vHighlight = GameObject.CreatePrimitive(PrimitiveType.Quad);
 			vHighlight.name = "Highlight";
@@ -61,7 +63,7 @@ namespace Hoverboard.Core.Display.Default {
 			vSelect.transform.SetParent(pGameObj.transform, false);
 			vSelect.transform.localRotation = rot;
 			vSelect.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
-			vSelect.renderer.sharedMaterial.renderQueue -= 10;
+			vSelect.renderer.sharedMaterial.renderQueue -= 100;
 			vSelect.renderer.sharedMaterial.color = Color.clear;
 
 			UpdateSize(UiButton.Size, UiButton.Size);
@@ -82,12 +84,12 @@ namespace Hoverboard.Core.Display.Default {
 			vWidth = w;
 			vHeight = h;
 
-			UpdateQuad(vBackground, 1);
+			UpdateQuad(vBackground, 1, false);
 
 			if ( vHighlight != null ) {
-				UpdateQuad(vEdge, 0);
-				UpdateQuad(vHighlight, 0);
-				UpdateQuad(vSelect, 0);
+				UpdateEdgeMesh();
+				UpdateQuad(vHighlight, 0, true);
+				UpdateQuad(vSelect, 0, true);
 			}
 		}
 
@@ -109,7 +111,7 @@ namespace Hoverboard.Core.Display.Default {
 			vHighlight.SetActive(pAmount > 0 && pColor.a > 0);
 
 			if ( Math.Abs(pAmount-vPrevHighAmount) > 0.005f ) {
-				UpdateQuad(vHighlight, pAmount);
+				UpdateQuad(vHighlight, pAmount, true);
 				vPrevHighAmount = pAmount;
 			}
 		}
@@ -120,7 +122,7 @@ namespace Hoverboard.Core.Display.Default {
 			vSelect.SetActive(pAmount > 0 && pColor.a > 0);
 
 			if ( Math.Abs(pAmount-vPrevSelAmount) > 0.005f ) {
-				UpdateQuad(vSelect, pAmount);
+				UpdateQuad(vSelect, pAmount, true);
 				vPrevSelAmount = pAmount;
 			}
 		}
@@ -159,8 +161,47 @@ namespace Hoverboard.Core.Display.Default {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateQuad(GameObject pObj, float pThickness) {
-			pObj.transform.localScale = new Vector3(vWidth*pThickness, vHeight*pThickness, 1);
+		private void UpdateQuad(GameObject pObj, float pThickness, bool pEdgeInset) {
+			float w = vWidth-(pEdgeInset ? EdgeThick*2 : 0);
+			float h = vHeight-(pEdgeInset ? EdgeThick*2 : 0);
+			pObj.transform.localScale = new Vector3(w*pThickness, h*pThickness, 1);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateEdgeMesh() {
+			float innerW = vWidth/2-EdgeThick;
+			float innerH = vHeight/2-EdgeThick;
+			float outerW = vWidth/2;
+			float outerH = vHeight/2;
+
+			Mesh mesh = vEdge.GetComponent<MeshFilter>().mesh;
+
+			mesh.vertices = new[] {
+				new Vector3( outerW,  outerH, 0), 
+				new Vector3( outerW, -outerH, 0), 
+				new Vector3(-outerW, -outerH, 0), 
+				new Vector3(-outerW,  outerH, 0), 
+				new Vector3( innerW,  innerH, 0), 
+				new Vector3( innerW, -innerH, 0), 
+				new Vector3(-innerW, -innerH, 0), 
+				new Vector3(-innerW,  innerH, 0)
+			};
+
+			mesh.triangles = new[] {
+				0, 1, 4,
+				1, 5, 4,
+				1, 2, 5,
+				2, 6, 5,
+				2, 3, 6,
+				3, 7, 6,
+				3, 4, 7,
+				0, 4, 7
+			};
+
+			mesh.uv = new Vector2[8];
+			mesh.RecalculateBounds();
+			mesh.RecalculateNormals();
+			mesh.Optimize();
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
