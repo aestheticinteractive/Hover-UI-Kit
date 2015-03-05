@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Hoverboard.Core.Custom;
 using Hoverboard.Core.Input;
 using Hoverboard.Core.Navigation;
@@ -19,16 +20,8 @@ namespace Hoverboard.Core.State {
 		public PanelState(NavPanel pNavPanel, InteractionSettings pSettings) {
 			NavPanel = pNavPanel;
 			vSettings = pSettings;
+
 			RefreshGrids();
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		internal void UpdateWithCursors(IDictionary<CursorType, CursorState> pCursorMap) {
-			foreach ( GridState grid in Grids ) {
-				grid.UpdateWithCursors(pCursorMap);
-			}
 		}
 
 
@@ -42,6 +35,7 @@ namespace Hoverboard.Core.State {
 				Grids[i] = grid;
 			}
 		}
+
 	}
 
 }
