@@ -19,7 +19,7 @@ namespace Hoverboard.Core.Display.Default {
 		private readonly GameObject vHighlight;
 		private readonly GameObject vSelect;
 
-		private readonly Vector3[] vSelectionPoints;
+		private Vector3[] vSelectionPoints;
 		private float vPrevHighAmount;
 		private float vPrevSelAmount;
 
@@ -67,7 +67,6 @@ namespace Hoverboard.Core.Display.Default {
 			vSelect.renderer.sharedMaterial.color = Color.clear;
 
 			UpdateSize(UiButton.Size, UiButton.Size);
-			vSelectionPoints = CalcSelectionPoints();
 		}
 
 
@@ -91,6 +90,8 @@ namespace Hoverboard.Core.Display.Default {
 				UpdateQuad(vHighlight, 0, true);
 				UpdateQuad(vSelect, 0, true);
 			}
+
+			vSelectionPoints = CalcSelectionPoints();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -164,7 +165,19 @@ namespace Hoverboard.Core.Display.Default {
 		private void UpdateQuad(GameObject pObj, float pThickness, bool pEdgeInset) {
 			float w = vWidth-(pEdgeInset ? EdgeThick*2 : 0);
 			float h = vHeight-(pEdgeInset ? EdgeThick*2 : 0);
-			pObj.transform.localScale = new Vector3(w*pThickness, h*pThickness, 1);
+			float wt;
+			float ht;
+
+			if ( w >= h ) {
+				ht = h*pThickness;
+				wt = w-(h-ht);
+			}
+			else {
+				wt = w*pThickness;
+				ht = h-(w-wt);
+			}
+
+			pObj.transform.localScale = new Vector3(wt, ht, 1);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -195,7 +208,7 @@ namespace Hoverboard.Core.Display.Default {
 				2, 3, 6,
 				3, 7, 6,
 				3, 4, 7,
-				0, 4, 7
+				3, 0, 4
 			};
 
 			mesh.uv = new Vector2[8];
@@ -207,21 +220,18 @@ namespace Hoverboard.Core.Display.Default {
 		/*--------------------------------------------------------------------------------------------*/
 		private Vector3[] CalcSelectionPoints() {
 			var points = new List<Vector3>();
-			points.Add(Vector3.zero);
+			int stepsX = (int)Math.Round(vWidth/UiButton.Size)*6;
+			int stepsY = (int)Math.Round(vHeight/UiButton.Size)*6;
+			float x0 = -vWidth/2f;
+			float y0 = -vHeight/2f;
+			float xInc = vWidth/stepsX;
+			float yInc = vHeight/stepsY;
 
-			//TODO: add more selection points
-
-			/*const int innerSteps = 5;
-			Mesh bgMesh = vBackground.GetComponent<MeshFilter>().mesh;
-
-			for ( int i = 3 ; i < bgMesh.vertices.Length-2 ; i += 2 ) {
-				Vector3 outer = bgMesh.vertices[i];
-				Vector3 inner = bgMesh.vertices[i-1];
-
-				for ( int j = 0 ; j < innerSteps ; ++j ) {
-					points.Add(Vector3.Lerp(outer, inner, j/(float)(innerSteps-1)));
+			for ( int xi = 1 ; xi < stepsX ; xi += 2 ) {
+				for ( int yi = 1 ; yi < stepsY ; yi += 2 ) {
+					points.Add(new Vector3(x0+xInc*xi, 0, y0+yInc*yi));
 				}
-			}*/
+			}
 
 			return points.ToArray();
 		}
