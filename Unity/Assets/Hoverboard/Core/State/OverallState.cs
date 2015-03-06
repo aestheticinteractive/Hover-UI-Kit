@@ -73,9 +73,7 @@ namespace Hoverboard.Core.State {
 		private void UpdateWithCursor(CursorType pType, CursorState pCursor) {
 			bool allowSelect = (pCursor.IsInputAvailable); //TODO: && NavGrid.IsVisible);
 			Vector3? cursorPos = (allowSelect ? pCursor.Position : (Vector3?)null);
-
-			//TODO: allow a "nearest" for each cursor
-			vNearestButtonMap[pType] = null;
+			ButtonState nearest = null;
 
 			foreach ( ButtonState button in vAllButtons ) {
 				button.UpdateWithCursor(pType, cursorPos);
@@ -84,19 +82,21 @@ namespace Hoverboard.Core.State {
 					continue;
 				}
 
-				if ( vNearestButtonMap[pType] == null ) {
-					vNearestButtonMap[pType] = button;
+				if ( nearest == null ) {
+					nearest = button;
 					continue;
 				}
 
-				if ( button.MinHighlightDistance < vNearestButtonMap[pType].MinHighlightDistance ) {
-					vNearestButtonMap[pType] = button;
+				if ( button.GetHighlightDistance(pType) < nearest.MinHighlightDistance ) {
+					nearest = button;
 				}
 			}
 
 			foreach ( ButtonState button in vAllButtons ) {
-				button.SetAsNearestButton(pType, (button == vNearestButtonMap[pType]));
+				button.SetAsNearestButton(pType, (button == nearest));
 			}
+
+			vNearestButtonMap[pType] = nearest;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
