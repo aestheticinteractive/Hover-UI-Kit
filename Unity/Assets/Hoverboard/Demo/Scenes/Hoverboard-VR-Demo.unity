@@ -698,6 +698,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CursorPrimaryFinger: 1
   CursorSecondaryFinger: 0
+  UseSecondary: 0
 --- !u!1 &372402204
 GameObject:
   m_ObjectHideFlags: 0
@@ -962,7 +963,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 519204070}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: .400000006}
+  m_LocalPosition: {x: 0, y: -0, z: .5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1106036028}
@@ -1027,7 +1028,6 @@ GameObject:
   - 4: {fileID: 548433759}
   - 114: {fileID: 548433761}
   - 114: {fileID: 548433760}
-  - 114: {fileID: 548433762}
   m_Layer: 0
   m_Name: Hoverboard
   m_TagString: Untagged
@@ -1043,7 +1043,7 @@ Transform:
   m_GameObject: {fileID: 548433758}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.03225803, y: 1.03225815, z: 1.03225815}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 295634222}
   m_RootOrder: 0
@@ -1075,22 +1075,6 @@ MonoBehaviour:
   CustomizationProvider: {fileID: 548433760}
   InputProvider: {fileID: 295634224}
   OptionalCameraReference: {fileID: 0}
---- !u!114 &548433762
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 548433758}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d89248eb0f76dff469211c2955097543, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HighlightDistanceMin: 1
-  HighlightDistanceMax: 2.5
-  StickyReleaseDistance: 1.79999995
-  SelectionMilliseconds: 250
-  CursorForwardDistance: 0
 --- !u!1 &597655661
 GameObject:
   m_ObjectHideFlags: 0

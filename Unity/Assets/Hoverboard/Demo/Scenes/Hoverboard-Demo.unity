@@ -826,7 +826,6 @@ GameObject:
   - 4: {fileID: 548433759}
   - 114: {fileID: 548433761}
   - 114: {fileID: 548433760}
-  - 114: {fileID: 548433762}
   m_Layer: 0
   m_Name: Hoverboard
   m_TagString: Untagged
@@ -874,22 +873,6 @@ MonoBehaviour:
   CustomizationProvider: {fileID: 548433760}
   InputProvider: {fileID: 1574001882}
   OptionalCameraReference: {fileID: 1828910550}
---- !u!114 &548433762
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 548433758}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d89248eb0f76dff469211c2955097543, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HighlightDistanceMin: 1
-  HighlightDistanceMax: 2.5
-  StickyReleaseDistance: 1.79999995
-  SelectionMilliseconds: 250
-  CursorForwardDistance: 0
 --- !u!1 &668993754
 GameObject:
   m_ObjectHideFlags: 0
@@ -2013,6 +1996,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CursorPrimaryFinger: 1
   CursorSecondaryFinger: 0
+  UseSecondary: 0
 --- !u!114 &1574001883
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -50,7 +50,7 @@ namespace Hoverboard.Core.State {
 			return vHighlightDistanceMap[pCursorType];
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		public bool GetIsNearestHighlight(CursorType pCursorType) {
 			return vIsNearestHighlightMap[pCursorType];
 		}
