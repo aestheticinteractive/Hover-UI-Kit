@@ -7,7 +7,7 @@ namespace Hoverboard.Core.State {
 	/*================================================================================================*/
 	public class CursorState {
 
-		public CursorType CursorType { get; private set; }
+		public CursorType? CursorType { get; private set; }
 		public bool IsInputAvailable { get; private set; }
 		public Vector3 Position { get; private set; }
 		public float Size { get; private set; }
@@ -25,6 +25,14 @@ namespace Hoverboard.Core.State {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		internal void UpdateAfterInput(IInputCursor pInputCursor) {
+			if ( pInputCursor == null ) {
+				CursorType = null;
+				IsInputAvailable = false;
+				Position = Vector3.zero;
+				Size = 0;
+				return;
+			}
+
 			CursorType = pInputCursor.Type;
 			IsInputAvailable = pInputCursor.IsAvailable;
 			Size = pInputCursor.Size;

@@ -43,7 +43,13 @@ namespace Hoverboard.Devices.Test {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private static T GetChild<T>(GameObject pParentObj, string pName) where T : Component {
-			return pParentObj.transform.FindChild(pName).gameObject.GetComponent<T>();
+			Transform childTx = pParentObj.transform.FindChild(pName);
+
+			if ( childTx == null ) {
+				return null;
+			}
+
+			return childTx.gameObject.GetComponent<T>();
 		}
 
 	}
