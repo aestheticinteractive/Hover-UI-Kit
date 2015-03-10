@@ -22,7 +22,7 @@ namespace Hoverboard.Core.State {
 
 		private Func<Vector3, float> vCursorDistanceFunc;
 		private DateTime? vSelectionStart;
-		private bool vIsAnimating;
+		//private bool vIsAnimating;
 		private float vDistanceUponSelection;
 
 
@@ -109,7 +109,7 @@ namespace Hoverboard.Core.State {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		internal void UpdateWithCursor(CursorType pType, Vector3? pCursorWorldPosition) {
-			if ( pCursorWorldPosition == null || vIsAnimating || !NavItem.IsEnabled ) {
+			if ( pCursorWorldPosition == null /*|| vIsAnimating*/ || !NavItem.IsEnabled ) {
 				vHighlightDistanceMap[pType] = float.MaxValue;
 				vHighlightProgressMap[pType] = 0;
 				return;
