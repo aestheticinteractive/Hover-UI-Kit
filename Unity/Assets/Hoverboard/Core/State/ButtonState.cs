@@ -100,7 +100,7 @@ namespace Hoverboard.Core.State {
 			vCursorDistanceFunc = pFunc;
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		public void SetIsAnimating(bool pIsAnimating) {
 			vIsAnimating = pIsAnimating;
 		}
@@ -108,8 +108,8 @@ namespace Hoverboard.Core.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal void UpdateWithCursor(CursorType pType, Vector3? pCursorPosition) {
-			if ( pCursorPosition == null || vIsAnimating || !NavItem.IsEnabled ) {
+		internal void UpdateWithCursor(CursorType pType, Vector3? pCursorWorldPosition) {
+			if ( pCursorWorldPosition == null || vIsAnimating || !NavItem.IsEnabled ) {
 				vHighlightDistanceMap[pType] = float.MaxValue;
 				vHighlightProgressMap[pType] = 0;
 				return;
@@ -119,7 +119,7 @@ namespace Hoverboard.Core.State {
 				throw new Exception("No CursorDistanceFunction has been set.");
 			}
 
-			float dist = vCursorDistanceFunc((Vector3)pCursorPosition);
+			float dist = vCursorDistanceFunc((Vector3)pCursorWorldPosition);
 			float prog = Mathf.InverseLerp(vSettings.HighlightDistanceMax,
 				vSettings.HighlightDistanceMin, dist);
 

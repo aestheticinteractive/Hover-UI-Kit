@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Hoverboard.Core.Custom;
-using Hoverboard.Core.Input;
+﻿using Hoverboard.Core.Custom;
 using Hoverboard.Core.Navigation;
 
 namespace Hoverboard.Core.State {

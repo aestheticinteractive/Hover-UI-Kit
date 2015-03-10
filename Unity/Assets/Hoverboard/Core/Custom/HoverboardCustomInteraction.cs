@@ -5,9 +5,9 @@ namespace Hoverboard.Core.Custom {
 	/*================================================================================================*/
 	public class HoverboardCustomInteraction : MonoBehaviour {
 
-		public float HighlightDistanceMin = 0.5f;
-		public float HighlightDistanceMax = 1.2f;
-		public float StickyReleaseDistance = 0.8f;
+		public float HighlightDistanceMin = 0.03f;
+		public float HighlightDistanceMax = 0.07f;
+		public float StickyReleaseDistance = 0.05f;
 		public float SelectionMilliseconds = 400;
 		public float CursorForwardDistance = 0.0f;
 

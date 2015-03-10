@@ -16,7 +16,7 @@ namespace Hoverboard.Core.Display {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal void Build(GridState pGrid, Transform pHoverboardTx, ICustomSegment pCustom) {
+		internal void Build(GridState pGrid, ICustomSegment pCustom) {
 			vGridState = pGrid;
 			vCustom = pCustom;
 			vUiButtons = new List<UiButton>();
@@ -30,7 +30,7 @@ namespace Hoverboard.Core.Display {
 				var pos = new Vector3(gi%cols, 0, (float)Math.Floor((float)gi/cols));
 
 				UiButton uiButton = button.NavItem.Container.AddComponent<UiButton>();
-				uiButton.Build(button, pHoverboardTx, vCustom);
+				uiButton.Build(button, vCustom);
 				uiButton.transform.localPosition = pos*UiButton.Size;
 
 				vUiButtons.Add(uiButton);

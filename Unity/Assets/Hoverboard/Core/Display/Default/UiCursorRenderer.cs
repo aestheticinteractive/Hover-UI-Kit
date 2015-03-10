@@ -43,7 +43,7 @@ namespace Hoverboard.Core.Display.Default {
 			//col.a *= UiSelectRenderer.GetArcAlpha(vPanelState);
 
 			BuildMesh(thick);
-			vRingObj.transform.localScale = Vector3.one*scale;
+			vRingObj.transform.localScale = Vector3.one*scale*vCursorState.Size;
 			vRingObj.renderer.sharedMaterial.color = col;
 		}
 		

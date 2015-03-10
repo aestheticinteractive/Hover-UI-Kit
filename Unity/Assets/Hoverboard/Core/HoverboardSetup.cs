@@ -57,7 +57,7 @@ namespace Hoverboard.Core {
 			}
 
 			vOverallState = new OverallState(InputProvider, PanelProviders.Select(x => x.GetPanel()),
-				CustomizationProvider.GetInteractionSettings());
+				CustomizationProvider.GetInteractionSettings(), gameObject.transform);
 
 			vUiPanels = new UiPanel[vOverallState.Panels.Length];
 			vUiCursorMap = new Dictionary<CursorType, UiCursor>();
@@ -65,7 +65,7 @@ namespace Hoverboard.Core {
 			for ( int i = 0 ; i < vUiPanels.Length ; ++i ) {
 				PanelState panelState = vOverallState.Panels[i];
 				UiPanel uiPanel = panelState.NavPanel.Container.AddComponent<UiPanel>();
-				uiPanel.Build(panelState, gameObject.transform, CustomizationProvider);
+				uiPanel.Build(panelState, CustomizationProvider);
 				vUiPanels[i] = uiPanel;
 			}
 

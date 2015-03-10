@@ -11,8 +11,6 @@ namespace Hoverboard.Core.Display {
 		public const float Size = 1;
 
 		private ButtonState vButtonState;
-		private Transform vCursorBaseTx;
-		private Vector3 vCursorLocalPos;
 
 		private GameObject vRendererObj;
 		private IUiSegmentRenderer vRenderer;
@@ -20,10 +18,9 @@ namespace Hoverboard.Core.Display {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal void Build(ButtonState pButtonState, Transform pHoverboardTx, ICustomSegment pCustom) {
+		internal void Build(ButtonState pButtonState, ICustomSegment pCustom) {
 			vButtonState = pButtonState;
 			vButtonState.SetCursorDistanceFunction(CalcCursorDistance);
-			vCursorBaseTx = pHoverboardTx;
 
 			////
 
@@ -44,12 +41,11 @@ namespace Hoverboard.Core.Display {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private float CalcCursorDistance(Vector3 pCursorPos) {
-			var cursorWorldPos = vCursorBaseTx.TransformPoint(pCursorPos);
-			vCursorLocalPos = vRendererObj.transform.InverseTransformPoint(cursorWorldPos);
-
-			Vector3 nearest = vRenderer.GetPointNearestToCursor(vCursorLocalPos);
-			return (nearest-vCursorLocalPos).magnitude;
+		private float CalcCursorDistance(Vector3 pCursorWorldPos) {
+			Vector3 cursorLocalPos = vRendererObj.transform.InverseTransformPoint(pCursorWorldPos);
+			Vector3 nearestLocal = vRenderer.GetPointNearestToCursor(cursorLocalPos);
+			Vector3 nearestWorld = vRendererObj.transform.TransformPoint(nearestLocal);
+			return (nearestWorld-pCursorWorldPos).magnitude;
 		}
 
 	}

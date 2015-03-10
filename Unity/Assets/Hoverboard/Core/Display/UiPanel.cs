@@ -15,7 +15,7 @@ namespace Hoverboard.Core.Display {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal void Build(PanelState pPanel, Transform pHoverboardTx, ICustomSegment pCustom) {
+		internal void Build(PanelState pPanel, ICustomSegment pCustom) {
 			vPanelState = pPanel;
 			vUiGrids = new List<UiGrid>();
 
@@ -25,13 +25,11 @@ namespace Hoverboard.Core.Display {
 				var pos = new Vector3(navGrid.ColOffset, 0, navGrid.RowOffset);
 
 				UiGrid uiGrid = navGrid.Container.AddComponent<UiGrid>();
-				uiGrid.Build(grid, pHoverboardTx, pCustom);
+				uiGrid.Build(grid, pCustom);
 				uiGrid.transform.localPosition = pos*UiButton.Size;
 
 				vUiGrids.Add(uiGrid);
 			}
-
-			gameObject.transform.localScale = Vector3.one*0.05f;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

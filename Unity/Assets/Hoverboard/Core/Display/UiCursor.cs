@@ -1,5 +1,6 @@
 ﻿using System;
 using Hoverboard.Core.Custom;
+using Hoverboard.Core.Display.Default;
 using Hoverboard.Core.State;
 using UnityEngine;
 
@@ -9,52 +10,85 @@ namespace Hoverboard.Core.Display {
 	public class UiCursor : MonoBehaviour {
 
 		private CursorState vCursorState;
-		private GameObject vRendererHold;
-		private GameObject vRendererObj;
-		private IUiCursorRenderer vRenderer;
 		private Transform vCameraTx;
-
 		private float vCurrInnerRadius;
+
+		private GameObject vCursorRendererHold;
+		private GameObject vCursorRendererObj;
+		private IUiCursorRenderer vCursorRenderer;
+
+		private GameObject vProjRendererHold;
+		private GameObject vProjRendererObj;
+		private UiProjectionRenderer vProjRenderer; //TODO: use interface
+		
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal void Build(CursorState pCursorState, ICustomCursor pCustom, 
-																		Transform pCameraTransform) {
+		internal void Build(CursorState pCursorState, ICustomCursor pCustom, Transform pCameraTx) {
 			vCursorState = pCursorState;
-			vCameraTx = pCameraTransform;
+			vCameraTx = pCameraTx;
 
 			////
 			
+			vCursorRendererHold = new GameObject("CursorRendererHold");
+			vCursorRendererHold.transform.SetParent(gameObject.transform, false);
+
+			vCursorRendererObj = new GameObject("CursorRenderer");
+			vCursorRendererObj.transform.SetParent(vCursorRendererHold.transform, false);
+
 			Type rendType = pCustom.GetCursorRenderer();
 
-			vRendererHold = new GameObject("RendererHold");
-			vRendererHold.transform.SetParent(gameObject.transform, false);
+			vCursorRenderer = (IUiCursorRenderer)vCursorRendererObj.AddComponent(rendType);
+			vCursorRenderer.Build(vCursorState, pCustom.GetCursorSettings());
 
-			vRendererObj = new GameObject("Renderer");
-			vRendererObj.transform.SetParent(vRendererHold.transform, false);
+			////
 
-			vRenderer = (IUiCursorRenderer)vRendererObj.AddComponent(rendType);
-			vRenderer.Build(vCursorState, pCustom.GetCursorSettings());
+			vProjRendererHold = new GameObject("ProjectionRendererHold");
+			vProjRendererHold.transform.SetParent(gameObject.transform, false);
+
+			vProjRendererObj = new GameObject("ProjectionRenderer");
+			vProjRendererObj.transform.SetParent(vProjRendererHold.transform, false);
+
+			vProjRenderer = vProjRendererObj.AddComponent<UiProjectionRenderer>();
+			vProjRenderer.Build(vCursorState, pCustom.GetCursorSettings());
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
 			if ( !vCursorState.IsInputAvailable ) {
-				vRendererHold.SetActive(false);
+				vCursorRendererHold.SetActive(false);
+				vProjRendererHold.SetActive(false);
 				return;
 			}
 
-			vRendererHold.SetActive(true);
+			////
 
-			Transform tx = gameObject.transform;
+			vCursorRendererHold.SetActive(true);
+
+			Transform tx = vCursorRendererHold.transform;
 			tx.localPosition = vCursorState.Position;
 			tx.localRotation = Quaternion.identity;
-			tx.localScale = Vector3.one*vCursorState.Size;
 
 			Vector3 camWorld = vCameraTx.TransformPoint(Vector3.zero);
 			Vector3 camLocal = tx.InverseTransformPoint(camWorld);
 			tx.localRotation = Quaternion.FromToRotation(Vector3.down, camLocal);
+
+			////
+
+			if ( vCursorState.ProjectedPanelPosition == null || 
+					vCursorState.ProjectedPanelProgress <= 0 ) {
+				vProjRendererHold.SetActive(false);
+				return;
+			}
+
+			Vector3 projPos = (Vector3)vCursorState.ProjectedPanelPosition;
+			Vector3 projPosToCursor = (vCursorState.Position-projPos);
+
+			vProjRendererHold.SetActive(true);
+			vProjRendererHold.transform.localPosition = projPos;
+			vProjRendererHold.transform.localRotation = 
+				Quaternion.FromToRotation(Vector3.up, projPosToCursor);
 		}
 
 	}
