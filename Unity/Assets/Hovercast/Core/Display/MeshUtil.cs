@@ -59,44 +59,6 @@ namespace Hovercast.Core.Display {
 			pMesh.Optimize();
 		}
 
-		/*--------------------------------------------------------------------------------------------* /
-		public static void BuildCircleMesh(Mesh pMesh, float pRadius, int pSteps) {
-			const float angleFull = (float)Math.PI*2;
-			float angleInc = angleFull/pSteps;
-			float angle = 0;
-
-			var verts = new List<Vector3>();
-			var uvs = new List<Vector2>();
-			var tris = new List<int>();
-
-			verts.Add(Vector3.zero);
-			uvs.Add(new Vector2(0, 0));
-
-			for ( int i = 0 ; i <= pSteps ; ++i ) {
-				int vi = verts.Count;
-				float uvx = i/(float)pSteps;
-
-				verts.Add(GetRingPoint(pRadius, angle));
-				uvs.Add(new Vector2(uvx, 1));
-
-				if ( i > 0 ) {
-					tris.Add(0);
-					tris.Add(vi);
-					tris.Add(vi-1);
-				}
-
-				angle += angleInc;
-			}
-
-			pMesh.Clear();
-			pMesh.vertices = verts.ToArray();
-			pMesh.uv = uvs.ToArray();
-			pMesh.triangles = tris.ToArray();
-			pMesh.RecalculateNormals();
-			pMesh.RecalculateBounds();
-			pMesh.Optimize();
-		}*/
-
 	}
 
 }
