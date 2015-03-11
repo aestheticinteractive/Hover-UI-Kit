@@ -100,7 +100,13 @@ namespace Hoverboard.Core.Display.Default {
 				return vTextObj.GetComponent<Text>().text;
 			}
 			set {
-				vTextObj.GetComponent<Text>().text = value;
+				Text textComp = vTextObj.GetComponent<Text>();
+
+				if ( textComp.text == value ) {
+					return;
+				}
+
+				textComp.text = value;
 			}
 		}
 
@@ -148,6 +154,22 @@ namespace Hoverboard.Core.Display.Default {
 				}
 
 				text.color = value;
+			}
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public Font FontObject {
+			get {
+				return vTextObj.GetComponent<Text>().font;
+			}
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public Texture2D Texture {
+			get {
+				return (Texture2D)vTextObj.GetComponent<Text>().mainTexture;
 			}
 		}
 
