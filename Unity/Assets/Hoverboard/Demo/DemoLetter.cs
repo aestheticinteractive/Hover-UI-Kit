@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = System.Random;
 
 namespace Hoverboard.Demo {
 
 	/*================================================================================================*/
-	public class DemoBoxes : MonoBehaviour {
+	public class DemoLetter : MonoBehaviour {
 
-		public class BoxData : MonoBehaviour {
-			public BoxData[] Surrounding;
+		public class CellData : MonoBehaviour {
+			public CellData[] Surrounding;
 			public float TargVal;
 			public float CurrVal;
 			public float Force;
@@ -20,28 +21,32 @@ namespace Hoverboard.Demo {
 		private const int Width = 24;
 		private const int Height = 24;
 
-		private readonly BoxData[,] vBoxes;
+		public Vector3 RandomAxis { get; private set; }
+
+		private readonly CellData[,] vCells;
 		private readonly Color vBoxColor;
-		private readonly Color vCharColor;
+		//private readonly Color vMomenColor;
 
 		private bool vIsAnimating;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public DemoBoxes() {
-			vBoxes = new BoxData[Width, Height];
-			vBoxColor = new Color(0.5f, 0.5f, 0.5f);
-			//vCharColor = new Color(0.1f, 0.9f, 0.2f);
-			vCharColor = new Color(0.1f, 0.5f, 0.9f);
+		public DemoLetter() {
+			vCells = new CellData[Width, Height];
+			//vBoxColor = new Color(0.1f, 0.5f, 0.9f);
+			vBoxColor = new Color(0.1f, 0.9f, 0.2f);
+
+			var rand = new Random();
+			var axis = new Vector3(rand.Next(101)-50, rand.Next(101)-50, rand.Next(101)-50);
+
+			RandomAxis = axis.normalized;
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Awake() {
-			var rand = new System.Random();
-
+		public void Init() {
 			for ( int xi = 0 ; xi < Width ; ++xi ) {
 				for ( int yi = 0 ; yi < Height ; ++yi ) {
 					var mainTex = new Texture2D(1, 1);
@@ -51,45 +56,36 @@ namespace Hoverboard.Demo {
 					GameObject boxObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
 					boxObj.transform.SetParent(gameObject.transform, false);
 					boxObj.transform.localPosition = new Vector3(xi-Width/2, 0, yi-Width/2)*1.04f;
-					boxObj.transform.localScale = new Vector3(1, 5, 1);
 					boxObj.renderer.material.color = vBoxColor;
+					boxObj.transform.localScale = Vector3.zero;
+					boxObj.SetActive(false);
 
-					vBoxes[xi, yi] = boxObj.AddComponent<BoxData>();
+					vCells[xi, yi] = boxObj.AddComponent<CellData>();
 				}
 			}
 
 			for ( int xi = 0 ; xi < Width ; ++xi ) {
 				for ( int yi = 0 ; yi < Height ; ++yi ) {
-					BoxData boxData = vBoxes[xi, yi];
-					var surround = new List<BoxData>();
+					CellData cellData = vCells[xi, yi];
+					var surround = new List<CellData>();
 
 					if ( xi-1 >= 0 ) {
-						surround.Add(vBoxes[xi-1, yi]);
+						surround.Add(vCells[xi-1, yi]);
 					}
 
 					if ( xi+1 < Width ) {
-						surround.Add(vBoxes[xi+1, yi]);
+						surround.Add(vCells[xi+1, yi]);
 					}
 
 					if ( yi-1 >= 0 ) {
-						surround.Add(vBoxes[xi, yi-1]);
+						surround.Add(vCells[xi, yi-1]);
 					}
 
 					if ( yi+1 < Height ) {
-						surround.Add(vBoxes[xi, yi+1]);
+						surround.Add(vCells[xi, yi+1]);
 					}
 
-					/*for ( int sx = Math.Max(0, xi-1) ; sx < Math.Min(Width, xi+2) ; ++sx ) {
-						for ( int sy = Math.Max(0, yi-1) ; sy < Math.Min(Height, yi+2) ; ++sy ) {
-							if ( sx == xi && sy == yi ) {
-								continue;
-							}
-
-							surround.Add(vBoxes[sx, sy]);
-						}
-					}*/
-
-					boxData.Surrounding = surround.ToArray();
+					cellData.Surrounding = surround.ToArray();
 				}
 			}
 		}
@@ -101,9 +97,8 @@ namespace Hoverboard.Demo {
 			}
 
 			bool isAnim = false;
-			//float maxMomen = 0;
 
-			foreach ( BoxData boxData in vBoxes ) {
+			foreach ( CellData boxData in vCells ) {
 				if ( boxData.Delay > 0 ) {
 					--boxData.Delay;
 					boxData.Force = 0;
@@ -112,45 +107,38 @@ namespace Hoverboard.Demo {
 				}
 
 				float valDiff = boxData.TargVal-boxData.CurrVal;
-				boxData.Force = valDiff*0.15f;
+				boxData.Force = valDiff*0.25f;
 			}
 
-			foreach ( BoxData boxData in vBoxes ) {
+			foreach ( CellData boxData in vCells ) {
 				boxData.ForceSurround = 0;
 
-				foreach ( BoxData surroundBoxData in boxData.Surrounding ) {
+				foreach ( CellData surroundBoxData in boxData.Surrounding ) {
 					boxData.ForceSurround += surroundBoxData.Force;
 				}
 
 				boxData.ForceSurround /= boxData.Surrounding.Length;
-				boxData.Momentum += boxData.Force+boxData.ForceSurround;
+				boxData.Momentum += boxData.Force + boxData.ForceSurround/2;
 
 				if ( Math.Abs(boxData.Momentum) < 0.012f ) {
 					continue;
 				}
 
-				//maxMomen = Math.Max(maxMomen, boxData.Momentum);
-
 				boxData.CurrVal += boxData.Momentum;
-				boxData.Momentum *= 0.85f;
+				boxData.Momentum *= 0.9f;
 
 				GameObject boxObj = boxData.gameObject;
-				Vector3 pos = boxObj.transform.localPosition;
-				pos.y = boxData.CurrVal*3;
-				boxObj.transform.localPosition = pos;
+				boxObj.transform.localScale = Vector3.one*boxData.CurrVal;
+				boxObj.SetActive(boxData.CurrVal > 0);
 
-				var col = vBoxColor;
+				//Color baseColor = Color.Lerp(vBoxColor, Color.black, (1-boxData.TargVal)*0.5f);
+				boxObj.renderer.material.color = vBoxColor;
+					//Color.Lerp(baseColor, Color.black, Math.Abs(boxData.Momentum*4)*0.5f);
 
-				if ( boxData.CurrVal > 0 ) {
-					col = Color.Lerp(col, vCharColor, Mathf.Clamp(boxData.CurrVal, 0, 1));
-				}
-
-				boxObj.renderer.material.color = col;
 				isAnim = true;
 			}
 
 			vIsAnimating = isAnim;
-			//Debug.Log(maxMomen);
 		}
 
 
@@ -162,16 +150,16 @@ namespace Hoverboard.Demo {
 
 			for ( int xi = 0 ; xi < Width ; ++xi ) {
 				for ( int yi = 0 ; yi < Height ; ++yi ) {
-					BoxData boxData = vBoxes[xi, yi];
+					CellData cellData = vCells[xi, yi];
+					cellData.gameObject.transform.localScale = Vector3.zero;
 
 					if ( xi < x || xi >= x+pWidth || yi < y || yi >= y+pHeight ) {
-						boxData.TargVal = 0;
-						boxData.Delay = 0;
+						cellData.TargVal = 0;
+						cellData.Delay = 0;
 					}
 					else {
-						float val = pValues[xi-x, pHeight-(yi-y)-1];
-						boxData.TargVal = Math.Min(1, val*1.1f);
-						boxData.Delay = yi-y;
+						cellData.TargVal = pValues[xi-x, pHeight-(yi-y)-1];
+						cellData.Delay = (yi-y)*2 + (xi-x);
 					}
 				}
 			}
