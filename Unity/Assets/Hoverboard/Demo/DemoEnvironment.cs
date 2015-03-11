@@ -10,14 +10,9 @@ namespace Hoverboard.Demo {
 
 		private System.Random vRandom;
 		private Light vLight;
+		private Light vLight2;
 		private DemoTextPixels vPixels;
 		private DemoBoxes vBoxes;
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public DemoEnvironment() {
-		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -35,13 +30,25 @@ namespace Hoverboard.Demo {
 
 			var lightObj = new GameObject("Light");
 			lightObj.transform.SetParent(gameObject.transform, false);
-			lightObj.transform.localPosition = new Vector3(0, 1.6f, 1.75f);
+			lightObj.transform.localPosition = new Vector3(0, 2, 2);
 
 			vLight = lightObj.AddComponent<Light>();
 			vLight.type = LightType.Point;
 			vLight.range = 4;
 			vLight.intensity = 1;
 			vLight.shadows = LightShadows.Hard;
+
+			////
+
+			lightObj = new GameObject("Light2");
+			lightObj.transform.SetParent(gameObject.transform, false);
+			lightObj.transform.localPosition = new Vector3(2, 2, 0);
+
+			vLight2 = lightObj.AddComponent<Light>();
+			vLight2.type = LightType.Point;
+			vLight2.range = 7;
+			vLight2.intensity = 1;
+			vLight2.shadows = LightShadows.Hard;
 
 			////
 
@@ -58,10 +65,10 @@ namespace Hoverboard.Demo {
 
 			var boxesObj = new GameObject("Boxes");
 			boxesObj.transform.SetParent(gameObject.transform, false);
-			boxesObj.transform.localPosition = new Vector3(0, 1.2f, 2.5f);
+			boxesObj.transform.localPosition = new Vector3(0, 0, 3.5f);
 			boxesObj.transform.localRotation = 
-				Quaternion.FromToRotation(Vector3.up, new Vector3(0, 1, -1).normalized);
-			boxesObj.transform.localScale = Vector3.one*0.1f;
+				Quaternion.FromToRotation(Vector3.up, new Vector3(0, 1, -1.5f).normalized);
+			boxesObj.transform.localScale = Vector3.one*0.2f;
 
 			vBoxes = boxesObj.AddComponent<DemoBoxes>();
 
