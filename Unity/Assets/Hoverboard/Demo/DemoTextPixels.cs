@@ -61,7 +61,22 @@ namespace Hoverboard.Demo {
 				//data += "\n";
 			}
 
-			//Debug.Log(x+" / "+y+" / "+w+" / "+h+"\n"+data);
+			if ( charInfo.flipped ) {
+				float[,] oldPixels = pixels;
+				
+				pixels = new float[h, w];
+
+				for ( int hi = 0 ; hi < h ; ++hi ) {
+					for ( int wi = 0 ; wi < w ; ++wi ) {
+						pixels[hi, w-wi-1] = oldPixels[wi, hi];
+					}
+				}
+
+				int old = h;
+				h = w;
+				w = old;
+			}
+
 			pWidth = w;
 			pHeight = h;
 			return pixels;
