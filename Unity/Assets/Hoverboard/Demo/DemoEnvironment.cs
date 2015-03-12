@@ -10,6 +10,7 @@ namespace Hoverboard.Demo {
 
 		public int RandomSeed = 0;
 		public Transform CameraTransform;
+		public float LightRange = 16;
 
 		private readonly IList<DemoLetter> vLetters;
 		private readonly IList<DemoLetter> vLetterCache;
@@ -48,21 +49,8 @@ namespace Hoverboard.Demo {
 
 			vLight = lightObj.AddComponent<Light>();
 			vLight.type = LightType.Point;
-			vLight.range = 10;
+			vLight.range = LightRange;
 			vLight.intensity = 1;
-			//vLight.shadows = LightShadows.Hard;
-
-			////
-
-			/*lightObj = new GameObject("Light2");
-			lightObj.transform.SetParent(gameObject.transform, false);
-			lightObj.transform.localPosition = new Vector3(2, 2, 0);
-
-			vLight2 = lightObj.AddComponent<Light>();
-			vLight2.type = LightType.Point;
-			vLight2.range = 7;
-			vLight2.intensity = 1;
-			vLight2.shadows = LightShadows.Hard;*/
 
 			////
 
@@ -85,18 +73,18 @@ namespace Hoverboard.Demo {
 
 			vBoxes = boxesObj.AddComponent<DemoBoxes>();*/
 
-			for ( int i = 0 ; i < 10 ; ++i ) {
+			for ( int i = 0 ; i < 6 ; ++i ) {
 				var lettHoldObj = new GameObject("LetterHold"+i);
 				lettHoldObj.transform.SetParent(gameObject.transform, false);
 
 				var lettObj = new GameObject("Letter");
 				lettObj.transform.SetParent(lettHoldObj.transform, false);
 				lettObj.transform.localScale = Vector3.one*0.25f;
-				lettObj.SetActive(false);
 
 				var lett = lettObj.AddComponent<DemoLetter>();
-				lett.Init();
 				vLetterCache.Add(lett);
+
+				lettObj.SetActive(false);
 			}
 
 			////
@@ -126,9 +114,9 @@ namespace Hoverboard.Demo {
 			foreach ( DemoLetter lett in vLetters ) {
 				Transform tx = lett.gameObject.transform;
 				tx.localPosition += new Vector3(0, 0, 0.03f);
-				tx.localRotation *= Quaternion.AngleAxis(0.2f, lett.RandomAxis);
+				tx.localRotation *= Quaternion.AngleAxis(0.12f, lett.RandomAxis);
 
-				if ( tx.localPosition.z > 10f ) {
+				if ( tx.localPosition.z > LightRange ) {
 					removeFirst = true;
 				}
 			}

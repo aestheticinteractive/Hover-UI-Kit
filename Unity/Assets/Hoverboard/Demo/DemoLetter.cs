@@ -18,14 +18,13 @@ namespace Hoverboard.Demo {
 			public int Delay;
 		}
 
-		private const int Width = 24;
-		private const int Height = 24;
+		private const int Width = 16;
+		private const int Height = 16;
 
 		public Vector3 RandomAxis { get; private set; }
 
 		private readonly CellData[,] vCells;
 		private readonly Color vBoxColor;
-		//private readonly Color vMomenColor;
 
 		private bool vIsAnimating;
 
@@ -46,18 +45,15 @@ namespace Hoverboard.Demo {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Init() {
+		public void Awake() {
 			for ( int xi = 0 ; xi < Width ; ++xi ) {
 				for ( int yi = 0 ; yi < Height ; ++yi ) {
-					var mainTex = new Texture2D(1, 1);
-					mainTex.SetPixel(0, 0, Color.red);
-					mainTex.Apply();
-
 					GameObject boxObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
-					boxObj.transform.SetParent(gameObject.transform, false);
-					boxObj.transform.localPosition = new Vector3(xi-Width/2, 0, yi-Width/2)*1.04f;
-					boxObj.renderer.material.color = vBoxColor;
-					boxObj.transform.localScale = Vector3.zero;
+					Transform boxTx = boxObj.transform;
+					boxTx.SetParent(gameObject.transform, false);
+					boxTx.localPosition = new Vector3(xi-Width/2, 0, yi-Width/2)*1.04f;
+					boxTx.localScale = Vector3.zero;
+					boxObj.renderer.sharedMaterial.color = vBoxColor;
 					boxObj.SetActive(false);
 
 					vCells[xi, yi] = boxObj.AddComponent<CellData>();
@@ -107,7 +103,7 @@ namespace Hoverboard.Demo {
 				}
 
 				float valDiff = boxData.TargVal-boxData.CurrVal;
-				boxData.Force = valDiff*0.25f;
+				boxData.Force = valDiff*0.15f;
 			}
 
 			foreach ( CellData boxData in vCells ) {
@@ -131,10 +127,6 @@ namespace Hoverboard.Demo {
 				boxObj.transform.localScale = Vector3.one*boxData.CurrVal;
 				boxObj.SetActive(boxData.CurrVal > 0);
 
-				//Color baseColor = Color.Lerp(vBoxColor, Color.black, (1-boxData.TargVal)*0.5f);
-				boxObj.renderer.material.color = vBoxColor;
-					//Color.Lerp(baseColor, Color.black, Math.Abs(boxData.Momentum*4)*0.5f);
-
 				isAnim = true;
 			}
 
@@ -145,20 +137,23 @@ namespace Hoverboard.Demo {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void SetPixels(float[,] pValues, int pWidth, int pHeight) {
-			int x = (Width-pWidth)/2 + 1;
+			int x = (Width-pWidth)/2;
 			int y = (Height-pHeight)/2;
 
 			for ( int xi = 0 ; xi < Width ; ++xi ) {
 				for ( int yi = 0 ; yi < Height ; ++yi ) {
 					CellData cellData = vCells[xi, yi];
 					cellData.gameObject.transform.localScale = Vector3.zero;
+					cellData.CurrVal = 0;
+					cellData.Momentum = 0;
 
 					if ( xi < x || xi >= x+pWidth || yi < y || yi >= y+pHeight ) {
 						cellData.TargVal = 0;
 						cellData.Delay = 0;
 					}
 					else {
-						cellData.TargVal = pValues[xi-x, pHeight-(yi-y)-1];
+						float val = pValues[xi-x, pHeight-(yi-y)-1];
+						cellData.TargVal = Math.Min(1, val*1.1f);
 						cellData.Delay = (yi-y)*2 + (xi-x);
 					}
 				}
