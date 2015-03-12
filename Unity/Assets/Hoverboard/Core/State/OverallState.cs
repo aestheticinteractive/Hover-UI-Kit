@@ -122,9 +122,11 @@ namespace Hoverboard.Core.State {
 
 			if ( nearestTree.Panel == null || nearestTree.Button.MaxHighlightProgress <= 0 ) {
 				pCursor.SetNearestPanelTransform(null);
+				pCursor.NearestButtonHighlightProgress = 0;
 			}
 			else {
 				pCursor.SetNearestPanelTransform(nearestTree.Panel.NavPanel.Container.transform);
+				pCursor.NearestButtonHighlightProgress = nearestTree.Button.GetHighlightProgress(pType);
 			}
 		}
 

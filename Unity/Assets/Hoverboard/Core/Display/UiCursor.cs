@@ -84,8 +84,6 @@ namespace Hoverboard.Core.Display {
 			Vector3 projPos = (Vector3)vCursorState.ProjectedPanelPosition;
 			Vector3 projPosToCursor = (vCursorState.Position-projPos);
 
-			vProjRenderer.IsBehind = (projPosToCursor.y > 0);
-
 			vProjRendererHold.SetActive(true);
 			vProjRendererHold.transform.localPosition = projPos;
 			vProjRendererHold.transform.localRotation = 

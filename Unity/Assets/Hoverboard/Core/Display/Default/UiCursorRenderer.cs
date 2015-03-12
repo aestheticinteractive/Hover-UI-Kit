@@ -33,14 +33,11 @@ namespace Hoverboard.Core.Display.Default {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			ButtonState nearSeg = null; //vPanelState.NearestSegment;
-			float highProg = (nearSeg == null ? 0 : nearSeg.MaxHighlightProgress);
+			float highProg = vCursorState.NearestButtonHighlightProgress;
 			bool high = (highProg >= 1);
 			float thick = Mathf.Lerp(vSettings.ThickNorm, vSettings.ThickHigh, highProg);
 			float scale = Mathf.Lerp(vSettings.RadiusNorm, vSettings.RadiusHigh, highProg);
-
 			Color col = (high ? vSettings.ColorHigh : vSettings.ColorNorm);
-			//col.a *= UiSelectRenderer.GetArcAlpha(vPanelState);
 
 			BuildMesh(thick);
 			vRingObj.transform.localScale = Vector3.one*scale*vCursorState.Size;

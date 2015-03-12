@@ -51,6 +51,11 @@ namespace Hoverboard.Core.State {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
+		public float GetHighlightProgress(CursorType pCursorType) {
+			return vHighlightProgressMap[pCursorType];
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
 		public float MinHighlightDistance {
 			get {
 				return vHighlightDistanceMap.Min(x => x.Value);

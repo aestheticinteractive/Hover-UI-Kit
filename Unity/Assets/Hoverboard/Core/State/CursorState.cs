@@ -13,8 +13,10 @@ namespace Hoverboard.Core.State {
 		public float Size { get; private set; }
 
 		public Vector3? ProjectedPanelPosition { get; private set; }
+		public bool ProjectedFromFront { get; private set; }
 		public float ProjectedPanelDistance { get; private set; }
 		public float ProjectedPanelProgress { get; private set; }
+		public float NearestButtonHighlightProgress { get; set; }
 
 		private readonly InteractionSettings vSettings;
 		private readonly Transform vBaseTx;
@@ -73,6 +75,7 @@ namespace Hoverboard.Core.State {
 			Vector3 projPos = vBaseTx.InverseTransformPoint(projWorldPos);
 
 			ProjectedPanelPosition = projPos;
+			ProjectedFromFront = (dist > 0);
 			ProjectedPanelDistance = (projPos-Position).magnitude;
 			ProjectedPanelProgress = Mathf.InverseLerp(vSettings.HighlightDistanceMax,
 				vSettings.HighlightDistanceMin, (projWorldPos-worldPos).magnitude);
