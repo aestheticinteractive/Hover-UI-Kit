@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = System.Random;
 
 namespace Hoverboard.Demo {
 
@@ -21,7 +20,7 @@ namespace Hoverboard.Demo {
 		private const int Width = 16;
 		private const int Height = 16;
 
-		public Vector3 RandomAxis { get; private set; }
+		public Vector3 RandomAxis { get; set; }
 
 		private readonly CellData[,] vCells;
 		private readonly Color vBoxColor;
@@ -33,13 +32,9 @@ namespace Hoverboard.Demo {
 		/*--------------------------------------------------------------------------------------------*/
 		public DemoLetter() {
 			vCells = new CellData[Width, Height];
-			//vBoxColor = new Color(0.1f, 0.5f, 0.9f);
-			vBoxColor = new Color(0.1f, 0.9f, 0.2f);
-
-			var rand = new Random();
-			var axis = new Vector3(rand.Next(101)-50, rand.Next(101)-50, rand.Next(101)-50);
-
-			RandomAxis = axis.normalized;
+			//vBoxColor = new Color(0.1f, 0.5f, 0.9f)*0.666f;
+			vBoxColor = new Color(0.1f, 0.9f, 0.2f)*0.5f;
+			//vBoxColor = Color.white;
 		}
 
 
@@ -51,7 +46,7 @@ namespace Hoverboard.Demo {
 					GameObject boxObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
 					Transform boxTx = boxObj.transform;
 					boxTx.SetParent(gameObject.transform, false);
-					boxTx.localPosition = new Vector3(xi-Width/2, 0, yi-Width/2)*1.04f;
+					boxTx.localPosition = new Vector3(xi-Width/2, 0, yi-Width/2)*1.1f;
 					boxTx.localScale = Vector3.zero;
 					boxObj.renderer.sharedMaterial.color = vBoxColor;
 					boxObj.SetActive(false);
@@ -103,7 +98,7 @@ namespace Hoverboard.Demo {
 				}
 
 				float valDiff = boxData.TargVal-boxData.CurrVal;
-				boxData.Force = valDiff*0.15f;
+				boxData.Force = valDiff*0.01f;
 			}
 
 			foreach ( CellData boxData in vCells ) {
@@ -121,7 +116,7 @@ namespace Hoverboard.Demo {
 				}
 
 				boxData.CurrVal += boxData.Momentum;
-				boxData.Momentum *= 0.9f;
+				boxData.Momentum *= 0.98f;
 
 				GameObject boxObj = boxData.gameObject;
 				boxObj.transform.localScale = Vector3.one*boxData.CurrVal;

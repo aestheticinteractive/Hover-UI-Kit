@@ -14,6 +14,7 @@ namespace Hoverboard.Demo {
 
 		private readonly IList<DemoLetter> vLetters;
 		private readonly IList<DemoLetter> vLetterCache;
+		private readonly IList<DemoRing> vRings;
 
 		private System.Random vRandom;
 		private Light vLight;
@@ -27,6 +28,7 @@ namespace Hoverboard.Demo {
 		public DemoEnvironment() {
 			vLetters = new List<DemoLetter>();
 			vLetterCache = new List<DemoLetter>();
+			vRings = new List<DemoRing>();
 		}
 
 
@@ -79,12 +81,26 @@ namespace Hoverboard.Demo {
 
 				var lettObj = new GameObject("Letter");
 				lettObj.transform.SetParent(lettHoldObj.transform, false);
-				lettObj.transform.localScale = Vector3.one*0.25f;
+				lettObj.transform.localScale = Vector3.one*0.3f;
 
 				var lett = lettObj.AddComponent<DemoLetter>();
+				lett.RandomAxis = Random.onUnitSphere;
 				vLetterCache.Add(lett);
 
 				lettObj.SetActive(false);
+			}
+
+			////
+
+			for ( int i = 0 ; i < 40 ; ++i ) {
+				var ringObj = new GameObject("Ring"+i);
+				ringObj.transform.SetParent(gameObject.transform, false);
+				ringObj.transform.localPosition = Random.onUnitSphere*2;
+				ringObj.transform.localRotation = Random.rotation;
+
+				DemoRing ring = ringObj.AddComponent<DemoRing>();
+				ring.Radius = (float)vRandom.NextDouble()*(LightRange*0.4f)+3;
+				vRings.Add(ring);
 			}
 
 			////
@@ -145,7 +161,7 @@ namespace Hoverboard.Demo {
 			}
 
 			GameObject lettObj = lett.gameObject;
-			lettObj.transform.localPosition = new Vector3(0, 0, 1.5f);
+			lettObj.transform.localPosition = new Vector3(0, 0, 0);
 			lettObj.transform.localRotation = Quaternion.FromToRotation(Vector3.up, Vector3.back);
 			lettObj.SetActive(true);
 
