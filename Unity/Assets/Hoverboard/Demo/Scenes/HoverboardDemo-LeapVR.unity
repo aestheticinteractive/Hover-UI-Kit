@@ -1430,8 +1430,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 642187900}
   - 114: {fileID: 642187901}
+  - 114: {fileID: 642187902}
   m_Layer: 0
-  m_Name: A
+  m_Name: FastSelect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1463,7 +1464,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 3
   Id: 
-  Label: A
+  Label: Fast Select
   RelativeSize: 1
   IsVisible: 1
   IsEnabled: 1
@@ -1476,6 +1477,17 @@ MonoBehaviour:
   SliderRangeMax: 1
   SliderValue: 0
   SliderAllowJump: 1
+--- !u!114 &642187902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 642187899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 740ae0debce38e2489709f46b9d44566, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &642609553
 GameObject:
   m_ObjectHideFlags: 0
@@ -3046,6 +3058,14 @@ Prefab:
     - target: {fileID: 400006, guid: 50382e62d3c4bfd44b2b6b0dea70d0f6, type: 2}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 50382e62d3c4bfd44b2b6b0dea70d0f6, type: 2}
+      propertyPath: m_Name
+      value: FastSelect
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400008, guid: 50382e62d3c4bfd44b2b6b0dea70d0f6, type: 2}
+      propertyPath: Label
+      value: Fast Select
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400012, guid: 50382e62d3c4bfd44b2b6b0dea70d0f6, type: 2}
