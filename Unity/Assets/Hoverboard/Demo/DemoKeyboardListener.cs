@@ -37,6 +37,10 @@ namespace Hoverboard.Demo {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleItemSelected(NavItem pNavItem) {
+			if ( pNavItem.Label == "^" ) {
+				return;
+			}
+			
 			if ( pNavItem.Label.Length == 1 ) {
 				vEnviro.AddLetter(pNavItem.Label[0]);
 				vTextField.AddLetter(pNavItem.Label[0]);
@@ -46,6 +50,10 @@ namespace Hoverboard.Demo {
 			if ( pNavItem.Label == "Back" ) {
 				vEnviro.RemoveLatestLetter();
 				vTextField.RemoveLatestLetter();
+			}
+
+			if ( pNavItem.Label == "Enter" ) {
+				vTextField.ClearLetters();
 			}
 		}
 

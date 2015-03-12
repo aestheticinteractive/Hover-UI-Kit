@@ -48,6 +48,11 @@ namespace Hoverboard.Demo {
 			vTextEntry.Label = text.Substring(0, text.Length-1);
 		}
 
+		/*--------------------------------------------------------------------------------------------*/
+		public void ClearLetters() {
+			vTextEntry.Label = "";
+		}
+
 	}
 
 }
