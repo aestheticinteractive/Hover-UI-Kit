@@ -537,6 +537,48 @@ MonoBehaviour:
   Width: 1
   IsVisible: 1
   IsEnabled: 1
+--- !u!1 &346114976
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 346114977}
+  - 114: {fileID: 346114978}
+  m_Layer: 0
+  m_Name: CursorSecondaryRight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &346114977
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 346114976}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .119999997, y: -.0599999987, z: .370000005}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 768281873}
+  m_RootOrder: 2
+--- !u!114 &346114978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 346114976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 507e889f3c3fc6643af3bf98ed0a9cb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TestCursorType: 3
+  TestIsAvailable: 1
+  TestSize: .100000001
 --- !u!1 &357448070
 GameObject:
   m_ObjectHideFlags: 0
@@ -1183,6 +1225,7 @@ Transform:
   m_Children:
   - {fileID: 381748352}
   - {fileID: 1154188442}
+  - {fileID: 346114977}
   m_Father: {fileID: 0}
   m_RootOrder: 4
 --- !u!1 &936412458

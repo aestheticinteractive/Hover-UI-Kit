@@ -1,4 +1,5 @@
-﻿using Hoverboard.Core.Navigation;
+﻿using Hoverboard.Core.Input;
+using Hoverboard.Core.Navigation;
 
 namespace Hoverboard.Core.State {
 
@@ -10,6 +11,11 @@ namespace Hoverboard.Core.State {
 		float MaxHighlightProgress { get; }
 		bool IsNearestHighlight { get; }
 		bool IsSelectionPrevented { get; }
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		float GetHighlightDistance(CursorType pCursorType);
 
 	}
 

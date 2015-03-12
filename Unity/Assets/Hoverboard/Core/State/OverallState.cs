@@ -90,6 +90,7 @@ namespace Hoverboard.Core.State {
 			bool allowSelect = (pCursor.IsInputAvailable); //TODO: && NavGrid.IsVisible);
 			Vector3? cursorWorldPos = (allowSelect ? pCursor.GetWorldPosition() : (Vector3?)null);
 			ButtonTree nearestTree = new ButtonTree();
+			float nearestDist = float.MaxValue;
 
 			foreach ( ButtonTree buttonTree in vAllButtons ) {
 				ButtonState button = buttonTree.Button;
@@ -104,8 +105,11 @@ namespace Hoverboard.Core.State {
 					continue;
 				}
 
-				if ( button.GetHighlightDistance(pType) < nearestTree.Button.MinHighlightDistance ) {
+				float buttonDist = button.GetHighlightDistance(pType);
+
+				if ( buttonDist < nearestDist ) {
 					nearestTree = buttonTree;
+					nearestDist = buttonDist;
 				}
 			}
 
