@@ -1,16 +1,22 @@
-﻿using Hovercast.Core.Navigation;
+﻿using Hoverboard.Devices.Leap;
+using Hovercast.Core.Navigation;
 
 namespace Hoverboard.Demo.Navigation {
 
 	/*================================================================================================*/
 	public class DemoAllowThumbListener : DemoBaseListener<NavItemCheckbox> {
 
+		private HoverboardLeapInputProvider vLeapInputProv;
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected override void Setup() {
 			base.Setup();
-			Item.IsEnabled = (LeapInputProv != null);
+
+			vLeapInputProv = (HoverboardSetup.InputProvider as HoverboardLeapInputProvider);
+
+			Item.IsEnabled = (vLeapInputProv != null);
 			Item.OnValueChanged += HandleValueChanged;
 		}
 
@@ -23,11 +29,12 @@ namespace Hoverboard.Demo.Navigation {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleValueChanged(NavItem<bool> pNavItem) {
-			if ( LeapInputProv != null ) {
-				LeapInputProv.UseSecondary = pNavItem.Value;
+			if ( vLeapInputProv == null ) {
+				return;
 			}
-		}
 
+			vLeapInputProv.UseSecondary = pNavItem.Value;
+		}
 	}
 
 }

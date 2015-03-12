@@ -1085,7 +1085,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1650933238}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!114 &749595412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1179,8 +1179,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 863718398}
   - 114: {fileID: 863718397}
+  - 114: {fileID: 1650933241}
   m_Layer: 0
-  m_Name: A
+  m_Name: SplitMode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1200,12 +1201,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 3
   Id: 
-  Label: A
+  Label: Split Mode
   RelativeSize: 1
   IsVisible: 1
   IsEnabled: 1
   NavigateBackUponSelect: 0
-  CheckboxValue: 0
+  CheckboxValue: 1
   RadioValue: 0
   SliderTicks: 0
   SliderSnaps: 0
@@ -1224,7 +1225,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1650933238}
-  m_RootOrder: 2
+  m_RootOrder: 0
 --- !u!1 &936412458
 GameObject:
   m_ObjectHideFlags: 0
@@ -1546,8 +1547,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 1172339962}
   - 114: {fileID: 1172339963}
+  - 114: {fileID: 1172339964}
   m_Layer: 0
-  m_Name: A
+  m_Name: FastSelect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1564,7 +1566,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1650933238}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!114 &1172339963
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1579,7 +1581,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 3
   Id: 
-  Label: A
+  Label: Fast Select
   RelativeSize: 1
   IsVisible: 1
   IsEnabled: 1
@@ -1592,6 +1594,18 @@ MonoBehaviour:
   SliderRangeMax: 1
   SliderValue: 0
   SliderAllowJump: 1
+--- !u!114 &1172339964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400014, guid: 50382e62d3c4bfd44b2b6b0dea70d0f6,
+    type: 2}
+  m_PrefabInternal: {fileID: 1293665247}
+  m_GameObject: {fileID: 1172339961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 740ae0debce38e2489709f46b9d44566, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1173603973
 GameObject:
   m_ObjectHideFlags: 0
@@ -2407,7 +2421,7 @@ GameObject:
   - 4: {fileID: 1650933238}
   - 114: {fileID: 1650933240}
   - 114: {fileID: 1650933239}
-  - 114: {fileID: 1650933241}
+  - 114: {fileID: 1650933242}
   m_Layer: 0
   m_Name: HovercastMenu
   m_TagString: Untagged
@@ -2425,9 +2439,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 863718398}
   - {fileID: 749595411}
   - {fileID: 1172339962}
-  - {fileID: 863718398}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!114 &1650933239
@@ -2459,6 +2473,18 @@ MonoBehaviour:
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 11400012, guid: 50382e62d3c4bfd44b2b6b0dea70d0f6,
+    type: 2}
+  m_PrefabInternal: {fileID: 1293665247}
+  m_GameObject: {fileID: 863718396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a436c4a8c7938ea4ba1f7025fce9e805, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1650933242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400016, guid: 50382e62d3c4bfd44b2b6b0dea70d0f6,
     type: 2}
   m_PrefabInternal: {fileID: 1293665247}
   m_GameObject: {fileID: 1650933237}
