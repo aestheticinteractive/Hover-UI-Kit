@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Hoverboard.Core.Custom;
 using UnityEngine;
 
 namespace Hoverboard.Demo {
@@ -33,7 +34,7 @@ namespace Hoverboard.Demo {
 		public DemoLetter() {
 			vCells = new CellData[Width, Height];
 			//vBoxColor = new Color(0.1f, 0.5f, 0.9f)*0.666f;
-			vBoxColor = new Color(0.1f, 0.9f, 0.2f)*0.5f;
+			vBoxColor = HoverboardDefaultButton.Green*0.5f;
 			//vBoxColor = Color.white;
 		}
 

@@ -8,15 +8,17 @@ namespace Hoverboard.Core.Custom {
 	/*================================================================================================*/
 	public class HoverboardDefaultButton : HoverboardCustomButton {
 
-		public int TextSize = 30;
+		public static Color Green = new Color(0.1f, 0.9f, 0.2f);
+
+		public int TextSize = 36;
 		public Color TextColor = new Color(1, 1, 1);
 		public string TextFont = "Tahoma";
 		public Color ArrowIconColor = new Color(1, 1, 1);
 		public Color ToggleIconColor = new Color(1, 1, 1);
-		public Color BackgroundColor = new Color(0.1f, 0.1f, 0.1f, 0.5f);
+		public Color BackgroundColor = new Color(0.1f, 0.1f, 0.1f, 0.666f);
 		public Color EdgeColor = new Color(1, 1, 1, 1);
 		public Color HighlightColor = new Color(0.1f, 0.5f, 0.9f);
-		public Color SelectionColor = new Color(0.1f, 0.9f, 0.2f);
+		public Color SelectionColor = Green;
 
 		private ButtonSettings vSettings;
 

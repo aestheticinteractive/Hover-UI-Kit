@@ -1,4 +1,5 @@
-﻿using Hoverboard.Core.Display.Default;
+﻿using Hoverboard.Core.Custom;
+using Hoverboard.Core.Display.Default;
 using UnityEngine;
 
 namespace Hoverboard.Demo {
@@ -7,6 +8,7 @@ namespace Hoverboard.Demo {
 	public class DemoTextField : MonoBehaviour {
 
 		private UiLabel vTextEntry;
+		private string vText;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -21,36 +23,50 @@ namespace Hoverboard.Demo {
 			lblBgObj.transform.SetParent(lblObj.transform, false);
 			lblBgObj.transform.localPosition = new Vector3(0, 0, 0.01f);
 			lblBgObj.transform.localRotation = Quaternion.FromToRotation(Vector3.up, Vector3.back);
-			lblBgObj.transform.localScale = new Vector3(10, 1, 1);
+			lblBgObj.transform.localScale = new Vector3(6, 1, 1);
 			lblBgObj.renderer.material = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
-			lblBgObj.renderer.material.color = new Color(0.1f, 0.1f, 0.1f, 0.5f);
+			lblBgObj.renderer.material.color = new Color(0.1f, 0.1f, 0.1f, 0.666f);
 			lblBgObj.renderer.material.renderQueue -= 300;
 
+			Color green = HoverboardDefaultButton.Green;
+			green.a *= 0.5f;
+
 			vTextEntry = lblObj.AddComponent<UiLabel>();
-			vTextEntry.SetSize(10, 1);
+			vTextEntry.SetSize(6, 1);
 			vTextEntry.FontName = "Tahoma";
-			vTextEntry.FontSize = 50;
-			vTextEntry.Color = new Color(1, 1, 1, 0.5f);
+			vTextEntry.FontSize = 60;
+			vTextEntry.Color = green;
 			vTextEntry.Alpha = 1;
 			vTextEntry.Label = "";
+
+			ClearLetters();
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void AddLetter(char pLetter) {
-			vTextEntry.Label += pLetter;
+			vText += pLetter;
+			UpdateLabel();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void RemoveLatestLetter() {
-			string text = vTextEntry.Label;
-			vTextEntry.Label = text.Substring(0, text.Length-1);
+			vText = vText.Substring(0, vText.Length-1);
+			UpdateLabel();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void ClearLetters() {
-			vTextEntry.Label = "";
+			vText = "";
+			UpdateLabel();
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public void UpdateLabel() {
+			vTextEntry.Label = vText+"|";
 		}
 
 	}
