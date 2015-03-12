@@ -9,6 +9,8 @@ namespace Hoverboard.Core.Display.Default {
 	/*================================================================================================*/
 	public class UiProjectionRenderer : MonoBehaviour, IUiCursorRenderer {
 
+		public bool IsBehind { get; set; }
+
 		private CursorState vCursorState;
 		private CursorSettings vSettings;
 		private GameObject vDotObj;
@@ -52,12 +54,15 @@ namespace Hoverboard.Core.Display.Default {
 			float prog = vCursorState.ProjectedPanelProgress;
 			float barThick = 0.01f*vCursorState.Size;
 			float dotSize = (1-prog)*60 + 5;
+			Vector3 dotScale = Vector3.one*barThick*dotSize;
+
+			dotScale.y *= (IsBehind ? -1 : 1);
 
 			Color col = vSettings.ColorNorm;
 			col.a *= (float)Math.Pow(prog, 2);
 
 			vDotObj.renderer.sharedMaterial.color = col;
-			vDotObj.transform.localScale = Vector3.one*barThick*dotSize;
+			vDotObj.transform.localScale = dotScale;
 
 			vBarObj.renderer.sharedMaterial.color = col;
 			vBarObj.transform.localScale = new Vector3(barThick, dist, barThick);

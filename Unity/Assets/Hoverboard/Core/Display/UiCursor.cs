@@ -22,7 +22,6 @@ namespace Hoverboard.Core.Display {
 		private UiProjectionRenderer vProjRenderer; //TODO: use interface
 		
 
-
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		internal void Build(CursorState pCursorState, ICustomCursor pCustom, Transform pCameraTx) {
@@ -84,6 +83,8 @@ namespace Hoverboard.Core.Display {
 
 			Vector3 projPos = (Vector3)vCursorState.ProjectedPanelPosition;
 			Vector3 projPosToCursor = (vCursorState.Position-projPos);
+
+			vProjRenderer.IsBehind = (projPosToCursor.y > 0);
 
 			vProjRendererHold.SetActive(true);
 			vProjRendererHold.transform.localPosition = projPos;
