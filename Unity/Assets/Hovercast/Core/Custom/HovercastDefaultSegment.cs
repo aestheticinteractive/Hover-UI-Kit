@@ -13,7 +13,7 @@ namespace Hovercast.Core.Custom {
 		public string TextFont = "Tahoma";
 		public Color ArrowIconColor = new Color(1, 1, 1);
 		public Color ToggleIconColor = new Color(1, 1, 1);
-		public Color BackgroundColor = new Color(0.1f, 0.1f, 0.1f, 0.5f);
+		public Color BackgroundColor = new Color(0.1f, 0.1f, 0.1f, 0.666f);
 		public Color EdgeColor = new Color(1, 1, 1, 0.5f);
 		public Color HighlightColor = new Color(0.1f, 0.5f, 0.9f);
 		public Color SelectionColor = new Color(0.1f, 0.9f, 0.2f);

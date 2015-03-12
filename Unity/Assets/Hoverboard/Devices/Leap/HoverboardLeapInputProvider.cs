@@ -11,7 +11,7 @@ namespace Hoverboard.Devices.Leap {
 
 		public Finger.FingerType CursorPrimaryFinger = Finger.FingerType.TYPE_INDEX;
 		public Finger.FingerType CursorSecondaryFinger = Finger.FingerType.TYPE_THUMB;
-		public bool UseSecondary = false;
+		public bool UseSecondary;
 
 		private HandController vHandControl;
 		protected LeapInputSettings vSettings;
@@ -56,6 +56,11 @@ namespace Hoverboard.Devices.Leap {
 			Hand leapHandL = GetLeapHand(true);
 			Hand leapHandR = GetLeapHand(false);
 
+			if ( !IsEnabled ) {
+				leapHandL = null;
+				leapHandR = null;
+			}
+
 			vCursorMap[CursorType.PrimaryLeft].Rebuild(leapHandL);
 			vCursorMap[CursorType.PrimaryRight].Rebuild(leapHandR);
 
@@ -74,6 +79,7 @@ namespace Hoverboard.Devices.Leap {
 		protected virtual void UpdateSettings() {
 			vSettings.CursorPrimaryFinger = CursorPrimaryFinger;
 			vSettings.CursorSecondaryFinger = CursorSecondaryFinger;
+			vSettings.UseSecondary = UseSecondary;
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/

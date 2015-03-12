@@ -12,7 +12,7 @@ namespace Hovercast.Core.Custom {
 		public int TextSize = 30;
 		public Color TextColor = new Color(1, 1, 1);
 		public string TextFont = "Tahoma";
-		public Color BackgroundColor = new Color(0.1f, 0.1f, 0.1f, 0.5f);
+		public Color BackgroundColor = new Color(0.1f, 0.1f, 0.1f, 0.666f);
 
 		private SegmentSettings vSettings;
 

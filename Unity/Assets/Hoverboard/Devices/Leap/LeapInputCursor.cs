@@ -10,6 +10,7 @@ namespace Hoverboard.Devices.Leap {
 
 		public CursorType Type { get; private set; }
 		public bool IsAvailable { get; private set; }
+		public bool IsEnabled { get; set; }
 
 		public Vector3 Position { get; private set; }
 		public Quaternion Rotation { get; private set; }

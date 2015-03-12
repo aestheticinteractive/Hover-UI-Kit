@@ -14,7 +14,6 @@ namespace Hoverboard.Demo {
 
 		private readonly IList<DemoLetter> vLetters;
 		private readonly IList<DemoLetter> vLetterCache;
-		private readonly IList<DemoRing> vRings;
 
 		private System.Random vRandom;
 		private Light vLight;
@@ -28,7 +27,6 @@ namespace Hoverboard.Demo {
 		public DemoEnvironment() {
 			vLetters = new List<DemoLetter>();
 			vLetterCache = new List<DemoLetter>();
-			vRings = new List<DemoRing>();
 		}
 
 
@@ -100,7 +98,6 @@ namespace Hoverboard.Demo {
 
 				DemoRing ring = ringObj.AddComponent<DemoRing>();
 				ring.Radius = (float)vRandom.NextDouble()*(LightRange*0.4f)+3;
-				vRings.Add(ring);
 			}
 
 			////
