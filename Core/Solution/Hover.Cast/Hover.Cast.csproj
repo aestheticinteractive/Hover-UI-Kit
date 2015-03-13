@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{112FF634-EB3E-4351-B0BB-7729E455416E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Hover.Cast</RootNamespace>
+    <AssemblyName>Hover.Cast</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\Packages\Unity\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>..\..\Packages\Unity\UnityEngine.UI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Custom\CursorSettings.cs" />
+    <Compile Include="Custom\HovercastCustomCursor.cs" />
+    <Compile Include="Custom\HovercastCustomInteraction.cs" />
+    <Compile Include="Custom\HovercastCustomizationProvider.cs" />
+    <Compile Include="Custom\HovercastCustomPalm.cs" />
+    <Compile Include="Custom\HovercastCustomSegment.cs" />
+    <Compile Include="Custom\HovercastDefaultCursor.cs" />
+    <Compile Include="Custom\HovercastDefaultPalm.cs" />
+    <Compile Include="Custom\HovercastDefaultSegment.cs" />
+    <Compile Include="Custom\ICustom.cs" />
+    <Compile Include="Custom\ICustomCursor.cs" />
+    <Compile Include="Custom\ICustomPalm.cs" />
+    <Compile Include="Custom\ICustomSegment.cs" />
+    <Compile Include="Custom\InteractionSettings.cs" />
+    <Compile Include="Custom\SegmentSettings.cs" />
+    <Compile Include="Devices\Test\HovercastTestInputProvider.cs" />
+    <Compile Include="Devices\Test\TestInputCursor.cs" />
+    <Compile Include="Devices\Test\TestInputMenu.cs" />
+    <Compile Include="Devices\Test\TestInputSide.cs" />
+    <Compile Include="Display\Default\UiBaseIconRenderer.cs" />
+    <Compile Include="Display\Default\UiBaseToggleRenderer.cs" />
+    <Compile Include="Display\Default\UiCheckboxRenderer.cs" />
+    <Compile Include="Display\Default\UiCursorRenderer.cs" />
+    <Compile Include="Display\Default\UiLabel.cs" />
+    <Compile Include="Display\Default\UiPalmRenderer.cs" />
+    <Compile Include="Display\Default\UiParentRenderer.cs" />
+    <Compile Include="Display\Default\UiRadioRenderer.cs" />
+    <Compile Include="Display\Default\UiSelectRenderer.cs" />
+    <Compile Include="Display\Default\UiSlice.cs" />
+    <Compile Include="Display\Default\UiSliderGrabRenderer.cs" />
+    <Compile Include="Display\Default\UiSliderRenderer.cs" />
+    <Compile Include="Display\Default\UiStickyRenderer.cs" />
+    <Compile Include="Display\IUiCursorRenderer.cs" />
+    <Compile Include="Display\IUiPalmRenderer.cs" />
+    <Compile Include="Display\IUiSegmentRenderer.cs" />
+    <Compile Include="Display\MeshUtil.cs" />
+    <Compile Include="Display\UiArc.cs" />
+    <Compile Include="Display\UiCursor.cs" />
+    <Compile Include="Display\UiLevel.cs" />
+    <Compile Include="Display\UiMenu.cs" />
+    <Compile Include="Display\UiPalm.cs" />
+    <Compile Include="Display\UiSegment.cs" />
+    <Compile Include="HovercastSetup.cs" />
+    <Compile Include="Input\HovercastInputProvider.cs" />
+    <Compile Include="Input\IInputCursor.cs" />
+    <Compile Include="Input\IInputMenu.cs" />
+    <Compile Include="Input\IInputProvider.cs" />
+    <Compile Include="Input\IInputSide.cs" />
+    <Compile Include="Navigation\HovercastNavItem.cs" />
+    <Compile Include="Navigation\HovercastNavItemListener.cs" />
+    <Compile Include="Navigation\HovercastNavProvider.cs" />
+    <Compile Include="Navigation\NavItem.cs" />
+    <Compile Include="Navigation\NavItemCheckbox.cs" />
+    <Compile Include="Navigation\NavItemParent.cs" />
+    <Compile Include="Navigation\NavItemRadio.cs" />
+    <Compile Include="Navigation\NavItemSelector.cs" />
+    <Compile Include="Navigation\NavItemSlider.cs" />
+    <Compile Include="Navigation\NavItemSticky.cs" />
+    <Compile Include="Navigation\NavLevel.cs" />
+    <Compile Include="Navigation\NavRoot.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="State\ArcState.cs" />
+    <Compile Include="State\CursorState.cs" />
+    <Compile Include="State\HovercastSideName.cs" />
+    <Compile Include="State\HovercastState.cs" />
+    <Compile Include="State\IHovercastItemState.cs" />
+    <Compile Include="State\IHovercastState.cs" />
+    <Compile Include="State\MenuState.cs" />
+    <Compile Include="State\SegmentState.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
