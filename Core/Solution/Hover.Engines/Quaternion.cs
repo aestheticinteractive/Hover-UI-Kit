@@ -1,17 +1,22 @@
 ﻿namespace Hover.Engines {
 
 	/*================================================================================================*/
-	public interface IQuaternion {
+	public struct Quaternion {
 
-		float W { get; set; }
-		float X { get; set; }
-		float Y { get; set; }
-		float Z { get; set; }
+		public float W;
+		public float X;
+		public float Y;
+		public float Z;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		IQuaternion Multiply(IQuaternion pQuaternion);
+		public Quaternion(float pW=0, float pX=0, float pY=0, float pZ=0) {
+			W = pW;
+			X = pX;
+			Y = pY;
+			Z = pZ;
+		}
 
 	}
 

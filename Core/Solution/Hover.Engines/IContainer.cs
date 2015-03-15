@@ -6,15 +6,19 @@
 		ITransform Transform { get; }
 		IRenderer Renderer { get; }
 
-		IContainer[] Children { get; }
-
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		IContainer FindChildByName(string pName, bool pRecursive=true);
+		//IContainer[] GetChildren();
+			
+		/*--------------------------------------------------------------------------------------------*/
+		//IContainer FindChildByName(string pName, bool pRecursive=true);
 
 		/*--------------------------------------------------------------------------------------------*/
 		void AddChild(IContainer pChild);
+
+		/*--------------------------------------------------------------------------------------------*/
+		//T GetComponent<T>(IContainer pChild);
 
 	}
 

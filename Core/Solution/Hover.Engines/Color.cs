@@ -1,17 +1,22 @@
 ﻿namespace Hover.Engines {
 
 	/*================================================================================================*/
-	public interface IColor {
+	public struct Color {
 
-		float R { get; set; }
-		float G { get; set; }
-		float B { get; set; }
-		float A { get; set; }
+		public float R;
+		public float G;
+		public float B;
+		public float A;
 
-
+		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		IColor Clone();
+		public Color(float pR=0, float pG=0, float pB=0, float pA=0) {
+			R = pR;
+			G = pG;
+			B = pB;
+			A = pA;
+		}
 
 	}
 

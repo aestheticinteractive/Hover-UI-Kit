@@ -1,31 +1,47 @@
-﻿namespace Hover.Engines {
+﻿using UnityEngine;
+
+namespace Hover.Engines.Unity {
 
 	/*================================================================================================*/
-	public interface IEngineMath {
+	public class RendererWrap : IRenderer {
+
+		public Renderer UnityRenderer { get; private set; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		Vector3 NewVector3Random();
+		public RendererWrap(Renderer pUnityRenderer) {
+			UnityRenderer = pUnityRenderer;
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		Quaternion NewQuaternionAngleAxis(float pAngle, Vector3 pAxis);
+		public Color MaterialColor {
+			get {
+				return UnityRenderer.material.color.ToHover();
+			}
+			set {
+				UnityRenderer.material.color = value.ToUnity();
+			}
+		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		Quaternion NewQuaternionFromTo(Vector3 pFrom, Vector3 pTo);
-
-		/*--------------------------------------------------------------------------------------------*/
-		Quaternion NewQuaternionRandom();
+		public int MaterialRenderQueue {
+			get {
+				return UnityRenderer.material.renderQueue;
+			}
+			set {
+				UnityRenderer.material.renderQueue = value;
+			}
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		Quaternion RotateQuaternion(Quaternion pQuaternion, Quaternion pRotation);
-
-		/*--------------------------------------------------------------------------------------------*/
-		Vector3 RotateVector(Vector3 pVector, Quaternion pRotation);
+		public void SetMaterialByShaderName(string pShaderName) {
+			UnityRenderer.material = new Material(Shader.Find(pShaderName));
+		}
 
 	}
 

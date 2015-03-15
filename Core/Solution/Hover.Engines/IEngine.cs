@@ -4,11 +4,11 @@
 	public interface IEngine {
 
 		IEngineMath Math { get; }
-		IContainer RootContainer { get; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
+		IContainer FindContainer(string pName);
 
 	}
 

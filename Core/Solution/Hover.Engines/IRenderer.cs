@@ -3,8 +3,8 @@
 	/*================================================================================================*/
 	public interface IRenderer {
 
-		IColor Color { get; set; }
-		float RenderQueue { get; set; }
+		Color MaterialColor { get; set; }
+		int MaterialRenderQueue { get; set; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

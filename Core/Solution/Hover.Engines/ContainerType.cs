@@ -3,7 +3,7 @@
 	/*================================================================================================*/
 	public enum ContainerType {
 		Empty,
-		Plane,
+		Quad,
 		Cube,
 		Sphere,
 		CustomMesh

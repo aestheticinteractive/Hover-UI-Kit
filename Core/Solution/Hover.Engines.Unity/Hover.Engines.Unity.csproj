@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{78A9C5E5-5924-4DA7-A9B8-0A1DFF55ADD5}</ProjectGuid>
+    <ProjectGuid>{11912BD2-233F-436A-A8D3-F29079E7A872}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Hover.Engines</RootNamespace>
-    <AssemblyName>Hover.Engines</AssemblyName>
+    <RootNamespace>Hover.Engines.Unity</RootNamespace>
+    <AssemblyName>Hover.Engines.Unity</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -36,19 +36,27 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\Packages\Unity\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>..\..\Packages\Unity\UnityEngine.UI.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContainerType.cs" />
-    <Compile Include="IRenderer.cs" />
-    <Compile Include="IEngineMath.cs" />
-    <Compile Include="Color.cs" />
-    <Compile Include="Quaternion.cs" />
-    <Compile Include="Vector3.cs" />
-    <Compile Include="Vector2.cs" />
-    <Compile Include="ITransform.cs" />
-    <Compile Include="IContainer.cs" />
-    <Compile Include="IEngine.cs" />
+    <Compile Include="ContainerWrap.cs" />
+    <Compile Include="Engine.cs" />
+    <Compile Include="EngineMath.cs" />
+    <Compile Include="RendererWrap.cs" />
+    <Compile Include="TransformWrap.cs" />
+    <Compile Include="ConvertUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Hover.Engines\Hover.Engines.csproj">
+      <Project>{78a9c5e5-5924-4da7-a9b8-0a1dff55add5}</Project>
+      <Name>Hover.Engines</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

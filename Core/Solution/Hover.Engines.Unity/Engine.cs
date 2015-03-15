@@ -1,20 +1,25 @@
-﻿namespace Hover.Engines {
+﻿using UnityEngine;
+
+namespace Hover.Engines.Unity {
 
 	/*================================================================================================*/
-	public interface ITransform {
+	public class Engine : IEngine {
 
-		Vector3 LocalPosition { get; set; }
-		Vector3 WorldPosition { get; set; }
-		Quaternion LocalRotation { get; set; }
-		Quaternion WorldRotation { get; set; }
+		public IEngineMath Math { get; private set; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		Vector3 GetWorldPoint(Vector3 pLocalPoint);
+		public Engine() {
+			Math = new EngineMath();
+		}
 
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		Vector3 CalculateLocalPoint(ITransform pOtherTransform, Vector3 pOtherLocalPoint);
+		public IContainer FindContainer(string pName) {
+			return new ContainerWrap(GameObject.Find(pName));
+		}
 
 	}
 
