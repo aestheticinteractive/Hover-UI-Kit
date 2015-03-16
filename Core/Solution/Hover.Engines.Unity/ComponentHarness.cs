@@ -3,15 +3,15 @@
 namespace Hover.Engines.Unity {
 
 	/*================================================================================================*/
-	public class ComponentHarness<T> : MonoBehaviour where T : IComponent {
+	public class ComponentHarness<T> : MonoBehaviour where T : IComponent, new() {
 
 		public T Component { get; private set; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public ComponentHarness(T pComponent) {
-			Component = pComponent;
+		public ComponentHarness() {
+			Component = new T();
 		}
 
 

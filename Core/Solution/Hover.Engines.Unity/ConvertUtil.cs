@@ -36,7 +36,7 @@
 
 		/*--------------------------------------------------------------------------------------------*/
 		public static Quaternion ToHover(this UnityEngine.Quaternion pSelf) {
-			return new Quaternion(pSelf.w, pSelf.x, pSelf.y, pSelf.z);
+			return new Quaternion(pSelf.x, pSelf.y, pSelf.z, pSelf.w);
 		}
 
 	}

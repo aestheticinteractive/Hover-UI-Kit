@@ -56,8 +56,6 @@
     <Compile Include="Custom\ICustomCursor.cs" />
     <Compile Include="Custom\ICustomSegment.cs" />
     <Compile Include="Custom\InteractionSettings.cs" />
-    <Compile Include="Devices\Test\HoverboardTestInputProvider.cs" />
-    <Compile Include="Devices\Test\TestInputCursor.cs" />
     <Compile Include="Display\Default\UiCursorRenderer.cs" />
     <Compile Include="Display\Default\UiFill.cs" />
     <Compile Include="Display\Default\UiLabel.cs" />
@@ -95,6 +93,12 @@
     <Compile Include="State\IHoverboardState.cs" />
     <Compile Include="State\OverallState.cs" />
     <Compile Include="State\PanelState.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Hover.Engines\Hover.Engines.csproj">
+      <Project>{78a9c5e5-5924-4da7-a9b8-0a1dff55add5}</Project>
+      <Name>Hover.Engines</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

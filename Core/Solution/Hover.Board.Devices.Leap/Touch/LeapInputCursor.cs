@@ -1,7 +1,8 @@
 ﻿using System.Linq;
 using Hover.Board.Input;
+using Hover.Common.Devices.Leap;
+using Hover.Engines;
 using Leap;
-using UnityEngine;
 
 namespace Hover.Board.Devices.Leap.Touch {
 
@@ -38,8 +39,8 @@ namespace Hover.Board.Devices.Leap.Touch {
 
 			if ( leapFinger == null ) {
 				IsAvailable = false;
-				Position = Vector3.zero;
-				Rotation = Quaternion.identity;
+				Position = Vector3.Zero;
+				Rotation = Quaternion.Identity;
 				return;
 			}
 

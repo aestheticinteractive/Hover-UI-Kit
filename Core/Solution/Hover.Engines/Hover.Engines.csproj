@@ -38,7 +38,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EngineProvider.cs" />
     <Compile Include="ContainerType.cs" />
+    <Compile Include="Component.cs" />
     <Compile Include="IComponent.cs" />
     <Compile Include="IRenderer.cs" />
     <Compile Include="IEngineMath.cs" />
@@ -50,6 +52,12 @@
     <Compile Include="IContainer.cs" />
     <Compile Include="IEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Hover.Common\Hover.Common.csproj">
+      <Project>{f60af979-92bb-498a-bd95-34070b69e9dd}</Project>
+      <Name>Hover.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

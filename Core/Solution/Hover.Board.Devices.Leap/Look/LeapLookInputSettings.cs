@@ -1,5 +1,5 @@
 ﻿using Hover.Board.Devices.Leap.Touch;
-using UnityEngine;
+using Hover.Engines;
 
 namespace Hover.Board.Devices.Leap.Look {
 
@@ -9,8 +9,8 @@ namespace Hover.Board.Devices.Leap.Look {
 		//TODO: hide the "Cursor Finger" setting
 		//TODO: custom editor with a slider with range [0,1] for "Cursor Horizontal Offset"
 
-		public Transform LeapTransform { get; set; }
-		public Transform CameraTransform { get; set; }
+		public ITransform LeapTransform { get; set; }
+		public ITransform CameraTransform { get; set; }
 		public float CursorHorizontalOffset { get; set; }
 
 	}

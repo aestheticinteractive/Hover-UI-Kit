@@ -35,6 +35,16 @@ namespace Hover.Engines {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
+		public static Vector3 operator -(Vector3 pVecA, Vector3 pVecB) {
+			return new Vector3(pVecA.X-pVecB.X, pVecA.Y-pVecB.Y, pVecA.Z-pVecB.Z);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public static Vector3 operator *(Vector3 pVec, float pScalar) {
+			return new Vector3(pVec.X*pScalar, pVec.Y*pScalar, pVec.Z*pScalar);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
 		public static bool operator ==(Vector3 pVecA, Vector3 pVecB) {
 			return (pVecA.X == pVecB.X && pVecA.Y == pVecB.Y && pVecA.Z == pVecB.Z);
 		}

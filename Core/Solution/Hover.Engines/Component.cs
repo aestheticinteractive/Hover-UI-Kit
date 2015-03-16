@@ -1,27 +1,40 @@
 ﻿namespace Hover.Engines {
 
 	/*================================================================================================*/
-	public interface IContainer {
+	public class Component : IComponent {
 
-		ITransform Transform { get; }
-		IRenderer Renderer { get; }
+		public IContainer Container { get; private set; }
+		public ITransform Transform { get; private set; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		//IContainer[] GetChildren();
-			
+		public Component(IContainer pContainer, ITransform pTransform=null) {
+			Container = pContainer;
+			Transform = (pTransform ?? pContainer.Transform);
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		//IContainer FindChildByName(string pName, bool pRecursive=true);
+		public virtual void OnBegin() {
+		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		void AddChildContainer(IContainer pChild);
+		public virtual void Begin() {
+		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		void AddComponent<T>(T pComponent) where T : IComponent, new();
+		public virtual void OnDisplayStep() {
+		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		//T GetComponent<T>(IContainer pChild);
+		public virtual void OnPhysicsStep() {
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public virtual void OnDestroy() {
+		}
 
 	}
 

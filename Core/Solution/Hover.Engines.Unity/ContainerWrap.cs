@@ -78,7 +78,7 @@ namespace Hover.Engines.Unity {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void AddComponent<T>(T pComponent) where T : IComponent {
+		public void AddComponent<T>(T pComponent) where T : IComponent, new() {
 			UnityGameObject.AddComponent<ComponentHarness<T>>();
 		}
 

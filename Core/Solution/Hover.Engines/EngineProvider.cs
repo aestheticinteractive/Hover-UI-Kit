@@ -1,15 +1,22 @@
-﻿namespace Hover.Engines {
+﻿using System;
+
+namespace Hover.Engines {
 
 	/*================================================================================================*/
-	public interface IEngine {
+	public static class EngineProvider {
 
-		string Name { get; }
-		IEngineMath Math { get; }
+		public static IEngine Engine { get; private set; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		IContainer FindContainer(string pName);
+		public static void SetEngine(IEngine pEngine) {
+			if ( Engine != null ) {
+				throw new Exception("EngineProvder.Engine is already set!");
+			}
+
+			Engine = pEngine;
+		}
 
 	}
 
