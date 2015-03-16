@@ -67,7 +67,7 @@ namespace Hover.Engines.Unity {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void AddChild(IContainer pChild) {
+		public void AddChildContainer(IContainer pChild) {
 			TransformWrap txWrap = (pChild.Transform as TransformWrap);
 
 			if ( txWrap == null ) {
@@ -75,6 +75,11 @@ namespace Hover.Engines.Unity {
 			}
 
 			txWrap.UnityTransform.SetParent(UnityGameObject.transform, false);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void AddComponent<T>(T pComponent) where T : IComponent {
+			UnityGameObject.AddComponent<ComponentHarness<T>>();
 		}
 
 	}

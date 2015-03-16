@@ -1,27 +1,27 @@
 ﻿namespace Hover.Engines {
 
 	/*================================================================================================*/
-	public interface IContainer {
+	public interface IComponent {
 
+		IContainer Container { get; }
 		ITransform Transform { get; }
-		IRenderer Renderer { get; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		//IContainer[] GetChildren();
-			
-		/*--------------------------------------------------------------------------------------------*/
-		//IContainer FindChildByName(string pName, bool pRecursive=true);
+		void OnBegin();
 
 		/*--------------------------------------------------------------------------------------------*/
-		void AddChildContainer(IContainer pChild);
+		void Begin();
 
 		/*--------------------------------------------------------------------------------------------*/
-		void AddComponent<T>(T pComponent) where T : IComponent;
+		void OnDisplayStep();
 
 		/*--------------------------------------------------------------------------------------------*/
-		//T GetComponent<T>(IContainer pChild);
+		void OnPhysicsStep();
+
+		/*--------------------------------------------------------------------------------------------*/
+		void OnDestroy();
 
 	}
 
