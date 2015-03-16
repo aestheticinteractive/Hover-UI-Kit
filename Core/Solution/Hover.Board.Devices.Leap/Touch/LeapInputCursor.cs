@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Hover.Board.Input;
+using Hover.Common.Devices.Leap;
 using Leap;
 using UnityEngine;
 
@@ -10,7 +11,6 @@ namespace Hover.Board.Devices.Leap.Touch {
 
 		public CursorType Type { get; private set; }
 		public bool IsAvailable { get; private set; }
-		public bool IsEnabled { get; set; }
 
 		public Vector3 Position { get; private set; }
 		public Quaternion Rotation { get; private set; }

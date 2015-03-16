@@ -44,7 +44,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LeapUtil.cs" />
     <Compile Include="Look\LeapLookInputCursor.cs" />
     <Compile Include="Look\LeapLookInputSettings.cs" />
     <Compile Include="Look\LeapLookInputSide.cs" />
@@ -58,6 +57,10 @@
     <ProjectReference Include="..\Hover.Cast\Hover.Cast.csproj">
       <Project>{112FF634-EB3E-4351-B0BB-7729E455416E}</Project>
       <Name>Hover.Cast</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Hover.Common.Devices.Leap\Hover.Common.Devices.Leap.csproj">
+      <Project>{fc2f139f-d831-444c-8c90-872358630c8c}</Project>
+      <Name>Hover.Common.Devices.Leap</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
