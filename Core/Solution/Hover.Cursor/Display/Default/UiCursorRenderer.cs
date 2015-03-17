@@ -1,15 +1,14 @@
 ﻿using System;
-using Hover.Cast.Custom;
-using Hover.Cast.State;
 using Hover.Common.Util;
+using Hover.Cursor.Custom;
+using Hover.Cursor.State;
 using UnityEngine;
 
-namespace Hover.Cast.Display.Default {
+namespace Hover.Cursor.Display.Default {
 
 	/*================================================================================================*/
 	public class UiCursorRenderer : MonoBehaviour, IUiCursorRenderer {
 
-		private ArcState vArcState;
 		private CursorState vCursorState;
 		private CursorSettings vSettings;
 		private Mesh vRingMesh;
@@ -20,8 +19,7 @@ namespace Hover.Cast.Display.Default {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Build(ArcState pArcState, CursorState pCursorState, CursorSettings pSettings) {
-			vArcState = pArcState;
+		public void Build(CursorState pCursorState, CursorSettings pSettings) {
 			vCursorState = pCursorState;
 			vSettings = pSettings;
 
@@ -36,17 +34,14 @@ namespace Hover.Cast.Display.Default {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			SegmentState nearSeg = vArcState.NearestSegment;
-			float highProg = (nearSeg == null ? 0 : nearSeg.HighlightProgress);
+			float highProg = 0; //TODO: vCursorState.NearestButtonHighlightProgress;
 			bool high = (highProg >= 1);
 			float thick = Mathf.Lerp(vSettings.ThickNorm, vSettings.ThickHigh, highProg);
 			float scale = Mathf.Lerp(vSettings.RadiusNorm, vSettings.RadiusHigh, highProg);
-
 			Color col = (high ? vSettings.ColorHigh : vSettings.ColorNorm);
-			col.a *= UiSelectRenderer.GetArcAlpha(vArcState);
 
 			BuildMesh(thick);
-			vRingObj.transform.localScale = Vector3.one*scale;
+			vRingObj.transform.localScale = Vector3.one*scale*vCursorState.Size;
 			vRingObj.renderer.sharedMaterial.color = col;
 		}
 		

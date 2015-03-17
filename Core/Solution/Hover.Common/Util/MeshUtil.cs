@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Hover.Cast.Display {
+namespace Hover.Common.Util {
 
 	/*================================================================================================*/
 	public static class MeshUtil {
