@@ -1,4 +1,5 @@
-﻿using Hover.Common.Items;
+﻿using System;
+using Hover.Common.Items;
 using Hover.Common.Items.Types;
 using UnityEngine;
 
@@ -26,7 +27,7 @@ namespace Hover.Cast.Items {
 		public float SliderValue;
 		public bool SliderAllowJump = true;
 
-		private IBaseItem vItem;
+		private BaseItem vItem;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -78,12 +79,16 @@ namespace Hover.Cast.Items {
 				case SelectableItemType.Sticky:
 					vItem = new StickyItem();
 					break;
+
+				default:
+					throw new Exception("Unhandled item type: "+Type);
 			}
 
 			if ( !string.IsNullOrEmpty(Id) ) {
 				vItem.Id = Id;
 			}
 
+			vItem.DisplayContainer = gameObject;
 			vItem.Label = (string.IsNullOrEmpty(Label) ? gameObject.name : Label);
 			vItem.Height = RelativeSize;
 			vItem.IsVisible = IsVisible;

@@ -75,16 +75,15 @@
     <Compile Include="Input\HoverboardInputProvider.cs" />
     <Compile Include="Input\IInputCursor.cs" />
     <Compile Include="Input\IInputProvider.cs" />
-    <Compile Include="Navigation\HoverboardGridProvider.cs" />
-    <Compile Include="Navigation\HoverboardNavItem.cs" />
-    <Compile Include="Navigation\HoverboardNavItemListener.cs" />
+    <Compile Include="Navigation\HoverboardGrid.cs" />
+    <Compile Include="Navigation\HoverboardItem.cs" />
+    <Compile Include="Navigation\HoverboardItemListener.cs" />
     <Compile Include="Navigation\HoverboardPanelListener.cs" />
     <Compile Include="Navigation\HoverboardPanelProvider.cs" />
-    <Compile Include="Navigation\NavGrid.cs" />
-    <Compile Include="Navigation\NavItem.cs" />
-    <Compile Include="Navigation\NavItemSelector.cs" />
-    <Compile Include="Navigation\NavItemSticky.cs" />
-    <Compile Include="Navigation\NavPanel.cs" />
+    <Compile Include="Navigation\IItemGrid.cs" />
+    <Compile Include="Navigation\ItemGrid.cs" />
+    <Compile Include="Navigation\IItemPanel.cs" />
+    <Compile Include="Navigation\ItemPanel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="State\ButtonState.cs" />
     <Compile Include="State\CursorState.cs" />
@@ -95,6 +94,12 @@
     <Compile Include="State\IHoverboardState.cs" />
     <Compile Include="State\OverallState.cs" />
     <Compile Include="State\PanelState.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Hover.Common\Hover.Common.csproj">
+      <Project>{F60AF979-92BB-498A-BD95-34070B69E9DD}</Project>
+      <Name>Hover.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

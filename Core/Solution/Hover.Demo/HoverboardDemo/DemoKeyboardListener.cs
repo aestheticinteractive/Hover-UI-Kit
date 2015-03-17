@@ -19,13 +19,13 @@ namespace Hover.Demo.HoverboardDemo {
 			vTextField = GameObject.Find("DemoTextField").GetComponent<DemoTextField>();
 			vKeyboardObj = GameObject.Find("SplitKeyboard");
 
-			NavPanel[] navPanels = vKeyboardObj
+			ItemPanel[] itemPanels = vKeyboardObj
 				.GetComponentsInChildren<HoverboardPanelProvider>()
 				.Select(x => x.GetPanel())
 				.ToArray();
 
-			foreach ( NavPanel navPanel in navPanels ) {
-				foreach ( NavGrid navGrid in navPanel.Grids ) {
+			foreach ( ItemPanel navPanel in itemPanels ) {
+				foreach ( ItemGrid navGrid in navPanel.Grids ) {
 					foreach ( NavItem navItem in navGrid.Items ) {
 						navItem.OnSelected += HandleItemSelected;
 					}

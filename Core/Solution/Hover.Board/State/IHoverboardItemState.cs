@@ -1,12 +1,12 @@
 ﻿using Hover.Board.Input;
-using Hover.Board.Navigation;
+using Hover.Common.Items;
 
 namespace Hover.Board.State {
 
 	/*================================================================================================*/
 	public interface IHoverboardItemState {
 
-		NavItem NavItem { get; }
+		IBaseItem Item { get; }
 		float MinHighlightDistance { get; }
 		float MaxHighlightProgress { get; }
 		bool IsNearestHighlight { get; }

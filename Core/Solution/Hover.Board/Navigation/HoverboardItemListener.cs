@@ -1,22 +1,23 @@
 ﻿using System;
+using Hover.Common.Items;
 using UnityEngine;
 
 namespace Hover.Board.Navigation {
 
 	/*================================================================================================*/
-	public abstract class HoverboardNavItemListener<T> : MonoBehaviour where T : NavItem {
+	public abstract class HoverboardItemListener<T> : MonoBehaviour where T : IBaseItem {
 
-		public HoverboardNavItem Component { get; private set; }
+		public HoverboardItem Component { get; private set; }
 		public T Item { get; private set; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
-			Component = gameObject.GetComponent<HoverboardNavItem>();
+			Component = gameObject.GetComponent<HoverboardItem>();
 
 			if ( Component == null ) {
-				throw new Exception("There must be a "+typeof(HoverboardNavItem).Name+" component "+
+				throw new Exception("There must be a "+typeof(HoverboardItem).Name+" component "+
 					"attached to this GameObject.");
 			}
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Hover.Board.Custom;
 using Hover.Board.Input;
-using Hover.Board.Navigation;
+using Hover.Common.Items;
 using UnityEngine;
 
 namespace Hover.Board.State {
@@ -11,7 +11,7 @@ namespace Hover.Board.State {
 	/*================================================================================================*/
 	public class ButtonState : IHoverboardItemState {
 
-		public NavItem NavItem { get; private set; }
+		public IBaseItem Item { get; private set; }
 
 		public bool IsSelectionPrevented { get; private set; }
 
@@ -28,8 +28,8 @@ namespace Hover.Board.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public ButtonState(NavItem pNavItem, InteractionSettings pSettings) {
-			NavItem = pNavItem;
+		public ButtonState(IBaseItem pItem, InteractionSettings pSettings) {
+			Item = pItem;
 			vSettings = pSettings;
 
 			vHighlightDistanceMap = new Dictionary<CursorType, float>();
@@ -80,7 +80,9 @@ namespace Hover.Board.State {
 		public float SelectionProgress {
 			get {
 				if ( vSelectionStart == null ) {
-					if ( !NavItem.IsStickySelected ) {
+					ISelectableItem selItem = (Item as ISelectableItem);
+
+					if ( selItem == null || !selItem.IsStickySelected ) {
 						return 0;
 					}
 
@@ -109,7 +111,7 @@ namespace Hover.Board.State {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		internal void UpdateWithCursor(CursorType pType, Vector3? pCursorWorldPosition) {
-			if ( pCursorWorldPosition == null /*|| vIsAnimating*/ || !NavItem.IsEnabled ) {
+			if ( pCursorWorldPosition == null /*|| vIsAnimating*/ || !Item.IsEnabled ) {
 				vHighlightDistanceMap[pType] = float.MaxValue;
 				vHighlightProgressMap[pType] = 0;
 				return;
@@ -134,10 +136,16 @@ namespace Hover.Board.State {
 
 		/*--------------------------------------------------------------------------------------------*/
 		internal bool UpdateSelectionProcess() {
+			ISelectableItem selItem = (Item as ISelectableItem);
+
+			if ( selItem == null ) {
+				return false;
+			}
+
 			bool isNearest = IsNearestHighlight;
 
 			if ( !isNearest || SelectionProgress <= 0 ) {
-				NavItem.DeselectStickySelections();
+				selItem.DeselectStickySelections();
 			}
 
 			if ( !isNearest || MaxHighlightProgress < 1 ) {
@@ -146,7 +154,7 @@ namespace Hover.Board.State {
 				return false;
 			}
 
-			if ( IsSelectionPrevented || !NavItem.AllowSelection ) {
+			if ( IsSelectionPrevented || !selItem.AllowSelection ) {
 				vSelectionStart = null;
 				return false;
 			}
@@ -163,7 +171,7 @@ namespace Hover.Board.State {
 			vSelectionStart = null;
 			IsSelectionPrevented = true;
 			vDistanceUponSelection = MinHighlightDistance;
-			NavItem.Select();
+			selItem.Select();
 			return true;
 		}
 

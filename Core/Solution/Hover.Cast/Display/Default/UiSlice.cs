@@ -9,7 +9,6 @@ namespace Hover.Cast.Display.Default {
 
 		public const float AngleInset = 0.0012f;
 
-		private readonly bool vCalcSelections;
 		private readonly float vRadiusInner;
 		private readonly float vRadiusOuter;
 

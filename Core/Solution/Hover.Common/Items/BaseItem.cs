@@ -13,6 +13,7 @@
 		public virtual string Label { get; set; }
 		public float Width { get; set; }
 		public float Height { get; set; }
+		public object DisplayContainer { get; set; }
 
 		protected bool vIsEnabled;
 		protected bool vIsVisible;
@@ -38,15 +39,12 @@
 				return vIsEnabled;
 			}
 			set {
-				if ( value && !vIsEnabled ) {
-					vIsEnabled = true;
-					OnIsEnabledChanged(this);
+				if ( value == vIsEnabled ) {
+					return;
 				}
 
-				if ( !value && vIsEnabled ) {
-					vIsEnabled = false;
-					OnIsEnabledChanged(this);
-				}
+				vIsEnabled = value;
+				OnIsEnabledChanged(this);
 			}
 		}
 
@@ -56,15 +54,12 @@
 				return vIsVisible;
 			}
 			set {
-				if ( value && !vIsEnabled ) {
-					vIsVisible = true;
-					OnIsVisibleChanged(this);
+				if ( value == vIsVisible ) {
+					return;
 				}
 
-				if ( !value && vIsEnabled ) {
-					vIsVisible = false;
-					OnIsVisibleChanged(this);
-				}
+				vIsVisible = value;
+				OnIsVisibleChanged(this);
 			}
 		}
 

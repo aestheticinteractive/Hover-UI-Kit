@@ -6,14 +6,15 @@ namespace Hover.Board.Navigation {
 	/*================================================================================================*/
 	public class HoverboardPanelProvider : MonoBehaviour {
 
-		private NavPanel vPanel;
+		private ItemPanel vPanel;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public NavPanel GetPanel() {
+		public ItemPanel GetPanel() {
 			if ( vPanel == null ) {
-				vPanel = new NavPanel(GetChildGrids, gameObject);
+				vPanel = new ItemPanel(GetChildGrids);
+				vPanel.DisplayContainer = gameObject;
 			}
 
 			return vPanel;
@@ -22,18 +23,18 @@ namespace Hover.Board.Navigation {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private NavGrid[] GetChildGrids() {
+		private IItemGrid[] GetChildGrids() {
 			Transform tx = gameObject.transform;
 			int childCount = tx.childCount;
-			var grids = new List<NavGrid>();
+			var grids = new List<IItemGrid>();
 			
 			for ( int i = 0 ; i < childCount ; ++i ) {
-				HoverboardGridProvider hgi = tx.GetChild(i).GetComponent<HoverboardGridProvider>();
-				NavGrid grid = hgi.GetGrid();
+				HoverboardGrid hgi = tx.GetChild(i).GetComponent<HoverboardGrid>();
+				IItemGrid grid = hgi.GetGrid();
 
-				if ( !grid.IsVisible ) {
+				/*if ( !grid.IsVisible ) {
 					continue;
-				}
+				}*/
 
 				grids.Add(grid);
 			}

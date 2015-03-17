@@ -21,19 +21,16 @@ namespace Hover.Board.Display {
 
 			for ( int i = 0 ; i < vPanelState.Grids.Length ; i++ ) {
 				GridState grid = vPanelState.Grids[i];
-				NavGrid navGrid = grid.NavGrid;
-				var pos = new Vector3(navGrid.ColOffset, 0, navGrid.RowOffset);
+				IItemGrid itemGrid = grid.ItemGrid;
+				var pos = new Vector3(itemGrid.ColOffset, 0, itemGrid.RowOffset);
+				GameObject gridObj = (GameObject)itemGrid.DisplayContainer;
 
-				UiGrid uiGrid = navGrid.Container.AddComponent<UiGrid>();
+				UiGrid uiGrid = gridObj.AddComponent<UiGrid>();
 				uiGrid.Build(grid, pCustom);
 				uiGrid.transform.localPosition = pos*UiButton.Size;
 
 				vUiGrids.Add(uiGrid);
 			}
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public void Update() {
 		}
 
 	}

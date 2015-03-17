@@ -21,15 +21,16 @@ namespace Hover.Board.Display {
 			vCustom = pCustom;
 			vUiButtons = new List<UiButton>();
 
-			int cols = vGridState.NavGrid.Cols;
+			int cols = vGridState.ItemGrid.Cols;
 			int gi = 0;
 
 			for ( int i = 0 ; i < vGridState.Buttons.Length ; i++ ) {
 				ButtonState button = vGridState.Buttons[i];
-				int w = button.NavItem.Width;
+				int w = (int)button.Item.Width;
 				var pos = new Vector3(gi%cols, 0, (float)Math.Floor((float)gi/cols));
+				GameObject itemObj = (GameObject)button.Item.DisplayContainer;
 
-				UiButton uiButton = button.NavItem.Container.AddComponent<UiButton>();
+				UiButton uiButton = itemObj.AddComponent<UiButton>();
 				uiButton.Build(button, vCustom);
 				uiButton.transform.localPosition = pos*UiButton.Size;
 

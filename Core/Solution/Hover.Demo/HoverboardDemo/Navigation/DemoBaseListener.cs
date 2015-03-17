@@ -13,7 +13,7 @@ namespace Hover.Demo.HoverboardDemo.Navigation {
 		protected DemoEnvironment Enviro { get; private set; }
 		protected HoverboardSetup HoverboardSetup { get; private set; }
 		protected GameObject KeyboardObj { get; private set; }
-		protected NavPanel[] NavPanels { get; private set; }
+		protected ItemPanel[] ItemPanels { get; private set; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -23,7 +23,7 @@ namespace Hover.Demo.HoverboardDemo.Navigation {
 			HoverboardSetup = GameObject.Find("Hoverboard").GetComponent<HoverboardSetup>();
 			KeyboardObj = GameObject.Find("SplitKeyboard");
 
-			NavPanels = KeyboardObj
+			ItemPanels = KeyboardObj
 				.GetComponentsInChildren<HoverboardPanelProvider>()
 				.Select(x => x.GetPanel())
 				.ToArray();

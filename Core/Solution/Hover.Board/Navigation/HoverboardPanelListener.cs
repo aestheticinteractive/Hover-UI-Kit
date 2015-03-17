@@ -7,7 +7,7 @@ namespace Hover.Board.Navigation {
 	public abstract class HoverboardPanelListener : MonoBehaviour {
 
 		public HoverboardPanelProvider Component { get; private set; }
-		public NavPanel Panel { get; private set; }
+		public ItemPanel Panel { get; private set; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

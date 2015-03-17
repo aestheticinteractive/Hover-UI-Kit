@@ -1,5 +1,5 @@
 ﻿using System;
-using Hover.Board.Navigation;
+using Hover.Common.Items;
 
 namespace Hover.Board.Custom {
 
@@ -9,10 +9,10 @@ namespace Hover.Board.Custom {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		Type GetSegmentRenderer(NavItem pNavItem);
+		Type GetSegmentRenderer(IBaseItem pItem);
 
 		/*--------------------------------------------------------------------------------------------*/
-		ButtonSettings GetSegmentSettings(NavItem pNavItem);
+		ButtonSettings GetSegmentSettings(IBaseItem pItem);
 
 	}
 

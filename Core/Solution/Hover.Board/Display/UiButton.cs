@@ -24,8 +24,8 @@ namespace Hover.Board.Display {
 
 			////
 
-			Type rendType = pCustom.GetSegmentRenderer(vButtonState.NavItem);
-			ButtonSettings sett = pCustom.GetSegmentSettings(vButtonState.NavItem);
+			Type rendType = pCustom.GetSegmentRenderer(vButtonState.Item);
+			ButtonSettings sett = pCustom.GetSegmentSettings(vButtonState.Item);
 
 			vRendererObj = new GameObject("Renderer");
 			vRendererObj.transform.SetParent(gameObject.transform, false);

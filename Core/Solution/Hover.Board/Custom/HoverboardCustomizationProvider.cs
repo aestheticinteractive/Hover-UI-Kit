@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Hover.Board.Navigation;
+using Hover.Common.Items;
 using UnityEngine;
 
 namespace Hover.Board.Custom {
@@ -27,22 +28,22 @@ namespace Hover.Board.Custom {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public Type GetSegmentRenderer(NavItem pNavItem) {
-			if ( pNavItem == null ) {
+		public Type GetSegmentRenderer(IBaseItem pItem) {
+			if ( pItem == null ) {
 				throw new ArgumentException("Hoverboard | NavItem cannot be null.", "NavItem");
 			}
 
 			InitOnce();
 
-			HoverboardCustomButton seg = FindCustom(vMainSeg, pNavItem, (c => c.Seg));
-			return seg.GetRendererForNavItemType(pNavItem.Type);
+			HoverboardCustomButton seg = FindCustom(vMainSeg, pItem, (c => c.Seg));
+			return seg.GetRendererForItem(pItem);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public ButtonSettings GetSegmentSettings(NavItem pNavItem) {
+		public ButtonSettings GetSegmentSettings(IBaseItem pItem) {
 			InitOnce();
 
-			HoverboardCustomButton seg = FindCustom(vMainSeg, pNavItem, (c => c.Seg));
+			HoverboardCustomButton seg = FindCustom(vMainSeg, pItem, (c => c.Seg));
 			return seg.GetSettings();
 		}
 
@@ -108,7 +109,7 @@ namespace Hover.Board.Custom {
 		private void FillCustomItems<T>(T[] pComponentList, Action<CustomItem, T> pFillAction)
 																				where T : Component {
 			foreach ( T comp in pComponentList ) {
-				HoverboardNavItem hni = comp.gameObject.GetComponent<HoverboardNavItem>();
+				HoverboardItem hni = comp.gameObject.GetComponent<HoverboardItem>();
 
 				if ( hni == null ) {
 					continue;
@@ -130,16 +131,16 @@ namespace Hover.Board.Custom {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private T FindCustom<T>(T pMain, NavItem pNavItem, Func<CustomItem, T> pGetPropFunc)
+		private T FindCustom<T>(T pMain, IBaseItem pItem, Func<CustomItem, T> pGetPropFunc)
 																				where T : Component {
 			T comp = pMain;
 
-			if ( pNavItem == null ) {
+			if ( pItem == null ) {
 				return comp;
 			}
 
 			CustomItem cust;
-			vCustomMap.TryGetValue(pNavItem.AutoId, out cust);
+			vCustomMap.TryGetValue(pItem.AutoId, out cust);
 
 			if ( cust != null && pGetPropFunc(cust) != null ) {
 				comp = pGetPropFunc(cust);

@@ -13,7 +13,7 @@ namespace Hover.Demo.HoverboardDemo {
 		private GameObject vTextField;
 		private HoverboardSetup vHoverboardSetup;
 		private HovercastSetup vHovercastSetup;
-		private NavPanel[] vKeyboardNavPanels;
+		private ItemPanel[] vKeyboardItemPanels;
 		private bool vPrevEnableKey;
 
 
@@ -24,7 +24,7 @@ namespace Hover.Demo.HoverboardDemo {
 			vHoverboardSetup = GameObject.Find("Hoverboard").GetComponent<HoverboardSetup>();
 			vHovercastSetup = GameObject.Find("Hovercast").GetComponent<HovercastSetup>();
 
-			vKeyboardNavPanels = GameObject.Find("SplitKeyboard")
+			vKeyboardItemPanels = GameObject.Find("SplitKeyboard")
 				.GetComponentsInChildren<HoverboardPanelProvider>()
 				.Select(x => x.GetPanel())
 				.ToArray();
@@ -50,8 +50,8 @@ namespace Hover.Demo.HoverboardDemo {
 			vHoverboardSetup.InputProvider.IsEnabled = pEnabled;
 			vTextField.SetActive(pEnabled);
 
-			foreach ( NavPanel navPanel in vKeyboardNavPanels ) {
-				navPanel.Container.SetActive(pEnabled);
+			foreach ( ItemPanel navPanel in vKeyboardItemPanels ) {
+				navPanel.DisplayContainer.SetActive(pEnabled);
 
 				/*foreach ( NavGrid navGrid in navPanel.Grids ) {
 					foreach ( NavItem navItem in navGrid.Items ) {

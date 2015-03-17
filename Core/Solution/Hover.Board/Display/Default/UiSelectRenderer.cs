@@ -1,6 +1,7 @@
 ﻿using System;
 using Hover.Board.Custom;
 using Hover.Board.State;
+using Hover.Common.Items;
 using UnityEngine;
 
 namespace Hover.Board.Display.Default {
@@ -25,7 +26,7 @@ namespace Hover.Board.Display.Default {
 			vButtonState = pButtonState;
 			vSettings = pSettings;
 
-			float width = UiButton.Size*vButtonState.NavItem.Width;
+			float width = UiButton.Size*vButtonState.Item.Width;
 			const float height = UiButton.Size;
 
 			gameObject.transform.SetParent(gameObject.transform, false);
@@ -51,17 +52,19 @@ namespace Hover.Board.Display.Default {
 		public void Update() {
 			vMainAlpha = 1;
 
-			if ( !vButtonState.NavItem.IsEnabled ) {
+			if ( !vButtonState.Item.IsEnabled ) {
 				vMainAlpha *= 0.333f;
 			}
 
+			ISelectableItem selItem = (vButtonState.Item as ISelectableItem);
 			float high = vButtonState.MaxHighlightProgress;
-			float edge = (vButtonState.IsNearestHighlight && !vButtonState.IsSelectionPrevented && 
-				vButtonState.NavItem.AllowSelection ? high : 0);
+			bool showEdge = (vButtonState.IsNearestHighlight && !vButtonState.IsSelectionPrevented && 
+				selItem != null && selItem.AllowSelection);
+			float edge = (showEdge ? high : 0);
 			float select = 1-(float)Math.Pow(1-vButtonState.SelectionProgress, 1.5f);
 			float selectAlpha = select;
 
-			if ( vButtonState.NavItem.IsStickySelected ) {
+			if ( selItem != null && selItem.IsStickySelected ) {
 				selectAlpha = 1;
 			}
 
@@ -84,7 +87,7 @@ namespace Hover.Board.Display.Default {
 			vLabel.FontName = vSettings.TextFont;
 			vLabel.FontSize = vSettings.TextSize;
 			vLabel.Color = vSettings.TextColor;
-			vLabel.Label = vButtonState.NavItem.Label;
+			vLabel.Label = vButtonState.Item.Label;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

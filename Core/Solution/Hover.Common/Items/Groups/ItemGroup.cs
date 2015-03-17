@@ -9,6 +9,7 @@ namespace Hover.Common.Items.Groups {
 
 		public event ItemEvents.GroupItemSelectedHandler OnItemSelected;
 
+		public object DisplayContainer { get; set; }
 		public ISelectableItem LastSelectedItem { get; private set; }
 
 		private readonly Func<IBaseItem[]> vGetItems;

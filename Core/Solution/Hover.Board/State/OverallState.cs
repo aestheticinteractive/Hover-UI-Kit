@@ -27,7 +27,7 @@ namespace Hover.Board.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public OverallState(IInputProvider pInputProv, IEnumerable<NavPanel> pPanels,
+		public OverallState(IInputProvider pInputProv, IEnumerable<ItemPanel> pPanels,
 													InteractionSettings pSettings, Transform pBaseTx) {
 			vInputProv = pInputProv;
 			vBaseTx = pBaseTx;
@@ -45,7 +45,7 @@ namespace Hover.Board.State {
 			var panels = new List<PanelState>();
 			var allButtons = new List<ButtonTree>();
 
-			foreach ( NavPanel navPanel in pPanels ) {
+			foreach ( ItemPanel navPanel in pPanels ) {
 				var panel = new PanelState(navPanel, pSettings);
 				panels.Add(panel);
 
@@ -125,7 +125,8 @@ namespace Hover.Board.State {
 				pCursor.NearestButtonHighlightProgress = 0;
 			}
 			else {
-				pCursor.SetNearestPanelTransform(nearestTree.Panel.NavPanel.Container.transform);
+				GameObject panelObj = (GameObject)nearestTree.Panel.ItemPanel.DisplayContainer;
+				pCursor.SetNearestPanelTransform(panelObj.transform);
 				pCursor.NearestButtonHighlightProgress = nearestTree.Button.GetHighlightProgress(pType);
 			}
 		}

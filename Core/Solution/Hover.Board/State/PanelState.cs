@@ -6,7 +6,7 @@ namespace Hover.Board.State {
 	/*================================================================================================*/
 	public class PanelState {
 
-		public NavPanel NavPanel { get; private set; }
+		public ItemPanel ItemPanel { get; private set; }
 		public GridState[] Grids { get; private set; }
 
 		private readonly InteractionSettings vSettings;
@@ -14,8 +14,8 @@ namespace Hover.Board.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public PanelState(NavPanel pNavPanel, InteractionSettings pSettings) {
-			NavPanel = pNavPanel;
+		public PanelState(ItemPanel pItemPanel, InteractionSettings pSettings) {
+			ItemPanel = pItemPanel;
 			vSettings = pSettings;
 
 			RefreshGrids();
@@ -25,10 +25,10 @@ namespace Hover.Board.State {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void RefreshGrids() {
-			Grids = new GridState[NavPanel.Grids.Length];
+			Grids = new GridState[ItemPanel.Grids.Length];
 
-			for ( int i = 0 ; i < NavPanel.Grids.Length ; i++ ) {
-				var grid = new GridState(NavPanel.Grids[i], vSettings);
+			for ( int i = 0 ; i < ItemPanel.Grids.Length ; i++ ) {
+				var grid = new GridState(ItemPanel.Grids[i], vSettings);
 				Grids[i] = grid;
 			}
 		}

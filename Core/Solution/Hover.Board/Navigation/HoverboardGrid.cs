@@ -1,39 +1,42 @@
 ﻿using System.Collections.Generic;
+using Hover.Common.Items;
 using UnityEngine;
 
 namespace Hover.Board.Navigation {
 
 	/*================================================================================================*/
-	public class HoverboardGridProvider : MonoBehaviour {
+	public class HoverboardGrid : MonoBehaviour {
 
-		public bool IsVisible = true;
 		public int Columns = 3;
 		public float RowOffset;
 		public float ColumnOffset;
 
-		private NavGrid vGrid;
+		private ItemGrid vGrid;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public NavGrid GetGrid() {
+		public IItemGrid GetGrid() {
 			if ( vGrid == null ) {
-				vGrid = new NavGrid(GetChildItems, gameObject, IsVisible,
-					Columns, RowOffset, ColumnOffset);
+				vGrid = new ItemGrid(GetChildItems);
+				vGrid.DisplayContainer = gameObject;
+				vGrid.Cols = Columns;
+				vGrid.RowOffset = RowOffset;
+				vGrid.ColOffset = ColumnOffset;
 			}
 
 			return vGrid;
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		private NavItem[] GetChildItems() {
+		private IBaseItem[] GetChildItems() {
 			Transform tx = gameObject.transform;
 			int childCount = tx.childCount;
-			var items = new List<NavItem>();
+			var items = new List<IBaseItem>();
 			
 			for ( int i = 0 ; i < childCount ; ++i ) {
-				HoverboardNavItem hni = tx.GetChild(i).GetComponent<HoverboardNavItem>();
-				NavItem item = hni.GetItem();
+				HoverboardItem hni = tx.GetChild(i).GetComponent<HoverboardItem>();
+				IBaseItem item = hni.GetItem();
 
 				if ( !item.IsVisible ) {
 					continue;

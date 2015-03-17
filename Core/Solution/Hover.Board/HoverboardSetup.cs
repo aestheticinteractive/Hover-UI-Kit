@@ -64,7 +64,8 @@ namespace Hover.Board {
 
 			for ( int i = 0 ; i < vUiPanels.Length ; ++i ) {
 				PanelState panelState = vOverallState.Panels[i];
-				UiPanel uiPanel = panelState.NavPanel.Container.AddComponent<UiPanel>();
+				GameObject panelObj = (GameObject)panelState.ItemPanel.DisplayContainer;
+				UiPanel uiPanel = panelObj.AddComponent<UiPanel>();
 				uiPanel.Build(panelState, CustomizationProvider);
 				vUiPanels[i] = uiPanel;
 			}

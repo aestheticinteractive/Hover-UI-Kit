@@ -15,8 +15,6 @@ namespace Hover.Cast.Display {
 		private IUiCursorRenderer vRenderer;
 		private Transform vCameraTx;
 
-		private float vCurrInnerRadius;
-
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/

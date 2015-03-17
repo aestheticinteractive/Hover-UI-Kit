@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Hover.Board.Display;
-using Hover.Board.Navigation;
+using Hover.Common.Items;
 using UnityEngine;
 
 namespace Hover.Board.Custom {
@@ -12,15 +12,15 @@ namespace Hover.Board.Custom {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public Type GetRendererForNavItemType(NavItem.ItemType pNavItemType) {
-			Type type = GetRendererForNavItemTypeInner(pNavItemType);
+		public Type GetRendererForItem(IBaseItem pItem) {
+			Type type = GetRendererForItemInner(pItem);
 
 			if ( type == null ) {
-				throw new Exception(GetErrorPrefix(pNavItemType)+"cannot be null.");
+				throw new Exception(GetErrorPrefix(pItem)+"cannot be null.");
 			}
 
 			if ( !type.GetInterfaces().Contains(typeof(IUiSegmentRenderer)) ) {
-				throw new Exception(GetErrorPrefix(pNavItemType)+"must implement the "+
+				throw new Exception(GetErrorPrefix(pItem)+"must implement the "+
 					typeof(IUiSegmentRenderer).Name+" interface.");
 			}
 
@@ -28,7 +28,7 @@ namespace Hover.Board.Custom {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		protected abstract Type GetRendererForNavItemTypeInner(NavItem.ItemType pNavItemType);
+		protected abstract Type GetRendererForItemInner(IBaseItem pItem);
 
 		/*--------------------------------------------------------------------------------------------*/
 		public abstract ButtonSettings GetSettings();
@@ -36,8 +36,8 @@ namespace Hover.Board.Custom {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private static string GetErrorPrefix(NavItem.ItemType pNavItemType) {
-			return "Hoverboard | The 'Segment' Renderer for '"+pNavItemType+"' NavItems ";
+		private static string GetErrorPrefix(IBaseItem pItem) {
+			return "Hoverboard | The 'Segment' Renderer for the '"+pItem.Label+"' item ";
 		}
 
 	}

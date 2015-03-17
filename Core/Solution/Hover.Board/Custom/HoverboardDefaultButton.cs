@@ -1,6 +1,6 @@
 ﻿using System;
 using Hover.Board.Display.Default;
-using Hover.Board.Navigation;
+using Hover.Common.Items;
 using UnityEngine;
 
 namespace Hover.Board.Custom {
@@ -25,7 +25,7 @@ namespace Hover.Board.Custom {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected override Type GetRendererForNavItemTypeInner(NavItem.ItemType pNavItemType) {
+		protected override Type GetRendererForItemInner(IBaseItem pItem) {
 			return typeof(UiSelectRenderer);
 		}
 
