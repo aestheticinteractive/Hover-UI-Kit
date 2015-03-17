@@ -7,8 +7,7 @@
 		public event ItemEvents.DeselectedHandler OnDeselected;
 
 		public bool IsStickySelected { get; private set; }
-		public virtual bool NavigateBackUponSelect { get; internal set; }
-
+		public virtual bool NavigateBackUponSelect { get; set; }
 		//public float RelativeSize { get; internal set; }
 
 

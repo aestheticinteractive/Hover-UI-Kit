@@ -9,8 +9,8 @@
 		private static int ItemCount;
 
 		public int AutoId { get; private set; }
-		public string Id { get; internal set; }
-		public virtual string Label { get; internal set; }
+		public string Id { get; set; }
+		public virtual string Label { get; set; }
 
 		protected bool vIsEnabled;
 		protected bool vIsVisible;

@@ -8,7 +8,7 @@
 
 		bool IsStickySelected { get; }
 		bool AllowSelection { get; }
-		bool NavigateBackUponSelect { get; }
+		bool NavigateBackUponSelect { get; set; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

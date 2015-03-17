@@ -1,13 +1,13 @@
 ﻿using System.Linq;
 using Hover.Board;
 using Hover.Board.Navigation;
-using Hover.Cast.Navigation;
+using Hover.Cast.Items;
 using UnityEngine;
 
 namespace Hover.Demo.HoverboardDemo.Navigation {
 
 	/*================================================================================================*/
-	public abstract class DemoBaseListener<T> : HovercastNavItemListener<T> 
+	public abstract class DemoBaseListener<T> : HovercastItemListener<T> 
 																	where T : Cast.Navigation.NavItem {
 
 		protected DemoEnvironment Enviro { get; private set; }

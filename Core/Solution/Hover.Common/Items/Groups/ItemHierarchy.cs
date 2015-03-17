@@ -9,7 +9,7 @@ namespace Hover.Common.Items.Groups {
 		public event ItemEvents.HierarchyLevelChangedHandler OnLevelChange;
 		public event ItemEvents.GroupItemSelectedHandler OnItemSelection;
 
-		public string Title { get; private set; }
+		public string Title { get; set; }
 
 		private IItemGroup vCurrLevel;
 		private readonly Stack<IItemGroup> vHistory;
@@ -17,8 +17,7 @@ namespace Hover.Common.Items.Groups {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public ItemHierarchy(string pTitle) {
-			Title = pTitle;
+		public ItemHierarchy() {
 			vHistory = new Stack<IItemGroup>();
 
 			OnLevelChange += (d => {});

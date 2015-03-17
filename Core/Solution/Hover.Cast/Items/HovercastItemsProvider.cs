@@ -1,21 +1,23 @@
 ﻿using System.Collections.Generic;
+using Hover.Common.Items;
+using Hover.Common.Items.Groups;
 using UnityEngine;
 
-namespace Hover.Cast.Navigation {
+namespace Hover.Cast.Items {
 
 	/*================================================================================================*/
-	public class HovercastNavProvider : MonoBehaviour { 
+	public class HovercastItemsProvider : MonoBehaviour { 
 
 		public string Title = "Hovercast VR";
 
-		private readonly NavRoot vRoot;
-		private NavLevel vRootLevel;
+		private readonly IItemHierarchy vRoot;
+		private IItemGroup vRootLevel;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public HovercastNavProvider() {
-			vRoot = new NavRoot();
+		public HovercastItemsProvider() {
+			vRoot = new ItemHierarchy();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -26,9 +28,9 @@ namespace Hover.Cast.Navigation {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public NavRoot GetRoot() {
+		public IItemHierarchy GetRoot() {
 			if ( vRootLevel == null ) {
-				vRootLevel = new NavLevel(GetChildItems);
+				vRootLevel = new ItemGroup(GetChildItems);
 				vRoot.Build(vRootLevel);
 			}
 
@@ -36,21 +38,21 @@ namespace Hover.Cast.Navigation {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		private NavItem[] GetChildItems() {
+		private IBaseItem[] GetChildItems() {
 			return GetChildItems(gameObject);
 		}
 
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal static NavItem[] GetChildItems(GameObject pParentObj) {
+		internal static IBaseItem[] GetChildItems(GameObject pParentObj) {
 			Transform tx = pParentObj.transform;
 			int childCount = tx.childCount;
-			var items = new List<NavItem>();
+			var items = new List<IBaseItem>();
 			
 			for ( int i = 0 ; i < childCount ; ++i ) {
-				HovercastNavItem hni = tx.GetChild(i).GetComponent<HovercastNavItem>();
-				NavItem item = hni.GetItem();
+				HovercastItem hni = tx.GetChild(i).GetComponent<HovercastItem>();
+				IBaseItem item = hni.GetItemData().Item;
 
 				if ( !item.IsVisible ) {
 					continue;

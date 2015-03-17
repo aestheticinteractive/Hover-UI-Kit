@@ -2,7 +2,8 @@
 using System.Linq;
 using Hover.Cast.Custom;
 using Hover.Cast.Input;
-using Hover.Cast.Navigation;
+using Hover.Common.Items;
+using Hover.Common.Items.Groups;
 using UnityEngine;
 
 namespace Hover.Cast.State {
@@ -22,7 +23,7 @@ namespace Hover.Cast.State {
 		public float NavBackStrength { get; private set; }
 		public SegmentState NearestSegment { get; private set; }
 
-		private readonly NavRoot vNavRoot;
+		private readonly IItemHierarchy vItemRoot;
 		private readonly IList<SegmentState> vSegments;
 		private readonly InteractionSettings vSettings;
 		private bool vIsGrabbing;
@@ -30,8 +31,8 @@ namespace Hover.Cast.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public ArcState(NavRoot pNavRoot, InteractionSettings pSettings) {
-			vNavRoot = pNavRoot;
+		public ArcState(IItemHierarchy pItemRoot, InteractionSettings pSettings) {
+			vItemRoot = pItemRoot;
 			vSegments = new List<SegmentState>();
 			vSettings = pSettings;
 
@@ -39,7 +40,7 @@ namespace Hover.Cast.State {
 
 			OnLevelChange += (d => {});
 
-			vNavRoot.OnLevelChange += HandleLevelChange;
+			vItemRoot.OnLevelChange += HandleLevelChange;
 			HandleLevelChange(0);
 		}
 
@@ -51,14 +52,14 @@ namespace Hover.Cast.State {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public NavItem GetLevelParentItem() {
-			NavLevel parNavLevel = vNavRoot.GetParentLevel();
-			return (parNavLevel == null ? null : parNavLevel.LastSelectedParentItem);
+		public IBaseItem GetLevelParentItem() {
+			IItemGroup parGroup = vItemRoot.ParentLevel;
+			return (parGroup == null ? null : parGroup.LastSelectedItem);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public string GetLevelTitle() {
-			return vNavRoot.GetLevelTitle();
+			return vItemRoot.CurrentLevelTitle;
 		}
 
 
@@ -123,7 +124,7 @@ namespace Hover.Cast.State {
 
 			if ( !vIsGrabbing && pInputMenu.NavigateBackStrength >= 1 ) {
 				vIsGrabbing = true;
-				vNavRoot.Back();
+				vItemRoot.Back();
 				return;
 			}
 		}
@@ -132,10 +133,10 @@ namespace Hover.Cast.State {
 		private void HandleLevelChange(int pDirection) {
 			vSegments.Clear();
 
-			NavItem[] items = vNavRoot.GetLevel().Items;
+			IBaseItem[] items = vItemRoot.CurrentLevel.Items;
 
-			foreach ( NavItem navItem in items ) {
-				var seg = new SegmentState(navItem, vSettings);
+			foreach ( IBaseItem item in items ) {
+				var seg = new SegmentState(item, vSettings);
 				vSegments.Add(seg);
 			}
 

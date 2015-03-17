@@ -1,26 +1,27 @@
 ﻿using System;
+using Hover.Common.Items;
 using UnityEngine;
 
-namespace Hover.Cast.Navigation {
+namespace Hover.Cast.Items {
 
 	/*================================================================================================*/
-	public abstract class HovercastNavItemListener<T> : MonoBehaviour where T : NavItem {
+	public abstract class HovercastItemListener<T> : MonoBehaviour where T : IBaseItem {
 
-		public HovercastNavItem Component { get; private set; }
+		public HovercastItem Component { get; private set; }
 		public T Item { get; private set; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
-			Component = gameObject.GetComponent<HovercastNavItem>();
+			Component = gameObject.GetComponent<HovercastItem>();
 
 			if ( Component == null ) {
-				throw new Exception("There must be a "+typeof(HovercastNavItem).Name+" component "+
+				throw new Exception("There must be a "+typeof(HovercastItem).Name+" component "+
 					"attached to this GameObject.");
 			}
 
-			Item = (T)Component.GetItem();
+			Item = (T)Component.GetItemData().Item;
 			Setup();
 		}
 

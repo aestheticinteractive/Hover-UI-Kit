@@ -1,6 +1,6 @@
 ﻿using System;
 using Hover.Cast.Custom;
-using Hover.Cast.Navigation;
+using Hover.Common.Items;
 using UnityEngine;
 
 namespace Hover.Cast.State {
@@ -8,7 +8,7 @@ namespace Hover.Cast.State {
 	/*================================================================================================*/
 	public class SegmentState : IHovercastItemState {
 
-		public NavItem NavItem { get; private set; }
+		public IBaseItem Item { get; private set; }
 
 		public float HighlightDistance { get; private set; }
 		public float HighlightProgress { get; private set; }
@@ -24,8 +24,8 @@ namespace Hover.Cast.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public SegmentState(NavItem pNavItem, InteractionSettings pSettings) {
-			NavItem = pNavItem;
+		public SegmentState(IBaseItem pItem, InteractionSettings pSettings) {
+			Item = pItem;
 			vSettings = pSettings;
 		}
 
@@ -35,7 +35,9 @@ namespace Hover.Cast.State {
 		public float SelectionProgress {
 			get {
 				if ( vSelectionStart == null ) {
-					if ( !NavItem.IsStickySelected ) {
+					ISelectableItem selItem = (Item as ISelectableItem);
+
+					if ( selItem == null || !selItem.IsStickySelected ) {
 						return 0;
 					}
 
@@ -73,7 +75,7 @@ namespace Hover.Cast.State {
 				throw new Exception("No CursorDistanceFunction has been set.");
 			}
 
-			if ( !NavItem.IsEnabled ) {
+			if ( !Item.IsEnabled ) {
 				HighlightDistance = float.MaxValue;
 				HighlightProgress = 0;
 				return;
@@ -89,10 +91,16 @@ namespace Hover.Cast.State {
 
 		/*--------------------------------------------------------------------------------------------*/
 		internal bool SetAsNearestSegment(bool pIsNearest) {
+			ISelectableItem selItem = (Item as ISelectableItem);
+
+			if ( selItem == null ) {
+				return false;
+			}
+
 			IsNearestHighlight = pIsNearest;
 
 			if ( !pIsNearest || SelectionProgress <= 0 ) {
-				NavItem.DeselectStickySelections();
+				selItem.DeselectStickySelections();
 			}
 
 			if ( !pIsNearest || HighlightProgress < 1 ) {
@@ -101,7 +109,7 @@ namespace Hover.Cast.State {
 				return false;
 			}
 
-			if ( IsSelectionPrevented || !NavItem.AllowSelection ) {
+			if ( IsSelectionPrevented || !selItem.AllowSelection ) {
 				vSelectionStart = null;
 				return false;
 			}
@@ -118,7 +126,7 @@ namespace Hover.Cast.State {
 			vSelectionStart = null;
 			IsSelectionPrevented = true;
 			vDistanceUponSelection = HighlightDistance;
-			NavItem.Select();
+			selItem.Select();
 			return true;
 		}
 

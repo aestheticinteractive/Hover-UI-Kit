@@ -1,5 +1,4 @@
 ﻿using Hover.Board.Devices.Leap.Touch;
-using Hover.Cast.Navigation;
 
 namespace Hover.Demo.HoverboardDemo.Navigation {
 

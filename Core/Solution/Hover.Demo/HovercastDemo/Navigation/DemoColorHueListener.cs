@@ -1,5 +1,4 @@
 ﻿using System;
-using Hover.Cast.Navigation;
 
 namespace Hover.Demo.HovercastDemo.Navigation {
 

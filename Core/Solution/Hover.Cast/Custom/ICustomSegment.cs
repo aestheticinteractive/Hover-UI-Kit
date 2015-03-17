@@ -1,5 +1,5 @@
 ﻿using System;
-using Hover.Cast.Navigation;
+using Hover.Common.Items;
 
 namespace Hover.Cast.Custom {
 
@@ -9,10 +9,10 @@ namespace Hover.Cast.Custom {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		Type GetSegmentRenderer(NavItem pNavItem);
+		Type GetSegmentRenderer(IBaseItem pNavItem);
 
 		/*--------------------------------------------------------------------------------------------*/
-		SegmentSettings GetSegmentSettings(NavItem pNavItem);
+		SegmentSettings GetSegmentSettings(IBaseItem pNavItem);
 
 	}
 

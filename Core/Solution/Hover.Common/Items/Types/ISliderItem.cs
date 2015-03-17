@@ -3,7 +3,7 @@
 namespace Hover.Common.Items.Types {
 
 	/*================================================================================================*/
-	interface ISliderItem : ISelectableItem<float> {
+	public interface ISliderItem : ISelectableItem<float> {
 
 		int Ticks { get; set; }
 		int Snaps { get; set; }

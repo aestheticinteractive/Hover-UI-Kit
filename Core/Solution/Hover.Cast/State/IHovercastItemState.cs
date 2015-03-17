@@ -1,11 +1,11 @@
-﻿using Hover.Cast.Navigation;
+﻿using Hover.Common.Items;
 
 namespace Hover.Cast.State {
 
 	/*================================================================================================*/
 	public interface IHovercastItemState {
 
-		NavItem NavItem { get; }
+		IBaseItem Item { get; }
 		float HighlightDistance { get; }
 		float HighlightProgress { get; }
 		bool IsNearestHighlight { get; }

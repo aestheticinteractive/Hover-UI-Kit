@@ -6,7 +6,7 @@
 		event ItemEvents.HierarchyLevelChangedHandler OnLevelChange;
 		event ItemEvents.GroupItemSelectedHandler OnItemSelection;
 
-		string Title { get; }
+		string Title { get; set; }
 		IItemGroup CurrentLevel { get; }
 		IItemGroup ParentLevel { get; }
 		string CurrentLevelTitle { get; }

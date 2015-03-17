@@ -1,6 +1,7 @@
 ﻿using System;
 using Hover.Cast.Display.Default;
-using Hover.Cast.Navigation;
+using Hover.Cast.Items;
+using Hover.Common.Items.Types;
 using UnityEngine;
 
 namespace Hover.Cast.Custom {
@@ -25,24 +26,24 @@ namespace Hover.Cast.Custom {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected override Type GetRendererForNavItemTypeInner(NavItem.ItemType pNavItemType) {
-			switch ( pNavItemType ) {
-				case NavItem.ItemType.Parent:
+		protected override Type GetRendererForNavItemTypeInner(SelectableItemType pItemType) {
+			switch ( pItemType ) {
+				case SelectableItemType.Parent:
 					return typeof(UiParentRenderer);
 
-				case NavItem.ItemType.Selector:
+				case SelectableItemType.Selector:
 					return typeof(UiSelectRenderer);
 
-				case NavItem.ItemType.Sticky:
+				case SelectableItemType.Sticky:
 					return typeof(UiStickyRenderer);
 
-				case NavItem.ItemType.Checkbox:
+				case SelectableItemType.Checkbox:
 					return typeof(UiCheckboxRenderer);
 
-				case NavItem.ItemType.Radio:
+				case SelectableItemType.Radio:
 					return typeof(UiRadioRenderer);
 
-				case NavItem.ItemType.Slider:
+				case SelectableItemType.Slider:
 					return typeof(UiSliderRenderer);
 			}
 

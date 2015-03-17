@@ -92,18 +92,10 @@
     <Compile Include="Input\IInputMenu.cs" />
     <Compile Include="Input\IInputProvider.cs" />
     <Compile Include="Input\IInputSide.cs" />
-    <Compile Include="Navigation\HovercastNavItem.cs" />
-    <Compile Include="Navigation\HovercastNavItemListener.cs" />
-    <Compile Include="Navigation\HovercastNavProvider.cs" />
-    <Compile Include="Navigation\NavItem.cs" />
-    <Compile Include="Navigation\NavItemCheckbox.cs" />
-    <Compile Include="Navigation\NavItemParent.cs" />
-    <Compile Include="Navigation\NavItemRadio.cs" />
-    <Compile Include="Navigation\NavItemSelector.cs" />
-    <Compile Include="Navigation\NavItemSlider.cs" />
-    <Compile Include="Navigation\NavItemSticky.cs" />
-    <Compile Include="Navigation\NavLevel.cs" />
-    <Compile Include="Navigation\NavRoot.cs" />
+    <Compile Include="Items\ItemData.cs" />
+    <Compile Include="Items\HovercastItem.cs" />
+    <Compile Include="Items\HovercastItemListener.cs" />
+    <Compile Include="Items\HovercastItemsProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="State\ArcState.cs" />
     <Compile Include="State\CursorState.cs" />
@@ -113,6 +105,12 @@
     <Compile Include="State\IHovercastState.cs" />
     <Compile Include="State\MenuState.cs" />
     <Compile Include="State\SegmentState.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Hover.Common\Hover.Common.csproj">
+      <Project>{F60AF979-92BB-498A-BD95-34070B69E9DD}</Project>
+      <Name>Hover.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

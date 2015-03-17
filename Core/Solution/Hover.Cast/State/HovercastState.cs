@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Hover.Cast.Custom;
 using Hover.Cast.Input;
-using Hover.Cast.Navigation;
+using Hover.Cast.Items;
 using UnityEngine;
 
 namespace Hover.Cast.State {
@@ -9,7 +9,7 @@ namespace Hover.Cast.State {
 	/*================================================================================================*/
 	public class HovercastState : IHovercastState {
 
-		public HovercastNavProvider NavigationProvider { get; private set; }
+		public HovercastItemsProvider NavigationProvider { get; private set; }
 		public HovercastCustomizationProvider CustomizationProvider { get; private set; }
 		public HovercastInputProvider InputProvider { get; private set; }
 
@@ -22,7 +22,7 @@ namespace Hover.Cast.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public HovercastState(HovercastNavProvider pNav, HovercastCustomizationProvider pCustom,
+		public HovercastState(HovercastItemsProvider pNav, HovercastCustomizationProvider pCustom,
 													HovercastInputProvider pInput, Transform pCamera) {
 			NavigationProvider = pNav;
 			CustomizationProvider = pCustom;

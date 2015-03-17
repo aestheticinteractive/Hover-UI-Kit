@@ -28,7 +28,7 @@ namespace Hover.Common.Items.Types {
 			get {
 				return false;
 			}
-			internal set {
+			set {
 				if ( value ) {
 					throw new Exception("Cannot set NavigateBackUponSelect for 'Parent' NavItems.");
 				}

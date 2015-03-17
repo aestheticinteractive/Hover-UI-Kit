@@ -1,6 +1,6 @@
 ﻿using Hover.Cast.Custom;
 using Hover.Cast.Input;
-using Hover.Cast.Navigation;
+using Hover.Common.Items.Groups;
 
 namespace Hover.Cast.State {
 
@@ -20,11 +20,12 @@ namespace Hover.Cast.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public MenuState(IInputProvider pInputProv, NavRoot pNavRoot,InteractionSettings pSettings){
+		public MenuState(IInputProvider pInputProv, IItemHierarchy pItemRoot, 
+																		InteractionSettings pSettings) {
 			vInputProv = pInputProv;
 			vSettings = pSettings;
 
-			Arc = new ArcState(pNavRoot, vSettings);
+			Arc = new ArcState(pItemRoot, vSettings);
 			Cursor = new CursorState(vSettings);
 
 			OnSideChange += (() => {});

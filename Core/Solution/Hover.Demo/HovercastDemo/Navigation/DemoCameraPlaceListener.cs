@@ -1,6 +1,4 @@
-﻿using Hover.Cast.Navigation;
-
-namespace Hover.Demo.HovercastDemo.Navigation {
+﻿namespace Hover.Demo.HovercastDemo.Navigation {
 
 	/*================================================================================================*/
 	public class DemoCameraPlaceListener : DemoBaseListener<NavItemRadio> {

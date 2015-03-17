@@ -1,11 +1,11 @@
 ﻿using Hover.Cast.Custom;
-using Hover.Cast.Navigation;
+using Hover.Cast.Items;
 using UnityEngine;
 
 namespace Hover.Demo.HovercastDemo.Navigation {
 
 	/*================================================================================================*/
-	public abstract class DemoBaseListener<T> : HovercastNavItemListener<T> where T : NavItem {
+	public abstract class DemoBaseListener<T> : HovercastItemListener<T> where T : NavItem {
 
 		protected DemoEnvironment Enviro { get; private set; }
 		protected HovercastCustomizationProvider Custom { get; private set; }

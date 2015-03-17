@@ -1,6 +1,5 @@
 ﻿using System;
 using Hover.Cast.Custom;
-using Hover.Cast.Navigation;
 using UnityEngine;
 
 namespace Hover.Demo.HovercastDemo.Navigation {

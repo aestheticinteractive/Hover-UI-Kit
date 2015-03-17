@@ -1,7 +1,7 @@
 ﻿using System;
 using Hover.Cast.Custom;
-using Hover.Cast.Navigation;
 using Hover.Cast.State;
+using Hover.Common.Items.Types;
 using UnityEngine;
 
 namespace Hover.Cast.Display.Default {
@@ -14,7 +14,7 @@ namespace Hover.Cast.Display.Default {
 		protected float vAngle0;
 		protected float vAngle1;
 		protected SegmentSettings vSettings;
-		protected NavItemSlider vNavSlider;
+		protected ISliderItem vSliderItem;
 
 		protected float vGrabArcHalf;
 		protected float vSlideDegree0;
@@ -48,7 +48,7 @@ namespace Hover.Cast.Display.Default {
 			vAngle0 = -pArcAngle/2f+UiSlice.AngleInset;
 			vAngle1 = pArcAngle/2f-UiSlice.AngleInset;
 			vSettings = pSettings;
-			vNavSlider = (NavItemSlider)vSegState.NavItem;
+			vSliderItem = (ISliderItem)vSegState.Item;
 
 			const float pi = (float)Math.PI;
 			const float radInner = 1.04f;
@@ -75,13 +75,13 @@ namespace Hover.Cast.Display.Default {
 			vTickMat.renderQueue -= 400;
 			vTickMat.color = Color.clear;
 
-			if ( vNavSlider.Ticks > 1 ) {
+			if ( vSliderItem.Ticks > 1 ) {
 				Vector3 quadScale = new Vector3(UiSlice.AngleInset*2, 0.36f, 0.1f);
-				float percPerTick = 1/(float)(vNavSlider.Ticks-1);
+				float percPerTick = 1/(float)(vSliderItem.Ticks-1);
 
-				vTicks = new GameObject[vNavSlider.Ticks];
+				vTicks = new GameObject[vSliderItem.Ticks];
 
-				for ( int i = 0 ; i < vNavSlider.Ticks ; ++i ) {
+				for ( int i = 0 ; i < vSliderItem.Ticks ; ++i ) {
 					var tick = new GameObject("Tick"+i);
 					tick.transform.SetParent(gameObject.transform, false);
 					tick.transform.localRotation = Quaternion.AngleAxis(
@@ -124,13 +124,13 @@ namespace Hover.Cast.Display.Default {
 		public virtual void Update() {
 			vMainAlpha = UiSelectRenderer.GetArcAlpha(vArcState)*vAnimAlpha;
 
-			if ( !vSegState.NavItem.IsEnabled ) {
+			if ( !vSegState.Item.IsEnabled ) {
 				vMainAlpha *= 0.333f;
 			}
 
-			float easedVal = GetEasedValue(vNavSlider.Value, vNavSlider.SnappedValue);
-			float easedHover = (vNavSlider.HoverValue == null ? easedVal : 
-				GetEasedValue((float)vNavSlider.HoverValue, (float)vNavSlider.HoverSnappedValue));
+			float easedVal = GetEasedValue(vSliderItem.Value, vSliderItem.SnappedValue);
+			float easedHover = (vSliderItem.HoverValue == null ? easedVal : 
+				GetEasedValue((float)vSliderItem.HoverValue, (float)vSliderItem.HoverSnappedValue));
 			float hoverArcHalf = 0;
 
 			Color colTrack = vSettings.SliderTrackColor;
@@ -150,7 +150,7 @@ namespace Hover.Cast.Display.Default {
 			float slideDeg = vSlideDegree0 + vSlideDegrees*easedVal;
 			vGrabHold.transform.localRotation = Quaternion.AngleAxis(slideDeg, Vector3.up);
 
-			if ( vNavSlider.HoverSnappedValue != null ) {
+			if ( vSliderItem.HoverSnappedValue != null ) {
 				slideDeg = vSlideDegree0 + vSlideDegrees*easedHover;
 				vHoverHold.transform.localRotation = Quaternion.AngleAxis(slideDeg, Vector3.up);
 
@@ -184,7 +184,7 @@ namespace Hover.Cast.Display.Default {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public Vector3 GetPointNearestToCursor(Vector3 pCursorLocalPos) {
-			if ( vNavSlider.AllowJump ) {
+			if ( vSliderItem.AllowJump ) {
 				return vHiddenSlice.GetPointNearestToCursor(pCursorLocalPos);
 			}
 
@@ -204,12 +204,12 @@ namespace Hover.Cast.Display.Default {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private float GetEasedValue(float pValue, float pSnappedValue) {
-			if ( vNavSlider.Snaps < 2 ) {
+			if ( vSliderItem.Snaps < 2 ) {
 				return pValue;
 			}
 
 			float showVal = pSnappedValue;
-			int snaps = vNavSlider.Snaps-1;
+			int snaps = vSliderItem.Snaps-1;
 			float diff = pValue-showVal;
 			int sign = Math.Sign(diff);
 

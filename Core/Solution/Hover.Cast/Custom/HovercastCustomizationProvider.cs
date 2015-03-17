@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Hover.Cast.Navigation;
+using Hover.Cast.Items;
+using Hover.Common.Items;
 using UnityEngine;
 
 namespace Hover.Cast.Custom {
@@ -29,39 +30,39 @@ namespace Hover.Cast.Custom {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public Type GetSegmentRenderer(NavItem pNavItem) {
-			if ( pNavItem == null ) {
+		public Type GetSegmentRenderer(IBaseItem pItem) {
+			if ( pItem == null ) {
 				throw new ArgumentException("Hovercast | NavItem cannot be null.", "NavItem");
 			}
 
 			InitOnce();
 
-			HovercastCustomSegment seg = FindCustom(vMainSeg, pNavItem, (c => c.Seg));
-			return seg.GetRendererForNavItemType(pNavItem.Type);
+			HovercastCustomSegment seg = FindCustom(vMainSeg, pItem, (c => c.Seg));
+			return seg.GetRendererForNavItemType(pItem.Type);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public SegmentSettings GetSegmentSettings(NavItem pNavItem) {
+		public SegmentSettings GetSegmentSettings(IBaseItem pItem) {
 			InitOnce();
 
-			HovercastCustomSegment seg = FindCustom(vMainSeg, pNavItem, (c => c.Seg));
+			HovercastCustomSegment seg = FindCustom(vMainSeg, pItem, (c => c.Seg));
 			return seg.GetSettings();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public Type GetPalmRenderer(NavItem pNavItem) {
+		public Type GetPalmRenderer(IBaseItem pItem) {
 			InitOnce();
 
-			HovercastCustomPalm palm = FindCustom(vMainPalm, pNavItem, (c => c.Palm));
+			HovercastCustomPalm palm = FindCustom(vMainPalm, pItem, (c => c.Palm));
 			return palm.GetRenderer();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public SegmentSettings GetPalmSettings(NavItem pNavItem) {
+		public SegmentSettings GetPalmSettings(IBaseItem pItem) {
 			InitOnce();
 
-			HovercastCustomPalm palm = FindCustom(vMainPalm, pNavItem, (c => c.Palm));
-			return (palm.GetSettings() ?? GetSegmentSettings(pNavItem));
+			HovercastCustomPalm palm = FindCustom(vMainPalm, pItem, (c => c.Palm));
+			return (palm.GetSettings() ?? GetSegmentSettings(pItem));
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -136,13 +137,13 @@ namespace Hover.Cast.Custom {
 		private void FillCustomItems<T>(T[] pComponentList, Action<CustomItem, T> pFillAction)
 																				where T : Component {
 			foreach ( T comp in pComponentList ) {
-				HovercastNavItem hni = comp.gameObject.GetComponent<HovercastNavItem>();
+				HovercastItem hni = comp.gameObject.GetComponent<HovercastItem>();
 
 				if ( hni == null ) {
 					continue;
 				}
 
-				int key = hni.GetItem().AutoId;
+				int key = hni.GetItemData().Item.AutoId;
 				CustomItem cust;
 
 				if ( vCustomMap.ContainsKey(key) ) {
@@ -158,16 +159,16 @@ namespace Hover.Cast.Custom {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private T FindCustom<T>(T pMain, NavItem pNavItem, Func<CustomItem, T> pGetPropFunc)
+		private T FindCustom<T>(T pMain, IBaseItem pItem, Func<CustomItem, T> pGetPropFunc)
 																				where T : Component {
 			T comp = pMain;
 
-			if ( pNavItem == null ) {
+			if ( pItem == null ) {
 				return comp;
 			}
 
 			CustomItem cust;
-			vCustomMap.TryGetValue(pNavItem.AutoId, out cust);
+			vCustomMap.TryGetValue(pItem.AutoId, out cust);
 
 			if ( cust != null && pGetPropFunc(cust) != null ) {
 				comp = pGetPropFunc(cust);

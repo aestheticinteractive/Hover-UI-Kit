@@ -1,5 +1,4 @@
-﻿using Hover.Cast.Navigation;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Hover.Cast.Display.Default {
 

@@ -2,7 +2,7 @@
 using Hover.Cast.Custom;
 using Hover.Cast.Display;
 using Hover.Cast.Input;
-using Hover.Cast.Navigation;
+using Hover.Cast.Items;
 using Hover.Cast.State;
 using UnityEngine;
 
@@ -11,7 +11,7 @@ namespace Hover.Cast {
 	/*================================================================================================*/
 	public class HovercastSetup : MonoBehaviour {
 
-		public HovercastNavProvider NavigationProvider;
+		public HovercastItemsProvider NavigationProvider;
 		public HovercastCustomizationProvider CustomizationProvider;
 		public HovercastInputProvider InputProvider;
 		public Transform OptionalCameraReference;
