@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Hover.Cast.Display;
-using Hover.Common.Items.Types;
+using Hover.Common.Items;
 using UnityEngine;
 
 namespace Hover.Cast.Custom {
@@ -12,15 +12,15 @@ namespace Hover.Cast.Custom {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public Type GetRendererForNavItemType(SelectableItemType pItemType) {
-			Type type = GetRendererForNavItemTypeInner(pItemType);
+		public Type GetRendererForItem(IBaseItem pItem) {
+			Type type = GetRendererForItemInner(pItem);
 
 			if ( type == null ) {
-				throw new Exception(GetErrorPrefix(pItemType)+"cannot be null.");
+				throw new Exception(GetErrorPrefix(pItem)+"cannot be null.");
 			}
 
 			if ( !type.GetInterfaces().Contains(typeof(IUiSegmentRenderer)) ) {
-				throw new Exception(GetErrorPrefix(pItemType)+"must implement the "+
+				throw new Exception(GetErrorPrefix(pItem)+"must implement the "+
 					typeof(IUiSegmentRenderer).Name+" interface.");
 			}
 
@@ -28,7 +28,7 @@ namespace Hover.Cast.Custom {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		protected abstract Type GetRendererForNavItemTypeInner(SelectableItemType pItemType);
+		protected abstract Type GetRendererForItemInner(IBaseItem pItem);
 
 		/*--------------------------------------------------------------------------------------------*/
 		public abstract SegmentSettings GetSettings();
@@ -36,8 +36,8 @@ namespace Hover.Cast.Custom {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private static string GetErrorPrefix(SelectableItemType pItemType) {
-			return "Hovercast | The 'Segment' Renderer for '"+pItemType+"' NavItems ";
+		private static string GetErrorPrefix(IBaseItem pItem) {
+			return "Hovercast | The 'Segment' Renderer for the '"+pItem.Label+"' item ";
 		}
 
 	}

@@ -1,6 +1,7 @@
 ﻿using System;
 using Hover.Cast.Custom;
 using Hover.Cast.State;
+using Hover.Common.Items;
 using UnityEngine;
 
 namespace Hover.Cast.Display {
@@ -66,7 +67,7 @@ namespace Hover.Cast.Display {
 			vPrevRendererObj = vRendererObj;
 
 			const float halfAngle = UiLevel.AngleFull/2f;
-			NavItem navItem = vArcState.GetLevelParentItem();
+			IBaseItem navItem = vArcState.GetLevelParentItem();
 			Type rendType = vCustom.GetPalmRenderer(navItem);
 			SegmentSettings sett = vCustom.GetPalmSettings(navItem);
 

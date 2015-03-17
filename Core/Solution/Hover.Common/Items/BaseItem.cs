@@ -11,6 +11,8 @@
 		public int AutoId { get; private set; }
 		public string Id { get; set; }
 		public virtual string Label { get; set; }
+		public float Width { get; set; }
+		public float Height { get; set; }
 
 		protected bool vIsEnabled;
 		protected bool vIsVisible;

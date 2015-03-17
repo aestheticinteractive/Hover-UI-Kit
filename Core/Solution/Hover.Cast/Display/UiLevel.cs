@@ -32,12 +32,12 @@ namespace Hover.Cast.Display {
 			float sizeSum = 0;
 
 			for ( int i = 0 ; i < segCount ; i++ ) {
-				sizeSum += segStates[i].NavItem.RelativeSize;
+				sizeSum += segStates[i].Item.Height;
 			}
 
 			for ( int i = 0 ; i < segCount ; i++ ) {
 				SegmentState segState = segStates[i];
-				float segPerc = segState.NavItem.RelativeSize/sizeSum;
+				float segPerc = segState.Item.Height/sizeSum;
 				float segAngle = AngleFull*segPerc;
 				float segDegHalf = segAngle*ToDegrees/2f;
 

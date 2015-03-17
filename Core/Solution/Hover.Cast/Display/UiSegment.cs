@@ -1,6 +1,7 @@
 ﻿using System;
 using Hover.Cast.Custom;
 using Hover.Cast.State;
+using Hover.Common.Items.Types;
 using UnityEngine;
 
 namespace Hover.Cast.Display {
@@ -41,8 +42,8 @@ namespace Hover.Cast.Display {
 
 			////
 
-			Type rendType = pCustom.GetSegmentRenderer(vSegState.NavItem);
-			SegmentSettings sett = pCustom.GetSegmentSettings(vSegState.NavItem);
+			Type rendType = pCustom.GetSegmentRenderer(vSegState.Item);
+			SegmentSettings sett = pCustom.GetSegmentSettings(vSegState.Item);
 
 			var rendObj = new GameObject("Renderer");
 			rendObj.transform.SetParent(gameObject.transform, false);
@@ -53,9 +54,7 @@ namespace Hover.Cast.Display {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void Update() {
-			if ( vSegState.NavItem.Type == NavItem.ItemType.Slider ) {
-				UpdateSliderValue();
-			}
+			TryUpdateSliderValue();
 		}
 
 
@@ -76,11 +75,15 @@ namespace Hover.Cast.Display {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateSliderValue() {
-			NavItemSlider slider = ((NavItemSlider)vSegState.NavItem);
+		private void TryUpdateSliderValue() {
+			ISliderItem sliderItem = (vSegState.Item as ISliderItem);
+
+			if ( sliderItem == null ) {
+				return;
+			}
 
 			if ( !vSegState.IsNearestHighlight || vSegState.HighlightProgress <= 0 ) {
-				slider.HoverValue = null;
+				sliderItem.HoverValue = null;
 				return;
 			}
 
@@ -98,15 +101,15 @@ namespace Hover.Cast.Display {
 				cursorDeg = 0;
 			}
 
-			if ( slider.IsStickySelected ) {
-				slider.Value = cursorDeg/vSlideDegrees;
-				slider.HoverValue = null;
+			if ( sliderItem.IsStickySelected ) {
+				sliderItem.Value = cursorDeg/vSlideDegrees;
+				sliderItem.HoverValue = null;
 			}
-			else if ( slider.AllowJump ) {
-				slider.HoverValue = cursorDeg/vSlideDegrees;
+			else if ( sliderItem.AllowJump ) {
+				sliderItem.HoverValue = cursorDeg/vSlideDegrees;
 			}
 			else {
-				slider.HoverValue = null;
+				sliderItem.HoverValue = null;
 			}
 		}
 

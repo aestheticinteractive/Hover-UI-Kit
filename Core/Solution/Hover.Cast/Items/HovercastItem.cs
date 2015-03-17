@@ -26,22 +26,17 @@ namespace Hover.Cast.Items {
 		public float SliderValue;
 		public bool SliderAllowJump = true;
 
-		private ItemData vData;
 		private IBaseItem vItem;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public ItemData GetItemData() {
-			if ( vData == null ) {
+		public IBaseItem GetItem() {
+			if ( vItem == null ) {
 				BuildItem();
-
-				vData = new ItemData();
-				vData.Item = vItem;
-				vData.RelativeSize = RelativeSize;
 			}
 
-			return vData;
+			return vItem;
 		}
 
 
@@ -90,6 +85,7 @@ namespace Hover.Cast.Items {
 			}
 
 			vItem.Label = (string.IsNullOrEmpty(Label) ? gameObject.name : Label);
+			vItem.Height = RelativeSize;
 			vItem.IsVisible = IsVisible;
 			vItem.IsEnabled = IsEnabled;
 
@@ -102,7 +98,7 @@ namespace Hover.Cast.Items {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private IBaseItem[] GetChildItems() {
-			return HovercastItemsProvider.GetChildItems(gameObject);
+			return HovercastItemsProvider.GetChildItemsFromGameObject(gameObject);
 		}
 
 	}

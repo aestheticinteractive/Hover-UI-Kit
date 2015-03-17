@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Hover.Common.Items.Types;
+using UnityEngine;
 
 namespace Hover.Cast.Display.Default {
 
@@ -22,7 +23,7 @@ namespace Hover.Cast.Display.Default {
 
 		/*--------------------------------------------------------------------------------------------*/
 		protected override bool IsToggled() {
-			return ((NavItemRadio)vSegState.NavItem).Value;
+			return ((IRadioItem)vSegState.Item).Value;
 		}
 
 	}

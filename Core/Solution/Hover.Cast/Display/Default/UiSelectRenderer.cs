@@ -1,6 +1,7 @@
 ﻿using System;
 using Hover.Cast.Custom;
 using Hover.Cast.State;
+using Hover.Common.Items;
 using UnityEngine;
 
 namespace Hover.Cast.Display.Default {
@@ -57,17 +58,19 @@ namespace Hover.Cast.Display.Default {
 		public virtual void Update() {
 			vMainAlpha = GetArcAlpha(vArcState)*vAnimAlpha;
 
-			if ( !vSegState.NavItem.IsEnabled ) {
+			if ( !vSegState.Item.IsEnabled ) {
 				vMainAlpha *= 0.333f;
 			}
 
+			ISelectableItem selItem = (vSegState.Item as ISelectableItem);
 			float high = vSegState.HighlightProgress;
-			float edge = (vSegState.IsNearestHighlight && !vSegState.IsSelectionPrevented && 
-				vSegState.NavItem.AllowSelection ? high : 0);
+			bool showEdge = (vSegState.IsNearestHighlight && !vSegState.IsSelectionPrevented && 
+				selItem != null && selItem.AllowSelection);
+			float edge = (showEdge ? high : 0);
 			float select = 1-(float)Math.Pow(1-vSegState.SelectionProgress, 1.5f);
 			float selectAlpha = select;
 
-			if ( vSegState.NavItem.IsStickySelected ) {
+			if ( selItem != null && selItem.IsStickySelected ) {
 				selectAlpha = 1;
 			}
 
@@ -90,7 +93,7 @@ namespace Hover.Cast.Display.Default {
 			vLabel.FontName = vSettings.TextFont;
 			vLabel.FontSize = vSettings.TextSize;
 			vLabel.Color = vSettings.TextColor;
-			vLabel.Label = vSegState.NavItem.Label;
+			vLabel.Label = vSegState.Item.Label;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

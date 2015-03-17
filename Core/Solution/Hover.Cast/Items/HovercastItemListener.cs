@@ -21,7 +21,7 @@ namespace Hover.Cast.Items {
 					"attached to this GameObject.");
 			}
 
-			Item = (T)Component.GetItemData().Item;
+			Item = (T)Component.GetItem();
 			Setup();
 		}
 

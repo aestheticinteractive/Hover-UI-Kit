@@ -1,6 +1,6 @@
 ﻿using System;
 using Hover.Cast.Display.Default;
-using Hover.Cast.Items;
+using Hover.Common.Items;
 using Hover.Common.Items.Types;
 using UnityEngine;
 
@@ -24,27 +24,32 @@ namespace Hover.Cast.Custom {
 
 		private SegmentSettings vSettings;
 
+
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected override Type GetRendererForNavItemTypeInner(SelectableItemType pItemType) {
-			switch ( pItemType ) {
-				case SelectableItemType.Parent:
-					return typeof(UiParentRenderer);
+		protected override Type GetRendererForItemInner(IBaseItem pItem) {
+			if ( (pItem as IParentItem) != null ) {
+				return typeof(UiParentRenderer);
+			}
 
-				case SelectableItemType.Selector:
-					return typeof(UiSelectRenderer);
+			if ( (pItem as ISelectorItem) != null ) {
+				return typeof(UiSelectRenderer);
+			}
 
-				case SelectableItemType.Sticky:
-					return typeof(UiStickyRenderer);
+			if ( (pItem as IStickyItem) != null ) {
+				return typeof(UiStickyRenderer);
+			}
 
-				case SelectableItemType.Checkbox:
-					return typeof(UiCheckboxRenderer);
+			if ( (pItem as ICheckboxItem) != null ) {
+				return typeof(UiCheckboxRenderer);
+			}
 
-				case SelectableItemType.Radio:
-					return typeof(UiRadioRenderer);
+			if ( (pItem as IRadioItem) != null ) {
+				return typeof(UiRadioRenderer);
+			}
 
-				case SelectableItemType.Slider:
-					return typeof(UiSliderRenderer);
+			if ( (pItem as ISliderItem) != null ) {
+				return typeof(UiSliderRenderer);
 			}
 
 			return typeof(UiSelectRenderer);

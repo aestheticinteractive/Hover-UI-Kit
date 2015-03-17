@@ -1,7 +1,7 @@
 ﻿namespace Hover.Common.Items.Types {
 
 	/*================================================================================================*/
-	public class StickyItem : SelectableItem {
+	public class StickyItem : SelectableItem, IStickyItem {
 
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////

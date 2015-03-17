@@ -38,7 +38,7 @@ namespace Hover.Cast.Custom {
 			InitOnce();
 
 			HovercastCustomSegment seg = FindCustom(vMainSeg, pItem, (c => c.Seg));
-			return seg.GetRendererForNavItemType(pItem.Type);
+			return seg.GetRendererForItem(pItem);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -143,7 +143,7 @@ namespace Hover.Cast.Custom {
 					continue;
 				}
 
-				int key = hni.GetItemData().Item.AutoId;
+				int key = hni.GetItem().AutoId;
 				CustomItem cust;
 
 				if ( vCustomMap.ContainsKey(key) ) {

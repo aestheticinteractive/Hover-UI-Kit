@@ -39,20 +39,20 @@ namespace Hover.Cast.Items {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		private IBaseItem[] GetChildItems() {
-			return GetChildItems(gameObject);
+			return GetChildItemsFromGameObject(gameObject);
 		}
 
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal static IBaseItem[] GetChildItems(GameObject pParentObj) {
+		internal static IBaseItem[] GetChildItemsFromGameObject(GameObject pParentObj) {
 			Transform tx = pParentObj.transform;
 			int childCount = tx.childCount;
 			var items = new List<IBaseItem>();
 			
 			for ( int i = 0 ; i < childCount ; ++i ) {
 				HovercastItem hni = tx.GetChild(i).GetComponent<HovercastItem>();
-				IBaseItem item = hni.GetItemData().Item;
+				IBaseItem item = hni.GetItem();
 
 				if ( !item.IsVisible ) {
 					continue;
