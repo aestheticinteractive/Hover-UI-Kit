@@ -14,7 +14,6 @@ namespace Hover.Board.Custom {
 		}
 
 		private HoverboardCustomButton vMainSeg;
-		private HoverboardCustomCursor vCursor;
 		private HoverboardCustomInteraction vInteract;
 		private IDictionary<int, CustomItem> vCustomMap;
 
@@ -48,18 +47,6 @@ namespace Hover.Board.Custom {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public Type GetCursorRenderer() {
-			InitOnce();
-			return vCursor.GetRenderer();
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public CursorSettings GetCursorSettings() {
-			InitOnce();
-			return vCursor.GetSettings();
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
 		public InteractionSettings GetInteractionSettings() {
 			InitOnce();
 			return vInteract.GetSettings();
@@ -74,19 +61,12 @@ namespace Hover.Board.Custom {
 			}
 
 			vMainSeg = gameObject.GetComponent<HoverboardCustomButton>();
-			vCursor = gameObject.GetComponent<HoverboardCustomCursor>();
 			vInteract = gameObject.GetComponent<HoverboardCustomInteraction>();
 
 			if ( vMainSeg == null ) {
 				Debug.LogWarning("Hoverboard | No '"+typeof(HoverboardCustomButton).Name+
 					"' provided; using default.");
 				vMainSeg = gameObject.AddComponent<HoverboardDefaultButton>();
-			}
-
-			if ( vCursor == null ) {
-				Debug.LogWarning("Hoverboard | No '"+typeof(HoverboardCustomCursor).Name+
-					"' provided; using default.");
-				vCursor = gameObject.AddComponent<HoverboardDefaultCursor>();
 			}
 
 			if ( vInteract == null ) {

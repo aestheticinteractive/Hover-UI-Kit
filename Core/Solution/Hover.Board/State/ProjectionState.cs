@@ -1,62 +1,40 @@
 ﻿using Hover.Board.Custom;
-using Hover.Board.Input;
+using Hover.Cursor.State;
 using UnityEngine;
 
 namespace Hover.Board.State {
 
 	/*================================================================================================*/
-	public class CursorState {
+	public class ProjectionState {
 
-		public CursorType? CursorType { get; private set; }
-		public bool IsInputAvailable { get; private set; }
-		public Vector3 Position { get; private set; }
-		public float Size { get; private set; }
+		public ICursorState CursorState { get; private set; }
 
 		public Vector3? ProjectedPanelPosition { get; private set; }
 		public bool ProjectedFromFront { get; private set; }
 		public float ProjectedPanelDistance { get; private set; }
 		public float ProjectedPanelProgress { get; private set; }
-		public float NearestButtonHighlightProgress { get; set; }
 
 		private readonly InteractionSettings vSettings;
 		private readonly Transform vBaseTx;
+		private readonly ICursorInteractState vCursorInteractState;
+
 		private Transform vPanelTx;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public CursorState(InteractionSettings pSettings, Transform pBaseTx) {
+		public ProjectionState(ICursorState pCursorState, InteractionSettings pSettings, 
+																					Transform pBaseTx) {
+			CursorState = pCursorState;
 			vSettings = pSettings;
 			vBaseTx = pBaseTx;
+
+			vCursorInteractState = pCursorState.AddOrGetInteractionState(CursorDomain.Hoverboard, "");
+			vCursorInteractState.DisplayStrength = 1;
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		internal Vector3 GetWorldPosition() {
-			return vBaseTx.TransformPoint(Position);
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		internal void UpdateAfterInput(IInputCursor pInputCursor) {
-			if ( pInputCursor == null ) {
-				CursorType = null;
-				IsInputAvailable = false;
-				Position = Vector3.zero;
-				Size = 0;
-				return;
-			}
-
-			CursorType = pInputCursor.Type;
-			IsInputAvailable = pInputCursor.IsAvailable;
-			Size = pInputCursor.Size;
-
-			Position = pInputCursor.Position+
-				pInputCursor.Rotation*Vector3.back*vSettings.CursorForwardDistance;
-		}
-
 		/*--------------------------------------------------------------------------------------------*/
 		internal void SetNearestPanelTransform(Transform pPanelTx) {
 			vPanelTx = pPanelTx;
@@ -67,7 +45,7 @@ namespace Hover.Board.State {
 				return;
 			}
 
-			Vector3 worldPos = GetWorldPosition();
+			Vector3 worldPos = CursorState.GetWorldPosition();
 			Vector3 diff = (pPanelTx.position-worldPos);
 			Vector3 norm = pPanelTx.rotation*Vector3.down; //TODO: make this Vector3.forward? up?
 			float dist = Vector3.Dot(norm, diff);
@@ -76,9 +54,19 @@ namespace Hover.Board.State {
 
 			ProjectedPanelPosition = projPos;
 			ProjectedFromFront = (dist > 0);
-			ProjectedPanelDistance = (projPos-Position).magnitude;
+			ProjectedPanelDistance = (projPos-CursorState.Position).magnitude;
 			ProjectedPanelProgress = Mathf.InverseLerp(vSettings.HighlightDistanceMax,
 				vSettings.HighlightDistanceMin, (projWorldPos-worldPos).magnitude);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float NearestButtonHighlightProgress {
+			get {
+				return vCursorInteractState.HighlightProgress;
+			}
+			set {
+				vCursorInteractState.HighlightProgress = value;
+			}
 		}
 
 	}

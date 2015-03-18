@@ -1,27 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using Hover.Board.Custom;
 using Hover.Board.State;
 using UnityEngine;
 
 namespace Hover.Board.Display.Default {
 
 	/*================================================================================================*/
-	public class UiProjectionRenderer : MonoBehaviour, IUiCursorRenderer {
+	public class UiProjectionRenderer : MonoBehaviour {
 
-		private CursorState vCursorState;
-		private CursorSettings vSettings;
+		private ProjectionState vProjectionState;
 		private GameObject vDotObj;
 		private GameObject vBarObj;
-
-		private float vCurrThickness;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Build(CursorState pCursorState, CursorSettings pSettings) {
-			vCursorState = pCursorState;
-			vSettings = pSettings;
+		public void Build(ProjectionState pProjectionState) {
+			vProjectionState = pProjectionState;
 
 			////
 
@@ -48,15 +43,15 @@ namespace Hover.Board.Display.Default {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			float dist = vCursorState.ProjectedPanelDistance;
-			float prog = vCursorState.ProjectedPanelProgress;
-			float barThick = 0.01f*vCursorState.Size;
+			float dist = vProjectionState.ProjectedPanelDistance;
+			float prog = vProjectionState.ProjectedPanelProgress;
+			float barThick = 0.01f*vProjectionState.CursorState.Size;
 			float dotSize = (1-prog)*60 + 5;
 
 			Vector3 dotScale = Vector3.one*barThick*dotSize;
-			dotScale.y *= (vCursorState.ProjectedFromFront ? -1 : 1);
+			dotScale.y *= (vProjectionState.ProjectedFromFront ? -1 : 1);
 
-			Color col = vSettings.ColorNorm;
+			Color col = Color.white; //TODO: vSettings.ColorNorm;
 			col.a *= (float)Math.Pow(prog, 2);
 
 			vDotObj.renderer.sharedMaterial.color = col;

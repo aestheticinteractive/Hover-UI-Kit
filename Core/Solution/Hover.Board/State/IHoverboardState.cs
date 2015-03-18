@@ -1,23 +1,15 @@
 ﻿using Hover.Board.Custom;
-using Hover.Board.Input;
 using Hover.Board.Navigation;
-using UnityEngine;
+using Hover.Cursor.State;
 
 namespace Hover.Board.State {
 
 	/*================================================================================================*/
 	public interface IHoverboardState {
 
-		HoverboardPanelProvider[] PanelProviders { get; }
 		HoverboardCustomizationProvider CustomizationProvider { get; }
-		HoverboardInputProvider InputProvider { get; }
-
-		Transform CameraTransform { get; }
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		Transform GetCursorTransform(CursorType pType);
+		HoverboardPanelProvider[] PanelProviders { get; }
+		IHovercursorState HovercursorState { get; }
 
 	}
 

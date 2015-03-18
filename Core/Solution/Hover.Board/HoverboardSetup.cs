@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Hover.Board.Custom;
+﻿using Hover.Board.Custom;
 using Hover.Board.Display;
-using Hover.Board.Input;
 using Hover.Board.Navigation;
 using Hover.Board.State;
+using Hover.Common.Input;
+using Hover.Common.Util;
+using Hover.Cursor;
 using UnityEngine;
 
 namespace Hover.Board {
@@ -13,93 +12,66 @@ namespace Hover.Board {
 	/*================================================================================================*/
 	public class HoverboardSetup : MonoBehaviour {
 
-		public HoverboardPanelProvider[] PanelProviders;
 		public HoverboardCustomizationProvider CustomizationProvider;
-		public HoverboardInputProvider InputProvider;
-		public Transform OptionalCameraReference;
+		public HoverboardPanelProvider[] PanelProviders;
+		public HovercursorSetup Hovercursor;
 
-		public IHoverboardState State { get; private set; }
-
-		private bool vFailed;
-		private OverallState vOverallState;
-
+		private HoverboardState vState;
 		private UiPanel[] vUiPanels;
-		private IDictionary<CursorType, UiCursor> vUiCursorMap;
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public IHoverboardState State {
+			get {
+				return vState;
+			}
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
-			if ( PanelProviders == null || PanelProviders.Length == 0 ) {
-				throw FailMissing("Panel Provider");
-			}
+			const string prefix = "Hoverboard";
 
-			if ( CustomizationProvider == null ) {
-				throw FailMissing("Customization Provider");
-			}
+			CustomizationProvider = UnityUtil.FindComponentOrCreate<HoverboardCustomizationProvider,
+				HoverboardCustomizationProvider>(CustomizationProvider, gameObject, prefix);
 
-			if ( InputProvider == null ) {
-				throw FailMissing("Input Provider");
-			}
+			PanelProviders = UnityUtil.FindComponentsOrFail(PanelProviders, prefix);
+			Hovercursor = UnityUtil.FindComponentOrFail(Hovercursor, prefix);
 
-			if ( OptionalCameraReference == null ) {
-				OptionalCameraReference = gameObject.transform;
-			}
-
-			State = new HoverboardState(PanelProviders, CustomizationProvider, 
-				InputProvider, OptionalCameraReference);
+			vState = new HoverboardState(CustomizationProvider, PanelProviders, gameObject.transform);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Start() {
-			if ( vFailed ) {
-				return;
-			}
+			vState.SetHovercursorState(Hovercursor.State);
+			vUiPanels = new UiPanel[vState.Panels.Length];
 
-			vOverallState = new OverallState(InputProvider, PanelProviders.Select(x => x.GetPanel()),
-				CustomizationProvider.GetInteractionSettings(), gameObject.transform);
-
-			vUiPanels = new UiPanel[vOverallState.Panels.Length];
-			vUiCursorMap = new Dictionary<CursorType, UiCursor>();
+			var cursorTypes = new[] {
+				CursorType.LeftIndex, 
+				CursorType.RightIndex
+			};
 
 			for ( int i = 0 ; i < vUiPanels.Length ; ++i ) {
-				PanelState panelState = vOverallState.Panels[i];
+				PanelState panelState = vState.Panels[i];
 				GameObject panelObj = (GameObject)panelState.ItemPanel.DisplayContainer;
 				UiPanel uiPanel = panelObj.AddComponent<UiPanel>();
 				uiPanel.Build(panelState, CustomizationProvider);
 				vUiPanels[i] = uiPanel;
 			}
 
-			foreach ( CursorType cursorType in Enum.GetValues(typeof(CursorType)) ) {
-				var cursorObj = new GameObject("Cursor"+cursorType);
-				cursorObj.transform.SetParent(gameObject.transform, false);
-				var uiCursor = cursorObj.AddComponent<UiCursor>();
-				uiCursor.Build(vOverallState.GetCursor(cursorType), 
-					CustomizationProvider, OptionalCameraReference);
-
-				vUiCursorMap[cursorType] = uiCursor;
+			foreach ( CursorType cursorType in cursorTypes ) {
+				var projObj = new GameObject("Proj-"+cursorType);
+				projObj.transform.SetParent(gameObject.transform, false);
+				var uiProj = projObj.AddComponent<UiProjection>();
+				uiProj.Build(vState.GetProjectionState(cursorType));
 			}
-
-			((HoverboardState)State).SetReferences(vOverallState, vUiCursorMap);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			if ( vFailed ) {
-				return;
-			}
-
-			InputProvider.UpdateInput();
-			vOverallState.UpdateAfterInput();
-		}
-		
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		private Exception FailMissing(string pName) {
-			vFailed = true;
-			gameObject.SetActive(false);
-			return new Exception("Hoverboard | '"+pName+"' must be set.");
+			vState.UpdateAfterInput();
 		}
 
 	}

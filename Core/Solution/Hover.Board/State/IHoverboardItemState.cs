@@ -1,4 +1,4 @@
-﻿using Hover.Board.Input;
+﻿using Hover.Common.Input;
 using Hover.Common.Items;
 
 namespace Hover.Board.State {

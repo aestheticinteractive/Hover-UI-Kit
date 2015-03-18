@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Hover.Board.Custom;
-using Hover.Board.Input;
+using Hover.Common.Input;
 using Hover.Common.Items;
 using UnityEngine;
 

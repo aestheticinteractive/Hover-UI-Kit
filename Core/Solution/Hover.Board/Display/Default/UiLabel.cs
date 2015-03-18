@@ -15,7 +15,6 @@ namespace Hover.Board.Display.Default {
 		public float TextH { get; private set; }
 
 		private int vFontSize;
-		private bool? vIsLeft;
 		private string vFontName;
 
 		private GameObject vCanvasGroupObj;

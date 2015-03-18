@@ -16,7 +16,7 @@ namespace Hover.Cursor {
 		public HovercursorInputProvider InputProvider;
 		public Transform CameraReference;
 
-		private HovercursorState vHoverState;
+		private HovercursorState vState;
 		private bool vComponentSuccess;
 
 
@@ -24,7 +24,7 @@ namespace Hover.Cursor {
 		/*--------------------------------------------------------------------------------------------*/
 		public IHovercursorState State {
 			get {
-				return vHoverState;
+				return vState;
 			}
 		}
 
@@ -37,13 +37,13 @@ namespace Hover.Cursor {
 			CustomizationProvider = UnityUtil.FindComponentOrCreate<HovercursorCustomizationProvider, 
 				HovercursorDefaultCustomizationProvider>(CustomizationProvider, gameObject, prefix);
 
-			InputProvider = UnityUtil.FindComponentOrFail(InputProvider, gameObject, prefix);
+			InputProvider = UnityUtil.FindComponentOrFail(InputProvider, prefix);
 
 			if ( CameraReference == null ) {
 				CameraReference = gameObject.transform;
 			}
 
-			vHoverState = new HovercursorState(InitCursorType, InputProvider,
+			vState = new HovercursorState(InitCursorType, InputProvider,
 				CustomizationProvider, CameraReference);
 			vComponentSuccess = true;
 		}
@@ -55,7 +55,7 @@ namespace Hover.Cursor {
 			}
 
 			InputProvider.UpdateInput();
-			vHoverState.UpdateAfterInput();
+			vState.UpdateAfterInput();
 		}
 
 
@@ -65,7 +65,7 @@ namespace Hover.Cursor {
 			var cursorState = new CursorState(InputProvider.GetCursor(pType),
 				CustomizationProvider.GetSettings(), gameObject.transform);
 
-			var cursorObj = new GameObject("Cursor"+pType);
+			var cursorObj = new GameObject("Cursor-"+pType);
 			cursorObj.transform.SetParent(gameObject.transform, false);
 			var uiCursor = cursorObj.AddComponent<UiCursor>();
 			uiCursor.Build(cursorState, CustomizationProvider.GetSettings(), CameraReference);

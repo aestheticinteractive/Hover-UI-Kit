@@ -1,7 +1,7 @@
 ﻿namespace Hover.Board.Custom {
 
 	/*================================================================================================*/
-	public interface ICustom : ICustomSegment, ICustomCursor {
+	public interface ICustom : ICustomSegment {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

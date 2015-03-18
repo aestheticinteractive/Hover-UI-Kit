@@ -10,7 +10,6 @@ namespace Hover.Board.Display.Default {
 		public const float AngleInset = UiButton.Size*0.01f;
 		public const float EdgeThick = AngleInset*2;
 
-		private readonly bool vCalcSelections;
 		private float vWidth;
 		private float vHeight;
 
