@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Hover.Common.Input;
+using UnityEngine;
 
 namespace Hover.Cursor.Input {
 

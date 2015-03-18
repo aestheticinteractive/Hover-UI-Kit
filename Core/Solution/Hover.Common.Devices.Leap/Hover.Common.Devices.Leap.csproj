@@ -44,9 +44,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ILeapHandControllerHelper.cs" />
     <Compile Include="LeapUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Hover.Common\Hover.Common.csproj">
+      <Project>{F60AF979-92BB-498A-BD95-34070B69E9DD}</Project>
+      <Name>Hover.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

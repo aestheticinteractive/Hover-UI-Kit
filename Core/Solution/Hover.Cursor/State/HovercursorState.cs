@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Hover.Common.Input;
 using Hover.Cursor.Custom;
 using Hover.Cursor.Display;
 using Hover.Cursor.Input;
@@ -9,45 +12,73 @@ namespace Hover.Cursor.State {
 	/*================================================================================================*/
 	public class HovercursorState : IHovercursorState {
 
+		public struct CursorPair {
+			public CursorState State;
+			public UiCursor Display;
+		}
+
 		public HovercursorCustomizationProvider CustomizationProvider { get; private set; }
 		public HovercursorInputProvider InputProvider { get; private set; }
-
+		public CursorType[] InitializedCursorTypes { get; private set; }
 		public Transform CameraTransform { get; private set; }
 
-		private IDictionary<CursorType, CursorState> vCursorStateMap;
-		private IDictionary<CursorType, Transform> vCursorTransformMap;
+		private readonly Func<CursorType, CursorPair> vInitCursorType;
+		private readonly IDictionary<CursorType, CursorState> vCursorStateMap;
+		private readonly IDictionary<CursorType, Transform> vCursorTransformMap;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public HovercursorState(HovercursorCustomizationProvider pCustom,
-												HovercursorInputProvider pInput, Transform pCamera) {
+		public HovercursorState(Func<CursorType, CursorPair> pInitType, HovercursorInputProvider pInput,
+										HovercursorCustomizationProvider pCustom, Transform pCamera) {
+			vInitCursorType = pInitType;
+
+			InitializedCursorTypes = new CursorType[0];
 			CustomizationProvider = pCustom;
 			InputProvider = pInput;
 			CameraTransform = pCamera;
+
+			vCursorStateMap = new Dictionary<CursorType, CursorState>();
+			vCursorTransformMap = new Dictionary<CursorType, Transform>();
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void SetReferences(IDictionary<CursorType, CursorState> pCursorStateMap, 
-													IDictionary<CursorType, UiCursor> pUiCursorMap) {
-			vCursorStateMap = pCursorStateMap;
-			vCursorTransformMap = new Dictionary<CursorType, Transform>();
-
-			foreach ( KeyValuePair<CursorType, UiCursor> pair in pUiCursorMap ) {
-				vCursorTransformMap.Add(pair.Key, pair.Value.transform);
-			}
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
 		public ICursorState GetCursorState(CursorType pType) {
+			TryInitCursor(pType);
 			return vCursorStateMap[pType];
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public Transform GetCursorTransform(CursorType pType) {
+			TryInitCursor(pType);
 			return vCursorTransformMap[pType];
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void UpdateAfterInput() {
+			foreach ( CursorState cursorState in vCursorStateMap.Values ) {
+				cursorState.UpdateAfterInput();
+			}
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private void TryInitCursor(CursorType pType) {
+			if ( vCursorStateMap.ContainsKey(pType) ) {
+				return;
+			}
+
+			CursorPair pair = vInitCursorType(pType);
+
+			vCursorStateMap.Add(pType, pair.State);
+			vCursorTransformMap.Add(pType, pair.Display.transform);
+
+			InitializedCursorTypes = InitializedCursorTypes
+				.Concat(new[] { pType })
+				.ToArray();
 		}
 
 	}

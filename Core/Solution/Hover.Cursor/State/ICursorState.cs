@@ -1,4 +1,5 @@
-﻿using Hover.Cursor.Input;
+﻿using Hover.Common.Input;
+using Hover.Cursor.Input;
 using UnityEngine;
 
 namespace Hover.Cursor.State {
@@ -10,6 +11,23 @@ namespace Hover.Cursor.State {
 		bool IsInputAvailable { get; }
 		Vector3 Position { get; }
 		float Size { get; }
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		ICursorInteractState AddOrGetInteractionState(CursorDomain pDomain, string pId);
+
+		/*--------------------------------------------------------------------------------------------*/
+		bool RemoveInteractionState(CursorDomain pDomain, string pId);
+
+		/*--------------------------------------------------------------------------------------------*/
+		float GetMaxDisplayStrength();
+
+		/*--------------------------------------------------------------------------------------------*/
+		float GetMaxHighlightProgress();
+
+		/*--------------------------------------------------------------------------------------------*/
+		float GetMaxSelectionProgress();
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

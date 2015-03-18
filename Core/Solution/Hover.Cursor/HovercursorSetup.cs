@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using Hover.Common.Input;
 using Hover.Common.Util;
 using Hover.Cursor.Custom;
 using Hover.Cursor.Custom.Default;
@@ -18,7 +18,6 @@ namespace Hover.Cursor {
 
 		private HovercursorState vHoverState;
 		private bool vComponentSuccess;
-		private IDictionary<CursorType, CursorState> vCursorStateMap;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -44,34 +43,9 @@ namespace Hover.Cursor {
 				CameraReference = gameObject.transform;
 			}
 
-			vHoverState = new HovercursorState(CustomizationProvider, InputProvider, CameraReference);
+			vHoverState = new HovercursorState(InitCursorType, InputProvider,
+				CustomizationProvider, CameraReference);
 			vComponentSuccess = true;
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
-			if ( !vComponentSuccess ) {
-				return;
-			}
-
-			CursorType[] cursorTypes = InputProvider.GetAllCursorTypes();
-
-			vCursorStateMap = new Dictionary<CursorType, CursorState>();
-			var uiCursorMap = new Dictionary<CursorType, UiCursor>();
-
-			foreach ( CursorType cursorType in cursorTypes ) {
-				var cursorState = new CursorState(InputProvider.GetCursor(cursorType),
-					CustomizationProvider.GetSettings(), gameObject.transform);
-				vCursorStateMap[cursorType] = cursorState;
-
-				var cursorObj = new GameObject("Cursor"+cursorType);
-				cursorObj.transform.SetParent(gameObject.transform, false);
-				var uiCursor = cursorObj.AddComponent<UiCursor>();
-				uiCursor.Build(cursorState, CustomizationProvider.GetSettings(), CameraReference);
-				uiCursorMap.Add(cursorType, uiCursor);
-			}
-
-			vHoverState.SetReferences(vCursorStateMap, uiCursorMap);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -81,10 +55,25 @@ namespace Hover.Cursor {
 			}
 
 			InputProvider.UpdateInput();
+			vHoverState.UpdateAfterInput();
+		}
 
-			foreach ( CursorState cursorState in vCursorStateMap.Values ) {
-				cursorState.UpdateAfterInput();
-			}
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private HovercursorState.CursorPair InitCursorType(CursorType pType) {
+			var cursorState = new CursorState(InputProvider.GetCursor(pType),
+				CustomizationProvider.GetSettings(), gameObject.transform);
+
+			var cursorObj = new GameObject("Cursor"+pType);
+			cursorObj.transform.SetParent(gameObject.transform, false);
+			var uiCursor = cursorObj.AddComponent<UiCursor>();
+			uiCursor.Build(cursorState, CustomizationProvider.GetSettings(), CameraReference);
+
+			return new HovercursorState.CursorPair {
+				State = cursorState,
+				Display = uiCursor
+			};
 		}
 
 	}

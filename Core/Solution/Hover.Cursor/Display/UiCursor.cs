@@ -20,8 +20,6 @@ namespace Hover.Cursor.Display {
 		internal void Build(CursorState pCursorState, CursorSettings pSettings, Transform pCameraTx) {
 			vCursorState = pCursorState;
 			vCameraTx = pCameraTx;
-
-			////
 			
 			vCursorRendererHold = new GameObject("CursorRendererHold");
 			vCursorRendererHold.transform.SetParent(gameObject.transform, false);
@@ -35,22 +33,20 @@ namespace Hover.Cursor.Display {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			if ( !vCursorState.IsInputAvailable ) {
+			if ( !vCursorState.IsInputAvailable || vCursorState.GetMaxDisplayStrength() <= 0 ) {
 				vCursorRendererHold.SetActive(false);
 				return;
 			}
 
-			////
-
 			vCursorRendererHold.SetActive(true);
 
-			Transform tx = vCursorRendererHold.transform;
-			tx.localPosition = vCursorState.Position;
-			tx.localRotation = Quaternion.identity;
+			Transform holdTx = vCursorRendererHold.transform;
+			holdTx.localPosition = vCursorState.Position;
+			holdTx.localRotation = Quaternion.identity;
 
 			Vector3 camWorld = vCameraTx.TransformPoint(Vector3.zero);
-			Vector3 camLocal = tx.InverseTransformPoint(camWorld);
-			tx.localRotation = Quaternion.FromToRotation(Vector3.down, camLocal);
+			Vector3 camLocal = holdTx.InverseTransformPoint(camWorld);
+			holdTx.localRotation = Quaternion.FromToRotation(Vector3.down, camLocal);
 		}
 
 	}

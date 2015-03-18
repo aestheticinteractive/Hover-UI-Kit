@@ -34,13 +34,16 @@ namespace Hover.Cursor.Display.Default {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			float highProg = 0; //TODO: vCursorState.NearestButtonHighlightProgress;
-			bool high = (highProg >= 1);
-			float thick = Mathf.Lerp(vSettings.ThickNorm, vSettings.ThickHigh, highProg);
-			float scale = Mathf.Lerp(vSettings.RadiusNorm, vSettings.RadiusHigh, highProg);
+			float maxProg = vCursorState.GetMaxHighlightProgress();
+			bool high = (maxProg >= 1);
+			float thick = Mathf.Lerp(vSettings.ThickNorm, vSettings.ThickHigh, maxProg);
+			float scale = Mathf.Lerp(vSettings.RadiusNorm, vSettings.RadiusHigh, maxProg);
+
 			Color col = (high ? vSettings.ColorHigh : vSettings.ColorNorm);
+			col.a *= vCursorState.GetMaxDisplayStrength();
 
 			BuildMesh(thick);
+
 			vRingObj.transform.localScale = Vector3.one*scale*vCursorState.Size;
 			vRingObj.renderer.sharedMaterial.color = col;
 		}

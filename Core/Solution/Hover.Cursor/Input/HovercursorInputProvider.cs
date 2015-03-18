@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Hover.Common.Input;
+using UnityEngine;
 
 namespace Hover.Cursor.Input {
 
@@ -20,11 +21,10 @@ namespace Hover.Cursor.Input {
 		public abstract void UpdateInput();
 
 		/*--------------------------------------------------------------------------------------------*/
-		public abstract CursorType[] GetAllCursorTypes();
-
-		/*--------------------------------------------------------------------------------------------*/
 		public abstract IInputCursor GetCursor(CursorType pType);
 
 	}
 
 }
+
+

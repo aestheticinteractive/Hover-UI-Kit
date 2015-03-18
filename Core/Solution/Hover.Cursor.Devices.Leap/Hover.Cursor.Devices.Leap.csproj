@@ -39,9 +39,31 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\Packages\Unity\UnityEngine.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Look\InputCursor.cs" />
+    <Compile Include="Look\InputSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Touch\HovercursorLeapTouchInputProvider.cs" />
+    <Compile Include="Touch\InputCursor.cs" />
+    <Compile Include="Touch\InputSettings.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Hover.Common.Devices.Leap\Hover.Common.Devices.Leap.csproj">
+      <Project>{fc2f139f-d831-444c-8c90-872358630c8c}</Project>
+      <Name>Hover.Common.Devices.Leap</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Hover.Common\Hover.Common.csproj">
+      <Project>{F60AF979-92BB-498A-BD95-34070B69E9DD}</Project>
+      <Name>Hover.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Hover.Cursor\Hover.Cursor.csproj">
+      <Project>{4083EA67-68C8-4B34-A210-6A8A2B96CB95}</Project>
+      <Name>Hover.Cursor</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

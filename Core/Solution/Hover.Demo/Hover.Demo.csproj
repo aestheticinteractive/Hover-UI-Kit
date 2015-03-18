@@ -47,39 +47,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HoverboardDemo\DemoBoxes.cs" />
-    <Compile Include="HoverboardDemo\DemoEnvironment.cs" />
-    <Compile Include="HoverboardDemo\DemoHovercastListener.cs" />
-    <Compile Include="HoverboardDemo\DemoKeyboardListener.cs" />
-    <Compile Include="HoverboardDemo\DemoLetter.cs" />
-    <Compile Include="HoverboardDemo\DemoRing.cs" />
-    <Compile Include="HoverboardDemo\DemoTextField.cs" />
-    <Compile Include="HoverboardDemo\DemoTextPixels.cs" />
-    <Compile Include="HoverboardDemo\Navigation\DemoAllowThumbListener.cs" />
-    <Compile Include="HoverboardDemo\Navigation\DemoBaseListener.cs" />
-    <Compile Include="HoverboardDemo\Navigation\DemoFastSelectListener.cs" />
-    <Compile Include="HoverboardDemo\Navigation\DemoSplitModeListner.cs" />
-    <Compile Include="HovercastDemo\Custom\DemoHueSegment.cs" />
-    <Compile Include="HovercastDemo\DemoAnim.cs" />
-    <Compile Include="HovercastDemo\DemoCube.cs" />
-    <Compile Include="HovercastDemo\DemoCubeHold.cs" />
-    <Compile Include="HovercastDemo\DemoEnvironment.cs" />
-    <Compile Include="HovercastDemo\DemoMotion.cs" />
-    <Compile Include="HovercastDemo\Navigation\DemoBaseListener.cs" />
-    <Compile Include="HovercastDemo\Navigation\DemoCameraPlaceListener.cs" />
-    <Compile Include="HovercastDemo\Navigation\DemoCameraReorientListener.cs" />
-    <Compile Include="HovercastDemo\Navigation\DemoColorHueListener.cs" />
-    <Compile Include="HovercastDemo\Navigation\DemoColorModeListener.cs" />
-    <Compile Include="HovercastDemo\Navigation\DemoCustomBgListener.cs" />
-    <Compile Include="HovercastDemo\Navigation\DemoCustomSizeListener.cs" />
-    <Compile Include="HovercastDemo\Navigation\DemoCustomSwitchListener.cs" />
-    <Compile Include="HovercastDemo\Navigation\DemoCustomThemeListener.cs" />
-    <Compile Include="HovercastDemo\Navigation\DemoLightPosListener.cs" />
-    <Compile Include="HovercastDemo\Navigation\DemoLightPowerListener.cs" />
-    <Compile Include="HovercastDemo\Navigation\DemoLightSpotListener.cs" />
-    <Compile Include="HovercastDemo\Navigation\DemoMotionSpeedListener.cs" />
-    <Compile Include="HovercastDemo\Navigation\DemoMotionTypeListener.cs" />
-    <Compile Include="HovercastDemo\Navigation\DemoNestedHideListener.cs" />
+    <Compile Include="Cursor\DemoCursorToggle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -99,9 +67,21 @@
       <Project>{112FF634-EB3E-4351-B0BB-7729E455416E}</Project>
       <Name>Hover.Cast</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Hover.Common.Devices.Leap\Hover.Common.Devices.Leap.csproj">
+      <Project>{fc2f139f-d831-444c-8c90-872358630c8c}</Project>
+      <Name>Hover.Common.Devices.Leap</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Hover.Common\Hover.Common.csproj">
       <Project>{f60af979-92bb-498a-bd95-34070b69e9dd}</Project>
       <Name>Hover.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Hover.Cursor.Devices.Leap\Hover.Cursor.Devices.Leap.csproj">
+      <Project>{20c93b78-c1c2-4fc7-98cf-2a5cbfeaaae9}</Project>
+      <Name>Hover.Cursor.Devices.Leap</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Hover.Cursor\Hover.Cursor.csproj">
+      <Project>{4083ea67-68c8-4b34-a210-6a8a2b96cb95}</Project>
+      <Name>Hover.Cursor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

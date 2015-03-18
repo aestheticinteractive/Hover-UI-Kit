@@ -1,4 +1,5 @@
-﻿using Hover.Cursor.Custom;
+﻿using Hover.Common.Input;
+using Hover.Cursor.Custom;
 using Hover.Cursor.Input;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ namespace Hover.Cursor.State {
 
 		HovercursorCustomizationProvider CustomizationProvider { get; }
 		HovercursorInputProvider InputProvider { get; }
-
+		CursorType[] InitializedCursorTypes { get; }
 		Transform CameraTransform { get; }
 
 
