@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Hover.Board.Navigation;
+using Hover.Board.Items;
 using Hover.Common.Custom;
 using Hover.Common.Input;
 using Hover.Common.State;
@@ -95,7 +95,7 @@ namespace Hover.Board.State {
 		private void UpdateWithCursor(ProjectionState pProjection) {
 			ICursorState cursorState = pProjection.CursorState;
 			CursorType cursorType = cursorState.Type;
-			bool allowSelect = (cursorState.IsInputAvailable); //TODO: && NavGrid.IsVisible);
+			bool allowSelect = (cursorState.IsInputAvailable); //TODO: && Grid.IsVisible);
 			Vector3? cursorWorldPos = (allowSelect ? cursorState.GetWorldPosition() : (Vector3?)null);
 			ItemTree nearestTree = new ItemTree();
 			float nearestDist = float.MaxValue;

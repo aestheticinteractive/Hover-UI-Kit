@@ -1,6 +1,6 @@
 ﻿using Hover.Common.Items.Groups;
 
-namespace Hover.Board.Navigation {
+namespace Hover.Board.Items {
 
 	/*================================================================================================*/
 	public interface IItemGrid : IItemGroup {

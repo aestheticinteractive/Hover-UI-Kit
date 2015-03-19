@@ -1,33 +1,32 @@
 ﻿using System;
-using Hover.Common.Items;
 using UnityEngine;
 
-namespace Hover.Board.Navigation {
+namespace Hover.Board.Items {
 
 	/*================================================================================================*/
-	public abstract class HoverboardItemListener<T> : MonoBehaviour where T : IBaseItem {
+	public abstract class HoverboardPanelListener : MonoBehaviour {
 
-		public HoverboardItem Component { get; private set; }
-		public T Item { get; private set; }
+		public HoverboardPanel Component { get; private set; }
+		public ItemPanel Panel { get; private set; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
-			Component = gameObject.GetComponent<HoverboardItem>();
+			Component = gameObject.GetComponent<HoverboardPanel>();
 
 			if ( Component == null ) {
-				throw new Exception("There must be a "+typeof(HoverboardItem).Name+" component "+
-					"attached to this GameObject.");
+				throw new Exception("There must be a "+typeof(HoverboardPanel).Name+
+					" component attached to this GameObject.");
 			}
 
-			Item = (T)Component.GetItem();
+			Panel = Component.GetPanel();
 			Setup();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Start() {
-			BroadcastInitialValue();
+			BroadcastInitialValues();
 		}
 
 
@@ -36,7 +35,7 @@ namespace Hover.Board.Navigation {
 		protected abstract void Setup();
 
 		/*--------------------------------------------------------------------------------------------*/
-		protected abstract void BroadcastInitialValue();
+		protected abstract void BroadcastInitialValues();
 
 	}
 

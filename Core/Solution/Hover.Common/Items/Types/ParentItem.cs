@@ -30,7 +30,7 @@ namespace Hover.Common.Items.Types {
 			}
 			set {
 				if ( value ) {
-					throw new Exception("Cannot set NavigateBackUponSelect for 'Parent' NavItems.");
+					throw new Exception("Cannot set NavigateBackUponSelect for "+GetType().Name+".");
 				}
 			}
 		}

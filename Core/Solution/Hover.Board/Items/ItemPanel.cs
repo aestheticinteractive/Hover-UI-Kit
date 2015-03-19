@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Hover.Board.Navigation {
+namespace Hover.Board.Items {
 
 	/*================================================================================================*/
 	public class ItemPanel : IItemPanel { 

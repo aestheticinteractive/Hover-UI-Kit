@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Hover.Board.Display;
-using Hover.Board.Navigation;
+using Hover.Board.Items;
 using Hover.Common.Custom;
 using Hover.Common.Items;
 using UnityEngine;

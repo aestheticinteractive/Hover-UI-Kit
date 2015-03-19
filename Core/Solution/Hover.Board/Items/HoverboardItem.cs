@@ -3,7 +3,7 @@ using Hover.Common.Items;
 using Hover.Common.Items.Types;
 using UnityEngine;
 
-namespace Hover.Board.Navigation {
+namespace Hover.Board.Items {
 	
 	/*================================================================================================*/
 	public class HoverboardItem : MonoBehaviour, IHovercommonItem {

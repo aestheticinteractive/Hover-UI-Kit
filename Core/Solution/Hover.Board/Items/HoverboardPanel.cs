@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Hover.Board.Navigation {
+namespace Hover.Board.Items {
 
 	/*================================================================================================*/
 	public class HoverboardPanel : MonoBehaviour {

@@ -2,7 +2,7 @@
 using Hover.Common.Items;
 using Hover.Common.Items.Groups;
 
-namespace Hover.Board.Navigation {
+namespace Hover.Board.Items {
 
 	/*================================================================================================*/
 	public class ItemGrid : ItemGroup, IItemGrid {

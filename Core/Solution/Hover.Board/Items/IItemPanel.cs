@@ -1,4 +1,4 @@
-﻿namespace Hover.Board.Navigation {
+﻿namespace Hover.Board.Items {
 
 	/*================================================================================================*/
 	public interface IItemPanel { 

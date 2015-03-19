@@ -2,7 +2,7 @@
 using Hover.Common.Items;
 using UnityEngine;
 
-namespace Hover.Board.Navigation {
+namespace Hover.Board.Items {
 
 	/*================================================================================================*/
 	public class HoverboardGrid : MonoBehaviour {
