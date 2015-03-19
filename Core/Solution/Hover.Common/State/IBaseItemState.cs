@@ -1,21 +1,27 @@
 ﻿using Hover.Common.Input;
 using Hover.Common.Items;
 
-namespace Hover.Board.State {
+namespace Hover.Common.State {
 
 	/*================================================================================================*/
-	public interface IHoverboardItemState {
+	public interface IBaseItemState {
 
 		IBaseItem Item { get; }
+
+		bool IsSelectionPrevented { get; }
+		int DisplaySelectionPreventions { get; }
 		float MinHighlightDistance { get; }
 		float MaxHighlightProgress { get; }
 		bool IsNearestHighlight { get; }
-		bool IsSelectionPrevented { get; }
+		float SelectionProgress { get; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		float GetHighlightDistance(CursorType pCursorType);
+
+		/*--------------------------------------------------------------------------------------------*/
+		float GetHighlightProgress(CursorType pCursorType);
 
 	}
 

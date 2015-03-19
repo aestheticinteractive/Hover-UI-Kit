@@ -3,7 +3,7 @@
 namespace Hover.Board.Custom {
 
 	/*================================================================================================*/
-	public class ButtonSettings {
+	public class ItemSettings {
 
 		public int TextSize { get; set; }
 		public Color TextColor { get; set; }
@@ -21,7 +21,7 @@ namespace Hover.Board.Custom {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public static ButtonSettings Fill(ButtonSettings pSrc, ButtonSettings pDest) {
+		public static ItemSettings Fill(ItemSettings pSrc, ItemSettings pDest) {
 			pDest.TextSize = pSrc.TextSize;
 			pDest.TextColor = pSrc.TextColor;
 			pDest.TextFont = pSrc.TextFont;

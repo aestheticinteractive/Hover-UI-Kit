@@ -1,5 +1,6 @@
-﻿using Hover.Board.Custom;
-using Hover.Board.Navigation;
+﻿using Hover.Board.Navigation;
+using Hover.Common.Custom;
+using Hover.Common.State;
 
 namespace Hover.Board.State {
 
@@ -7,7 +8,7 @@ namespace Hover.Board.State {
 	public class GridState {
 
 		public IItemGrid ItemGrid { get; private set; }
-		public ButtonState[] Buttons { get; private set; }
+		public BaseItemState[] Items { get; private set; }
 
 		private readonly InteractionSettings vSettings;
 
@@ -25,11 +26,11 @@ namespace Hover.Board.State {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void RefreshButtons() {
-			Buttons = new ButtonState[ItemGrid.Items.Length];
+			Items = new BaseItemState[ItemGrid.Items.Length];
 
 			for ( int i = 0 ; i < ItemGrid.Items.Length ; i++ ) {
-				var button = new ButtonState(ItemGrid.Items[i], vSettings);
-				Buttons[i] = button;
+				var button = new BaseItemState(ItemGrid.Items[i], vSettings);
+				Items[i] = button;
 			}
 		}
 

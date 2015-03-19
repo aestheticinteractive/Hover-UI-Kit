@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Hover.Board.Custom {
 
 	/*================================================================================================*/
-	public abstract class HoverboardCustomButton : MonoBehaviour {
+	public abstract class HoverboardCustomItem : MonoBehaviour {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -19,9 +19,9 @@ namespace Hover.Board.Custom {
 				throw new Exception(GetErrorPrefix(pItem)+"cannot be null.");
 			}
 
-			if ( !type.GetInterfaces().Contains(typeof(IUiSegmentRenderer)) ) {
+			if ( !type.GetInterfaces().Contains(typeof(IUiItemRenderer)) ) {
 				throw new Exception(GetErrorPrefix(pItem)+"must implement the "+
-					typeof(IUiSegmentRenderer).Name+" interface.");
+					typeof(IUiItemRenderer).Name+" interface.");
 			}
 
 			return type;
@@ -31,7 +31,7 @@ namespace Hover.Board.Custom {
 		protected abstract Type GetRendererForItemInner(IBaseItem pItem);
 
 		/*--------------------------------------------------------------------------------------------*/
-		public abstract ButtonSettings GetSettings();
+		public abstract ItemSettings GetSettings();
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

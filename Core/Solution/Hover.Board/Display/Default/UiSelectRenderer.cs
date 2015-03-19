@@ -1,18 +1,18 @@
 ﻿using System;
 using Hover.Board.Custom;
-using Hover.Board.State;
 using Hover.Common.Items;
+using Hover.Common.State;
 using UnityEngine;
 
 namespace Hover.Board.Display.Default {
 
 	/*================================================================================================*/
-	public class UiSelectRenderer : MonoBehaviour, IUiSegmentRenderer {
+	public class UiSelectRenderer : MonoBehaviour, IUiItemRenderer {
 
-		public const float ArcCanvasScale = UiButton.Size*0.012f;
+		public const float ArcCanvasScale = UiItem.Size*0.012f;
 
-		private ButtonState vButtonState;
-		private ButtonSettings vSettings;
+		private IBaseItemState vButtonState;
+		private ItemSettings vSettings;
 
 		private float vMainAlpha;
 
@@ -22,12 +22,12 @@ namespace Hover.Board.Display.Default {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Build(ButtonState pButtonState, ButtonSettings pSettings) {
+		public void Build(IBaseItemState pButtonState, ItemSettings pSettings) {
 			vButtonState = pButtonState;
 			vSettings = pSettings;
 
-			float width = UiButton.Size*vButtonState.Item.Width;
-			const float height = UiButton.Size;
+			float width = UiItem.Size*vButtonState.Item.Width;
+			const float height = UiItem.Size;
 
 			gameObject.transform.SetParent(gameObject.transform, false);
 			gameObject.transform.localPosition = new Vector3(width/2, 0, height/2f);

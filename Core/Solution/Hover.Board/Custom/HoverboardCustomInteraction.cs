@@ -1,3 +1,4 @@
+using Hover.Common.Custom;
 using UnityEngine;
 
 namespace Hover.Board.Custom {
@@ -9,7 +10,6 @@ namespace Hover.Board.Custom {
 		public float HighlightDistanceMax = 0.07f;
 		public float StickyReleaseDistance = 0.05f;
 		public float SelectionMilliseconds = 400;
-		public float CursorForwardDistance = 0.0f;
 
 		private InteractionSettings vSettings;
 
@@ -23,7 +23,6 @@ namespace Hover.Board.Custom {
 				vSettings.HighlightDistanceMax = HighlightDistanceMax;
 				vSettings.StickyReleaseDistance = StickyReleaseDistance;
 				vSettings.SelectionMilliseconds = SelectionMilliseconds;
-				vSettings.CursorForwardDistance = CursorForwardDistance;
 			}
 
 			return vSettings;

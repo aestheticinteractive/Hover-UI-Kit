@@ -27,7 +27,7 @@ namespace Hover.Board.Display {
 
 				UiGrid uiGrid = gridObj.AddComponent<UiGrid>();
 				uiGrid.Build(grid, pCustom);
-				uiGrid.transform.localPosition = pos*UiButton.Size;
+				uiGrid.transform.localPosition = pos*UiItem.Size;
 
 				vUiGrids.Add(uiGrid);
 			}

@@ -12,7 +12,7 @@ namespace Hover.Board.Custom {
 		Type GetSegmentRenderer(IBaseItem pItem);
 
 		/*--------------------------------------------------------------------------------------------*/
-		ButtonSettings GetSegmentSettings(IBaseItem pItem);
+		ItemSettings GetSegmentSettings(IBaseItem pItem);
 
 	}
 

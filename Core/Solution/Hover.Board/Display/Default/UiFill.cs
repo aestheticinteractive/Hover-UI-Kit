@@ -7,7 +7,7 @@ namespace Hover.Board.Display.Default {
 	/*================================================================================================*/
 	public class UiFill {
 
-		public const float AngleInset = UiButton.Size*0.01f;
+		public const float AngleInset = UiItem.Size*0.01f;
 		public const float EdgeThick = AngleInset*2;
 
 		private float vWidth;
@@ -65,7 +65,7 @@ namespace Hover.Board.Display.Default {
 			vSelect.renderer.sharedMaterial.renderQueue -= 100;
 			vSelect.renderer.sharedMaterial.color = Color.clear;
 
-			UpdateSize(UiButton.Size, UiButton.Size);
+			UpdateSize(UiItem.Size, UiItem.Size);
 		}
 
 
@@ -219,8 +219,8 @@ namespace Hover.Board.Display.Default {
 		/*--------------------------------------------------------------------------------------------*/
 		private Vector3[] CalcSelectionPoints() {
 			var points = new List<Vector3>();
-			int stepsX = (int)Math.Round(vWidth/UiButton.Size)*6;
-			int stepsY = (int)Math.Round(vHeight/UiButton.Size)*6;
+			int stepsX = (int)Math.Round(vWidth/UiItem.Size)*6;
+			int stepsY = (int)Math.Round(vHeight/UiItem.Size)*6;
 			float x0 = -vWidth/2f;
 			float y0 = -vHeight/2f;
 			float xInc = vWidth/stepsX;

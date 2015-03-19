@@ -1,4 +1,6 @@
-﻿namespace Hover.Board.Custom {
+﻿using Hover.Common.Custom;
+
+namespace Hover.Board.Custom {
 
 	/*================================================================================================*/
 	public interface ICustom : ICustomSegment {

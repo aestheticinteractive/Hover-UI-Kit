@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using Hover.Board.Custom;
 using Hover.Board.State;
+using Hover.Common.State;
 using UnityEngine;
 
 namespace Hover.Board.Display {
@@ -11,7 +11,6 @@ namespace Hover.Board.Display {
 
 		private GridState vGridState;
 		private ICustomSegment vCustom;
-		private IList<UiButton> vUiButtons;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -19,22 +18,20 @@ namespace Hover.Board.Display {
 		internal void Build(GridState pGrid, ICustomSegment pCustom) {
 			vGridState = pGrid;
 			vCustom = pCustom;
-			vUiButtons = new List<UiButton>();
 
 			int cols = vGridState.ItemGrid.Cols;
 			int gi = 0;
 
-			for ( int i = 0 ; i < vGridState.Buttons.Length ; i++ ) {
-				ButtonState button = vGridState.Buttons[i];
+			for ( int i = 0 ; i < vGridState.Items.Length ; i++ ) {
+				BaseItemState button = vGridState.Items[i];
 				int w = (int)button.Item.Width;
 				var pos = new Vector3(gi%cols, 0, (float)Math.Floor((float)gi/cols));
 				GameObject itemObj = (GameObject)button.Item.DisplayContainer;
 
-				UiButton uiButton = itemObj.AddComponent<UiButton>();
-				uiButton.Build(button, vCustom);
-				uiButton.transform.localPosition = pos*UiButton.Size;
+				UiItem uiItem = itemObj.AddComponent<UiItem>();
+				uiItem.Build(button, vCustom);
+				uiItem.transform.localPosition = pos*UiItem.Size;
 
-				vUiButtons.Add(uiButton);
 				gi += w;
 			}
 

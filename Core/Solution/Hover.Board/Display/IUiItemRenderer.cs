@@ -1,16 +1,16 @@
 ﻿using Hover.Board.Custom;
-using Hover.Board.State;
+using Hover.Common.State;
 using UnityEngine;
 
 namespace Hover.Board.Display {
 
 	/*================================================================================================*/
-	public interface IUiSegmentRenderer {
+	public interface IUiItemRenderer {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		void Build(ButtonState pButtonState, ButtonSettings pSegState);
+		void Build(IBaseItemState pButtonState, ItemSettings pSegState);
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

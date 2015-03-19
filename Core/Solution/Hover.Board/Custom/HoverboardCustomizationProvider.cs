@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Hover.Board.Navigation;
+using Hover.Common.Custom;
 using Hover.Common.Items;
 using UnityEngine;
 
@@ -10,10 +11,10 @@ namespace Hover.Board.Custom {
 	public class HoverboardCustomizationProvider : MonoBehaviour, ICustom {
 
 		private class CustomItem {
-			public HoverboardCustomButton Seg;
+			public HoverboardCustomItem Seg;
 		}
 
-		private HoverboardCustomButton vMainSeg;
+		private HoverboardCustomItem vMainSeg;
 		private HoverboardCustomInteraction vInteract;
 		private IDictionary<int, CustomItem> vCustomMap;
 
@@ -34,15 +35,15 @@ namespace Hover.Board.Custom {
 
 			InitOnce();
 
-			HoverboardCustomButton seg = FindCustom(vMainSeg, pItem, (c => c.Seg));
+			HoverboardCustomItem seg = FindCustom(vMainSeg, pItem, (c => c.Seg));
 			return seg.GetRendererForItem(pItem);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public ButtonSettings GetSegmentSettings(IBaseItem pItem) {
+		public ItemSettings GetSegmentSettings(IBaseItem pItem) {
 			InitOnce();
 
-			HoverboardCustomButton seg = FindCustom(vMainSeg, pItem, (c => c.Seg));
+			HoverboardCustomItem seg = FindCustom(vMainSeg, pItem, (c => c.Seg));
 			return seg.GetSettings();
 		}
 
@@ -60,13 +61,13 @@ namespace Hover.Board.Custom {
 				return;
 			}
 
-			vMainSeg = gameObject.GetComponent<HoverboardCustomButton>();
+			vMainSeg = gameObject.GetComponent<HoverboardCustomItem>();
 			vInteract = gameObject.GetComponent<HoverboardCustomInteraction>();
 
 			if ( vMainSeg == null ) {
-				Debug.LogWarning("Hoverboard | No '"+typeof(HoverboardCustomButton).Name+
+				Debug.LogWarning("Hoverboard | No '"+typeof(HoverboardCustomItem).Name+
 					"' provided; using default.");
-				vMainSeg = gameObject.AddComponent<HoverboardDefaultButton>();
+				vMainSeg = gameObject.AddComponent<HoverboardDefaultItem>();
 			}
 
 			if ( vInteract == null ) {
@@ -79,8 +80,8 @@ namespace Hover.Board.Custom {
 
 			vCustomMap = new Dictionary<int, CustomItem>();
 
-			HoverboardCustomButton[] segList = 
-				gameObject.GetComponentsInChildren<HoverboardCustomButton>();
+			HoverboardCustomItem[] segList = 
+				gameObject.GetComponentsInChildren<HoverboardCustomItem>();
 
 			FillCustomItems(segList, ((c, s) => { c.Seg = s; }));
 		}

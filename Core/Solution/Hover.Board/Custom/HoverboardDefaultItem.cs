@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Hover.Board.Custom {
 
 	/*================================================================================================*/
-	public class HoverboardDefaultButton : HoverboardCustomButton {
+	public class HoverboardDefaultItem : HoverboardCustomItem {
 
 		public static Color Green = new Color(0.1f, 0.9f, 0.2f);
 
@@ -20,7 +20,7 @@ namespace Hover.Board.Custom {
 		public Color HighlightColor = new Color(0.1f, 0.5f, 0.9f);
 		public Color SelectionColor = Green;
 
-		private ButtonSettings vSettings;
+		private ItemSettings vSettings;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -30,9 +30,9 @@ namespace Hover.Board.Custom {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public override ButtonSettings GetSettings() {
+		public override ItemSettings GetSettings() {
 			if ( vSettings == null ) {
-				vSettings = new ButtonSettings();
+				vSettings = new ItemSettings();
 				vSettings.TextSize = TextSize;
 				vSettings.TextColor = TextColor;
 				vSettings.TextFont = TextFont;

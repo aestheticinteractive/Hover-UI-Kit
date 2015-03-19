@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Hover.Board.Custom;
+using Hover.Common.Custom;
 using Hover.Common.Input;
 using Hover.Common.Items;
 using UnityEngine;
 
-namespace Hover.Board.State {
+namespace Hover.Common.State {
 
 	/*================================================================================================*/
-	public class ButtonState : IHoverboardItemState {
+	public class BaseItemState : IBaseItemState {
 
 		public IBaseItem Item { get; private set; }
 
 		public bool IsSelectionPrevented { get; private set; }
+		public int DisplaySelectionPreventions { get; set; }
 
 		private readonly InteractionSettings vSettings;
 		private readonly IDictionary<CursorType, float> vHighlightDistanceMap;
@@ -22,13 +23,12 @@ namespace Hover.Board.State {
 
 		private Func<Vector3, float> vCursorDistanceFunc;
 		private DateTime? vSelectionStart;
-		//private bool vIsAnimating;
 		private float vDistanceUponSelection;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public ButtonState(IBaseItem pItem, InteractionSettings pSettings) {
+		public BaseItemState(IBaseItem pItem, InteractionSettings pSettings) {
 			Item = pItem;
 			vSettings = pSettings;
 
@@ -102,16 +102,11 @@ namespace Hover.Board.State {
 			vCursorDistanceFunc = pFunc;
 		}
 
-		/*--------------------------------------------------------------------------------------------* /
-		public void SetIsAnimating(bool pIsAnimating) {
-			vIsAnimating = pIsAnimating;
-		}
-
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal void UpdateWithCursor(CursorType pType, Vector3? pCursorWorldPosition) {
-			if ( pCursorWorldPosition == null /*|| vIsAnimating*/ || !Item.IsEnabled ) {
+		public void UpdateWithCursor(CursorType pType, Vector3? pCursorWorldPosition) {
+			if ( pCursorWorldPosition == null || DisplaySelectionPreventions > 0 || !Item.IsEnabled ) {
 				vHighlightDistanceMap[pType] = float.MaxValue;
 				vHighlightProgressMap[pType] = 0;
 				return;
@@ -130,12 +125,12 @@ namespace Hover.Board.State {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		internal void SetAsNearestButton(CursorType pCursorType, bool pIsNearest) {
+		public void SetAsNearestItem(CursorType pCursorType, bool pIsNearest) {
 			vIsNearestHighlightMap[pCursorType] = pIsNearest;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		internal bool UpdateSelectionProcess() {
+		public bool UpdateSelectionProcess() {
 			ISelectableItem selItem = (Item as ISelectableItem);
 
 			if ( selItem == null ) {

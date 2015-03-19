@@ -1,36 +1,36 @@
 ﻿using System;
 using Hover.Board.Custom;
-using Hover.Board.State;
+using Hover.Common.State;
 using UnityEngine;
 
 namespace Hover.Board.Display {
 
 	/*================================================================================================*/
-	public class UiButton : MonoBehaviour {
+	public class UiItem : MonoBehaviour {
 
 		public const float Size = 1;
 
-		private ButtonState vButtonState;
+		private BaseItemState vButtonState;
 
 		private GameObject vRendererObj;
-		private IUiSegmentRenderer vRenderer;
+		private IUiItemRenderer vRenderer;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal void Build(ButtonState pButtonState, ICustomSegment pCustom) {
+		internal void Build(BaseItemState pButtonState, ICustomSegment pCustom) {
 			vButtonState = pButtonState;
 			vButtonState.SetCursorDistanceFunction(CalcCursorDistance);
 
 			////
 
 			Type rendType = pCustom.GetSegmentRenderer(vButtonState.Item);
-			ButtonSettings sett = pCustom.GetSegmentSettings(vButtonState.Item);
+			ItemSettings sett = pCustom.GetSegmentSettings(vButtonState.Item);
 
 			vRendererObj = new GameObject("Renderer");
 			vRendererObj.transform.SetParent(gameObject.transform, false);
 
-			vRenderer = (IUiSegmentRenderer)vRendererObj.AddComponent(rendType);
+			vRenderer = (IUiItemRenderer)vRendererObj.AddComponent(rendType);
 			vRenderer.Build(vButtonState, sett);
 
 			gameObject.transform.localPosition = Vector3.zero;

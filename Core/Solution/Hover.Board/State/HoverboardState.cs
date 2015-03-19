@@ -2,7 +2,9 @@
 using System.Linq;
 using Hover.Board.Custom;
 using Hover.Board.Navigation;
+using Hover.Common.Custom;
 using Hover.Common.Input;
+using Hover.Common.State;
 using Hover.Cursor.State;
 using UnityEngine;
 
@@ -13,8 +15,8 @@ namespace Hover.Board.State {
 
 		private struct ButtonTree {
 			public PanelState Panel;
-			//public GridState Grid;
-			public ButtonState Button;
+			public GridState Grid;
+			public BaseItemState Button;
 		}
 
 		public HoverboardCustomizationProvider CustomizationProvider { get; private set; }
@@ -25,7 +27,6 @@ namespace Hover.Board.State {
 
 		private readonly Transform vBaseTx;
 		private readonly IDictionary<CursorType, ProjectionState> vProjectionMap;
-		//private readonly IDictionary<CursorType, ButtonTree?> vNearestButtonMap;
 		private readonly ButtonTree[] vAllButtons;
 
 
@@ -38,7 +39,6 @@ namespace Hover.Board.State {
 			
 			vBaseTx = pBaseTx;
 			vProjectionMap = new Dictionary<CursorType, ProjectionState>();
-			//vNearestButtonMap = new Dictionary<CursorType, ButtonTree?>();
 
 			////
 
@@ -52,10 +52,10 @@ namespace Hover.Board.State {
 				panels.Add(panel);
 
 				foreach ( GridState grid in panel.Grids ) {
-					foreach ( ButtonState button in grid.Buttons ) {
+					foreach ( BaseItemState button in grid.Items ) {
 						var tree = new ButtonTree {
 							Panel = panel,
-							//Grid = grid,
+							Grid = grid,
 							Button = button
 						};
 
@@ -84,7 +84,6 @@ namespace Hover.Board.State {
 					CustomizationProvider.GetInteractionSettings(), vBaseTx);
 
 				vProjectionMap.Add(pCursorType, projState);
-				//vNearestButtonMap.Add(pCursorType, null);
 			}
 
 			return vProjectionMap[pCursorType];
@@ -111,7 +110,7 @@ namespace Hover.Board.State {
 			float nearestDist = float.MaxValue;
 
 			foreach ( ButtonTree buttonTree in vAllButtons ) {
-				ButtonState button = buttonTree.Button;
+				BaseItemState button = buttonTree.Button;
 				button.UpdateWithCursor(cursorType, cursorWorldPos);
 
 				if ( !allowSelect ) {
@@ -120,29 +119,29 @@ namespace Hover.Board.State {
 
 				float buttonDist = button.GetHighlightDistance(cursorType);
 
-				if ( buttonDist < nearestDist ) {
-					nearestTree = buttonTree;
-					nearestDist = buttonDist;
+				if ( buttonDist >= nearestDist ) {
+					continue;
 				}
+
+				nearestTree = buttonTree;
+				nearestDist = buttonDist;
 			}
 
 			foreach ( ButtonTree buttonTree in vAllButtons ) {
-				ButtonState button = buttonTree.Button;
-				button.SetAsNearestButton(cursorType, (button == nearestTree.Button));
+				BaseItemState button = buttonTree.Button;
+				button.SetAsNearestItem(cursorType, (button == nearestTree.Button));
 			}
-
-			//vNearestButtonMap[cursorType] = nearestTree;
 
 			if ( nearestTree.Panel == null || nearestTree.Button.MaxHighlightProgress <= 0 ) {
 				pProjection.SetNearestPanelTransform(null);
 				pProjection.NearestButtonHighlightProgress = 0;
+				return;
 			}
-			else {
-				GameObject panelObj = (GameObject)nearestTree.Panel.ItemPanel.DisplayContainer;
-				pProjection.SetNearestPanelTransform(panelObj.transform);
-				pProjection.NearestButtonHighlightProgress = 
-					nearestTree.Button.GetHighlightProgress(cursorType);
-			}
+
+			GameObject panelObj = (GameObject)nearestTree.Panel.ItemPanel.DisplayContainer;
+			pProjection.SetNearestPanelTransform(panelObj.transform);
+			pProjection.NearestButtonHighlightProgress = 
+				nearestTree.Button.GetHighlightProgress(cursorType);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

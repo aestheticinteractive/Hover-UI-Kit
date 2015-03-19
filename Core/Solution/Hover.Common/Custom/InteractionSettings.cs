@@ -1,4 +1,4 @@
-﻿namespace Hover.Board.Custom {
+﻿namespace Hover.Common.Custom {
 
 	/*================================================================================================*/
 	public class InteractionSettings {
@@ -7,7 +7,6 @@
 		public float HighlightDistanceMax { get; set; }
 		public float StickyReleaseDistance { get; set; }
 		public float SelectionMilliseconds { get; set; }
-		public float CursorForwardDistance { get; set; }
 
 	}
 
