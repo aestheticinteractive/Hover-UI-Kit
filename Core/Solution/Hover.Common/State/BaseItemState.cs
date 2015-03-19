@@ -118,7 +118,7 @@ namespace Hover.Common.State {
 
 			float dist = vCursorDistanceFunc((Vector3)pCursorWorldPosition);
 			float prog = Mathf.InverseLerp(vSettings.HighlightDistanceMax,
-				vSettings.HighlightDistanceMin, dist);
+				vSettings.HighlightDistanceMin, dist*vSettings.ScaleMultiplier);
 
 			vHighlightDistanceMap[pType] = dist;
 			vHighlightProgressMap[pType] = prog;

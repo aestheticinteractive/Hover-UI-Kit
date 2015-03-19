@@ -6,6 +6,7 @@ namespace Hover.Board.Custom {
 	/*================================================================================================*/
 	public class HoverboardCustomInteraction : MonoBehaviour {
 
+		public bool ApplyScaleMultipler = true;
 		public float HighlightDistanceMin = 0.03f;
 		public float HighlightDistanceMax = 0.07f;
 		public float StickyReleaseDistance = 0.05f;
@@ -19,6 +20,7 @@ namespace Hover.Board.Custom {
 		public virtual InteractionSettings GetSettings() {
 			if ( vSettings == null ) {
 				vSettings = new InteractionSettings();
+				vSettings.ApplyScaleMultiplier = ApplyScaleMultipler;
 				vSettings.HighlightDistanceMin = HighlightDistanceMin;
 				vSettings.HighlightDistanceMax = HighlightDistanceMax;
 				vSettings.StickyReleaseDistance = StickyReleaseDistance;

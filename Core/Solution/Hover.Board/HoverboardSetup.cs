@@ -45,6 +45,8 @@ namespace Hover.Board {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Start() {
+			gameObject.transform.localScale = Vector3.one;
+
 			vState.SetHovercursorState(Hovercursor.State);
 			vUiPanels = new UiPanel[vState.Panels.Length];
 
@@ -72,6 +74,16 @@ namespace Hover.Board {
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
 			vState.UpdateAfterInput();
+
+			var interSett = CustomizationProvider.GetInteractionSettings();
+
+			if ( interSett.ApplyScaleMultiplier ) {
+				Vector3 worldUp = transform.TransformVector(Vector3.up);
+				interSett.ScaleMultiplier = 1/worldUp.magnitude;
+			}
+			else {
+				interSett.ScaleMultiplier = 1;
+			}
 		}
 
 	}

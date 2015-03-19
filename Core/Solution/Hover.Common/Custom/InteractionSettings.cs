@@ -7,6 +7,8 @@
 		public float HighlightDistanceMax { get; set; }
 		public float StickyReleaseDistance { get; set; }
 		public float SelectionMilliseconds { get; set; }
+		public bool ApplyScaleMultiplier { get; set; }
+		public float ScaleMultiplier { get; set; }
 
 	}
 

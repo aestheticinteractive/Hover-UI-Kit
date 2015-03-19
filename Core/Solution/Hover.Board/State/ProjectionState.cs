@@ -1,5 +1,4 @@
-﻿using Hover.Board.Custom;
-using Hover.Common.Custom;
+﻿using Hover.Common.Custom;
 using Hover.Cursor.State;
 using UnityEngine;
 
@@ -46,18 +45,18 @@ namespace Hover.Board.State {
 				return;
 			}
 
-			Vector3 worldPos = CursorState.GetWorldPosition();
-			Vector3 diff = (pPanelTx.position-worldPos);
+			Vector3 cursorWorldPos = CursorState.GetWorldPosition();
+			Vector3 diff = pPanelTx.position-cursorWorldPos;
 			Vector3 norm = pPanelTx.rotation*Vector3.down; //TODO: make this Vector3.forward? up?
-			float dist = Vector3.Dot(norm, diff);
-			Vector3 projWorldPos = worldPos + norm*dist;
+			float normLength = Vector3.Dot(norm, diff);
+			Vector3 projWorldPos = cursorWorldPos + norm*normLength;
 			Vector3 projPos = vBaseTx.InverseTransformPoint(projWorldPos);
 
 			ProjectedPanelPosition = projPos;
-			ProjectedFromFront = (dist > 0);
+			ProjectedFromFront = (normLength > 0);
 			ProjectedPanelDistance = (projPos-CursorState.Position).magnitude;
 			ProjectedPanelProgress = Mathf.InverseLerp(vSettings.HighlightDistanceMax,
-				vSettings.HighlightDistanceMin, (projWorldPos-worldPos).magnitude);
+				vSettings.HighlightDistanceMin, ProjectedPanelDistance);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

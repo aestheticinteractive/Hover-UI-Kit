@@ -47,7 +47,7 @@ namespace Hover.Board.Display {
 			}
 
 			Vector3 projPos = (Vector3)vProjState.ProjectedPanelPosition;
-			Vector3 projPosToCursor = (cursorState.Position-projPos);
+			Vector3 projPosToCursor = cursorState.Position-projPos;
 
 			vProjRendererHold.transform.localPosition = projPos;
 			vProjRendererHold.transform.localRotation = 
