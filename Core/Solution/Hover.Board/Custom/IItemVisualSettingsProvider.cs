@@ -1,17 +1,16 @@
-﻿using Hover.Common.Input;
-using Hover.Cursor.State;
+﻿using Hover.Common.Items;
 
-namespace Hover.Board.State {
+namespace Hover.Board.Custom {
 
 	/*================================================================================================*/
-	public interface IHoverboardState {
+	public interface IItemVisualSettingsProvider {
 
-		IHovercursorState HovercursorState { get; }
+		bool IsDefaultSettingsComponent { get; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		ProjectionState GetProjectionState(CursorType pCursorType);
+		ItemVisualSettings GetSettings(IBaseItem pItem);
 
 	}
 

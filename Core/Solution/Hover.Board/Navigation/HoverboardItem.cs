@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Hover.Board.Navigation {
 	
 	/*================================================================================================*/
-	public class HoverboardItem : MonoBehaviour {
+	public class HoverboardItem : MonoBehaviour, IHovercommonItem {
 
 		public SelectableItemType Type;
 		public string Id = "";

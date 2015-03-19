@@ -12,7 +12,7 @@ namespace Hover.Cursor {
 	/*================================================================================================*/
 	public class HovercursorSetup : MonoBehaviour {
 
-		public HovercursorCustomizationProvider CustomizationProvider;
+		public HovercursorVisualSettings CustomizationProvider;
 		public HovercursorInputProvider InputProvider;
 		public Transform CameraReference;
 
@@ -34,8 +34,8 @@ namespace Hover.Cursor {
 		public void Awake() {
 			const string prefix = "Hovercursor";
 
-			CustomizationProvider = UnityUtil.FindComponentOrCreate<HovercursorCustomizationProvider, 
-				HovercursorDefaultCustomizationProvider>(CustomizationProvider, gameObject, prefix);
+			CustomizationProvider = UnityUtil.FindComponentOrCreate<HovercursorVisualSettings, 
+				HovercursorDefaultVisualSettings>(CustomizationProvider, gameObject, prefix);
 
 			InputProvider = UnityUtil.FindComponentOrFail(InputProvider, prefix);
 

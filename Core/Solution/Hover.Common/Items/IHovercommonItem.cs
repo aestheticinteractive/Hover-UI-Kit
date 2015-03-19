@@ -1,14 +1,12 @@
-﻿using Hover.Common.Custom;
-
-namespace Hover.Board.Custom {
-
+﻿namespace Hover.Common.Items {
+	
 	/*================================================================================================*/
-	public interface ICustom : ICustomSegment {
+	public interface IHovercommonItem {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		InteractionSettings GetInteractionSettings();
+		IBaseItem GetItem();
 
 	}
 

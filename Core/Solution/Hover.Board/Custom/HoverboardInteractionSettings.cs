@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Hover.Board.Custom {
 
 	/*================================================================================================*/
-	public class HoverboardCustomInteraction : MonoBehaviour {
+	public class HoverboardInteractionSettings : MonoBehaviour {
 
 		public bool ApplyScaleMultipler = true;
 		public float HighlightDistanceMin = 0.03f;

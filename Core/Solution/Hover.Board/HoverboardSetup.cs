@@ -1,7 +1,10 @@
-﻿using Hover.Board.Custom;
+﻿using System.Linq;
+using Hover.Board.Custom;
+using Hover.Board.Custom.Default;
 using Hover.Board.Display;
 using Hover.Board.Navigation;
 using Hover.Board.State;
+using Hover.Common.Custom;
 using Hover.Common.Input;
 using Hover.Common.Util;
 using Hover.Cursor;
@@ -12,8 +15,9 @@ namespace Hover.Board {
 	/*================================================================================================*/
 	public class HoverboardSetup : MonoBehaviour {
 
-		public HoverboardCustomizationProvider CustomizationProvider;
-		public HoverboardPanelProvider[] PanelProviders;
+		public HoverboardItemVisualSettings DefaultItemVisualSettings;
+		public HoverboardInteractionSettings InteractionSettings;
+		public HoverboardPanel[] Panels;
 		public HovercursorSetup Hovercursor;
 
 		private HoverboardState vState;
@@ -34,13 +38,18 @@ namespace Hover.Board {
 		public void Awake() {
 			const string prefix = "Hoverboard";
 
-			CustomizationProvider = UnityUtil.FindComponentOrCreate<HoverboardCustomizationProvider,
-				HoverboardCustomizationProvider>(CustomizationProvider, gameObject, prefix);
+			DefaultItemVisualSettings = UnityUtil.CreateComponent<HoverboardItemVisualSettings,
+				HoverboardItemVisualSettingsDefault>(DefaultItemVisualSettings, gameObject, prefix);
+			DefaultItemVisualSettings.IsDefaultSettingsComponent = true;
 
-			PanelProviders = UnityUtil.FindComponentsOrFail(PanelProviders, prefix);
+			InteractionSettings = UnityUtil.FindComponentOrCreate<HoverboardInteractionSettings,
+				HoverboardInteractionSettings>(InteractionSettings, gameObject, prefix);
+
+			Panels = UnityUtil.FindComponentsOrFail(Panels, prefix);
 			Hovercursor = UnityUtil.FindComponentOrFail(Hovercursor, prefix);
 
-			vState = new HoverboardState(CustomizationProvider, PanelProviders, gameObject.transform);
+			vState = new HoverboardState(InteractionSettings.GetSettings(),
+				Panels.Select(x => x.GetPanel()).ToArray(), gameObject.transform);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -59,7 +68,7 @@ namespace Hover.Board {
 				PanelState panelState = vState.Panels[i];
 				GameObject panelObj = (GameObject)panelState.ItemPanel.DisplayContainer;
 				UiPanel uiPanel = panelObj.AddComponent<UiPanel>();
-				uiPanel.Build(panelState, CustomizationProvider);
+				uiPanel.Build(panelState, DefaultItemVisualSettings);
 				vUiPanels[i] = uiPanel;
 			}
 
@@ -75,7 +84,7 @@ namespace Hover.Board {
 		public void Update() {
 			vState.UpdateAfterInput();
 
-			var interSett = CustomizationProvider.GetInteractionSettings();
+			InteractionSettings interSett = InteractionSettings.GetSettings();
 
 			if ( interSett.ApplyScaleMultiplier ) {
 				Vector3 worldUp = transform.TransformVector(Vector3.up);

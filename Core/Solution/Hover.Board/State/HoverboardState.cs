@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using Hover.Board.Custom;
 using Hover.Board.Navigation;
 using Hover.Common.Custom;
 using Hover.Common.Input;
@@ -13,59 +11,55 @@ namespace Hover.Board.State {
 	/*================================================================================================*/
 	public class HoverboardState : IHoverboardState {
 
-		private struct ButtonTree {
+		private struct ItemTree {
 			public PanelState Panel;
 			public GridState Grid;
-			public BaseItemState Button;
+			public BaseItemState Item;
 		}
 
-		public HoverboardCustomizationProvider CustomizationProvider { get; private set; }
-		public HoverboardPanelProvider[] PanelProviders { get; private set; }
 		public IHovercursorState HovercursorState { get; private set; }
 
 		public PanelState[] Panels { get; private set; }
 
+		private readonly InteractionSettings vInteractSett;
 		private readonly Transform vBaseTx;
 		private readonly IDictionary<CursorType, ProjectionState> vProjectionMap;
-		private readonly ButtonTree[] vAllButtons;
+		private readonly ItemTree[] vAllItems;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public HoverboardState(HoverboardCustomizationProvider pCustom, 
-												HoverboardPanelProvider[] pPanels, Transform pBaseTx) {
-			CustomizationProvider = pCustom;
-			PanelProviders = pPanels;
-			
+		public HoverboardState(InteractionSettings pInterSett, ItemPanel[] pItemPanels, 
+																					Transform pBaseTx) {
+			vInteractSett = pInterSett;
+
 			vBaseTx = pBaseTx;
 			vProjectionMap = new Dictionary<CursorType, ProjectionState>();
 
 			////
 
-			IEnumerable<ItemPanel> itemPanels = PanelProviders.Select(x => x.GetPanel());
-			InteractionSettings interSett = CustomizationProvider.GetInteractionSettings();
 			var panels = new List<PanelState>();
-			var allButtons = new List<ButtonTree>();
+			var allItems = new List<ItemTree>();
 
-			foreach ( ItemPanel itemPanel in itemPanels ) {
-				var panel = new PanelState(itemPanel, interSett);
+			foreach ( ItemPanel itemPanel in pItemPanels ) {
+				var panel = new PanelState(itemPanel, vInteractSett);
 				panels.Add(panel);
 
 				foreach ( GridState grid in panel.Grids ) {
-					foreach ( BaseItemState button in grid.Items ) {
-						var tree = new ButtonTree {
+					foreach ( BaseItemState item in grid.Items ) {
+						var tree = new ItemTree {
 							Panel = panel,
 							Grid = grid,
-							Button = button
+							Item = item
 						};
 
-						allButtons.Add(tree);
+						allItems.Add(tree);
 					}
 				}
 			}
 
 			Panels = panels.ToArray();
-			vAllButtons = allButtons.ToArray();
+			vAllItems = allItems.ToArray();
 		}
 
 
@@ -79,10 +73,7 @@ namespace Hover.Board.State {
 		public ProjectionState GetProjectionState(CursorType pCursorType) {
 			if ( !vProjectionMap.ContainsKey(pCursorType) ) {
 				ICursorState cursorState = HovercursorState.GetCursorState(pCursorType);
-
-				var projState = new ProjectionState(cursorState,
-					CustomizationProvider.GetInteractionSettings(), vBaseTx);
-
+				var projState = new ProjectionState(cursorState, vInteractSett, vBaseTx);
 				vProjectionMap.Add(pCursorType, projState);
 			}
 
@@ -106,48 +97,48 @@ namespace Hover.Board.State {
 			CursorType cursorType = cursorState.Type;
 			bool allowSelect = (cursorState.IsInputAvailable); //TODO: && NavGrid.IsVisible);
 			Vector3? cursorWorldPos = (allowSelect ? cursorState.GetWorldPosition() : (Vector3?)null);
-			ButtonTree nearestTree = new ButtonTree();
+			ItemTree nearestTree = new ItemTree();
 			float nearestDist = float.MaxValue;
 
-			foreach ( ButtonTree buttonTree in vAllButtons ) {
-				BaseItemState button = buttonTree.Button;
-				button.UpdateWithCursor(cursorType, cursorWorldPos);
+			foreach ( ItemTree itemTree in vAllItems ) {
+				BaseItemState item = itemTree.Item;
+				item.UpdateWithCursor(cursorType, cursorWorldPos);
 
 				if ( !allowSelect ) {
 					continue;
 				}
 
-				float buttonDist = button.GetHighlightDistance(cursorType);
+				float itemDist = item.GetHighlightDistance(cursorType);
 
-				if ( buttonDist >= nearestDist ) {
+				if ( itemDist >= nearestDist ) {
 					continue;
 				}
 
-				nearestTree = buttonTree;
-				nearestDist = buttonDist;
+				nearestTree = itemTree;
+				nearestDist = itemDist;
 			}
 
-			foreach ( ButtonTree buttonTree in vAllButtons ) {
-				BaseItemState button = buttonTree.Button;
-				button.SetAsNearestItem(cursorType, (button == nearestTree.Button));
+			foreach ( ItemTree itemTree in vAllItems ) {
+				BaseItemState item = itemTree.Item;
+				item.SetAsNearestItem(cursorType, (item == nearestTree.Item));
 			}
 
-			if ( nearestTree.Panel == null || nearestTree.Button.MaxHighlightProgress <= 0 ) {
+			if ( nearestTree.Panel == null || nearestTree.Item.MaxHighlightProgress <= 0 ) {
 				pProjection.SetNearestPanelTransform(null);
-				pProjection.NearestButtonHighlightProgress = 0;
+				pProjection.NearestItemHighlightProgress = 0;
 				return;
 			}
 
 			GameObject panelObj = (GameObject)nearestTree.Panel.ItemPanel.DisplayContainer;
 			pProjection.SetNearestPanelTransform(panelObj.transform);
-			pProjection.NearestButtonHighlightProgress = 
-				nearestTree.Button.GetHighlightProgress(cursorType);
+			pProjection.NearestItemHighlightProgress = 
+				nearestTree.Item.GetHighlightProgress(cursorType);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateAfterAllCursors() {
-			foreach ( ButtonTree buttonTree in vAllButtons ) {
-				buttonTree.Button.UpdateSelectionProcess();
+			foreach ( ItemTree itemTree in vAllItems ) {
+				itemTree.Item.UpdateSelectionProcess();
 			}
 		}
 

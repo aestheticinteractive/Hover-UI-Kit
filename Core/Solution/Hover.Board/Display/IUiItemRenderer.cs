@@ -10,7 +10,7 @@ namespace Hover.Board.Display {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		void Build(IBaseItemState pButtonState, ItemSettings pSegState);
+		void Build(IBaseItemState pItemState, IItemVisualSettings pSettings);
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

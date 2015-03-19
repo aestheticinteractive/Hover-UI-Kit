@@ -9,30 +9,24 @@ namespace Hover.Board.Display {
 	/*================================================================================================*/
 	public class UiGrid : MonoBehaviour {
 
-		private GridState vGridState;
-		private ICustomSegment vCustom;
-
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal void Build(GridState pGrid, ICustomSegment pCustom) {
-			vGridState = pGrid;
-			vCustom = pCustom;
-
-			int cols = vGridState.ItemGrid.Cols;
+		internal void Build(GridState pGridState, IItemVisualSettingsProvider pItemVisualSettProv) {
+			int cols = pGridState.ItemGrid.Cols;
 			int gi = 0;
 
-			for ( int i = 0 ; i < vGridState.Items.Length ; i++ ) {
-				BaseItemState button = vGridState.Items[i];
-				int w = (int)button.Item.Width;
+			for ( int i = 0 ; i < pGridState.Items.Length ; i++ ) {
+				BaseItemState itemState = pGridState.Items[i];
+				ItemVisualSettings visualSett = pItemVisualSettProv.GetSettings(itemState.Item);
+				GameObject itemObj = (GameObject)itemState.Item.DisplayContainer;
 				var pos = new Vector3(gi%cols, 0, (float)Math.Floor((float)gi/cols));
-				GameObject itemObj = (GameObject)button.Item.DisplayContainer;
 
 				UiItem uiItem = itemObj.AddComponent<UiItem>();
-				uiItem.Build(button, vCustom);
+				uiItem.Build(itemState, visualSett);
 				uiItem.transform.localPosition = pos*UiItem.Size;
 
-				gi += w;
+				gi += (int)itemState.Item.Width;
 			}
 
 			gameObject.transform.localPosition = Vector3.zero;

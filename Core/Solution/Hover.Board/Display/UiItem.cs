@@ -1,5 +1,4 @@
-﻿using System;
-using Hover.Board.Custom;
+﻿using Hover.Board.Custom;
 using Hover.Common.State;
 using UnityEngine;
 
@@ -10,7 +9,7 @@ namespace Hover.Board.Display {
 
 		public const float Size = 1;
 
-		private BaseItemState vButtonState;
+		private BaseItemState vItemState;
 
 		private GameObject vRendererObj;
 		private IUiItemRenderer vRenderer;
@@ -18,20 +17,15 @@ namespace Hover.Board.Display {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal void Build(BaseItemState pButtonState, ICustomSegment pCustom) {
-			vButtonState = pButtonState;
-			vButtonState.SetCursorDistanceFunction(CalcCursorDistance);
-
-			////
-
-			Type rendType = pCustom.GetSegmentRenderer(vButtonState.Item);
-			ItemSettings sett = pCustom.GetSegmentSettings(vButtonState.Item);
+		internal void Build(BaseItemState pItemState, IItemVisualSettings pVisualSettings) {
+			vItemState = pItemState;
+			vItemState.SetCursorDistanceFunction(CalcCursorDistance);
 
 			vRendererObj = new GameObject("Renderer");
 			vRendererObj.transform.SetParent(gameObject.transform, false);
 
-			vRenderer = (IUiItemRenderer)vRendererObj.AddComponent(rendType);
-			vRenderer.Build(vButtonState, sett);
+			vRenderer = (IUiItemRenderer)vRendererObj.AddComponent(pVisualSettings.Renderer);
+			vRenderer.Build(vItemState, pVisualSettings);
 
 			gameObject.transform.localPosition = Vector3.zero;
 			gameObject.transform.localRotation = Quaternion.identity;

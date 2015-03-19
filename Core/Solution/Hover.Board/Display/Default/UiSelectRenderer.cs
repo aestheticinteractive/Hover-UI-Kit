@@ -11,8 +11,8 @@ namespace Hover.Board.Display.Default {
 
 		public const float ArcCanvasScale = UiItem.Size*0.012f;
 
-		private IBaseItemState vButtonState;
-		private ItemSettings vSettings;
+		private IBaseItemState vItemState;
+		private ItemVisualSettings vVisualSettings;
 
 		private float vMainAlpha;
 
@@ -22,11 +22,11 @@ namespace Hover.Board.Display.Default {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Build(IBaseItemState pButtonState, ItemSettings pSettings) {
-			vButtonState = pButtonState;
-			vSettings = pSettings;
+		public void Build(IBaseItemState pItemState, IItemVisualSettings pSettings) {
+			vItemState = pItemState;
+			vVisualSettings = (ItemVisualSettings)pSettings; //uses renderer-specific settings class
 
-			float width = UiItem.Size*vButtonState.Item.Width;
+			float width = UiItem.Size*vItemState.Item.Width;
 			const float height = UiItem.Size;
 
 			gameObject.transform.SetParent(gameObject.transform, false);
@@ -52,26 +52,26 @@ namespace Hover.Board.Display.Default {
 		public void Update() {
 			vMainAlpha = 1;
 
-			if ( !vButtonState.Item.IsEnabled ) {
+			if ( !vItemState.Item.IsEnabled ) {
 				vMainAlpha *= 0.333f;
 			}
 
-			ISelectableItem selItem = (vButtonState.Item as ISelectableItem);
-			float high = vButtonState.MaxHighlightProgress;
-			bool showEdge = (vButtonState.IsNearestHighlight && !vButtonState.IsSelectionPrevented && 
+			ISelectableItem selItem = (vItemState.Item as ISelectableItem);
+			float high = vItemState.MaxHighlightProgress;
+			bool showEdge = (vItemState.IsNearestHighlight && !vItemState.IsSelectionPrevented && 
 				selItem != null && selItem.AllowSelection);
 			float edge = (showEdge ? high : 0);
-			float select = 1-(float)Math.Pow(1-vButtonState.SelectionProgress, 1.5f);
+			float select = 1-(float)Math.Pow(1-vItemState.SelectionProgress, 1.5f);
 			float selectAlpha = select;
 
 			if ( selItem != null && selItem.IsStickySelected ) {
 				selectAlpha = 1;
 			}
 
-			Color colBg = vSettings.BackgroundColor;
-			Color colEdge = vSettings.EdgeColor;
-			Color colHigh = vSettings.HighlightColor;
-			Color colSel = vSettings.SelectionColor;
+			Color colBg = vVisualSettings.BackgroundColor;
+			Color colEdge = vVisualSettings.EdgeColor;
+			Color colHigh = vVisualSettings.HighlightColor;
+			Color colSel = vVisualSettings.SelectionColor;
 
 			colBg.a *= vMainAlpha;
 			colEdge.a *= edge*vMainAlpha;
@@ -84,10 +84,10 @@ namespace Hover.Board.Display.Default {
 			vFill.UpdateSelect(colSel, select);
 
 			vLabel.Alpha = vMainAlpha;
-			vLabel.FontName = vSettings.TextFont;
-			vLabel.FontSize = vSettings.TextSize;
-			vLabel.Color = vSettings.TextColor;
-			vLabel.Label = vButtonState.Item.Label;
+			vLabel.FontName = vVisualSettings.TextFont;
+			vLabel.FontSize = vVisualSettings.TextSize;
+			vLabel.Color = vVisualSettings.TextColor;
+			vLabel.Label = vItemState.Item.Label;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

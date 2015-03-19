@@ -6,17 +6,17 @@ namespace Hover.Board.Navigation {
 	/*================================================================================================*/
 	public abstract class HoverboardPanelListener : MonoBehaviour {
 
-		public HoverboardPanelProvider Component { get; private set; }
+		public HoverboardPanel Component { get; private set; }
 		public ItemPanel Panel { get; private set; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
-			Component = gameObject.GetComponent<HoverboardPanelProvider>();
+			Component = gameObject.GetComponent<HoverboardPanel>();
 
 			if ( Component == null ) {
-				throw new Exception("There must be a "+typeof(HoverboardPanelProvider).Name+
+				throw new Exception("There must be a "+typeof(HoverboardPanel).Name+
 					" component attached to this GameObject.");
 			}
 

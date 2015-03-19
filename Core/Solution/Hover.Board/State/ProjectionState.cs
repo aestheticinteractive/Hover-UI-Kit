@@ -60,7 +60,7 @@ namespace Hover.Board.State {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public float NearestButtonHighlightProgress {
+		public float NearestItemHighlightProgress {
 			get {
 				return vCursorInteractState.HighlightProgress;
 			}

@@ -69,6 +69,20 @@ namespace Hover.Common.Util {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
+		public static TBase CreateComponent<TBase, TDefault>(TBase pProvided, GameObject pGameObj,
+									string pLogPrefix) where TBase : Component where TDefault : TBase {
+			if ( pProvided != null ) {
+				return pProvided;
+			}
+
+			pProvided = pGameObj.AddComponent<TDefault>();
+			Debug.Log(pLogPrefix+" | Using the default "+typeof(TBase).Name);
+			return pProvided;
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
 		public static string GetPath(GameObject pObj) {
 			if ( pObj.transform.parent == null ) {
 				return "/" + pObj.name;

@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Hover.Cursor.Custom.Default {
 
 	/*================================================================================================*/
-	public class HovercursorDefaultCustomizationProvider : HovercursorCustomizationProvider {
+	public class HovercursorDefaultVisualSettings : HovercursorVisualSettings {
 
 		public Color ColorNormal = new Color(1, 1, 1, 0.6f);
 		public Color ColorHighlighted = new Color(1, 1, 1, 1);

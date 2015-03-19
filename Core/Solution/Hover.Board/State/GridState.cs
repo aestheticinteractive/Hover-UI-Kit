@@ -19,18 +19,18 @@ namespace Hover.Board.State {
 			ItemGrid = pItemGrid;
 			vSettings = pSettings;
 
-			RefreshButtons();
+			RefreshItems();
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void RefreshButtons() {
+		private void RefreshItems() {
 			Items = new BaseItemState[ItemGrid.Items.Length];
 
 			for ( int i = 0 ; i < ItemGrid.Items.Length ; i++ ) {
-				var button = new BaseItemState(ItemGrid.Items[i], vSettings);
-				Items[i] = button;
+				var item = new BaseItemState(ItemGrid.Items[i], vSettings);
+				Items[i] = item;
 			}
 		}
 

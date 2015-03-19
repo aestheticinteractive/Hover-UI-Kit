@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Hover.Cursor.Custom {
 
 	/*================================================================================================*/
-	public abstract class HovercursorCustomizationProvider : MonoBehaviour {
+	public abstract class HovercursorVisualSettings : MonoBehaviour {
 
 		private const string RendererErrorPrefix = "Hovercursor | The 'Cursor' Renderer ";
 
@@ -21,7 +21,7 @@ namespace Hover.Cursor.Custom {
 			}
 
 			if ( !sett.Renderer.GetInterfaces().Contains(typeof(IUiCursorRenderer)) ) {
-				throw new Exception(RendererErrorPrefix+"must implement the "+
+				throw new Exception(RendererErrorPrefix+"does not implement the "+
 					typeof(IUiCursorRenderer).Name+" interface.");
 			}
 

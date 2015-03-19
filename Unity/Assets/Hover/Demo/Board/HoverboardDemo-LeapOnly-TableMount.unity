@@ -161,6 +161,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 301275808}
   - 114: {fileID: 301275809}
+  - 114: {fileID: 301275810}
   m_Layer: 0
   m_Name: E
   m_TagString: Untagged
@@ -197,6 +198,26 @@ MonoBehaviour:
   Width: 1
   IsVisible: 1
   IsEnabled: 1
+--- !u!114 &301275810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 301275807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1045183366, guid: ec0e2c4346a0dd94e9fa4af2ed7fcc12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextSize: 36
+  TextColor: {r: .324394464, g: .882352948, b: .85926491, a: 1}
+  TextFont: Tahoma
+  ArrowIconColor: {r: 1, g: 1, b: 1, a: 1}
+  ToggleIconColor: {r: 1, g: 1, b: 1, a: 1}
+  BackgroundColor: {r: .100000001, g: .100000001, b: .100000001, a: .666000009}
+  EdgeColor: {r: 1, g: 1, b: 1, a: 1}
+  HighlightColor: {r: .533604264, g: .683823526, b: .110618494, a: 1}
+  SelectionColor: {r: .899999976, g: .100000046, b: .613103509, a: 1}
 --- !u!1 &379876345
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,7 +228,7 @@ GameObject:
   - 4: {fileID: 379876346}
   - 114: {fileID: 379876347}
   m_Layer: 0
-  m_Name: Panel
+  m_Name: PanelTop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -234,7 +255,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 379876345}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1583896762, guid: ec0e2c4346a0dd94e9fa4af2ed7fcc12, type: 3}
+  m_Script: {fileID: -2145053136, guid: ec0e2c4346a0dd94e9fa4af2ed7fcc12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &759689952
@@ -359,7 +380,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1055260292}
   - 114: {fileID: 1055260293}
-  - 114: {fileID: 1055260295}
   m_Layer: 0
   m_Name: Hoverboard
   m_TagString: Untagged
@@ -390,20 +410,10 @@ MonoBehaviour:
   m_Script: {fileID: 1948470975, guid: ec0e2c4346a0dd94e9fa4af2ed7fcc12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CustomizationProvider: {fileID: 0}
-  PanelProviders: []
+  DefaultItemVisualSettings: {fileID: 0}
+  InteractionSettings: {fileID: 0}
+  Panels: []
   Hovercursor: {fileID: 0}
---- !u!114 &1055260295
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1055260291}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1548777283, guid: ec0e2c4346a0dd94e9fa4af2ed7fcc12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1116306119
 GameObject:
   m_ObjectHideFlags: 0
@@ -504,7 +514,7 @@ GameObject:
   - 4: {fileID: 1186740687}
   - 114: {fileID: 1186740688}
   m_Layer: 0
-  m_Name: Panel2
+  m_Name: PanelBot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -531,7 +541,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1186740686}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1583896762, guid: ec0e2c4346a0dd94e9fa4af2ed7fcc12, type: 3}
+  m_Script: {fileID: -2145053136, guid: ec0e2c4346a0dd94e9fa4af2ed7fcc12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1286165867
@@ -717,6 +727,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1862622603}
   - 114: {fileID: 1862622602}
+  - 114: {fileID: 1862622604}
   m_Layer: 0
   m_Name: B
   m_TagString: Untagged
@@ -753,6 +764,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1116306120}
   m_RootOrder: 1
+--- !u!114 &1862622604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1862622601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1045183366, guid: ec0e2c4346a0dd94e9fa4af2ed7fcc12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextSize: 36
+  TextColor: {r: 1, g: .986004055, b: .492647052, a: 1}
+  TextFont: Tahoma
+  ArrowIconColor: {r: 1, g: 1, b: 1, a: 1}
+  ToggleIconColor: {r: 1, g: 1, b: 1, a: 1}
+  BackgroundColor: {r: .100000001, g: .100000001, b: .100000001, a: .666000009}
+  EdgeColor: {r: 1, g: 1, b: 1, a: 1}
+  HighlightColor: {r: .522058845, g: .213496953, b: .138192058, a: 1}
+  SelectionColor: {r: .899999976, g: .61310339, b: .100000046, a: 1}
 --- !u!1 &1895604819
 GameObject:
   m_ObjectHideFlags: 0
@@ -925,7 +956,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2032650765}
   m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106829}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 379876346}

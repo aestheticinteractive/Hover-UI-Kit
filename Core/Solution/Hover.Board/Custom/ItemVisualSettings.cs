@@ -1,9 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Hover.Board.Custom {
 
 	/*================================================================================================*/
-	public class ItemSettings {
+	public class ItemVisualSettings : IItemVisualSettings {
+
+		public Type Renderer { get; set; }
 
 		public int TextSize { get; set; }
 		public Color TextColor { get; set; }
@@ -21,7 +24,8 @@ namespace Hover.Board.Custom {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public static ItemSettings Fill(ItemSettings pSrc, ItemSettings pDest) {
+		public static ItemVisualSettings Fill(ItemVisualSettings pSrc, ItemVisualSettings pDest) {
+			pDest.Renderer = pSrc.Renderer;
 			pDest.TextSize = pSrc.TextSize;
 			pDest.TextColor = pSrc.TextColor;
 			pDest.TextFont = pSrc.TextFont;

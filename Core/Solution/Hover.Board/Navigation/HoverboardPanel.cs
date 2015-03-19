@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Hover.Board.Navigation {
 
 	/*================================================================================================*/
-	public class HoverboardPanelProvider : MonoBehaviour {
+	public class HoverboardPanel : MonoBehaviour {
 
 		private ItemPanel vPanel;
 

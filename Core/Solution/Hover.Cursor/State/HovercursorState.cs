@@ -17,7 +17,7 @@ namespace Hover.Cursor.State {
 			public UiCursor Display;
 		}
 
-		public HovercursorCustomizationProvider CustomizationProvider { get; private set; }
+		public HovercursorVisualSettings CustomizationProvider { get; private set; }
 		public HovercursorInputProvider InputProvider { get; private set; }
 		public CursorType[] InitializedCursorTypes { get; private set; }
 		public Transform CameraTransform { get; private set; }
@@ -30,7 +30,7 @@ namespace Hover.Cursor.State {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public HovercursorState(Func<CursorType, CursorPair> pInitType, HovercursorInputProvider pInput,
-										HovercursorCustomizationProvider pCustom, Transform pCamera) {
+										HovercursorVisualSettings pCustom, Transform pCamera) {
 			vInitCursorType = pInitType;
 
 			InitializedCursorTypes = new CursorType[0];

@@ -44,13 +44,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Custom\ItemSettings.cs" />
-    <Compile Include="Custom\HoverboardCustomItem.cs" />
-    <Compile Include="Custom\HoverboardCustomInteraction.cs" />
-    <Compile Include="Custom\HoverboardCustomizationProvider.cs" />
-    <Compile Include="Custom\HoverboardDefaultItem.cs" />
-    <Compile Include="Custom\ICustom.cs" />
-    <Compile Include="Custom\ICustomSegment.cs" />
+    <Compile Include="Custom\IItemVisualSettingsProvider.cs" />
+    <Compile Include="Custom\IItemVisualSettings.cs" />
+    <Compile Include="Custom\ItemVisualSettings.cs" />
+    <Compile Include="Custom\HoverboardItemVisualSettings.cs" />
+    <Compile Include="Custom\HoverboardInteractionSettings.cs" />
+    <Compile Include="Custom\Default\HoverboardItemVisualSettingsDefault.cs" />
     <Compile Include="Display\Default\UiFill.cs" />
     <Compile Include="Display\Default\UiLabel.cs" />
     <Compile Include="Display\Default\UiProjectionRenderer.cs" />
@@ -65,7 +64,7 @@
     <Compile Include="Navigation\HoverboardItem.cs" />
     <Compile Include="Navigation\HoverboardItemListener.cs" />
     <Compile Include="Navigation\HoverboardPanelListener.cs" />
-    <Compile Include="Navigation\HoverboardPanelProvider.cs" />
+    <Compile Include="Navigation\HoverboardPanel.cs" />
     <Compile Include="Navigation\IItemGrid.cs" />
     <Compile Include="Navigation\ItemGrid.cs" />
     <Compile Include="Navigation\IItemPanel.cs" />
@@ -87,9 +86,7 @@
       <Name>Hover.Cursor</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Custom\Default\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
