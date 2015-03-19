@@ -1,10 +1,10 @@
-﻿using Hover.Cursor.Display.Default;
+﻿using Hover.Cursor.Display.Standard;
 using UnityEngine;
 
-namespace Hover.Cursor.Custom.Default {
+namespace Hover.Cursor.Custom.Standard {
 
 	/*================================================================================================*/
-	public class HovercursorDefaultVisualSettings : HovercursorVisualSettings {
+	public class HovercursorVisualSettingsStandard : HovercursorVisualSettings {
 
 		public Color ColorNormal = new Color(1, 1, 1, 0.6f);
 		public Color ColorHighlighted = new Color(1, 1, 1, 1);

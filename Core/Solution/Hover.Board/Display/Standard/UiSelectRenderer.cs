@@ -4,7 +4,7 @@ using Hover.Common.Items;
 using Hover.Common.State;
 using UnityEngine;
 
-namespace Hover.Board.Display.Default {
+namespace Hover.Board.Display.Standard {
 
 	/*================================================================================================*/
 	public class UiSelectRenderer : MonoBehaviour, IUiItemRenderer {

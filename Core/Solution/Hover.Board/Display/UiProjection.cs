@@ -1,4 +1,4 @@
-﻿using Hover.Board.Display.Default;
+﻿using Hover.Board.Display.Standard;
 using Hover.Board.State;
 using Hover.Cursor.State;
 using UnityEngine;

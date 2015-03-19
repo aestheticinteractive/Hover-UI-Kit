@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Hover.Board.State;
 using UnityEngine;
 
-namespace Hover.Board.Display.Default {
+namespace Hover.Board.Display.Standard {
 
 	/*================================================================================================*/
 	public class UiProjectionRenderer : MonoBehaviour {

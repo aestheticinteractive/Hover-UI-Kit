@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using Hover.Board.Custom;
-using Hover.Board.Custom.Default;
+using Hover.Board.Custom.Standard;
 using Hover.Board.Display;
 using Hover.Board.Items;
 using Hover.Board.State;
@@ -15,7 +15,7 @@ namespace Hover.Board {
 	/*================================================================================================*/
 	public class HoverboardSetup : MonoBehaviour {
 
-		public HoverboardItemVisualSettings DefaultItemVisualSettings;
+		public HoverboardItemVisualSettings DefaultItemVisualSettings; //TODO: projection settings
 		public HoverboardInteractionSettings InteractionSettings;
 		public HoverboardPanel[] Panels;
 		public HovercursorSetup Hovercursor;
@@ -39,7 +39,7 @@ namespace Hover.Board {
 			const string prefix = "Hoverboard";
 
 			DefaultItemVisualSettings = UnityUtil.CreateComponent<HoverboardItemVisualSettings,
-				HoverboardItemVisualSettingsDefault>(DefaultItemVisualSettings, gameObject, prefix);
+				HoverboardItemVisualSettingsStandard>(DefaultItemVisualSettings, gameObject, prefix);
 			DefaultItemVisualSettings.IsDefaultSettingsComponent = true;
 
 			InteractionSettings = UnityUtil.FindComponentOrCreate<HoverboardInteractionSettings,

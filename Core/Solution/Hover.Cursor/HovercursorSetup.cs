@@ -1,7 +1,7 @@
 ﻿using Hover.Common.Input;
 using Hover.Common.Util;
 using Hover.Cursor.Custom;
-using Hover.Cursor.Custom.Default;
+using Hover.Cursor.Custom.Standard;
 using Hover.Cursor.Display;
 using Hover.Cursor.Input;
 using Hover.Cursor.State;
@@ -12,7 +12,7 @@ namespace Hover.Cursor {
 	/*================================================================================================*/
 	public class HovercursorSetup : MonoBehaviour {
 
-		public HovercursorVisualSettings CustomizationProvider;
+		public HovercursorVisualSettings DefaultVisualSettings;
 		public HovercursorInputProvider InputProvider;
 		public Transform CameraReference;
 
@@ -34,8 +34,8 @@ namespace Hover.Cursor {
 		public void Awake() {
 			const string prefix = "Hovercursor";
 
-			CustomizationProvider = UnityUtil.FindComponentOrCreate<HovercursorVisualSettings, 
-				HovercursorDefaultVisualSettings>(CustomizationProvider, gameObject, prefix);
+			DefaultVisualSettings = UnityUtil.FindComponentOrCreate<HovercursorVisualSettings, 
+				HovercursorVisualSettingsStandard>(DefaultVisualSettings, gameObject, prefix);
 
 			InputProvider = UnityUtil.FindComponentOrFail(InputProvider, prefix);
 
@@ -44,7 +44,7 @@ namespace Hover.Cursor {
 			}
 
 			vState = new HovercursorState(InitCursorType, InputProvider,
-				CustomizationProvider, CameraReference);
+				DefaultVisualSettings, CameraReference);
 			vComponentSuccess = true;
 		}
 
@@ -62,13 +62,15 @@ namespace Hover.Cursor {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private HovercursorState.CursorPair InitCursorType(CursorType pType) {
-			var cursorState = new CursorState(InputProvider.GetCursor(pType),
-				CustomizationProvider.GetSettings(), gameObject.transform);
+			CursorSettings visualSett = DefaultVisualSettings.GetSettings();
+
+			var cursorState = new CursorState(InputProvider.GetCursor(pType), 
+				visualSett, gameObject.transform);
 
 			var cursorObj = new GameObject("Cursor-"+pType);
 			cursorObj.transform.SetParent(gameObject.transform, false);
 			var uiCursor = cursorObj.AddComponent<UiCursor>();
-			uiCursor.Build(cursorState, CustomizationProvider.GetSettings(), CameraReference);
+			uiCursor.Build(cursorState, visualSett, CameraReference);
 
 			return new HovercursorState.CursorPair {
 				State = cursorState,

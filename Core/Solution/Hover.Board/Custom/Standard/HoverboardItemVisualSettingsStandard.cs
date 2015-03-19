@@ -1,11 +1,11 @@
-﻿using Hover.Board.Display.Default;
+﻿using Hover.Board.Display.Standard;
 using Hover.Common.Items;
 using UnityEngine;
 
-namespace Hover.Board.Custom.Default {
+namespace Hover.Board.Custom.Standard {
 
 	/*================================================================================================*/
-	public class HoverboardItemVisualSettingsDefault : HoverboardItemVisualSettings {
+	public class HoverboardItemVisualSettingsStandard : HoverboardItemVisualSettings {
 
 		public static Color Green = new Color(0.1f, 0.9f, 0.2f);
 

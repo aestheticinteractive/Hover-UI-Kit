@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Hover.Board.Display.Default {
+namespace Hover.Board.Display.Standard {
 
 	/*================================================================================================*/
 	public class UiLabel : MonoBehaviour {

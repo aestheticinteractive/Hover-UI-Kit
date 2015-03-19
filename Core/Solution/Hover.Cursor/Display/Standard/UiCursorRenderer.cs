@@ -4,7 +4,7 @@ using Hover.Cursor.Custom;
 using Hover.Cursor.State;
 using UnityEngine;
 
-namespace Hover.Cursor.Display.Default {
+namespace Hover.Cursor.Display.Standard {
 
 	/*================================================================================================*/
 	public class UiCursorRenderer : MonoBehaviour, IUiCursorRenderer {
