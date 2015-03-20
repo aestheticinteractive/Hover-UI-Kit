@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Hover.Board.Display.Standard {
+namespace Hover.Common.Display {
 
 	/*================================================================================================*/
 	public class UiLabel : MonoBehaviour {
@@ -35,7 +35,6 @@ namespace Hover.Board.Display.Standard {
 			vCanvasGroupObj.AddComponent<CanvasGroup>();
 			vCanvasGroupObj.transform.localRotation = 
 				Quaternion.FromToRotation(Vector3.back, Vector3.down);
-			vCanvasGroupObj.transform.localScale = Vector3.one*UiSelectRenderer.ArcCanvasScale;
 
 			vCanvasObj = new GameObject("Canvas");
 			vCanvasObj.transform.SetParent(vCanvasGroupObj.transform, false);
@@ -53,9 +52,10 @@ namespace Hover.Board.Display.Standard {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void SetSize(float pWidth, float pHeight) {
-			CanvasW = pWidth/UiSelectRenderer.ArcCanvasScale;
-			CanvasH = pHeight/UiSelectRenderer.ArcCanvasScale;
+		public void SetSize(float pWidth, float pHeight, float pCanvasScale) {
+			vCanvasGroupObj.transform.localScale = Vector3.one*pCanvasScale;
+			CanvasW = pWidth/pCanvasScale;
+			CanvasH = pHeight/pCanvasScale;
 			UpdateSizing();
 		}
 

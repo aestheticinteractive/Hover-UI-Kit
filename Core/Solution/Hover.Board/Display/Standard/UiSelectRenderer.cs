@@ -1,5 +1,6 @@
 ﻿using System;
 using Hover.Board.Custom;
+using Hover.Common.Display;
 using Hover.Common.Items;
 using Hover.Common.State;
 using UnityEngine;
@@ -16,7 +17,7 @@ namespace Hover.Board.Display.Standard {
 
 		private float vMainAlpha;
 
-		private UiFill vFill;
+		private UiHoverMeshSquare vHoverMesh;
 		private UiLabel vLabel;
 
 
@@ -32,13 +33,13 @@ namespace Hover.Board.Display.Standard {
 			gameObject.transform.SetParent(gameObject.transform, false);
 			gameObject.transform.localPosition = new Vector3(width/2, 0, height/2f);
 
-			vFill = new UiFill(gameObject);
-			vFill.UpdateSize(width, height);
+			vHoverMesh = new UiHoverMeshSquare(gameObject);
+			vHoverMesh.UpdateSize(width, height);
 
 			var labelObj = new GameObject("Label");
 			labelObj.transform.SetParent(gameObject.transform, false);
 			vLabel = labelObj.AddComponent<UiLabel>();
-			vLabel.SetSize(width, height);
+			vLabel.SetSize(width, height, ArcCanvasScale);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -78,10 +79,10 @@ namespace Hover.Board.Display.Standard {
 			colHigh.a *= high*vMainAlpha;
 			colSel.a *= selectAlpha*vMainAlpha;
 
-			vFill.UpdateBackground(colBg);
-			vFill.UpdateEdge(colEdge);
-			vFill.UpdateHighlight(colHigh, high);
-			vFill.UpdateSelect(colSel, select);
+			vHoverMesh.UpdateBackground(colBg);
+			vHoverMesh.UpdateEdge(colEdge);
+			vHoverMesh.UpdateHighlight(colHigh, high);
+			vHoverMesh.UpdateSelect(colSel, select);
 
 			vLabel.Alpha = vMainAlpha;
 			vLabel.FontName = vVisualSettings.TextFont;
@@ -92,7 +93,7 @@ namespace Hover.Board.Display.Standard {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public Vector3 GetPointNearestToCursor(Vector3 pCursorLocalPos) {
-			return vFill.GetPointNearestToCursor(pCursorLocalPos);
+			return vHoverMesh.GetPointNearestToCursor(pCursorLocalPos);
 		}
 
 	}

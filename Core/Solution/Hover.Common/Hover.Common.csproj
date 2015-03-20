@@ -46,6 +46,8 @@
   <ItemGroup>
     <Compile Include="Custom\CustomItemFinder.cs" />
     <Compile Include="Custom\InteractionSettings.cs" />
+    <Compile Include="Display\UiHoverMesh.cs" />
+    <Compile Include="Display\UiLabel.cs" />
     <Compile Include="Input\CursorType.cs" />
     <Compile Include="Input\CursorTypeUtil.cs" />
     <Compile Include="Items\Groups\IItemHierarchy.cs" />
@@ -81,9 +83,7 @@
     <Compile Include="Util\UnityUtil.cs" />
     <Compile Include="Util\MeshUtil.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Display\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
