@@ -34,7 +34,7 @@ namespace Hover.Board.Display {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			ICursorState cursorState = vProjState.CursorState;
+			ICursorState cursorState = vProjState.Cursor;
 
 			bool isActive = (cursorState.IsInputAvailable && 
 				vProjState.ProjectedPanelPosition != null &&

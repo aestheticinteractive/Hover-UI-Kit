@@ -1,10 +1,10 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Hover.Board.Custom;
 using Hover.Board.Custom.Standard;
 using Hover.Board.Display;
 using Hover.Board.Items;
 using Hover.Board.State;
-using Hover.Common.Custom;
 using Hover.Common.Input;
 using Hover.Common.Util;
 using Hover.Cursor;
@@ -22,6 +22,7 @@ namespace Hover.Board {
 
 		private HoverboardState vState;
 		private UiPanel[] vUiPanels;
+		private IDictionary<CursorType, UiProjection> vProjMap;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -49,20 +50,16 @@ namespace Hover.Board {
 			Hovercursor = UnityUtil.FindComponentOrFail(Hovercursor, prefix);
 
 			vState = new HoverboardState(InteractionSettings.GetSettings(),
-				Panels.Select(x => x.GetPanel()).ToArray(), gameObject.transform);
+				Panels.Select(x => x.GetPanel()).ToArray(), Hovercursor, gameObject.transform);
+
+			vProjMap = new Dictionary<CursorType, UiProjection>();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Start() {
 			gameObject.transform.localScale = Vector3.one;
 
-			vState.SetHovercursorState(Hovercursor.State);
 			vUiPanels = new UiPanel[vState.Panels.Length];
-
-			var cursorTypes = new[] {
-				CursorType.LeftIndex, 
-				CursorType.RightIndex
-			};
 
 			for ( int i = 0 ; i < vUiPanels.Length ; ++i ) {
 				PanelState panelState = vState.Panels[i];
@@ -71,18 +68,13 @@ namespace Hover.Board {
 				uiPanel.Build(panelState, DefaultItemVisualSettings);
 				vUiPanels[i] = uiPanel;
 			}
-
-			foreach ( CursorType cursorType in cursorTypes ) {
-				var projObj = new GameObject("Proj-"+cursorType);
-				projObj.transform.SetParent(gameObject.transform, false);
-				var uiProj = projObj.AddComponent<UiProjection>();
-				uiProj.Build(vState.GetProjectionState(cursorType));
-			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
 			vState.UpdateAfterInput();
+
+			////
 
 			InteractionSettings interSett = InteractionSettings.GetSettings();
 
@@ -92,6 +84,27 @@ namespace Hover.Board {
 			}
 			else {
 				interSett.ScaleMultiplier = 1;
+			}
+
+			////
+
+			CursorType[] removeCursorTypes = vProjMap.Keys.Except(interSett.Cursors).ToArray();
+			CursorType[] addCursorTypes = interSett.Cursors.Except(vProjMap.Keys).ToArray();
+
+			foreach ( CursorType cursorType in removeCursorTypes ) {
+				UiProjection uiProj = vProjMap[cursorType];
+				vProjMap.Remove(cursorType);
+				Destroy(uiProj.gameObject);
+				vState.RemoveProjection(cursorType);
+			}
+
+			foreach ( CursorType cursorType in addCursorTypes ) {
+				var projObj = new GameObject("Proj-"+cursorType);
+				projObj.transform.SetParent(gameObject.transform, false);
+				UiProjection uiProj = projObj.AddComponent<UiProjection>();
+				uiProj.Build(vState.GetProjection(cursorType));
+
+				vProjMap.Add(cursorType, uiProj);
 			}
 		}
 

@@ -1,7 +1,7 @@
 ﻿namespace Hover.Common.Custom {
 
 	/*================================================================================================*/
-	public class InteractionSettings {
+	public class BaseInteractionSettings {
 
 		public float HighlightDistanceMin { get; set; }
 		public float HighlightDistanceMax { get; set; }

@@ -1,5 +1,4 @@
 ﻿using Hover.Common.Input;
-using Hover.Cursor.Input;
 using UnityEngine;
 
 namespace Hover.Cursor.State {

@@ -1,43 +1,40 @@
 ﻿using System;
+using System.Collections.Generic;
+using Hover.Board;
 using Hover.Common.Input;
-using Hover.Cursor;
-using Hover.Cursor.State;
 using UnityEngine;
 
-namespace Hover.Demo.Cursor {
+namespace Hover.Demo.Board {
 
 	/*================================================================================================*/
-	public class DemoCursorToggle : MonoBehaviour {
+	public class DemoBoardToggle : MonoBehaviour {
 
 		private struct Bundle {
-			public ICursorState State;
-			public ICursorInteractState Interact;
+			public CursorType CursorType;
 			public Func<bool> ShowFunc; 
 		}
 
-		public bool ShowLeftPalm = true;
+		public bool ShowLeftPalm = false;
 		public bool ShowLeftThumb = true;
 		public bool ShowLeftIndex = true;
-		public bool ShowLeftMiddle = true;
-		public bool ShowLeftRing = true;
+		public bool ShowLeftMiddle = false;
+		public bool ShowLeftRing = false;
 		public bool ShowLeftPinky = true;
-		public bool ShowRightPalm = true;
+		public bool ShowRightPalm = false;
 		public bool ShowRightThumb = true;
 		public bool ShowRightIndex = true;
-		public bool ShowRightMiddle = true;
+		public bool ShowRightMiddle = false;
 		public bool ShowRightRing = true;
 		public bool ShowRightPinky = true;
 
-		public float HighlightProgress = 0;
-
-		private HovercursorSetup vSetup;
+		private HoverboardSetup vSetup;
 		private Bundle[] vBundles;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
-			vSetup = gameObject.GetComponent<HovercursorSetup>();
+			vSetup = gameObject.GetComponent<HoverboardSetup>();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -60,10 +57,17 @@ namespace Hover.Demo.Cursor {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
+			var cursorTypes = new List<CursorType>();
+
 			foreach ( Bundle bundle in vBundles ) {
-				bundle.Interact.DisplayStrength = (bundle.ShowFunc() ? 1 : 0);
-				bundle.Interact.HighlightProgress = HighlightProgress;
+				if ( !bundle.ShowFunc() ) {
+					continue;
+				}
+
+				cursorTypes.Add(bundle.CursorType);
 			}
+
+			vSetup.InteractionSettings.GetSettings().Cursors = cursorTypes.ToArray();
 		}
 
 
@@ -71,8 +75,7 @@ namespace Hover.Demo.Cursor {
 		/*--------------------------------------------------------------------------------------------*/
 		private Bundle GetBundle(CursorType pType, Func<bool> pShowFunc) {
 			var bundle = new Bundle();
-			bundle.State = vSetup.State.GetCursorState(pType);
-			bundle.Interact = bundle.State.AddOrGetInteraction(CursorDomain.Cursor, "Demo");
+			bundle.CursorType = pType;
 			bundle.ShowFunc = pShowFunc;
 			return bundle;
 		}

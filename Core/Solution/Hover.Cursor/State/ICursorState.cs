@@ -1,5 +1,4 @@
 ﻿using Hover.Common.Input;
-using Hover.Cursor.Input;
 using UnityEngine;
 
 namespace Hover.Cursor.State {
@@ -15,10 +14,10 @@ namespace Hover.Cursor.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		ICursorInteractState AddOrGetInteractionState(CursorDomain pDomain, string pId);
+		ICursorInteractState AddOrGetInteraction(CursorDomain pDomain, string pId);
 
 		/*--------------------------------------------------------------------------------------------*/
-		bool RemoveInteractionState(CursorDomain pDomain, string pId);
+		bool RemoveInteraction(CursorDomain pDomain, string pId);
 
 		/*--------------------------------------------------------------------------------------------*/
 		float GetMaxDisplayStrength();

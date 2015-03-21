@@ -16,7 +16,7 @@ namespace Hover.Common.State {
 		public bool IsSelectionPrevented { get; private set; }
 		public int DisplaySelectionPreventions { get; set; }
 
-		private readonly InteractionSettings vSettings;
+		private readonly BaseInteractionSettings vSettings;
 		private readonly IDictionary<CursorType, float> vHighlightDistanceMap;
 		private readonly IDictionary<CursorType, float> vHighlightProgressMap;
 		private readonly IDictionary<CursorType, bool> vIsNearestHighlightMap;
@@ -28,7 +28,7 @@ namespace Hover.Common.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public BaseItemState(IBaseItem pItem, InteractionSettings pSettings) {
+		public BaseItemState(IBaseItem pItem, BaseInteractionSettings pSettings) {
 			Item = pItem;
 			vSettings = pSettings;
 

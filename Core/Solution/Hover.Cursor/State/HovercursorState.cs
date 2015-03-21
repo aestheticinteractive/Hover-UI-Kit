@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Hover.Common.Input;
 using Hover.Cursor.Custom;
-using Hover.Cursor.Display;
 using Hover.Cursor.Input;
 using UnityEngine;
 
@@ -12,34 +10,29 @@ namespace Hover.Cursor.State {
 	/*================================================================================================*/
 	public class HovercursorState : IHovercursorState {
 
-		public struct CursorPair {
-			public CursorState State;
-			public UiCursor Display;
-		}
-
-		public HovercursorVisualSettings CustomizationProvider { get; private set; }
+		public HovercursorVisualSettings VisualSettings { get; private set; }
 		public HovercursorInputProvider InputProvider { get; private set; }
 		public CursorType[] InitializedCursorTypes { get; private set; }
 		public Transform CameraTransform { get; private set; }
 
-		private readonly Func<CursorType, CursorPair> vInitCursorType;
-		private readonly IDictionary<CursorType, CursorState> vCursorStateMap;
-		private readonly IDictionary<CursorType, Transform> vCursorTransformMap;
+		private readonly Transform vBaseTx;
+		private readonly IDictionary<CursorType, CursorState> vCursorMap;
+		private readonly IDictionary<CursorType, Transform> vTransformMap;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public HovercursorState(Func<CursorType, CursorPair> pInitType, HovercursorInputProvider pInput,
-										HovercursorVisualSettings pCustom, Transform pCamera) {
-			vInitCursorType = pInitType;
+		public HovercursorState(Transform pBaseTx, HovercursorInputProvider pInput,
+											HovercursorVisualSettings pVisualSett, Transform pCamera) {
+			vBaseTx = pBaseTx;
 
 			InitializedCursorTypes = new CursorType[0];
-			CustomizationProvider = pCustom;
+			VisualSettings = pVisualSett;
 			InputProvider = pInput;
 			CameraTransform = pCamera;
 
-			vCursorStateMap = new Dictionary<CursorType, CursorState>();
-			vCursorTransformMap = new Dictionary<CursorType, Transform>();
+			vCursorMap = new Dictionary<CursorType, CursorState>();
+			vTransformMap = new Dictionary<CursorType, Transform>();
 		}
 
 
@@ -47,18 +40,23 @@ namespace Hover.Cursor.State {
 		/*--------------------------------------------------------------------------------------------*/
 		public ICursorState GetCursorState(CursorType pType) {
 			TryInitCursor(pType);
-			return vCursorStateMap[pType];
+			return vCursorMap[pType];
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public Transform GetCursorTransform(CursorType pType) {
 			TryInitCursor(pType);
-			return vCursorTransformMap[pType];
+			return vTransformMap[pType];
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void SetCursorTransform(CursorType pType, Transform pTransform) {
+			vTransformMap[pType] = pTransform;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateAfterInput() {
-			foreach ( CursorState cursorState in vCursorStateMap.Values ) {
+			foreach ( CursorState cursorState in vCursorMap.Values ) {
 				cursorState.UpdateAfterInput();
 			}
 		}
@@ -67,14 +65,13 @@ namespace Hover.Cursor.State {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void TryInitCursor(CursorType pType) {
-			if ( vCursorStateMap.ContainsKey(pType) ) {
+			if ( vCursorMap.ContainsKey(pType) ) {
 				return;
 			}
 
-			CursorPair pair = vInitCursorType(pType);
-
-			vCursorStateMap.Add(pType, pair.State);
-			vCursorTransformMap.Add(pType, pair.Display.transform);
+			var cursor = new CursorState(InputProvider.GetCursor(pType),
+				VisualSettings.GetSettings(), vBaseTx);
+			vCursorMap.Add(pType, cursor);
 
 			InitializedCursorTypes = InitializedCursorTypes
 				.Concat(new[] { pType })

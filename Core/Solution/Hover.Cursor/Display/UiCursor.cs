@@ -7,7 +7,7 @@ namespace Hover.Cursor.Display {
 	/*================================================================================================*/
 	public class UiCursor : MonoBehaviour {
 
-		private CursorState vCursorState;
+		private ICursorState vCursorState;
 		private Transform vCameraTx;
 
 		private GameObject vCursorRendererHold;
@@ -17,7 +17,7 @@ namespace Hover.Cursor.Display {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal void Build(CursorState pCursorState, CursorSettings pSettings, Transform pCameraTx) {
+		internal void Build(ICursorState pCursorState, CursorSettings pSettings, Transform pCameraTx) {
 			vCursorState = pCursorState;
 			vCameraTx = pCameraTx;
 			

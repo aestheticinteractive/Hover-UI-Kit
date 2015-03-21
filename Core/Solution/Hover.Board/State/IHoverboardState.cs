@@ -6,12 +6,12 @@ namespace Hover.Board.State {
 	/*================================================================================================*/
 	public interface IHoverboardState {
 
-		IHovercursorState HovercursorState { get; }
+		IHovercursorState Hovercursor { get; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		ProjectionState GetProjectionState(CursorType pCursorType);
+		ProjectionState GetProjection(CursorType pCursorType);
 
 	}
 

@@ -9,7 +9,7 @@ namespace Hover.Cursor.Display.Standard {
 	/*================================================================================================*/
 	public class UiCursorRenderer : MonoBehaviour, IUiCursorRenderer {
 
-		private CursorState vCursorState;
+		private ICursorState vCursorState;
 		private CursorSettings vSettings;
 		private Mesh vRingMesh;
 		private GameObject vRingObj;
@@ -19,7 +19,7 @@ namespace Hover.Cursor.Display.Standard {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Build(CursorState pCursorState, CursorSettings pSettings) {
+		public void Build(ICursorState pCursorState, CursorSettings pSettings) {
 			vCursorState = pCursorState;
 			vSettings = pSettings;
 

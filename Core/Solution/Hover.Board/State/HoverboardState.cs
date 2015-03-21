@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using Hover.Board.Custom;
 using Hover.Board.Items;
-using Hover.Common.Custom;
 using Hover.Common.Input;
 using Hover.Common.State;
+using Hover.Cursor;
 using Hover.Cursor.State;
 using UnityEngine;
 
@@ -17,10 +18,9 @@ namespace Hover.Board.State {
 			public BaseItemState Item;
 		}
 
-		public IHovercursorState HovercursorState { get; private set; }
-
 		public PanelState[] Panels { get; private set; }
 
+		private readonly HovercursorSetup vHovercusorSetup;
 		private readonly InteractionSettings vInteractSett;
 		private readonly Transform vBaseTx;
 		private readonly IDictionary<CursorType, ProjectionState> vProjectionMap;
@@ -30,9 +30,9 @@ namespace Hover.Board.State {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public HoverboardState(InteractionSettings pInterSett, ItemPanel[] pItemPanels, 
-																					Transform pBaseTx) {
+												HovercursorSetup pHovercusorSetup, Transform pBaseTx) {
 			vInteractSett = pInterSett;
-
+			vHovercusorSetup = pHovercusorSetup;
 			vBaseTx = pBaseTx;
 			vProjectionMap = new Dictionary<CursorType, ProjectionState>();
 
@@ -65,25 +65,34 @@ namespace Hover.Board.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void SetHovercursorState(IHovercursorState pHovercursorState) {
-			HovercursorState = pHovercursorState;
+		public IHovercursorState Hovercursor {
+			get {
+				return vHovercusorSetup.State;
+			}
 		}
-		
+
 		/*--------------------------------------------------------------------------------------------*/
-		public ProjectionState GetProjectionState(CursorType pCursorType) {
+		public ProjectionState GetProjection(CursorType pCursorType) {
 			if ( !vProjectionMap.ContainsKey(pCursorType) ) {
-				ICursorState cursorState = HovercursorState.GetCursorState(pCursorType);
-				var projState = new ProjectionState(cursorState, vInteractSett, vBaseTx);
-				vProjectionMap.Add(pCursorType, projState);
+				ICursorState state = Hovercursor.GetCursorState(pCursorType);
+				var proj = new ProjectionState(state, vInteractSett, vBaseTx);
+				vProjectionMap.Add(pCursorType, proj);
 			}
 
 			return vProjectionMap[pCursorType];
 		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void RemoveProjection(CursorType pCursorType) {
+			ProjectionState proj = vProjectionMap[pCursorType];
+			proj.RemoveInteraction();
+			vProjectionMap.Remove(pCursorType);
+		}
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateAfterInput() {
-			foreach ( ProjectionState projState in vProjectionMap.Values ) {
-				UpdateWithCursor(projState);
+			foreach ( ProjectionState proj in vProjectionMap.Values ) {
+				UpdateWithCursor(proj);
 			}
 
 			UpdateAfterAllCursors();
@@ -92,11 +101,11 @@ namespace Hover.Board.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateWithCursor(ProjectionState pProjection) {
-			ICursorState cursorState = pProjection.CursorState;
-			CursorType cursorType = cursorState.Type;
-			bool allowSelect = (cursorState.IsInputAvailable); //TODO: && Grid.IsVisible);
-			Vector3? cursorWorldPos = (allowSelect ? cursorState.GetWorldPosition() : (Vector3?)null);
+		private void UpdateWithCursor(ProjectionState pProj) {
+			ICursorState cursor = pProj.Cursor;
+			CursorType cursorType = cursor.Type;
+			bool allowSelect = (cursor.IsInputAvailable); //TODO: && Grid.IsVisible);
+			Vector3? cursorWorldPos = (allowSelect ? cursor.GetWorldPosition() : (Vector3?)null);
 			ItemTree nearestTree = new ItemTree();
 			float nearestDist = float.MaxValue;
 
@@ -124,14 +133,14 @@ namespace Hover.Board.State {
 			}
 
 			if ( nearestTree.Panel == null || nearestTree.Item.MaxHighlightProgress <= 0 ) {
-				pProjection.SetNearestPanelTransform(null);
-				pProjection.NearestItemHighlightProgress = 0;
+				pProj.SetNearestPanelTransform(null);
+				pProj.NearestItemHighlightProgress = 0;
 				return;
 			}
 
 			GameObject panelObj = (GameObject)nearestTree.Panel.ItemPanel.DisplayContainer;
-			pProjection.SetNearestPanelTransform(panelObj.transform);
-			pProjection.NearestItemHighlightProgress = 
+			pProj.SetNearestPanelTransform(panelObj.transform);
+			pProj.NearestItemHighlightProgress = 
 				nearestTree.Item.GetHighlightProgress(cursorType);
 		}
 

@@ -45,7 +45,7 @@ namespace Hover.Board.Display.Standard {
 		public void Update() {
 			float dist = vProjectionState.ProjectedPanelDistance;
 			float prog = vProjectionState.ProjectedPanelProgress;
-			float barThick = 0.01f*vProjectionState.CursorState.Size;
+			float barThick = 0.01f*vProjectionState.Cursor.Size;
 			float dotSize = (1-prog)*60 + 5;
 
 			Vector3 dotScale = Vector3.one*barThick*dotSize;

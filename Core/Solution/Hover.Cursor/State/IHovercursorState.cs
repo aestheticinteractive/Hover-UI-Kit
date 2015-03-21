@@ -8,7 +8,7 @@ namespace Hover.Cursor.State {
 	/*================================================================================================*/
 	public interface IHovercursorState {
 
-		HovercursorVisualSettings CustomizationProvider { get; }
+		HovercursorVisualSettings VisualSettings { get; }
 		HovercursorInputProvider InputProvider { get; }
 		CursorType[] InitializedCursorTypes { get; }
 		Transform CameraTransform { get; }

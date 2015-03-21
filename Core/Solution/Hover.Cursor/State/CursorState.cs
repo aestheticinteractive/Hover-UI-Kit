@@ -40,20 +40,20 @@ namespace Hover.Cursor.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public ICursorInteractState AddOrGetInteractionState(CursorDomain pDomain, string pId) {
+		public ICursorInteractState AddOrGetInteraction(CursorDomain pDomain, string pId) {
 			IDictionary<string, CursorInteractState> map = vInteractMap[pDomain];
 
 			if ( map.ContainsKey(pId) ) {
 				return map[pId];
 			}
 
-			var interState = new CursorInteractState(Type, pDomain, pId);
-			map.Add(pId, interState);
-			return interState;
+			var inter = new CursorInteractState(Type, pDomain, pId);
+			map.Add(pId, inter);
+			return inter;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public bool RemoveInteractionState(CursorDomain pDomain, string pId) {
+		public bool RemoveInteraction(CursorDomain pDomain, string pId) {
 			IDictionary<string, CursorInteractState> map = vInteractMap[pDomain];
 			return (map.ContainsKey(pId) && map.Remove(pId));
 		}
@@ -91,6 +91,10 @@ namespace Hover.Cursor.State {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateAfterInput() {
+			if ( vInteractMap.Count == 0 ) {
+				return;
+			}
+
 			Type = vInputCursor.Type;
 			IsInputAvailable = vInputCursor.IsAvailable;
 			Size = vInputCursor.Size;

@@ -9,7 +9,7 @@ namespace Hover.Cursor.Display {
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		void Build(CursorState pCursorState, CursorSettings pSettings);
+		void Build(ICursorState pCursorState, CursorSettings pSettings);
 
 	}
 

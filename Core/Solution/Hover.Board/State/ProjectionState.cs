@@ -1,4 +1,4 @@
-﻿using Hover.Common.Custom;
+﻿using Hover.Board.Custom;
 using Hover.Cursor.State;
 using UnityEngine;
 
@@ -7,7 +7,7 @@ namespace Hover.Board.State {
 	/*================================================================================================*/
 	public class ProjectionState {
 
-		public ICursorState CursorState { get; private set; }
+		public ICursorState Cursor { get; private set; }
 
 		public Vector3? ProjectedPanelPosition { get; private set; }
 		public bool ProjectedFromFront { get; private set; }
@@ -16,25 +16,29 @@ namespace Hover.Board.State {
 
 		private readonly InteractionSettings vSettings;
 		private readonly Transform vBaseTx;
-		private readonly ICursorInteractState vCursorInteractState;
+		private readonly ICursorInteractState vCursorInteract;
 
 		private Transform vPanelTx;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public ProjectionState(ICursorState pCursorState, InteractionSettings pSettings, 
-																					Transform pBaseTx) {
-			CursorState = pCursorState;
+		public ProjectionState(ICursorState pCursor, InteractionSettings pSettings, Transform pBaseTx) {
+			Cursor = pCursor;
 			vSettings = pSettings;
 			vBaseTx = pBaseTx;
 
-			vCursorInteractState = pCursorState.AddOrGetInteractionState(CursorDomain.Hoverboard, "");
-			vCursorInteractState.DisplayStrength = 1;
+			vCursorInteract = Cursor.AddOrGetInteraction(CursorDomain.Hoverboard, "");
+			vCursorInteract.DisplayStrength = 1;
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		internal void RemoveInteraction() {
+			Cursor.RemoveInteraction(CursorDomain.Hoverboard, "");
+		}
+
 		/*--------------------------------------------------------------------------------------------*/
 		internal void SetNearestPanelTransform(Transform pPanelTx) {
 			vPanelTx = pPanelTx;
@@ -45,7 +49,7 @@ namespace Hover.Board.State {
 				return;
 			}
 
-			Vector3 cursorWorldPos = CursorState.GetWorldPosition();
+			Vector3 cursorWorldPos = Cursor.GetWorldPosition();
 			Vector3 diff = pPanelTx.position-cursorWorldPos;
 			Vector3 norm = pPanelTx.rotation*Vector3.down; //TODO: make this Vector3.forward? up?
 			float normLength = Vector3.Dot(norm, diff);
@@ -54,7 +58,7 @@ namespace Hover.Board.State {
 
 			ProjectedPanelPosition = projPos;
 			ProjectedFromFront = (normLength > 0);
-			ProjectedPanelDistance = (projPos-CursorState.Position).magnitude;
+			ProjectedPanelDistance = (projPos-Cursor.Position).magnitude;
 			ProjectedPanelProgress = Mathf.InverseLerp(vSettings.HighlightDistanceMax,
 				vSettings.HighlightDistanceMin, ProjectedPanelDistance);
 		}
@@ -62,10 +66,10 @@ namespace Hover.Board.State {
 		/*--------------------------------------------------------------------------------------------*/
 		public float NearestItemHighlightProgress {
 			get {
-				return vCursorInteractState.HighlightProgress;
+				return vCursorInteract.HighlightProgress;
 			}
 			set {
-				vCursorInteractState.HighlightProgress = value;
+				vCursorInteract.HighlightProgress = value;
 			}
 		}
 

@@ -1,4 +1,6 @@
-﻿using Hover.Common.Input;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Hover.Common.Input;
 using Hover.Common.Util;
 using Hover.Cursor.Custom;
 using Hover.Cursor.Custom.Standard;
@@ -18,6 +20,7 @@ namespace Hover.Cursor {
 
 		private HovercursorState vState;
 		private bool vComponentSuccess;
+		private IDictionary<CursorType, UiCursor> vCursorMap;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -43,9 +46,11 @@ namespace Hover.Cursor {
 				CameraReference = gameObject.transform;
 			}
 
-			vState = new HovercursorState(InitCursorType, InputProvider,
+			vState = new HovercursorState(gameObject.transform, InputProvider,
 				DefaultVisualSettings, CameraReference);
 			vComponentSuccess = true;
+
+			vCursorMap = new Dictionary<CursorType, UiCursor>();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -56,26 +61,29 @@ namespace Hover.Cursor {
 
 			InputProvider.UpdateInput();
 			vState.UpdateAfterInput();
-		}
 
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		private HovercursorState.CursorPair InitCursorType(CursorType pType) {
+			CursorType[] newTypes = vState.InitializedCursorTypes;
+			CursorType[] removeCursorTypes = vCursorMap.Keys.Except(newTypes).ToArray();
+			CursorType[] addCursorTypes = newTypes.Except(vCursorMap.Keys).ToArray();
 			CursorSettings visualSett = DefaultVisualSettings.GetSettings();
 
-			var cursorState = new CursorState(InputProvider.GetCursor(pType), 
-				visualSett, gameObject.transform);
+			foreach ( CursorType cursorType in removeCursorTypes ) {
+				UiCursor uiCursor = vCursorMap[cursorType];
+				vCursorMap.Remove(cursorType);
+				Destroy(uiCursor.gameObject);
+			}
 
-			var cursorObj = new GameObject("Cursor-"+pType);
-			cursorObj.transform.SetParent(gameObject.transform, false);
-			var uiCursor = cursorObj.AddComponent<UiCursor>();
-			uiCursor.Build(cursorState, visualSett, CameraReference);
+			foreach ( CursorType cursorType in addCursorTypes ) {
+				ICursorState cursor = vState.GetCursorState(cursorType);
 
-			return new HovercursorState.CursorPair {
-				State = cursorState,
-				Display = uiCursor
-			};
+				var cursorObj = new GameObject("Cursor-"+cursorType);
+				cursorObj.transform.SetParent(gameObject.transform, false);
+				UiCursor uiCursor = cursorObj.AddComponent<UiCursor>();
+				uiCursor.Build(cursor, visualSett, CameraReference);
+
+				vCursorMap.Add(cursorType, uiCursor);
+				vState.SetCursorTransform(cursorType, cursorObj.transform);
+			}
 		}
 
 	}
