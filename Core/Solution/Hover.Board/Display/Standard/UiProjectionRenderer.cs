@@ -1,65 +1,72 @@
 ﻿using System;
 using System.Collections.Generic;
+using Hover.Board.Custom;
+using Hover.Board.Custom.Standard;
 using Hover.Board.State;
 using UnityEngine;
 
 namespace Hover.Board.Display.Standard {
 
 	/*================================================================================================*/
-	public class UiProjectionRenderer : MonoBehaviour {
+	public class UiProjectionRenderer : MonoBehaviour, IUiProjectionRenderer {
 
 		private ProjectionState vProjectionState;
-		private GameObject vDotObj;
-		private GameObject vBarObj;
+		private ProjectionVisualSettingsStandard vSettings;
+		private GameObject vSpotObj;
+		private GameObject vLineObj;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Build(ProjectionState pProjectionState) {
+		public void Build(ProjectionState pProjectionState, IProjectionVisualSettings pSettings) {
 			vProjectionState = pProjectionState;
+			vSettings = (ProjectionVisualSettingsStandard)pSettings;
 
 			////
 
-			vDotObj = new GameObject("Dot");
-			vDotObj.transform.SetParent(gameObject.transform, false);
-			vDotObj.transform.localScale = Vector3.zero;
+			vSpotObj = new GameObject("Spot");
+			vSpotObj.transform.SetParent(gameObject.transform, false);
+			vSpotObj.transform.localScale = Vector3.zero;
 
-			MeshFilter dotMeshFilt = vDotObj.AddComponent<MeshFilter>();
-			BuildCircleMesh(dotMeshFilt.mesh, 0.5f, 32);
+			MeshFilter spotMeshFilt = vSpotObj.AddComponent<MeshFilter>();
+			BuildCircleMesh(spotMeshFilt.mesh, 0.5f, 32);
 
-			MeshRenderer dotMeshRend = vDotObj.AddComponent<MeshRenderer>();
-			dotMeshRend.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
-			dotMeshRend.sharedMaterial.renderQueue += 100;
+			MeshRenderer spotMeshRend = vSpotObj.AddComponent<MeshRenderer>();
+			spotMeshRend.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
+			spotMeshRend.sharedMaterial.renderQueue += 100;
 
 			////
 
-			vBarObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
-			vBarObj.name = "Bar";
-			vBarObj.transform.SetParent(gameObject.transform, false);
-			vBarObj.transform.localScale = Vector3.zero;
-			vBarObj.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
-			vBarObj.renderer.sharedMaterial.renderQueue += 200;
+			vLineObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+			vLineObj.name = "Line";
+			vLineObj.transform.SetParent(gameObject.transform, false);
+			vLineObj.transform.localScale = Vector3.zero;
+			vLineObj.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
+			vLineObj.renderer.sharedMaterial.renderQueue += 200;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
 			float dist = vProjectionState.ProjectedPanelDistance;
 			float prog = vProjectionState.ProjectedPanelProgress;
-			float barThick = 0.01f*vProjectionState.Cursor.Size;
-			float dotSize = (1-prog)*60 + 5;
+			float lineThick = 0.01f*vProjectionState.Cursor.Size;
+			float spotSize = (1-prog)*60 + 5;
+			float alphaMult = (float)Math.Pow(prog, 2);
+			Color colSpot = vSettings.SpotlightColor;
+			Color colLine = vSettings.LineColor;
 
-			Vector3 dotScale = Vector3.one*barThick*dotSize;
-			dotScale.y *= (vProjectionState.ProjectedFromFront ? -1 : 1);
+			Vector3 spotScale = Vector3.one*lineThick*spotSize;
+			spotScale.y *= (vProjectionState.ProjectedFromFront ? -1 : 1);
 
-			Color col = Color.white; //TODO: vSettings.ColorNorm;
-			col.a *= (float)Math.Pow(prog, 2);
+			colSpot.a *= alphaMult;
+			colLine.a *= alphaMult;
 
-			vDotObj.renderer.sharedMaterial.color = col;
-			vDotObj.transform.localScale = dotScale;
+			vSpotObj.renderer.sharedMaterial.color = colSpot;
+			vSpotObj.transform.localScale = spotScale;
 
-			vBarObj.renderer.sharedMaterial.color = col;
-			vBarObj.transform.localScale = new Vector3(barThick, dist, barThick);
-			vBarObj.transform.localPosition = new Vector3(0, vBarObj.transform.localScale.y/2f, 0);
+			vLineObj.renderer.sharedMaterial.color = colLine;
+			vLineObj.transform.localScale = new Vector3(lineThick, dist, lineThick);
+			vLineObj.transform.localPosition = new Vector3(0, vLineObj.transform.localScale.y/2f, 0);
 		}
 
 

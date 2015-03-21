@@ -65,7 +65,7 @@ namespace Hover.Cursor {
 			CursorType[] newTypes = vState.InitializedCursorTypes;
 			CursorType[] removeCursorTypes = vCursorMap.Keys.Except(newTypes).ToArray();
 			CursorType[] addCursorTypes = newTypes.Except(vCursorMap.Keys).ToArray();
-			CursorSettings visualSett = DefaultVisualSettings.GetSettings();
+			ICursorSettings visualSett = DefaultVisualSettings.GetSettings();
 
 			foreach ( CursorType cursorType in removeCursorTypes ) {
 				UiCursor uiCursor = vCursorMap[cursorType];

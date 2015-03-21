@@ -17,7 +17,7 @@ namespace Hover.Cursor.Display {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal void Build(ICursorState pCursorState, CursorSettings pSettings, Transform pCameraTx) {
+		internal void Build(ICursorState pCursorState, ICursorSettings pSettings, Transform pCameraTx) {
 			vCursorState = pCursorState;
 			vCameraTx = pCameraTx;
 			

@@ -10,7 +10,7 @@ namespace Hover.Board.Custom {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		ItemVisualSettings GetSettings(IBaseItem pItem);
+		IItemVisualSettings GetSettings(IBaseItem pItem);
 
 	}
 

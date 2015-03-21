@@ -14,25 +14,20 @@ namespace Hover.Cursor.Custom.Standard {
 		public float ThicknessHighlighted = 0.4f;
 		public float CursorForwardDistance = 0;
 
-		private CursorSettings vSettings;
-
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected override CursorSettings GetSettingsInner() {
-			if ( vSettings == null ) {
-				vSettings = new CursorSettings();
-				vSettings.Renderer = typeof(UiCursorRenderer);
-				vSettings.ColorNorm = ColorNormal;
-				vSettings.ColorHigh = ColorHighlighted;
-				vSettings.RadiusNorm = RadiusNormal;
-				vSettings.RadiusHigh = RadiusHighlighted;
-				vSettings.ThickNorm = ThicknessNormal;
-				vSettings.ThickHigh = ThicknessHighlighted;
-				vSettings.CursorForwardDistance = CursorForwardDistance;
-			}
-
-			return vSettings;
+		protected override ICursorSettings GetSettingsInner() {
+			var sett = new CursorSettingsStandard();
+			sett.Renderer = typeof(UiCursorRenderer);
+			sett.ColorNorm = ColorNormal;
+			sett.ColorHigh = ColorHighlighted;
+			sett.RadiusNorm = RadiusNormal;
+			sett.RadiusHigh = RadiusHighlighted;
+			sett.ThickNorm = ThicknessNormal;
+			sett.ThickHigh = ThicknessHighlighted;
+			sett.CursorForwardDistance = CursorForwardDistance;
+			return sett;
 		}
 
 	}

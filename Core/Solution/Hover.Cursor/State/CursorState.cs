@@ -17,7 +17,7 @@ namespace Hover.Cursor.State {
 		public float Size { get; private set; }
 
 		private readonly IInputCursor vInputCursor;
-		private readonly CursorSettings vSettings;
+		private readonly ICursorSettings vSettings;
 		private readonly Transform vBaseTx;
 		private readonly IDictionary<CursorDomain, 
 			IDictionary<string, CursorInteractState>> vInteractMap;
@@ -25,7 +25,7 @@ namespace Hover.Cursor.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public CursorState(IInputCursor pInputCursor, CursorSettings pSettings, Transform pBaseTx) {
+		public CursorState(IInputCursor pInputCursor, ICursorSettings pSettings, Transform pBaseTx) {
 			vInputCursor = pInputCursor;
 			vSettings = pSettings;
 			vBaseTx = pBaseTx;

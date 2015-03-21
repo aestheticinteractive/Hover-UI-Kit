@@ -1,6 +1,7 @@
 ﻿using System;
 using Hover.Common.Util;
 using Hover.Cursor.Custom;
+using Hover.Cursor.Custom.Standard;
 using Hover.Cursor.State;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ namespace Hover.Cursor.Display.Standard {
 	public class UiCursorRenderer : MonoBehaviour, IUiCursorRenderer {
 
 		private ICursorState vCursorState;
-		private CursorSettings vSettings;
+		private CursorSettingsStandard vSettings;
 		private Mesh vRingMesh;
 		private GameObject vRingObj;
 
@@ -19,9 +20,9 @@ namespace Hover.Cursor.Display.Standard {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Build(ICursorState pCursorState, CursorSettings pSettings) {
+		public void Build(ICursorState pCursorState, ICursorSettings pSettings) {
 			vCursorState = pCursorState;
-			vSettings = pSettings;
+			vSettings = (CursorSettingsStandard)pSettings;
 
 			vRingObj = new GameObject("Ring");
 			vRingObj.transform.SetParent(gameObject.transform, false);

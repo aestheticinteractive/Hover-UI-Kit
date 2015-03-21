@@ -1,15 +1,15 @@
-﻿using Hover.Cursor.Custom;
-using Hover.Cursor.State;
+﻿using Hover.Board.Custom;
+using Hover.Board.State;
 
-namespace Hover.Cursor.Display {
+namespace Hover.Board.Display {
 
 	/*================================================================================================*/
-	public interface IUiCursorRenderer {
+	public interface IUiProjectionRenderer {
 
-		
+
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		void Build(ICursorState pCursorState, ICursorSettings pSettings);
+		void Build(ProjectionState pProjectionState, IProjectionVisualSettings pSettings);
 
 	}
 

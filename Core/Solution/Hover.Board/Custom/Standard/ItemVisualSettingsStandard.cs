@@ -1,10 +1,10 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Hover.Board.Custom {
+namespace Hover.Board.Custom.Standard {
 
 	/*================================================================================================*/
-	public class ItemVisualSettings : IItemVisualSettings {
+	public class ItemVisualSettingsStandard : IItemVisualSettings {
 
 		public Type Renderer { get; set; }
 
@@ -23,8 +23,9 @@ namespace Hover.Board.Custom {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public static ItemVisualSettings Fill(ItemVisualSettings pSrc, ItemVisualSettings pDest) {
+		/*--------------------------------------------------------------------------------------------* /
+		public static ItemVisualSettingsStandard Fill(
+									ItemVisualSettingsStandard pSrc, ItemVisualSettingsStandard pDest) {
 			pDest.Renderer = pSrc.Renderer;
 			pDest.TextSize = pSrc.TextSize;
 			pDest.TextColor = pSrc.TextColor;
@@ -39,7 +40,7 @@ namespace Hover.Board.Custom {
 			pDest.SliderFillColor = pSrc.SliderFillColor;
 			pDest.SliderTickColor = pSrc.SliderTickColor;
 			return pDest;
-		}
+		}*/
 
 	}
 

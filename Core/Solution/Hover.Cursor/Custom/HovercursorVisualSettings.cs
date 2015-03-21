@@ -10,11 +10,17 @@ namespace Hover.Cursor.Custom {
 
 		private const string RendererErrorPrefix = "Hovercursor | The 'Cursor' Renderer ";
 
+		private ICursorSettings vSettings;
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public CursorSettings GetSettings() {
-			CursorSettings sett = GetSettingsInner();
+		public ICursorSettings GetSettings() {
+			if ( vSettings != null ) {
+				return vSettings;
+			}
+
+			ICursorSettings sett = GetSettingsInner();
 
 			if ( sett.Renderer == null ) {
 				throw new Exception(RendererErrorPrefix+"cannot be null.");
@@ -25,11 +31,12 @@ namespace Hover.Cursor.Custom {
 					typeof(IUiCursorRenderer).Name+" interface.");
 			}
 
+			vSettings = sett;
 			return sett;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		protected abstract CursorSettings GetSettingsInner();
+		protected abstract ICursorSettings GetSettingsInner();
 
 	}
 

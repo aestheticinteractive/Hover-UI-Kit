@@ -1,10 +1,10 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Hover.Cursor.Custom {
+namespace Hover.Cursor.Custom.Standard {
 
 	/*================================================================================================*/
-	public class CursorSettings {
+	public class CursorSettingsStandard : ICursorSettings {
 
 		public Type Renderer { get; set; }
 

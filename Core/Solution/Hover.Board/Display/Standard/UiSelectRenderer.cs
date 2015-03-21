@@ -1,5 +1,6 @@
 ﻿using System;
 using Hover.Board.Custom;
+using Hover.Board.Custom.Standard;
 using Hover.Common.Display;
 using Hover.Common.Items;
 using Hover.Common.State;
@@ -13,7 +14,7 @@ namespace Hover.Board.Display.Standard {
 		public const float ArcCanvasScale = UiItem.Size*0.012f;
 
 		private IBaseItemState vItemState;
-		private ItemVisualSettings vVisualSettings;
+		private ItemVisualSettingsStandard vVisualSettings;
 
 		private float vMainAlpha;
 
@@ -25,7 +26,7 @@ namespace Hover.Board.Display.Standard {
 		/*--------------------------------------------------------------------------------------------*/
 		public void Build(IBaseItemState pItemState, IItemVisualSettings pSettings) {
 			vItemState = pItemState;
-			vVisualSettings = (ItemVisualSettings)pSettings; //uses renderer-specific settings class
+			vVisualSettings = (ItemVisualSettingsStandard)pSettings;
 
 			float width = UiItem.Size*vItemState.Item.Width;
 			const float height = UiItem.Size;

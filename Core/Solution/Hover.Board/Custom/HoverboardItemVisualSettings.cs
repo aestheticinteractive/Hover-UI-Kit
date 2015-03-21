@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Hover.Board.Display;
 using Hover.Board.Items;
@@ -16,13 +17,25 @@ namespace Hover.Board.Custom {
 
 		public bool IsDefaultSettingsComponent { get; set; }
 
+		private readonly IDictionary<IBaseItem, IItemVisualSettings> vSettingsMap;
 		private CustomItemFinder<HoverboardItem, HoverboardItemVisualSettings> vFinder;
+
+		
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		protected HoverboardItemVisualSettings() {
+			vSettingsMap = new Dictionary<IBaseItem, IItemVisualSettings>();
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public ItemVisualSettings GetSettings(IBaseItem pItem) {
-			ItemVisualSettings sett;
+		public IItemVisualSettings GetSettings(IBaseItem pItem) {
+			if ( vSettingsMap.ContainsKey(pItem) ) {
+				return vSettingsMap[pItem];
+			}
+
+			IItemVisualSettings sett;
 
 			if ( IsDefaultSettingsComponent ) {
 				sett = TryGetCustomItem(pItem);
@@ -43,16 +56,17 @@ namespace Hover.Board.Custom {
 					typeof(IUiItemRenderer).Name+" interface.");
 			}
 
+			vSettingsMap.Add(pItem, sett);
 			return sett;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		protected abstract ItemVisualSettings GetSettingsInner(IBaseItem pItem);
+		protected abstract IItemVisualSettings GetSettingsInner(IBaseItem pItem);
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private ItemVisualSettings TryGetCustomItem(IBaseItem pItem) {
+		private IItemVisualSettings TryGetCustomItem(IBaseItem pItem) {
 			if ( vFinder == null ) {
 				vFinder = new CustomItemFinder<HoverboardItem, HoverboardItemVisualSettings>(Prefix);
 				vFinder.FindAll();

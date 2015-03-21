@@ -18,7 +18,7 @@ namespace Hover.Board.Display {
 
 			for ( int i = 0 ; i < pGridState.Items.Length ; i++ ) {
 				BaseItemState itemState = pGridState.Items[i];
-				ItemVisualSettings visualSett = pItemVisualSettProv.GetSettings(itemState.Item);
+				IItemVisualSettings visualSett = pItemVisualSettProv.GetSettings(itemState.Item);
 				GameObject itemObj = (GameObject)itemState.Item.DisplayContainer;
 				var pos = new Vector3(gi%cols, 0, (float)Math.Floor((float)gi/cols));
 

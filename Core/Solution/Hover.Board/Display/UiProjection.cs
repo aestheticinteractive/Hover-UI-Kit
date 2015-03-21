@@ -1,4 +1,4 @@
-﻿using Hover.Board.Display.Standard;
+﻿using Hover.Board.Custom;
 using Hover.Board.State;
 using Hover.Cursor.State;
 using UnityEngine;
@@ -8,49 +8,51 @@ namespace Hover.Board.Display {
 	/*================================================================================================*/
 	public class UiProjection : MonoBehaviour {
 
-		private ProjectionState vProjState;
+		private ProjectionState vProjectionState;
+		private IProjectionVisualSettings vSettings;
 
-		private GameObject vProjRendererHold;
-		private GameObject vProjRendererObj;
-		private UiProjectionRenderer vProjRenderer; //TODO: use interface
-		
+		private GameObject vRendererHold;
+		private GameObject vRendererObj;
+		private IUiProjectionRenderer vRenderer;
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal void Build(ProjectionState pProjectionState) {
-			vProjState = pProjectionState;
+		internal void Build(ProjectionState pProjectionState, IProjectionVisualSettings pSettings) {
+			vProjectionState = pProjectionState;
+			vSettings = pSettings;
 
 			////
 
-			vProjRendererHold = new GameObject("ProjectionRendererHold");
-			vProjRendererHold.transform.SetParent(gameObject.transform, false);
+			vRendererHold = new GameObject("ProjectionRendererHold");
+			vRendererHold.transform.SetParent(gameObject.transform, false);
 
-			vProjRendererObj = new GameObject("ProjectionRenderer");
-			vProjRendererObj.transform.SetParent(vProjRendererHold.transform, false);
+			vRendererObj = new GameObject("ProjectionRenderer");
+			vRendererObj.transform.SetParent(vRendererHold.transform, false);
 
-			vProjRenderer = vProjRendererObj.AddComponent<UiProjectionRenderer>();
-			vProjRenderer.Build(vProjState);
+			vRenderer = (IUiProjectionRenderer)vRendererObj.AddComponent(vSettings.Renderer);
+			vRenderer.Build(vProjectionState, vSettings);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			ICursorState cursorState = vProjState.Cursor;
+			ICursorState cursorState = vProjectionState.Cursor;
 
 			bool isActive = (cursorState.IsInputAvailable && 
-				vProjState.ProjectedPanelPosition != null &&
-				vProjState.ProjectedPanelProgress > 0);
+				vProjectionState.ProjectedPanelPosition != null &&
+				vProjectionState.ProjectedPanelProgress > 0);
 
-			vProjRendererHold.SetActive(isActive);
+			vRendererHold.SetActive(isActive);
 
 			if ( !isActive ) {
 				return;
 			}
 
-			Vector3 projPos = (Vector3)vProjState.ProjectedPanelPosition;
+			Vector3 projPos = (Vector3)vProjectionState.ProjectedPanelPosition;
 			Vector3 projPosToCursor = cursorState.Position-projPos;
 
-			vProjRendererHold.transform.localPosition = projPos;
-			vProjRendererHold.transform.localRotation = 
+			vRendererHold.transform.localPosition = projPos;
+			vRendererHold.transform.localRotation = 
 				Quaternion.FromToRotation(Vector3.up, projPosToCursor);
 		}
 

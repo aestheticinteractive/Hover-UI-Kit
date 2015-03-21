@@ -15,7 +15,8 @@ namespace Hover.Board {
 	/*================================================================================================*/
 	public class HoverboardSetup : MonoBehaviour {
 
-		public HoverboardItemVisualSettings DefaultItemVisualSettings; //TODO: projection settings
+		public HoverboardItemVisualSettings DefaultItemVisualSettings;
+		public HoverboardProjectionVisualSettings ProjectionVisualSettings;
 		public HoverboardInteractionSettings InteractionSettings;
 		public HoverboardPanel[] Panels;
 		public HovercursorSetup Hovercursor;
@@ -43,6 +44,10 @@ namespace Hover.Board {
 				HoverboardItemVisualSettingsStandard>(DefaultItemVisualSettings, gameObject, prefix);
 			DefaultItemVisualSettings.IsDefaultSettingsComponent = true;
 
+			ProjectionVisualSettings = UnityUtil.FindComponentOrCreate<
+				HoverboardProjectionVisualSettings, HoverboardProjectionVisualSettingsStandard>(
+					ProjectionVisualSettings,gameObject,prefix);
+			
 			InteractionSettings = UnityUtil.FindComponentOrCreate<HoverboardInteractionSettings,
 				HoverboardInteractionSettings>(InteractionSettings, gameObject, prefix);
 
@@ -77,6 +82,7 @@ namespace Hover.Board {
 			////
 
 			InteractionSettings interSett = InteractionSettings.GetSettings();
+			IProjectionVisualSettings projSett = ProjectionVisualSettings.GetSettings();
 
 			if ( interSett.ApplyScaleMultiplier ) {
 				Vector3 worldUp = transform.TransformVector(Vector3.up);
@@ -102,7 +108,7 @@ namespace Hover.Board {
 				var projObj = new GameObject("Proj-"+cursorType);
 				projObj.transform.SetParent(gameObject.transform, false);
 				UiProjection uiProj = projObj.AddComponent<UiProjection>();
-				uiProj.Build(vState.GetProjection(cursorType));
+				uiProj.Build(vState.GetProjection(cursorType), projSett);
 
 				vProjMap.Add(cursorType, uiProj);
 			}

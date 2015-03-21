@@ -22,8 +22,8 @@ namespace Hover.Board.Custom.Standard {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected override ItemVisualSettings GetSettingsInner(IBaseItem pItem) {
-			var sett = new ItemVisualSettings();
+		protected override IItemVisualSettings GetSettingsInner(IBaseItem pItem) {
+			var sett = new ItemVisualSettingsStandard();
 			sett.Renderer = typeof(UiSelectRenderer); //TODO: handle other item types
 			sett.TextSize = TextSize;
 			sett.TextColor = TextColor;
