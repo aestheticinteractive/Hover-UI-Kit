@@ -11,11 +11,13 @@
     <AssemblyName>Hover.Cast</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <ProductVersion>12.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
+    <DebugSymbols>True</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
+    <Optimize>False</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -23,7 +25,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>True</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -44,30 +46,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Custom\CursorSettings.cs" />
-    <Compile Include="Custom\HovercastCustomCursor.cs" />
     <Compile Include="Custom\HovercastCustomInteraction.cs" />
     <Compile Include="Custom\HovercastCustomizationProvider.cs" />
     <Compile Include="Custom\HovercastCustomPalm.cs" />
-    <Compile Include="Custom\HovercastCustomSegment.cs" />
-    <Compile Include="Custom\HovercastDefaultCursor.cs" />
     <Compile Include="Custom\HovercastDefaultPalm.cs" />
-    <Compile Include="Custom\HovercastDefaultSegment.cs" />
     <Compile Include="Custom\ICustom.cs" />
-    <Compile Include="Custom\ICustomCursor.cs" />
     <Compile Include="Custom\ICustomPalm.cs" />
-    <Compile Include="Custom\ICustomSegment.cs" />
     <Compile Include="Custom\InteractionSettings.cs" />
-    <Compile Include="Custom\SegmentSettings.cs" />
-    <Compile Include="Devices\Test\HovercastTestInputProvider.cs" />
-    <Compile Include="Devices\Test\TestInputCursor.cs" />
-    <Compile Include="Devices\Test\TestInputMenu.cs" />
-    <Compile Include="Devices\Test\TestInputSide.cs" />
     <Compile Include="Display\Default\UiBaseIconRenderer.cs" />
     <Compile Include="Display\Default\UiBaseToggleRenderer.cs" />
     <Compile Include="Display\Default\UiCheckboxRenderer.cs" />
-    <Compile Include="Display\Default\UiCursorRenderer.cs" />
-    <Compile Include="Display\Default\UiLabel.cs" />
     <Compile Include="Display\Default\UiPalmRenderer.cs" />
     <Compile Include="Display\Default\UiParentRenderer.cs" />
     <Compile Include="Display\Default\UiRadioRenderer.cs" />
@@ -76,18 +64,13 @@
     <Compile Include="Display\Default\UiSliderGrabRenderer.cs" />
     <Compile Include="Display\Default\UiSliderRenderer.cs" />
     <Compile Include="Display\Default\UiStickyRenderer.cs" />
-    <Compile Include="Display\IUiCursorRenderer.cs" />
     <Compile Include="Display\IUiPalmRenderer.cs" />
-    <Compile Include="Display\IUiSegmentRenderer.cs" />
     <Compile Include="Display\UiArc.cs" />
-    <Compile Include="Display\UiCursor.cs" />
     <Compile Include="Display\UiLevel.cs" />
     <Compile Include="Display\UiMenu.cs" />
     <Compile Include="Display\UiPalm.cs" />
-    <Compile Include="Display\UiSegment.cs" />
     <Compile Include="HovercastSetup.cs" />
     <Compile Include="Input\HovercastInputProvider.cs" />
-    <Compile Include="Input\IInputCursor.cs" />
     <Compile Include="Input\IInputMenu.cs" />
     <Compile Include="Input\IInputProvider.cs" />
     <Compile Include="Input\IInputSide.cs" />
@@ -96,18 +79,24 @@
     <Compile Include="Items\HovercastItemsProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="State\ArcState.cs" />
-    <Compile Include="State\CursorState.cs" />
     <Compile Include="State\HovercastSideName.cs" />
     <Compile Include="State\HovercastState.cs" />
-    <Compile Include="State\IHovercastItemState.cs" />
     <Compile Include="State\IHovercastState.cs" />
-    <Compile Include="State\MenuState.cs" />
-    <Compile Include="State\SegmentState.cs" />
+    <Compile Include="Display\UiItem.cs" />
+    <Compile Include="Display\IUiItemRenderer.cs" />
+    <Compile Include="Custom\ICustomItem.cs" />
+    <Compile Include="Custom\ItemVisualSettings.cs" />
+    <Compile Include="Custom\HovercastCustomItem.cs" />
+    <Compile Include="Custom\HovercastDefaultItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Hover.Common\Hover.Common.csproj">
       <Project>{F60AF979-92BB-498A-BD95-34070B69E9DD}</Project>
       <Name>Hover.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Hover.Cursor\Hover.Cursor.csproj">
+      <Project>{4083EA67-68C8-4B34-A210-6A8A2B96CB95}</Project>
+      <Name>Hover.Cursor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -3,7 +3,7 @@
 namespace Hover.Cast.Custom {
 
 	/*================================================================================================*/
-	public class SegmentSettings {
+	public class ItemVisualSettings {
 
 		public int TextSize { get; set; }
 		public Color TextColor { get; set; }
@@ -21,7 +21,7 @@ namespace Hover.Cast.Custom {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public static SegmentSettings Fill(SegmentSettings pSrc, SegmentSettings pDest) {
+		public static ItemVisualSettings Fill(ItemVisualSettings pSrc, ItemVisualSettings pDest) {
 			pDest.TextSize = pSrc.TextSize;
 			pDest.TextColor = pSrc.TextColor;
 			pDest.TextFont = pSrc.TextFont;

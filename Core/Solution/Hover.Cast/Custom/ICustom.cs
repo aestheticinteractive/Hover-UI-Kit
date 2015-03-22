@@ -1,7 +1,7 @@
-﻿namespace Hover.Cast.Custom {
+namespace Hover.Cast.Custom {
 
 	/*================================================================================================*/
-	public interface ICustom : ICustomSegment, ICustomPalm, ICustomCursor {
+	public interface ICustom : ICustomItem, ICustomPalm {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

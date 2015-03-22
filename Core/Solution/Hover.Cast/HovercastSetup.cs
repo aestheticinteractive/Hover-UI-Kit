@@ -5,6 +5,8 @@ using Hover.Cast.Input;
 using Hover.Cast.Items;
 using Hover.Cast.State;
 using UnityEngine;
+using Hover.Cursor;
+using Hover.Common.Util;
 
 namespace Hover.Cast {
 
@@ -15,18 +17,40 @@ namespace Hover.Cast {
 		public HovercastCustomizationProvider CustomizationProvider;
 		public HovercastInputProvider InputProvider;
 		public Transform OptionalCameraReference;
-
-		public IHovercastState State { get; private set; }
-
+		public HovercursorSetup Hovercursor;
+		
+		private HovercastState vState;
 		private bool vFailed;
-		private MenuState vMenuState;
 		private UiMenu vUiMenu;
-		private UiCursor vUiCursor;
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public IHovercastState State {
+			get {
+				return vState;
+			}
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
+			const string prefix = "Hoverboard";
+			
+			/*DefaultItemVisualSettings = UnityUtil.CreateComponent<HoverboardItemVisualSettings,
+				HoverboardItemVisualSettingsStandard>(DefaultItemVisualSettings, gameObject, prefix);
+			DefaultItemVisualSettings.IsDefaultSettingsComponent = true;
+			
+			ProjectionVisualSettings = UnityUtil.FindComponentOrCreate<
+				HoverboardProjectionVisualSettings, HoverboardProjectionVisualSettingsStandard>(
+					ProjectionVisualSettings,gameObject,prefix);
+			
+			InteractionSettings = UnityUtil.FindComponentOrCreate<HoverboardInteractionSettings,
+				HoverboardInteractionSettings>(InteractionSettings, gameObject, prefix);*/
+
+			Hovercursor = UnityUtil.FindComponentOrFail(Hovercursor, prefix);
+
 			if ( NavigationProvider == null ) {
 				throw FailMissing("Navigation Provider");
 			}
@@ -43,8 +67,8 @@ namespace Hover.Cast {
 				OptionalCameraReference = gameObject.transform;
 			}
 
-			State = new HovercastState(NavigationProvider, CustomizationProvider, 
-				InputProvider, OptionalCameraReference);
+			vState = new HovercastState(NavigationProvider, CustomizationProvider, 
+				InputProvider, Hovercursor, gameObject.transform);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -53,21 +77,12 @@ namespace Hover.Cast {
 				return;
 			}
 
-			vMenuState = new MenuState(InputProvider, NavigationProvider.GetRoot(),
-				CustomizationProvider.GetInteractionSettings());
-
 			var menuObj = new GameObject("Menu");
 			menuObj.transform.SetParent(gameObject.transform, false);
 			vUiMenu = menuObj.AddComponent<UiMenu>();
-			vUiMenu.Build(vMenuState, CustomizationProvider, CustomizationProvider);
+			vUiMenu.Build(vState, CustomizationProvider, CustomizationProvider);
 
-			var cursorObj = new GameObject("Cursor");
-			cursorObj.transform.SetParent(gameObject.transform, false);
-			vUiCursor = cursorObj.AddComponent<UiCursor>();
-			vUiCursor.Build(vMenuState.Arc, vMenuState.Cursor,
-				CustomizationProvider, OptionalCameraReference);
-
-			((HovercastState)State).SetReferences(vMenuState, menuObj.transform, cursorObj.transform);
+			vState.SetReferences(menuObj.transform);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -77,7 +92,7 @@ namespace Hover.Cast {
 			}
 
 			InputProvider.UpdateInput();
-			vMenuState.UpdateAfterInput();
+			vState.UpdateAfterInput();
 		}
 		
 

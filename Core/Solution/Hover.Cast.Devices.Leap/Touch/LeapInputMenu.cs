@@ -43,7 +43,8 @@ namespace Hover.Cast.Devices.Leap.Touch {
 			Rotation = CalcQuaternion(pLeapHand.Basis);
 			Radius = 0.01f;
 
-			var cursor = new LeapInputCursor(IsLeft);
+			//TODO: revise this without using Cursor
+			/*var cursor = new LeapInputCursor(IsLeft);
 
 			foreach ( Finger leapFinger in pLeapHand.Fingers ) {
 				if ( leapFinger == null || !leapFinger.IsValid ) {
@@ -54,7 +55,7 @@ namespace Hover.Cast.Devices.Leap.Touch {
 
 				Rotation = Quaternion.Slerp(Rotation, cursor.Rotation, 0.1f);
 				Radius = Math.Max(Radius, (cursor.Position-Position).sqrMagnitude);
-			}
+			}*/
 
 			Radius = (float)Math.Sqrt(Radius);
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Hover.Cast.Display.Default;
 using UnityEngine;
 
@@ -14,7 +14,7 @@ namespace Hover.Cast.Custom {
 		public string TextFont = "Tahoma";
 		public Color BackgroundColor = new Color(0.1f, 0.1f, 0.1f, 0.666f);
 
-		private SegmentSettings vSettings;
+		private ItemVisualSettings vSettings;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -24,13 +24,13 @@ namespace Hover.Cast.Custom {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public override SegmentSettings GetSettings() {
+		public override ItemVisualSettings GetSettings() {
 			if ( InheritSettings ) {
 				return null;
 			}
 
 			if ( vSettings == null ) {
-				vSettings = new SegmentSettings();
+				vSettings = new ItemVisualSettings();
 				vSettings.TextSize = TextSize;
 				vSettings.TextColor = TextColor;
 				vSettings.TextFont = TextFont;

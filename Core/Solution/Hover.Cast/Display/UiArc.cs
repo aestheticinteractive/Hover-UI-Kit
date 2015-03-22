@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Hover.Cast.Custom;
 using Hover.Cast.State;
 using UnityEngine;
@@ -12,7 +12,7 @@ namespace Hover.Cast.Display {
 		private const float LevelChangeDistance = 0.5f;
 
 		private ArcState vArcState;
-		private ICustomSegment vCustom;
+		private ICustomItem vCustom;
 
 		private GameObject vPrevLevelObj;
 		private GameObject vCurrLevelObj;
@@ -22,7 +22,7 @@ namespace Hover.Cast.Display {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal void Build(ArcState pArc, ICustomSegment pCustom) {
+		internal void Build(ArcState pArc, ICustomItem pCustom) {
 			vArcState = pArc;
 			vCustom = pCustom;
 

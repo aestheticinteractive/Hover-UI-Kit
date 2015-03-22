@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using Hover.Cast.Custom;
 using Hover.Cast.Input;
 using Hover.Common.Items;
 using Hover.Common.Items.Groups;
+using Hover.Cursor.State;
 using UnityEngine;
+using Hover.Common.State;
+using Hover.Common.Input;
 
 namespace Hover.Cast.State {
 
@@ -21,10 +24,10 @@ namespace Hover.Cast.State {
 		public float Size { get; private set; }
 		public float DisplayStrength { get; private set; }
 		public float NavBackStrength { get; private set; }
-		public SegmentState NearestSegment { get; private set; }
+		public IBaseItemState NearestItem { get; private set; }
 
 		private readonly IItemHierarchy vItemRoot;
-		private readonly IList<SegmentState> vSegments;
+		private readonly IList<BaseItemState> vItems;
 		private readonly InteractionSettings vSettings;
 		private bool vIsGrabbing;
 
@@ -33,7 +36,7 @@ namespace Hover.Cast.State {
 		/*--------------------------------------------------------------------------------------------*/
 		public ArcState(IItemHierarchy pItemRoot, InteractionSettings pSettings) {
 			vItemRoot = pItemRoot;
-			vSegments = new List<SegmentState>();
+			vItems = new List<BaseItemState>();
 			vSettings = pSettings;
 
 			IsLeft = vSettings.IsMenuOnLeftSide;
@@ -47,8 +50,8 @@ namespace Hover.Cast.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public SegmentState[] GetSegments() {
-			return vSegments.ToArray();
+		public BaseItemState[] GetItems() {
+			return vItems.ToArray();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -78,33 +81,36 @@ namespace Hover.Cast.State {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		internal void UpdateWithCursor(CursorState pCursor) {
+		internal void UpdateWithCursor(ICursorState pCursor) {
 			bool allowSelect = (pCursor.IsInputAvailable && DisplayStrength > 0);
-			Vector3? cursorPos = (allowSelect ? pCursor.Position : (Vector3?)null);
+			Vector3? cursorWorldPos = (allowSelect ? pCursor.GetWorldPosition() : (Vector3?)null);
+			CursorType cursorType = pCursor.Type;
+			float minProg = float.MaxValue;
 
-			NearestSegment = null;
+			NearestItem = null;
 
-			foreach ( SegmentState seg in vSegments ) {
-				seg.UpdateWithCursor(cursorPos);
+			foreach ( BaseItemState item in vItems ) {
+				item.UpdateWithCursor(cursorType, cursorWorldPos);
 
 				if ( !allowSelect ) {
 					continue;
 				}
 
-				if ( NearestSegment == null ) {
-					NearestSegment = seg;
+				if ( NearestItem == null ) {
+					NearestItem = item;
 					continue;
 				}
 
-				if ( seg.HighlightDistance < NearestSegment.HighlightDistance ) {
-					NearestSegment = seg;
+				float prog = item.GetHighlightProgress(cursorType);
+
+				if ( prog < minProg ) {
+					NearestItem = item;
+					minProg = prog;
 				}
 			}
 
-			foreach ( SegmentState seg in vSegments ) {
-				if ( seg.SetAsNearestSegment(seg == NearestSegment) ) {
-					break; //stop loop upon actual selection because the segment list can change
-				}
+			foreach ( BaseItemState item in vItems ) {
+				item.SetAsNearestItem(cursorType, (item == NearestItem));
 			}
 		}
 
@@ -131,13 +137,13 @@ namespace Hover.Cast.State {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleLevelChange(int pDirection) {
-			vSegments.Clear();
+			vItems.Clear();
 
 			IBaseItem[] items = vItemRoot.CurrentLevel.Items;
 
 			foreach ( IBaseItem item in items ) {
-				var seg = new SegmentState(item, vSettings);
-				vSegments.Add(seg);
+				var seg = new BaseItemState(item, vSettings);
+				vItems.Add(seg);
 			}
 
 			OnLevelChange(pDirection);

@@ -1,6 +1,7 @@
-﻿using Hover.Cast.Custom;
+using Hover.Cast.Custom;
 using Hover.Cast.State;
 using UnityEngine;
+using Hover.Common.State;
 
 namespace Hover.Cast.Display.Default {
 
@@ -25,9 +26,9 @@ namespace Hover.Cast.Display.Default {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public override void Build(ArcState pArcState, SegmentState pSegState,
-														float pArcAngle, SegmentSettings pSettings) {
-			base.Build(pArcState, pSegState, pArcAngle, pSettings);
+		public override void Build(ArcState pArcState, IBaseItemState pItemState,
+														float pArcAngle, ItemVisualSettings pSettings) {
+			base.Build(pArcState, pItemState, pArcAngle, pSettings);
 
 			vIcon = GameObject.CreatePrimitive(PrimitiveType.Quad);
 			vIcon.name = "Icon";
@@ -43,7 +44,7 @@ namespace Hover.Cast.Display.Default {
 			base.Update();
 
 			Color color = vSettings.ArrowIconColor;
-			color.a *= (vSegState.HighlightProgress*0.75f + 0.25f)*vMainAlpha;
+			color.a *= (vItemState.MaxHighlightProgress*0.75f + 0.25f)*vMainAlpha;
 
 			vIcon.renderer.sharedMaterial.color = color;
 

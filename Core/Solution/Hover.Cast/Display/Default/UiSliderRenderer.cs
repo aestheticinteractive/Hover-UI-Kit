@@ -1,19 +1,20 @@
-﻿using System;
+using System;
 using Hover.Cast.Custom;
 using Hover.Cast.State;
 using Hover.Common.Items.Types;
 using UnityEngine;
+using Hover.Common.State;
 
 namespace Hover.Cast.Display.Default {
 
 	/*================================================================================================*/
-	public class UiSliderRenderer : MonoBehaviour, IUiSegmentRenderer {
+	public class UiSliderRenderer : MonoBehaviour, IUiItemRenderer {
 
 		protected ArcState vArcState;
-		protected SegmentState vSegState;
+		protected IBaseItemState vItemState;
 		protected float vAngle0;
 		protected float vAngle1;
-		protected SegmentSettings vSettings;
+		protected ItemVisualSettings vSettings;
 		protected ISliderItem vSliderItem;
 
 		protected float vGrabArcHalf;
@@ -41,14 +42,14 @@ namespace Hover.Cast.Display.Default {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Build(ArcState pArcState, SegmentState pSegState,
-														float pArcAngle, SegmentSettings pSettings) {
+		public virtual void Build(ArcState pArcState, IBaseItemState pItemState,
+														float pArcAngle, ItemVisualSettings pSettings) {
 			vArcState = pArcState;
-			vSegState = pSegState;
+			vItemState = pItemState;
 			vAngle0 = -pArcAngle/2f+UiSlice.AngleInset;
 			vAngle1 = pArcAngle/2f-UiSlice.AngleInset;
 			vSettings = pSettings;
-			vSliderItem = (ISliderItem)vSegState.Item;
+			vSliderItem = (ISliderItem)vItemState.Item;
 
 			const float pi = (float)Math.PI;
 			const float radInner = 1.04f;
@@ -107,7 +108,7 @@ namespace Hover.Cast.Display.Default {
 			grabObj.transform.SetParent(vGrabHold.transform, false);
 
 			vGrab = grabObj.AddComponent<UiSliderGrabRenderer>();
-			vGrab.Build(vArcState, vSegState, vGrabArcHalf*2, pSettings);
+			vGrab.Build(vArcState, vItemState, vGrabArcHalf*2, pSettings);
 
 			////
 
@@ -124,7 +125,7 @@ namespace Hover.Cast.Display.Default {
 		public virtual void Update() {
 			vMainAlpha = UiSelectRenderer.GetArcAlpha(vArcState)*vAnimAlpha;
 
-			if ( !vSegState.Item.IsEnabled ) {
+			if ( !vItemState.Item.IsEnabled ) {
 				vMainAlpha *= 0.333f;
 			}
 
@@ -154,8 +155,8 @@ namespace Hover.Cast.Display.Default {
 				slideDeg = vSlideDegree0 + vSlideDegrees*easedHover;
 				vHoverHold.transform.localRotation = Quaternion.AngleAxis(slideDeg, Vector3.up);
 
-				float high = vSegState.HighlightProgress;
-				float select = 1-(float)Math.Pow(1-vSegState.SelectionProgress, 1.5f);
+				float high = vItemState.MaxHighlightProgress;
+				float select = 1-(float)Math.Pow(1-vItemState.SelectionProgress, 1.5f);
 
 				Color colBg = vSettings.BackgroundColor;
 				Color colHigh = vSettings.HighlightColor;

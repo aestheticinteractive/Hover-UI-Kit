@@ -1,17 +1,18 @@
-﻿using Hover.Cast.Custom;
+using Hover.Cast.Custom;
 using Hover.Cast.State;
 using UnityEngine;
+using Hover.Common.State;
 
 namespace Hover.Cast.Display {
 
 	/*================================================================================================*/
-	public interface IUiSegmentRenderer {
+	public interface IUiItemRenderer {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		void Build(ArcState pArcState, SegmentState pSegState, float pArcAngle,
-																		SegmentSettings pSettings);
+		void Build(ArcState pArcState, IBaseItemState pItemState, float pArcAngle,
+																		ItemVisualSettings pSettings);
 
 		/*--------------------------------------------------------------------------------------------*/
 		void HandleChangeAnimation(bool pFadeIn, int pDirection, float pProgress);

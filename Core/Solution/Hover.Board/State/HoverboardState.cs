@@ -140,8 +140,7 @@ namespace Hover.Board.State {
 
 			GameObject panelObj = (GameObject)nearestTree.Panel.ItemPanel.DisplayContainer;
 			pProj.SetNearestPanelTransform(panelObj.transform);
-			pProj.NearestItemHighlightProgress = 
-				nearestTree.Item.GetHighlightProgress(cursorType);
+			pProj.NearestItemHighlightProgress = nearestTree.Item.GetHighlightProgress(cursorType);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

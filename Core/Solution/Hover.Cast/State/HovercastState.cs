@@ -1,106 +1,137 @@
-﻿using System.Linq;
+using System.Linq;
 using Hover.Cast.Custom;
 using Hover.Cast.Input;
 using Hover.Cast.Items;
 using UnityEngine;
+using Hover.Cursor.State;
+using Hover.Cursor;
+using Hover.Common.Input;
+using Hover.Common.State;
 
 namespace Hover.Cast.State {
 
 	/*================================================================================================*/
 	public class HovercastState : IHovercastState {
+		
+		public delegate void SideChangeHandler();
+		public event SideChangeHandler OnSideChange;
 
 		public HovercastItemsProvider NavigationProvider { get; private set; }
 		public HovercastCustomizationProvider CustomizationProvider { get; private set; }
 		public HovercastInputProvider InputProvider { get; private set; }
 
+		public ArcState Arc { get; private set; }
+		public ICursorState Cursor { get; private set; }
 		public Transform MenuTransform { get; private set; }
-		public Transform CursorTransform { get; private set; }
-		public Transform CameraTransform { get; private set; }
 
-		private MenuState vMenuState;
-
+		private HovercursorSetup vHovercursorSetup;
+		private Transform vBaseTx;
+		private bool? vCurrIsMenuOnLeftSide;
+		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public HovercastState(HovercastItemsProvider pNav, HovercastCustomizationProvider pCustom,
-													HovercastInputProvider pInput, Transform pCamera) {
+				                      HovercastInputProvider pInput, HovercursorSetup pHovercusorSetup,
+				                      Transform pBaseTx) {
 			NavigationProvider = pNav;
 			CustomizationProvider = pCustom;
 			InputProvider = pInput;
-			CameraTransform = pCamera;
-		}
+			vHovercursorSetup = pHovercusorSetup;
+			vBaseTx = pBaseTx;
 
-		/*--------------------------------------------------------------------------------------------*/
-		public void SetReferences(MenuState pMenuState, Transform pMenuTx, Transform pCursorTx) {
-			vMenuState = pMenuState;
-			MenuTransform = pMenuTx;
-			CursorTransform = pCursorTx;
+			OnSideChange += (() => {});
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public bool IsMenuInputAvailable {
-			get {
-				return vMenuState.Arc.IsInputAvailable;
+		public void SetReferences(Transform pMenuTx) {
+			MenuTransform = pMenuTx;
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public void UpdateAfterInput() {
+			bool isMenuOnLeft = CustomizationProvider.GetInteractionSettings().IsMenuOnLeftSide;
+			IInputSide menuSide = InputProvider.GetSide(isMenuOnLeft);
+			bool isSideChange = (isMenuOnLeft != vCurrIsMenuOnLeftSide);
+			vCurrIsMenuOnLeftSide = isMenuOnLeft;
+			
+			if ( isSideChange ) {
+				if ( Cursor != null ) {
+					Cursor.RemoveInteraction(CursorDomain.Hovercast, "");
+				}
+
+				CursorType cursorType = (isMenuOnLeft ? CursorType.RightIndex : CursorType.LeftIndex);
+				Cursor = vHovercursorSetup.State.GetCursorState(cursorType);
+				Cursor.AddOrGetInteraction(CursorDomain.Hovercast, "");
+			}
+
+			Arc.UpdateAfterInput(menuSide.Menu);
+			Arc.UpdateWithCursor(Cursor);
+			
+			if ( isSideChange ) {
+				OnSideChange();
 			}
 		}
 
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public bool IsCursorInputAvailable {
+		public IHovercursorState Hovercursor {
 			get {
-				return vMenuState.Cursor.IsInputAvailable;
+				return vHovercursorSetup.State;
+			}
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public bool IsMenuInputAvailable {
+			get {
+				return Arc.IsInputAvailable;
 			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public bool IsMenuVisible {
 			get {
-				return (vMenuState.Arc.DisplayStrength > 0);
+				return (Arc.DisplayStrength > 0);
 			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public float MenuDisplayStrength {
 			get {
-				return vMenuState.Arc.DisplayStrength;
+				return Arc.DisplayStrength;
 			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public float NavigateBackStrength {
 			get {
-				return vMenuState.Arc.NavBackStrength;
+				return Arc.NavBackStrength;
 			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public HovercastSideName MenuSide {
 			get {
-				return (vMenuState.Arc.IsLeft ? HovercastSideName.Left : HovercastSideName.Right);
-			}
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public HovercastSideName CursorSide {
-			get {
-				return (vMenuState.Cursor.IsLeft ? HovercastSideName.Left : HovercastSideName.Right);
+				return (Arc.IsLeft ? HovercastSideName.Left : HovercastSideName.Right);
 			}
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public IHovercastItemState[] CurrentItems {
+		public IBaseItemState[] CurrentItems {
 			get {
-				return vMenuState.Arc.GetSegments().Cast<IHovercastItemState>().ToArray();
+				return Arc.GetItems().Cast<IBaseItemState>().ToArray();
 			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public IHovercastItemState NearestItem {
+		public IBaseItemState NearestItem {
 			get {
-				return vMenuState.Arc.NearestSegment;
+				return Arc.NearestItem;
 			}
 		}
 

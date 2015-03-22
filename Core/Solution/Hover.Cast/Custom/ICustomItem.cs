@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using Hover.Common.Items;
 
 namespace Hover.Cast.Custom {
 
 	/*================================================================================================*/
-	public interface ICustomSegment {
+	public interface ICustomItem {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -12,7 +12,7 @@ namespace Hover.Cast.Custom {
 		Type GetSegmentRenderer(IBaseItem pNavItem);
 
 		/*--------------------------------------------------------------------------------------------*/
-		SegmentSettings GetSegmentSettings(IBaseItem pNavItem);
+		ItemVisualSettings GetSegmentSettings(IBaseItem pNavItem);
 
 	}
 

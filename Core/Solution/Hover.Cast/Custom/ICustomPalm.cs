@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Hover.Common.Items;
 
 namespace Hover.Cast.Custom {
@@ -12,7 +12,7 @@ namespace Hover.Cast.Custom {
 		Type GetPalmRenderer(IBaseItem pNavItem);
 
 		/*--------------------------------------------------------------------------------------------*/
-		SegmentSettings GetPalmSettings(IBaseItem pNavItem);
+		ItemVisualSettings GetPalmSettings(IBaseItem pNavItem);
 
 	}
 

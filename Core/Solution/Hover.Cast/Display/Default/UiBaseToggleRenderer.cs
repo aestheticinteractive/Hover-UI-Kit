@@ -1,6 +1,7 @@
-﻿using Hover.Cast.Custom;
+using Hover.Cast.Custom;
 using Hover.Cast.State;
 using UnityEngine;
+using Hover.Common.State;
 
 namespace Hover.Cast.Display.Default {
 
@@ -26,9 +27,9 @@ namespace Hover.Cast.Display.Default {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public override void Build(ArcState pArcState, SegmentState pSegState,
-														float pArcAngle, SegmentSettings pSettings) {
-			base.Build(pArcState, pSegState, pArcAngle, pSettings);
+		public override void Build(ArcState pArcState, IBaseItemState pItemState,
+														float pArcAngle, ItemVisualSettings pSettings) {
+			base.Build(pArcState, pItemState, pArcAngle, pSettings);
 
 			vOuter = GameObject.CreatePrimitive(PrimitiveType.Quad);
 			vOuter.name = "ToggleOuter";
@@ -52,7 +53,7 @@ namespace Hover.Cast.Display.Default {
 			base.Update();
 
 			Color color = vSettings.ToggleIconColor;
-			color.a *= (vSegState.HighlightProgress*0.25f + 0.75f)*vMainAlpha;
+			color.a *= (vItemState.MaxHighlightProgress*0.25f + 0.75f)*vMainAlpha;
 
 			vOuter.renderer.sharedMaterial.color = color;
 			vInner.renderer.sharedMaterial.color = color;

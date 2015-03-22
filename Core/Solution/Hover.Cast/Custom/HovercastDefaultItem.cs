@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Hover.Cast.Display.Default;
 using Hover.Common.Items;
 using Hover.Common.Items.Types;
@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Hover.Cast.Custom {
 
 	/*================================================================================================*/
-	public class HovercastDefaultSegment : HovercastCustomSegment {
+	public class HovercastDefaultItem : HovercastCustomItem {
 
 		public int TextSize = 30;
 		public Color TextColor = new Color(1, 1, 1);
@@ -22,7 +22,7 @@ namespace Hover.Cast.Custom {
 		public Color SliderFillColor = new Color(0.1f, 0.9f, 0.2f, 0.5f);
 		public Color SliderTickColor = new Color(1, 1, 1, 0.1f);
 
-		private SegmentSettings vSettings;
+		private ItemVisualSettings vSettings;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -56,9 +56,9 @@ namespace Hover.Cast.Custom {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public override SegmentSettings GetSettings() {
+		public override ItemVisualSettings GetSettings() {
 			if ( vSettings == null ) {
-				vSettings = new SegmentSettings();
+				vSettings = new ItemVisualSettings();
 				vSettings.TextSize = TextSize;
 				vSettings.TextColor = TextColor;
 				vSettings.TextFont = TextFont;

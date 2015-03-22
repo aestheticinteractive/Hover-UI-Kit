@@ -1,37 +1,38 @@
-﻿using System;
+using System;
 using Hover.Cast.Custom;
 using Hover.Cast.State;
 using Hover.Common.Items.Types;
 using Hover.Common.Util;
 using UnityEngine;
+using Hover.Common.State;
 
 namespace Hover.Cast.Display {
 
 	/*================================================================================================*/
-	public class UiSegment : MonoBehaviour {
+	public class UiItem : MonoBehaviour {
 
 		public float ArcAngle { get; private set; }
 
 		private ArcState vArcState;
-		private SegmentState vSegState;
+		private BaseItemState vItemState;
 
 		private Transform vCursorBaseTx;
 		private float vSlideDegrees;
 		private Vector3 vSlideDir0;
 		private Vector3 vCursorLocalPos;
 
-		private IUiSegmentRenderer vRenderer;
+		private IUiItemRenderer vRenderer;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal void Build(ArcState pArcState, SegmentState pSegState, float pArcAngle, 
-																			ICustomSegment pCustom) {
+		internal void Build(ArcState pArcState, BaseItemState pItemState, float pArcAngle, 
+																			ICustomItem pCustom) {
 			vArcState = pArcState;
-			vSegState = pSegState;
+			vItemState = pItemState;
 			ArcAngle = pArcAngle;
 
-			vSegState.SetCursorDistanceFunction(CalcCursorDistance);
+			vItemState.SetCursorDistanceFunction(CalcCursorDistance);
 
 			vCursorBaseTx = gameObject.transform.parent.parent.parent.parent; //HovercastSetup
 
@@ -43,14 +44,14 @@ namespace Hover.Cast.Display {
 
 			////
 
-			Type rendType = pCustom.GetSegmentRenderer(vSegState.Item);
-			SegmentSettings sett = pCustom.GetSegmentSettings(vSegState.Item);
+			Type rendType = pCustom.GetSegmentRenderer(vItemState.Item);
+			ItemVisualSettings sett = pCustom.GetSegmentSettings(vItemState.Item);
 
 			var rendObj = new GameObject("Renderer");
 			rendObj.transform.SetParent(gameObject.transform, false);
 
-			vRenderer = (IUiSegmentRenderer)rendObj.AddComponent(rendType);
-			vRenderer.Build(vArcState, vSegState, pArcAngle, sett);
+			vRenderer = (IUiItemRenderer)rendObj.AddComponent(rendType);
+			vRenderer.Build(vArcState, vItemState, pArcAngle, sett);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -71,19 +72,19 @@ namespace Hover.Cast.Display {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		internal void HandleChangeAnimation(bool pFadeIn, int pDirection, float pProgress) {
-			vSegState.SetIsAnimating(pProgress < 1);
+			//TODO: vItemState.SetIsAnimating(pProgress < 1);
 			vRenderer.HandleChangeAnimation(pFadeIn, pDirection, pProgress);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void TryUpdateSliderValue() {
-			ISliderItem sliderItem = (vSegState.Item as ISliderItem);
+			ISliderItem sliderItem = (vItemState.Item as ISliderItem);
 
 			if ( sliderItem == null ) {
 				return;
 			}
 
-			if ( !vSegState.IsNearestHighlight || vSegState.HighlightProgress <= 0 ) {
+			if ( !vItemState.IsNearestHighlight || vItemState.MaxHighlightProgress <= 0 ) {
 				sliderItem.HoverValue = null;
 				return;
 			}

@@ -9,7 +9,6 @@ namespace Hover.Cast.Devices.Leap.Look {
 		private readonly LeapLookInputCursor vCursor;
 
 
-
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public LeapLookInputSide(bool pIsLeft, LeapLookInputSettings pSettings) : 
@@ -20,12 +19,12 @@ namespace Hover.Cast.Devices.Leap.Look {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public override IInputCursor Cursor {
+		public object Cursor {
 			get {
-				if ( vIsCursorStale ) {
+				//if ( vIsCursorStale ) {
 					vCursor.Rebuild();
-					vIsCursorStale = false;
-				}
+				//	vIsCursorStale = false;
+				//}
 
 				return vCursor;
 			}

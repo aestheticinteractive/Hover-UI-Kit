@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Hover.Cast.Custom;
 using Hover.Cast.State;
 using Hover.Common.Items;
@@ -69,7 +69,7 @@ namespace Hover.Cast.Display {
 			const float halfAngle = UiLevel.AngleFull/2f;
 			IBaseItem navItem = vArcState.GetLevelParentItem();
 			Type rendType = vCustom.GetPalmRenderer(navItem);
-			SegmentSettings sett = vCustom.GetPalmSettings(navItem);
+			ItemVisualSettings sett = vCustom.GetPalmSettings(navItem);
 
 			vRendererHold.SetActive(true); //ensures that Awake() is called in the renderers
 

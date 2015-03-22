@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using Hover.Cast.Display;
 using UnityEngine;
@@ -30,7 +30,7 @@ namespace Hover.Cast.Custom {
 		protected abstract Type GetRendererInner();
 
 		/*--------------------------------------------------------------------------------------------*/
-		public abstract SegmentSettings GetSettings();
+		public abstract ItemVisualSettings GetSettings();
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

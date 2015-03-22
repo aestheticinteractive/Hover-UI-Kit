@@ -11,11 +11,9 @@ namespace Hover.Cast.Devices.Leap.Touch {
 
 		private readonly LeapInputSettings vSettings;
 		private readonly LeapInputMenu vMenu;
-		private readonly LeapInputCursor vCursor;
 
 		private Hand vLeapHand;
 		private bool vIsMenuStale;
-		protected bool vIsCursorStale;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -25,7 +23,6 @@ namespace Hover.Cast.Devices.Leap.Touch {
 			vSettings = pSettings;
 
 			vMenu = new LeapInputMenu(IsLeft);
-			vCursor = new LeapInputCursor(IsLeft);
 		}
 
 
@@ -42,36 +39,12 @@ namespace Hover.Cast.Devices.Leap.Touch {
 			}
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
-		public virtual IInputCursor Cursor {
-			get {
-				if ( vIsCursorStale ) {
-					vCursor.Rebuild(GetCursorLeapFinger());
-					vIsCursorStale = false;
-				}
-
-				return vCursor;
-			}
-		}
-
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateWithLeapHand(Hand pLeapHand) {
 			vLeapHand = (pLeapHand != null && pLeapHand.IsValid ? pLeapHand : null);
 			vIsMenuStale = true;
-			vIsCursorStale = true;
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		private Finger GetCursorLeapFinger() {
-			if ( vLeapHand == null ) {
-				return null;
-			}
-
-			return vLeapHand.Fingers
-				.FingerType(vSettings.CursorFinger)
-				.FirstOrDefault(f => f.IsValid);
 		}
 
 	}

@@ -2,6 +2,8 @@
 using Hover.Cast.Input;
 using Hover.Cast.Items;
 using UnityEngine;
+using Hover.Cursor.State;
+using Hover.Common.State;
 
 namespace Hover.Cast.State {
 
@@ -12,20 +14,18 @@ namespace Hover.Cast.State {
 		HovercastCustomizationProvider CustomizationProvider { get; }
 		HovercastInputProvider InputProvider { get; }
 
+		ICursorState Cursor { get; }
+		
 		bool IsMenuInputAvailable { get; }
-		bool IsCursorInputAvailable { get; }
 		bool IsMenuVisible { get; }
 		float MenuDisplayStrength { get; }
 		float NavigateBackStrength { get; }
 		HovercastSideName MenuSide { get; }
-		HovercastSideName CursorSide { get; }
 
-		IHovercastItemState[] CurrentItems { get; }
-		IHovercastItemState NearestItem { get; }
+		IBaseItemState[] CurrentItems { get; }
+		IBaseItemState NearestItem { get; }
 
 		Transform MenuTransform { get; }
-		Transform CursorTransform { get; }
-		Transform CameraTransform { get; }
 
 	}
 

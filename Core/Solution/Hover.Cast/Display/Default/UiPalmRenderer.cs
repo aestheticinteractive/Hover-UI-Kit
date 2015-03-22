@@ -1,6 +1,7 @@
-﻿using System;
+using System;
 using Hover.Cast.Custom;
 using Hover.Cast.State;
+using Hover.Common.Display;
 using Hover.Common.Util;
 using UnityEngine;
 
@@ -17,7 +18,7 @@ namespace Hover.Cast.Display.Default {
 		protected float vInnerRadius;
 		protected float vDiameter;
 		protected float vMainAlpha;
-		private SegmentSettings vSettings;
+		private ItemVisualSettings vSettings;
 
 		protected GameObject vBackground;
 		protected UiLabel vLabel;
@@ -25,7 +26,7 @@ namespace Hover.Cast.Display.Default {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Build(ArcState pArcState, SegmentSettings pSettings, 
+		public virtual void Build(ArcState pArcState, ItemVisualSettings pSettings, 
 																		float pAngle0, float pAngle1) {
 			vArcState = pArcState;
 			vSettings = pSettings;
@@ -56,7 +57,7 @@ namespace Hover.Cast.Display.Default {
 			labelObj.transform.localScale = new Vector3(1, 1, (vArcState.IsLeft ? 1 : -1));
 
 			vLabel = labelObj.AddComponent<UiLabel>();
-			vLabel.IsLeft = vArcState.IsLeft;
+			vLabel.AlignLeft = vArcState.IsLeft;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

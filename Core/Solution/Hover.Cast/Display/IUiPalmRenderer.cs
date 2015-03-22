@@ -1,4 +1,4 @@
-﻿using Hover.Cast.Custom;
+using Hover.Cast.Custom;
 using Hover.Cast.State;
 
 namespace Hover.Cast.Display {
@@ -9,7 +9,7 @@ namespace Hover.Cast.Display {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		void Build(ArcState pArcState, SegmentSettings pSettings, float pAngle0, float pAngle1);
+		void Build(ArcState pArcState, ItemVisualSettings pSettings, float pAngle0, float pAngle1);
 
 	}
 

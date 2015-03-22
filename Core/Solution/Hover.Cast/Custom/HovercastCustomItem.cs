@@ -1,42 +1,43 @@
-﻿using System;
+using System;
 using System.Linq;
 using Hover.Cast.Display;
+using Hover.Common.Items;
 using UnityEngine;
 
 namespace Hover.Cast.Custom {
 
 	/*================================================================================================*/
-	public abstract class HovercastCustomCursor : MonoBehaviour {
+	public abstract class HovercastCustomItem : MonoBehaviour {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public Type GetRenderer() {
-			Type type = GetRendererInner();
+		public Type GetRendererForItem(IBaseItem pItem) {
+			Type type = GetRendererForItemInner(pItem);
 
 			if ( type == null ) {
-				throw new Exception(GetErrorPrefix()+"cannot be null.");
+				throw new Exception(GetErrorPrefix(pItem)+"cannot be null.");
 			}
 
-			if ( !type.GetInterfaces().Contains(typeof(IUiCursorRenderer)) ) {
-				throw new Exception(GetErrorPrefix()+"must implement the "+
-					typeof(IUiCursorRenderer).Name+" interface.");
+			if ( !type.GetInterfaces().Contains(typeof(IUiItemRenderer)) ) {
+				throw new Exception(GetErrorPrefix(pItem)+"must implement the "+
+					typeof(IUiItemRenderer).Name+" interface.");
 			}
 
 			return type;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		protected abstract Type GetRendererInner();
+		protected abstract Type GetRendererForItemInner(IBaseItem pItem);
 
 		/*--------------------------------------------------------------------------------------------*/
-		public abstract CursorSettings GetSettings();
+		public abstract ItemVisualSettings GetSettings();
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private static string GetErrorPrefix() {
-			return "Hovercast | The 'Cursor' Renderer ";
+		private static string GetErrorPrefix(IBaseItem pItem) {
+			return "Hovercast | The 'Item' Renderer for the '"+pItem.Label+"' item ";
 		}
 
 	}

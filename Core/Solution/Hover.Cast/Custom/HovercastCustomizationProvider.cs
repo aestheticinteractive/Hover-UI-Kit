@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Hover.Cast.Items;
 using Hover.Common.Items;
@@ -10,13 +10,12 @@ namespace Hover.Cast.Custom {
 	public class HovercastCustomizationProvider : MonoBehaviour, ICustom {
 
 		private class CustomItem {
-			public HovercastCustomSegment Seg;
+			public HovercastCustomItem Item;
 			public HovercastCustomPalm Palm;
 		}
 
-		private HovercastCustomSegment vMainSeg;
+		private HovercastCustomItem vMainItem;
 		private HovercastCustomPalm vMainPalm;
-		private HovercastCustomCursor vCursor;
 		private HovercastCustomInteraction vInteract;
 		private IDictionary<int, CustomItem> vCustomMap;
 
@@ -32,20 +31,20 @@ namespace Hover.Cast.Custom {
 		/*--------------------------------------------------------------------------------------------*/
 		public Type GetSegmentRenderer(IBaseItem pItem) {
 			if ( pItem == null ) {
-				throw new ArgumentException("Hovercast | NavItem cannot be null.", "NavItem");
+				throw new ArgumentException("Hovercast | Item cannot be null.", "Item");
 			}
 
 			InitOnce();
 
-			HovercastCustomSegment seg = FindCustom(vMainSeg, pItem, (c => c.Seg));
+			HovercastCustomItem seg = FindCustom(vMainItem, pItem, (c => c.Item));
 			return seg.GetRendererForItem(pItem);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public SegmentSettings GetSegmentSettings(IBaseItem pItem) {
+		public ItemVisualSettings GetSegmentSettings(IBaseItem pItem) {
 			InitOnce();
 
-			HovercastCustomSegment seg = FindCustom(vMainSeg, pItem, (c => c.Seg));
+			HovercastCustomItem seg = FindCustom(vMainItem, pItem, (c => c.Item));
 			return seg.GetSettings();
 		}
 
@@ -58,23 +57,11 @@ namespace Hover.Cast.Custom {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public SegmentSettings GetPalmSettings(IBaseItem pItem) {
+		public ItemVisualSettings GetPalmSettings(IBaseItem pItem) {
 			InitOnce();
 
 			HovercastCustomPalm palm = FindCustom(vMainPalm, pItem, (c => c.Palm));
 			return (palm.GetSettings() ?? GetSegmentSettings(pItem));
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public Type GetCursorRenderer() {
-			InitOnce();
-			return vCursor.GetRenderer();
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public CursorSettings GetCursorSettings() {
-			InitOnce();
-			return vCursor.GetSettings();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -87,31 +74,24 @@ namespace Hover.Cast.Custom {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void InitOnce() {
-			if ( vMainSeg != null ) {
+			if ( vMainItem != null ) {
 				return;
 			}
 
-			vMainSeg = gameObject.GetComponent<HovercastCustomSegment>();
+			vMainItem = gameObject.GetComponent<HovercastCustomItem>();
 			vMainPalm = gameObject.GetComponent<HovercastCustomPalm>();
-			vCursor = gameObject.GetComponent<HovercastCustomCursor>();
 			vInteract = gameObject.GetComponent<HovercastCustomInteraction>();
 
-			if ( vMainSeg == null ) {
-				Debug.LogWarning("Hovercast | No '"+typeof(HovercastCustomSegment).Name+
+			if ( vMainItem == null ) {
+				Debug.LogWarning("Hovercast | No '"+typeof(HovercastCustomItem).Name+
 					"' provided; using default.");
-				vMainSeg = gameObject.AddComponent<HovercastDefaultSegment>();
+				vMainItem = gameObject.AddComponent<HovercastDefaultItem>();
 			}
 
 			if ( vMainPalm == null ) {
 				Debug.LogWarning("Hovercast | No '"+typeof(HovercastCustomPalm).Name+
 					"' provided; using default.");
 				vMainPalm = gameObject.AddComponent<HovercastDefaultPalm>();
-			}
-
-			if ( vCursor == null ) {
-				Debug.LogWarning("Hovercast | No '"+typeof(HovercastCustomCursor).Name+
-					"' provided; using default.");
-				vCursor = gameObject.AddComponent<HovercastDefaultCursor>();
 			}
 
 			if ( vInteract == null ) {
@@ -124,12 +104,12 @@ namespace Hover.Cast.Custom {
 
 			vCustomMap = new Dictionary<int, CustomItem>();
 
-			HovercastCustomSegment[] segList = 
-				gameObject.GetComponentsInChildren<HovercastCustomSegment>();
+			HovercastCustomItem[] segList = 
+				gameObject.GetComponentsInChildren<HovercastCustomItem>();
 			HovercastCustomPalm[] palmList = 
 				gameObject.GetComponentsInChildren<HovercastCustomPalm>();
 
-			FillCustomItems(segList, ((c, s) => { c.Seg = s; }));
+			FillCustomItems(segList, ((c, s) => { c.Item = s; }));
 			FillCustomItems(palmList, ((c, p) => { c.Palm = p; }));
 		}
 		

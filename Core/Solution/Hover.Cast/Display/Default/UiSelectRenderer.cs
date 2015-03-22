@@ -1,20 +1,22 @@
-﻿using System;
+using System;
 using Hover.Cast.Custom;
 using Hover.Cast.State;
+using Hover.Common.Display;
 using Hover.Common.Items;
 using UnityEngine;
+using Hover.Common.State;
 
 namespace Hover.Cast.Display.Default {
 
 	/*================================================================================================*/
-	public class UiSelectRenderer : MonoBehaviour, IUiSegmentRenderer {
+	public class UiSelectRenderer : MonoBehaviour, IUiItemRenderer {
 
 		public const float ArcCanvasThickness = 250;
 		public const float ArcCanvasScale = 0.002f;
 
 		protected ArcState vArcState;
-		protected SegmentState vSegState;
-		protected SegmentSettings vSettings;
+		protected IBaseItemState vItemState;
+		protected ItemVisualSettings vSettings;
 
 		protected float vMainAlpha;
 		protected float vAnimAlpha;
@@ -25,10 +27,10 @@ namespace Hover.Cast.Display.Default {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Build(ArcState pArcState, SegmentState pSegState,
-														float pArcAngle, SegmentSettings pSettings) {
+		public virtual void Build(ArcState pArcState, IBaseItemState pItemState,
+														float pArcAngle, ItemVisualSettings pSettings) {
 			vArcState = pArcState;
-			vSegState = pSegState;
+			vItemState = pItemState;
 			vSettings = pSettings;
 
 			////
@@ -44,7 +46,7 @@ namespace Hover.Cast.Display.Default {
 			labelObj.transform.localScale = new Vector3(1, 1, (vArcState.IsLeft ? 1 : -1));
 			
 			vLabel = labelObj.AddComponent<UiLabel>();
-			vLabel.IsLeft = vArcState.IsLeft;
+			vLabel.AlignLeft = vArcState.IsLeft;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -58,16 +60,16 @@ namespace Hover.Cast.Display.Default {
 		public virtual void Update() {
 			vMainAlpha = GetArcAlpha(vArcState)*vAnimAlpha;
 
-			if ( !vSegState.Item.IsEnabled ) {
+			if ( !vItemState.Item.IsEnabled ) {
 				vMainAlpha *= 0.333f;
 			}
 
-			ISelectableItem selItem = (vSegState.Item as ISelectableItem);
-			float high = vSegState.HighlightProgress;
-			bool showEdge = (vSegState.IsNearestHighlight && !vSegState.IsSelectionPrevented && 
+			ISelectableItem selItem = (vItemState.Item as ISelectableItem);
+			float high = vItemState.MaxHighlightProgress;
+			bool showEdge = (vItemState.IsNearestHighlight && !vItemState.IsSelectionPrevented && 
 				selItem != null && selItem.AllowSelection);
 			float edge = (showEdge ? high : 0);
-			float select = 1-(float)Math.Pow(1-vSegState.SelectionProgress, 1.5f);
+			float select = 1-(float)Math.Pow(1-vItemState.SelectionProgress, 1.5f);
 			float selectAlpha = select;
 
 			if ( selItem != null && selItem.IsStickySelected ) {
@@ -93,7 +95,7 @@ namespace Hover.Cast.Display.Default {
 			vLabel.FontName = vSettings.TextFont;
 			vLabel.FontSize = vSettings.TextSize;
 			vLabel.Color = vSettings.TextColor;
-			vLabel.Label = vSegState.Item.Label;
+			vLabel.Label = vItemState.Item.Label;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

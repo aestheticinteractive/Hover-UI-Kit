@@ -6,7 +6,6 @@
 		bool IsLeft { get; }
 
 		IInputMenu Menu { get; }
-		IInputCursor Cursor { get; }
 
 	}
 

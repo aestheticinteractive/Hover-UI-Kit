@@ -16,7 +16,9 @@ namespace Hover.Common.Display {
 
 		private int vFontSize;
 		private string vFontName;
-
+		private bool? vAlignLeft;
+		private float vLeftInset;
+		private float vRightInset;
 		private GameObject vCanvasGroupObj;
 		private GameObject vCanvasObj;
 		private GameObject vTextObj;
@@ -35,6 +37,10 @@ namespace Hover.Common.Display {
 			vCanvasGroupObj.AddComponent<CanvasGroup>();
 			vCanvasGroupObj.transform.localRotation = 
 				Quaternion.FromToRotation(Vector3.back, Vector3.down);
+			//TODO: hovercast uses: 
+			/*vCanvasGroupObj.transform.localRotation = 
+				Quaternion.FromToRotation(Vector3.back, Vector3.down)*
+				Quaternion.FromToRotation(Vector3.down, Vector3.left);*/
 
 			vCanvasObj = new GameObject("Canvas");
 			vCanvasObj.transform.SetParent(vCanvasGroupObj.transform, false);
@@ -60,6 +66,18 @@ namespace Hover.Common.Display {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
+		public void SetInset(bool pLeftSide, float pInset) {
+			if ( pLeftSide && Math.Abs(pInset-vLeftInset) > 0.001f ) {
+				vLeftInset = pInset;
+				UpdateSizing();
+			}
+			else if ( !pLeftSide && Math.Abs(pInset-vRightInset) > 0.001f ) {
+				vRightInset = pInset;
+				UpdateSizing();
+			}
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateSizing() {
 			TextPadW = vFontSize*0.6f;
 			TextW = CanvasW-TextPadW*2;
@@ -72,7 +90,8 @@ namespace Hover.Common.Display {
 			rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, CanvasH);
 
 			rect = vTextObj.GetComponent<RectTransform>();
-			rect.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, TextPadW, TextW);
+			rect.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left,
+				TextPadW+vLeftInset, TextW-vLeftInset-vRightInset);
 			rect.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, TextPadH, TextH);
 		}
 
@@ -108,7 +127,7 @@ namespace Hover.Common.Display {
 				textComp.text = value;
 			}
 		}
-
+		
 		/*--------------------------------------------------------------------------------------------*/
 		public float Alpha {
 			get {
@@ -155,6 +174,23 @@ namespace Hover.Common.Display {
 				text.color = value;
 			}
 		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public bool AlignLeft {
+			get {
+				return (vAlignLeft ?? false);
+			}
+			set {
+				if ( value == vAlignLeft ) {
+					return;
+				}
+				
+				vAlignLeft = value;
+				vCanvasObj.GetComponent<RectTransform>().pivot = new Vector2((value ? 0 : 1), 0.5f);
+				vTextObj.GetComponent<Text>().alignment = 
+					(value ? TextAnchor.MiddleLeft : TextAnchor.MiddleRight);
+			}
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -169,6 +205,13 @@ namespace Hover.Common.Display {
 		public Texture2D Texture {
 			get {
 				return (Texture2D)vTextObj.GetComponent<Text>().mainTexture;
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public Quaternion CanvasLocalRotation {
+			get {
+				return vCanvasGroupObj.transform.localRotation;
 			}
 		}
 

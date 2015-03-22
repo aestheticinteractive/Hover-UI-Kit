@@ -1,4 +1,4 @@
-﻿using Hover.Common.Items.Types;
+using Hover.Common.Items.Types;
 using UnityEngine;
 
 namespace Hover.Cast.Display.Default {
@@ -23,7 +23,7 @@ namespace Hover.Cast.Display.Default {
 
 		/*--------------------------------------------------------------------------------------------*/
 		protected override bool IsToggled() {
-			return ((IRadioItem)vSegState.Item).Value;
+			return ((IRadioItem)vItemState.Item).Value;
 		}
 
 	}

@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Hover.Cast.Devices.Leap.Look {
 
 	/*================================================================================================*/
-	public class LeapLookInputCursor : IInputCursor {
+	public class LeapLookInputCursor {
 
 		public bool IsLeft { get; private set; }
 		public bool IsAvailable { get; private set; }
