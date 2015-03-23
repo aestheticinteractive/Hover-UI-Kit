@@ -1,4 +1,3 @@
-using System;
 using Hover.Cast.Custom;
 using Hover.Cast.State;
 using Hover.Common.Items;
@@ -10,7 +9,7 @@ namespace Hover.Cast.Display {
 	public class UiPalm : MonoBehaviour {
 
 		private ArcState vArcState;
-		private ICustomPalm vCustom;
+		private IPalmVisualSettingsProvider vVisualSettingsProv;
 		private bool vRebuildOnUpdate;
 
 		private GameObject vRendererHold;
@@ -21,9 +20,9 @@ namespace Hover.Cast.Display {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal void Build(ArcState pArc, ICustomPalm pCustom) {
+		internal void Build(ArcState pArc, IPalmVisualSettingsProvider pVisualSettingsProv) {
 			vArcState = pArc;
-			vCustom = pCustom;
+			vVisualSettingsProv = pVisualSettingsProv;
 
 			vRendererHold = new GameObject("RendererHold");
 			vRendererHold.transform.SetParent(gameObject.transform, false);
@@ -67,17 +66,16 @@ namespace Hover.Cast.Display {
 			vPrevRendererObj = vRendererObj;
 
 			const float halfAngle = UiLevel.AngleFull/2f;
-			IBaseItem navItem = vArcState.GetLevelParentItem();
-			Type rendType = vCustom.GetPalmRenderer(navItem);
-			ItemVisualSettings sett = vCustom.GetPalmSettings(navItem);
+			IBaseItem item = vArcState.GetLevelParentItem();
+			IPalmVisualSettings visualSett = vVisualSettingsProv.GetSettings(item);
 
 			vRendererHold.SetActive(true); //ensures that Awake() is called in the renderers
 
 			vRendererObj = new GameObject("Renderer");
 			vRendererObj.transform.SetParent(vRendererHold.transform, false);
 
-			vRenderer = (IUiPalmRenderer)vRendererObj.AddComponent(rendType);
-			vRenderer.Build(vArcState, sett, -halfAngle, halfAngle);
+			vRenderer = (IUiPalmRenderer)vRendererObj.AddComponent(visualSett.Renderer);
+			vRenderer.Build(vArcState, visualSett, -halfAngle, halfAngle);
 		}
 
 	}

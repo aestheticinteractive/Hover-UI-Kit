@@ -1,5 +1,6 @@
 using System;
 using Hover.Cast.Custom;
+using Hover.Cast.Custom.Standard;
 using Hover.Cast.State;
 using Hover.Common.Items.Types;
 using UnityEngine;
@@ -14,7 +15,7 @@ namespace Hover.Cast.Display.Default {
 		protected IBaseItemState vItemState;
 		protected float vAngle0;
 		protected float vAngle1;
-		protected ItemVisualSettings vSettings;
+		protected ItemVisualSettingsStandard vSettings;
 		protected ISliderItem vSliderItem;
 
 		protected float vGrabArcHalf;
@@ -43,12 +44,12 @@ namespace Hover.Cast.Display.Default {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void Build(ArcState pArcState, IBaseItemState pItemState,
-														float pArcAngle, ItemVisualSettings pSettings) {
+													float pArcAngle, IItemVisualSettings pSettings) {
 			vArcState = pArcState;
 			vItemState = pItemState;
 			vAngle0 = -pArcAngle/2f+UiSlice.AngleInset;
 			vAngle1 = pArcAngle/2f-UiSlice.AngleInset;
-			vSettings = pSettings;
+			vSettings = (ItemVisualSettingsStandard)pSettings;
 			vSliderItem = (ISliderItem)vItemState.Item;
 
 			const float pi = (float)Math.PI;

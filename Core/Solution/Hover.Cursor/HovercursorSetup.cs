@@ -16,10 +16,9 @@ namespace Hover.Cursor {
 
 		public HovercursorVisualSettings DefaultVisualSettings;
 		public HovercursorInputProvider InputProvider;
-		public Transform CameraReference;
+		public Transform CameraTransform;
 
 		private HovercursorState vState;
-		private bool vComponentSuccess;
 		private IDictionary<CursorType, UiCursor> vCursorMap;
 
 
@@ -42,20 +41,19 @@ namespace Hover.Cursor {
 
 			InputProvider = UnityUtil.FindComponentOrFail(InputProvider, prefix);
 
-			if ( CameraReference == null ) {
-				CameraReference = gameObject.transform;
+			if ( CameraTransform == null ) {
+				CameraTransform = gameObject.transform;
 			}
 
 			vState = new HovercursorState(gameObject.transform, InputProvider,
-				DefaultVisualSettings, CameraReference);
-			vComponentSuccess = true;
+				DefaultVisualSettings, CameraTransform);
 
 			vCursorMap = new Dictionary<CursorType, UiCursor>();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			if ( !vComponentSuccess ) {
+			if ( vState == null ) {
 				return;
 			}
 
@@ -79,7 +77,7 @@ namespace Hover.Cursor {
 				var cursorObj = new GameObject("Cursor-"+cursorType);
 				cursorObj.transform.SetParent(gameObject.transform, false);
 				UiCursor uiCursor = cursorObj.AddComponent<UiCursor>();
-				uiCursor.Build(cursor, visualSett, CameraReference);
+				uiCursor.Build(cursor, visualSett, CameraTransform);
 
 				vCursorMap.Add(cursorType, uiCursor);
 				vState.SetCursorTransform(cursorType, cursorObj.transform);

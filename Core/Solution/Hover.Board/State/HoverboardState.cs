@@ -29,8 +29,8 @@ namespace Hover.Board.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public HoverboardState(InteractionSettings pInterSett, ItemPanel[] pItemPanels, 
-												HovercursorSetup pHovercusorSetup, Transform pBaseTx) {
+		public HoverboardState(ItemPanel[] pItemPanels, HovercursorSetup pHovercusorSetup,
+													InteractionSettings pInterSett, Transform pBaseTx) {
 			vInteractSett = pInterSett;
 			vHovercusorSetup = pHovercusorSetup;
 			vBaseTx = pBaseTx;

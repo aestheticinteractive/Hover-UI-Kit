@@ -37,10 +37,6 @@ namespace Hover.Common.Display {
 			vCanvasGroupObj.AddComponent<CanvasGroup>();
 			vCanvasGroupObj.transform.localRotation = 
 				Quaternion.FromToRotation(Vector3.back, Vector3.down);
-			//TODO: hovercast uses: 
-			/*vCanvasGroupObj.transform.localRotation = 
-				Quaternion.FromToRotation(Vector3.back, Vector3.down)*
-				Quaternion.FromToRotation(Vector3.down, Vector3.left);*/
 
 			vCanvasObj = new GameObject("Canvas");
 			vCanvasObj.transform.SetParent(vCanvasGroupObj.transform, false);

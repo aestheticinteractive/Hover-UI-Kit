@@ -27,7 +27,7 @@ namespace Hover.Cast.Display {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		internal void Build(ArcState pArcState, BaseItemState pItemState, float pArcAngle, 
-																			ICustomItem pCustom) {
+																IItemVisualSettings pVisualSettings) {
 			vArcState = pArcState;
 			vItemState = pItemState;
 			ArcAngle = pArcAngle;
@@ -44,14 +44,11 @@ namespace Hover.Cast.Display {
 
 			////
 
-			Type rendType = pCustom.GetSegmentRenderer(vItemState.Item);
-			ItemVisualSettings sett = pCustom.GetSegmentSettings(vItemState.Item);
-
 			var rendObj = new GameObject("Renderer");
 			rendObj.transform.SetParent(gameObject.transform, false);
 
-			vRenderer = (IUiItemRenderer)rendObj.AddComponent(rendType);
-			vRenderer.Build(vArcState, vItemState, pArcAngle, sett);
+			vRenderer = (IUiItemRenderer)rendObj.AddComponent(pVisualSettings.Renderer);
+			vRenderer.Build(vArcState, vItemState, pArcAngle, pVisualSettings);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

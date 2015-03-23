@@ -27,7 +27,7 @@ namespace Hover.Cast.Display.Default {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public override void Build(ArcState pArcState, IBaseItemState pItemState,
-														float pArcAngle, ItemVisualSettings pSettings) {
+													float pArcAngle, IItemVisualSettings pSettings) {
 			base.Build(pArcState, pItemState, pArcAngle, pSettings);
 
 			vIcon = GameObject.CreatePrimitive(PrimitiveType.Quad);
@@ -36,7 +36,8 @@ namespace Hover.Cast.Display.Default {
 			vIcon.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
 			vIcon.renderer.sharedMaterial.color = Color.clear;
 			vIcon.renderer.sharedMaterial.mainTexture = GetIconTexture();
-			vIcon.transform.localRotation = vLabel.CanvasLocalRotation;
+			vIcon.transform.localRotation = 
+				vLabel.gameObject.transform.localRotation*vLabel.CanvasLocalRotation;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

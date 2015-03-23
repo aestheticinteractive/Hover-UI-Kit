@@ -12,13 +12,13 @@ namespace Hover.Cast.Devices.Leap.Look {
 		public Vector3 Position { get; private set; }
 		public Quaternion Rotation { get; private set; }
 
-		private readonly LeapLookInputSettings vSettings;
+		private readonly LookInputSettings vSettings;
 		private IInputMenu vOppositeHandMenu;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public LeapLookInputCursor(bool pIsLeft, LeapLookInputSettings pSettings) {
+		public LeapLookInputCursor(bool pIsLeft, LookInputSettings pSettings) {
 			IsLeft = pIsLeft;
 			vSettings = pSettings;
 		}

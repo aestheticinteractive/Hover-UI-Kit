@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Hover.Cast.Display.Default {
 
 	/*================================================================================================*/
-	public class UiSlice {
+	public class UiSlice { //TODO: use UiHoverMesh
 
 		public const float AngleInset = 0.0012f;
 

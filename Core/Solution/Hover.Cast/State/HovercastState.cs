@@ -1,11 +1,11 @@
 using System.Linq;
 using Hover.Cast.Custom;
 using Hover.Cast.Input;
-using Hover.Cast.Items;
 using UnityEngine;
 using Hover.Cursor.State;
 using Hover.Cursor;
 using Hover.Common.Input;
+using Hover.Common.Items.Groups;
 using Hover.Common.State;
 
 namespace Hover.Cast.State {
@@ -16,29 +16,28 @@ namespace Hover.Cast.State {
 		public delegate void SideChangeHandler();
 		public event SideChangeHandler OnSideChange;
 
-		public HovercastItemsProvider NavigationProvider { get; private set; }
-		public HovercastCustomizationProvider CustomizationProvider { get; private set; }
-		public HovercastInputProvider InputProvider { get; private set; }
-
 		public ArcState Arc { get; private set; }
 		public ICursorState Cursor { get; private set; }
+		public Transform BaseTransform { get; private set; }
 		public Transform MenuTransform { get; private set; }
 
-		private HovercursorSetup vHovercursorSetup;
-		private Transform vBaseTx;
+		private readonly HovercursorSetup vHovercursorSetup;
+		private readonly InteractionSettings vInteractSett;
+		private readonly IInputProvider vInputProv;
 		private bool? vCurrIsMenuOnLeftSide;
+		private ICursorInteractState vCursorInteract;
 		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public HovercastState(HovercastItemsProvider pNav, HovercastCustomizationProvider pCustom,
-				                      HovercastInputProvider pInput, HovercursorSetup pHovercusorSetup,
-				                      Transform pBaseTx) {
-			NavigationProvider = pNav;
-			CustomizationProvider = pCustom;
-			InputProvider = pInput;
+		public HovercastState(IItemHierarchy pItemHierarchy, HovercursorSetup pHovercusorSetup, 
+				InteractionSettings pInterSett, IInputProvider pInputProv, Transform pBaseTx) {
+			vInteractSett = pInterSett;
 			vHovercursorSetup = pHovercusorSetup;
-			vBaseTx = pBaseTx;
+			vInputProv = pInputProv;
+
+			BaseTransform = pBaseTx;
+			Arc = new ArcState(pItemHierarchy, vInteractSett);
 
 			OnSideChange += (() => {});
 		}
@@ -52,8 +51,8 @@ namespace Hover.Cast.State {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateAfterInput() {
-			bool isMenuOnLeft = CustomizationProvider.GetInteractionSettings().IsMenuOnLeftSide;
-			IInputSide menuSide = InputProvider.GetSide(isMenuOnLeft);
+			bool isMenuOnLeft = vInteractSett.IsMenuOnLeftSide;
+			IInputSide menuSide = vInputProv.GetSide(isMenuOnLeft);
 			bool isSideChange = (isMenuOnLeft != vCurrIsMenuOnLeftSide);
 			vCurrIsMenuOnLeftSide = isMenuOnLeft;
 			
@@ -64,11 +63,12 @@ namespace Hover.Cast.State {
 
 				CursorType cursorType = (isMenuOnLeft ? CursorType.RightIndex : CursorType.LeftIndex);
 				Cursor = vHovercursorSetup.State.GetCursorState(cursorType);
-				Cursor.AddOrGetInteraction(CursorDomain.Hovercast, "");
+				vCursorInteract = Cursor.AddOrGetInteraction(CursorDomain.Hovercast, "");
 			}
 
 			Arc.UpdateAfterInput(menuSide.Menu);
 			Arc.UpdateWithCursor(Cursor);
+			vCursorInteract.DisplayStrength = Arc.DisplayStrength;
 			
 			if ( isSideChange ) {
 				OnSideChange();

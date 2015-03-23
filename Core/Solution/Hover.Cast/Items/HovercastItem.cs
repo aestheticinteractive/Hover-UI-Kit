@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Hover.Cast.Items {
 	
 	/*================================================================================================*/
-	public class HovercastItem : MonoBehaviour {
+	public class HovercastItem : MonoBehaviour, IHovercommonItem {
 
 		public SelectableItemType Type;
 		public string Id = "";
@@ -103,7 +103,7 @@ namespace Hover.Cast.Items {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private IBaseItem[] GetChildItems() {
-			return HovercastItemsProvider.GetChildItemsFromGameObject(gameObject);
+			return HovercastItemHierarchy.GetChildItemsFromGameObject(gameObject);
 		}
 
 	}

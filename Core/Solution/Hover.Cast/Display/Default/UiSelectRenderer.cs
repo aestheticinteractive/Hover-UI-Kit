@@ -1,5 +1,6 @@
 using System;
 using Hover.Cast.Custom;
+using Hover.Cast.Custom.Standard;
 using Hover.Cast.State;
 using Hover.Common.Display;
 using Hover.Common.Items;
@@ -16,7 +17,7 @@ namespace Hover.Cast.Display.Default {
 
 		protected ArcState vArcState;
 		protected IBaseItemState vItemState;
-		protected ItemVisualSettings vSettings;
+		protected ItemVisualSettingsStandard vSettings;
 
 		protected float vMainAlpha;
 		protected float vAnimAlpha;
@@ -28,10 +29,10 @@ namespace Hover.Cast.Display.Default {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void Build(ArcState pArcState, IBaseItemState pItemState,
-														float pArcAngle, ItemVisualSettings pSettings) {
+													float pArcAngle, IItemVisualSettings pSettings) {
 			vArcState = pArcState;
 			vItemState = pItemState;
-			vSettings = pSettings;
+			vSettings = (ItemVisualSettingsStandard)pSettings;
 
 			////
 
@@ -43,6 +44,7 @@ namespace Hover.Cast.Display.Default {
 			var labelObj = new GameObject("Label");
 			labelObj.transform.SetParent(gameObject.transform, false);
 			labelObj.transform.localPosition = new Vector3(0, 0, 1);
+			labelObj.transform.localRotation = Quaternion.FromToRotation(Vector3.back, Vector3.right);
 			labelObj.transform.localScale = new Vector3(1, 1, (vArcState.IsLeft ? 1 : -1));
 			
 			vLabel = labelObj.AddComponent<UiLabel>();
@@ -90,6 +92,11 @@ namespace Hover.Cast.Display.Default {
 			vSlice.UpdateEdge(colEdge);
 			vSlice.UpdateHighlight(colHigh, high);
 			vSlice.UpdateSelect(colSel, select);
+
+			if ( vSettings.TextSize != vLabel.FontSize ) {
+				vLabel.SetSize(ArcCanvasThickness*ArcCanvasScale, 
+					vSettings.TextSize*1.5f*ArcCanvasScale, ArcCanvasScale);
+			}
 
 			vLabel.Alpha = vMainAlpha;
 			vLabel.FontName = vSettings.TextFont;

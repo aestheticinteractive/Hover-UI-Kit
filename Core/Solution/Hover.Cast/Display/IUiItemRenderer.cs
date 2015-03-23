@@ -12,7 +12,7 @@ namespace Hover.Cast.Display {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		void Build(ArcState pArcState, IBaseItemState pItemState, float pArcAngle,
-																		ItemVisualSettings pSettings);
+																		IItemVisualSettings pSettings);
 
 		/*--------------------------------------------------------------------------------------------*/
 		void HandleChangeAnimation(bool pFadeIn, int pDirection, float pProgress);

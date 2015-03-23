@@ -21,7 +21,7 @@ namespace Hover.Cast.Display {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal void Build(ArcState pArcState, ICustomItem pCustom) {
+		internal void Build(ArcState pArcState, IItemVisualSettingsProvider pVisualSettingsProv) {
 			vArcState = pArcState;
 			vItemObjList = new List<GameObject>();
 
@@ -41,13 +41,14 @@ namespace Hover.Cast.Display {
 				float itemPerc = itemState.Item.Height/sizeSum;
 				float itemAngle = AngleFull*itemPerc;
 				float itemDegHalf = itemAngle*ToDegrees/2f;
+				IItemVisualSettings visualSett = pVisualSettingsProv.GetSettings(itemState.Item);
 
-				var itemObj = new GameObject("Segment"+vItemObjList.Count);
+				var itemObj = new GameObject("Item"+vItemObjList.Count);
 				itemObj.transform.SetParent(gameObject.transform, false);
 				vItemObjList.Add(itemObj);
 
 				UiItem uiItem = itemObj.AddComponent<UiItem>();
-				uiItem.Build(vArcState, itemState, itemAngle, pCustom);
+				uiItem.Build(vArcState, itemState, itemAngle, visualSett);
 
 				degree -= itemDegHalf;
 				itemObj.transform.localRotation = Quaternion.AngleAxis(degree, Vector3.up);

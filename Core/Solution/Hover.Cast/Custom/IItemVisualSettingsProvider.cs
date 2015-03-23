@@ -1,15 +1,16 @@
-using Hover.Cast.Custom;
-using Hover.Cast.State;
+﻿using Hover.Common.Items;
 
-namespace Hover.Cast.Display {
+namespace Hover.Cast.Custom {
 
 	/*================================================================================================*/
-	public interface IUiPalmRenderer {
+	public interface IItemVisualSettingsProvider {
+
+		bool IsDefaultSettingsComponent { get; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		void Build(ArcState pArcState, IPalmVisualSettings pSettings, float pAngle0, float pAngle1);
+		IItemVisualSettings GetSettings(IBaseItem pItem);
 
 	}
 

@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Hover.cast.Custom.Standard;
 using Hover.Cast.Custom;
 using Hover.Cast.Display;
 using Hover.Cast.Input;
@@ -13,14 +13,14 @@ namespace Hover.Cast {
 	/*================================================================================================*/
 	public class HovercastSetup : MonoBehaviour {
 
-		public HovercastItemsProvider NavigationProvider;
-		public HovercastCustomizationProvider CustomizationProvider;
-		public HovercastInputProvider InputProvider;
-		public Transform OptionalCameraReference;
+		public HovercastItemHierarchy ItemHierarchy;
 		public HovercursorSetup Hovercursor;
+		public HovercastItemVisualSettings DefaultItemVisualSettings;
+		public HovercastPalmVisualSettings DefaultPalmVisualSettings;
+		public HovercastInteractionSettings InteractionSettings;
+		public HovercastInputProvider InputProvider;
 		
 		private HovercastState vState;
-		private bool vFailed;
 		private UiMenu vUiMenu;
 
 
@@ -36,72 +36,50 @@ namespace Hover.Cast {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
-			const string prefix = "Hoverboard";
-			
-			/*DefaultItemVisualSettings = UnityUtil.CreateComponent<HoverboardItemVisualSettings,
-				HoverboardItemVisualSettingsStandard>(DefaultItemVisualSettings, gameObject, prefix);
-			DefaultItemVisualSettings.IsDefaultSettingsComponent = true;
-			
-			ProjectionVisualSettings = UnityUtil.FindComponentOrCreate<
-				HoverboardProjectionVisualSettings, HoverboardProjectionVisualSettingsStandard>(
-					ProjectionVisualSettings,gameObject,prefix);
-			
-			InteractionSettings = UnityUtil.FindComponentOrCreate<HoverboardInteractionSettings,
-				HoverboardInteractionSettings>(InteractionSettings, gameObject, prefix);*/
+			const string prefix = "Hovercast";
 
+			ItemHierarchy = UnityUtil.FindComponentOrFail(ItemHierarchy, prefix);
 			Hovercursor = UnityUtil.FindComponentOrFail(Hovercursor, prefix);
 
-			if ( NavigationProvider == null ) {
-				throw FailMissing("Navigation Provider");
-			}
+			DefaultItemVisualSettings = UnityUtil.CreateComponent<HovercastItemVisualSettings,
+				HovercastItemVisualSettingsStandard>(DefaultItemVisualSettings, gameObject, prefix);
+			DefaultItemVisualSettings.IsDefaultSettingsComponent = true;
 
-			if ( CustomizationProvider == null ) {
-				throw FailMissing("Customization Provider");
-			}
+			DefaultPalmVisualSettings = UnityUtil.CreateComponent<HovercastPalmVisualSettings,
+				HovercastPalmVisualSettingsStandard>(DefaultPalmVisualSettings, gameObject, prefix);
+			DefaultPalmVisualSettings.IsDefaultSettingsComponent = true;
 
-			if ( InputProvider == null ) {
-				throw FailMissing("Input Provider");
-			}
+			InteractionSettings = UnityUtil.FindComponentOrCreate<HovercastInteractionSettings,
+				HovercastInteractionSettings>(InteractionSettings, gameObject, prefix);
 
-			if ( OptionalCameraReference == null ) {
-				OptionalCameraReference = gameObject.transform;
-			}
+			InputProvider = UnityUtil.FindComponentOrFail(InputProvider, prefix);
 
-			vState = new HovercastState(NavigationProvider, CustomizationProvider, 
-				InputProvider, Hovercursor, gameObject.transform);
+			vState = new HovercastState(ItemHierarchy.GetRoot(), Hovercursor, 
+				InteractionSettings.GetSettings(), InputProvider, gameObject.transform);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Start() {
-			if ( vFailed ) {
+			if ( vState == null ) {
 				return;
 			}
 
 			var menuObj = new GameObject("Menu");
 			menuObj.transform.SetParent(gameObject.transform, false);
 			vUiMenu = menuObj.AddComponent<UiMenu>();
-			vUiMenu.Build(vState, CustomizationProvider, CustomizationProvider);
+			vUiMenu.Build(vState, DefaultItemVisualSettings, DefaultPalmVisualSettings);
 
 			vState.SetReferences(menuObj.transform);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			if ( vFailed ) {
+			if ( vState == null ) {
 				return;
 			}
 
 			InputProvider.UpdateInput();
 			vState.UpdateAfterInput();
-		}
-		
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		private Exception FailMissing(string pName) {
-			vFailed = true;
-			gameObject.SetActive(false);
-			return new Exception("Hovercast | '"+pName+"' must be set.");
 		}
 
 	}

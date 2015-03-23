@@ -12,7 +12,7 @@ namespace Hover.Cast.Display {
 		private const float LevelChangeDistance = 0.5f;
 
 		private ArcState vArcState;
-		private ICustomItem vCustom;
+		private IItemVisualSettingsProvider vVisualSettingsProv;
 
 		private GameObject vPrevLevelObj;
 		private GameObject vCurrLevelObj;
@@ -22,9 +22,9 @@ namespace Hover.Cast.Display {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal void Build(ArcState pArc, ICustomItem pCustom) {
+		internal void Build(ArcState pArc, IItemVisualSettingsProvider pVisualSettingsProv) {
 			vArcState = pArc;
-			vCustom = pCustom;
+			vVisualSettingsProv = pVisualSettingsProv;
 
 			vArcState.OnLevelChange += HandleLevelChange;
 			UpdateAfterSideChange();
@@ -46,7 +46,7 @@ namespace Hover.Cast.Display {
 			vCurrLevelObj.transform.localScale = Vector3.one;
 
 			UiLevel level = vCurrLevelObj.AddComponent<UiLevel>();
-			level.Build(vArcState, vCustom);
+			level.Build(vArcState, vVisualSettingsProv);
 			level.HandleChangeAnimation(true, 0, 1);
 		}
 
@@ -67,7 +67,7 @@ namespace Hover.Cast.Display {
 			vCurrLevelObj.transform.SetParent(gameObject.transform, false);
 
 			UiLevel level = vCurrLevelObj.AddComponent<UiLevel>();
-			level.Build(vArcState, vCustom);
+			level.Build(vArcState, vVisualSettingsProv);
 
 			////
 

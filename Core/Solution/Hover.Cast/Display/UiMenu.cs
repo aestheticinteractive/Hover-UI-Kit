@@ -20,7 +20,8 @@ namespace Hover.Cast.Display {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal void Build(HovercastState pState, ICustomItem pCustomSeg, ICustomPalm pCustomPalm) {
+		internal void Build(HovercastState pState, IItemVisualSettingsProvider pItemVisualSettingsProv,
+												IPalmVisualSettingsProvider pPalmVisualSettingsProv) {
 			vState = pState;
 			vLeftRot = Quaternion.identity;
 			vRightRot = Quaternion.AngleAxis(180, Vector3.up);
@@ -28,12 +29,12 @@ namespace Hover.Cast.Display {
 			var palmObj = new GameObject("Palm");
 			palmObj.transform.SetParent(gameObject.transform, false);
 			vUiPalm = palmObj.AddComponent<UiPalm>();
-			vUiPalm.Build(vState.Arc, pCustomPalm);
+			vUiPalm.Build(vState.Arc, pPalmVisualSettingsProv);
 
 			var arcObj = new GameObject("Arc");
 			arcObj.transform.SetParent(gameObject.transform, false);
 			vUiArc = arcObj.AddComponent<UiArc>();
-			vUiArc.Build(vState.Arc, pCustomSeg);
+			vUiArc.Build(vState.Arc, pItemVisualSettingsProv);
 
 			vState.OnSideChange += HandleSideChange;
 		}

@@ -15,11 +15,11 @@ namespace Hover.Board {
 	/*================================================================================================*/
 	public class HoverboardSetup : MonoBehaviour {
 
+		public HoverboardPanel[] Panels;
+		public HovercursorSetup Hovercursor;
 		public HoverboardItemVisualSettings DefaultItemVisualSettings;
 		public HoverboardProjectionVisualSettings ProjectionVisualSettings;
 		public HoverboardInteractionSettings InteractionSettings;
-		public HoverboardPanel[] Panels;
-		public HovercursorSetup Hovercursor;
 
 		private HoverboardState vState;
 		private UiPanel[] vUiPanels;
@@ -40,6 +40,9 @@ namespace Hover.Board {
 		public void Awake() {
 			const string prefix = "Hoverboard";
 
+			Panels = UnityUtil.FindComponentsOrFail(Panels, prefix);
+			Hovercursor = UnityUtil.FindComponentOrFail(Hovercursor, prefix);
+
 			DefaultItemVisualSettings = UnityUtil.CreateComponent<HoverboardItemVisualSettings,
 				HoverboardItemVisualSettingsStandard>(DefaultItemVisualSettings, gameObject, prefix);
 			DefaultItemVisualSettings.IsDefaultSettingsComponent = true;
@@ -51,11 +54,8 @@ namespace Hover.Board {
 			InteractionSettings = UnityUtil.FindComponentOrCreate<HoverboardInteractionSettings,
 				HoverboardInteractionSettings>(InteractionSettings, gameObject, prefix);
 
-			Panels = UnityUtil.FindComponentsOrFail(Panels, prefix);
-			Hovercursor = UnityUtil.FindComponentOrFail(Hovercursor, prefix);
-
-			vState = new HoverboardState(InteractionSettings.GetSettings(),
-				Panels.Select(x => x.GetPanel()).ToArray(), Hovercursor, gameObject.transform);
+			vState = new HoverboardState(Panels.Select(x => x.GetPanel()).ToArray(), Hovercursor, 
+				InteractionSettings.GetSettings(), gameObject.transform);
 
 			vProjMap = new Dictionary<CursorType, UiProjection>();
 		}

@@ -1,5 +1,6 @@
 using System;
 using Hover.Cast.Custom;
+using Hover.Cast.Custom.Standard;
 using Hover.Cast.State;
 using Hover.Common.Display;
 using Hover.Common.Util;
@@ -16,9 +17,8 @@ namespace Hover.Cast.Display.Default {
 		protected int vMeshSteps;
 
 		protected float vInnerRadius;
-		protected float vDiameter;
 		protected float vMainAlpha;
-		private ItemVisualSettings vSettings;
+		private PalmVisualSettingsStandard vSettings;
 
 		protected GameObject vBackground;
 		protected UiLabel vLabel;
@@ -26,16 +26,14 @@ namespace Hover.Cast.Display.Default {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Build(ArcState pArcState, ItemVisualSettings pSettings, 
+		public virtual void Build(ArcState pArcState, IPalmVisualSettings pSettings, 
 																		float pAngle0, float pAngle1) {
 			vArcState = pArcState;
-			vSettings = pSettings;
+			vSettings = (PalmVisualSettingsStandard)pSettings;
 			vAngle0 = pAngle0;
 			vAngle1 = pAngle1;
 			vMeshSteps = (int)Math.Round(Math.Max(2, (vAngle1-vAngle0)/Math.PI*60));
-
 			vInnerRadius = 0.17f;
-			vDiameter = UiSelectRenderer.ArcCanvasThickness;
 
 			////
 
@@ -54,6 +52,7 @@ namespace Hover.Cast.Display.Default {
 			var labelObj = new GameObject("Label");
 			labelObj.transform.SetParent(gameObject.transform, false);
 			labelObj.transform.localPosition = new Vector3(0, 0, vInnerRadius);
+			labelObj.transform.localRotation = Quaternion.FromToRotation(Vector3.back, Vector3.right);
 			labelObj.transform.localScale = new Vector3(1, 1, (vArcState.IsLeft ? 1 : -1));
 
 			vLabel = labelObj.AddComponent<UiLabel>();
@@ -75,6 +74,13 @@ namespace Hover.Cast.Display.Default {
 			colBg.a *= vMainAlpha;
 
 			vBackground.renderer.sharedMaterial.color = colBg;
+
+			if ( vSettings.TextSize != vLabel.FontSize ) {
+				const float scale = UiSelectRenderer.ArcCanvasScale;
+
+				vLabel.SetSize(UiSelectRenderer.ArcCanvasThickness*scale, 
+					vSettings.TextSize*1.5f*scale, scale);
+			}
 
 			vLabel.Alpha = vMainAlpha;
 			vLabel.FontName = vSettings.TextFont;
