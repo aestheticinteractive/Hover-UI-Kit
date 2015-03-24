@@ -88,7 +88,9 @@ namespace Hover.Cast.State {
 			}
 
 			foreach ( BaseItemState item in vItems ) {
-				item.UpdateSelectionProcess();
+				if ( item.UpdateSelectionProcess() ) { //returns true if selection occurred
+					break; //exit loop, since the vItems list changes after a selection
+				}
 			}
 		}
 

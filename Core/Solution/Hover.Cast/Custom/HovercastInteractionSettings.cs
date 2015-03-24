@@ -12,6 +12,10 @@ namespace Hover.Cast.Custom {
 		public float StickyReleaseDistance = 0.05f;
 		public float SelectionMilliseconds = 400;
 
+		public HovercastCursorType[] Cursors = {
+			HovercastCursorType.Index
+		};
+
 		private InteractionSettings vSettings;
 
 
@@ -26,6 +30,7 @@ namespace Hover.Cast.Custom {
 				vSettings.HighlightDistanceMax = HighlightDistanceMax;
 				vSettings.StickyReleaseDistance = StickyReleaseDistance;
 				vSettings.SelectionMilliseconds = SelectionMilliseconds;
+				vSettings.Cursors = Cursors;
 			}
 
 			return vSettings;

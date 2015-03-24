@@ -17,7 +17,7 @@ namespace Hover.Cursor.State {
 		ICursorInteractState AddOrGetInteraction(CursorDomain pDomain, string pId);
 
 		/*--------------------------------------------------------------------------------------------*/
-		bool RemoveInteraction(CursorDomain pDomain, string pId);
+		bool RemoveInteraction(CursorDomain pDomain, string pId); //TODO: perform this every frame?
 
 		/*--------------------------------------------------------------------------------------------*/
 		float GetMaxDisplayStrength();

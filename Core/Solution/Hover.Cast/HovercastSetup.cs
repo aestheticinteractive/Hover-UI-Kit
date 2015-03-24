@@ -92,10 +92,6 @@ namespace Hover.Cast {
 			else {
 				interSett.ScaleMultiplier = 1;
 			}
-
-			////
-			
-			//TODO: handle cursor-switching
 		}
 
 	}
