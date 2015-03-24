@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Hover.Cast.Display.Default {
+namespace Hover.Cast.Display.Standard {
 
 	/*================================================================================================*/
 	public class UiSliderGrabRenderer : UiBaseIconRenderer {

@@ -9,7 +9,7 @@ namespace Hover.Cast.Display {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		void Build(ArcState pArcState, IPalmVisualSettings pSettings, float pAngle0, float pAngle1);
+		void Build(MenuState pMenuState, IPalmVisualSettings pSettings, float pAngle0, float pAngle1);
 
 	}
 

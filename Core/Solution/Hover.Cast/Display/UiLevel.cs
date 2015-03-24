@@ -15,19 +15,19 @@ namespace Hover.Cast.Display {
 		public const float AngleFull = DegreeFull/ToDegrees;
 		public static readonly Vector3 PushFromHand = new Vector3(0, -0.2f, 0);
 
-		private ArcState vArcState;
+		private MenuState vMenuState;
 		private IList<GameObject> vItemObjList;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal void Build(ArcState pArcState, IItemVisualSettingsProvider pVisualSettingsProv) {
-			vArcState = pArcState;
+		internal void Build(MenuState pMenuState, IItemVisualSettingsProvider pVisualSettingsProv) {
+			vMenuState = pMenuState;
 			vItemObjList = new List<GameObject>();
 
 			gameObject.transform.localPosition = PushFromHand;
 
-			BaseItemState[] itemStates = vArcState.GetItems();
+			BaseItemState[] itemStates = vMenuState.GetItems();
 			int itemCount = itemStates.Length;
 			float degree = 170 + DegreeFull/2f;
 			float sizeSum = 0;
@@ -48,7 +48,7 @@ namespace Hover.Cast.Display {
 				vItemObjList.Add(itemObj);
 
 				UiItem uiItem = itemObj.AddComponent<UiItem>();
-				uiItem.Build(vArcState, itemState, itemAngle, visualSett);
+				uiItem.Build(vMenuState, itemState, itemAngle, visualSett);
 
 				degree -= itemDegHalf;
 				itemObj.transform.localRotation = Quaternion.AngleAxis(degree, Vector3.up);

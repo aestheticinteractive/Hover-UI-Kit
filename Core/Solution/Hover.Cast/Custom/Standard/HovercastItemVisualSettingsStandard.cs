@@ -1,7 +1,7 @@
 ﻿using System;
 using Hover.Cast.Custom;
 using Hover.Cast.Custom.Standard;
-using Hover.Cast.Display.Default;
+using Hover.Cast.Display.Standard;
 using Hover.Common.Items;
 using Hover.Common.Items.Types;
 using UnityEngine;

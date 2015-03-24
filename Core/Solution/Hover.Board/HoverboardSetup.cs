@@ -82,7 +82,6 @@ namespace Hover.Board {
 			////
 
 			InteractionSettings interSett = InteractionSettings.GetSettings();
-			IProjectionVisualSettings projSett = ProjectionVisualSettings.GetSettings();
 
 			if ( interSett.ApplyScaleMultiplier ) {
 				Vector3 worldUp = transform.TransformVector(Vector3.up);
@@ -96,6 +95,7 @@ namespace Hover.Board {
 
 			CursorType[] removeCursorTypes = vProjMap.Keys.Except(interSett.Cursors).ToArray();
 			CursorType[] addCursorTypes = interSett.Cursors.Except(vProjMap.Keys).ToArray();
+			IProjectionVisualSettings projSett = ProjectionVisualSettings.GetSettings();
 
 			foreach ( CursorType cursorType in removeCursorTypes ) {
 				UiProjection uiProj = vProjMap[cursorType];

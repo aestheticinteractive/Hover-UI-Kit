@@ -9,7 +9,6 @@ namespace Hover.Common.State {
 		IBaseItem Item { get; }
 
 		bool IsSelectionPrevented { get; }
-		int DisplaySelectionPreventions { get; }
 		float MinHighlightDistance { get; }
 		float MaxHighlightProgress { get; }
 		bool IsNearestHighlight { get; }
@@ -22,6 +21,9 @@ namespace Hover.Common.State {
 
 		/*--------------------------------------------------------------------------------------------*/
 		float GetHighlightProgress(CursorType pCursorType);
+
+		/*--------------------------------------------------------------------------------------------*/
+		void PreventSelectionViaDisplay(string pName, bool pPrevent);
 
 	}
 

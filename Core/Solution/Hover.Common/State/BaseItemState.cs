@@ -14,12 +14,12 @@ namespace Hover.Common.State {
 		public IBaseItem Item { get; private set; }
 
 		public bool IsSelectionPrevented { get; private set; }
-		public int DisplaySelectionPreventions { get; set; }
 
 		private readonly BaseInteractionSettings vSettings;
 		private readonly IDictionary<CursorType, float> vHighlightDistanceMap;
 		private readonly IDictionary<CursorType, float> vHighlightProgressMap;
 		private readonly IDictionary<CursorType, bool> vIsNearestHighlightMap;
+		private readonly IDictionary<string, bool> vPreventSelectionViaDisplayMap;
 
 		private Func<Vector3, float> vCursorDistanceFunc;
 		private DateTime? vSelectionStart;
@@ -35,6 +35,7 @@ namespace Hover.Common.State {
 			vHighlightDistanceMap = new Dictionary<CursorType, float>();
 			vHighlightProgressMap = new Dictionary<CursorType, float>();
 			vIsNearestHighlightMap = new Dictionary<CursorType, bool>();
+			vPreventSelectionViaDisplayMap = new Dictionary<string, bool>();
 
 			foreach ( CursorType cursorType in Enum.GetValues(typeof(CursorType)) ) {
 				vHighlightDistanceMap[cursorType] = float.MaxValue;
@@ -102,11 +103,18 @@ namespace Hover.Common.State {
 			vCursorDistanceFunc = pFunc;
 		}
 
+		/*--------------------------------------------------------------------------------------------*/
+		public void PreventSelectionViaDisplay(string pName, bool pPrevent) {
+			vPreventSelectionViaDisplayMap[pName] = pPrevent;
+		}
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateWithCursor(CursorType pType, Vector3? pCursorWorldPosition) {
-			if ( pCursorWorldPosition == null || DisplaySelectionPreventions > 0 || !Item.IsEnabled ) {
+			bool preventViaDisplay = vPreventSelectionViaDisplayMap.Any(x => x.Value);
+
+			if ( pCursorWorldPosition == null || preventViaDisplay || !Item.IsEnabled ) {
 				vHighlightDistanceMap[pType] = float.MaxValue;
 				vHighlightProgressMap[pType] = 0;
 				return;

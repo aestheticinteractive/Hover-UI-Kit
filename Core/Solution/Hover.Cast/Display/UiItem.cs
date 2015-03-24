@@ -13,28 +13,26 @@ namespace Hover.Cast.Display {
 
 		public float ArcAngle { get; private set; }
 
-		private ArcState vArcState;
+		private MenuState vMenuState;
 		private BaseItemState vItemState;
 
-		private Transform vCursorBaseTx;
 		private float vSlideDegrees;
 		private Vector3 vSlideDir0;
 		private Vector3 vCursorLocalPos;
 
+		private GameObject vRendererObj;
 		private IUiItemRenderer vRenderer;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal void Build(ArcState pArcState, BaseItemState pItemState, float pArcAngle, 
+		internal void Build(MenuState pMenuState, BaseItemState pItemState, float pArcAngle, 
 																IItemVisualSettings pVisualSettings) {
-			vArcState = pArcState;
+			vMenuState = pMenuState;
 			vItemState = pItemState;
 			ArcAngle = pArcAngle;
 
 			vItemState.SetCursorDistanceFunction(CalcCursorDistance);
-
-			vCursorBaseTx = gameObject.transform.parent.parent.parent.parent; //HovercastSetup
 
 			const float pi = (float)Math.PI;
 			const float slideBufferAngle = pi/80f;
@@ -44,11 +42,11 @@ namespace Hover.Cast.Display {
 
 			////
 
-			var rendObj = new GameObject("Renderer");
-			rendObj.transform.SetParent(gameObject.transform, false);
+			vRendererObj = new GameObject("Renderer");
+			vRendererObj.transform.SetParent(gameObject.transform, false);
 
-			vRenderer = (IUiItemRenderer)rendObj.AddComponent(pVisualSettings.Renderer);
-			vRenderer.Build(vArcState, vItemState, pArcAngle, pVisualSettings);
+			vRenderer = (IUiItemRenderer)vRendererObj.AddComponent(pVisualSettings.Renderer);
+			vRenderer.Build(vMenuState, vItemState, pArcAngle, pVisualSettings);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -59,17 +57,17 @@ namespace Hover.Cast.Display {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private float CalcCursorDistance(Vector3 pCursorPos) {
-			var cursorWorldPos = vCursorBaseTx.TransformPoint(pCursorPos);
-			vCursorLocalPos = gameObject.transform.InverseTransformPoint(cursorWorldPos);
-
-			Vector3 nearest = vRenderer.GetPointNearestToCursor(vCursorLocalPos);
-			return (nearest-vCursorLocalPos).magnitude;
+		private float CalcCursorDistance(Vector3 pCursorWorldPos) {
+			//TODO: just have the renderer provide WORLD points to the item?
+			vCursorLocalPos = gameObject.transform.InverseTransformPoint(pCursorWorldPos);
+			Vector3 nearestLocal = vRenderer.GetPointNearestToCursor(vCursorLocalPos);
+			Vector3 nearestWorld = vRendererObj.transform.TransformPoint(nearestLocal);
+			return (nearestWorld-pCursorWorldPos).magnitude;
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
 		internal void HandleChangeAnimation(bool pFadeIn, int pDirection, float pProgress) {
-			//TODO: vItemState.SetIsAnimating(pProgress < 1);
+			vItemState.PreventSelectionViaDisplay("anim", (pProgress < 1));
 			vRenderer.HandleChangeAnimation(pFadeIn, pDirection, pProgress);
 		}
 

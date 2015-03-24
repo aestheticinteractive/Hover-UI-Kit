@@ -29,28 +29,28 @@ namespace Hover.Cast.Display {
 			var palmObj = new GameObject("Palm");
 			palmObj.transform.SetParent(gameObject.transform, false);
 			vUiPalm = palmObj.AddComponent<UiPalm>();
-			vUiPalm.Build(vState.Arc, pPalmVisualSettingsProv);
+			vUiPalm.Build(vState.FullMenu, pPalmVisualSettingsProv);
 
 			var arcObj = new GameObject("Arc");
 			arcObj.transform.SetParent(gameObject.transform, false);
 			vUiArc = arcObj.AddComponent<UiArc>();
-			vUiArc.Build(vState.Arc, pItemVisualSettingsProv);
+			vUiArc.Build(vState.FullMenu, pItemVisualSettingsProv);
 
 			vState.OnSideChange += HandleSideChange;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			ArcState arc = vState.Arc;
-			bool isLeft = arc.IsLeft;
-			Vector3 scale = Vector3.one*(arc.Size*ScaleArcSize);
+			MenuState menu = vState.FullMenu;
+			bool isLeft = menu.IsOnLeftSide;
+			Vector3 scale = Vector3.one*(menu.Size*ScaleArcSize);
 
 			if ( !isLeft ) {
 				scale.z *= -1;
 			}
 
-			gameObject.transform.localPosition = arc.Center;
-			gameObject.transform.localRotation = arc.Rotation;
+			gameObject.transform.localPosition = menu.Center;
+			gameObject.transform.localRotation = menu.Rotation;
 			gameObject.transform.localScale = scale;
 
 			vUiArc.gameObject.transform.localRotation = (isLeft ? vLeftRot : vRightRot);

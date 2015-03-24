@@ -92,16 +92,18 @@ namespace Hover.Board.State {
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateAfterInput() {
 			foreach ( ProjectionState proj in vProjectionMap.Values ) {
-				UpdateWithCursor(proj);
+				UpdateProjection(proj);
 			}
 
-			UpdateAfterAllCursors();
+			foreach ( ItemTree itemTree in vAllItems ) {
+				itemTree.Item.UpdateSelectionProcess();
+			}
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateWithCursor(ProjectionState pProj) {
+		private void UpdateProjection(ProjectionState pProj) {
 			ICursorState cursor = pProj.Cursor;
 			CursorType cursorType = cursor.Type;
 			bool allowSelect = (cursor.IsInputAvailable); //TODO: && Grid.IsVisible);
@@ -141,13 +143,6 @@ namespace Hover.Board.State {
 			GameObject panelObj = (GameObject)nearestTree.Panel.ItemPanel.DisplayContainer;
 			pProj.SetNearestPanelTransform(panelObj.transform);
 			pProj.NearestItemHighlightProgress = nearestTree.Item.GetHighlightProgress(cursorType);
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateAfterAllCursors() {
-			foreach ( ItemTree itemTree in vAllItems ) {
-				itemTree.Item.UpdateSelectionProcess();
-			}
 		}
 
 	}

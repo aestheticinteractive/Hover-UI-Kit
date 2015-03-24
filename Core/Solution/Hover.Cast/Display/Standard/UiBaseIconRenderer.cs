@@ -1,9 +1,9 @@
 using Hover.Cast.Custom;
 using Hover.Cast.State;
-using UnityEngine;
 using Hover.Common.State;
+using UnityEngine;
 
-namespace Hover.Cast.Display.Default {
+namespace Hover.Cast.Display.Standard {
 
 	/*================================================================================================*/
 	public abstract class UiBaseIconRenderer : UiSelectRenderer {
@@ -26,9 +26,9 @@ namespace Hover.Cast.Display.Default {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public override void Build(ArcState pArcState, IBaseItemState pItemState,
+		public override void Build(MenuState pMenuState, IBaseItemState pItemState,
 													float pArcAngle, IItemVisualSettings pSettings) {
-			base.Build(pArcState, pItemState, pArcAngle, pSettings);
+			base.Build(pMenuState, pItemState, pArcAngle, pSettings);
 
 			vIcon = GameObject.CreatePrimitive(PrimitiveType.Quad);
 			vIcon.name = "Icon";
@@ -54,7 +54,7 @@ namespace Hover.Cast.Display.Default {
 
 				float inset = vLabel.TextH;
 
-				vLabel.SetInset(!vArcState.IsLeft, inset);
+				vLabel.SetInset(!vMenuState.IsOnLeftSide, inset);
 
 				vIcon.transform.localPosition = 
 					new Vector3(0, 0, 1+(vLabel.CanvasW-inset*0.666f)*ArcCanvasScale);

@@ -6,12 +6,12 @@ using Hover.Common.Display;
 using Hover.Common.Util;
 using UnityEngine;
 
-namespace Hover.Cast.Display.Default {
+namespace Hover.Cast.Display.Standard {
 
 	/*================================================================================================*/
 	public class UiPalmRenderer : MonoBehaviour, IUiPalmRenderer {
 
-		protected ArcState vArcState;
+		protected MenuState vMenuState;
 		protected float vAngle0;
 		protected float vAngle1;
 		protected int vMeshSteps;
@@ -26,9 +26,9 @@ namespace Hover.Cast.Display.Default {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Build(ArcState pArcState, IPalmVisualSettings pSettings, 
+		public virtual void Build(MenuState pMenuState, IPalmVisualSettings pSettings, 
 																		float pAngle0, float pAngle1) {
-			vArcState = pArcState;
+			vMenuState = pMenuState;
 			vSettings = (PalmVisualSettingsStandard)pSettings;
 			vAngle0 = pAngle0;
 			vAngle1 = pAngle1;
@@ -53,10 +53,10 @@ namespace Hover.Cast.Display.Default {
 			labelObj.transform.SetParent(gameObject.transform, false);
 			labelObj.transform.localPosition = new Vector3(0, 0, vInnerRadius);
 			labelObj.transform.localRotation = Quaternion.FromToRotation(Vector3.back, Vector3.right);
-			labelObj.transform.localScale = new Vector3(1, 1, (vArcState.IsLeft ? 1 : -1));
+			labelObj.transform.localScale = new Vector3(1, 1, (vMenuState.IsOnLeftSide ? 1 : -1));
 
 			vLabel = labelObj.AddComponent<UiLabel>();
-			vLabel.AlignLeft = vArcState.IsLeft;
+			vLabel.AlignLeft = vMenuState.IsOnLeftSide;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -68,7 +68,7 @@ namespace Hover.Cast.Display.Default {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void Update() {
-			vMainAlpha = UiSelectRenderer.GetArcAlpha(vArcState);
+			vMainAlpha = UiSelectRenderer.GetArcAlpha(vMenuState);
 
 			Color colBg = vSettings.BackgroundColor;
 			colBg.a *= vMainAlpha;
@@ -86,7 +86,7 @@ namespace Hover.Cast.Display.Default {
 			vLabel.FontName = vSettings.TextFont;
 			vLabel.FontSize = vSettings.TextSize;
 			vLabel.Color = vSettings.TextColor;
-			vLabel.Label = vArcState.GetLevelTitle();
+			vLabel.Label = vMenuState.GetLevelTitle();
 		}
 
 

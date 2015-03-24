@@ -1,26 +1,31 @@
-using Hover.Cast.Custom;
-using Hover.Cast.State;
-using UnityEngine;
+using Hover.Common.Items;
 using Hover.Common.State;
+using UnityEngine;
 
-namespace Hover.Cast.Display {
+namespace Hover.Cast.State {
 
 	/*================================================================================================*/
-	public interface IUiItemRenderer {
+	public interface IHovercastMenuState {
+
+		bool IsInputAvailable { get; }
+		bool IsOnLeftSide { get; }
+		Vector3 Center { get; }
+		Quaternion Rotation { get; }
+		float Size { get; }
+		float DisplayStrength { get; }
+		float NavBackStrength { get; }
+		IBaseItemState NearestItem { get; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		void Build(MenuState pMenuState, IBaseItemState pItemState, float pArcAngle,
-																		IItemVisualSettings pSettings);
+		IBaseItemState[] GetLevelItems();
 
 		/*--------------------------------------------------------------------------------------------*/
-		void HandleChangeAnimation(bool pFadeIn, int pDirection, float pProgress);
+		IBaseItem GetLevelParentItem();
 
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		Vector3 GetPointNearestToCursor(Vector3 pCursorLocalPos);
+		string GetLevelTitle();
 
 	}
 

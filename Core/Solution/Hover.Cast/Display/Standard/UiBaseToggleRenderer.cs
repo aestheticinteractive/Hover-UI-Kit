@@ -1,9 +1,9 @@
 using Hover.Cast.Custom;
 using Hover.Cast.State;
-using UnityEngine;
 using Hover.Common.State;
+using UnityEngine;
 
-namespace Hover.Cast.Display.Default {
+namespace Hover.Cast.Display.Standard {
 
 	/*================================================================================================*/
 	public abstract class UiBaseToggleRenderer : UiSelectRenderer {
@@ -27,9 +27,9 @@ namespace Hover.Cast.Display.Default {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public override void Build(ArcState pArcState, IBaseItemState pItemState,
+		public override void Build(MenuState pMenuState, IBaseItemState pItemState,
 													float pArcAngle, IItemVisualSettings pSettings) {
-			base.Build(pArcState, pItemState, pArcAngle, pSettings);
+			base.Build(pMenuState, pItemState, pArcAngle, pSettings);
 
 			vOuter = GameObject.CreatePrimitive(PrimitiveType.Quad);
 			vOuter.name = "ToggleOuter";
@@ -66,7 +66,7 @@ namespace Hover.Cast.Display.Default {
 				Vector3 pos = new Vector3(0, 0, 1+inset*0.75f*ArcCanvasScale);
 				Vector3 scale = Vector3.one*(vSettings.TextSize*0.75f*ArcCanvasScale);
 
-				vLabel.SetInset(vArcState.IsLeft, inset);
+				vLabel.SetInset(vMenuState.IsOnLeftSide, inset);
 
 				vOuter.transform.localPosition = pos;
 				vOuter.transform.localScale = scale;

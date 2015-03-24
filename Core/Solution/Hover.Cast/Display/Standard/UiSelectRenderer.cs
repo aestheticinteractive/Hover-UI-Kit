@@ -4,10 +4,10 @@ using Hover.Cast.Custom.Standard;
 using Hover.Cast.State;
 using Hover.Common.Display;
 using Hover.Common.Items;
-using UnityEngine;
 using Hover.Common.State;
+using UnityEngine;
 
-namespace Hover.Cast.Display.Default {
+namespace Hover.Cast.Display.Standard {
 
 	/*================================================================================================*/
 	public class UiSelectRenderer : MonoBehaviour, IUiItemRenderer {
@@ -15,29 +15,29 @@ namespace Hover.Cast.Display.Default {
 		public const float ArcCanvasThickness = 250;
 		public const float ArcCanvasScale = 0.002f;
 
-		protected ArcState vArcState;
+		protected MenuState vMenuState;
 		protected IBaseItemState vItemState;
 		protected ItemVisualSettingsStandard vSettings;
 
 		protected float vMainAlpha;
 		protected float vAnimAlpha;
 
-		protected UiSlice vSlice;
+		protected UiHoverMeshSlice vSlice;
 		protected UiLabel vLabel;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Build(ArcState pArcState, IBaseItemState pItemState,
+		public virtual void Build(MenuState pMenuState, IBaseItemState pItemState,
 													float pArcAngle, IItemVisualSettings pSettings) {
-			vArcState = pArcState;
+			vMenuState = pMenuState;
 			vItemState = pItemState;
 			vSettings = (ItemVisualSettingsStandard)pSettings;
 
 			////
 
-			vSlice = new UiSlice(gameObject);
-			vSlice.Resize(pArcAngle);
+			vSlice = new UiHoverMeshSlice(gameObject);
+			vSlice.Resize(1, 1.5f, pArcAngle);
 
 			////
 
@@ -45,10 +45,10 @@ namespace Hover.Cast.Display.Default {
 			labelObj.transform.SetParent(gameObject.transform, false);
 			labelObj.transform.localPosition = new Vector3(0, 0, 1);
 			labelObj.transform.localRotation = Quaternion.FromToRotation(Vector3.back, Vector3.right);
-			labelObj.transform.localScale = new Vector3(1, 1, (vArcState.IsLeft ? 1 : -1));
+			labelObj.transform.localScale = new Vector3(1, 1, (vMenuState.IsOnLeftSide ? 1 : -1));
 			
 			vLabel = labelObj.AddComponent<UiLabel>();
-			vLabel.AlignLeft = vArcState.IsLeft;
+			vLabel.AlignLeft = vMenuState.IsOnLeftSide;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -60,7 +60,7 @@ namespace Hover.Cast.Display.Default {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void Update() {
-			vMainAlpha = GetArcAlpha(vArcState)*vAnimAlpha;
+			vMainAlpha = GetArcAlpha(vMenuState)*vAnimAlpha;
 
 			if ( !vItemState.Item.IsEnabled ) {
 				vMainAlpha *= 0.333f;
@@ -119,9 +119,9 @@ namespace Hover.Cast.Display.Default {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public static float GetArcAlpha(ArcState pArcState) {
-			float alpha = 1-(float)Math.Pow(1-pArcState.DisplayStrength, 2);
-			alpha -= (float)Math.Pow(pArcState.NavBackStrength, 2);
+		public static float GetArcAlpha(MenuState pMenuState) {
+			float alpha = 1-(float)Math.Pow(1-pMenuState.DisplayStrength, 2);
+			alpha -= (float)Math.Pow(pMenuState.NavBackStrength, 2);
 			return Math.Max(0, alpha);
 		}
 

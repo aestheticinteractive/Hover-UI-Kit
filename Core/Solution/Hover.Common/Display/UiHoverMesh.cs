@@ -71,12 +71,9 @@ namespace Hover.Common.Display {
 		/*--------------------------------------------------------------------------------------------*/
 		protected void UpdateAfterResize() {
 			UpdateMesh(MeshType.Background, BackgroundMesh);
-
-			if ( Highlight != null ) {
-				UpdateMesh(MeshType.Edge, EdgeMesh);
-				UpdateMesh(MeshType.Highlight, HighlightMesh, vPrevHighAmount);
-				UpdateMesh(MeshType.Select, SelectMesh, vPrevSelAmount);
-			}
+			UpdateMesh(MeshType.Edge, EdgeMesh);
+			UpdateMesh(MeshType.Highlight, HighlightMesh, vPrevHighAmount);
+			UpdateMesh(MeshType.Select, SelectMesh, vPrevSelAmount);
 
 			vSelectionPoints = CalcSelectionPoints();
 		}

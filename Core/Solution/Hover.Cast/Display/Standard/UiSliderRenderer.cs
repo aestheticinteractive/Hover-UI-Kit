@@ -3,15 +3,15 @@ using Hover.Cast.Custom;
 using Hover.Cast.Custom.Standard;
 using Hover.Cast.State;
 using Hover.Common.Items.Types;
-using UnityEngine;
 using Hover.Common.State;
+using UnityEngine;
 
-namespace Hover.Cast.Display.Default {
+namespace Hover.Cast.Display.Standard {
 
 	/*================================================================================================*/
 	public class UiSliderRenderer : MonoBehaviour, IUiItemRenderer {
 
-		protected ArcState vArcState;
+		protected MenuState vMenuState;
 		protected IBaseItemState vItemState;
 		protected float vAngle0;
 		protected float vAngle1;
@@ -25,11 +25,11 @@ namespace Hover.Cast.Display.Default {
 		protected float vMainAlpha;
 		protected float vAnimAlpha;
 
-		protected UiSlice vHiddenSlice;
-		protected UiSlice vTrackA;
-		protected UiSlice vTrackB;
-		protected UiSlice vFillA;
-		protected UiSlice vFillB;
+		protected UiHoverMeshSlice vHiddenSlice;
+		protected UiHoverMeshSlice vTrackA;
+		protected UiHoverMeshSlice vTrackB;
+		protected UiHoverMeshSlice vFillA;
+		protected UiHoverMeshSlice vFillB;
 
 		protected Material vTickMat;
 		protected GameObject[] vTicks;
@@ -38,23 +38,21 @@ namespace Hover.Cast.Display.Default {
 		protected UiSliderGrabRenderer vGrab;
 
 		protected GameObject vHoverHold;
-		protected UiSlice vHover;
+		protected UiHoverMeshSlice vHover;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Build(ArcState pArcState, IBaseItemState pItemState,
+		public virtual void Build(MenuState pMenuState, IBaseItemState pItemState,
 													float pArcAngle, IItemVisualSettings pSettings) {
-			vArcState = pArcState;
+			vMenuState = pMenuState;
 			vItemState = pItemState;
-			vAngle0 = -pArcAngle/2f+UiSlice.AngleInset;
-			vAngle1 = pArcAngle/2f-UiSlice.AngleInset;
+			vAngle0 = -pArcAngle/2f+UiHoverMeshSlice.AngleInset;
+			vAngle1 = pArcAngle/2f-UiHoverMeshSlice.AngleInset;
 			vSettings = (ItemVisualSettingsStandard)pSettings;
 			vSliderItem = (ISliderItem)vItemState.Item;
 
 			const float pi = (float)Math.PI;
-			const float radInner = 1.04f;
-			const float radOuter = 1.46f;
 
 			vGrabArcHalf = pi/80f;
 			vSlideDegree0 = (vAngle0+vGrabArcHalf)/pi*180;
@@ -62,14 +60,14 @@ namespace Hover.Cast.Display.Default {
 
 			////
 
-			vHiddenSlice = new UiSlice(gameObject, true);
-			vHiddenSlice.Resize(pArcAngle);
+			vHiddenSlice = new UiHoverMeshSlice(gameObject, true);
+			vHiddenSlice.Resize(1, 1.5f, pArcAngle);
 			vHiddenSlice.UpdateBackground(Color.clear);
 
-			vTrackA = new UiSlice(gameObject, true, "TrackA", radInner, radOuter);
-			vTrackB = new UiSlice(gameObject, true, "TrackB", radInner, radOuter);
-			vFillA = new UiSlice(gameObject, true, "FillA", radInner, radOuter);
-			vFillB = new UiSlice(gameObject, true, "FillB", radInner, radOuter);
+			vTrackA = new UiHoverMeshSlice(gameObject, true, "TrackA");
+			vTrackB = new UiHoverMeshSlice(gameObject, true, "TrackB");
+			vFillA = new UiHoverMeshSlice(gameObject, true, "FillA");
+			vFillB = new UiHoverMeshSlice(gameObject, true, "FillB");
 
 			////
 
@@ -78,7 +76,7 @@ namespace Hover.Cast.Display.Default {
 			vTickMat.color = Color.clear;
 
 			if ( vSliderItem.Ticks > 1 ) {
-				Vector3 quadScale = new Vector3(UiSlice.AngleInset*2, 0.36f, 0.1f);
+				Vector3 quadScale = new Vector3(UiHoverMeshSlice.AngleInset*2, 0.36f, 0.1f);
 				float percPerTick = 1/(float)(vSliderItem.Ticks-1);
 
 				vTicks = new GameObject[vSliderItem.Ticks];
@@ -109,7 +107,7 @@ namespace Hover.Cast.Display.Default {
 			grabObj.transform.SetParent(vGrabHold.transform, false);
 
 			vGrab = grabObj.AddComponent<UiSliderGrabRenderer>();
-			vGrab.Build(vArcState, vItemState, vGrabArcHalf*2, pSettings);
+			vGrab.Build(vMenuState, vItemState, vGrabArcHalf*2, pSettings);
 
 			////
 
@@ -119,12 +117,12 @@ namespace Hover.Cast.Display.Default {
 			var hoverObj = new GameObject("Hover");
 			hoverObj.transform.SetParent(vHoverHold.transform, false);
 
-			vHover = new UiSlice(hoverObj, false, "Hover");
+			vHover = new UiHoverMeshSlice(hoverObj, false, "Hover");
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void Update() {
-			vMainAlpha = UiSelectRenderer.GetArcAlpha(vArcState)*vAnimAlpha;
+			vMainAlpha = UiSelectRenderer.GetArcAlpha(vMenuState)*vAnimAlpha;
 
 			if ( !vItemState.Item.IsEnabled ) {
 				vMainAlpha *= 0.333f;
@@ -171,7 +169,7 @@ namespace Hover.Cast.Display.Default {
 				vHover.UpdateHighlight(colHigh, high);
 				vHover.UpdateSelect(colSel, select);
 
-				hoverArcHalf = vGrabArcHalf*high*0.333f - UiSlice.AngleInset;
+				hoverArcHalf = vGrabArcHalf*high*0.333f - UiHoverMeshSlice.AngleInset;
 			}
 
 			UpdateMeshes(easedVal, easedHover, hoverArcHalf);
@@ -235,7 +233,12 @@ namespace Hover.Cast.Display.Default {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateMeshes(float pValue, float pHoverValue, float pHoverArcHalf) {
-			float grabArc = (vGrabArcHalf+UiSlice.AngleInset)*2;
+			const float ri1 = 1f;
+			const float ro1 = 1.5f;
+			const float ri2 = ri1+0.04f;
+			const float ro2 = ro1-0.04f;
+
+			float grabArc = (vGrabArcHalf+UiHoverMeshSlice.AngleInset)*2;
 			float hoverArc = Math.Max(0, pHoverArcHalf*2);
 			float hoverArcPad = vGrabArcHalf-pHoverArcHalf;
 			float fullArc = vAngle1-vAngle0-grabArc;
@@ -244,27 +247,27 @@ namespace Hover.Cast.Display.Default {
 			bool tooClose = (Math.Abs(valAngle-hovAngle) < grabArc/2+hoverArc);
 
 			if ( pHoverArcHalf == 0 || tooClose ) {
-				vHover.Resize(0);
-				vFillA.Resize(vAngle0, valAngle);
-				vFillB.Resize(0);
-				vTrackA.Resize(grabArc+valAngle, vAngle1);
-				vTrackB.Resize(0);
+				vHover.Resize(ri1, ro1, 0);
+				vFillA.Resize(ri2, ro2, vAngle0, valAngle);
+				vFillB.Resize(ri2, ro2, 0);
+				vTrackA.Resize(ri2, ro2, grabArc+valAngle, vAngle1);
+				vTrackB.Resize(ri2, ro2, 0);
 				return;
 			}
 
-			vHover.Resize(hoverArc);
+			vHover.Resize(ri1, ro1, hoverArc);
 
 			if ( pValue <= pHoverValue ) {
-				vFillA.Resize(vAngle0, valAngle);
-				vFillB.Resize(0);
-				vTrackA.Resize(grabArc+valAngle, hovAngle+hoverArcPad);
-				vTrackB.Resize(hovAngle+grabArc-hoverArcPad, vAngle1);
+				vFillA.Resize(ri2, ro2, vAngle0, valAngle);
+				vFillB.Resize(ri2, ro2, 0);
+				vTrackA.Resize(ri2, ro2, grabArc+valAngle, hovAngle+hoverArcPad);
+				vTrackB.Resize(ri2, ro2, hovAngle+grabArc-hoverArcPad, vAngle1);
 			}
 			else {
-				vFillA.Resize(vAngle0, hovAngle+hoverArcPad);
-				vFillB.Resize(hovAngle+grabArc-hoverArcPad, valAngle);
-				vTrackA.Resize(grabArc+valAngle, vAngle1);
-				vTrackB.Resize(0);
+				vFillA.Resize(ri2, ro2, vAngle0, hovAngle+hoverArcPad);
+				vFillB.Resize(ri2, ro2, hovAngle+grabArc-hoverArcPad, valAngle);
+				vTrackA.Resize(ri2, ro2, grabArc+valAngle, vAngle1);
+				vTrackB.Resize(ri2, ro2, 0);
 			}
 		}
 

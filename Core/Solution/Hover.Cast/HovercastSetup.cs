@@ -80,6 +80,22 @@ namespace Hover.Cast {
 
 			InputProvider.UpdateInput();
 			vState.UpdateAfterInput();
+
+			////
+
+			InteractionSettings interSett = InteractionSettings.GetSettings();
+
+			if ( interSett.ApplyScaleMultiplier ) {
+				Vector3 worldUp = transform.TransformVector(Vector3.up);
+				interSett.ScaleMultiplier = 1/worldUp.magnitude;
+			}
+			else {
+				interSett.ScaleMultiplier = 1;
+			}
+
+			////
+			
+			//TODO: handle cursor-switching
 		}
 
 	}

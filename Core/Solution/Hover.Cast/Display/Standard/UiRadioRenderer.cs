@@ -1,7 +1,7 @@
 using Hover.Common.Items.Types;
 using UnityEngine;
 
-namespace Hover.Cast.Display.Default {
+namespace Hover.Cast.Display.Standard {
 
 	/*================================================================================================*/
 	public class UiRadioRenderer : UiBaseToggleRenderer {

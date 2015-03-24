@@ -8,7 +8,7 @@ namespace Hover.Cast.Display {
 	/*================================================================================================*/
 	public class UiPalm : MonoBehaviour {
 
-		private ArcState vArcState;
+		private MenuState vMenuState;
 		private IPalmVisualSettingsProvider vVisualSettingsProv;
 		private bool vRebuildOnUpdate;
 
@@ -20,8 +20,8 @@ namespace Hover.Cast.Display {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal void Build(ArcState pArc, IPalmVisualSettingsProvider pVisualSettingsProv) {
-			vArcState = pArc;
+		internal void Build(MenuState pMenu, IPalmVisualSettingsProvider pVisualSettingsProv) {
+			vMenuState = pMenu;
 			vVisualSettingsProv = pVisualSettingsProv;
 
 			vRendererHold = new GameObject("RendererHold");
@@ -29,7 +29,7 @@ namespace Hover.Cast.Display {
 			vRendererHold.transform.localPosition = UiLevel.PushFromHand;
 			vRendererHold.transform.localRotation = Quaternion.AngleAxis(170, Vector3.up);
 
-			vArcState.OnLevelChange += HandleLevelChange;
+			vMenuState.OnLevelChange += HandleLevelChange;
 			Rebuild();
 		}
 
@@ -51,7 +51,7 @@ namespace Hover.Cast.Display {
 				Rebuild();
 			}
 
-			vRendererHold.SetActive(vArcState.DisplayStrength > 0);
+			vRendererHold.SetActive(vMenuState.DisplayStrength > 0);
 		}
 
 
@@ -66,7 +66,7 @@ namespace Hover.Cast.Display {
 			vPrevRendererObj = vRendererObj;
 
 			const float halfAngle = UiLevel.AngleFull/2f;
-			IBaseItem item = vArcState.GetLevelParentItem();
+			IBaseItem item = vMenuState.GetLevelParentItem();
 			IPalmVisualSettings visualSett = vVisualSettingsProv.GetSettings(item);
 
 			vRendererHold.SetActive(true); //ensures that Awake() is called in the renderers
@@ -75,7 +75,7 @@ namespace Hover.Cast.Display {
 			vRendererObj.transform.SetParent(vRendererHold.transform, false);
 
 			vRenderer = (IUiPalmRenderer)vRendererObj.AddComponent(visualSett.Renderer);
-			vRenderer.Build(vArcState, visualSett, -halfAngle, halfAngle);
+			vRenderer.Build(vMenuState, visualSett, -halfAngle, halfAngle);
 		}
 
 	}
