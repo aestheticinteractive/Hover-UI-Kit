@@ -2,9 +2,9 @@ using System;
 using Hover.Cast.Custom;
 using Hover.Cast.State;
 using Hover.Common.Items.Types;
+using Hover.Common.State;
 using Hover.Common.Util;
 using UnityEngine;
-using Hover.Common.State;
 
 namespace Hover.Cast.Display {
 

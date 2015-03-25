@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using Hover.Cursor.State;
+﻿using Hover.Cursor.State;
+using UnityEngine;
 
 namespace Hover.Cast.State {
 

@@ -4,9 +4,9 @@ using Hover.Cast.Display;
 using Hover.Cast.Input;
 using Hover.Cast.Items;
 using Hover.Cast.State;
-using UnityEngine;
-using Hover.Cursor;
 using Hover.Common.Util;
+using Hover.Cursor;
+using UnityEngine;
 
 namespace Hover.Cast {
 
