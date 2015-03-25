@@ -13,7 +13,6 @@ namespace Hover.Cast.Display {
 		public const float DegreeFull = 90;
 		public const float ToDegrees = 180/(float)Math.PI;
 		public const float AngleFull = DegreeFull/ToDegrees;
-		public static readonly Vector3 PushFromHand = new Vector3(0, -0.2f, 0);
 
 		private MenuState vMenuState;
 		private IList<GameObject> vItemObjList;
@@ -24,8 +23,6 @@ namespace Hover.Cast.Display {
 		internal void Build(MenuState pMenuState, IItemVisualSettingsProvider pVisualSettingsProv) {
 			vMenuState = pMenuState;
 			vItemObjList = new List<GameObject>();
-
-			gameObject.transform.localPosition = PushFromHand;
 
 			BaseItemState[] itemStates = vMenuState.GetItems();
 			int itemCount = itemStates.Length;

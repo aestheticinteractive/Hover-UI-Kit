@@ -8,7 +8,6 @@ namespace Hover.Cursor.Input.Look {
 		public Transform InputTransform { get; set; }
 		public Transform CameraTransform { get; set; }
 		public float CursorSize { get; set; }
-		//public float CursorHorizontalOffset { get; set; }
 
 	}
 

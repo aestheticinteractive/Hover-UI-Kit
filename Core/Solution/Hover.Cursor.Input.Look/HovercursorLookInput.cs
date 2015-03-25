@@ -10,7 +10,6 @@ namespace Hover.Cursor.Input.Look {
 
 		public Transform HeadsetCameraTransform;
 		public float CursorSize = 0.1f;
-		//public float CursorHorizontalOffset = 0;
 
 		private InputCursor vCursor;
 
@@ -22,7 +21,6 @@ namespace Hover.Cursor.Input.Look {
 			sett.InputTransform = gameObject.transform;
 			sett.CameraTransform = HeadsetCameraTransform;
 			sett.CursorSize = CursorSize;
-			//sett.CursorHorizontalOffset = CursorHorizontalOffset;
 
 			if ( HeadsetCameraTransform == null ) {
 				IsFailure = true;

@@ -8,6 +8,7 @@ namespace Hover.Cast.Input.Leap {
 	public class HovercastLeapInput : HovercastInput {
 
 		public Vector3 ActivePalmDirection = Vector3.down;
+		public float DistanceFromPalm = 0.2f;
 		public float NavigationBackGrabThreshold = 0.3f;
 		public float NavigationBackUngrabThreshold = 0.15f;
 
@@ -25,6 +26,7 @@ namespace Hover.Cast.Input.Leap {
 
 			vSettings = new InputSettings();
 			vSettings.PalmDirection = ActivePalmDirection;
+			vSettings.DistanceFromPalm = DistanceFromPalm;
 			vSettings.NavBackGrabThreshold = NavigationBackGrabThreshold;
 			vSettings.NavBackUngrabThreshold = NavigationBackUngrabThreshold;
 

@@ -26,7 +26,6 @@ namespace Hover.Cast.Display {
 
 			vRendererHold = new GameObject("RendererHold");
 			vRendererHold.transform.SetParent(gameObject.transform, false);
-			vRendererHold.transform.localPosition = UiLevel.PushFromHand;
 			vRendererHold.transform.localRotation = Quaternion.AngleAxis(170, Vector3.up);
 
 			vMenuState.OnLevelChange += HandleLevelChange;

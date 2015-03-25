@@ -42,43 +42,28 @@ namespace Hover.Cast.Input.Leap {
 
 			IsAvailable = true;
 			Position = pLeapHand.PalmPosition.ToUnityScaled();
-			Rotation = CalcQuaternion(pLeapHand.Basis);
+			Rotation = LeapUtil.CalcQuaternion(pLeapHand.Basis);
 			Radius = 0.01f;
-
-			//TODO: revise this without using Cursor
-			/*var cursor = new LeapInputCursor(IsLeft);
 
 			foreach ( Finger leapFinger in pLeapHand.Fingers ) {
 				if ( leapFinger == null || !leapFinger.IsValid ) {
 					continue;
 				}
 
-				cursor.Rebuild(leapFinger);
+				Vector3 palmToFinger = leapFinger.TipPosition.ToUnityScaled()-Position;
 
-				Rotation = Quaternion.Slerp(Rotation, cursor.Rotation, 0.1f);
-				Radius = Math.Max(Radius, (cursor.Position-Position).sqrMagnitude);
-			}*/
+				Radius = Math.Max(Radius, palmToFinger.sqrMagnitude);
+				//TODO: Rotation = Quaternion.Slerp(Rotation, cursor.Rotation, 0.1f);
+			}
 
 			Radius = (float)Math.Sqrt(Radius);
+			Position += Rotation*Vector3.down*vSettings.DistanceFromPalm*Radius;
 
 			NavigateBackStrength = pLeapHand.GrabStrength/vSettings.NavBackGrabThreshold;
 			NavigateBackStrength = Mathf.Clamp(NavigateBackStrength, 0, 1);
 
 			DisplayStrength = Vector3.Dot(pLeapHand.PalmNormal.ToUnity(), vSettings.PalmDirection);
 			DisplayStrength = Mathf.Clamp((DisplayStrength-0.7f)/0.25f, 0, 1);
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public static Quaternion CalcQuaternion(Matrix pBasis) {
-			//Quaternion created using notes from:
-			//answers.unity3d.com/questions/11363/converting-matrix4x4-to-quaternion-vector3.html
-
-			float[] mat = pBasis.ToArray4x4();
-			var column2 = new Vector3(mat[8], mat[9], -mat[10]);
-			var column1 = new Vector3(mat[4], mat[5], -mat[6]);
-			return Quaternion.LookRotation(column2, column1);
 		}
 
 	}

@@ -67,22 +67,13 @@ namespace Hover.Cursor.Input.Look {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateWithPlane(InputPlane pPlane) {
-			//TODO: "planePos" is shifted forward slighty to negate the effect of UiLevel.PushFromHand.
-			//This isn't exact. Could probably improve this by moving this "push" effect into the Leap
-			//input module. That way, the menu would appear exactly where the input data specifies. It
-			//becomes the input module's responsibility to offset the menu position to provide enough
-			//space for things like 3D hand models.
-
 			Transform localTx = vSettings.InputTransform;
 			Transform camTx = vSettings.CameraTransform;
 
 			Vector3 camPosLocal = localTx.InverseTransformPoint(camTx.position);
 			Vector3 camDirLocal = localTx.InverseTransformDirection(camTx.rotation*Vector3.forward);
-			//Vector3 camHorizLocal = localTx.InverseTransformDirection(camTx.rotation*Vector3.left);
 			Vector3 planePosLocal = localTx.InverseTransformPoint(pPlane.PointWorld);
 			Vector3 planeNormLocal = localTx.InverseTransformDirection(pPlane.NormalWorld);
-
-			//camPosLocal += camHorizLocal*vSettings.CursorHorizontalOffset*0.1f;
 
 			float numer = Vector3.Dot(planePosLocal-camPosLocal, planeNormLocal);
 			float denom = Vector3.Dot(camDirLocal, planeNormLocal);

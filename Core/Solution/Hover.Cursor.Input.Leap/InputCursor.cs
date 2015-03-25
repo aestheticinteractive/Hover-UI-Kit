@@ -75,7 +75,7 @@ namespace Hover.Cursor.Input.Leap {
 
 			IsAvailable = true;
 			Position = leapFinger.TipPosition.ToUnityScaled();
-			Rotation = CalcQuaternion(bone.Basis);
+			Rotation = LeapUtil.CalcQuaternion(bone.Basis);
 			Size = leapFinger.Width*SizeScaleFactor;
 		}
 
@@ -83,21 +83,8 @@ namespace Hover.Cursor.Input.Leap {
 		private void UpdateForPalm(Hand pLeapHand) {
 			IsAvailable = true;
 			Position = pLeapHand.PalmPosition.ToUnityScaled();
-			Rotation = CalcQuaternion(pLeapHand.Basis);
+			Rotation = LeapUtil.CalcQuaternion(pLeapHand.Basis);
 			Size = pLeapHand.PalmWidth*SizeScaleFactor;
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		private static Quaternion CalcQuaternion(Matrix pBasis) {
-			//Quaternion created using notes from:
-			//answers.unity3d.com/questions/11363/converting-matrix4x4-to-quaternion-vector3.html
-
-			float[] mat = pBasis.ToArray4x4();
-			var column2 = new Vector3(mat[8], mat[9], -mat[10]);
-			var column1 = new Vector3(mat[4], mat[5], -mat[6]);
-			return Quaternion.LookRotation(column2, column1);
 		}
 
 	}
