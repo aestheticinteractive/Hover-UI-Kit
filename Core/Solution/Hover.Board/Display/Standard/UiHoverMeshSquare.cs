@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Hover.Common.Display;
+using Hover.Common.Util;
 using UnityEngine;
 
 namespace Hover.Board.Display.Standard {
@@ -50,87 +51,14 @@ namespace Hover.Board.Display.Standard {
 		/*--------------------------------------------------------------------------------------------*/
 		protected override void UpdateMesh(MeshType pType, Mesh pMesh, float pAmount=1) {
 			if ( pType == MeshType.Edge ) {
-				UpdateEdgeMesh(pMesh);
+				MeshUtil.BuildBorderMesh(pMesh, vWidth, vHeight, EdgeThick);
 				return;
 			}
 
-			UpdateSquareMesh(pMesh, pAmount, (pType != MeshType.Background));
+			float inset = (pType != MeshType.Background ? EdgeThick*2 : 0);
+			MeshUtil.BuildRectangleMesh(pMesh, vWidth-inset, vHeight-inset, pAmount);
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateSquareMesh(Mesh pMesh, float pAmount, bool pUseEdgeInset) {
-			float w = vWidth-(pUseEdgeInset ? EdgeThick*2 : 0);
-			float h = vHeight-(pUseEdgeInset ? EdgeThick*2 : 0);
-			float wt;
-			float ht;
-
-			if ( w >= h ) {
-				ht = h*pAmount;
-				wt = w-(h-ht);
-			}
-			else {
-				wt = w*pAmount;
-				ht = h-(w-wt);
-			}
-
-			float halfW = wt/2f;
-			float halfH = ht/2f;
-
-			pMesh.vertices = new[] {
-				new Vector3( halfW,  halfH, 0), 
-				new Vector3( halfW, -halfH, 0), 
-				new Vector3(-halfW, -halfH, 0), 
-				new Vector3(-halfW,  halfH, 0)
-			};
-
-			pMesh.triangles = new[] {
-				0, 1, 2,
-				0, 2, 3
-			};
-
-			pMesh.uv = new Vector2[4];
-			pMesh.RecalculateBounds();
-			pMesh.RecalculateNormals();
-			pMesh.Optimize();
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateEdgeMesh(Mesh pMesh) {
-			float innerW = vWidth/2-EdgeThick;
-			float innerH = vHeight/2-EdgeThick;
-			float outerW = vWidth/2;
-			float outerH = vHeight/2;
-
-			pMesh.vertices = new[] {
-				new Vector3( outerW,  outerH, 0), 
-				new Vector3( outerW, -outerH, 0), 
-				new Vector3(-outerW, -outerH, 0), 
-				new Vector3(-outerW,  outerH, 0), 
-				new Vector3( innerW,  innerH, 0), 
-				new Vector3( innerW, -innerH, 0), 
-				new Vector3(-innerW, -innerH, 0), 
-				new Vector3(-innerW,  innerH, 0)
-			};
-
-			pMesh.triangles = new[] {
-				0, 1, 4,
-				1, 5, 4,
-				1, 2, 5,
-				2, 6, 5,
-				2, 3, 6,
-				3, 7, 6,
-				3, 4, 7,
-				3, 0, 4
-			};
-
-			pMesh.uv = new Vector2[8];
-			pMesh.RecalculateBounds();
-			pMesh.RecalculateNormals();
-			pMesh.Optimize();
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected override Vector3[] CalcSelectionPoints() {
 			var points = new List<Vector3>();

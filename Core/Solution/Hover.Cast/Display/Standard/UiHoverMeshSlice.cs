@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Hover.Common.Display;
 using Hover.Common.Util;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace Hover.Cast.Display.Standard {
 
@@ -29,9 +28,9 @@ namespace Hover.Cast.Display.Standard {
 			Build(pParent);
 
 			if ( vBackgroundOnly ) {
-				Object.Destroy(Highlight);
-				Object.Destroy(Select);
-				Object.Destroy(Edge);
+				UnityEngine.Object.Destroy(Highlight);
+				UnityEngine.Object.Destroy(Select);
+				UnityEngine.Object.Destroy(Edge);
 			}
 
 			if ( pBgName != null ) {
@@ -91,8 +90,6 @@ namespace Hover.Cast.Display.Standard {
 			MeshUtil.BuildRingMesh(pMesh, vRadInner, radOuter, vAngle0, vAngle1, vMeshSteps);
 		}
 
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected override Vector3[] CalcSelectionPoints() {
 			var points = new List<Vector3>();

@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using Hover.Board.Custom;
 using Hover.Board.Custom.Standard;
 using Hover.Board.State;
+using Hover.Common.Util;
 using UnityEngine;
 
 namespace Hover.Board.Display.Standard {
@@ -29,7 +29,7 @@ namespace Hover.Board.Display.Standard {
 			vSpotObj.transform.localScale = Vector3.zero;
 
 			MeshFilter spotMeshFilt = vSpotObj.AddComponent<MeshFilter>();
-			BuildCircleMesh(spotMeshFilt.mesh, 0.5f, 32);
+			MeshUtil.BuildCircleMesh(spotMeshFilt.mesh, 0.5f, 32);
 
 			MeshRenderer spotMeshRend = vSpotObj.AddComponent<MeshRenderer>();
 			spotMeshRend.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
@@ -67,53 +67,6 @@ namespace Hover.Board.Display.Standard {
 			vLineObj.renderer.sharedMaterial.color = colLine;
 			vLineObj.transform.localScale = new Vector3(lineThick, dist, lineThick);
 			vLineObj.transform.localPosition = new Vector3(0, vLineObj.transform.localScale.y/2f, 0);
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		private static Vector3 GetRingPoint(float pRadius, float pAngle) {
-			float x = (float)Math.Sin(pAngle);
-			float y = (float)Math.Cos(pAngle);
-			return new Vector3(x*pRadius, 0, y*pRadius);
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		private static void BuildCircleMesh(Mesh pMesh, float pRadius, int pSteps) {
-			const float angleFull = (float)Math.PI*2;
-			float angleInc = angleFull/pSteps;
-			float angle = 0;
-
-			var verts = new List<Vector3>();
-			var uvs = new List<Vector2>();
-			var tris = new List<int>();
-
-			verts.Add(Vector3.zero);
-			uvs.Add(new Vector2(0, 0));
-
-			for ( int i = 0 ; i <= pSteps ; ++i ) {
-				int vi = verts.Count;
-				float uvx = i/(float)pSteps;
-
-				verts.Add(GetRingPoint(pRadius, angle));
-				uvs.Add(new Vector2(uvx, 1));
-
-				if ( i > 0 ) {
-					tris.Add(0);
-					tris.Add(vi-1);
-					tris.Add(vi);
-				}
-
-				angle += angleInc;
-			}
-
-			pMesh.Clear();
-			pMesh.vertices = verts.ToArray();
-			pMesh.uv = uvs.ToArray();
-			pMesh.triangles = tris.ToArray();
-			pMesh.RecalculateNormals();
-			pMesh.RecalculateBounds();
-			pMesh.Optimize();
 		}
 
 	}
