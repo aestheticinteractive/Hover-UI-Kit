@@ -14,9 +14,9 @@ namespace Hover.Cast.Devices.Leap {
 		public float NavigationBackUngrabThreshold = 0.15f;
 
 		private Controller vLeapControl;
-		protected InputSettings vSettings;
-		protected InputSide vSideL;
-		protected InputSide vSideR;
+		private InputSettings vSettings;
+		private InputMenu vMenuL;
+		private InputMenu vMenuR;
 		private Frame vFrame;
 
 
@@ -28,8 +28,8 @@ namespace Hover.Cast.Devices.Leap {
 			vSettings = new InputSettings();
 			UpdateSettings();
 
-			vSideL = new InputSide(true, vSettings);
-			vSideR = new InputSide(false, vSettings);
+			vMenuL = new InputMenu(true, vSettings);
+			vMenuR = new InputMenu(false, vSettings);
 		}
 
 
@@ -41,13 +41,14 @@ namespace Hover.Cast.Devices.Leap {
 			Frame leapFrame = vLeapControl.Frame(0);
 
 			vFrame = (leapFrame != null && leapFrame.IsValid ? leapFrame : null);
-			vSideL.UpdateWithLeapHand(GetLeapHand(true));
-			vSideR.UpdateWithLeapHand(GetLeapHand(false));
+
+			vMenuL.Rebuild(GetLeapHand(true));
+			vMenuR.Rebuild(GetLeapHand(false));
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public override IInputSide GetSide(bool pIsLeft) {
-			return (pIsLeft ? vSideL : vSideR);
+		public override IInputMenu GetMenu(bool pIsLeft) {
+			return (pIsLeft ? vMenuL : vMenuR);
 		}
 
 

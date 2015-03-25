@@ -20,7 +20,7 @@ namespace Hover.Cast.Devices.Leap.Look {
 					"requires the 'Headset Camera Transform' to be set.");
 			}
 
-			var sett = new LookInputSettings();
+			/*var sett = new LookInputSettings();
 			sett.LeapTransform = gameObject.transform;
 			vSettings = sett;
 			UpdateSettings();
@@ -32,7 +32,7 @@ namespace Hover.Cast.Devices.Leap.Look {
 			sideR.SetOppositeHandMenu(sideL.Menu);
 
 			vSideL = sideL;
-			vSideR = sideR;
+			vSideR = sideR;*/
 		}
 
 		
@@ -41,14 +41,14 @@ namespace Hover.Cast.Devices.Leap.Look {
 		protected override void UpdateSettings() {
 			base.UpdateSettings();
 
-			LookInputSettings sett = (vSettings as LookInputSettings);
+			/*LookInputSettings sett = (vSettings as LookInputSettings);
 
 			if ( sett == null ) { //will only happen upon first UpdateSettings() call
 				return;
 			}
 
 			sett.CameraTransform = HeadsetCameraTransform;
-			sett.CursorHorizontalOffset = CursorHorizontalOffset;
+			sett.CursorHorizontalOffset = CursorHorizontalOffset;*/
 		}
 
 	}

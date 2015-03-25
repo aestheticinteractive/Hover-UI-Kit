@@ -11,7 +11,7 @@ namespace Hover.Cast.Input {
 		public abstract void UpdateInput();
 
 		/*--------------------------------------------------------------------------------------------*/
-		public abstract IInputSide GetSide(bool pIsLeft);
+		public abstract IInputMenu GetMenu(bool pIsLeft);
 
 	}
 

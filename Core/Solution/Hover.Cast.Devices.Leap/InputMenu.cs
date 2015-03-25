@@ -19,15 +19,18 @@ namespace Hover.Cast.Devices.Leap {
 		public float NavigateBackStrength { get; private set; }
 		public float DisplayStrength { get; private set; }
 
+		private readonly InputSettings vSettings;
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public InputMenu(bool pIsLeft) {
+		public InputMenu(bool pIsLeft, InputSettings pSettings) {
 			IsLeft = pIsLeft;
+			vSettings = pSettings;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		internal void Rebuild(Hand pLeapHand, InputSettings pSettings) {
+		internal void Rebuild(Hand pLeapHand) {
 			if ( pLeapHand == null ) {
 				IsAvailable = false;
 				Position = Vector3.zero;
@@ -59,10 +62,10 @@ namespace Hover.Cast.Devices.Leap {
 
 			Radius = (float)Math.Sqrt(Radius);
 
-			NavigateBackStrength = pLeapHand.GrabStrength/pSettings.NavBackGrabThreshold;
+			NavigateBackStrength = pLeapHand.GrabStrength/vSettings.NavBackGrabThreshold;
 			NavigateBackStrength = Mathf.Clamp(NavigateBackStrength, 0, 1);
 
-			DisplayStrength = Vector3.Dot(pLeapHand.PalmNormal.ToUnity(), pSettings.PalmDirection);
+			DisplayStrength = Vector3.Dot(pLeapHand.PalmNormal.ToUnity(), vSettings.PalmDirection);
 			DisplayStrength = Mathf.Clamp((DisplayStrength-0.7f)/0.25f, 0, 1);
 		}
 

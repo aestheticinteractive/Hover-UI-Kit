@@ -9,7 +9,7 @@
 		void UpdateInput();
 
 		/*--------------------------------------------------------------------------------------------*/
-		IInputSide GetSide(bool pIsLeft);
+		IInputMenu GetMenu(bool pIsLeft);
 
 	}
 

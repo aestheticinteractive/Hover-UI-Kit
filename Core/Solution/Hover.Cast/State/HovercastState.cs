@@ -108,7 +108,7 @@ namespace Hover.Cast.State {
 				inter.DisplayStrength = Menu.DisplayStrength;
 			}
 
-			FullMenu.UpdateAfterInput(vInputProv.GetSide(isMenuOnLeft).Menu, cursors.ToArray());
+			FullMenu.UpdateAfterInput(vInputProv.GetMenu(isMenuOnLeft), cursors.ToArray());
 			
 			if ( isSideChange ) {
 				OnSideChange();
