@@ -1,10 +1,10 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Hover.Cast.Devices.Leap.Look {
+namespace Hover.Cast.Input.Leap.Look {
 
 	/*================================================================================================*/
-	public class HovercastLeapLookInputProvider : HovercastLeapInputProvider {
+	public class HovercastLeapLookInputProvider : HovercastLeapInput {
 
 		public Transform HeadsetCameraTransform;
 		public float CursorHorizontalOffset = 0.4f;

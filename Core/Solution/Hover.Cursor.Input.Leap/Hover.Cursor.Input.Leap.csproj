@@ -7,8 +7,8 @@
     <ProjectGuid>{20C93B78-C1C2-4FC7-98CF-2A5CBFEAAAE9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Hover.Cursor.Devices.Leap</RootNamespace>
-    <AssemblyName>Hover.Cursor.Devices.Leap</AssemblyName>
+    <RootNamespace>Hover.Cursor.Input.Leap</RootNamespace>
+    <AssemblyName>Hover.Cursor.Input.Leap</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -47,14 +47,14 @@
     <Compile Include="Raycast\InputCursor.cs" />
     <Compile Include="Raycast\InputSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Hands\HovercursorHandTouchInputProvider.cs" />
+    <Compile Include="Hands\HovercursorLeapHandsInput.cs" />
     <Compile Include="Hands\InputCursor.cs" />
     <Compile Include="Hands\InputSettings.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Hover.Common.Devices.Leap\Hover.Common.Devices.Leap.csproj">
+    <ProjectReference Include="..\Hover.Common.Input.Leap\Hover.Common.Input.Leap.csproj">
       <Project>{fc2f139f-d831-444c-8c90-872358630c8c}</Project>
-      <Name>Hover.Common.Devices.Leap</Name>
+      <Name>Hover.Common.Input.Leap</Name>
     </ProjectReference>
     <ProjectReference Include="..\Hover.Common\Hover.Common.csproj">
       <Project>{F60AF979-92BB-498A-BD95-34070B69E9DD}</Project>

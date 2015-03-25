@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Hover.Cast.Devices.Leap.Look {
+namespace Hover.Cast.Input.Leap.Look {
 
 	/*================================================================================================*/
 	public class LookInputSettings : InputSettings {

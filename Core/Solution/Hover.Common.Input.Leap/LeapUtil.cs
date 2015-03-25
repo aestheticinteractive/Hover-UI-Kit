@@ -1,9 +1,8 @@
 ﻿using System;
-using Hover.Common.Input;
 using Leap;
 using UnityEngine;
 
-namespace Hover.Common.Devices.Leap {
+namespace Hover.Common.Input.Leap {
 
 	/*================================================================================================*/
 	public static class LeapUtil {

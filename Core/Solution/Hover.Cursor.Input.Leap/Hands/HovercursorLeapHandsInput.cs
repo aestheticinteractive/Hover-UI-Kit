@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Hover.Common.Input;
-using Hover.Cursor.Input;
 using Leap;
 
-namespace Hover.Cursor.Devices.Leap.Hands {
+namespace Hover.Cursor.Input.Leap.Hands {
 
 	/*================================================================================================*/
-	public class HovercursorLeapHandsInputProvider : HovercursorInputProvider {
+	public class HovercursorLeapHandsInput : HovercursorInputProvider {
 
 		private Controller vLeapControl;
 		private InputSettings vSettings;

@@ -1,14 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{50DD87E3-3C5A-4803-8123-A1CB3B93A533}</ProjectGuid>
+    <ProjectGuid>{FC2F139F-D831-444C-8C90-872358630C8C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Hover.Board.Devices.Leap</RootNamespace>
-    <AssemblyName>Hover.Board.Devices.Leap</AssemblyName>
+    <RootNamespace>Hover.Common.Input.Leap</RootNamespace>
+    <AssemblyName>Hover.Common.Input.Leap</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -44,16 +44,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LeapUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Hover.Board\Hover.Board.csproj">
-      <Project>{d7b4a4de-91b6-4e17-8481-60aa8109ce10}</Project>
-      <Name>Hover.Board</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Hover.Common.Devices.Leap\Hover.Common.Devices.Leap.csproj">
-      <Project>{fc2f139f-d831-444c-8c90-872358630c8c}</Project>
-      <Name>Hover.Common.Devices.Leap</Name>
+    <ProjectReference Include="..\Hover.Common\Hover.Common.csproj">
+      <Project>{F60AF979-92BB-498A-BD95-34070B69E9DD}</Project>
+      <Name>Hover.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

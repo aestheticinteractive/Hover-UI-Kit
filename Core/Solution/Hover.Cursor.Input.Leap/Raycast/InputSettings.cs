@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Hover.Cursor.Devices.Leap.Raycast {
+namespace Hover.Cursor.Input.Leap.Raycast {
 
 	/*================================================================================================*/
 	public class InputSettings : Hands.InputSettings {

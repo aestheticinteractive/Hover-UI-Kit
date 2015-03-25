@@ -1,12 +1,11 @@
 ﻿using System.Linq;
-using Hover.Cast.Input;
 using Leap;
 using UnityEngine;
 
-namespace Hover.Cast.Devices.Leap {
+namespace Hover.Cast.Input.Leap {
 
 	/*================================================================================================*/
-	public class HovercastLeapInputProvider : HovercastInputProvider {
+	public class HovercastLeapInput : HovercastInputProvider {
 
 		public Vector3 ActivePalmDirection = Vector3.down;
 		public Finger.FingerType CursorFinger = Finger.FingerType.TYPE_INDEX;

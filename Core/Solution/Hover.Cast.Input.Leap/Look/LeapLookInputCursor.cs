@@ -1,7 +1,6 @@
-﻿using Hover.Cast.Input;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Hover.Cast.Devices.Leap.Look {
+namespace Hover.Cast.Input.Leap.Look {
 
 	/*================================================================================================*/
 	public class LeapLookInputCursor {

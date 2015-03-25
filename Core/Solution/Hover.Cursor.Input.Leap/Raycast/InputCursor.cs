@@ -1,8 +1,7 @@
 ﻿using Hover.Common.Input;
-using Hover.Cursor.Input;
 using UnityEngine;
 
-namespace Hover.Cursor.Devices.Leap.Raycast {
+namespace Hover.Cursor.Input.Leap.Raycast {
 
 	/*================================================================================================*/
 	public class LeapLookInputCursor : IInputCursor {

@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Linq;
-using Hover.Common.Devices.Leap;
 using Hover.Common.Input;
-using Hover.Cursor.Input;
+using Hover.Common.Input.Leap;
 using Leap;
 using UnityEngine;
 
-namespace Hover.Cursor.Devices.Leap.Hands {
+namespace Hover.Cursor.Input.Leap.Hands {
 
 	/*================================================================================================*/
 	public class InputCursor : IInputCursor {

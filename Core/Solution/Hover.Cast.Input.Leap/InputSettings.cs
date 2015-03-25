@@ -1,7 +1,7 @@
 ﻿using Leap;
 using UnityEngine;
 
-namespace Hover.Cast.Devices.Leap {
+namespace Hover.Cast.Input.Leap {
 
 	/*================================================================================================*/
 	public class InputSettings {

@@ -1,21 +1,23 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FC2F139F-D831-444C-8C90-872358630C8C}</ProjectGuid>
+    <ProjectGuid>{8B370DAB-7CAE-4588-9FD6-E888A453B16D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Hover.Common.Devices.Leap</RootNamespace>
-    <AssemblyName>Hover.Common.Devices.Leap</AssemblyName>
+    <RootNamespace>Hover.Cast.Input.Leap</RootNamespace>
+    <AssemblyName>Hover.Cast.Input.Leap</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <ProductVersion>12.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
+    <DebugSymbols>True</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
+    <Optimize>False</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -23,7 +25,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>True</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -44,13 +46,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LeapUtil.cs" />
+    <Compile Include="Look\HovercastLeapLookInputProvider.cs" />
+    <Compile Include="Look\LeapLookInputCursor.cs" />
+    <Compile Include="Look\LookInputSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="HovercastLeapInput.cs" />
+    <Compile Include="InputMenu.cs" />
+    <Compile Include="InputSettings.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Hover.Common\Hover.Common.csproj">
-      <Project>{F60AF979-92BB-498A-BD95-34070B69E9DD}</Project>
-      <Name>Hover.Common</Name>
+    <ProjectReference Include="..\Hover.Cast\Hover.Cast.csproj">
+      <Project>{112FF634-EB3E-4351-B0BB-7729E455416E}</Project>
+      <Name>Hover.Cast</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Hover.Common.Input.Leap\Hover.Common.Input.Leap.csproj">
+      <Project>{FC2F139F-D831-444C-8C90-872358630C8C}</Project>
+      <Name>Hover.Common.Input.Leap</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

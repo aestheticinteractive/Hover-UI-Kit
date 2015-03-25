@@ -1,10 +1,9 @@
 ﻿using System;
-using Hover.Cast.Input;
-using Hover.Common.Devices.Leap;
+using Hover.Common.Input.Leap;
 using Leap;
 using UnityEngine;
 
-namespace Hover.Cast.Devices.Leap {
+namespace Hover.Cast.Input.Leap {
 
 	/*================================================================================================*/
 	public class InputMenu : IInputMenu {
