@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Hover.Cast.Display.Standard {
 
 	/*================================================================================================*/
-	public abstract class UiBaseToggleRenderer : UiSelectRenderer {
+	public abstract class UiItemBaseToggleRenderer : UiItemSelectRenderer {
 
 		private GameObject vOuter;
 		private GameObject vInner;

@@ -9,7 +9,7 @@ namespace Hover.Board.Custom.Standard {
 
 		public static Color Green = new Color(0.1f, 0.9f, 0.2f);
 
-		public int TextSize = 36;
+		public int TextSize = 30;
 		public Color TextColor = new Color(1, 1, 1);
 		public string TextFont = "Tahoma";
 		public Color ArrowIconColor = new Color(1, 1, 1);
@@ -24,7 +24,7 @@ namespace Hover.Board.Custom.Standard {
 		/*--------------------------------------------------------------------------------------------*/
 		protected override IItemVisualSettings GetSettingsInner(IBaseItem pItem) {
 			var sett = new ItemVisualSettingsStandard();
-			sett.Renderer = typeof(UiSelectRenderer); //TODO: handle other item types
+			sett.Renderer = typeof(UiItemSelectRenderer); //TODO: handle other item types
 			sett.TextSize = TextSize;
 			sett.TextColor = TextColor;
 			sett.TextFont = TextFont;

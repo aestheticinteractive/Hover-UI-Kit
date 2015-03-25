@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Hover.Cast.Display.Standard {
 
 	/*================================================================================================*/
-	public class UiRadioRenderer : UiBaseToggleRenderer {
+	public class UiItemRadioRenderer : UiItemBaseToggleRenderer {
 
 		private static readonly Texture2D OuterTex = Resources.Load<Texture2D>("RadioOuter");
 		private static readonly Texture2D InnerTex = Resources.Load<Texture2D>("RadioInner");

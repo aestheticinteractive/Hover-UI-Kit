@@ -68,7 +68,7 @@ namespace Hover.Cast.Display.Standard {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void Update() {
-			vMainAlpha = UiSelectRenderer.GetArcAlpha(vMenuState);
+			vMainAlpha = UiItemSelectRenderer.GetArcAlpha(vMenuState);
 
 			Color colBg = vSettings.BackgroundColor;
 			colBg.a *= vMainAlpha;
@@ -76,9 +76,9 @@ namespace Hover.Cast.Display.Standard {
 			vBackground.renderer.sharedMaterial.color = colBg;
 
 			if ( vSettings.TextSize != vLabel.FontSize ) {
-				const float scale = UiSelectRenderer.ArcCanvasScale;
+				const float scale = UiItemSelectRenderer.ArcCanvasScale;
 
-				vLabel.SetSize(UiSelectRenderer.ArcCanvasThickness*scale, 
+				vLabel.SetSize(UiItemSelectRenderer.ArcCanvasThickness*scale, 
 					vSettings.TextSize*1.5f*scale, scale);
 			}
 

@@ -17,12 +17,12 @@ namespace Hover.cast.Custom.Standard {
 		public Color ArrowIconColor = new Color(1, 1, 1);
 		public Color ToggleIconColor = new Color(1, 1, 1);
 		public Color BackgroundColor = new Color(0.1f, 0.1f, 0.1f, 0.666f);
-		public Color EdgeColor = new Color(1, 1, 1, 0.5f);
+		public Color EdgeColor = new Color(1, 1, 1, 1);
 		public Color HighlightColor = new Color(0.1f, 0.5f, 0.9f);
 		public Color SelectionColor = new Color(0.1f, 0.9f, 0.2f);
 		public Color SliderTrackColor = new Color(0.1f, 0.1f, 0.1f, 0.5f);
 		public Color SliderFillColor = new Color(0.1f, 0.9f, 0.2f, 0.5f);
-		public Color SliderTickColor = new Color(1, 1, 1, 0.1f);
+		public Color SliderTickColor = new Color(1, 1, 1, 0.2f);
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -48,32 +48,32 @@ namespace Hover.cast.Custom.Standard {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private Type GetRendererForItem(IBaseItem pItem) {
+		private static Type GetRendererForItem(IBaseItem pItem) {
 			if ( (pItem as IParentItem) != null ) {
-				return typeof(UiParentRenderer);
+				return typeof(UiItemParentRenderer);
 			}
 
 			if ( (pItem as ISelectorItem) != null ) {
-				return typeof(UiSelectRenderer);
+				return typeof(UiItemSelectRenderer);
 			}
 
 			if ( (pItem as IStickyItem) != null ) {
-				return typeof(UiStickyRenderer);
+				return typeof(UiItemStickyRenderer);
 			}
 
 			if ( (pItem as ICheckboxItem) != null ) {
-				return typeof(UiCheckboxRenderer);
+				return typeof(UiItemCheckboxRenderer);
 			}
 
 			if ( (pItem as IRadioItem) != null ) {
-				return typeof(UiRadioRenderer);
+				return typeof(UiItemRadioRenderer);
 			}
 
 			if ( (pItem as ISliderItem) != null ) {
-				return typeof(UiSliderRenderer);
+				return typeof(UiItemSliderRenderer);
 			}
 
-			return typeof(UiSelectRenderer);
+			return typeof(UiItemSelectRenderer);
 		}
 
 	}

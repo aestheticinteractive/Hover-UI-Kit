@@ -9,7 +9,7 @@ using UnityEngine;
 namespace Hover.Board.Display.Standard {
 
 	/*================================================================================================*/
-	public class UiSelectRenderer : MonoBehaviour, IUiItemRenderer {
+	public class UiItemSelectRenderer : MonoBehaviour, IUiItemRenderer {
 
 		public const float ArcCanvasScale = UiItem.Size*0.012f;
 

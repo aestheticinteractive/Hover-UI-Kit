@@ -10,7 +10,7 @@ using UnityEngine;
 namespace Hover.Cast.Display.Standard {
 
 	/*================================================================================================*/
-	public class UiSelectRenderer : MonoBehaviour, IUiItemRenderer {
+	public class UiItemSelectRenderer : MonoBehaviour, IUiItemRenderer {
 
 		public const float ArcCanvasThickness = 250;
 		public const float ArcCanvasScale = 0.002f;

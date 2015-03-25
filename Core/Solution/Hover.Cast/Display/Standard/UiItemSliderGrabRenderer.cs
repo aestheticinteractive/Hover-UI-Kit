@@ -3,7 +3,7 @@
 namespace Hover.Cast.Display.Standard {
 
 	/*================================================================================================*/
-	public class UiSliderGrabRenderer : UiBaseIconRenderer {
+	public class UiItemSliderGrabRenderer : UiItemBaseIconRenderer {
 
 		private static readonly Texture2D IconTex = Resources.Load<Texture2D>("Slider");
 

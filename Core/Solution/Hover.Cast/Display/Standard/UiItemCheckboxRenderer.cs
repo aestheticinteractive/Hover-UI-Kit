@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Hover.Cast.Display.Standard {
 
 	/*================================================================================================*/
-	public class UiCheckboxRenderer : UiBaseToggleRenderer {
+	public class UiItemCheckboxRenderer : UiItemBaseToggleRenderer {
 
 		private static readonly Texture2D OuterTex = Resources.Load<Texture2D>("CheckboxOuter");
 		private static readonly Texture2D InnerTex = Resources.Load<Texture2D>("CheckboxInner");

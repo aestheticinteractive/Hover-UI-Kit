@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Hover.Cast.Display.Standard {
 
 	/*================================================================================================*/
-	public abstract class UiBaseIconRenderer : UiSelectRenderer {
+	public abstract class UiItemBaseIconRenderer : UiItemSelectRenderer {
 
 		private GameObject vIcon;
 

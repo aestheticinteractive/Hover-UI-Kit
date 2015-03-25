@@ -9,7 +9,7 @@ using UnityEngine;
 namespace Hover.Cast.Display.Standard {
 
 	/*================================================================================================*/
-	public class UiSliderRenderer : MonoBehaviour, IUiItemRenderer {
+	public class UiItemSliderRenderer : MonoBehaviour, IUiItemRenderer {
 
 		protected MenuState vMenuState;
 		protected IBaseItemState vItemState;
@@ -35,7 +35,7 @@ namespace Hover.Cast.Display.Standard {
 		protected GameObject[] vTicks;
 
 		protected GameObject vGrabHold;
-		protected UiSliderGrabRenderer vGrab;
+		protected UiItemSliderGrabRenderer vGrab;
 
 		protected GameObject vHoverHold;
 		protected UiHoverMeshSlice vHover;
@@ -106,7 +106,7 @@ namespace Hover.Cast.Display.Standard {
 			var grabObj = new GameObject("Grab");
 			grabObj.transform.SetParent(vGrabHold.transform, false);
 
-			vGrab = grabObj.AddComponent<UiSliderGrabRenderer>();
+			vGrab = grabObj.AddComponent<UiItemSliderGrabRenderer>();
 			vGrab.Build(vMenuState, vItemState, vGrabArcHalf*2, pSettings);
 
 			////
@@ -122,7 +122,7 @@ namespace Hover.Cast.Display.Standard {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void Update() {
-			vMainAlpha = UiSelectRenderer.GetArcAlpha(vMenuState)*vAnimAlpha;
+			vMainAlpha = UiItemSelectRenderer.GetArcAlpha(vMenuState)*vAnimAlpha;
 
 			if ( !vItemState.Item.IsEnabled ) {
 				vMainAlpha *= 0.333f;
