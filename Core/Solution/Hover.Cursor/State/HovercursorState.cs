@@ -11,10 +11,10 @@ namespace Hover.Cursor.State {
 	public class HovercursorState : IHovercursorState {
 
 		public HovercursorVisualSettings VisualSettings { get; private set; }
-		public HovercursorInputProvider InputProvider { get; private set; }
-		public CursorType[] InitializedCursorTypes { get; private set; }
 		public Transform CameraTransform { get; private set; }
+		public CursorType[] InitializedCursorTypes { get; private set; }
 
+		private readonly HovercursorInput vInput;
 		private readonly Transform vBaseTx;
 		private readonly IDictionary<CursorType, CursorState> vCursorMap;
 		private readonly IDictionary<CursorType, Transform> vTransformMap;
@@ -22,17 +22,26 @@ namespace Hover.Cursor.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public HovercursorState(Transform pBaseTx, HovercursorInputProvider pInput,
+		public HovercursorState(Transform pBaseTx, HovercursorInput pInput,
 											HovercursorVisualSettings pVisualSett, Transform pCamera) {
 			vBaseTx = pBaseTx;
+			vInput = pInput;
 
-			InitializedCursorTypes = new CursorType[0];
 			VisualSettings = pVisualSett;
-			InputProvider = pInput;
 			CameraTransform = pCamera;
+			InitializedCursorTypes = new CursorType[0];
 
 			vCursorMap = new Dictionary<CursorType, CursorState>();
 			vTransformMap = new Dictionary<CursorType, Transform>();
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public IHovercursorInput Input {
+			get {
+				return vInput;
+			}
 		}
 
 
@@ -64,12 +73,24 @@ namespace Hover.Cursor.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
+		public void AddOrUpdatePlane(string pId, Vector3 pPointWorld, Vector3 pNormalWorld) {
+			vInput.AddOrUpdatePlane(pId, pPointWorld, pNormalWorld);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool RemovePlane(string pId) {
+			return vInput.RemovePlane(pId);
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
 		private void TryInitCursor(CursorType pType) {
 			if ( vCursorMap.ContainsKey(pType) ) {
 				return;
 			}
 
-			var cursor = new CursorState(InputProvider.GetCursor(pType),
+			var cursor = new CursorState(Input.GetCursor(pType),
 				VisualSettings.GetSettings(), vBaseTx);
 			vCursorMap.Add(pType, cursor);
 

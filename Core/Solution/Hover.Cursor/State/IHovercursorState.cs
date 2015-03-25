@@ -9,9 +9,9 @@ namespace Hover.Cursor.State {
 	public interface IHovercursorState {
 
 		HovercursorVisualSettings VisualSettings { get; }
-		HovercursorInputProvider InputProvider { get; }
-		CursorType[] InitializedCursorTypes { get; }
+		IHovercursorInput Input { get; }
 		Transform CameraTransform { get; }
+		CursorType[] InitializedCursorTypes { get; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -20,6 +20,14 @@ namespace Hover.Cursor.State {
 
 		/*--------------------------------------------------------------------------------------------*/
 		Transform GetCursorTransform(CursorType pType);
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		void AddOrUpdatePlane(string pId, Vector3 pPointWorld, Vector3 pNormalWorld);
+
+		/*--------------------------------------------------------------------------------------------*/
+		bool RemovePlane(string pId);
 
 	}
 

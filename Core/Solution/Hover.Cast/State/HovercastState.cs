@@ -23,7 +23,7 @@ namespace Hover.Cast.State {
 
 		private readonly HovercursorSetup vHovercursorSetup;
 		private readonly InteractionSettings vInteractSettings;
-		private readonly IInputProvider vInputProv;
+		private readonly IInput vInput;
 		private readonly IDictionary<CursorType, ICursorState> vCursorMap;
 		private readonly IDictionary<HovercastCursorType, CursorType> vLeftCursorConvertMap;
 		private readonly IDictionary<HovercastCursorType, CursorType> vRightCursorConvertMap;
@@ -35,10 +35,10 @@ namespace Hover.Cast.State {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public HovercastState(IItemHierarchy pItemHierarchy, HovercursorSetup pHovercusorSetup, 
-				InteractionSettings pInterSett, IInputProvider pInputProv, Transform pBaseTx) {
+				InteractionSettings pInterSett, IInput pInput, Transform pBaseTx) {
 			vInteractSettings = pInterSett;
 			vHovercursorSetup = pHovercusorSetup;
-			vInputProv = pInputProv;
+			vInput = pInput;
 			BaseTransform = pBaseTx;
 
 			FullMenu = new MenuState(pItemHierarchy, vInteractSettings);
@@ -51,7 +51,8 @@ namespace Hover.Cast.State {
 				{ HovercastCursorType.Index, CursorType.LeftIndex },
 				{ HovercastCursorType.Middle, CursorType.LeftMiddle },
 				{ HovercastCursorType.Ring, CursorType.LeftRing },
-				{ HovercastCursorType.Pinky, CursorType.LeftPinky }
+				{ HovercastCursorType.Pinky, CursorType.LeftPinky },
+				{ HovercastCursorType.Look, CursorType.Look }
 			};
 
 			vRightCursorConvertMap = new Dictionary<HovercastCursorType, CursorType> {
@@ -60,7 +61,8 @@ namespace Hover.Cast.State {
 				{ HovercastCursorType.Index, CursorType.RightIndex },
 				{ HovercastCursorType.Middle, CursorType.RightMiddle },
 				{ HovercastCursorType.Ring, CursorType.RightRing },
-				{ HovercastCursorType.Pinky, CursorType.RightPinky }
+				{ HovercastCursorType.Pinky, CursorType.RightPinky },
+				{ HovercastCursorType.Look, CursorType.Look }
 			};
 
 			OnSideChange += (() => {});
@@ -108,7 +110,7 @@ namespace Hover.Cast.State {
 				inter.DisplayStrength = Menu.DisplayStrength;
 			}
 
-			FullMenu.UpdateAfterInput(vInputProv.GetMenu(isMenuOnLeft), cursors.ToArray());
+			FullMenu.UpdateAfterInput(vInput.GetMenu(isMenuOnLeft), cursors.ToArray());
 			
 			if ( isSideChange ) {
 				OnSideChange();

@@ -43,6 +43,7 @@ namespace Hover.Cursor.Display {
 			Transform holdTx = vCursorRendererHold.transform;
 			holdTx.localPosition = vCursorState.Position;
 			holdTx.localRotation = Quaternion.identity;
+			holdTx.localScale = Vector3.one*vCursorState.Size;
 
 			Vector3 camWorld = vCameraTx.TransformPoint(Vector3.zero);
 			Vector3 camLocal = holdTx.InverseTransformPoint(camWorld);

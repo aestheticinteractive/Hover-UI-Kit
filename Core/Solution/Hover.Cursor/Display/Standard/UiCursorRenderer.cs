@@ -45,7 +45,7 @@ namespace Hover.Cursor.Display.Standard {
 
 			BuildMesh(thick);
 
-			vRingObj.transform.localScale = Vector3.one*scale*vCursorState.Size;
+			vRingObj.transform.localScale = Vector3.one*scale;
 			vRingObj.renderer.sharedMaterial.color = col;
 		}
 		

@@ -14,7 +14,9 @@
 		RightIndex,
 		RightMiddle,
 		RightRing,
-		RightPinky
+		RightPinky,
+
+		Look
 	}
 
 }

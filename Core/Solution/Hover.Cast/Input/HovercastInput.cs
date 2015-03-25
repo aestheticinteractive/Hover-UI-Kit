@@ -3,7 +3,7 @@
 namespace Hover.Cast.Input {
 
 	/*================================================================================================*/
-	public abstract class HovercastInputProvider : MonoBehaviour, IInputProvider {
+	public abstract class HovercastInput : MonoBehaviour, IInput {
 
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////

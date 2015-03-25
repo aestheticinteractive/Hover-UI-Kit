@@ -40,6 +40,7 @@ namespace Hover.Board.Display {
 
 			bool isActive = (cursorState.IsInputAvailable && 
 				vProjectionState.ProjectedPanelPosition != null &&
+				vProjectionState.ProjectedPanelDistance > 0.001f &&
 				vProjectionState.ProjectedPanelProgress > 0);
 
 			vRendererHold.SetActive(isActive);

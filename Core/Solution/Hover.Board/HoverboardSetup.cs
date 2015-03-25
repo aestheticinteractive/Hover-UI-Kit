@@ -15,6 +15,8 @@ namespace Hover.Board {
 	/*================================================================================================*/
 	public class HoverboardSetup : MonoBehaviour {
 
+		private const string CurosrPlaneKey = "Hoverboard.UiPanel";
+
 		public HoverboardPanel[] Panels;
 		public HovercursorSetup Hovercursor;
 		public HoverboardItemVisualSettings DefaultItemVisualSettings;
@@ -77,6 +79,14 @@ namespace Hover.Board {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
+			for ( int i = 0 ; i < vUiPanels.Length ; i++ ) {
+				UiPanel uiPanel = vUiPanels[i];
+				Transform tx = uiPanel.gameObject.transform;
+
+				Hovercursor.State.AddOrUpdatePlane(CurosrPlaneKey+"-"+i,
+					tx.position, tx.rotation*Vector3.up);
+			}
+
 			vState.UpdateAfterInput();
 
 			////

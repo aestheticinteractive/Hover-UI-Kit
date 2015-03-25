@@ -1,15 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Hover.Common.Input;
 using Leap;
 
-namespace Hover.Cursor.Input.Leap.Hands {
+namespace Hover.Cursor.Input.Leap {
 
 	/*================================================================================================*/
-	public class HovercursorLeapHandsInput : HovercursorInputProvider {
+	public class HovercursorLeapInput : HovercursorInput {
 
 		private Controller vLeapControl;
-		private InputSettings vSettings;
 		private IDictionary<CursorType, InputCursor> vCursorMap;
 		private IDictionary<CursorType, bool> vSideMap;
 
@@ -18,7 +18,6 @@ namespace Hover.Cursor.Input.Leap.Hands {
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void Awake() {
 			vLeapControl = new Controller();
-			vSettings = new InputSettings();
 			vCursorMap = new Dictionary<CursorType, InputCursor>();
 			vSideMap = new Dictionary<CursorType, bool>();
 		}
@@ -27,8 +26,6 @@ namespace Hover.Cursor.Input.Leap.Hands {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public override void UpdateInput() {
-			UpdateSettings();
-
 			Frame frame = GetValidLeapFrame(vLeapControl);
 			Hand leapHandL = GetValidLeapHand(frame, true);
 			Hand leapHandR = GetValidLeapHand(frame, false);
@@ -39,24 +36,23 @@ namespace Hover.Cursor.Input.Leap.Hands {
 			}
 
 			foreach ( InputCursor cursor in vCursorMap.Values ) {
-				cursor.Rebuild(vSideMap[cursor.Type] ? leapHandL : leapHandR);
+				cursor.UpdateWithHand(vSideMap[cursor.Type] ? leapHandL : leapHandR);
 			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public override IInputCursor GetCursor(CursorType pType) {
+			if ( pType == CursorType.Look ) {
+				throw new Exception("The "+typeof(HovercursorLeapInput)+" component does not support "+
+					"the use of "+typeof(CursorType)+"."+pType+".");
+			}
+
 			if ( !vCursorMap.ContainsKey(pType) ) {
 				vCursorMap.Add(pType, new InputCursor(pType));
 				vSideMap.Add(pType, CursorTypeUtil.IsLeft(pType));
 			}
 
 			return vCursorMap[pType];
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		protected virtual void UpdateSettings() {
 		}
 
 

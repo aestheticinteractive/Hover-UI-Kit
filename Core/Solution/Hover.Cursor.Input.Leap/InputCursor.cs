@@ -5,7 +5,7 @@ using Hover.Common.Input.Leap;
 using Leap;
 using UnityEngine;
 
-namespace Hover.Cursor.Input.Leap.Hands {
+namespace Hover.Cursor.Input.Leap {
 
 	/*================================================================================================*/
 	public class InputCursor : IInputCursor {
@@ -32,45 +32,42 @@ namespace Hover.Cursor.Input.Leap.Hands {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		public void Rebuild(Hand pLeapHand) {
+		public void UpdateWithHand(Hand pLeapHand) {
+			if ( pLeapHand == null ) {
+				UpdateForNull();
+				return;
+			}
+			
 			if ( vLeapFingerType != null ) {
-				RebuildForFinger(pLeapHand, (Finger.FingerType)vLeapFingerType);
+				UpdateForFinger(pLeapHand, (Finger.FingerType)vLeapFingerType);
+				return;
 			}
-			else if ( vIsPalm ) {
-				RebuildForPalm(pLeapHand);
+			
+			if ( vIsPalm ) {
+				UpdateForPalm(pLeapHand);
+				return;
 			}
-			else {
-				throw new Exception("Unhandled CursorType: "+Type);
-			}
+
+			throw new Exception("Unhandled CursorType: "+Type);
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void RebuildForPalm(Hand pLeapHand) {
-			if ( pLeapHand == null ) {
-				RebuildReset();
-				return;
-			}
-
-			IsAvailable = true;
-			Position = pLeapHand.PalmPosition.ToUnityScaled();
-			Rotation = CalcQuaternion(pLeapHand.Basis);
-			Size = pLeapHand.PalmWidth*SizeScaleFactor;
+		private void UpdateForNull() {
+			IsAvailable = false;
+			Position = Vector3.zero;
+			Rotation = Quaternion.identity;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void RebuildForFinger(Hand pLeapHand, Finger.FingerType pLeapFingerType) {
-			Finger leapFinger = null;
-
-			if ( pLeapHand != null ) {
-				leapFinger = pLeapHand.Fingers
-					.FingerType(pLeapFingerType)
-					.FirstOrDefault(f => f.IsValid);
-			}
+		private void UpdateForFinger(Hand pLeapHand, Finger.FingerType pLeapFingerType) {
+			Finger leapFinger = pLeapHand.Fingers
+				.FingerType(pLeapFingerType)
+				.FirstOrDefault(f => f.IsValid);
 
 			if ( leapFinger == null ) {
-				RebuildReset();
+				UpdateForNull();
 				return;
 			}
 
@@ -83,10 +80,11 @@ namespace Hover.Cursor.Input.Leap.Hands {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void RebuildReset() {
-			IsAvailable = false;
-			Position = Vector3.zero;
-			Rotation = Quaternion.identity;
+		private void UpdateForPalm(Hand pLeapHand) {
+			IsAvailable = true;
+			Position = pLeapHand.PalmPosition.ToUnityScaled();
+			Rotation = CalcQuaternion(pLeapHand.Basis);
+			Size = pLeapHand.PalmWidth*SizeScaleFactor;
 		}
 
 

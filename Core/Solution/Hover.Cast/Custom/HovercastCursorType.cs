@@ -7,7 +7,8 @@
 		Index,
 		Middle,
 		Ring,
-		Pinky
+		Pinky,
+		Look
 	}
 
 }

@@ -13,15 +13,18 @@ namespace Hover.Cast {
 	/*================================================================================================*/
 	public class HovercastSetup : MonoBehaviour {
 
+		private const string CursorPlaneKey = "Hovercast.UiMenu";
+
 		public HovercastItemHierarchy ItemHierarchy;
 		public HovercursorSetup Hovercursor;
 		public HovercastItemVisualSettings DefaultItemVisualSettings;
 		public HovercastPalmVisualSettings DefaultPalmVisualSettings;
 		public HovercastInteractionSettings InteractionSettings;
-		public HovercastInputProvider InputProvider;
+		public HovercastInput Input;
 		
 		private HovercastState vState;
 		private UiMenu vUiMenu;
+		private Transform vUiMenuTx;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -52,10 +55,10 @@ namespace Hover.Cast {
 			InteractionSettings = UnityUtil.FindComponentOrCreate<HovercastInteractionSettings,
 				HovercastInteractionSettings>(InteractionSettings, gameObject, prefix);
 
-			InputProvider = UnityUtil.FindComponentOrFail(InputProvider, prefix);
+			Input = UnityUtil.FindComponentOrFail(Input, prefix);
 
 			vState = new HovercastState(ItemHierarchy.GetRoot(), Hovercursor, 
-				InteractionSettings.GetSettings(), InputProvider, gameObject.transform);
+				InteractionSettings.GetSettings(), Input, gameObject.transform);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -68,6 +71,7 @@ namespace Hover.Cast {
 			menuObj.transform.SetParent(gameObject.transform, false);
 			vUiMenu = menuObj.AddComponent<UiMenu>();
 			vUiMenu.Build(vState, DefaultItemVisualSettings, DefaultPalmVisualSettings);
+			vUiMenuTx = menuObj.transform;
 
 			vState.SetReferences(menuObj.transform);
 		}
@@ -78,7 +82,15 @@ namespace Hover.Cast {
 				return;
 			}
 
-			InputProvider.UpdateInput();
+			if ( vState.Menu.DisplayStrength > 0 ) {
+				Hovercursor.State.AddOrUpdatePlane(CursorPlaneKey,
+					vUiMenuTx.position, vUiMenuTx.rotation*Vector3.up);
+			}
+			else {
+				Hovercursor.State.RemovePlane(CursorPlaneKey);
+			}
+
+			Input.UpdateInput();
 			vState.UpdateAfterInput();
 
 			////

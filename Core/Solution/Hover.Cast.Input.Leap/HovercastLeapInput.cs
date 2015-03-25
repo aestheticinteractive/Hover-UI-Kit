@@ -5,10 +5,9 @@ using UnityEngine;
 namespace Hover.Cast.Input.Leap {
 
 	/*================================================================================================*/
-	public class HovercastLeapInput : HovercastInputProvider {
+	public class HovercastLeapInput : HovercastInput {
 
 		public Vector3 ActivePalmDirection = Vector3.down;
-		public Finger.FingerType CursorFinger = Finger.FingerType.TYPE_INDEX;
 		public float NavigationBackGrabThreshold = 0.3f;
 		public float NavigationBackUngrabThreshold = 0.15f;
 
@@ -25,7 +24,9 @@ namespace Hover.Cast.Input.Leap {
 			vLeapControl = new Controller();
 
 			vSettings = new InputSettings();
-			UpdateSettings();
+			vSettings.PalmDirection = ActivePalmDirection;
+			vSettings.NavBackGrabThreshold = NavigationBackGrabThreshold;
+			vSettings.NavBackUngrabThreshold = NavigationBackUngrabThreshold;
 
 			vMenuL = new InputMenu(true, vSettings);
 			vMenuR = new InputMenu(false, vSettings);
@@ -35,8 +36,6 @@ namespace Hover.Cast.Input.Leap {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public override void UpdateInput() {
-			UpdateSettings();
-
 			Frame leapFrame = vLeapControl.Frame(0);
 
 			vFrame = (leapFrame != null && leapFrame.IsValid ? leapFrame : null);
@@ -52,14 +51,6 @@ namespace Hover.Cast.Input.Leap {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		protected virtual void UpdateSettings() {
-			vSettings.PalmDirection = ActivePalmDirection;
-			vSettings.CursorFinger = CursorFinger;
-			vSettings.NavBackGrabThreshold = NavigationBackGrabThreshold;
-			vSettings.NavBackUngrabThreshold = NavigationBackUngrabThreshold;
-		}
-		
 		/*--------------------------------------------------------------------------------------------*/
 		private Hand GetLeapHand(bool pIsLeft) {
 			if ( vFrame == null ) {

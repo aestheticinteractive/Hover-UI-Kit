@@ -3,9 +3,10 @@
 namespace Hover.Cursor.Input {
 
 	/*================================================================================================*/
-	public interface IInputProvider {
+	public interface IHovercursorInput {
 
 		bool IsEnabled { get; set; }
+		bool IsFailure { get; set; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

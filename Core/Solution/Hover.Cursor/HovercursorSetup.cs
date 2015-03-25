@@ -15,7 +15,7 @@ namespace Hover.Cursor {
 	public class HovercursorSetup : MonoBehaviour {
 
 		public HovercursorVisualSettings DefaultVisualSettings;
-		public HovercursorInputProvider InputProvider;
+		public HovercursorInput Input;
 		public Transform CameraTransform;
 
 		private HovercursorState vState;
@@ -39,13 +39,13 @@ namespace Hover.Cursor {
 			DefaultVisualSettings = UnityUtil.FindComponentOrCreate<HovercursorVisualSettings, 
 				HovercursorVisualSettingsStandard>(DefaultVisualSettings, gameObject, prefix);
 
-			InputProvider = UnityUtil.FindComponentOrFail(InputProvider, prefix);
+			Input = UnityUtil.FindComponentOrFail(Input, prefix);
 
 			if ( CameraTransform == null ) {
 				CameraTransform = gameObject.transform;
 			}
 
-			vState = new HovercursorState(gameObject.transform, InputProvider,
+			vState = new HovercursorState(gameObject.transform, Input,
 				DefaultVisualSettings, CameraTransform);
 
 			vCursorMap = new Dictionary<CursorType, UiCursor>();
@@ -53,11 +53,11 @@ namespace Hover.Cursor {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			if ( vState == null ) {
+			if ( vState == null || Input.IsFailure ) {
 				return;
 			}
 
-			InputProvider.UpdateInput();
+			Input.UpdateInput();
 			vState.UpdateAfterInput();
 
 			CursorType[] newTypes = vState.InitializedCursorTypes;
