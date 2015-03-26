@@ -74,19 +74,14 @@ namespace Hover.Board {
 				UiPanel uiPanel = panelObj.AddComponent<UiPanel>();
 				uiPanel.Build(panelState, DefaultItemVisualSettings);
 				vUiPanels[i] = uiPanel;
+
+				panelState.InteractionPlane = Hovercursor.State.AddPlane(
+					CurosrPlaneKey+"-"+i, panelObj.transform, Vector3.up);
 			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			for ( int i = 0 ; i < vUiPanels.Length ; i++ ) {
-				UiPanel uiPanel = vUiPanels[i];
-				Transform tx = uiPanel.gameObject.transform;
-
-				Hovercursor.State.AddOrUpdatePlane(CurosrPlaneKey+"-"+i,
-					tx.position, tx.rotation*Vector3.up);
-			}
-
 			vState.UpdateAfterInput();
 
 			////

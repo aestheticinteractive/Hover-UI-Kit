@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 using Hover.Common.Input;
+using Hover.Cursor.State;
 using UnityEngine;
 
 namespace Hover.Cursor.Input {
@@ -11,14 +12,14 @@ namespace Hover.Cursor.Input {
 		public bool IsEnabled { get; set; }
 		public bool IsFailure { get; set; }
 
-		protected readonly IDictionary<string, InputPlane> vInputPlaneMap;
+		protected readonly IDictionary<string, InteractionPlaneState> vPlaneMap;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected HovercursorInput() {
 			IsEnabled = true;
-			vInputPlaneMap = new Dictionary<string, InputPlane>();
+			vPlaneMap = new Dictionary<string, InteractionPlaneState>();
 		}
 
 
@@ -32,34 +33,28 @@ namespace Hover.Cursor.Input {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void AddOrUpdatePlane(string pId, Vector3 pPointWorld, Vector3 pNormalWorld) {
-			vInputPlaneMap[pId] = new InputPlane {
-				Id = pId,
-				PointWorld = pPointWorld,
-				NormalWorld = pNormalWorld
-			};
-		}
+		public void AddPlane(string pId, InteractionPlaneState pPlane) {
+			if ( vPlaneMap.ContainsKey(pId) ) {
+				throw new Exception("There is already a plane with key '"+pId+"'.");
+			}
 
-		/*--------------------------------------------------------------------------------------------* /
-		public Transform GetPlane(string pId) {
-			InputPlane plane;
-			vInputPlaneMap.TryGetValue(pId, out plane);
-			return (plane == null ? null : plane.Center);
+			vPlaneMap[pId] = pPlane;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public string GetNearestPlaneId() {
-			InputPlane nearest = vInputPlaneMap.Values.FirstOrDefault(x => x.IsNearest);
-			return (nearest == null ? null : nearest.Id);
+		public InteractionPlaneState GetPlane(string pId) {
+			InteractionPlaneState plane;
+			vPlaneMap.TryGetValue(pId, out plane);
+			return plane;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public bool RemovePlane(string pId) {
-			if ( !vInputPlaneMap.ContainsKey(pId) ) {
+			if ( !vPlaneMap.ContainsKey(pId) ) {
 				return false;
 			}
 
-			return vInputPlaneMap.Remove(pId);
+			return vPlaneMap.Remove(pId);
 		}
 
 	}

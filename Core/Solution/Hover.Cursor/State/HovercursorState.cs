@@ -73,8 +73,15 @@ namespace Hover.Cursor.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void AddOrUpdatePlane(string pId, Vector3 pPointWorld, Vector3 pNormalWorld) {
-			vInput.AddOrUpdatePlane(pId, pPointWorld, pNormalWorld);
+		public IInteractionPlaneState AddPlane(string pId, Transform pTransform, Vector3 pLocalNormal) {
+			InteractionPlaneState plane = new InteractionPlaneState(pId, pTransform, pLocalNormal);
+			vInput.AddPlane(pId, plane);
+			return plane;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public IInteractionPlaneState GetPlane(string pId) {
+			return vInput.GetPlane(pId);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

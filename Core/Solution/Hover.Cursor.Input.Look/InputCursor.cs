@@ -1,5 +1,6 @@
 ﻿using System;
 using Hover.Common.Input;
+using Hover.Cursor.State;
 using UnityEngine;
 
 namespace Hover.Cursor.Input.Look {
@@ -25,20 +26,28 @@ namespace Hover.Cursor.Input.Look {
 			Rotation = Quaternion.identity;
 		}
 
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void UpdateWithPlanes(InputPlane[] pPlanes) {
+		public void UpdateWithPlanes(InteractionPlaneState[] pPlanes) {
+			IsAvailable = false;
+			Position = Vector3.zero;
+			Size = 0;
+
 			if ( pPlanes.Length == 0 ) {
-				IsAvailable = false;
-				Position = Vector3.zero;
 				return;
 			}
 
 			////
 
 			float minDist = float.MaxValue;
-			InputPlane nearest = null;
+			InteractionPlaneState nearest = null;
 
-			foreach ( InputPlane plane in pPlanes ) {
+			foreach ( InteractionPlaneState plane in pPlanes ) {
+				if ( !plane.IsEnabled ) {
+					continue;
+				}
+
 				UpdateWithPlane(plane);
 
 				if ( plane.IsHit && plane.HitDist < minDist ) {
@@ -47,14 +56,11 @@ namespace Hover.Cursor.Input.Look {
 				}
 			}
 
-			////
-
 			if ( nearest == null ) {
-				IsAvailable = false;
-				Position = Vector3.zero;
-				Size = 0;
 				return;
 			}
+
+			////
 
 			nearest.IsNearest = true;
 
@@ -63,10 +69,8 @@ namespace Hover.Cursor.Input.Look {
 			Size = vSettings.CursorSize;
 		}
 
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateWithPlane(InputPlane pPlane) {
+		private void UpdateWithPlane(InteractionPlaneState pPlane) {
 			Transform localTx = vSettings.InputTransform;
 			Transform camTx = vSettings.CameraTransform;
 

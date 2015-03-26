@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Hover.Common.Input;
+using Hover.Cursor.State;
 using UnityEngine;
 
 namespace Hover.Cursor.Input.Look {
@@ -35,9 +36,9 @@ namespace Hover.Cursor.Input.Look {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public override void UpdateInput() {
-			InputPlane[] planes = vInputPlaneMap.Values.ToArray();
+			InteractionPlaneState[] planes = vPlaneMap.Values.ToArray();
 
-			foreach ( InputPlane plane in planes ) {
+			foreach ( InteractionPlaneState plane in planes ) {
 				plane.IsHit = false;
 				plane.HitPosition = Vector3.zero;
 				plane.HitDist = 0;
@@ -45,6 +46,9 @@ namespace Hover.Cursor.Input.Look {
 			}
 
 			vCursor.UpdateWithPlanes(planes);
+
+			//InteractionPlaneState nearest = planes.FirstOrDefault(x => x.IsNearest);
+			//Debug.Log("NEAREST: "+(nearest == null ? "---" : nearest.Id+" / "+nearest.HitDist));
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

@@ -6,6 +6,7 @@ using Hover.Cast.Items;
 using Hover.Cast.State;
 using Hover.Common.Util;
 using Hover.Cursor;
+using Hover.Cursor.State;
 using UnityEngine;
 
 namespace Hover.Cast {
@@ -24,7 +25,7 @@ namespace Hover.Cast {
 		
 		private HovercastState vState;
 		private UiMenu vUiMenu;
-		private Transform vUiMenuTx;
+		private IInteractionPlaneState vCursorPlaneState;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -71,9 +72,11 @@ namespace Hover.Cast {
 			menuObj.transform.SetParent(gameObject.transform, false);
 			vUiMenu = menuObj.AddComponent<UiMenu>();
 			vUiMenu.Build(vState, DefaultItemVisualSettings, DefaultPalmVisualSettings);
-			vUiMenuTx = menuObj.transform;
 
 			vState.SetReferences(menuObj.transform);
+
+			vCursorPlaneState = Hovercursor.State.AddPlane(
+				CursorPlaneKey, menuObj.transform, Vector3.up);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -82,13 +85,7 @@ namespace Hover.Cast {
 				return;
 			}
 
-			if ( vState.Menu.DisplayStrength > 0 ) {
-				Hovercursor.State.AddOrUpdatePlane(CursorPlaneKey,
-					vUiMenuTx.position, vUiMenuTx.rotation*Vector3.up);
-			}
-			else {
-				Hovercursor.State.RemovePlane(CursorPlaneKey);
-			}
+			vCursorPlaneState.IsEnabled = (vState.Menu.DisplayStrength > 0);
 
 			Input.UpdateInput();
 			vState.UpdateAfterInput();

@@ -24,7 +24,12 @@ namespace Hover.Cursor.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		void AddOrUpdatePlane(string pId, Vector3 pPointWorld, Vector3 pNormalWorld);
+		//TODO: allow optional boundaries on the plane. Possibly do this via a custom "hit test" ...
+		// ... function within InteractionPlaneState.
+		IInteractionPlaneState AddPlane(string pId, Transform pTransform, Vector3 pLocalNormal);
+
+		/*--------------------------------------------------------------------------------------------*/
+		IInteractionPlaneState GetPlane(string pId);
 
 		/*--------------------------------------------------------------------------------------------*/
 		bool RemovePlane(string pId);

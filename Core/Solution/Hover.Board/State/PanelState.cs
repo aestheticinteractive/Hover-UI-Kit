@@ -1,5 +1,6 @@
 ﻿using Hover.Board.Custom;
 using Hover.Board.Items;
+using Hover.Cursor.State;
 
 namespace Hover.Board.State {
 
@@ -8,6 +9,7 @@ namespace Hover.Board.State {
 
 		public ItemPanel ItemPanel { get; private set; }
 		public GridState[] Grids { get; private set; }
+		public IInteractionPlaneState InteractionPlane { get; set; }
 
 		private readonly InteractionSettings vSettings;
 
