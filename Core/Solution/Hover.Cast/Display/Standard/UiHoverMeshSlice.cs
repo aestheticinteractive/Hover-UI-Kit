@@ -50,11 +50,8 @@ namespace Hover.Cast.Display.Standard {
 		public void Resize(float pRadiusInner, float pRadiusOuter, float pAngle0, float pAngle1) {
 			const float ep = 0.0001f;
 
-			if ( Math.Abs(pRadiusInner-vRadInner) < ep && Math.Abs(pRadiusOuter-vRadOuter) < ep ) {
-				return;
-			}
-
-			if ( Math.Abs(pAngle0-vAngle0) < ep && Math.Abs(pAngle1-vAngle1) < ep ) {
+			if ( Math.Abs(pRadiusInner-vRadInner) < ep && Math.Abs(pRadiusOuter-vRadOuter) < ep &&
+					Math.Abs(pAngle0-vAngle0) < ep && Math.Abs(pAngle1-vAngle1) < ep ) {
 				return;
 			}
 

@@ -69,7 +69,7 @@ namespace Hover.Cast.Display {
 				return;
 			}
 
-			Vector3? cursorWorld = vItemState.NearestCursorWorldPos; //TODO: test this new approach
+			Vector3? cursorWorld = vItemState.NearestCursorWorldPos;
 			bool ignoreSlider = (!vItemState.IsNearestHighlight || 
 				vItemState.MaxHighlightProgress <= 0 || cursorWorld == null);
 
