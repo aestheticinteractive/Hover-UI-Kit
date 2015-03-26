@@ -17,10 +17,8 @@ namespace Hover.Cast.Display {
 		/*--------------------------------------------------------------------------------------------*/
 		void HandleChangeAnimation(bool pFadeIn, int pDirection, float pProgress);
 
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		Vector3 GetPointNearestToCursor(Vector3 pCursorLocalPos);
+		void UpdateHoverPoints(IBaseItemPointsState pPointsState, Vector3 pCursorWorldPos);
 
 	}
 

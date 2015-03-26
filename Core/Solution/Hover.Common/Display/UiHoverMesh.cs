@@ -1,4 +1,5 @@
 ﻿using System;
+using Hover.Common.State;
 using UnityEngine;
 
 namespace Hover.Common.Display {
@@ -23,7 +24,8 @@ namespace Hover.Common.Display {
 		public Mesh HighlightMesh { get; private set; }
 		public Mesh SelectMesh { get; private set; }
 
-		private Vector3[] vSelectionPoints;
+		protected GameObject vParent;
+		protected Vector3[] vHoverPoints;
 		private float vPrevHighAmount;
 		private float vPrevSelAmount;
 
@@ -31,6 +33,8 @@ namespace Hover.Common.Display {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected void Build(GameObject pParent) {
+			vParent = pParent;
+
 			Shader shader = Shader.Find("Unlit/AlphaSelfIllum");
 
 			Background = new GameObject("Background");
@@ -75,7 +79,7 @@ namespace Hover.Common.Display {
 			UpdateMesh(MeshType.Highlight, HighlightMesh, vPrevHighAmount);
 			UpdateMesh(MeshType.Select, SelectMesh, vPrevSelAmount);
 
-			vSelectionPoints = CalcSelectionPoints();
+			vHoverPoints = CalcHoverLocalPoints();
 		}
 
 
@@ -117,41 +121,13 @@ namespace Hover.Common.Display {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public Vector3 GetPointNearestToCursor(Vector3 pCursorLocalPos) {
-			//TODO: Optimize this somehow, probably by reducing the number of points/distances to 
-			//check. This could be done by sampling some key points, finding the closest one, then only
-			//doing further checks for the points nearest to it.
+		public abstract void UpdateHoverPoints(IBaseItemPointsState pPointsState);
 
-			float sqrMagMin = float.MaxValue;
-			Vector3 nearest = Vector3.zero;
-			//Transform tx = vBackground.transform.parent;
-			//Vector3 worldCurs = tx.TransformPoint(pCursorLocalPos);
-			//Vector3 worldPos;
-
-			foreach ( Vector3 pos in vSelectionPoints ) {
-				float sqrMag = (pos-pCursorLocalPos).sqrMagnitude;
-
-				if ( sqrMag < sqrMagMin ) {
-					sqrMagMin = sqrMag;
-					nearest = pos;
-				}
-
-				//worldPos = tx.TransformPoint(pos);
-				//Debug.DrawLine(worldPos, worldCurs, Color.yellow);
-			}
-
-			//worldPos = tx.TransformPoint(nearest);
-			//Debug.DrawLine(worldPos, worldCurs, Color.red);
-			return nearest;
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected abstract void UpdateMesh(MeshType pType, Mesh pMesh, float pAmount=1);
 		
 		/*--------------------------------------------------------------------------------------------*/
-		protected abstract Vector3[] CalcSelectionPoints();
+		protected abstract Vector3[] CalcHoverLocalPoints();
 
 	}
 

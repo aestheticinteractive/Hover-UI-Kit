@@ -12,16 +12,18 @@ namespace Hover.Common.State {
 	public class BaseItemState : IBaseItemState {
 
 		public IBaseItem Item { get; private set; }
+		public Action<IBaseItemPointsState, Vector3> HoverPointUpdater { get; set; }
 
 		public bool IsSelectionPrevented { get; private set; }
 
 		private readonly BaseInteractionSettings vSettings;
+		private readonly BaseItemPointsState vPoints;
+		private readonly IDictionary<CursorType, Vector3?> vCursorWorldPosMap;
 		private readonly IDictionary<CursorType, float> vHighlightDistanceMap;
 		private readonly IDictionary<CursorType, float> vHighlightProgressMap;
 		private readonly IDictionary<CursorType, bool> vIsNearestHighlightMap;
 		private readonly IDictionary<string, bool> vPreventSelectionViaDisplayMap;
 
-		private Func<Vector3, float> vCursorDistanceFunc;
 		private DateTime? vSelectionStart;
 		private float vDistanceUponSelection;
 
@@ -31,7 +33,9 @@ namespace Hover.Common.State {
 		public BaseItemState(IBaseItem pItem, BaseInteractionSettings pSettings) {
 			Item = pItem;
 			vSettings = pSettings;
+			vPoints = new BaseItemPointsState();
 
+			vCursorWorldPosMap = new Dictionary<CursorType, Vector3?>();
 			vHighlightDistanceMap = new Dictionary<CursorType, float>();
 			vHighlightProgressMap = new Dictionary<CursorType, float>();
 			vIsNearestHighlightMap = new Dictionary<CursorType, bool>();
@@ -96,13 +100,27 @@ namespace Hover.Common.State {
 			}
 		}
 
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void SetCursorDistanceFunction(Func<Vector3, float> pFunc) {
-			vCursorDistanceFunc = pFunc;
+		public Vector3? NearestCursorWorldPos {
+			get {
+				float minDist = float.MaxValue;
+				CursorType? nearestType = null;
+
+				foreach ( KeyValuePair<CursorType, float> pair in vHighlightDistanceMap ) {
+					if ( pair.Value >= minDist ) {
+						continue;
+					}
+
+					minDist = pair.Value;
+					nearestType = pair.Key;
+				}
+
+				return (nearestType == null ? null : vCursorWorldPosMap[(CursorType)nearestType]);
+			}
 		}
 
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void PreventSelectionViaDisplay(string pName, bool pPrevent) {
 			vPreventSelectionViaDisplayMap[pName] = pPrevent;
@@ -111,20 +129,43 @@ namespace Hover.Common.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void UpdateWithCursor(CursorType pType, Vector3? pCursorWorldPosition) {
+		public void UpdateWithCursor(CursorType pType, Vector3? pCursorWorldPos) {
 			bool preventViaDisplay = vPreventSelectionViaDisplayMap.Any(x => x.Value);
+			vCursorWorldPosMap[pType] = pCursorWorldPos;
 
-			if ( pCursorWorldPosition == null || preventViaDisplay || !Item.IsEnabled ) {
+			if ( pCursorWorldPos == null || preventViaDisplay || !Item.IsEnabled ) {
 				vHighlightDistanceMap[pType] = float.MaxValue;
 				vHighlightProgressMap[pType] = 0;
 				return;
 			}
 
-			if ( vCursorDistanceFunc == null ) {
-				throw new Exception("No CursorDistanceFunction has been set.");
+			Vector3 cursorWorldPos = (Vector3)pCursorWorldPos;
+			HoverPointUpdater(vPoints, cursorWorldPos);
+
+			Vector3[] pointWorldPosList = vPoints.GetWorldPoints();
+
+			if ( pointWorldPosList.Length == 0 ) {
+				throw new Exception("No hover points provided.");
 			}
 
-			float dist = vCursorDistanceFunc((Vector3)pCursorWorldPosition);
+			float sqrMagMin = float.MaxValue;
+			//Vector3 nearest = Vector3.zero;
+
+			foreach ( Vector3 pointWorldPos in pointWorldPosList ) {
+				float sqrMag = (pointWorldPos-cursorWorldPos).sqrMagnitude;
+
+				if ( sqrMag < sqrMagMin ) {
+					sqrMagMin = sqrMag;
+					//nearest = pointWorldPos;
+				}
+			}
+
+			/*foreach ( Vector3 pointWorldPos in pointWorldPosList ) {
+				Debug.DrawLine(pointWorldPos, cursorWorldPos, 
+					(pointWorldPos == nearest ? Color.red : Color.gray));
+			}*/
+			
+			float dist = (float)Math.Sqrt(sqrMagMin);
 			float prog = Mathf.InverseLerp(vSettings.HighlightDistanceMax,
 				vSettings.HighlightDistanceMin, dist*vSettings.ScaleMultiplier);
 

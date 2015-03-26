@@ -22,7 +22,7 @@ namespace Hover.Cast.Display.Standard {
 		protected float vMainAlpha;
 		protected float vAnimAlpha;
 
-		protected UiHoverMeshSlice vSlice;
+		protected UiHoverMeshSlice vHoverSlice;
 		protected UiLabel vLabel;
 
 
@@ -36,8 +36,8 @@ namespace Hover.Cast.Display.Standard {
 
 			////
 
-			vSlice = new UiHoverMeshSlice(gameObject);
-			vSlice.Resize(1, 1.5f, pArcAngle);
+			vHoverSlice = new UiHoverMeshSlice(gameObject);
+			vHoverSlice.Resize(1, 1.5f, pArcAngle);
 
 			////
 
@@ -88,10 +88,10 @@ namespace Hover.Cast.Display.Standard {
 			colHigh.a *= high*vMainAlpha;
 			colSel.a *= selectAlpha*vMainAlpha;
 
-			vSlice.UpdateBackground(colBg);
-			vSlice.UpdateEdge(colEdge);
-			vSlice.UpdateHighlight(colHigh, high);
-			vSlice.UpdateSelect(colSel, select);
+			vHoverSlice.UpdateBackground(colBg);
+			vHoverSlice.UpdateEdge(colEdge);
+			vHoverSlice.UpdateHighlight(colHigh, high);
+			vHoverSlice.UpdateSelect(colSel, select);
 
 			if ( vSettings.TextSize != vLabel.FontSize ) {
 				vLabel.SetSize(ArcCanvasThickness*ArcCanvasScale, 
@@ -112,8 +112,8 @@ namespace Hover.Cast.Display.Standard {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public Vector3 GetPointNearestToCursor(Vector3 pCursorLocalPos) {
-			return vSlice.GetPointNearestToCursor(pCursorLocalPos);
+		public void UpdateHoverPoints(IBaseItemPointsState pPointsState, Vector3 pCursorWorldPos) {
+			vHoverSlice.UpdateHoverPoints(pPointsState);
 		}
 
 

@@ -1,5 +1,6 @@
 ﻿using Hover.Common.Input;
 using Hover.Common.Items;
+using UnityEngine;
 
 namespace Hover.Common.State {
 
@@ -13,6 +14,7 @@ namespace Hover.Common.State {
 		float MaxHighlightProgress { get; }
 		bool IsNearestHighlight { get; }
 		float SelectionProgress { get; }
+		Vector3? NearestCursorWorldPos { get; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

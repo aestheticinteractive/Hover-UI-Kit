@@ -12,10 +12,8 @@ namespace Hover.Board.Display {
 		/*--------------------------------------------------------------------------------------------*/
 		void Build(IBaseItemState pItemState, IItemVisualSettings pSettings);
 
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		Vector3 GetPointNearestToCursor(Vector3 pCursorLocalPos);
+		void UpdateHoverPoints(IBaseItemPointsState pPointsState, Vector3 pCursorWorldPos);
 
 	}
 

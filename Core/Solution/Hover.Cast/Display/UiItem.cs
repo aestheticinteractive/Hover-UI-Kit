@@ -18,7 +18,6 @@ namespace Hover.Cast.Display {
 
 		private float vSlideDegrees;
 		private Vector3 vSlideDir0;
-		private Vector3 vCursorLocalPos;
 
 		private GameObject vRendererObj;
 		private IUiItemRenderer vRenderer;
@@ -31,8 +30,6 @@ namespace Hover.Cast.Display {
 			vMenuState = pMenuState;
 			vItemState = pItemState;
 			ArcAngle = pArcAngle;
-
-			vItemState.SetCursorDistanceFunction(CalcCursorDistance);
 
 			const float pi = (float)Math.PI;
 			const float slideBufferAngle = pi/80f;
@@ -47,6 +44,8 @@ namespace Hover.Cast.Display {
 
 			vRenderer = (IUiItemRenderer)vRendererObj.AddComponent(pVisualSettings.Renderer);
 			vRenderer.Build(vMenuState, vItemState, pArcAngle, pVisualSettings);
+
+			vItemState.HoverPointUpdater = vRenderer.UpdateHoverPoints;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -56,15 +55,6 @@ namespace Hover.Cast.Display {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		private float CalcCursorDistance(Vector3 pCursorWorldPos) {
-			//TODO: just have the renderer provide WORLD points to the item?
-			vCursorLocalPos = gameObject.transform.InverseTransformPoint(pCursorWorldPos);
-			Vector3 nearestLocal = vRenderer.GetPointNearestToCursor(vCursorLocalPos);
-			Vector3 nearestWorld = vRendererObj.transform.TransformPoint(nearestLocal);
-			return (nearestWorld-pCursorWorldPos).magnitude;
-		}
-		
 		/*--------------------------------------------------------------------------------------------*/
 		internal void HandleChangeAnimation(bool pFadeIn, int pDirection, float pProgress) {
 			vItemState.PreventSelectionViaDisplay("anim", (pProgress < 1));
@@ -79,12 +69,16 @@ namespace Hover.Cast.Display {
 				return;
 			}
 
-			if ( !vItemState.IsNearestHighlight || vItemState.MaxHighlightProgress <= 0 ) {
+			Vector3? cursorWorld = vItemState.NearestCursorWorldPos; //TODO: test this new approach
+			bool ignoreSlider = (!vItemState.IsNearestHighlight || 
+				vItemState.MaxHighlightProgress <= 0 || cursorWorld == null);
+
+			if ( ignoreSlider ) {
 				sliderItem.HoverValue = null;
 				return;
 			}
 
-			Vector3 cursorLocal = vCursorLocalPos;
+			Vector3 cursorLocal = gameObject.transform.InverseTransformPoint((Vector3)cursorWorld);
 			cursorLocal.y = 0;
 
 			Vector3 cursorDir = cursorLocal.normalized;

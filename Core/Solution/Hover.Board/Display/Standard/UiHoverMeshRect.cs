@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using Hover.Common.Display;
+using Hover.Common.State;
 using Hover.Common.Util;
 using UnityEngine;
 
 namespace Hover.Board.Display.Standard {
 
 	/*================================================================================================*/
-	public class UiHoverMeshSquare : UiHoverMesh {
+	public class UiHoverMeshRect : UiHoverMesh {
 
 		private const float AngleInset = UiItem.Size*0.01f;
 		private const float EdgeThick = AngleInset*2;
@@ -18,7 +19,7 @@ namespace Hover.Board.Display.Standard {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public UiHoverMeshSquare(GameObject pParent) {
+		public UiHoverMeshRect(GameObject pParent) {
 			Build(pParent);
 
 			Quaternion rot = Quaternion.FromToRotation(Vector3.forward, Vector3.up);
@@ -46,6 +47,12 @@ namespace Hover.Board.Display.Standard {
 			UpdateAfterResize();
 		}
 
+		/*--------------------------------------------------------------------------------------------*/
+		public override void UpdateHoverPoints(IBaseItemPointsState pPointsState) {
+			pPointsState.Points = vHoverPoints;
+			pPointsState.RelativeToTransform = vParent.transform;
+		}
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -60,7 +67,7 @@ namespace Hover.Board.Display.Standard {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		protected override Vector3[] CalcSelectionPoints() {
+		protected override Vector3[] CalcHoverLocalPoints() {
 			var points = new List<Vector3>();
 			int stepsX = (int)Math.Round(vWidth/UiItem.Size)*6;
 			int stepsY = (int)Math.Round(vHeight/UiItem.Size)*6;
@@ -71,7 +78,7 @@ namespace Hover.Board.Display.Standard {
 
 			for ( int xi = 1 ; xi < stepsX ; xi += 2 ) {
 				for ( int yi = 1 ; yi < stepsY ; yi += 2 ) {
-					points.Add(new Vector3(x0+xInc*xi, 0, y0+yInc*yi));
+					points.Add(new Vector3(x0+xInc*xi, 0, y0+yInc*yi)); //relative to parent
 				}
 			}
 

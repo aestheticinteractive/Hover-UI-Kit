@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Hover.Common.Display;
+using Hover.Common.State;
 using Hover.Common.Util;
 using UnityEngine;
 
@@ -72,6 +73,12 @@ namespace Hover.Cast.Display.Standard {
 			UpdateAfterResize();
 		}
 
+		/*--------------------------------------------------------------------------------------------*/
+		public override void UpdateHoverPoints(IBaseItemPointsState pPointsState) {
+			pPointsState.Points = vHoverPoints;
+			pPointsState.RelativeToTransform = Background.transform;
+		}
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -91,11 +98,11 @@ namespace Hover.Cast.Display.Standard {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		protected override Vector3[] CalcSelectionPoints() {
-			var points = new List<Vector3>();
-
+		protected override Vector3[] CalcHoverLocalPoints() {
 			const int innerSteps = 5;
-			var bgVerts = BackgroundMesh.vertices;
+
+			var points = new List<Vector3>();
+			Vector3[] bgVerts = BackgroundMesh.vertices;
 
 			for ( int i = 3 ; i < bgVerts.Length-2 ; i += 2 ) {
 				Vector3 outer = bgVerts[i];

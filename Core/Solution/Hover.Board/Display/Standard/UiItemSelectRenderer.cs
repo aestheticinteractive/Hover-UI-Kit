@@ -18,7 +18,7 @@ namespace Hover.Board.Display.Standard {
 
 		private float vMainAlpha;
 
-		private UiHoverMeshSquare vHoverMesh;
+		private UiHoverMeshRect vHoverRect;
 		private UiLabel vLabel;
 
 
@@ -34,8 +34,8 @@ namespace Hover.Board.Display.Standard {
 			gameObject.transform.SetParent(gameObject.transform, false);
 			gameObject.transform.localPosition = new Vector3(width/2, 0, height/2f);
 
-			vHoverMesh = new UiHoverMeshSquare(gameObject);
-			vHoverMesh.UpdateSize(width, height);
+			vHoverRect = new UiHoverMeshRect(gameObject);
+			vHoverRect.UpdateSize(width, height);
 
 			var labelObj = new GameObject("Label");
 			labelObj.transform.SetParent(gameObject.transform, false);
@@ -80,10 +80,10 @@ namespace Hover.Board.Display.Standard {
 			colHigh.a *= high*vMainAlpha;
 			colSel.a *= selectAlpha*vMainAlpha;
 
-			vHoverMesh.UpdateBackground(colBg);
-			vHoverMesh.UpdateEdge(colEdge);
-			vHoverMesh.UpdateHighlight(colHigh, high);
-			vHoverMesh.UpdateSelect(colSel, select);
+			vHoverRect.UpdateBackground(colBg);
+			vHoverRect.UpdateEdge(colEdge);
+			vHoverRect.UpdateHighlight(colHigh, high);
+			vHoverRect.UpdateSelect(colSel, select);
 
 			vLabel.Alpha = vMainAlpha;
 			vLabel.FontName = vVisualSettings.TextFont;
@@ -93,8 +93,8 @@ namespace Hover.Board.Display.Standard {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public Vector3 GetPointNearestToCursor(Vector3 pCursorLocalPos) {
-			return vHoverMesh.GetPointNearestToCursor(pCursorLocalPos);
+		public void UpdateHoverPoints(IBaseItemPointsState pPointsState, Vector3 pCursorWorldPos) {
+			vHoverRect.UpdateHoverPoints(pPointsState);
 		}
 
 	}
