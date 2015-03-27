@@ -14,7 +14,7 @@ namespace Hover.Common.Items.Groups {
 
 		private readonly Func<IBaseItem[]> vGetItems;
 		private IBaseItem[] vActiveItems;
-		private bool vIsActive;
+		private bool vIsEnabled;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -48,28 +48,26 @@ namespace Hover.Common.Items.Groups {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public bool IsActive {
+		public bool IsEnabled {
 			get {
-				return vIsActive;
+				return vIsEnabled;
 			}
 			set {
-				if ( value == vIsActive ) {
+				if ( value == vIsEnabled ) {
 					return;
 				}
 
-				vIsActive = value;
+				vIsEnabled = value;
 				vActiveItems = null; //reloads list upon "Items" property usage below
 
 				foreach ( IBaseItem item in Items ) {
-					//TODO: item.UpdateValueOnLevelChange(pDirection);
-
 					ISelectableItem selItem = (item as ISelectableItem);
 
 					if ( selItem == null ) {
 						continue;
 					}
 
-					if ( IsActive ) {
+					if ( IsEnabled ) {
 						selItem.OnSelected += HandleItemSelected;
 					}
 					else {
@@ -83,7 +81,7 @@ namespace Hover.Common.Items.Groups {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected virtual void HandleItemSelected(ISelectableItem pItem) {
+		private void HandleItemSelected(ISelectableItem pItem) {
 			IRadioItem radItem = (pItem as IRadioItem);
 
 			if ( radItem != null ) {
@@ -95,7 +93,7 @@ namespace Hover.Common.Items.Groups {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		protected virtual void DeselectRadioSiblings(IRadioItem pSelectedRadioItem) {
+		private void DeselectRadioSiblings(IRadioItem pSelectedRadioItem) {
 			foreach ( IBaseItem item in Items ) {
 				if ( item == pSelectedRadioItem ) {
 					continue;

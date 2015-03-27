@@ -3,9 +3,9 @@
 namespace Hover.Common.Items.Types {
 
 	/*================================================================================================*/
-	public interface IParentItem : ISelectableItem<bool> {
+	public interface IParentItem : ISelectableItem {
 
-		IItemGroup ChildLevel { get; }
+		IItemGroup ChildGroup { get; }
 
 	}
 

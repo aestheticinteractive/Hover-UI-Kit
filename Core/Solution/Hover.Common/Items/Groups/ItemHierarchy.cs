@@ -74,7 +74,7 @@ namespace Hover.Common.Items.Groups {
 
 			if ( parItem != null ) {
 				vHistory.Push(vCurrLevel);
-				SetNewLevel(parItem.ChildLevel, 1);
+				SetNewLevel(parItem.ChildGroup, 1);
 				return;
 			}
 
@@ -87,14 +87,12 @@ namespace Hover.Common.Items.Groups {
 		private void SetNewLevel(IItemGroup pNewLevel, int pDirection) {
 			if ( vCurrLevel != null ) {
 				vCurrLevel.OnItemSelected -= HandleItemSelected;
-				vCurrLevel.IsActive = false;
+				vCurrLevel.IsEnabled = false;
 			}
 
 			vCurrLevel = pNewLevel;
 			vCurrLevel.OnItemSelected += HandleItemSelected;
-			vCurrLevel.IsActive = true;
-
-			//TODO: notify "parent" items about this change to potentially reset their current value
+			vCurrLevel.IsEnabled = true;
 
 			OnLevelChange(pDirection);
 		}

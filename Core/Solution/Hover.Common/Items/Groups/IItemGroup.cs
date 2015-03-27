@@ -6,7 +6,7 @@
 		event ItemEvents.GroupItemSelectedHandler OnItemSelected;
 
 		object DisplayContainer { get; }
-		bool IsActive { get; set; }
+		bool IsEnabled { get; set; }
 		IBaseItem[] Items { get; }
 		ISelectableItem LastSelectedItem { get; }
 
