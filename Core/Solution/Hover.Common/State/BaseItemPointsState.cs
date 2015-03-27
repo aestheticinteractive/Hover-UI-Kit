@@ -7,7 +7,7 @@ namespace Hover.Common.State {
 	/*================================================================================================*/
 	public class BaseItemPointsState : IBaseItemPointsState {
 
-		//TODO: could optimize searches if the renderer also provides a center and max radius
+		//TODO: OPTIMIZE: renderers can also provide a center point with max radius
 
 		public Vector3[] Points { get; set; }
 		public Transform RelativeToTransform { get; set; }

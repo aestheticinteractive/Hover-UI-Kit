@@ -5,7 +5,7 @@ namespace Hover.Cursor.State {
 	/*================================================================================================*/
 	public struct PlaneData {
 
-		//TODO: allow optional boundaries on the plane. Possibly do this via a custom "hit test" ...
+		//TODO: FEATURE: allow boundaries on the plane. Possibly do this via a custom "hit test" ...
 		// ... function within InteractionPlaneState.
 
 		public readonly string Id;
