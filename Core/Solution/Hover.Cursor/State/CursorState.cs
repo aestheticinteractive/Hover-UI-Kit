@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Hover.Common.Input;
+using Hover.Common.State;
 using Hover.Cursor.Custom;
 using Hover.Cursor.Input;
 using UnityEngine;
@@ -19,8 +20,9 @@ namespace Hover.Cursor.State {
 		private readonly IInputCursor vInputCursor;
 		private readonly ICursorSettings vSettings;
 		private readonly Transform vBaseTx;
-		private readonly IDictionary<CursorDomain, 
-			IDictionary<string, CursorInteractState>> vInteractMap;
+		private readonly IDictionary<CursorDomain, float> vDisplayStrengthMap;
+		private readonly IDictionary<CursorDomain,
+			IDictionary<int, IBaseItemInteractionState>> vInteractMaps;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -30,46 +32,57 @@ namespace Hover.Cursor.State {
 			vSettings = pSettings;
 			vBaseTx = pBaseTx;
 
-			vInteractMap = new Dictionary<CursorDomain, IDictionary<string, CursorInteractState>>();
+			vDisplayStrengthMap = new Dictionary<CursorDomain, float>();
+			vInteractMaps = new Dictionary<CursorDomain, IDictionary<int, IBaseItemInteractionState>>();
 
 			foreach ( CursorDomain cursorDom in Enum.GetValues(typeof(CursorDomain)) ) {
-				vInteractMap.Add(cursorDom, new Dictionary<string, CursorInteractState>());
+				vDisplayStrengthMap.Add(cursorDom, 0);
+				vInteractMaps.Add(cursorDom, new Dictionary<int, IBaseItemInteractionState>());
 			}
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public ICursorInteractState AddOrGetInteraction(CursorDomain pDomain, string pId) {
-			IDictionary<string, CursorInteractState> map = vInteractMap[pDomain];
+		public void SetDisplayStrength(CursorDomain pDomain, float pStrength) {
+			vDisplayStrengthMap[pDomain] = pStrength;
+		}
 
-			if ( map.ContainsKey(pId) ) {
-				return map[pId];
+		/*--------------------------------------------------------------------------------------------*/
+		public void AddOrUpdateInteraction(CursorDomain pDomain, IBaseItemInteractionState pItem) {
+			IDictionary<int, IBaseItemInteractionState> map = vInteractMaps[pDomain];
+			int key = pItem.ItemAutoId;
+
+			if ( map.ContainsKey(key) ) {
+				return;
 			}
 
-			var inter = new CursorInteractState(Type, pDomain, pId);
-			map.Add(pId, inter);
-			return inter;
+			map.Add(key, pItem);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public bool RemoveInteraction(CursorDomain pDomain, string pId) {
-			IDictionary<string, CursorInteractState> map = vInteractMap[pDomain];
-			return (map.ContainsKey(pId) && map.Remove(pId));
+		public void RemoveAllInteractions(CursorDomain pDomain) {
+			vInteractMaps[pDomain].Clear();
 		}
 
+		/*--------------------------------------------------------------------------------------------*/
+		public bool RemoveInteraction(CursorDomain pDomain, IBaseItemInteractionState pItem) {
+			IDictionary<int, IBaseItemInteractionState> map = vInteractMaps[pDomain];
+			int key = pItem.ItemAutoId;
+			return (map.ContainsKey(key) && map.Remove(key));
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public float GetMaxDisplayStrength() {
-			return GetAllInteractStates()
-				.Select(x => x.DisplayStrength)
-				.DefaultIfEmpty(0)
-				.Max();
+			return vDisplayStrengthMap.Values.Max();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public float GetMaxHighlightProgress() {
 			return GetAllInteractStates()
-				.Select(x => x.HighlightProgress)
+				.Select(x => x.MaxHighlightProgress)
 				.DefaultIfEmpty(0)
 				.Max();
 		}
@@ -91,7 +104,7 @@ namespace Hover.Cursor.State {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateAfterInput() {
-			if ( vInteractMap.Count == 0 ) {
+			if ( vInteractMaps.Count == 0 ) {
 				return;
 			}
 
@@ -106,15 +119,8 @@ namespace Hover.Cursor.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private CursorInteractState[] GetAllInteractStates() {
-			ICollection<IDictionary<string, CursorInteractState>> maps = vInteractMap.Values;
-			var list = new List<CursorInteractState>();
-
-			foreach ( IDictionary<string, CursorInteractState> map in maps ) {
-				list.AddRange(map.Values);
-			}
-
-			return list.ToArray();
+		private IEnumerable<IBaseItemInteractionState> GetAllInteractStates() {
+			return vInteractMaps.Values.SelectMany(map => map.Values);
 		}
 
 	}

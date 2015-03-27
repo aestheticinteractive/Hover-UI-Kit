@@ -1,4 +1,5 @@
 ﻿using Hover.Common.Input;
+using Hover.Common.State;
 using UnityEngine;
 
 namespace Hover.Cursor.State {
@@ -14,10 +15,17 @@ namespace Hover.Cursor.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		ICursorInteractState AddOrGetInteraction(CursorDomain pDomain, string pId);
+		void SetDisplayStrength(CursorDomain pDomain, float pStrength);
 
 		/*--------------------------------------------------------------------------------------------*/
-		bool RemoveInteraction(CursorDomain pDomain, string pId);
+		//TODO: consider adding a per-domain "ItemProvider" that requests a new list every Update()
+		void AddOrUpdateInteraction(CursorDomain pDomain, IBaseItemInteractionState pItem);
+
+		/*--------------------------------------------------------------------------------------------*/
+		void RemoveAllInteractions(CursorDomain pDomain);
+
+		/*--------------------------------------------------------------------------------------------*/
+		bool RemoveInteraction(CursorDomain pDomain, IBaseItemInteractionState pItem);
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

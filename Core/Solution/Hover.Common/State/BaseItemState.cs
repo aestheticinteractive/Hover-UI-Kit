@@ -61,6 +61,13 @@ namespace Hover.Common.State {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
+		public int ItemAutoId {
+			get {
+				return Item.AutoId;
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
 		public float MinHighlightDistance {
 			get {
 				return vHighlightDistanceMap.Min(x => x.Value);
@@ -130,10 +137,11 @@ namespace Hover.Common.State {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateWithCursor(CursorType pType, Vector3? pCursorWorldPos) {
-			bool preventViaDisplay = vPreventSelectionViaDisplayMap.Any(x => x.Value);
 			vCursorWorldPosMap[pType] = pCursorWorldPos;
 
-			if ( pCursorWorldPos == null || preventViaDisplay || !Item.IsEnabled ) {
+			bool preventViaDisplay = vPreventSelectionViaDisplayMap.Any(x => x.Value);
+
+			if ( pCursorWorldPos == null || preventViaDisplay || !Item.IsEnabled || !Item.IsVisible ) {
 				vHighlightDistanceMap[pType] = float.MaxValue;
 				vHighlightProgressMap[pType] = 0;
 				return;

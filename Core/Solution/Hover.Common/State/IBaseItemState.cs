@@ -5,15 +5,12 @@ using UnityEngine;
 namespace Hover.Common.State {
 
 	/*================================================================================================*/
-	public interface IBaseItemState {
+	public interface IBaseItemState : IBaseItemInteractionState {
 
 		IBaseItem Item { get; }
 
-		bool IsSelectionPrevented { get; }
 		float MinHighlightDistance { get; }
-		float MaxHighlightProgress { get; }
 		bool IsNearestHighlight { get; }
-		float SelectionProgress { get; }
 		Vector3? NearestCursorWorldPos { get; }
 
 

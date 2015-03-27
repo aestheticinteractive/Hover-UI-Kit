@@ -30,6 +30,7 @@ namespace Hover.Cast.State {
 		private readonly InteractionSettings vInteractSettings;
 		private readonly IList<BaseItemState> vItems;
 
+		private ICursorState[] vCurrentCursors;
 		private bool vIsGrabbing;
 
 
@@ -39,6 +40,7 @@ namespace Hover.Cast.State {
 			vItemHierarchy = pItemHierarchy;
 			vInteractSettings = pInteractSettings;
 			vItems = new List<BaseItemState>();
+			vCurrentCursors = new ICursorState[0];
 
 			OnLevelChange += (d => {});
 
@@ -73,6 +75,8 @@ namespace Hover.Cast.State {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		internal void UpdateAfterInput(IInputMenu pInputMenu, ICursorState[] pCursors) {
+			vCurrentCursors = pCursors;
+
 			IsInputAvailable = pInputMenu.IsAvailable;
 			IsOnLeftSide = pInputMenu.IsLeft;
 			Center = pInputMenu.Position;
@@ -83,7 +87,7 @@ namespace Hover.Cast.State {
 
 			CheckGrabGesture(pInputMenu);
 
-			foreach ( ICursorState cursor in pCursors ) {
+			foreach ( ICursorState cursor in vCurrentCursors ) {
 				UpdateWithCursor(cursor);
 			}
 
@@ -106,6 +110,7 @@ namespace Hover.Cast.State {
 			NearestItem = null;
 
 			foreach ( BaseItemState item in vItems ) {
+				pCursor.AddOrUpdateInteraction(CursorDomain.Hovercast, item);
 				item.UpdateWithCursor(cursorType, cursorWorldPos);
 
 				if ( !allowSelect ) {
@@ -149,6 +154,10 @@ namespace Hover.Cast.State {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleLevelChange(int pDirection) {
+			foreach ( ICursorState cursor in vCurrentCursors ) {
+				cursor.RemoveAllInteractions(CursorDomain.Hovercast);
+			}
+
 			vItems.Clear();
 
 			IBaseItem[] items = vItemHierarchy.CurrentLevel.Items;

@@ -75,6 +75,7 @@ namespace Hover.Board.State {
 		public ProjectionState GetProjection(CursorType pCursorType) {
 			if ( !vProjectionMap.ContainsKey(pCursorType) ) {
 				ICursorState state = Hovercursor.GetCursorState(pCursorType);
+
 				var proj = new ProjectionState(state, vInteractSett, vBaseTx);
 				vProjectionMap.Add(pCursorType, proj);
 			}
@@ -84,8 +85,6 @@ namespace Hover.Board.State {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void RemoveProjection(CursorType pCursorType) {
-			ProjectionState proj = vProjectionMap[pCursorType];
-			proj.RemoveInteraction();
 			vProjectionMap.Remove(pCursorType);
 		}
 		
@@ -113,6 +112,8 @@ namespace Hover.Board.State {
 
 			foreach ( ItemTree itemTree in vAllItems ) {
 				BaseItemState item = itemTree.Item;
+
+				cursor.AddOrUpdateInteraction(CursorDomain.Hoverboard, item);
 				item.UpdateWithCursor(cursorType, cursorWorldPos);
 
 				if ( !allowSelect ) {

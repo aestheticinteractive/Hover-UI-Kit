@@ -1,5 +1,6 @@
 ﻿using System;
 using Hover.Common.Input;
+using Hover.Common.State;
 using Hover.Cursor;
 using Hover.Cursor.State;
 using UnityEngine;
@@ -11,7 +12,6 @@ namespace Hover.Demo.Cursor {
 
 		private struct Bundle {
 			public ICursorState State;
-			public ICursorInteractState Interact;
 			public Func<bool> ShowFunc; 
 		}
 
@@ -32,12 +32,15 @@ namespace Hover.Demo.Cursor {
 
 		private HovercursorSetup vSetup;
 		private Bundle[] vBundles;
+		private FakeItemState vFakeItem;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
 			vSetup = gameObject.GetComponent<HovercursorSetup>();
+			vFakeItem = new FakeItemState();
+			vFakeItem.ItemAutoId = 123;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -61,8 +64,8 @@ namespace Hover.Demo.Cursor {
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
 			foreach ( Bundle bundle in vBundles ) {
-				bundle.Interact.DisplayStrength = (bundle.ShowFunc() ? 1 : 0);
-				bundle.Interact.HighlightProgress = HighlightProgress;
+				bundle.State.SetDisplayStrength(CursorDomain.Hovercursor, (bundle.ShowFunc() ? 1 : 0));
+				vFakeItem.MaxHighlightProgress = HighlightProgress;
 			}
 		}
 
@@ -72,11 +75,23 @@ namespace Hover.Demo.Cursor {
 		private Bundle GetBundle(CursorType pType, Func<bool> pShowFunc) {
 			var bundle = new Bundle();
 			bundle.State = vSetup.State.GetCursorState(pType);
-			bundle.Interact = bundle.State.AddOrGetInteraction(CursorDomain.Cursor, "Demo");
 			bundle.ShowFunc = pShowFunc;
+			bundle.State.AddOrUpdateInteraction(CursorDomain.Hovercursor, vFakeItem);
 			return bundle;
 		}
 
 	}
 
+
+	/*================================================================================================*/
+	public class FakeItemState : IBaseItemInteractionState {
+
+		public int ItemAutoId { get; set; }
+		public bool IsSelectionPrevented { get; set; }
+		public float MaxHighlightProgress { get; set; }
+		public float SelectionProgress { get; set; }
+
+	}
+
 }
+

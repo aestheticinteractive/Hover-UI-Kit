@@ -13,10 +13,10 @@ namespace Hover.Board.State {
 		public bool ProjectedFromFront { get; private set; }
 		public float ProjectedPanelDistance { get; private set; }
 		public float ProjectedPanelProgress { get; private set; }
+		public float NearestItemHighlightProgress { get; set; }
 
 		private readonly InteractionSettings vSettings;
 		private readonly Transform vBaseTx;
-		private readonly ICursorInteractState vCursorInteract;
 
 		private Transform vPanelTx;
 
@@ -27,18 +27,10 @@ namespace Hover.Board.State {
 			Cursor = pCursor;
 			vSettings = pSettings;
 			vBaseTx = pBaseTx;
-
-			vCursorInteract = Cursor.AddOrGetInteraction(CursorDomain.Hoverboard, "");
-			vCursorInteract.DisplayStrength = 1;
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		internal void RemoveInteraction() {
-			Cursor.RemoveInteraction(CursorDomain.Hoverboard, "");
-		}
-
 		/*--------------------------------------------------------------------------------------------*/
 		internal void SetNearestPanelTransform(Transform pPanelTx) {
 			vPanelTx = pPanelTx;
@@ -61,16 +53,6 @@ namespace Hover.Board.State {
 			ProjectedPanelDistance = (projPos-Cursor.Position).magnitude;
 			ProjectedPanelProgress = Mathf.InverseLerp(vSettings.HighlightDistanceMax,
 				vSettings.HighlightDistanceMin, ProjectedPanelDistance);
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public float NearestItemHighlightProgress {
-			get {
-				return vCursorInteract.HighlightProgress;
-			}
-			set {
-				vCursorInteract.HighlightProgress = value;
-			}
 		}
 
 	}

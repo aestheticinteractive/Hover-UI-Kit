@@ -14,7 +14,8 @@ namespace Hover.Cast {
 	/*================================================================================================*/
 	public class HovercastSetup : MonoBehaviour {
 
-		private const string CursorPlaneKey = "Hovercast.UiMenu";
+		private const string Domain = "Hovercast";
+		private const string CursorPlaneKey = Domain+".UiMenu";
 
 		public HovercastItemHierarchy ItemHierarchy;
 		public HovercursorSetup Hovercursor;
@@ -25,7 +26,6 @@ namespace Hover.Cast {
 		
 		private HovercastState vState;
 		private UiMenu vUiMenu;
-		private IInteractionPlaneState vCursorPlaneState;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -40,23 +40,21 @@ namespace Hover.Cast {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
-			const string prefix = "Hovercast";
-
-			ItemHierarchy = UnityUtil.FindComponentOrFail(ItemHierarchy, prefix);
-			Hovercursor = UnityUtil.FindComponentOrFail(Hovercursor, prefix);
+			ItemHierarchy = UnityUtil.FindComponentOrFail(ItemHierarchy, Domain);
+			Hovercursor = UnityUtil.FindComponentOrFail(Hovercursor, Domain);
 
 			DefaultItemVisualSettings = UnityUtil.CreateComponent<HovercastItemVisualSettings,
-				HovercastItemVisualSettingsStandard>(DefaultItemVisualSettings, gameObject, prefix);
+				HovercastItemVisualSettingsStandard>(DefaultItemVisualSettings, gameObject, Domain);
 			DefaultItemVisualSettings.IsDefaultSettingsComponent = true;
 
 			DefaultPalmVisualSettings = UnityUtil.CreateComponent<HovercastPalmVisualSettings,
-				HovercastPalmVisualSettingsStandard>(DefaultPalmVisualSettings, gameObject, prefix);
+				HovercastPalmVisualSettingsStandard>(DefaultPalmVisualSettings, gameObject, Domain);
 			DefaultPalmVisualSettings.IsDefaultSettingsComponent = true;
 
 			InteractionSettings = UnityUtil.FindComponentOrCreate<HovercastInteractionSettings,
-				HovercastInteractionSettings>(InteractionSettings, gameObject, prefix);
+				HovercastInteractionSettings>(InteractionSettings, gameObject, Domain);
 
-			Input = UnityUtil.FindComponentOrFail(Input, prefix);
+			Input = UnityUtil.FindComponentOrFail(Input, Domain);
 
 			vState = new HovercastState(ItemHierarchy.GetRoot(), Hovercursor, 
 				InteractionSettings.GetSettings(), Input, gameObject.transform);
@@ -73,10 +71,10 @@ namespace Hover.Cast {
 			vUiMenu = menuObj.AddComponent<UiMenu>();
 			vUiMenu.Build(vState, DefaultItemVisualSettings, DefaultPalmVisualSettings);
 
-			vState.SetReferences(menuObj.transform);
-
-			vCursorPlaneState = Hovercursor.State.AddPlane(
+			IInteractionPlaneState interPlane = Hovercursor.State.AddPlane(
 				CursorPlaneKey, menuObj.transform, Vector3.up);
+
+			vState.SetReferences(menuObj.transform, interPlane);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -84,8 +82,6 @@ namespace Hover.Cast {
 			if ( vState == null ) {
 				return;
 			}
-
-			vCursorPlaneState.IsEnabled = (vState.Menu.DisplayStrength > 0);
 
 			Input.UpdateInput();
 			vState.UpdateAfterInput();

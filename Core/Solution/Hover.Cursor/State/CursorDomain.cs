@@ -2,7 +2,7 @@
 
 	/*================================================================================================*/
 	public enum CursorDomain {
-		Cursor,
+		Hovercursor,
 		Hovercast,
 		Hoverboard,
 		Other

@@ -8,6 +8,7 @@ using Hover.Board.State;
 using Hover.Common.Input;
 using Hover.Common.Util;
 using Hover.Cursor;
+using Hover.Cursor.State;
 using UnityEngine;
 
 namespace Hover.Board {
@@ -15,7 +16,8 @@ namespace Hover.Board {
 	/*================================================================================================*/
 	public class HoverboardSetup : MonoBehaviour {
 
-		private const string CurosrPlaneKey = "Hoverboard.UiPanel";
+		private const string Domain = "Hoverboard";
+		private const string CursorPlaneKey = Domain+".UiPanel";
 
 		public HoverboardPanel[] Panels;
 		public HovercursorSetup Hovercursor;
@@ -40,21 +42,19 @@ namespace Hover.Board {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
-			const string prefix = "Hoverboard";
-
-			Panels = UnityUtil.FindComponentsOrFail(Panels, prefix);
-			Hovercursor = UnityUtil.FindComponentOrFail(Hovercursor, prefix);
+			Panels = UnityUtil.FindComponentsOrFail(Panels, Domain);
+			Hovercursor = UnityUtil.FindComponentOrFail(Hovercursor, Domain);
 
 			DefaultItemVisualSettings = UnityUtil.CreateComponent<HoverboardItemVisualSettings,
-				HoverboardItemVisualSettingsStandard>(DefaultItemVisualSettings, gameObject, prefix);
+				HoverboardItemVisualSettingsStandard>(DefaultItemVisualSettings, gameObject, Domain);
 			DefaultItemVisualSettings.IsDefaultSettingsComponent = true;
 
 			ProjectionVisualSettings = UnityUtil.FindComponentOrCreate<
 				HoverboardProjectionVisualSettings, HoverboardProjectionVisualSettingsStandard>(
-					ProjectionVisualSettings,gameObject,prefix);
+					ProjectionVisualSettings,gameObject,Domain);
 			
 			InteractionSettings = UnityUtil.FindComponentOrCreate<HoverboardInteractionSettings,
-				HoverboardInteractionSettings>(InteractionSettings, gameObject, prefix);
+				HoverboardInteractionSettings>(InteractionSettings, gameObject, Domain);
 
 			vState = new HoverboardState(Panels.Select(x => x.GetPanel()).ToArray(), Hovercursor, 
 				InteractionSettings.GetSettings(), gameObject.transform);
@@ -76,7 +76,7 @@ namespace Hover.Board {
 				vUiPanels[i] = uiPanel;
 
 				panelState.InteractionPlane = Hovercursor.State.AddPlane(
-					CurosrPlaneKey+"-"+i, panelObj.transform, Vector3.up);
+					CursorPlaneKey+"-"+i, panelObj.transform, Vector3.up);
 			}
 		}
 
@@ -101,12 +101,17 @@ namespace Hover.Board {
 			CursorType[] removeCursorTypes = vProjMap.Keys.Except(interSett.Cursors).ToArray();
 			CursorType[] addCursorTypes = interSett.Cursors.Except(vProjMap.Keys).ToArray();
 			IProjectionVisualSettings projSett = ProjectionVisualSettings.GetSettings();
+			IHovercursorState hovercursor = Hovercursor.State;
 
 			foreach ( CursorType cursorType in removeCursorTypes ) {
 				UiProjection uiProj = vProjMap[cursorType];
 				vProjMap.Remove(cursorType);
 				Destroy(uiProj.gameObject);
 				vState.RemoveProjection(cursorType);
+
+				ICursorState cursor = hovercursor.GetCursorState(cursorType);
+				cursor.SetDisplayStrength(CursorDomain.Hoverboard, 0);
+				cursor.RemoveAllInteractions(CursorDomain.Hoverboard);
 			}
 
 			foreach ( CursorType cursorType in addCursorTypes ) {
@@ -116,6 +121,7 @@ namespace Hover.Board {
 				uiProj.Build(vState.GetProjection(cursorType), projSett);
 
 				vProjMap.Add(cursorType, uiProj);
+				hovercursor.GetCursorState(cursorType).SetDisplayStrength(CursorDomain.Hoverboard, 1);
 			}
 		}
 
