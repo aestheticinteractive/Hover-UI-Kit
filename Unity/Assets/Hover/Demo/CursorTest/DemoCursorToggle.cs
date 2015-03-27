@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Hover.Common.Input;
 using Hover.Common.State;
 using Hover.Cursor;
 using Hover.Cursor.State;
 using UnityEngine;
 
-namespace Hover.Demo.Cursor {
+namespace Hover.Demo.CursorTest {
 
 	/*================================================================================================*/
 	public class DemoCursorToggle : MonoBehaviour, IHovercursorDelegate {

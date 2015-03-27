@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using Hover.Cast;
 using Hover.Cast.Custom;
-using Hover.Common.Input;
 using UnityEngine;
 
-namespace Hover.Demo.Cast {
+namespace Hover.Demo.CastTest {
 
 	/*================================================================================================*/
 	public class DemoCastToggle : MonoBehaviour {

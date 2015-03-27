@@ -4,7 +4,7 @@ using Hover.Board;
 using Hover.Common.Input;
 using UnityEngine;
 
-namespace Hover.Demo.Board {
+namespace Hover.Demo.BoardTest {
 
 	/*================================================================================================*/
 	public class DemoBoardToggle : MonoBehaviour {
