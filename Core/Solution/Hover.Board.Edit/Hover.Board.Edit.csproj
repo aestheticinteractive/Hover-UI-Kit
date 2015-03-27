@@ -1,23 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8B370DAB-7CAE-4588-9FD6-E888A453B16D}</ProjectGuid>
+    <ProjectGuid>{E3DC1C14-601B-4191-A226-F8069FD121C5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Hover.Cast.Input.Leap</RootNamespace>
-    <AssemblyName>Hover.Cast.Input.Leap</AssemblyName>
+    <RootNamespace>Hover.Board.Edit</RootNamespace>
+    <AssemblyName>Hover.Board.Edit</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <ProductVersion>12.0.0</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>True</DebugSymbols>
+    <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>False</Optimize>
+    <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -25,45 +23,43 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
-    <Optimize>True</Optimize>
+    <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LeapCSharp.NET3.5">
-      <HintPath>..\..\Packages\LeapMotion\LeapCSharp.NET3.5.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="UnityEditor">
+      <HintPath>..\..\..\..\FragmentalLeap\Packages\Unity\UnityEditor.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine">
       <HintPath>..\..\Packages\Unity\UnityEngine.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Items\HoverboardItemEditor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="HovercastLeapInput.cs" />
-    <Compile Include="InputMenu.cs" />
-    <Compile Include="InputSettings.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Hover.Cast\Hover.Cast.csproj">
-      <Project>{112FF634-EB3E-4351-B0BB-7729E455416E}</Project>
-      <Name>Hover.Cast</Name>
+    <ProjectReference Include="..\Hover.Board\Hover.Board.csproj">
+      <Project>{D7B4A4DE-91B6-4E17-8481-60AA8109CE10}</Project>
+      <Name>Hover.Board</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Hover.Common.Input.Leap\Hover.Common.Input.Leap.csproj">
-      <Project>{FC2F139F-D831-444C-8C90-872358630C8C}</Project>
-      <Name>Hover.Common.Input.Leap</Name>
+    <ProjectReference Include="..\Hover.Common\Hover.Common.csproj">
+      <Project>{F60AF979-92BB-498A-BD95-34070B69E9DD}</Project>
+      <Name>Hover.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy /Y "$(TargetDir)$(TargetFileName)" "$(SolutionDir)..\..\Unity\Assets\Plugins\Hover\"</PostBuildEvent>
+    <PostBuildEvent>copy /Y "$(TargetDir)$(TargetFileName)" "$(SolutionDir)..\..\Unity\Assets\Plugins\Hover\Editor\"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

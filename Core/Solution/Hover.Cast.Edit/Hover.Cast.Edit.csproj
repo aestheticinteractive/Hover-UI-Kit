@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C9A710B7-6242-418E-96F9-A06170B968B4}</ProjectGuid>
+    <ProjectGuid>{DBC1A081-A283-4038-A690-908C43009388}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Hover.Demo</RootNamespace>
-    <AssemblyName>Hover.Demo</AssemblyName>
+    <RootNamespace>Hover.Cast.Edit</RootNamespace>
+    <AssemblyName>Hover.Cast.Edit</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,66 +30,36 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LeapCSharp.NET3.5">
-      <HintPath>..\..\Packages\LeapMotion\LeapCSharp.NET3.5.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="UnityEditor">
+      <HintPath>..\..\..\..\FragmentalLeap\Packages\Unity\UnityEditor.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine">
       <HintPath>..\..\Packages\Unity\UnityEngine.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>..\..\Packages\Unity\UnityEngine.UI.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Items\HovercastItemEditor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Hover.Board.Input.Leap\Hover.Board.Input.Leap.csproj">
-      <Project>{50DD87E3-3C5A-4803-8123-A1CB3B93A533}</Project>
-      <Name>Hover.Board.Input.Leap</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Hover.Board\Hover.Board.csproj">
-      <Project>{D7B4A4DE-91B6-4E17-8481-60AA8109CE10}</Project>
-      <Name>Hover.Board</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Hover.Cast.Input.Leap\Hover.Cast.Input.Leap.csproj">
-      <Project>{8b370dab-7cae-4588-9fd6-e888a453b16d}</Project>
-      <Name>Hover.Cast.Input.Leap</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Hover.Cast\Hover.Cast.csproj">
       <Project>{112FF634-EB3E-4351-B0BB-7729E455416E}</Project>
       <Name>Hover.Cast</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Hover.Common.Input.Leap\Hover.Common.Input.Leap.csproj">
-      <Project>{fc2f139f-d831-444c-8c90-872358630c8c}</Project>
-      <Name>Hover.Common.Input.Leap</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Hover.Common\Hover.Common.csproj">
-      <Project>{f60af979-92bb-498a-bd95-34070b69e9dd}</Project>
+      <Project>{F60AF979-92BB-498A-BD95-34070B69E9DD}</Project>
       <Name>Hover.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Hover.Cursor.Input.Leap\Hover.Cursor.Input.Leap.csproj">
-      <Project>{20c93b78-c1c2-4fc7-98cf-2a5cbfeaaae9}</Project>
-      <Name>Hover.Cursor.Input.Leap</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Hover.Cursor.Input.Look\Hover.Cursor.Input.Look.csproj">
-      <Project>{7910afbf-6bec-4fcf-8f74-9ba846d59f7a}</Project>
-      <Name>Hover.Cursor.Input.Look</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Hover.Cursor\Hover.Cursor.csproj">
-      <Project>{4083ea67-68c8-4b34-a210-6a8a2b96cb95}</Project>
-      <Name>Hover.Cursor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy /Y "$(TargetDir)Hover.*.dll" "$(SolutionDir)..\..\Unity\Assets\Plugins\Hover\"</PostBuildEvent>
+    <PostBuildEvent>copy /Y "$(TargetDir)$(TargetFileName)" "$(SolutionDir)..\..\Unity\Assets\Plugins\Hover\Editor\"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
