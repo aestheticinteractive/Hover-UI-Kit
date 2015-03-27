@@ -44,14 +44,14 @@ namespace Hover.Board.State {
 			}
 
 			Vector3 cursorWorldPos = Cursor.GetWorldPosition();
-			Vector3 diff = pPanelTx.position-cursorWorldPos;
-			Vector3 norm = pPanelTx.rotation*Vector3.down; //TODO: make this Vector3.forward? up?
-			float normLength = Vector3.Dot(norm, diff);
-			Vector3 projWorldPos = cursorWorldPos + norm*normLength;
+			Vector3 cursorToPanelWorldVec = pPanelTx.position-cursorWorldPos;
+			Vector3 panelWorldNormal = pPanelTx.rotation*Vector3.up;
+			float normLength = Vector3.Dot(panelWorldNormal, cursorToPanelWorldVec);
+			Vector3 projWorldPos = cursorWorldPos + panelWorldNormal*normLength;
 			Vector3 projPos = vBaseTx.InverseTransformPoint(projWorldPos);
 
 			ProjectedPanelPosition = projPos;
-			ProjectedFromFront = (normLength > 0);
+			ProjectedFromFront = (normLength <= 0);
 			ProjectedPanelDistance = (projPos-Cursor.Position).magnitude;
 			ProjectedPanelProgress = Mathf.InverseLerp(vSettings.HighlightDistanceMax,
 				vSettings.HighlightDistanceMin, ProjectedPanelDistance);
