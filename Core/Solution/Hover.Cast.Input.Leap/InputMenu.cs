@@ -51,9 +51,11 @@ namespace Hover.Cast.Input.Leap {
 				}
 
 				Vector3 palmToFinger = leapFinger.TipPosition.ToUnityScaled()-Position;
+				Bone bone = leapFinger.Bone(Bone.BoneType.TYPE_DISTAL);
+				Quaternion boneRot = LeapUtil.CalcQuaternion(bone.Basis);
 
 				Radius = Math.Max(Radius, palmToFinger.sqrMagnitude);
-				//TODO: Rotation = Quaternion.Slerp(Rotation, cursor.Rotation, 0.1f);
+				Rotation = Quaternion.Slerp(Rotation, boneRot, 0.1f);
 			}
 
 			Radius = (float)Math.Sqrt(Radius);
