@@ -110,7 +110,6 @@ namespace Hover.Cast.State {
 			NearestItem = null;
 
 			foreach ( BaseItemState item in vItems ) {
-				pCursor.AddOrUpdateInteraction(CursorDomain.Hovercast, item);
 				item.UpdateWithCursor(cursorType, cursorWorldPos);
 
 				if ( !allowSelect ) {
@@ -154,10 +153,6 @@ namespace Hover.Cast.State {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleLevelChange(int pDirection) {
-			foreach ( ICursorState cursor in vCurrentCursors ) {
-				cursor.RemoveAllInteractions(CursorDomain.Hovercast);
-			}
-
 			vItems.Clear();
 
 			IBaseItem[] items = vItemHierarchy.CurrentLevel.Items;

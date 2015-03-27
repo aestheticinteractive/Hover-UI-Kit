@@ -6,7 +6,6 @@ using Hover.Cast.Items;
 using Hover.Cast.State;
 using Hover.Common.Util;
 using Hover.Cursor;
-using Hover.Cursor.State;
 using UnityEngine;
 
 namespace Hover.Cast {
@@ -15,7 +14,6 @@ namespace Hover.Cast {
 	public class HovercastSetup : MonoBehaviour {
 
 		private const string Domain = "Hovercast";
-		private const string CursorPlaneKey = Domain+".UiMenu";
 
 		public HovercastItemHierarchy ItemHierarchy;
 		public HovercursorSetup Hovercursor;
@@ -71,10 +69,8 @@ namespace Hover.Cast {
 			vUiMenu = menuObj.AddComponent<UiMenu>();
 			vUiMenu.Build(vState, DefaultItemVisualSettings, DefaultPalmVisualSettings);
 
-			IInteractionPlaneState interPlane = Hovercursor.State.AddPlane(
-				CursorPlaneKey, menuObj.transform, Vector3.up);
-
-			vState.SetReferences(menuObj.transform, interPlane);
+			vState.SetReferences(menuObj.transform);
+			Hovercursor.State.AddDelegate(vState);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

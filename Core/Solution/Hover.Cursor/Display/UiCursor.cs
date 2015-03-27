@@ -33,7 +33,7 @@ namespace Hover.Cursor.Display {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			if ( !vCursorState.IsInputAvailable || vCursorState.GetMaxDisplayStrength() <= 0 ) {
+			if ( !vCursorState.IsInputAvailable || vCursorState.DisplayStrength <= 0 ) {
 				vCursorRendererHold.SetActive(false);
 				return;
 			}

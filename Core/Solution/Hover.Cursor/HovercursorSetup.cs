@@ -19,6 +19,7 @@ namespace Hover.Cursor {
 		public Transform CameraTransform;
 
 		private HovercursorState vState;
+		private CursorType[] vPrevActiveCursorTypes;
 		private IDictionary<CursorType, UiCursor> vCursorMap;
 
 
@@ -48,6 +49,7 @@ namespace Hover.Cursor {
 			vState = new HovercursorState(gameObject.transform, Input,
 				DefaultVisualSettings, CameraTransform);
 
+			vPrevActiveCursorTypes = new CursorType[0];
 			vCursorMap = new Dictionary<CursorType, UiCursor>();
 		}
 
@@ -57,31 +59,37 @@ namespace Hover.Cursor {
 				return;
 			}
 
+			vState.UpdateBeforeInput();
 			Input.UpdateInput();
 			vState.UpdateAfterInput();
 
-			CursorType[] newTypes = vState.InitializedCursorTypes;
-			CursorType[] removeCursorTypes = vCursorMap.Keys.Except(newTypes).ToArray();
-			CursorType[] addCursorTypes = newTypes.Except(vCursorMap.Keys).ToArray();
+			CursorType[] activeTypes = vState.ActiveCursorTypes;
+			IEnumerable<CursorType> hideTypes = vPrevActiveCursorTypes.Except(activeTypes);
+			IEnumerable<CursorType> showTypes = activeTypes.Except(vPrevActiveCursorTypes);
 			ICursorSettings visualSett = DefaultVisualSettings.GetSettings();
 
-			foreach ( CursorType cursorType in removeCursorTypes ) {
-				UiCursor uiCursor = vCursorMap[cursorType];
-				vCursorMap.Remove(cursorType);
-				Destroy(uiCursor.gameObject);
+			foreach ( CursorType type in hideTypes ) {
+				vCursorMap[type].gameObject.SetActive(false);
 			}
 
-			foreach ( CursorType cursorType in addCursorTypes ) {
-				ICursorState cursor = vState.GetCursorState(cursorType);
+			foreach ( CursorType type in showTypes ) {
+				if ( vCursorMap.ContainsKey(type) ) {
+					vCursorMap[type].gameObject.SetActive(true);
+					continue;
+				}
 
-				var cursorObj = new GameObject("Cursor-"+cursorType);
+				ICursorState cursor = vState.GetCursorState(type);
+
+				var cursorObj = new GameObject("Cursor-"+type);
 				cursorObj.transform.SetParent(gameObject.transform, false);
 				UiCursor uiCursor = cursorObj.AddComponent<UiCursor>();
 				uiCursor.Build(cursor, visualSett, CameraTransform);
 
-				vCursorMap.Add(cursorType, uiCursor);
-				vState.SetCursorTransform(cursorType, cursorObj.transform);
+				vCursorMap.Add(type, uiCursor);
+				vState.SetCursorTransform(type, cursorObj.transform);
 			}
+
+			vPrevActiveCursorTypes = activeTypes;
 		}
 
 	}

@@ -11,7 +11,7 @@ namespace Hover.Cursor.State {
 		HovercursorVisualSettings VisualSettings { get; }
 		IHovercursorInput Input { get; }
 		Transform CameraTransform { get; }
-		CursorType[] InitializedCursorTypes { get; }
+		CursorType[] ActiveCursorTypes { get; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -24,15 +24,10 @@ namespace Hover.Cursor.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		//TODO: allow optional boundaries on the plane. Possibly do this via a custom "hit test" ...
-		// ... function within InteractionPlaneState.
-		IInteractionPlaneState AddPlane(string pId, Transform pTransform, Vector3 pLocalNormal);
+		void AddDelegate(IHovercursorDelegate pDelegate);
 
 		/*--------------------------------------------------------------------------------------------*/
-		IInteractionPlaneState GetPlane(string pId);
-
-		/*--------------------------------------------------------------------------------------------*/
-		bool RemovePlane(string pId);
+		bool RemoveDelegate(IHovercursorDelegate pDelegate);
 
 	}
 

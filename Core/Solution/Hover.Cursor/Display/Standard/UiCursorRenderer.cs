@@ -41,7 +41,7 @@ namespace Hover.Cursor.Display.Standard {
 			float scale = Mathf.Lerp(vSettings.RadiusNorm, vSettings.RadiusHigh, maxProg);
 
 			Color col = (high ? vSettings.ColorHigh : vSettings.ColorNorm);
-			col.a *= vCursorState.GetMaxDisplayStrength();
+			col.a *= vCursorState.DisplayStrength;
 
 			BuildMesh(thick);
 

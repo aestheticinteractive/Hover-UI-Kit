@@ -36,18 +36,15 @@ namespace Hover.Cursor.Input.Look {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public override void UpdateInput() {
-			InteractionPlaneState[] planes = vPlaneMap.Values.ToArray();
-
-			foreach ( InteractionPlaneState plane in planes ) {
-				plane.IsHit = false;
-				plane.HitPosition = Vector3.zero;
-				plane.HitDist = 0;
-				plane.IsNearest = false;
-			}
+			PlaneData[] planeDataList = vPlaneProviderFunc(vCursor.Type);
+			
+			PlaneState[] planes = planeDataList
+				.Select(x => new PlaneState(x))
+				.ToArray();
 
 			vCursor.UpdateWithPlanes(planes);
 
-			//InteractionPlaneState nearest = planes.FirstOrDefault(x => x.IsNearest);
+			//PlaneState nearest = planes.FirstOrDefault(x => x.IsNearest);
 			//Debug.Log("NEAREST: "+(nearest == null ? "---" : nearest.Id+" / "+nearest.HitDist));
 		}
 

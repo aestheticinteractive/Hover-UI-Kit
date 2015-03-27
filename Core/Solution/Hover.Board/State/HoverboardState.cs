@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Hover.Board.Custom;
 using Hover.Board.Items;
 using Hover.Common.Input;
@@ -10,7 +11,7 @@ using UnityEngine;
 namespace Hover.Board.State {
 
 	/*================================================================================================*/
-	public class HoverboardState : IHoverboardState {
+	public class HoverboardState : IHoverboardState, IHovercursorDelegate {
 
 		private struct ItemTree {
 			public PanelState Panel;
@@ -26,6 +27,9 @@ namespace Hover.Board.State {
 		private readonly IDictionary<CursorType, ProjectionState> vProjectionMap;
 		private readonly ItemTree[] vAllItems;
 
+		private IBaseItemInteractionState[] vActiveCursorInteractions;
+		private readonly PlaneData[] vPanelPlanes;
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -39,11 +43,16 @@ namespace Hover.Board.State {
 			////
 
 			var panels = new List<PanelState>();
+			var planes = new List<PlaneData>();
 			var allItems = new List<ItemTree>();
 
 			foreach ( ItemPanel itemPanel in pItemPanels ) {
 				var panel = new PanelState(itemPanel, vInteractSett);
 				panels.Add(panel);
+				
+				var plane = new PlaneData("Hoverboard.Panel-"+planes.Count, 
+					((GameObject)panel.ItemPanel.DisplayContainer).transform, Vector3.up);
+				planes.Add(plane);
 
 				foreach ( GridState grid in panel.Grids ) {
 					foreach ( BaseItemState item in grid.Items ) {
@@ -59,6 +68,7 @@ namespace Hover.Board.State {
 			}
 
 			Panels = panels.ToArray();
+			vPanelPlanes = planes.ToArray();
 			vAllItems = allItems.ToArray();
 		}
 
@@ -84,12 +94,14 @@ namespace Hover.Board.State {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void RemoveProjection(CursorType pCursorType) {
-			vProjectionMap.Remove(pCursorType);
+		public void ActivateProjection(CursorType pCursorType, bool pIsActive) {
+			vProjectionMap[pCursorType].IsActive = pIsActive;
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateAfterInput() {
+			ActiveCursorTypes = vInteractSett.Cursors;
+
 			foreach ( ProjectionState proj in vProjectionMap.Values ) {
 				UpdateProjection(proj);
 			}
@@ -97,6 +109,11 @@ namespace Hover.Board.State {
 			foreach ( ItemTree itemTree in vAllItems ) {
 				itemTree.Item.UpdateSelectionProcess();
 			}
+
+			vActiveCursorInteractions = vAllItems
+				.Select(x => x.Item)
+				.Cast<IBaseItemInteractionState>()
+				.ToArray();
 		}
 
 
@@ -105,22 +122,19 @@ namespace Hover.Board.State {
 		private void UpdateProjection(ProjectionState pProj) {
 			ICursorState cursor = pProj.Cursor;
 			CursorType cursorType = cursor.Type;
-			bool allowSelect = (cursor.IsInputAvailable); //TODO: && Grid.IsVisible);
+			bool allowSelect = (cursor.IsInputAvailable && pProj.IsActive); //TODO: && Grid.IsVisible);
 			Vector3? cursorWorldPos = (allowSelect ? cursor.GetWorldPosition() : (Vector3?)null);
 			ItemTree nearestTree = new ItemTree();
 			float nearestDist = float.MaxValue;
 
 			foreach ( ItemTree itemTree in vAllItems ) {
-				BaseItemState item = itemTree.Item;
-
-				cursor.AddOrUpdateInteraction(CursorDomain.Hoverboard, item);
-				item.UpdateWithCursor(cursorType, cursorWorldPos);
+				itemTree.Item.UpdateWithCursor(cursorType, cursorWorldPos);
 
 				if ( !allowSelect ) {
 					continue;
 				}
 
-				float itemDist = item.GetHighlightDistance(cursorType);
+				float itemDist = itemTree.Item.GetHighlightDistance(cursorType);
 
 				if ( itemDist >= nearestDist ) {
 					continue;
@@ -144,6 +158,43 @@ namespace Hover.Board.State {
 			GameObject panelObj = (GameObject)nearestTree.Panel.ItemPanel.DisplayContainer;
 			pProj.SetNearestPanelTransform(panelObj.transform);
 			pProj.NearestItemHighlightProgress = nearestTree.Item.GetHighlightProgress(cursorType);
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		// IHovercursorDelegate
+		/*--------------------------------------------------------------------------------------------*/
+		public CursorDomain Domain {
+			get {
+				return CursorDomain.Hoverboard;
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool IsCursorInteractionEnabled {
+			get {
+				return true;
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public CursorType[] ActiveCursorTypes { get; private set; }
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float CursorDisplayStrength {
+			get {
+				return 1;
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public IBaseItemInteractionState[] GetActiveCursorInteractions(CursorType pCursorType) {
+			return vActiveCursorInteractions;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public PlaneData[] GetActiveCursorPlanes(CursorType pCursorType) {
+			return vPanelPlanes;
 		}
 
 	}

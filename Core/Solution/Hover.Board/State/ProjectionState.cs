@@ -7,6 +7,7 @@ namespace Hover.Board.State {
 	/*================================================================================================*/
 	public class ProjectionState {
 
+		public bool IsActive { get; set; }
 		public ICursorState Cursor { get; private set; }
 
 		public Vector3? ProjectedPanelPosition { get; private set; }
@@ -27,6 +28,7 @@ namespace Hover.Board.State {
 			Cursor = pCursor;
 			vSettings = pSettings;
 			vBaseTx = pBaseTx;
+			IsActive = true;
 		}
 
 

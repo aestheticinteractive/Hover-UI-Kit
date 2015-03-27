@@ -4,6 +4,7 @@ using Hover.Cast.Custom;
 using Hover.Cast.Input;
 using Hover.Common.Input;
 using Hover.Common.Items.Groups;
+using Hover.Common.State;
 using Hover.Cursor;
 using Hover.Cursor.State;
 using UnityEngine;
@@ -11,10 +12,9 @@ using UnityEngine;
 namespace Hover.Cast.State {
 
 	/*================================================================================================*/
-	public class HovercastState : IHovercastState {
+	public class HovercastState : IHovercastState, IHovercursorDelegate {
 		
 		public delegate void SideChangeHandler();
-
 		public event SideChangeHandler OnSideChange;
 
 		public MenuState FullMenu { get; private set; }
@@ -29,8 +29,9 @@ namespace Hover.Cast.State {
 		private readonly IDictionary<HovercastCursorType, CursorType> vRightCursorConvertMap;
 
 		private bool? vCurrIsMenuOnLeftSide;
-		private IInteractionPlaneState vInteractionPlane;
-		
+		private IBaseItemInteractionState[] vActiveCursorInteractions;
+		private PlaneData[] vMenuPlanes;
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -87,20 +88,32 @@ namespace Hover.Cast.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void SetReferences(Transform pMenuTx, IInteractionPlaneState pInteractionPlane) {
+		public void SetReferences(Transform pMenuTx) {
 			MenuTransform = pMenuTx;
-			vInteractionPlane = pInteractionPlane;
+
+			vMenuPlanes = new [] {
+				new PlaneData("Hovercast.Menu", MenuTransform, Vector3.up)
+			};
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateAfterInput() {
-			vInteractionPlane.IsEnabled = (FullMenu.DisplayStrength > 0);
-
 			var isMenuOnLeft = vInteractSettings.IsMenuOnLeftSide;
 			IInputMenu inputMenu = vInput.GetMenu(isMenuOnLeft);
-			ICursorState[] cursors = UpdateCursors();
+
+			IDictionary<HovercastCursorType, CursorType> convertMap = 
+				(vInteractSettings.IsMenuOnLeftSide ? vRightCursorConvertMap : vLeftCursorConvertMap);
+
+			ActiveCursorTypes = vInteractSettings.Cursors
+				.Select(x => convertMap[x])
+				.ToArray();
+
+			ICursorState[] cursors = ActiveCursorTypes
+				.Select(x => vHovercursorSetup.State.GetCursorState(x))
+				.ToArray();
 
 			FullMenu.UpdateAfterInput(inputMenu, cursors);
+			vActiveCursorInteractions = FullMenu.GetItems().Cast<IBaseItemInteractionState>().ToArray();
 
 			if ( isMenuOnLeft != vCurrIsMenuOnLeftSide ) {
 				vCurrIsMenuOnLeftSide = isMenuOnLeft;
@@ -110,32 +123,39 @@ namespace Hover.Cast.State {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
+		// IHovercursorDelegate
 		/*--------------------------------------------------------------------------------------------*/
-		private ICursorState[] UpdateCursors() {
-			IDictionary<HovercastCursorType, CursorType> convMap = 
-				(vInteractSettings.IsMenuOnLeftSide ? vRightCursorConvertMap : vLeftCursorConvertMap);
-
-			List<CursorType> activeTypes = vInteractSettings.Cursors
-				.Select(x => convMap[x])
-				.ToList();
-
-			CursorType[] removeTypes = vCursorMap.Keys.Except(activeTypes).ToArray();
-			IHovercursorState hovercursor = vHovercursorSetup.State;
-			var cursors = new List<ICursorState>();
-
-			foreach ( CursorType cursorType in removeTypes ) {
-				ICursorState cursor = hovercursor.GetCursorState(cursorType);
-				cursor.RemoveAllInteractions(CursorDomain.Hovercast);
-				cursor.SetDisplayStrength(CursorDomain.Hovercast, 0);
+		public CursorDomain Domain {
+			get { 
+				return CursorDomain.Hovercast;
 			}
+		}
 
-			foreach ( CursorType cursorType in activeTypes ) {
-				ICursorState cursor = hovercursor.GetCursorState(cursorType);
-				cursor.SetDisplayStrength(CursorDomain.Hovercast, FullMenu.DisplayStrength);
-				cursors.Add(cursor);
+		/*--------------------------------------------------------------------------------------------*/
+		public bool IsCursorInteractionEnabled {
+			get {
+				return (FullMenu.DisplayStrength > 0);
 			}
+		}
 
-			return cursors.ToArray();
+		/*--------------------------------------------------------------------------------------------*/
+		public CursorType[] ActiveCursorTypes { get; private set; }
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float CursorDisplayStrength {
+			get {
+				return FullMenu.DisplayStrength;
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public IBaseItemInteractionState[] GetActiveCursorInteractions(CursorType pCursorType) {
+			return vActiveCursorInteractions;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public PlaneData[] GetActiveCursorPlanes(CursorType pCursorType) {
+			return vMenuPlanes;
 		}
 
 	}

@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Hover.Common.Input;
+using Hover.Common.State;
 using Hover.Cursor.Custom;
 using Hover.Cursor.Input;
 using UnityEngine;
@@ -12,12 +14,13 @@ namespace Hover.Cursor.State {
 
 		public HovercursorVisualSettings VisualSettings { get; private set; }
 		public Transform CameraTransform { get; private set; }
-		public CursorType[] InitializedCursorTypes { get; private set; }
+		public CursorType[] ActiveCursorTypes { get; private set; }
 
 		private readonly HovercursorInput vInput;
 		private readonly Transform vBaseTx;
 		private readonly IDictionary<CursorType, CursorState> vCursorMap;
 		private readonly IDictionary<CursorType, Transform> vTransformMap;
+		private readonly IList<IHovercursorDelegate> vDelegates;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -29,10 +32,11 @@ namespace Hover.Cursor.State {
 
 			VisualSettings = pVisualSett;
 			CameraTransform = pCamera;
-			InitializedCursorTypes = new CursorType[0];
+			ActiveCursorTypes = new CursorType[0];
 
 			vCursorMap = new Dictionary<CursorType, CursorState>();
 			vTransformMap = new Dictionary<CursorType, Transform>();
+			vDelegates = new List<IHovercursorDelegate>();
 		}
 
 
@@ -64,44 +68,107 @@ namespace Hover.Cursor.State {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
+		public void UpdateBeforeInput() {
+			IHovercursorDelegate[] activeDelegates = GetActiveDelegates();
+			var typeMap = new HashSet<CursorType>();
+
+			foreach ( IHovercursorDelegate del in activeDelegates ) {
+				foreach ( CursorType type in del.ActiveCursorTypes ) {
+					typeMap.Add(type);
+				}
+			}
+
+			ActiveCursorTypes = typeMap.ToArray();
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateAfterInput() {
-			foreach ( CursorState cursorState in vCursorMap.Values ) {
-				cursorState.UpdateAfterInput();
+			IHovercursorDelegate[] activeDelegates = GetActiveDelegates();
+
+			foreach ( CursorType type in vCursorMap.Keys ) {
+				CursorState cursor = vCursorMap[type];
+				float maxDispStren = 0;
+				var interacts = new List<IBaseItemInteractionState>();
+
+				foreach ( IHovercursorDelegate del in activeDelegates ) {
+					if ( !del.ActiveCursorTypes.Contains(type) ) {
+						continue;
+					}
+
+					maxDispStren = Math.Max(maxDispStren, del.CursorDisplayStrength);
+					interacts.AddRange(del.GetActiveCursorInteractions(type));
+				}
+
+				cursor.UpdateAfterInput(maxDispStren, interacts.ToArray());
 			}
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public IInteractionPlaneState AddPlane(string pId, Transform pTransform, Vector3 pLocalNormal) {
-			InteractionPlaneState plane = new InteractionPlaneState(pId, pTransform, pLocalNormal);
-			vInput.AddPlane(pId, plane);
-			return plane;
+		public void AddDelegate(IHovercursorDelegate pDelegate) {
+			if ( vDelegates.Contains(pDelegate) ) {
+				throw new Exception("This "+typeof(IHovercursorDelegate).Name+
+					" has already been added.");
+			}
+
+			vDelegates.Add(pDelegate);
+			vInput.SetPlaneProvider(GetActiveCursorPlanes);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public IInteractionPlaneState GetPlane(string pId) {
-			return vInput.GetPlane(pId);
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public bool RemovePlane(string pId) {
-			return vInput.RemovePlane(pId);
+		public bool RemoveDelegate(IHovercursorDelegate pDelegate) {
+			return vDelegates.Remove(pDelegate);
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private IHovercursorDelegate[] GetActiveDelegates() {
+			var activeList = new List<IHovercursorDelegate>();
+
+			foreach ( IHovercursorDelegate del in vDelegates ) {
+				if ( !del.IsCursorInteractionEnabled || del.CursorDisplayStrength <= 0 ) {
+					continue;
+				}
+
+				if ( del.ActiveCursorTypes == null ) {
+					throw new Exception("The '"+del.Domain+"' "+typeof(IHovercursorDelegate).Name+
+						".ActiveCursorTypes list should not be null.");
+				}
+
+				if ( del.ActiveCursorTypes.Length == 0 ) {
+					continue;
+				}
+
+				activeList.Add(del);
+			}
+
+			return activeList.ToArray();
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		private PlaneData[] GetActiveCursorPlanes(CursorType pType) {
+			IHovercursorDelegate[] activeDelegates = GetActiveDelegates();
+			var planes = new List<PlaneData>();
+
+			foreach ( IHovercursorDelegate del in activeDelegates ) {
+				planes.AddRange(del.GetActiveCursorPlanes(pType));
+			}
+
+			return planes.ToArray();
+		}
+		
 		/*--------------------------------------------------------------------------------------------*/
 		private void TryInitCursor(CursorType pType) {
 			if ( vCursorMap.ContainsKey(pType) ) {
 				return;
 			}
 
-			var cursor = new CursorState(Input.GetCursor(pType),
-				VisualSettings.GetSettings(), vBaseTx);
+			var cursor = new CursorState(Input.GetCursor(pType), VisualSettings.GetSettings(), vBaseTx);
 			vCursorMap.Add(pType, cursor);
 
-			InitializedCursorTypes = InitializedCursorTypes
+			ActiveCursorTypes = ActiveCursorTypes
 				.Concat(new[] { pType })
 				.ToArray();
 		}

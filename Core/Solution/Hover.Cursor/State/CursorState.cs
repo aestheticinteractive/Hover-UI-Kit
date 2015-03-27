@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Hover.Common.Input;
 using Hover.Common.State;
 using Hover.Cursor.Custom;
@@ -16,13 +14,13 @@ namespace Hover.Cursor.State {
 		public bool IsInputAvailable { get; private set; }
 		public Vector3 Position { get; private set; }
 		public float Size { get; private set; }
+		public float DisplayStrength { get; private set; }
 
 		private readonly IInputCursor vInputCursor;
 		private readonly ICursorSettings vSettings;
 		private readonly Transform vBaseTx;
-		private readonly IDictionary<CursorDomain, float> vDisplayStrengthMap;
-		private readonly IDictionary<CursorDomain,
-			IDictionary<int, IBaseItemInteractionState>> vInteractMaps;
+
+		private IBaseItemInteractionState[] vInteractItems;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -31,57 +29,16 @@ namespace Hover.Cursor.State {
 			vInputCursor = pInputCursor;
 			vSettings = pSettings;
 			vBaseTx = pBaseTx;
+			vInteractItems = new IBaseItemInteractionState[0];
 
-			vDisplayStrengthMap = new Dictionary<CursorDomain, float>();
-			vInteractMaps = new Dictionary<CursorDomain, IDictionary<int, IBaseItemInteractionState>>();
-
-			foreach ( CursorDomain cursorDom in Enum.GetValues(typeof(CursorDomain)) ) {
-				vDisplayStrengthMap.Add(cursorDom, 0);
-				vInteractMaps.Add(cursorDom, new Dictionary<int, IBaseItemInteractionState>());
-			}
+			Type = vInputCursor.Type;
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public void SetDisplayStrength(CursorDomain pDomain, float pStrength) {
-			vDisplayStrengthMap[pDomain] = pStrength;
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public void AddOrUpdateInteraction(CursorDomain pDomain, IBaseItemInteractionState pItem) {
-			IDictionary<int, IBaseItemInteractionState> map = vInteractMaps[pDomain];
-			int key = pItem.ItemAutoId;
-
-			if ( map.ContainsKey(key) ) {
-				return;
-			}
-
-			map.Add(key, pItem);
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public void RemoveAllInteractions(CursorDomain pDomain) {
-			vInteractMaps[pDomain].Clear();
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public bool RemoveInteraction(CursorDomain pDomain, IBaseItemInteractionState pItem) {
-			IDictionary<int, IBaseItemInteractionState> map = vInteractMaps[pDomain];
-			int key = pItem.ItemAutoId;
-			return (map.ContainsKey(key) && map.Remove(key));
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public float GetMaxDisplayStrength() {
-			return vDisplayStrengthMap.Values.Max();
-		}
-
 		/*--------------------------------------------------------------------------------------------*/
 		public float GetMaxHighlightProgress() {
-			return GetAllInteractStates()
+			return vInteractItems
 				.Select(x => x.MaxHighlightProgress)
 				.DefaultIfEmpty(0)
 				.Max();
@@ -89,7 +46,7 @@ namespace Hover.Cursor.State {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public float GetMaxSelectionProgress() {
-			return GetAllInteractStates()
+			return vInteractItems
 				.Select(x => x.SelectionProgress)
 				.DefaultIfEmpty(0)
 				.Max();
@@ -103,24 +60,15 @@ namespace Hover.Cursor.State {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void UpdateAfterInput() {
-			if ( vInteractMaps.Count == 0 ) {
-				return;
-			}
+		public void UpdateAfterInput(float pDisplayStren, IBaseItemInteractionState[] pInteractItems) {
+			DisplayStrength = pDisplayStren;
+			vInteractItems = pInteractItems;
 
-			Type = vInputCursor.Type;
 			IsInputAvailable = vInputCursor.IsAvailable;
 			Size = vInputCursor.Size;
 
 			Position = vInputCursor.Position+
 				vInputCursor.Rotation*Vector3.back*vSettings.CursorForwardDistance;
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		private IEnumerable<IBaseItemInteractionState> GetAllInteractStates() {
-			return vInteractMaps.Values.SelectMany(map => map.Values);
 		}
 
 	}

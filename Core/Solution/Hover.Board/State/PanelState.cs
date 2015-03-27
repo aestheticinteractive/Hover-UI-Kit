@@ -9,7 +9,7 @@ namespace Hover.Board.State {
 
 		public ItemPanel ItemPanel { get; private set; }
 		public GridState[] Grids { get; private set; }
-		public IInteractionPlaneState InteractionPlane { get; set; }
+		public IPlaneState InteractionPlane { get; set; }
 
 		private readonly InteractionSettings vSettings;
 

@@ -29,7 +29,7 @@ namespace Hover.Cursor.Input.Look {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void UpdateWithPlanes(InteractionPlaneState[] pPlanes) {
+		public void UpdateWithPlanes(PlaneState[] pPlanes) {
 			IsAvailable = false;
 			Position = Vector3.zero;
 			Size = 0;
@@ -41,13 +41,9 @@ namespace Hover.Cursor.Input.Look {
 			////
 
 			float minDist = float.MaxValue;
-			InteractionPlaneState nearest = null;
+			PlaneState nearest = null;
 
-			foreach ( InteractionPlaneState plane in pPlanes ) {
-				if ( !plane.IsEnabled ) {
-					continue;
-				}
-
+			foreach ( PlaneState plane in pPlanes ) {
 				UpdateWithPlane(plane);
 
 				if ( plane.IsHit && plane.HitDist < minDist ) {
@@ -70,7 +66,7 @@ namespace Hover.Cursor.Input.Look {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateWithPlane(InteractionPlaneState pPlane) {
+		private void UpdateWithPlane(PlaneState pPlane) {
 			Transform localTx = vSettings.InputTransform;
 			Transform camTx = vSettings.CameraTransform;
 

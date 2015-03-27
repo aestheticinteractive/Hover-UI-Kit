@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Hover.Common.Input;
 using Hover.Common.State;
 using Hover.Cursor;
@@ -8,12 +10,14 @@ using UnityEngine;
 namespace Hover.Demo.Cursor {
 
 	/*================================================================================================*/
-	public class DemoCursorToggle : MonoBehaviour {
+	public class DemoCursorToggle : MonoBehaviour, IHovercursorDelegate {
 
 		private struct Bundle {
 			public ICursorState State;
 			public Func<bool> ShowFunc; 
 		}
+
+		public bool IsInteractionEnabled = true;
 
 		public bool ShowLeftPalm = true;
 		public bool ShowLeftThumb = true;
@@ -28,6 +32,7 @@ namespace Hover.Demo.Cursor {
 		public bool ShowRightRing = true;
 		public bool ShowRightPinky = true;
 
+		public float DisplayStrength = 1;
 		public float HighlightProgress = 0;
 
 		private HovercursorSetup vSetup;
@@ -41,6 +46,8 @@ namespace Hover.Demo.Cursor {
 			vSetup = gameObject.GetComponent<HovercursorSetup>();
 			vFakeItem = new FakeItemState();
 			vFakeItem.ItemAutoId = 123;
+
+			ActiveCursorTypes = new CursorType[0];
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -59,14 +66,23 @@ namespace Hover.Demo.Cursor {
 				GetBundle(CursorType.RightRing, () => ShowRightRing),
 				GetBundle(CursorType.RightPinky, () => ShowRightPinky)
 			};
+
+			vSetup.State.AddDelegate(this);
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
+			var cursorTypes = new List<CursorType>();
+
 			foreach ( Bundle bundle in vBundles ) {
-				bundle.State.SetDisplayStrength(CursorDomain.Hovercursor, (bundle.ShowFunc() ? 1 : 0));
+				if ( bundle.ShowFunc() ) {
+					cursorTypes.Add(bundle.State.Type);
+				}
+
 				vFakeItem.MaxHighlightProgress = HighlightProgress;
 			}
+
+			ActiveCursorTypes = cursorTypes.ToArray();
 		}
 
 
@@ -76,8 +92,44 @@ namespace Hover.Demo.Cursor {
 			var bundle = new Bundle();
 			bundle.State = vSetup.State.GetCursorState(pType);
 			bundle.ShowFunc = pShowFunc;
-			bundle.State.AddOrUpdateInteraction(CursorDomain.Hovercursor, vFakeItem);
 			return bundle;
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		// IHovercursorDelegate
+		/*--------------------------------------------------------------------------------------------*/
+		public CursorDomain Domain {
+			get {
+				return CursorDomain.Hovercursor;
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool IsCursorInteractionEnabled {
+			get {
+				return IsInteractionEnabled;
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public CursorType[] ActiveCursorTypes { get; private set; }
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float CursorDisplayStrength {
+			get {
+				return DisplayStrength;
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public IBaseItemInteractionState[] GetActiveCursorInteractions(CursorType pCursorType) {
+			return new [] { vFakeItem };
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public PlaneData[] GetActiveCursorPlanes(CursorType pCursorType) {
+			return new PlaneData[0];
 		}
 
 	}

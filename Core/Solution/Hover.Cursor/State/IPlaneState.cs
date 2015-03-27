@@ -3,12 +3,11 @@
 namespace Hover.Cursor.State {
 
 	/*================================================================================================*/
-	public interface IInteractionPlaneState {
+	public interface IPlaneState {
 
-		string Id { get; }
+		PlaneData Data { get; }
 		Vector3 PointWorld { get; }
 		Vector3 NormalWorld { get; }
-		bool IsEnabled { get; set; }
 
 		bool IsHit { get; }
 		Vector3 HitPosition { get; }
