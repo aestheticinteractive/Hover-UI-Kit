@@ -117,6 +117,7 @@ namespace Hover.Cast.State {
 
 			if ( isMenuOnLeft != vCurrIsMenuOnLeftSide ) {
 				vCurrIsMenuOnLeftSide = isMenuOnLeft;
+				FullMenu.ResetAllItemCursorInteractions();
 				OnSideChange();
 			}
 		}

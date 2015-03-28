@@ -41,11 +41,7 @@ namespace Hover.Common.State {
 			vIsNearestHighlightMap = new Dictionary<CursorType, bool>();
 			vPreventSelectionViaDisplayMap = new Dictionary<string, bool>();
 
-			foreach ( CursorType cursorType in Enum.GetValues(typeof(CursorType)) ) {
-				vHighlightDistanceMap[cursorType] = float.MaxValue;
-				vHighlightProgressMap[cursorType] = 0;
-				vIsNearestHighlightMap[cursorType] = false;
-			}
+			ResetAllCursorInteractions();
 		}
 
 
@@ -180,6 +176,18 @@ namespace Hover.Common.State {
 			vHighlightDistanceMap[pType] = dist;
 			vHighlightProgressMap[pType] = prog;
 		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public void ResetAllCursorInteractions() {
+			IsSelectionPrevented = false;
+
+			foreach ( CursorType cursorType in Enum.GetValues(typeof(CursorType)) ) {
+				vCursorWorldPosMap[cursorType] = null;
+				vHighlightDistanceMap[cursorType] = float.MaxValue;
+				vHighlightProgressMap[cursorType] = 0;
+				vIsNearestHighlightMap[cursorType] = false;
+			}
+		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void SetAsNearestItem(CursorType pCursorType, bool pIsNearest) {
@@ -195,8 +203,9 @@ namespace Hover.Common.State {
 			}
 
 			bool isNearest = IsNearestHighlight;
+			float selectProg = SelectionProgress;
 
-			if ( !isNearest || SelectionProgress <= 0 ) {
+			if ( !isNearest || selectProg <= 0 ) {
 				selItem.DeselectStickySelections();
 			}
 
@@ -216,7 +225,7 @@ namespace Hover.Common.State {
 				return false;
 			}
 
-			if ( SelectionProgress < 1 ) {
+			if ( selectProg < 1 ) {
 				return false;
 			}
 
