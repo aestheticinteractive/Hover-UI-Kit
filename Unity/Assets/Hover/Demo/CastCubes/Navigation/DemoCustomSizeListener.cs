@@ -19,7 +19,7 @@ namespace Hover.Demo.CastCubes.Navigation {
 
 		/*--------------------------------------------------------------------------------------------*/
 		protected override void BroadcastInitialValue() {
-			//Don't automatically override the demo's default settings
+			HandleValueChanged(Item);
 		}
 
 
@@ -27,10 +27,9 @@ namespace Hover.Demo.CastCubes.Navigation {
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleValueChanged(ISelectableItem<float> pItem) {
 			int size = (int)Math.Round(Item.RangeValue);
-			
-			ItemSett.UpdateAllSettings(x => 
-				((ItemVisualSettingsStandard)x).TextSize = size
-			);
+
+			ItemSett.UpdateAllSettings((x => ((ItemVisualSettingsStandard)x).TextSize = size));
+			PalmSett.UpdateAllSettings((x => ((PalmVisualSettingsStandard)x).TextSize = size));
 		}
 
 	}

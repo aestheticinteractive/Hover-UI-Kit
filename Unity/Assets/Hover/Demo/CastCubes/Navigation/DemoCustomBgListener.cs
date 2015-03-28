@@ -22,8 +22,8 @@ namespace Hover.Demo.CastCubes.Navigation {
 
 		/*--------------------------------------------------------------------------------------------*/
 		protected override void BroadcastInitialValue() {
-			//Don't automatically override the demo's default settings
 			BgAlpha = Item.RangeValue;
+			HandleValueChanged(Item);
 		}
 
 
@@ -31,11 +31,9 @@ namespace Hover.Demo.CastCubes.Navigation {
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleValueChanged(ISelectableItem<float> pItem) {
 			BgAlpha = Item.RangeValue;
-			UpdateSettingsWithBgAlpha((ItemVisualSettingsStandard)ItemSett.GetSettings(pItem));
 
-			ItemSett.UpdateAllSettings(x => 
-				UpdateSettingsWithBgAlpha((ItemVisualSettingsStandard)x)
-			);
+			ItemSett.UpdateAllSettings(x => UpdateSettingsWithBgAlpha((ItemVisualSettingsStandard)x));
+			PalmSett.UpdateAllSettings(x => UpdateSettingsWithBgAlpha((PalmVisualSettingsStandard)x));
 		}
 
 
@@ -49,6 +47,13 @@ namespace Hover.Demo.CastCubes.Navigation {
 			c = pSettings.SliderFillColor;
 			c.a = 0.5f*BgAlpha;
 			pSettings.SliderFillColor = c;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		internal static void UpdateSettingsWithBgAlpha(PalmVisualSettingsStandard pSettings) {
+			Color c = pSettings.BackgroundColor;
+			c.a = BgAlpha;
+			pSettings.BackgroundColor = c;
 		}
 
 	}
