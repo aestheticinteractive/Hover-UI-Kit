@@ -1,7 +1,10 @@
-﻿namespace Hover.Demo.CastCubes.Navigation {
+﻿using Hover.Common.Items;
+using Hover.Common.Items.Types;
+
+namespace Hover.Demo.CastCubes.Navigation {
 
 	/*================================================================================================*/
-	public class DemoMotionTypeListener : DemoBaseListener<NavItemCheckbox> {
+	public class DemoMotionTypeListener : DemoBaseListener<ICheckboxItem> {
 
 		public DemoEnvironment.MotionType Type;
 
@@ -21,8 +24,8 @@
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void HandleValueChanged(NavItem<bool> pNavItem) {
-			Enviro.ToggleMotion(Type, pNavItem.Value);
+		private void HandleValueChanged(ISelectableItem<bool> pItem) {
+			Enviro.ToggleMotion(Type, pItem.Value);
 		}
 
 	}

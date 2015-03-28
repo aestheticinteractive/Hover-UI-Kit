@@ -1,7 +1,10 @@
-﻿namespace Hover.Demo.CastCubes.Navigation {
+﻿using Hover.Common.Items;
+using Hover.Common.Items.Types;
+
+namespace Hover.Demo.CastCubes.Navigation {
 
 	/*================================================================================================*/
-	public class DemoCameraPlaceListener : DemoBaseListener<NavItemRadio> {
+	public class DemoCameraPlaceListener : DemoBaseListener<IRadioItem> {
 
 		public DemoEnvironment.CameraPlacement Placement;
 
@@ -21,8 +24,8 @@
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void HandleValueChanged(NavItem<bool> pNavItem) {
-			if ( !pNavItem.Value ) {
+		private void HandleValueChanged(ISelectableItem<bool> pItem) {
+			if ( !pItem.Value ) {
 				return;
 			}
 

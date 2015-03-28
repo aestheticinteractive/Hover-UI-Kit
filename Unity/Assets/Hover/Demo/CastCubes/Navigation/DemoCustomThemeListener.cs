@@ -1,9 +1,12 @@
-﻿using UnityEngine;
+﻿using Hover.Cast.Custom.Standard;
+using Hover.Common.Items;
+using Hover.Common.Items.Types;
+using UnityEngine;
 
 namespace Hover.Demo.CastCubes.Navigation {
 
 	/*================================================================================================*/
-	public class DemoCustomThemeListener : DemoBaseListener<NavItemRadio> {
+	public class DemoCustomThemeListener : DemoBaseListener<IRadioItem> {
 
 		public enum ThemeType {
 			Dark,
@@ -29,12 +32,12 @@ namespace Hover.Demo.CastCubes.Navigation {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void HandleValueChanged(NavItem<bool> pNavItem) {
-			if ( !pNavItem.Value ) {
+		private void HandleValueChanged(ISelectableItem<bool> pItem) {
+			if ( !pItem.Value ) {
 				return;
 			}
 
-			SegmentSettings sett = SegSett;
+			ItemVisualSettingsStandard sett = (ItemVisualSettingsStandard)ItemSett.GetSettings(pItem);
 
 			switch ( Type ) {
 				case ThemeType.Dark:

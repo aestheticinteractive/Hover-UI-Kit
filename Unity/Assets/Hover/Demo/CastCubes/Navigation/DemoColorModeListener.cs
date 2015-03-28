@@ -1,9 +1,13 @@
-﻿namespace Hover.Demo.CastCubes.Navigation {
+﻿using Hover.Cast.Items;
+using Hover.Common.Items;
+using Hover.Common.Items.Types;
+
+namespace Hover.Demo.CastCubes.Navigation {
 
 	/*================================================================================================*/
-	public class DemoColorModeListener : DemoBaseListener<NavItemRadio> {
+	public class DemoColorModeListener : DemoBaseListener<IRadioItem> {
 
-		public HovercastNavItem HueSlider;
+		public HovercastItem HueSlider;
 		public DemoEnvironment.ColorMode Mode;
 
 
@@ -22,12 +26,12 @@
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void HandleValueChanged(NavItem<bool> pNavItem) {
-			if ( !pNavItem.Value ) {
+		private void HandleValueChanged(ISelectableItem<bool> pItem) {
+			if ( !pItem.Value ) {
 				return;
 			}
 
-			NavItemSlider hue = (NavItemSlider)HueSlider.GetItem();
+			ISliderItem hue = (ISliderItem)HueSlider.GetItem();
 			hue.IsEnabled = (Mode == DemoEnvironment.ColorMode.Custom);
 			Enviro.SetColorMode(Mode, hue.RangeValue);
 		}

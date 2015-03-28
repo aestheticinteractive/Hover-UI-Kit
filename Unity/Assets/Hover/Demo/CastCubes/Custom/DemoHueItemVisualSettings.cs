@@ -1,36 +1,37 @@
-﻿using System;
+﻿using Hover.Cast;
+using Hover.Cast.Custom;
+using Hover.Cast.Custom.Standard;
+using Hover.Cast.Items;
+using Hover.Common.Items;
+using Hover.Common.Items.Types;
 using UnityEngine;
 
 namespace Hover.Demo.CastCubes.Custom {
 
 	/*================================================================================================*/
-	public class DemoHueSegment : HovercastCustomSegment {
+	public class DemoHueItemVisualSettings : HovercastItemVisualSettings {
 
-		private SegmentSettings vRootSettings;
-		private SegmentSettings vHueSettings;
-		private NavItemSlider vHueSlider;
+		private IItemVisualSettings vRootSettings;
+		private ItemVisualSettingsStandard vHueSettings;
+		private ISliderItem vHueSlider;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
-			vRootSettings = GameObject.Find("DemoEnvironment/MenuData")
-				.GetComponent<HovercastCustomizationProvider>()
-				.GetSegmentSettings(null);
+			vRootSettings = GameObject.Find("Hovercast")
+				.GetComponent<HovercastSetup>()
+				.DefaultItemVisualSettings
+				.GetSettings(new SliderItem());
 
-			vHueSettings = new SegmentSettings();
+			vHueSettings = new ItemVisualSettingsStandard();
 			
-			vHueSlider = (NavItemSlider)gameObject.GetComponent<HovercastNavItem>().GetItem();
+			vHueSlider = (ISliderItem)gameObject.GetComponent<HovercastItem>().GetItem();
 			vHueSlider.OnValueChanged += HandleValueChanged;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		protected override Type GetRendererForNavItemTypeInner(NavItem.ItemType pNavItemType) {
-			return typeof(UiSliderRenderer);
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public override SegmentSettings GetSettings() {
+		protected override IItemVisualSettings GetSettingsInner(IBaseItem pItem) {
 			HandleValueChanged(null);
 			return vHueSettings;
 		}
@@ -38,13 +39,13 @@ namespace Hover.Demo.CastCubes.Custom {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void HandleValueChanged(NavItem<float> pNavItem) {
+		private void HandleValueChanged(ISelectableItem pItem) {
 			Color col = DemoEnvironment.HsvToColor(vHueSlider.RangeValue, 1, 0.666f);
 
 			Color colFade = col;
 			colFade.a = 0.25f;
 
-			SegmentSettings.Fill(vRootSettings, vHueSettings);
+			ItemVisualSettingsStandard.Fill((ItemVisualSettingsStandard)vRootSettings, vHueSettings);
 			vHueSettings.SelectionColor = col;
 			vHueSettings.SliderTrackColor = colFade;
 			vHueSettings.SliderFillColor = colFade;

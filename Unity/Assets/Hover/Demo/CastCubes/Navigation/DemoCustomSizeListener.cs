@@ -1,9 +1,12 @@
 ﻿using System;
+using Hover.Cast.Custom.Standard;
+using Hover.Common.Items;
+using Hover.Common.Items.Types;
 
 namespace Hover.Demo.CastCubes.Navigation {
 
 	/*================================================================================================*/
-	public class DemoCustomSizeListener : DemoBaseListener<NavItemSlider> {
+	public class DemoCustomSizeListener : DemoBaseListener<ISliderItem> {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -22,8 +25,9 @@ namespace Hover.Demo.CastCubes.Navigation {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void HandleValueChanged(NavItem<float> pNavItem) {
-			SegSett.TextSize = (int)Math.Round(Item.RangeValue);
+		private void HandleValueChanged(ISelectableItem<float> pItem) {
+			ItemVisualSettingsStandard sett = (ItemVisualSettingsStandard)ItemSett.GetSettings(pItem);
+			sett.TextSize = (int)Math.Round(Item.RangeValue);
 		}
 
 	}

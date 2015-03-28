@@ -1,9 +1,11 @@
 ﻿using System;
+using Hover.Common.Items;
+using Hover.Common.Items.Types;
 
 namespace Hover.Demo.CastCubes.Navigation {
 
 	/*================================================================================================*/
-	public class DemoLightPowerListener : DemoBaseListener<NavItemSlider> {
+	public class DemoLightPowerListener : DemoBaseListener<ISliderItem> {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -22,7 +24,7 @@ namespace Hover.Demo.CastCubes.Navigation {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void HandleValueChanged(NavItem<float> pNavItem) {
+		private void HandleValueChanged(ISelectableItem<float> pItem) {
 			Enviro.SetLightIntensitiy(Item.RangeValue);
 		}
 

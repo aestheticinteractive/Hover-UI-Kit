@@ -4,7 +4,7 @@ using UnityEditor;
 namespace Hovercast.Demo.Custom.Editor {
 
 	/*================================================================================================*/
-	[CustomEditor(typeof(DemoHueSegment))]
+	[CustomEditor(typeof(DemoHueItemVisualSettings))]
 	public class DemoHueSegmentEditor : UnityEditor.Editor {
 
 

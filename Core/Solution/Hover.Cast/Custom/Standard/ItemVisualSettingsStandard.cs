@@ -23,7 +23,7 @@ namespace Hover.Cast.Custom.Standard {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------* /
+		/*--------------------------------------------------------------------------------------------*/
 		public static ItemVisualSettingsStandard Fill(
 									ItemVisualSettingsStandard pSrc, ItemVisualSettingsStandard pDest) {
 			pDest.Renderer = pSrc.Renderer;
@@ -40,7 +40,7 @@ namespace Hover.Cast.Custom.Standard {
 			pDest.SliderFillColor = pSrc.SliderFillColor;
 			pDest.SliderTickColor = pSrc.SliderTickColor;
 			return pDest;
-		}*/
+		}
 
 	}
 

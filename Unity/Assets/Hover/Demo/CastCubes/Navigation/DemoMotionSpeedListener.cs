@@ -1,7 +1,10 @@
-﻿namespace Hover.Demo.CastCubes.Navigation {
+﻿using Hover.Common.Items;
+using Hover.Common.Items.Types;
+
+namespace Hover.Demo.CastCubes.Navigation {
 
 	/*================================================================================================*/
-	public class DemoMotionSpeedListener : DemoBaseListener<NavItemSlider> {
+	public class DemoMotionSpeedListener : DemoBaseListener<ISliderItem> {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -20,7 +23,7 @@
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void HandleValueChanged(NavItem<float> pNavItem) {
+		private void HandleValueChanged(ISelectableItem<float> pItem) {
 			Enviro.SetMotionSpeed(Item.RangeValue);
 		}
 

@@ -40,7 +40,7 @@ namespace Hover.Cast.Edit.Items {
 
 			if ( vTarget.Type != SelectableItemType.Parent ) {
 				vTarget.NavigateBackUponSelect = EditorGUILayout.Toggle(
-					"igate Back Upon Select", vTarget.NavigateBackUponSelect);
+					"Navigate Back Upon Select", vTarget.NavigateBackUponSelect);
 			}
 
 			switch ( vTarget.Type ) {

@@ -1,10 +1,13 @@
 ﻿using System;
+using Hover.Cast.Custom.Standard;
+using Hover.Common.Items;
+using Hover.Common.Items.Types;
 using UnityEngine;
 
 namespace Hover.Demo.CastCubes.Navigation {
 
 	/*================================================================================================*/
-	public class DemoCustomBgListener : DemoBaseListener<NavItemSlider> {
+	public class DemoCustomBgListener : DemoBaseListener<ISliderItem> {
 
 		private static float BgAlpha;
 
@@ -26,15 +29,15 @@ namespace Hover.Demo.CastCubes.Navigation {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void HandleValueChanged(NavItem<float> pNavItem) {
+		private void HandleValueChanged(ISelectableItem<float> pItem) {
 			BgAlpha = Item.RangeValue;
-			UpdateSettingsWithBgAlpha(SegSett);
+			UpdateSettingsWithBgAlpha((ItemVisualSettingsStandard)ItemSett.GetSettings(pItem));
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal static void UpdateSettingsWithBgAlpha(SegmentSettings pSegSett) {
+		internal static void UpdateSettingsWithBgAlpha(ItemVisualSettingsStandard pSegSett) {
 			Color c = pSegSett.BackgroundColor;
 			c.a = BgAlpha;
 			pSegSett.BackgroundColor = c;

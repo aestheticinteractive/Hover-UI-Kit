@@ -1,15 +1,17 @@
-﻿using Hover.Cast.Custom;
+﻿using Hover.Cast;
+using Hover.Cast.Custom;
 using Hover.Cast.Items;
+using Hover.Common.Items;
 using UnityEngine;
 
 namespace Hover.Demo.CastCubes.Navigation {
 
 	/*================================================================================================*/
-	public abstract class DemoBaseListener<T> : HovercastItemListener<T> where T : NavItem {
+	public abstract class DemoBaseListener<T> : HovercastItemListener<T> where T : ISelectableItem {
 
 		protected DemoEnvironment Enviro { get; private set; }
-		protected HovercastCustomizationProvider Custom { get; private set; }
-		protected SegmentSettings SegSett { get; private set; }
+		protected HovercastSetup CastSetup { get; private set; }
+		protected HovercastItemVisualSettings ItemSett { get; private set; }
 		protected InteractionSettings InteractSett { get; private set; }
 
 
@@ -19,9 +21,9 @@ namespace Hover.Demo.CastCubes.Navigation {
 			const string env = "DemoEnvironment";
 
 			Enviro = GameObject.Find(env).GetComponent<DemoEnvironment>();
-			Custom = GameObject.Find(env+"/MenuData").GetComponent<HovercastCustomizationProvider>();
-			SegSett = Custom.GetSegmentSettings(null);
-			InteractSett = Custom.GetInteractionSettings();
+			CastSetup = GameObject.Find("Hovercast").GetComponent<HovercastSetup>();
+			ItemSett = CastSetup.DefaultItemVisualSettings;
+			InteractSett = CastSetup.InteractionSettings.GetSettings();
 		}
 
 	}

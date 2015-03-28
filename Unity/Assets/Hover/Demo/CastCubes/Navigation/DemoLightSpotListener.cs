@@ -1,7 +1,10 @@
-﻿namespace Hover.Demo.CastCubes.Navigation {
+﻿using Hover.Common.Items;
+using Hover.Common.Items.Types;
+
+namespace Hover.Demo.CastCubes.Navigation {
 
 	/*================================================================================================*/
-	public class DemoLightSpotListener : DemoBaseListener<NavItemSticky> {
+	public class DemoLightSpotListener : DemoBaseListener<IStickyItem> {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -20,12 +23,12 @@
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void HandleSelected(NavItem pNavItem) {
+		private void HandleSelected(ISelectableItem pItem) {
 			Enviro.ShowSpotlight(true);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void HandleDeselected(NavItem pNavItem) {
+		private void HandleDeselected(ISelectableItem pItem) {
 			Enviro.ShowSpotlight(false);
 		}
 

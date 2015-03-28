@@ -1,7 +1,10 @@
-﻿namespace Hover.Demo.CastCubes.Navigation {
+﻿using Hover.Common.Items;
+using Hover.Common.Items.Types;
+
+namespace Hover.Demo.CastCubes.Navigation {
 
 	/*================================================================================================*/
-	public class DemoCameraReorientListener : DemoBaseListener<NavItemSelector> {
+	public class DemoCameraReorientListener : DemoBaseListener<ISelectorItem> {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -19,7 +22,7 @@
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void HandleSelected(NavItem pNavItem) {
+		private void HandleSelected(ISelectableItem pItem) {
 			Enviro.ReorientCamera();
 		}
 

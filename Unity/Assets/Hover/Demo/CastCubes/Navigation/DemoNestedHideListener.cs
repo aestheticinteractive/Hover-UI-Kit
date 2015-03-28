@@ -1,9 +1,13 @@
-﻿namespace Hover.Demo.CastCubes.Navigation {
+﻿using Hover.Cast.Items;
+using Hover.Common.Items;
+using Hover.Common.Items.Types;
+
+namespace Hover.Demo.CastCubes.Navigation {
 
 	/*================================================================================================*/
-	public class DemoNestedHideListener : DemoBaseListener<NavItemCheckbox> {
+	public class DemoNestedHideListener : DemoBaseListener<ICheckboxItem> {
 
-		public HovercastNavItem ItemToHide;
+		public HovercastItem ItemToHide;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -21,8 +25,8 @@
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void HandleValueChanged(NavItem<bool> pNavItem) {
-			ItemToHide.GetItem().IsVisible = !pNavItem.Value;
+		private void HandleValueChanged(ISelectableItem<bool> pItem) {
+			ItemToHide.GetItem().IsVisible = !pItem.Value;
 		}
 
 	}

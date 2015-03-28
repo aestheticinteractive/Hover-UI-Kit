@@ -1,7 +1,10 @@
-﻿namespace Hover.Demo.CastCubes.Navigation {
+﻿using Hover.Common.Items;
+using Hover.Common.Items.Types;
+
+namespace Hover.Demo.CastCubes.Navigation {
 
 	/*================================================================================================*/
-	public class DemoCustomSwitchListener : DemoBaseListener<NavItemSelector> {
+	public class DemoCustomSwitchListener : DemoBaseListener<ISelectorItem> {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -19,7 +22,7 @@
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void HandleSelected(NavItem pNavItem) {
+		private void HandleSelected(ISelectableItem pItem) {
 			InteractSett.IsMenuOnLeftSide = !InteractSett.IsMenuOnLeftSide;
 		}
 
