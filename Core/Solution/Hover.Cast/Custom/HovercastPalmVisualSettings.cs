@@ -10,10 +10,10 @@ namespace Hover.Cast.Custom {
 			HovercommonItemVisualSettings<HovercastItem, IUiPalmRenderer>, IPalmVisualSettingsProvider {
 
 
-
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public IPalmVisualSettings GetPalmSettings(IBaseItem pItem) {
+			//TODO: BUG: this also finds regular "Item" settings;
 			return (IPalmVisualSettings)GetSettings(pItem);
 		}
 

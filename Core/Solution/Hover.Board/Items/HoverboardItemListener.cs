@@ -22,11 +22,11 @@ namespace Hover.Board.Items {
 			}
 
 			Item = (T)Component.GetItem();
-			Setup();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Start() {
+			Setup();
 			BroadcastInitialValue();
 		}
 

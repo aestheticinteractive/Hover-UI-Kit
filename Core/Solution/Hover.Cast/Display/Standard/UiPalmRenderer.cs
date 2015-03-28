@@ -53,7 +53,7 @@ namespace Hover.Cast.Display.Standard {
 			labelObj.transform.SetParent(gameObject.transform, false);
 			labelObj.transform.localPosition = new Vector3(0, 0, vInnerRadius);
 			labelObj.transform.localRotation = Quaternion.FromToRotation(Vector3.back, Vector3.right);
-			labelObj.transform.localScale = new Vector3(1, 1, (vMenuState.IsOnLeftSide ? 1 : -1));
+			labelObj.transform.localScale = new Vector3((vMenuState.IsOnLeftSide ? 1 : -1), 1, 1);
 
 			vLabel = labelObj.AddComponent<UiLabel>();
 			vLabel.AlignLeft = vMenuState.IsOnLeftSide;

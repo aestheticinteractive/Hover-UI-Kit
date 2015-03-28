@@ -21,11 +21,11 @@ namespace Hover.Board.Items {
 			}
 
 			Panel = Component.GetPanel();
-			Setup();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Start() {
+			Setup();
 			BroadcastInitialValues();
 		}
 
