@@ -43,6 +43,7 @@ namespace Hover.Cast.State {
 			BaseTransform = pBaseTx;
 
 			FullMenu = new MenuState(pItemHierarchy, vInteractSettings);
+			ActiveCursorTypes = new CursorType[0];
 
 			vCursorMap = new Dictionary<CursorType, ICursorState>();
 

@@ -1,11 +1,11 @@
 ﻿using System.Linq;
 using Hover.Board;
-using Hover.Board.Navigation;
+using Hover.Board.Items;
 using Hover.Cast;
 using Hover.Cast.State;
 using UnityEngine;
 
-namespace Hover.Demo.HoverboardDemo {
+namespace Hover.Demo.BoardKeys {
 
 	/*================================================================================================*/
 	public class DemoHovercastListener : MonoBehaviour {
@@ -24,41 +24,36 @@ namespace Hover.Demo.HoverboardDemo {
 			vHoverboardSetup = GameObject.Find("Hoverboard").GetComponent<HoverboardSetup>();
 			vHovercastSetup = GameObject.Find("Hovercast").GetComponent<HovercastSetup>();
 
-			vKeyboardItemPanels = GameObject.Find("SplitKeyboard")
-				.GetComponentsInChildren<HoverboardPanelProvider>()
+			vPrevEnableKey = true;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void Start() {
+			vKeyboardItemPanels = vHoverboardSetup.Panels
 				.Select(x => x.GetPanel())
 				.ToArray();
-
-			vPrevEnableKey = true;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
 			IHovercastState state = vHovercastSetup.State;
-			bool enableKey = !state.IsMenuVisible;
+			bool enableKey = (state.Menu.DisplayStrength <= 0);
 
-			if ( vPrevEnableKey != enableKey ) {
-				HandleEnabledChange(enableKey);
-				vPrevEnableKey = enableKey;
+			if ( vPrevEnableKey == enableKey ) {
+				return;
 			}
-		}
 
+			vTextField.SetActive(enableKey);
 
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		private void HandleEnabledChange(bool pEnabled) {
-			vHoverboardSetup.InputProvider.IsEnabled = pEnabled;
-			vTextField.SetActive(pEnabled);
+			foreach ( ItemPanel itemPanel in vKeyboardItemPanels ) {
+				((GameObject)itemPanel.DisplayContainer).SetActive(enableKey);
 
-			foreach ( ItemPanel navPanel in vKeyboardItemPanels ) {
-				navPanel.DisplayContainer.SetActive(pEnabled);
-
-				/*foreach ( NavGrid navGrid in navPanel.Grids ) {
-					foreach ( NavItem navItem in navGrid.Items ) {
-						navItem.IsEnabled = pEnabled;
-					}
-				}*/
+				foreach ( IItemGrid itemGrid in itemPanel.Grids ) {
+					itemGrid.IsEnabled = enableKey;
+				}
 			}
+
+			vPrevEnableKey = enableKey;
 		}
 
 	}

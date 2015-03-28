@@ -70,6 +70,7 @@ namespace Hover.Board.State {
 			Panels = panels.ToArray();
 			vPanelPlanes = planes.ToArray();
 			vAllItems = allItems.ToArray();
+			ActiveCursorTypes = new CursorType[0];
 		}
 
 
@@ -173,7 +174,8 @@ namespace Hover.Board.State {
 		/*--------------------------------------------------------------------------------------------*/
 		public bool IsCursorInteractionEnabled {
 			get {
-				return true;
+				//TODO: add Panel.IsEnabled
+				return Panels.Any(p => p.Grids.Any(g => g.ItemGrid.IsEnabled));
 			}
 		}
 

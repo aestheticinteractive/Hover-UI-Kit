@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Hover.Board.Display.Default;
+using Hover.Common.Display;
 using UnityEngine;
 
-namespace Hover.Demo.HoverboardDemo {
+namespace Hover.Demo.BoardKeys {
 
 	/*================================================================================================*/
 	public class DemoEnvironment : MonoBehaviour {

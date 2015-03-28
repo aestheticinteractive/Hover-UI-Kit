@@ -1,8 +1,9 @@
-﻿using Hover.Board.Custom;
-using Hover.Board.Display.Default;
+﻿using Hover.Board.Custom.Standard;
+using Hover.Board.Display;
+using Hover.Common.Display;
 using UnityEngine;
 
-namespace Hover.Demo.HoverboardDemo {
+namespace Hover.Demo.BoardKeys {
 
 	/*================================================================================================*/
 	public class DemoTextField : MonoBehaviour {
@@ -30,11 +31,11 @@ namespace Hover.Demo.HoverboardDemo {
 			lblBgObj.renderer.material.color = new Color(0.1f, 0.1f, 0.1f, 0.666f);
 			lblBgObj.renderer.material.renderQueue -= 300;
 
-			Color green = HoverboardDefaultButton.Green;
+			Color green = HoverboardItemVisualSettingsStandard.Green;
 			green.a *= 0.5f;
 
 			vTextEntry = lblObj.AddComponent<UiLabel>();
-			vTextEntry.SetSize(width, 1);
+			vTextEntry.SetSize(width, 1, UiItem.Size*0.012f);
 			vTextEntry.FontName = "Tahoma";
 			vTextEntry.FontSize = 60;
 			vTextEntry.Color = green;

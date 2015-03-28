@@ -1,8 +1,8 @@
 ﻿using System;
-using Hover.Board.Display.Default;
+using Hover.Common.Display;
 using UnityEngine;
 
-namespace Hover.Demo.HoverboardDemo {
+namespace Hover.Demo.BoardKeys {
 
 	/*================================================================================================*/
 	public class DemoTextPixels {
@@ -14,7 +14,7 @@ namespace Hover.Demo.HoverboardDemo {
 		/*--------------------------------------------------------------------------------------------*/
 		public DemoTextPixels(UiLabel pLabel) {
 			vUiLabel = pLabel;
-			vUiLabel.SetSize(1, 1);
+			vUiLabel.SetSize(1, 1, 1);
 			vUiLabel.FontName = "TahomaPixel16";
 			vUiLabel.Alpha = 1;
 			vUiLabel.Color = Color.red;

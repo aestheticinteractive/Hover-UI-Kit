@@ -1,15 +1,16 @@
 ﻿using System.Linq;
-using Hover.Board.Navigation;
+using Hover.Board;
+using Hover.Board.Items;
+using Hover.Common.Items;
 using UnityEngine;
 
-namespace Hover.Demo.HoverboardDemo {
+namespace Hover.Demo.BoardKeys {
 
 	/*================================================================================================*/
 	public class DemoKeyboardListener : MonoBehaviour {
 
 		private DemoEnvironment vEnviro;
 		private DemoTextField vTextField;
-		private GameObject vKeyboardObj;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -17,17 +18,26 @@ namespace Hover.Demo.HoverboardDemo {
 		public void Awake() {
 			vEnviro = GameObject.Find("DemoEnvironment").GetComponent<DemoEnvironment>();
 			vTextField = GameObject.Find("DemoTextField").GetComponent<DemoTextField>();
-			vKeyboardObj = GameObject.Find("SplitKeyboard");
+		}
 
-			ItemPanel[] itemPanels = vKeyboardObj
-				.GetComponentsInChildren<HoverboardPanelProvider>()
+		/*--------------------------------------------------------------------------------------------*/
+		public void Start() {
+			ItemPanel[] itemPanels = GameObject.Find("Hoverboard")
+				.GetComponentInChildren<HoverboardSetup>()
+				.Panels
 				.Select(x => x.GetPanel())
 				.ToArray();
 
-			foreach ( ItemPanel navPanel in itemPanels ) {
-				foreach ( ItemGrid navGrid in navPanel.Grids ) {
-					foreach ( NavItem navItem in navGrid.Items ) {
-						navItem.OnSelected += HandleItemSelected;
+			foreach ( ItemPanel itemPanel in itemPanels ) {
+				foreach ( IItemGrid itemGrid in itemPanel.Grids ) {
+					foreach ( IBaseItem item in itemGrid.Items ) {
+						ISelectableItem selItem = (item as ISelectableItem);
+
+						if ( selItem == null ) {
+							continue;
+						}
+
+						selItem.OnSelected += HandleItemSelected;
 					}
 				}
 			}
@@ -36,23 +46,23 @@ namespace Hover.Demo.HoverboardDemo {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void HandleItemSelected(NavItem pNavItem) {
-			if ( pNavItem.Label == "^" ) {
+		private void HandleItemSelected(ISelectableItem pItem) {
+			if ( pItem.Label == "^" ) {
 				return;
 			}
 			
-			if ( pNavItem.Label.Length == 1 ) {
-				vEnviro.AddLetter(pNavItem.Label[0]);
-				vTextField.AddLetter(pNavItem.Label[0]);
+			if ( pItem.Label.Length == 1 ) {
+				vEnviro.AddLetter(pItem.Label[0]);
+				vTextField.AddLetter(pItem.Label[0]);
 				return;
 			}
 
-			if ( pNavItem.Label == "Back" ) {
+			if ( pItem.Label == "Back" ) {
 				vEnviro.RemoveLatestLetter();
 				vTextField.RemoveLatestLetter();
 			}
 
-			if ( pNavItem.Label == "Enter" ) {
+			if ( pItem.Label == "Enter" ) {
 				vTextField.ClearLetters();
 			}
 		}

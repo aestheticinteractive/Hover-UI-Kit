@@ -1,10 +1,14 @@
-﻿using UnityEngine;
+﻿using System;
+using Hover.Common.Items;
+using Hover.Common.Items.Types;
+using UnityEngine;
 
-namespace Hover.Demo.HoverboardDemo.Navigation {
+namespace Hover.Demo.BoardKeys.CastItems {
 
 	/*================================================================================================*/
-	public class DemoSplitModeListner : DemoBaseListener<NavItemCheckbox> {
+	public class DemoSplitModeListener : DemoBaseListener<ICheckboxItem> {
 
+		private GameObject vKeyboardObj;
 		private Vector3[] vOrigPosList;
 		private Quaternion[] vOrigRotList;
 
@@ -13,12 +17,13 @@ namespace Hover.Demo.HoverboardDemo.Navigation {
 		/*--------------------------------------------------------------------------------------------*/
 		protected override void Setup() {
 			base.Setup();
-			
+
+			vKeyboardObj = GameObject.Find("SplitKeyboard");
 			vOrigPosList = new Vector3[ItemPanels.Length];
 			vOrigRotList = new Quaternion[ItemPanels.Length];
 
 			for ( int i = 0 ; i < ItemPanels.Length ; i++ ) {
-				Transform tx = ItemPanels[i].DisplayContainer.transform;
+				Transform tx = GetTransform(ItemPanels[i].DisplayContainer);
 				vOrigPosList[i] = tx.localPosition;
 				vOrigRotList[i] = tx.localRotation;
 			}
@@ -34,30 +39,32 @@ namespace Hover.Demo.HoverboardDemo.Navigation {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void HandleValueChanged(NavItem<bool> pNavItem) {
-			if ( !pNavItem.Value ) {
-				Transform leftTx = ItemPanels[0].DisplayContainer.transform;
-				Transform rightTx = ItemPanels[1].DisplayContainer.transform;
+		private void HandleValueChanged(ISelectableItem<bool> pItem) {
+			if ( !pItem.Value ) {
+				for ( int i = 0 ; i < ItemPanels.Length ; ++i ) {
+					Transform tx = GetTransform(ItemPanels[i].DisplayContainer);
+					tx.localPosition = new Vector3(0.25f*Math.Sign(vOrigPosList[i].x), 0, 0);
+					tx.localRotation = Quaternion.Euler(90, 0, 0);
+				}
 
-				leftTx.localPosition = new Vector3(0.25f, 0, 0);
-				leftTx.localRotation = Quaternion.Euler(90, 0, 0);
-
-				rightTx.localPosition = new Vector3(-0.25f, 0, 0);
-				rightTx.localRotation = Quaternion.Euler(90, 0, 0);
-
-				KeyboardObj.transform.localPosition = new Vector3(0, -0.1f, 0.15f);
-				KeyboardObj.transform.localRotation = Quaternion.Euler(40, 0, 0);
+				vKeyboardObj.transform.localPosition = new Vector3(0, -0.1f, 0.15f);
+				vKeyboardObj.transform.localRotation = Quaternion.Euler(40, 0, 0);
 				return;
 			}
 
 			for ( int i = 0 ; i < ItemPanels.Length ; i++ ) {
-				Transform tx = ItemPanels[i].DisplayContainer.transform;
+				Transform tx = GetTransform(ItemPanels[i].DisplayContainer);
 				tx.localPosition = vOrigPosList[i];
 				tx.localRotation = vOrigRotList[i];
 			}
 
-			KeyboardObj.transform.localPosition = Vector3.zero;
-			KeyboardObj.transform.localRotation = Quaternion.identity;
+			vKeyboardObj.transform.localPosition = Vector3.zero;
+			vKeyboardObj.transform.localRotation = Quaternion.identity;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private Transform GetTransform(object pDisplayContainer) {
+			return ((GameObject)pDisplayContainer).transform;
 		}
 
 	}

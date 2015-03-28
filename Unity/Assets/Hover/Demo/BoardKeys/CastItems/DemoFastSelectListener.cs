@@ -1,21 +1,20 @@
-﻿using Hover.Board.Devices.Leap.Touch;
+﻿using Hover.Board.Custom;
+using Hover.Common.Items;
+using Hover.Common.Items.Types;
 
-namespace Hover.Demo.HoverboardDemo.Navigation {
+namespace Hover.Demo.BoardKeys.CastItems {
 
 	/*================================================================================================*/
-	public class DemoAllowThumbListener : DemoBaseListener<NavItemCheckbox> {
+	public class DemoFastSelectListener : DemoBaseListener<ICheckboxItem> {
 
-		//TODO: private HoverboardLeapInputProvider vLeapInputProv;
+		private InteractionSettings vInteractSett;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected override void Setup() {
 			base.Setup();
-
-			//TODO: vLeapInputProv = (HoverboardSetup.InputProvider as HoverboardLeapInputProvider);
-
-			//TODO: Item.IsEnabled = (vLeapInputProv != null);
+			vInteractSett = HoverboardSetup.InteractionSettings.GetSettings();
 			Item.OnValueChanged += HandleValueChanged;
 		}
 
@@ -27,14 +26,10 @@ namespace Hover.Demo.HoverboardDemo.Navigation {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void HandleValueChanged(NavItem<bool> pNavItem) {
-			//TODO: 
-			/*if ( vLeapInputProv == null ) {
-				return;
-			}
-
-			vLeapInputProv.UseSecondary = pNavItem.Value;*/
+		private void HandleValueChanged(ISelectableItem<bool> pItem) {
+			vInteractSett.SelectionMilliseconds = (pItem.Value ? 200 : 400);
 		}
+
 	}
 
 }
