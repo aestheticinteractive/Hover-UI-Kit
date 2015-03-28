@@ -1,6 +1,6 @@
 ﻿using Hover.Common.Items;
 
-namespace Hover.Cast.Custom {
+namespace Hover.Common.Custom {
 
 	/*================================================================================================*/
 	public interface IItemVisualSettingsProvider {

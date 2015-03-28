@@ -1,16 +1,15 @@
-﻿using Hover.Common.Items;
+﻿using Hover.Common.Custom;
+using Hover.Common.Items;
 
 namespace Hover.Cast.Custom {
 
 	/*================================================================================================*/
-	public interface IPalmVisualSettingsProvider {
-
-		bool IsDefaultSettingsComponent { get; }
-
+	public interface IPalmVisualSettingsProvider : IItemVisualSettingsProvider {
+		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		IPalmVisualSettings GetSettings(IBaseItem pItem);
+		IPalmVisualSettings GetPalmSettings(IBaseItem pItem);
 
 	}
 

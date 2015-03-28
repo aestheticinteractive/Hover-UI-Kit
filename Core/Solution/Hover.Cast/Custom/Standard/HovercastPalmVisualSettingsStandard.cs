@@ -1,6 +1,7 @@
 ﻿using Hover.Cast.Custom;
 using Hover.Cast.Custom.Standard;
 using Hover.Cast.Display.Standard;
+using Hover.Common.Custom;
 using Hover.Common.Items;
 using UnityEngine;
 
@@ -17,7 +18,8 @@ namespace Hover.cast.Custom.Standard {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected override IPalmVisualSettings GetSettingsInner(IBaseItem pItem) {
+		protected override IItemVisualSettings GetSettingsInner(IBaseItem pItem,
+																	IItemVisualSettings pDefault=null) {
 			var sett = new PalmVisualSettingsStandard();
 			sett.Renderer = typeof(UiPalmRenderer);
 			sett.TextSize = TextSize;

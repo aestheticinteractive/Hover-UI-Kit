@@ -2,6 +2,7 @@
 using Hover.Cast.Custom.Standard;
 using Hover.Cast.Display.Standard;
 using Hover.Cast.Items;
+using Hover.Common.Custom;
 using Hover.Common.Items;
 using Hover.Common.Items.Types;
 using UnityEngine;
@@ -42,7 +43,7 @@ namespace Hover.Demo.CastCubes.Custom {
 			Color colFade = col;
 			colFade.a = 0.25f;
 
-			ItemVisualSettingsStandard.Fill(vDefaultSettings, vHueSettings);
+			vHueSettings.FillWith(vDefaultSettings, false);
 			vHueSettings.Renderer = typeof(UiItemSliderRenderer);
 			vHueSettings.SelectionColor = col;
 			vHueSettings.SliderTrackColor = colFade;

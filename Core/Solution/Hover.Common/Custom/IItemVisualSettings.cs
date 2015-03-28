@@ -1,16 +1,16 @@
-﻿using Hover.Common.Items;
+﻿using System;
 
-namespace Hover.Board.Custom {
+namespace Hover.Common.Custom {
 
 	/*================================================================================================*/
-	public interface IItemVisualSettingsProvider {
+	public interface IItemVisualSettings {
 
-		bool IsDefaultSettingsComponent { get; }
+		Type Renderer { get; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		IItemVisualSettings GetSettings(IBaseItem pItem);
+		void FillWith(IItemVisualSettings pSourceSettings, bool pIncludeRenderer);
 
 	}
 

@@ -1,19 +1,21 @@
-﻿using Hover.Common.Custom;
-using Hover.Common.State;
+﻿using Hover.Common.Items;
 using UnityEngine;
 
-namespace Hover.Board.Display {
-
+namespace Hover.Common.Custom {
+	
 	/*================================================================================================*/
-	public interface IUiItemRenderer {
+	public abstract class HovercommonItemVisualSettings : MonoBehaviour, IItemVisualSettingsProvider {
+
+		public bool IsDefaultSettingsComponent { get; set; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		void Build(IBaseItemState pItemState, IItemVisualSettings pSettings);
+		public abstract IItemVisualSettings GetSettings(IBaseItem pItem);
 
 		/*--------------------------------------------------------------------------------------------*/
-		void UpdateHoverPoints(IBaseItemPointsState pPointsState, Vector3 pCursorWorldPos);
+		public abstract IItemVisualSettings GetSettingsWithExternalDefault(IBaseItem pItem,
+																		IItemVisualSettings pDefault);
 
 	}
 

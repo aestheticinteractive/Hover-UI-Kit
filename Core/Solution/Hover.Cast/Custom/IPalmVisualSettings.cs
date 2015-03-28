@@ -1,11 +1,9 @@
-﻿using System;
+﻿using Hover.Common.Custom;
 
 namespace Hover.Cast.Custom {
 
 	/*================================================================================================*/
-	public interface IPalmVisualSettings {
-
-		Type Renderer { get; }
+	public interface IPalmVisualSettings : IItemVisualSettings {
 
 	}
 

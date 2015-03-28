@@ -1,4 +1,5 @@
 ﻿using System;
+using Hover.Common.Custom;
 using UnityEngine;
 
 namespace Hover.Board.Custom.Standard {
@@ -23,24 +24,27 @@ namespace Hover.Board.Custom.Standard {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------* /
-		public static ItemVisualSettingsStandard Fill(
-									ItemVisualSettingsStandard pSrc, ItemVisualSettingsStandard pDest) {
-			pDest.Renderer = pSrc.Renderer;
-			pDest.TextSize = pSrc.TextSize;
-			pDest.TextColor = pSrc.TextColor;
-			pDest.TextFont = pSrc.TextFont;
-			pDest.ArrowIconColor = pSrc.ArrowIconColor;
-			pDest.ToggleIconColor = pSrc.ToggleIconColor;
-			pDest.BackgroundColor = pSrc.BackgroundColor;
-			pDest.EdgeColor = pSrc.EdgeColor;
-			pDest.HighlightColor = pSrc.HighlightColor;
-			pDest.SelectionColor = pSrc.SelectionColor;
-			pDest.SliderTrackColor = pSrc.SliderTrackColor;
-			pDest.SliderFillColor = pSrc.SliderFillColor;
-			pDest.SliderTickColor = pSrc.SliderTickColor;
-			return pDest;
-		}*/
+		/*--------------------------------------------------------------------------------------------*/
+		public void FillWith(IItemVisualSettings pSourceSettings, bool pIncludeRenderer) {
+			ItemVisualSettingsStandard sett = (ItemVisualSettingsStandard)pSourceSettings;
+
+			if ( pIncludeRenderer ) {
+				Renderer = sett.Renderer;
+			}
+
+			TextSize = sett.TextSize;
+			TextColor = sett.TextColor;
+			TextFont = sett.TextFont;
+			ArrowIconColor = sett.ArrowIconColor;
+			ToggleIconColor = sett.ToggleIconColor;
+			BackgroundColor = sett.BackgroundColor;
+			EdgeColor = sett.EdgeColor;
+			HighlightColor = sett.HighlightColor;
+			SelectionColor = sett.SelectionColor;
+			SliderTrackColor = sett.SliderTrackColor;
+			SliderFillColor = sett.SliderFillColor;
+			SliderTickColor = sett.SliderTickColor;
+		}
 
 	}
 

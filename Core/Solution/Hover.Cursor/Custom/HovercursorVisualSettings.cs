@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using Hover.Common.Custom;
 using Hover.Cursor.Display;
 using UnityEngine;
 
@@ -7,8 +6,6 @@ namespace Hover.Cursor.Custom {
 
 	/*================================================================================================*/
 	public abstract class HovercursorVisualSettings : MonoBehaviour {
-
-		private const string RendererErrorPrefix = "Hovercursor | The 'Cursor' Renderer ";
 
 		private ICursorSettings vSettings;
 
@@ -21,16 +18,7 @@ namespace Hover.Cursor.Custom {
 			}
 
 			ICursorSettings sett = GetSettingsInner();
-
-			if ( sett.Renderer == null ) {
-				throw new Exception(RendererErrorPrefix+"cannot be null.");
-			}
-
-			if ( !sett.Renderer.GetInterfaces().Contains(typeof(IUiCursorRenderer)) ) {
-				throw new Exception(RendererErrorPrefix+"does not implement the "+
-					typeof(IUiCursorRenderer).Name+" interface.");
-			}
-
+			CustomUtil.VerifyRenderer<IUiCursorRenderer>(sett.Renderer, null, "Hovercursor", "Cursor");
 			vSettings = sett;
 			return sett;
 		}

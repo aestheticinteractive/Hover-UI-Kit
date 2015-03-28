@@ -66,7 +66,7 @@ namespace Hover.Cast.Display {
 
 			const float halfAngle = UiLevel.AngleFull/2f;
 			IBaseItem item = vMenuState.GetLevelParentItem();
-			IPalmVisualSettings visualSett = vVisualSettingsProv.GetSettings(item);
+			IPalmVisualSettings visualSett = (IPalmVisualSettings)vVisualSettingsProv.GetSettings(item);
 
 			vRendererHold.SetActive(true); //ensures that Awake() is called in the renderers
 

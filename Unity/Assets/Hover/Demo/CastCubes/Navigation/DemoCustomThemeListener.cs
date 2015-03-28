@@ -1,5 +1,5 @@
-﻿using Hover.Cast.Custom;
-using Hover.Cast.Custom.Standard;
+﻿using Hover.Cast.Custom.Standard;
+using Hover.Common.Custom;
 using Hover.Common.Items;
 using Hover.Common.Items.Types;
 using UnityEngine;

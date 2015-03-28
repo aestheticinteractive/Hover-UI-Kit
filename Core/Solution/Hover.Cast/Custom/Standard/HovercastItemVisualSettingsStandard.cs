@@ -2,6 +2,7 @@
 using Hover.Cast.Custom;
 using Hover.Cast.Custom.Standard;
 using Hover.Cast.Display.Standard;
+using Hover.Common.Custom;
 using Hover.Common.Items;
 using Hover.Common.Items.Types;
 using UnityEngine;
@@ -32,7 +33,7 @@ namespace Hover.cast.Custom.Standard {
 			var sett = new ItemVisualSettingsStandard();
 
 			if ( pDefault != null ) {
-				ItemVisualSettingsStandard.Fill((ItemVisualSettingsStandard)pDefault, sett);
+				sett.FillWith(pDefault, false);
 			}
 			else {
 				sett.TextSize = TextSize;
