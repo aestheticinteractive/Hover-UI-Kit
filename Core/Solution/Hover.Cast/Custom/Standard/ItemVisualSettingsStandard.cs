@@ -24,8 +24,7 @@ namespace Hover.Cast.Custom.Standard {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public static ItemVisualSettingsStandard Fill(
-									ItemVisualSettingsStandard pSrc, ItemVisualSettingsStandard pDest) {
+		public static void Fill(ItemVisualSettingsStandard pSrc, ItemVisualSettingsStandard pDest) {
 			pDest.Renderer = pSrc.Renderer;
 			pDest.TextSize = pSrc.TextSize;
 			pDest.TextColor = pSrc.TextColor;
@@ -39,7 +38,6 @@ namespace Hover.Cast.Custom.Standard {
 			pDest.SliderTrackColor = pSrc.SliderTrackColor;
 			pDest.SliderFillColor = pSrc.SliderFillColor;
 			pDest.SliderTickColor = pSrc.SliderTickColor;
-			return pDest;
 		}
 
 	}

@@ -27,21 +27,29 @@ namespace Hover.cast.Custom.Standard {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected override IItemVisualSettings GetSettingsInner(IBaseItem pItem) {
+		protected override IItemVisualSettings GetSettingsInner(IBaseItem pItem,
+																	IItemVisualSettings pDefault=null) {
 			var sett = new ItemVisualSettingsStandard();
+
+			if ( pDefault != null ) {
+				ItemVisualSettingsStandard.Fill((ItemVisualSettingsStandard)pDefault, sett);
+			}
+			else {
+				sett.TextSize = TextSize;
+				sett.TextColor = TextColor;
+				sett.TextFont = TextFont;
+				sett.ArrowIconColor = ArrowIconColor;
+				sett.ToggleIconColor = ToggleIconColor;
+				sett.BackgroundColor = BackgroundColor;
+				sett.EdgeColor = EdgeColor;
+				sett.HighlightColor = HighlightColor;
+				sett.SelectionColor = SelectionColor;
+				sett.SliderTrackColor = SliderTrackColor;
+				sett.SliderFillColor = SliderFillColor;
+				sett.SliderTickColor = SliderTickColor;
+			}
+
 			sett.Renderer = GetRendererForItem(pItem);
-			sett.TextSize = TextSize;
-			sett.TextColor = TextColor;
-			sett.TextFont = TextFont;
-			sett.ArrowIconColor = ArrowIconColor;
-			sett.ToggleIconColor = ToggleIconColor;
-			sett.BackgroundColor = BackgroundColor;
-			sett.EdgeColor = EdgeColor;
-			sett.HighlightColor = HighlightColor;
-			sett.SelectionColor = SelectionColor;
-			sett.SliderTrackColor = SliderTrackColor;
-			sett.SliderFillColor = SliderFillColor;
-			sett.SliderTickColor = SliderTickColor;
 			return sett;
 		}
 

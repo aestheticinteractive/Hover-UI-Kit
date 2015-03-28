@@ -32,19 +32,23 @@ namespace Hover.Demo.CastCubes.Navigation {
 		private void HandleValueChanged(ISelectableItem<float> pItem) {
 			BgAlpha = Item.RangeValue;
 			UpdateSettingsWithBgAlpha((ItemVisualSettingsStandard)ItemSett.GetSettings(pItem));
+
+			ItemSett.UpdateAllSettings(x => 
+				UpdateSettingsWithBgAlpha((ItemVisualSettingsStandard)x)
+			);
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal static void UpdateSettingsWithBgAlpha(ItemVisualSettingsStandard pSegSett) {
-			Color c = pSegSett.BackgroundColor;
+		internal static void UpdateSettingsWithBgAlpha(ItemVisualSettingsStandard pSettings) {
+			Color c = pSettings.BackgroundColor;
 			c.a = BgAlpha;
-			pSegSett.BackgroundColor = c;
+			pSettings.BackgroundColor = c;
 
-			c = pSegSett.SliderFillColor;
+			c = pSettings.SliderFillColor;
 			c.a = 0.5f*BgAlpha;
-			pSegSett.SliderFillColor = c;
+			pSettings.SliderFillColor = c;
 		}
 
 	}

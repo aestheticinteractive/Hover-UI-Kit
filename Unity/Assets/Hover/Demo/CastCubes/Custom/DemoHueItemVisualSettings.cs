@@ -1,6 +1,6 @@
-﻿using Hover.Cast;
-using Hover.Cast.Custom;
+﻿using Hover.Cast.Custom;
 using Hover.Cast.Custom.Standard;
+using Hover.Cast.Display.Standard;
 using Hover.Cast.Items;
 using Hover.Common.Items;
 using Hover.Common.Items.Types;
@@ -11,7 +11,7 @@ namespace Hover.Demo.CastCubes.Custom {
 	/*================================================================================================*/
 	public class DemoHueItemVisualSettings : HovercastItemVisualSettings {
 
-		private IItemVisualSettings vRootSettings;
+		private ItemVisualSettingsStandard vDefaultSettings;
 		private ItemVisualSettingsStandard vHueSettings;
 		private ISliderItem vHueSlider;
 
@@ -19,11 +19,6 @@ namespace Hover.Demo.CastCubes.Custom {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
-			vRootSettings = GameObject.Find("Hovercast")
-				.GetComponent<HovercastSetup>()
-				.DefaultItemVisualSettings
-				.GetSettings(new SliderItem());
-
 			vHueSettings = new ItemVisualSettingsStandard();
 			
 			vHueSlider = (ISliderItem)gameObject.GetComponent<HovercastItem>().GetItem();
@@ -31,7 +26,9 @@ namespace Hover.Demo.CastCubes.Custom {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		protected override IItemVisualSettings GetSettingsInner(IBaseItem pItem) {
+		protected override IItemVisualSettings GetSettingsInner(IBaseItem pItem,
+																	IItemVisualSettings pDefault=null) {
+			vDefaultSettings = (ItemVisualSettingsStandard)pDefault;
 			HandleValueChanged(null);
 			return vHueSettings;
 		}
@@ -45,7 +42,8 @@ namespace Hover.Demo.CastCubes.Custom {
 			Color colFade = col;
 			colFade.a = 0.25f;
 
-			ItemVisualSettingsStandard.Fill((ItemVisualSettingsStandard)vRootSettings, vHueSettings);
+			ItemVisualSettingsStandard.Fill(vDefaultSettings, vHueSettings);
+			vHueSettings.Renderer = typeof(UiItemSliderRenderer);
 			vHueSettings.SelectionColor = col;
 			vHueSettings.SliderTrackColor = colFade;
 			vHueSettings.SliderFillColor = colFade;

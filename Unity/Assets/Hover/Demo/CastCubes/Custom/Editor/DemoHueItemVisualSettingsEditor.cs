@@ -1,11 +1,11 @@
 using Hover.Demo.CastCubes.Custom;
 using UnityEditor;
 
-namespace Hovercast.Demo.Custom.Editor {
+namespace Assets.Hover.Demo.CastCubes.Custom.Editor {
 
 	/*================================================================================================*/
 	[CustomEditor(typeof(DemoHueItemVisualSettings))]
-	public class DemoHueSegmentEditor : UnityEditor.Editor {
+	public class DemoHueItemVisualSettingsEditor : UnityEditor.Editor {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

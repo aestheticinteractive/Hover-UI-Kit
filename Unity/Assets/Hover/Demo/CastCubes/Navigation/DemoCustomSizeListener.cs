@@ -26,8 +26,11 @@ namespace Hover.Demo.CastCubes.Navigation {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleValueChanged(ISelectableItem<float> pItem) {
-			ItemVisualSettingsStandard sett = (ItemVisualSettingsStandard)ItemSett.GetSettings(pItem);
-			sett.TextSize = (int)Math.Round(Item.RangeValue);
+			int size = (int)Math.Round(Item.RangeValue);
+			
+			ItemSett.UpdateAllSettings(x => 
+				((ItemVisualSettingsStandard)x).TextSize = size
+			);
 		}
 
 	}
