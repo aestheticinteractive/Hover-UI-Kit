@@ -135,9 +135,16 @@ namespace Hover.Common.State {
 		public void UpdateWithCursor(CursorType pType, Vector3? pCursorWorldPos) {
 			vCursorWorldPosMap[pType] = pCursorWorldPos;
 
-			bool preventViaDisplay = vPreventSelectionViaDisplayMap.Any(x => x.Value);
+			bool prevent = (
+				pCursorWorldPos == null ||
+				!Item.IsEnabled ||
+				!Item.IsVisible ||
+				vPreventSelectionViaDisplayMap.Any(x => x.Value) ||
+				!Item.AreParentsEnabled ||
+				!Item.AreParentsVisible
+			);
 
-			if ( pCursorWorldPos == null || preventViaDisplay || !Item.IsEnabled || !Item.IsVisible ) {
+			if ( prevent ) {
 				vHighlightDistanceMap[pType] = float.MaxValue;
 				vHighlightProgressMap[pType] = 0;
 				return;

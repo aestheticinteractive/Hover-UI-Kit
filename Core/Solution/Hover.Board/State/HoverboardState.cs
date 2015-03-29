@@ -28,7 +28,7 @@ namespace Hover.Board.State {
 		private readonly ItemTree[] vAllItems;
 
 		private IBaseItemInteractionState[] vActiveCursorInteractions;
-		private readonly PlaneData[] vPanelPlanes;
+		private PlaneData[] vActiveCursorPlanes;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -43,16 +43,13 @@ namespace Hover.Board.State {
 			////
 
 			var panels = new List<PanelState>();
-			var planes = new List<PlaneData>();
 			var allItems = new List<ItemTree>();
 
 			foreach ( ItemPanel itemPanel in pItemPanels ) {
 				var panel = new PanelState(itemPanel, vInteractSett);
-				panels.Add(panel);
-				
-				var plane = new PlaneData("Hoverboard.Panel-"+planes.Count, 
+				panel.InteractionPlane = new PlaneData("Hoverboard.Panel-"+panels.Count, 
 					((GameObject)panel.ItemPanel.DisplayContainer).transform, Vector3.up);
-				planes.Add(plane);
+				panels.Add(panel);
 
 				foreach ( GridState grid in panel.Grids ) {
 					foreach ( BaseItemState item in grid.Items ) {
@@ -68,7 +65,6 @@ namespace Hover.Board.State {
 			}
 
 			Panels = panels.ToArray();
-			vPanelPlanes = planes.ToArray();
 			vAllItems = allItems.ToArray();
 			ActiveCursorTypes = new CursorType[0];
 		}
@@ -101,7 +97,22 @@ namespace Hover.Board.State {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateAfterInput() {
+			PanelState[] activePanels = Panels
+				.Where(x => x.ItemPanel.IsVisible && x.ItemPanel.IsEnabled)
+				.ToArray();
+
+			IsCursorInteractionEnabled = (activePanels.Length > 0);
+
 			ActiveCursorTypes = vInteractSett.Cursors;
+
+			vActiveCursorInteractions = vAllItems
+				.Select(x => x.Item)
+				.Cast<IBaseItemInteractionState>()
+				.ToArray();
+
+			vActiveCursorPlanes = activePanels
+				.Select(x => x.InteractionPlane)
+				.ToArray();
 
 			foreach ( ProjectionState proj in vProjectionMap.Values ) {
 				UpdateProjection(proj);
@@ -110,11 +121,6 @@ namespace Hover.Board.State {
 			foreach ( ItemTree itemTree in vAllItems ) {
 				itemTree.Item.UpdateSelectionProcess();
 			}
-
-			vActiveCursorInteractions = vAllItems
-				.Select(x => x.Item)
-				.Cast<IBaseItemInteractionState>()
-				.ToArray();
 		}
 
 
@@ -172,12 +178,7 @@ namespace Hover.Board.State {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public bool IsCursorInteractionEnabled {
-			get {
-				//TODO: add Panel.IsEnabled
-				return Panels.Any(p => p.Grids.Any(g => g.ItemGrid.IsEnabled));
-			}
-		}
+		public bool IsCursorInteractionEnabled { get; private set; }
 
 		/*--------------------------------------------------------------------------------------------*/
 		public CursorType[] ActiveCursorTypes { get; private set; }
@@ -196,7 +197,7 @@ namespace Hover.Board.State {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public PlaneData[] GetActiveCursorPlanes(CursorType pCursorType) {
-			return vPanelPlanes;
+			return vActiveCursorPlanes;
 		}
 
 	}

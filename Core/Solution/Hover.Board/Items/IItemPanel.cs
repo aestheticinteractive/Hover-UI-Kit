@@ -1,9 +1,10 @@
-﻿namespace Hover.Board.Items {
+﻿using Hover.Common.Items.Groups;
+
+namespace Hover.Board.Items {
 
 	/*================================================================================================*/
-	public interface IItemPanel { 
+	public interface IItemPanel : IItemGroups { 
 
-		object DisplayContainer { get; }
 		IItemGrid[] Grids { get; }
 
 	}

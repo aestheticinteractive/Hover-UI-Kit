@@ -9,18 +9,25 @@ namespace Hover.Common.Items.Groups {
 
 		public event ItemEvents.GroupItemSelectedHandler OnItemSelected;
 
+		public string Title { get; set; }
 		public object DisplayContainer { get; set; }
 		public ISelectableItem LastSelectedItem { get; private set; }
 
 		private readonly Func<IBaseItem[]> vGetItems;
 		private IBaseItem[] vActiveItems;
 		private bool vIsEnabled;
+		private bool vIsVisible;
+		private Func<bool> vAreParentsEnabledFunc;
+		private Func<bool> vAreParentsVisibleFunc;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public ItemGroup(Func<IBaseItem[]> pGetItems) {
 			vGetItems = pGetItems;
+			vIsEnabled = true;
+			vIsVisible = true;
+
 			OnItemSelected += ((l,i) => {});
 		}
 		
@@ -30,7 +37,7 @@ namespace Hover.Common.Items.Groups {
 		public IBaseItem[] Items {
 			get {
 				if ( vActiveItems == null ) {
-					vActiveItems = vGetItems();
+					vActiveItems = GetLatestActiveItems();
 				}
 				
 				return vActiveItems;
@@ -39,10 +46,17 @@ namespace Hover.Common.Items.Groups {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public T[] GetTypedItems<T>() where T : class, IBaseItem {
-			return Items
-				.Select(x => (x as T))
-				.Where(x => (x != null))
-				.ToArray();
+			return GetTypedItems<T>(Items);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void SetParentsEnabledFunc(Func<bool> pFunc) {
+			vAreParentsEnabledFunc = pFunc;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void SetParentsVisibleFunc(Func<bool> pFunc) {
+			vAreParentsVisibleFunc = pFunc;
 		}
 
 
@@ -58,23 +72,107 @@ namespace Hover.Common.Items.Groups {
 				}
 
 				vIsEnabled = value;
-				vActiveItems = null; //reloads list upon "Items" property usage below
 
-				foreach ( IBaseItem item in Items ) {
-					ISelectableItem selItem = (item as ISelectableItem);
-
-					if ( selItem == null ) {
-						continue;
-					}
-
-					if ( IsEnabled ) {
-						selItem.OnSelected += HandleItemSelected;
-					}
-					else {
-						selItem.OnSelected -= HandleItemSelected;
-						selItem.DeselectStickySelections();
-					}
+				if ( !vIsEnabled ) {
+					ResetActiveItems();
 				}
+
+			}
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public bool IsVisible {
+			get {
+				return vIsVisible;
+			}
+			set {
+				if ( value == vIsVisible ) {
+					return;
+				}
+
+				vIsVisible = value;
+
+				if ( !vIsVisible ) {
+					ResetActiveItems();
+				}
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool AreParentsEnabled {
+			get {
+				if ( vAreParentsEnabledFunc == null ) {
+					throw new Exception("Use 'SetParentsEnabledFunc' before using this property.");
+				}
+
+				return (vIsEnabled && vAreParentsEnabledFunc());
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool AreParentsVisible {
+			get {
+				if ( vAreParentsVisibleFunc == null ) {
+					throw new Exception("Use 'SetParentsVisibleFunc' before using this property.");
+				}
+
+				return vAreParentsVisibleFunc();
+			}
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private static T[] GetTypedItems<T>(IBaseItem[] pItems) where T : class, IBaseItem {
+			return pItems
+				.Select(x => (x as T))
+				.Where(x => (x != null))
+				.ToArray();
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		private void ResetActiveItems() {
+			ISelectableItem[] selItems = GetTypedItems<ISelectableItem>();
+
+			foreach ( ISelectableItem selItem in selItems ) {
+				selItem.OnSelected -= HandleItemSelected;
+				selItem.DeselectStickySelections();
+			}
+
+			vActiveItems = null; //list will be reloaded upon next "Items" property use
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private IBaseItem[] GetLatestActiveItems() {
+			IBaseItem[] items = vGetItems();
+
+			foreach ( IBaseItem item in items ) {
+				item.SetParentsEnabledFunc(() => IsEnabled && AreParentsEnabled);
+				item.SetParentsVisibleFunc(() => IsVisible && AreParentsVisible);
+				ISelectableItem selItem = (item as ISelectableItem);
+
+				if ( selItem != null ) {
+					selItem.OnSelected += HandleItemSelected;
+				}
+			}
+
+			return items;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void DeselectRadioSiblings(IRadioItem pSelectedRadioItem) {
+			foreach ( IBaseItem item in vActiveItems ) {
+				if ( item == pSelectedRadioItem ) {
+					continue;
+				}
+
+				IRadioItem radItem = (item as IRadioItem);
+
+				if ( radItem == null ) {
+					continue;
+				}
+
+				radItem.Value = false;
 			}
 		}
 
@@ -90,23 +188,6 @@ namespace Hover.Common.Items.Groups {
 
 			LastSelectedItem = pItem;
 			OnItemSelected(this, pItem);
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		private void DeselectRadioSiblings(IRadioItem pSelectedRadioItem) {
-			foreach ( IBaseItem item in Items ) {
-				if ( item == pSelectedRadioItem ) {
-					continue;
-				}
-
-				IRadioItem radItem = (item as IRadioItem);
-
-				if ( radItem == null ) {
-					continue;
-				}
-
-				radItem.Value = false;
-			}
 		}
 
 	}

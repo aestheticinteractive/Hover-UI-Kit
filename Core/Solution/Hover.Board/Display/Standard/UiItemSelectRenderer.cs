@@ -54,7 +54,7 @@ namespace Hover.Board.Display.Standard {
 		public void Update() {
 			vMainAlpha = 1;
 
-			if ( !vItemState.Item.IsEnabled ) {
+			if ( !vItemState.Item.IsEnabled || !vItemState.Item.AreParentsEnabled ) {
 				vMainAlpha *= 0.333f;
 			}
 

@@ -46,11 +46,7 @@ namespace Hover.Demo.BoardKeys {
 			vTextField.SetActive(enableKey);
 
 			foreach ( ItemPanel itemPanel in vKeyboardItemPanels ) {
-				((GameObject)itemPanel.DisplayContainer).SetActive(enableKey);
-
-				foreach ( IItemGrid itemGrid in itemPanel.Grids ) {
-					itemGrid.IsEnabled = enableKey;
-				}
+				itemPanel.IsEnabled = enableKey;
 			}
 
 			vPrevEnableKey = enableKey;

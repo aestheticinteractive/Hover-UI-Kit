@@ -62,7 +62,7 @@ namespace Hover.Cast.Display.Standard {
 		public virtual void Update() {
 			vMainAlpha = GetArcAlpha(vMenuState)*vAnimAlpha;
 
-			if ( !vItemState.Item.IsEnabled ) {
+			if ( !vItemState.Item.IsEnabled || !vItemState.Item.AreParentsEnabled ) {
 				vMainAlpha *= 0.333f;
 			}
 

@@ -91,8 +91,10 @@ namespace Hover.Common.Items.Groups {
 			}
 
 			vCurrLevel = pNewLevel;
-			vCurrLevel.OnItemSelected += HandleItemSelected;
 			vCurrLevel.IsEnabled = true;
+			vCurrLevel.SetParentsEnabledFunc(() => true);
+			vCurrLevel.SetParentsVisibleFunc(() => true);
+			vCurrLevel.OnItemSelected += HandleItemSelected;
 
 			OnLevelChange(pDirection);
 		}

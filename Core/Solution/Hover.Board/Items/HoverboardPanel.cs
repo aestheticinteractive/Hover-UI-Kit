@@ -6,6 +6,9 @@ namespace Hover.Board.Items {
 	/*================================================================================================*/
 	public class HoverboardPanel : MonoBehaviour {
 
+		public bool IsEnabled = true;
+		public bool IsVisible = true;
+
 		private ItemPanel vPanel;
 
 
@@ -15,6 +18,8 @@ namespace Hover.Board.Items {
 			if ( vPanel == null ) {
 				vPanel = new ItemPanel(GetChildGrids);
 				vPanel.DisplayContainer = gameObject;
+				vPanel.IsEnabled = IsEnabled;
+				vPanel.IsVisible = IsVisible;
 			}
 
 			return vPanel;
@@ -30,13 +35,7 @@ namespace Hover.Board.Items {
 			
 			for ( int i = 0 ; i < childCount ; ++i ) {
 				HoverboardGrid hgi = tx.GetChild(i).GetComponent<HoverboardGrid>();
-				IItemGrid grid = hgi.GetGrid();
-
-				/*if ( !grid.IsVisible ) {
-					continue;
-				}*/
-
-				grids.Add(grid);
+				grids.Add(hgi.GetGrid());
 			}
 
 			return grids.ToArray();

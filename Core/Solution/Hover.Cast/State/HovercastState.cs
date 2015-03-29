@@ -109,12 +109,15 @@ namespace Hover.Cast.State {
 				.Select(x => convertMap[x])
 				.ToArray();
 
+			vActiveCursorInteractions = FullMenu.GetItems()
+				.Cast<IBaseItemInteractionState>()
+				.ToArray();
+
 			ICursorState[] cursors = ActiveCursorTypes
 				.Select(x => vHovercursorSetup.State.GetCursorState(x))
 				.ToArray();
 
 			FullMenu.UpdateAfterInput(inputMenu, cursors);
-			vActiveCursorInteractions = FullMenu.GetItems().Cast<IBaseItemInteractionState>().ToArray();
 
 			if ( isMenuOnLeft != vCurrIsMenuOnLeftSide ) {
 				vCurrIsMenuOnLeftSide = isMenuOnLeft;

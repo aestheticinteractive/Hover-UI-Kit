@@ -8,19 +8,37 @@ namespace Hover.Board.Display {
 	/*================================================================================================*/
 	public class UiPanel : MonoBehaviour {
 
+		private GridState[] vGridStates;
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public UiPanel() {
+			vGridStates = new GridState[0];
+		}
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		internal void Build(PanelState pPanelState, IItemVisualSettingsProvider pItemVisualSettProv) {
-			for ( int i = 0 ; i < pPanelState.Grids.Length ; i++ ) {
-				GridState grid = pPanelState.Grids[i];
-				IItemGrid itemGrid = grid.ItemGrid;
+			vGridStates = pPanelState.Grids;
+
+			foreach ( GridState gridState in vGridStates ) {
+				IItemGrid itemGrid = gridState.ItemGrid;
 				var pos = new Vector3(itemGrid.ColOffset, 0, itemGrid.RowOffset);
 				GameObject gridObj = (GameObject)itemGrid.DisplayContainer;
 
 				UiGrid uiGrid = gridObj.AddComponent<UiGrid>();
-				uiGrid.Build(grid, pItemVisualSettProv);
+				uiGrid.Build(gridState, pItemVisualSettProv);
 				uiGrid.transform.localPosition = pos*UiItem.Size;
+			}
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public void Update() {
+			foreach ( GridState gridState in vGridStates ) {
+				IItemGrid itemGrid = gridState.ItemGrid;
+				((GameObject)itemGrid.DisplayContainer).SetActive(itemGrid.IsVisible);
 			}
 		}
 

@@ -1,4 +1,6 @@
-﻿namespace Hover.Common.Items {
+﻿using System;
+
+namespace Hover.Common.Items {
 
 	/*================================================================================================*/
 	public abstract class BaseItem : IBaseItem {
@@ -18,6 +20,9 @@
 		protected bool vIsEnabled;
 		protected bool vIsVisible;
 
+		private Func<bool> vAreParentsEnabledFunc;
+		private Func<bool> vAreParentsVisibleFunc;
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -29,6 +34,18 @@
 
 			OnIsEnabledChanged += (i => { });
 			OnIsVisibleChanged += (i => { });
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public void SetParentsEnabledFunc(Func<bool> pFunc) {
+			vAreParentsEnabledFunc = pFunc;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void SetParentsVisibleFunc(Func<bool> pFunc) {
+			vAreParentsVisibleFunc = pFunc;
 		}
 
 
@@ -60,6 +77,28 @@
 
 				vIsVisible = value;
 				OnIsVisibleChanged(this);
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool AreParentsEnabled {
+			get {
+				if ( vAreParentsEnabledFunc == null ) {
+					throw new Exception("Use 'SetParentsEnabledFunc' before using this property.");
+				}
+
+				return vAreParentsEnabledFunc();
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool AreParentsVisible {
+			get {
+				if ( vAreParentsVisibleFunc == null ) {
+					throw new Exception("Use 'SetParentsVisibleFunc' before using this property.");
+				}
+
+				return vAreParentsVisibleFunc();
 			}
 		}
 

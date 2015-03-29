@@ -10,6 +10,8 @@ namespace Hover.Board.Items {
 		public int Columns = 3;
 		public float RowOffset;
 		public float ColumnOffset;
+		public bool IsEnabled = true;
+		public bool IsVisible = true;
 
 		private ItemGrid vGrid;
 
@@ -23,6 +25,8 @@ namespace Hover.Board.Items {
 				vGrid.Cols = Columns;
 				vGrid.RowOffset = RowOffset;
 				vGrid.ColOffset = ColumnOffset;
+				vGrid.IsEnabled = IsEnabled;
+				vGrid.IsVisible = IsVisible;
 			}
 
 			return vGrid;

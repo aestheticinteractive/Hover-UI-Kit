@@ -1,4 +1,6 @@
-﻿namespace Hover.Common.Items {
+﻿using System;
+
+namespace Hover.Common.Items {
 
 	/*================================================================================================*/
 	public interface IBaseItem {
@@ -15,6 +17,16 @@
 
 		bool IsEnabled { get; set; }
 		bool IsVisible { get; set; }
+		bool AreParentsEnabled { get; }
+		bool AreParentsVisible { get; }
+		
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		void SetParentsEnabledFunc(Func<bool> pFunc);
+
+		/*--------------------------------------------------------------------------------------------*/
+		void SetParentsVisibleFunc(Func<bool> pFunc);
 
 	}
 

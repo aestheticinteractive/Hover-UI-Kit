@@ -1,22 +1,15 @@
 ﻿using System;
+using Hover.Common.Items.Groups;
 
 namespace Hover.Board.Items {
 
 	/*================================================================================================*/
-	public class ItemPanel : IItemPanel { 
-
-		//TODO: FEATURE: allow disabled and hidden states for individual panels/grids
-
-		public object DisplayContainer { get; internal set; }
-
-		private readonly Func<IItemGrid[]> vGetGrids;
-		private IItemGrid[] vActiveGrids;
+	public class ItemPanel : ItemGroups, IItemPanel { 
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public ItemPanel(Func<IItemGrid[]> pGetGrids) {
-			vGetGrids = pGetGrids;
+		public ItemPanel(Func<IItemGroup[]> pGetGroups) : base(pGetGroups) {
 		}
 
 
@@ -24,11 +17,7 @@ namespace Hover.Board.Items {
 		/*--------------------------------------------------------------------------------------------*/
 		public IItemGrid[] Grids {
 			get {
-				if ( vActiveGrids == null ) {
-					vActiveGrids = vGetGrids();
-				}
-
-				return vActiveGrids;
+				return GetTypedGroups<IItemGrid>();
 			}
 		}
 
