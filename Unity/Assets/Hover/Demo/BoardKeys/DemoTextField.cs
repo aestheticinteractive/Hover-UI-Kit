@@ -55,6 +55,10 @@ namespace Hover.Demo.BoardKeys {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void RemoveLatestLetter() {
+			if ( vText.Length == 0 ) {
+				return;
+			}
+
 			vText = vText.Substring(0, vText.Length-1);
 			UpdateLabel();
 		}

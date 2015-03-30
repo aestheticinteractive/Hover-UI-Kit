@@ -57,12 +57,12 @@ namespace Hover.Demo.BoardKeys {
 				return;
 			}
 
-			if ( pItem.Label == "Back" ) {
+			if ( pItem.Label.ToLower() == "back" ) {
 				vEnviro.RemoveLatestLetter();
 				vTextField.RemoveLatestLetter();
 			}
 
-			if ( pItem.Label == "Enter" ) {
+			if ( pItem.Label.ToLower() == "enter" ) {
 				vTextField.ClearLetters();
 			}
 		}
