@@ -4,7 +4,7 @@ using Hover.Common.Items;
 using Hover.Common.Items.Types;
 using UnityEngine;
 
-namespace Hover.Demo.CastCubes.Navigation {
+namespace Hover.Demo.CastCubes.Items {
 
 	/*================================================================================================*/
 	public class DemoCustomThemeListener : DemoBaseListener<IRadioItem> {

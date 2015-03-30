@@ -1,30 +1,29 @@
 ﻿using Hover.Common.Items;
 using Hover.Common.Items.Types;
 
-namespace Hover.Demo.CastCubes.Navigation {
+namespace Hover.Demo.CastCubes.Items {
 
 	/*================================================================================================*/
-	public class DemoMotionSpeedListener : DemoBaseListener<ISliderItem> {
+	public class DemoCameraReorientListener : DemoBaseListener<ISelectorItem> {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected override void Setup() {
 			base.Setup();
-			Item.ValueToLabel = (s => Component.Label+": "+s.RangeValue.ToString("0.0")+"x");
-			Item.OnValueChanged += HandleValueChanged;
+			Item.OnSelected += HandleSelected;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		protected override void BroadcastInitialValue() {
-			HandleValueChanged(Item);
+			//do nothing...
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void HandleValueChanged(ISelectableItem<float> pItem) {
-			Enviro.SetMotionSpeed(Item.RangeValue);
+		private void HandleSelected(ISelectableItem pItem) {
+			Enviro.ReorientCamera();
 		}
 
 	}

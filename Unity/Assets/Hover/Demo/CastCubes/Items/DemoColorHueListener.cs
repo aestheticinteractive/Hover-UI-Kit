@@ -1,12 +1,11 @@
 ﻿using System;
-using Hover.Cast.Custom.Standard;
 using Hover.Common.Items;
 using Hover.Common.Items.Types;
 
-namespace Hover.Demo.CastCubes.Navigation {
+namespace Hover.Demo.CastCubes.Items {
 
 	/*================================================================================================*/
-	public class DemoCustomSizeListener : DemoBaseListener<ISliderItem> {
+	public class DemoColorHueListener : DemoBaseListener<ISliderItem> {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -26,8 +25,7 @@ namespace Hover.Demo.CastCubes.Navigation {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleValueChanged(ISelectableItem<float> pItem) {
-			int size = (int)Math.Round(Item.RangeValue);
-			ItemSett.UpdateAllSettings((x => ((ItemVisualSettingsStandard)x).TextSize = size));
+			Enviro.SetColorMode(Enviro.GetColorMode(), Item.RangeValue);
 		}
 
 	}

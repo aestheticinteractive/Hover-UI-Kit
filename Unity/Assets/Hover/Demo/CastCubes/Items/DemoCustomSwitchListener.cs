@@ -1,39 +1,29 @@
-﻿using Hover.Cast.Items;
-using Hover.Common.Items;
+﻿using Hover.Common.Items;
 using Hover.Common.Items.Types;
 
-namespace Hover.Demo.CastCubes.Navigation {
+namespace Hover.Demo.CastCubes.Items {
 
 	/*================================================================================================*/
-	public class DemoColorModeListener : DemoBaseListener<IRadioItem> {
-
-		public HovercastItem HueSlider;
-		public DemoEnvironment.ColorMode Mode;
+	public class DemoCustomSwitchListener : DemoBaseListener<ISelectorItem> {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected override void Setup() {
 			base.Setup();
-			Item.OnValueChanged += HandleValueChanged;
+			Item.OnSelected += HandleSelected;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		protected override void BroadcastInitialValue() {
-			HandleValueChanged(Item);
+			//do nothing...
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void HandleValueChanged(ISelectableItem<bool> pItem) {
-			if ( !pItem.Value ) {
-				return;
-			}
-
-			ISliderItem hue = (ISliderItem)HueSlider.GetItem();
-			hue.IsEnabled = (Mode == DemoEnvironment.ColorMode.Custom);
-			Enviro.SetColorMode(Mode, hue.RangeValue);
+		private void HandleSelected(ISelectableItem pItem) {
+			InteractSett.IsMenuOnLeftSide = !InteractSett.IsMenuOnLeftSide;
 		}
 
 	}

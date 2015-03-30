@@ -1,28 +1,36 @@
 ﻿using System;
-using Hover.Cast.Custom.Standard;
 using Hover.Common.Items;
 using Hover.Common.Items.Types;
-using UnityEngine;
 
-namespace Hover.Demo.CastCubes.Navigation {
+namespace Hover.Demo.CastCubes.Items {
 
 	/*================================================================================================*/
-	public class DemoCustomBgListener : DemoBaseListener<ISliderItem> {
-
-		private static float BgAlpha;
+	public class DemoLightPosListener : DemoBaseListener<ISliderItem> {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected override void Setup() {
 			base.Setup();
-			Item.ValueToLabel = (s => Component.Label+": "+Math.Round(s.RangeValue*100)+"%");
+
+			Item.ValueToLabel = (s => {
+				string lbl = "";
+
+				switch ( (int)Math.Round(s.SnappedValue*(s.Snaps-1)) ) {
+					case 0: lbl = "Lowest"; break;
+					case 1: lbl = "Low"; break;
+					case 2: lbl = "High"; break;
+					case 3: lbl = "Highest"; break;
+				}
+
+				return Component.Label+": "+lbl;
+			});
+
 			Item.OnValueChanged += HandleValueChanged;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		protected override void BroadcastInitialValue() {
-			BgAlpha = Item.RangeValue;
 			HandleValueChanged(Item);
 		}
 
@@ -30,22 +38,7 @@ namespace Hover.Demo.CastCubes.Navigation {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleValueChanged(ISelectableItem<float> pItem) {
-			BgAlpha = Item.RangeValue;
-
-			ItemSett.UpdateAllSettings(x => UpdateSettingsWithBgAlpha((ItemVisualSettingsStandard)x));
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		internal static void UpdateSettingsWithBgAlpha(ItemVisualSettingsStandard pSettings) {
-			Color c = pSettings.BackgroundColor;
-			c.a = BgAlpha;
-			pSettings.BackgroundColor = c;
-
-			c = pSettings.SliderFillColor;
-			c.a = 0.5f*BgAlpha;
-			pSettings.SliderFillColor = c;
+			Enviro.SetLightPos(Item.RangeValue);
 		}
 
 	}

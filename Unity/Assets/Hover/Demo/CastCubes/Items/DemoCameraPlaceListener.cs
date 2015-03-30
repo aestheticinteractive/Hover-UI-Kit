@@ -1,12 +1,12 @@
 ﻿using Hover.Common.Items;
 using Hover.Common.Items.Types;
 
-namespace Hover.Demo.CastCubes.Navigation {
+namespace Hover.Demo.CastCubes.Items {
 
 	/*================================================================================================*/
-	public class DemoMotionTypeListener : DemoBaseListener<ICheckboxItem> {
+	public class DemoCameraPlaceListener : DemoBaseListener<IRadioItem> {
 
-		public DemoEnvironment.MotionType Type;
+		public DemoEnvironment.CameraPlacement Placement;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -25,7 +25,11 @@ namespace Hover.Demo.CastCubes.Navigation {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleValueChanged(ISelectableItem<bool> pItem) {
-			Enviro.ToggleMotion(Type, pItem.Value);
+			if ( !pItem.Value ) {
+				return;
+			}
+
+			Enviro.SetCameraPlacement(Placement);
 		}
 
 	}

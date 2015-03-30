@@ -4,7 +4,7 @@ using Hover.Cast.Items;
 using Hover.Common.Items;
 using UnityEngine;
 
-namespace Hover.Demo.CastCubes.Navigation {
+namespace Hover.Demo.CastCubes.Items {
 
 	/*================================================================================================*/
 	public abstract class DemoBaseListener<T> : HovercastItemListener<T> where T : ISelectableItem {

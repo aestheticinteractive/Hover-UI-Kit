@@ -1,18 +1,18 @@
-﻿using Hover.Common.Items;
+﻿using System;
+using Hover.Common.Items;
 using Hover.Common.Items.Types;
 
-namespace Hover.Demo.CastCubes.Navigation {
+namespace Hover.Demo.CastCubes.Items {
 
 	/*================================================================================================*/
-	public class DemoCameraPlaceListener : DemoBaseListener<IRadioItem> {
-
-		public DemoEnvironment.CameraPlacement Placement;
+	public class DemoLightPowerListener : DemoBaseListener<ISliderItem> {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected override void Setup() {
 			base.Setup();
+			Item.ValueToLabel = (s => Component.Label+": "+Math.Round(s.RangeValue*100));
 			Item.OnValueChanged += HandleValueChanged;
 		}
 
@@ -24,12 +24,8 @@ namespace Hover.Demo.CastCubes.Navigation {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void HandleValueChanged(ISelectableItem<bool> pItem) {
-			if ( !pItem.Value ) {
-				return;
-			}
-
-			Enviro.SetCameraPlacement(Placement);
+		private void HandleValueChanged(ISelectableItem<float> pItem) {
+			Enviro.SetLightIntensitiy(Item.RangeValue);
 		}
 
 	}

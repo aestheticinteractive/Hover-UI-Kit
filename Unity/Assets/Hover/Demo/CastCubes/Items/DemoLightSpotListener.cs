@@ -1,10 +1,10 @@
 ﻿using Hover.Common.Items;
 using Hover.Common.Items.Types;
 
-namespace Hover.Demo.CastCubes.Navigation {
+namespace Hover.Demo.CastCubes.Items {
 
 	/*================================================================================================*/
-	public class DemoCameraReorientListener : DemoBaseListener<ISelectorItem> {
+	public class DemoLightSpotListener : DemoBaseListener<IStickyItem> {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -12,6 +12,7 @@ namespace Hover.Demo.CastCubes.Navigation {
 		protected override void Setup() {
 			base.Setup();
 			Item.OnSelected += HandleSelected;
+			Item.OnDeselected += HandleDeselected;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -23,7 +24,12 @@ namespace Hover.Demo.CastCubes.Navigation {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleSelected(ISelectableItem pItem) {
-			Enviro.ReorientCamera();
+			Enviro.ShowSpotlight(true);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void HandleDeselected(ISelectableItem pItem) {
+			Enviro.ShowSpotlight(false);
 		}
 
 	}

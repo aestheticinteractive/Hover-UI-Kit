@@ -1,35 +1,33 @@
-﻿using Hover.Common.Items;
+﻿using System;
+using Hover.Cast.Custom.Standard;
+using Hover.Common.Items;
 using Hover.Common.Items.Types;
 
-namespace Hover.Demo.CastCubes.Navigation {
+namespace Hover.Demo.CastCubes.Items {
 
 	/*================================================================================================*/
-	public class DemoLightSpotListener : DemoBaseListener<IStickyItem> {
+	public class DemoCustomSizeListener : DemoBaseListener<ISliderItem> {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected override void Setup() {
 			base.Setup();
-			Item.OnSelected += HandleSelected;
-			Item.OnDeselected += HandleDeselected;
+			Item.ValueToLabel = (s => Component.Label+": "+Math.Round(s.RangeValue));
+			Item.OnValueChanged += HandleValueChanged;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		protected override void BroadcastInitialValue() {
-			//do nothing...
+			HandleValueChanged(Item);
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void HandleSelected(ISelectableItem pItem) {
-			Enviro.ShowSpotlight(true);
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		private void HandleDeselected(ISelectableItem pItem) {
-			Enviro.ShowSpotlight(false);
+		private void HandleValueChanged(ISelectableItem<float> pItem) {
+			int size = (int)Math.Round(Item.RangeValue);
+			ItemSett.UpdateAllSettings((x => ((ItemVisualSettingsStandard)x).TextSize = size));
 		}
 
 	}

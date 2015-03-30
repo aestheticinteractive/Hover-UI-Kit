@@ -1,18 +1,18 @@
-﻿using System;
-using Hover.Common.Items;
+﻿using Hover.Common.Items;
 using Hover.Common.Items.Types;
 
-namespace Hover.Demo.CastCubes.Navigation {
+namespace Hover.Demo.CastCubes.Items {
 
 	/*================================================================================================*/
-	public class DemoColorHueListener : DemoBaseListener<ISliderItem> {
+	public class DemoMotionTypeListener : DemoBaseListener<ICheckboxItem> {
+
+		public DemoEnvironment.MotionType Type;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected override void Setup() {
 			base.Setup();
-			Item.ValueToLabel = (s => Component.Label+": "+Math.Round(s.RangeValue));
 			Item.OnValueChanged += HandleValueChanged;
 		}
 
@@ -24,8 +24,8 @@ namespace Hover.Demo.CastCubes.Navigation {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void HandleValueChanged(ISelectableItem<float> pItem) {
-			Enviro.SetColorMode(Enviro.GetColorMode(), Item.RangeValue);
+		private void HandleValueChanged(ISelectableItem<bool> pItem) {
+			Enviro.ToggleMotion(Type, pItem.Value);
 		}
 
 	}
