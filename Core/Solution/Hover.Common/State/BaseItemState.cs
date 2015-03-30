@@ -188,7 +188,7 @@ namespace Hover.Common.State {
 		public void ResetAllCursorInteractions() {
 			IsSelectionPrevented = false;
 
-			foreach ( CursorType cursorType in Enum.GetValues(typeof(CursorType)) ) {
+			foreach ( CursorType cursorType in CursorTypeUtil.AllCursorTypes ) {
 				vCursorWorldPosMap[cursorType] = null;
 				vHighlightDistanceMap[cursorType] = float.MaxValue;
 				vHighlightProgressMap[cursorType] = 0;
@@ -209,20 +209,39 @@ namespace Hover.Common.State {
 				return false;
 			}
 
-			bool isNearest = IsNearestHighlight;
-			float selectProg = SelectionProgress;
+			////
 
-			if ( !isNearest || selectProg <= 0 ) {
+			float selectProg = SelectionProgress;
+			
+			if ( selectProg <= 0 ) {
 				selItem.DeselectStickySelections();
 			}
 
-			if ( !isNearest || MaxHighlightProgress < 1 ) {
-				vSelectionStart = null;
+			if ( !IsNearestHighlight || !selItem.AllowSelection ) {
 				IsSelectionPrevented = false;
+				vSelectionStart = null;
 				return false;
 			}
 
-			if ( IsSelectionPrevented || !selItem.AllowSelection ) {
+			////
+
+			bool allNearestCursorsHavePartialHighlight = true;
+
+			foreach ( CursorType cursorType in vCursorWorldPosMap.Keys ) {
+				if ( vIsNearestHighlightMap[cursorType] && vHighlightProgressMap[cursorType] >= 1 ) {
+					allNearestCursorsHavePartialHighlight = false;
+				}
+			}
+
+			if ( allNearestCursorsHavePartialHighlight ) {
+				IsSelectionPrevented = false;
+				vSelectionStart = null;
+				return false;
+			}
+
+			////
+
+			if ( IsSelectionPrevented ) {
 				vSelectionStart = null;
 				return false;
 			}

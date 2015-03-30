@@ -1,9 +1,14 @@
 ﻿using System;
+using System.Linq;
 
 namespace Hover.Common.Input {
 
 	/*================================================================================================*/
 	public static class CursorTypeUtil {
+
+		public static readonly CursorType[] AllCursorTypes = Enum.GetValues(typeof(CursorType))
+			.Cast<CursorType>()
+			.ToArray();
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
