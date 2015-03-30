@@ -27,10 +27,10 @@ namespace Hover.Board.Custom.Standard {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected override IItemVisualSettings GetSettingsInner(IBaseItem pItem,
-																	IItemVisualSettings pDefault=null) {
+												IItemVisualSettings pDefault, bool pFillWithDefault) {
 			var sett = new ItemVisualSettingsStandard();
 
-			if ( pDefault != null ) {
+			if ( pFillWithDefault ) {
 				sett.FillWith(pDefault, false);
 			}
 			else {

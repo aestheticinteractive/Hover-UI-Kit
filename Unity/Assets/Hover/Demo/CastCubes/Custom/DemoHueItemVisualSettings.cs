@@ -28,7 +28,7 @@ namespace Hover.Demo.CastCubes.Custom {
 
 		/*--------------------------------------------------------------------------------------------*/
 		protected override IItemVisualSettings GetSettingsInner(IBaseItem pItem,
-																	IItemVisualSettings pDefault=null) {
+												IItemVisualSettings pDefault, bool pFillWithDefault) {
 			vDefaultSettings = (ItemVisualSettingsStandard)pDefault;
 			HandleValueChanged(null);
 			return vHueSettings;

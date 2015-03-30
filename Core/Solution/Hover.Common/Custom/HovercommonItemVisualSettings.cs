@@ -17,11 +17,11 @@ namespace Hover.Common.Custom {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected internal abstract IItemVisualSettings GetVerifyAndSaveSettings(IBaseItem pItem,
-			IItemVisualSettings pFillWithDefault=null);
+			IItemVisualSettings pDefault, bool pFillWithDefault);
 
 		/*--------------------------------------------------------------------------------------------*/
 		protected abstract IItemVisualSettings GetSettingsInner(IBaseItem pItem,
-			IItemVisualSettings pDefault=null);
+			IItemVisualSettings pDefault, bool pFillWithDefault);
 
 		/*--------------------------------------------------------------------------------------------*/
 		protected abstract string GetDomain();

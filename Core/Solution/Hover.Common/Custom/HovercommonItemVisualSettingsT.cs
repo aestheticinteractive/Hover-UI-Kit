@@ -36,7 +36,7 @@ namespace Hover.Common.Custom {
 		public override IItemVisualSettings GetSettings(IBaseItem pItem) {
 			if ( vDefaultSettings == null ) {
 				vDefaultItem = new SelectorItem();
-				vDefaultSettings = GetSettingsInner(vDefaultItem);
+				vDefaultSettings = GetSettingsInner(vDefaultItem, null, false);
 				vSettingsMap.Add(vDefaultItem, vDefaultSettings);
 			}
 
@@ -57,14 +57,14 @@ namespace Hover.Common.Custom {
 				}
 			}
 
-			return GetVerifyAndSaveSettings(pItem, vDefaultSettings);
+			return GetVerifyAndSaveSettings(pItem, vDefaultSettings, true);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		protected internal override IItemVisualSettings GetVerifyAndSaveSettings(IBaseItem pItem,
-															IItemVisualSettings pFillWithDefault=null) {
-			IItemVisualSettings sett = GetSettingsInner(pItem, pFillWithDefault);
-			CustomUtil.VerifyRenderer<TRend>(sett.Renderer, pItem.Label, GetDomain(), GetRendererUnit());
+												IItemVisualSettings pDefault, bool pFillWithDefault) {
+			IItemVisualSettings sett = GetSettingsInner(pItem, pDefault, pFillWithDefault);
+			CustomUtil.VerifyRenderer<TRend>(sett.Renderer, pItem.Label, GetDomain(),GetRendererUnit());
 			vSettingsMap.Add(pItem, sett);
 			return sett;
 		}
@@ -84,7 +84,7 @@ namespace Hover.Common.Custom {
 				return null;
 			}
 
-			return customSett.GetVerifyAndSaveSettings(pItem);
+			return customSett.GetVerifyAndSaveSettings(pItem, vDefaultSettings, false);
 		}
 
 	}
