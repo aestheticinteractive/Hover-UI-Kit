@@ -114,7 +114,7 @@ namespace Hover.Demo.BoardKeys.PrefabBuilders {
 			BuildItem(row, "8", 1);
 			BuildItem(row, "9", 1);
 			BuildItem(row, "0", 1);
-			BuildItem(row, "Back", 2);
+			BuildItem(row, "BACK", 2);
 
 			row = rowList[1];
 			row.ColumnOffset = -0.5f;
@@ -130,7 +130,7 @@ namespace Hover.Demo.BoardKeys.PrefabBuilders {
 			BuildItem(row, "J", 1);
 			BuildItem(row, "K", 1);
 			BuildItem(row, "L", 1);
-			BuildItem(row, "Enter", 2);
+			BuildItem(row, "ENTER", 2);
 
 			row = rowList[3];
 			row.ColumnOffset = -0.5f;
