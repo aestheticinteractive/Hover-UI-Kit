@@ -104,11 +104,10 @@ namespace Hover.Demo.BoardKeys {
 			
 			GameObject ovrObj = GameObject.Find("LeapOVRPlayerController");
 
-			//TODO: 
-			/*if ( ovrObj != null ) {
+			if ( ovrObj != null ) {
 				OVRPlayerController ovrPlayer = ovrObj.GetComponent<OVRPlayerController>();
 				ovrPlayer.SetSkipMouseRotation(true);
-			}*/
+			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -186,8 +185,7 @@ namespace Hover.Demo.BoardKeys {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private static void UpdateOculus() {
-			//TODO: 
-			/*if ( OVRManager.capiHmd == null ) {
+			if ( OVRManager.capiHmd == null ) {
 				return;
 			}
 
@@ -200,7 +198,7 @@ namespace Hover.Demo.BoardKeys {
 			}
 
 			OVRManager.capiHmd.DismissHSWDisplay();
-			OVRManager.display.RecenterPose();*/
+			OVRManager.display.RecenterPose();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

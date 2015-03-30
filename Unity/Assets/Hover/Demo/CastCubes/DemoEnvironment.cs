@@ -118,11 +118,10 @@ namespace Hover.Demo.CastCubes {
 
 			GameObject ovrObj = GameObject.Find("LeapOVRPlayerController");
 
-			//TODO:
-			/*if ( ovrObj != null ) {
+			if ( ovrObj != null ) {
 				OVRPlayerController ovrPlayer = ovrObj.GetComponent<OVRPlayerController>();
 				ovrPlayer.SetSkipMouseRotation(true);
-			}*/
+			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -214,18 +213,16 @@ namespace Hover.Demo.CastCubes {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void ReorientCamera() {
-			//TODO: 
-			/*if ( OVRManager.display != null ) {
+			if ( OVRManager.display != null ) {
 				OVRManager.display.RecenterPose();
-			}*/
+			}
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private static void UpdateOculus() {
-			//TODO: 
-			/*if ( OVRManager.capiHmd == null ) {
+			if ( OVRManager.capiHmd == null ) {
 				return;
 			}
 
@@ -238,7 +235,7 @@ namespace Hover.Demo.CastCubes {
 			}
 
 			OVRManager.capiHmd.DismissHSWDisplay();
-			OVRManager.display.RecenterPose();*/
+			OVRManager.display.RecenterPose();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

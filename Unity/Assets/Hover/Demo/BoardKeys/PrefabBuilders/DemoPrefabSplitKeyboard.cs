@@ -15,12 +15,12 @@ namespace Hover.Demo.BoardKeys.PrefabBuilders {
 			HoverboardPanel leftPanel = BuildLeftPanel(gameObject);
 			HoverboardPanel rightPanel = BuildRightPanel(gameObject);
 
-			leftPanel.gameObject.transform.localPosition = new Vector3(-0.75f, 0, 0);
+			leftPanel.gameObject.transform.localPosition = new Vector3(-0.9f, 0, 0);
 			leftPanel.gameObject.transform.localRotation = 
 				Quaternion.FromToRotation(Vector3.up, Vector3.forward)*
 				Quaternion.AngleAxis(40, Vector3.back);
 
-			rightPanel.gameObject.transform.localPosition = new Vector3(0.75f, 0, 0);
+			rightPanel.gameObject.transform.localPosition = new Vector3(0.9f, 0, 0);
 			rightPanel.gameObject.transform.localRotation = 
 				Quaternion.FromToRotation(Vector3.up, Vector3.forward)*
 				Quaternion.AngleAxis(-40, Vector3.back);
