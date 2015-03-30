@@ -1,4 +1,3 @@
-using Hover.Cast.Custom;
 using Hover.Cast.State;
 using Hover.Common.Custom;
 using UnityEngine;
@@ -21,8 +20,7 @@ namespace Hover.Cast.Display {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal void Build(HovercastState pState, IItemVisualSettingsProvider pItemVisualSettingsProv,
-												IPalmVisualSettingsProvider pPalmVisualSettingsProv) {
+		internal void Build(HovercastState pState, IItemVisualSettingsProvider pItemVisualSettingsProv){
 			vState = pState;
 			vLeftRot = Quaternion.identity;
 			vRightRot = Quaternion.AngleAxis(180, Vector3.up);
@@ -30,7 +28,7 @@ namespace Hover.Cast.Display {
 			var palmObj = new GameObject("Palm");
 			palmObj.transform.SetParent(gameObject.transform, false);
 			vUiPalm = palmObj.AddComponent<UiPalm>();
-			vUiPalm.Build(vState.FullMenu, pPalmVisualSettingsProv);
+			vUiPalm.Build(vState.FullMenu, pItemVisualSettingsProv);
 
 			var arcObj = new GameObject("Arc");
 			arcObj.transform.SetParent(gameObject.transform, false);

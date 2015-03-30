@@ -18,7 +18,6 @@ namespace Hover.Cast {
 		public HovercastItemHierarchy ItemHierarchy;
 		public HovercursorSetup Hovercursor;
 		public HovercastItemVisualSettings DefaultItemVisualSettings;
-		public HovercastPalmVisualSettings DefaultPalmVisualSettings;
 		public HovercastInteractionSettings InteractionSettings;
 		public HovercastInput Input;
 		
@@ -45,10 +44,6 @@ namespace Hover.Cast {
 				HovercastItemVisualSettingsStandard>(DefaultItemVisualSettings, gameObject, Domain);
 			DefaultItemVisualSettings.IsDefaultSettingsComponent = true;
 
-			DefaultPalmVisualSettings = UnityUtil.CreateComponent<HovercastPalmVisualSettings,
-				HovercastPalmVisualSettingsStandard>(DefaultPalmVisualSettings, gameObject, Domain);
-			DefaultPalmVisualSettings.IsDefaultSettingsComponent = true;
-
 			InteractionSettings = UnityUtil.FindComponentOrCreate<HovercastInteractionSettings,
 				HovercastInteractionSettings>(InteractionSettings, gameObject, Domain);
 
@@ -67,7 +62,7 @@ namespace Hover.Cast {
 			var menuObj = new GameObject("Menu");
 			menuObj.transform.SetParent(gameObject.transform, false);
 			vUiMenu = menuObj.AddComponent<UiMenu>();
-			vUiMenu.Build(vState, DefaultItemVisualSettings, DefaultPalmVisualSettings);
+			vUiMenu.Build(vState, DefaultItemVisualSettings);
 
 			vState.SetReferences(menuObj.transform);
 			Hovercursor.State.AddDelegate(vState);

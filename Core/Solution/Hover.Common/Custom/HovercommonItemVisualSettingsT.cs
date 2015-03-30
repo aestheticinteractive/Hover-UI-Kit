@@ -39,13 +39,7 @@ namespace Hover.Common.Custom {
 				vDefaultSettings = GetSettingsInner(vDefaultItem);
 				vSettingsMap.Add(vDefaultItem, vDefaultSettings);
 			}
-			
-			return GetSettingsWithExternalDefault(pItem, vDefaultSettings);
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		public override IItemVisualSettings GetSettingsWithExternalDefault(IBaseItem pItem,
-																		IItemVisualSettings pDefault) {
+
 			if ( pItem == null ) {
 				return vDefaultSettings;
 			}
@@ -54,33 +48,26 @@ namespace Hover.Common.Custom {
 				return vSettingsMap[pItem];
 			}
 
-			IItemVisualSettings sett;
-
 			if ( IsDefaultSettingsComponent ) {
-				sett = TryGetCustomItem(pItem);
+				IItemVisualSettings sett = TryGetCustomItem(pItem);
 
 				if ( sett != null ) {
+					vSettingsMap.Add(pItem, sett);
 					return sett;
 				}
 			}
 
-			sett = GetSettingsInner(pItem, pDefault);
-			CustomUtil.VerifyRenderer<TRend>(sett.Renderer, pItem.Label, GetDomain(),GetRendererUnit());
+			return GetVerifyAndSaveSettings(pItem, vDefaultSettings);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		protected internal override IItemVisualSettings GetVerifyAndSaveSettings(IBaseItem pItem,
+															IItemVisualSettings pFillWithDefault=null) {
+			IItemVisualSettings sett = GetSettingsInner(pItem, pFillWithDefault);
+			CustomUtil.VerifyRenderer<TRend>(sett.Renderer, pItem.Label, GetDomain(), GetRendererUnit());
 			vSettingsMap.Add(pItem, sett);
 			return sett;
 		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		protected abstract IItemVisualSettings GetSettingsInner(IBaseItem pItem,
-			IItemVisualSettings pDefault=null);
-
-		/*--------------------------------------------------------------------------------------------*/
-		protected abstract string GetDomain();
-
-		/*--------------------------------------------------------------------------------------------*/
-		protected abstract string GetRendererUnit();
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -97,7 +84,7 @@ namespace Hover.Common.Custom {
 				return null;
 			}
 
-			return customSett.GetSettingsWithExternalDefault(pItem, vDefaultSettings);
+			return customSett.GetVerifyAndSaveSettings(pItem);
 		}
 
 	}

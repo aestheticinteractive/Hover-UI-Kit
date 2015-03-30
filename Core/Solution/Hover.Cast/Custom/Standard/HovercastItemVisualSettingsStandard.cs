@@ -51,6 +51,7 @@ namespace Hover.cast.Custom.Standard {
 			}
 
 			sett.Renderer = GetRendererForItem(pItem);
+			sett.PalmRenderer = typeof(UiPalmRenderer);
 			return sett;
 		}
 

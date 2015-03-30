@@ -1,7 +1,7 @@
 using System;
-using Hover.Cast.Custom;
 using Hover.Cast.Custom.Standard;
 using Hover.Cast.State;
+using Hover.Common.Custom;
 using Hover.Common.Display;
 using Hover.Common.Util;
 using UnityEngine;
@@ -18,7 +18,7 @@ namespace Hover.Cast.Display.Standard {
 
 		protected float vInnerRadius;
 		protected float vMainAlpha;
-		private PalmVisualSettingsStandard vSettings;
+		private ItemVisualSettingsStandard vSettings;
 
 		protected GameObject vBackground;
 		protected UiLabel vLabel;
@@ -26,10 +26,10 @@ namespace Hover.Cast.Display.Standard {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Build(MenuState pMenuState, IPalmVisualSettings pSettings, 
+		public virtual void Build(MenuState pMenuState, IItemVisualSettings pSettings, 
 																		float pAngle0, float pAngle1) {
 			vMenuState = pMenuState;
-			vSettings = (PalmVisualSettingsStandard)pSettings;
+			vSettings = (ItemVisualSettingsStandard)pSettings;
 			vAngle0 = pAngle0;
 			vAngle1 = pAngle1;
 			vMeshSteps = (int)Math.Round(Math.Max(2, (vAngle1-vAngle0)/Math.PI*60));

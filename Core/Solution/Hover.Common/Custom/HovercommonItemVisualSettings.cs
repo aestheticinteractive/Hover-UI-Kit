@@ -13,9 +13,21 @@ namespace Hover.Common.Custom {
 		/*--------------------------------------------------------------------------------------------*/
 		public abstract IItemVisualSettings GetSettings(IBaseItem pItem);
 
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public abstract IItemVisualSettings GetSettingsWithExternalDefault(IBaseItem pItem,
-																		IItemVisualSettings pDefault);
+		protected internal abstract IItemVisualSettings GetVerifyAndSaveSettings(IBaseItem pItem,
+			IItemVisualSettings pFillWithDefault=null);
+
+		/*--------------------------------------------------------------------------------------------*/
+		protected abstract IItemVisualSettings GetSettingsInner(IBaseItem pItem,
+			IItemVisualSettings pDefault=null);
+
+		/*--------------------------------------------------------------------------------------------*/
+		protected abstract string GetDomain();
+
+		/*--------------------------------------------------------------------------------------------*/
+		protected abstract string GetRendererUnit();
 
 	}
 

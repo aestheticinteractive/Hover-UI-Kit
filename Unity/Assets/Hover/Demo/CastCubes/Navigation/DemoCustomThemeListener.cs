@@ -41,17 +41,14 @@ namespace Hover.Demo.CastCubes.Navigation {
 			switch ( Type ) {
 				case ThemeType.Dark:
 					ItemSett.UpdateAllSettings(SetDark);
-					PalmSett.UpdateAllSettings(SetDarkPalm);
 					break;
 
 				case ThemeType.Light:
 					ItemSett.UpdateAllSettings(SetLight);
-					PalmSett.UpdateAllSettings(SetLightPalm);
 					break;
 
 				case ThemeType.Color:
 					ItemSett.UpdateAllSettings(SetColor);
-					PalmSett.UpdateAllSettings(SetColorPalm);
 					break;
 			}
 		}
@@ -73,14 +70,6 @@ namespace Hover.Demo.CastCubes.Navigation {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private static void SetDarkPalm(IItemVisualSettings pSettings) {
-			PalmVisualSettingsStandard sett = (PalmVisualSettingsStandard)pSettings;
-			sett.TextColor = new Color(1, 1, 1);
-			sett.BackgroundColor = new Color(0.1f, 0.1f, 0.1f, 0.5f);
-			DemoCustomBgListener.UpdateSettingsWithBgAlpha(sett);
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
 		private static void SetLight(IItemVisualSettings pSettings) {
 			ItemVisualSettingsStandard sett = (ItemVisualSettingsStandard)pSettings;
 			sett.TextColor = new Color(0, 0, 0);
@@ -97,14 +86,6 @@ namespace Hover.Demo.CastCubes.Navigation {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private static void SetLightPalm(IItemVisualSettings pSettings) {
-			PalmVisualSettingsStandard sett = (PalmVisualSettingsStandard)pSettings;
-			sett.TextColor = new Color(0, 0, 0);
-			sett.BackgroundColor = new Color(1, 1, 1, 0.25f);
-			DemoCustomBgListener.UpdateSettingsWithBgAlpha(sett);
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
 		private static void SetColor(IItemVisualSettings pSettings) {
 			ItemVisualSettingsStandard sett = (ItemVisualSettingsStandard)pSettings;
 			sett.TextColor = new Color(1, 1, 0.7f);
@@ -117,14 +98,6 @@ namespace Hover.Demo.CastCubes.Navigation {
 			sett.SliderTrackColor = new Color(0.1f, 0.5f, 0.9f, 0.5f);
 			sett.SliderFillColor = new Color(0.1f, 0.9f, 0.2f, 0.5f);
 			sett.SliderTickColor = new Color(1, 1, 1, 0.2f);
-			DemoCustomBgListener.UpdateSettingsWithBgAlpha(sett);
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		private static void SetColorPalm(IItemVisualSettings pSettings) {
-			PalmVisualSettingsStandard sett = (PalmVisualSettingsStandard)pSettings;
-			sett.TextColor = new Color(1, 1, 0.7f);
-			sett.BackgroundColor = new Color(0.05f, 0.25f, 0.45f, 0.5f);
 			DemoCustomBgListener.UpdateSettingsWithBgAlpha(sett);
 		}
 

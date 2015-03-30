@@ -33,7 +33,6 @@ namespace Hover.Demo.CastCubes.Navigation {
 			BgAlpha = Item.RangeValue;
 
 			ItemSett.UpdateAllSettings(x => UpdateSettingsWithBgAlpha((ItemVisualSettingsStandard)x));
-			PalmSett.UpdateAllSettings(x => UpdateSettingsWithBgAlpha((PalmVisualSettingsStandard)x));
 		}
 
 
@@ -47,13 +46,6 @@ namespace Hover.Demo.CastCubes.Navigation {
 			c = pSettings.SliderFillColor;
 			c.a = 0.5f*BgAlpha;
 			pSettings.SliderFillColor = c;
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		internal static void UpdateSettingsWithBgAlpha(PalmVisualSettingsStandard pSettings) {
-			Color c = pSettings.BackgroundColor;
-			c.a = BgAlpha;
-			pSettings.BackgroundColor = c;
 		}
 
 	}

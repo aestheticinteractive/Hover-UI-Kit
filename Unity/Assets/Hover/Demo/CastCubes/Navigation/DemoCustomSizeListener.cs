@@ -27,9 +27,7 @@ namespace Hover.Demo.CastCubes.Navigation {
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleValueChanged(ISelectableItem<float> pItem) {
 			int size = (int)Math.Round(Item.RangeValue);
-
 			ItemSett.UpdateAllSettings((x => ((ItemVisualSettingsStandard)x).TextSize = size));
-			PalmSett.UpdateAllSettings((x => ((PalmVisualSettingsStandard)x).TextSize = size));
 		}
 
 	}

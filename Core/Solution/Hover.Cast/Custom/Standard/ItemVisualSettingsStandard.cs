@@ -5,9 +5,10 @@ using UnityEngine;
 namespace Hover.Cast.Custom.Standard {
 
 	/*================================================================================================*/
-	public class ItemVisualSettingsStandard : IItemVisualSettings {
+	public class ItemVisualSettingsStandard : IItemAndPalmVisualSettings {
 
 		public Type Renderer { get; set; }
+		public Type PalmRenderer { get; set; }
 
 		public int TextSize { get; set; }
 		public Color TextColor { get; set; }
@@ -30,6 +31,7 @@ namespace Hover.Cast.Custom.Standard {
 
 			if ( pIncludeRenderer ) {
 				Renderer = sett.Renderer;
+				PalmRenderer = sett.PalmRenderer;
 			}
 
 			TextSize = sett.TextSize;

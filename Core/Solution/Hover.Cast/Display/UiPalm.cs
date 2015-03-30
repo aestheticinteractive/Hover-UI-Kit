@@ -1,5 +1,6 @@
 using Hover.Cast.Custom;
 using Hover.Cast.State;
+using Hover.Common.Custom;
 using Hover.Common.Items;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ namespace Hover.Cast.Display {
 	public class UiPalm : MonoBehaviour {
 
 		private MenuState vMenuState;
-		private IPalmVisualSettingsProvider vVisualSettingsProv;
+		private IItemVisualSettingsProvider vVisualSettingsProv;
 		private bool vRebuildOnUpdate;
 
 		private GameObject vRendererHold;
@@ -20,7 +21,7 @@ namespace Hover.Cast.Display {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal void Build(MenuState pMenu, IPalmVisualSettingsProvider pVisualSettingsProv) {
+		internal void Build(MenuState pMenu, IItemVisualSettingsProvider pVisualSettingsProv) {
 			vMenuState = pMenu;
 			vVisualSettingsProv = pVisualSettingsProv;
 
@@ -66,14 +67,15 @@ namespace Hover.Cast.Display {
 
 			const float halfAngle = UiLevel.AngleFull/2f;
 			IBaseItem item = vMenuState.GetLevelParentItem();
-			IPalmVisualSettings visualSett = vVisualSettingsProv.GetPalmSettings(item);
+			IItemAndPalmVisualSettings visualSett = 
+				(IItemAndPalmVisualSettings)vVisualSettingsProv.GetSettings(item);
 
 			vRendererHold.SetActive(true); //ensures that Awake() is called in the renderers
 
 			vRendererObj = new GameObject("Renderer");
 			vRendererObj.transform.SetParent(vRendererHold.transform, false);
 
-			vRenderer = (IUiPalmRenderer)vRendererObj.AddComponent(visualSett.Renderer);
+			vRenderer = (IUiPalmRenderer)vRendererObj.AddComponent(visualSett.PalmRenderer);
 			vRenderer.Build(vMenuState, visualSett, -halfAngle, halfAngle);
 		}
 

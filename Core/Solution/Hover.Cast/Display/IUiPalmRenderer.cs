@@ -1,5 +1,5 @@
-using Hover.Cast.Custom;
 using Hover.Cast.State;
+using Hover.Common.Custom;
 
 namespace Hover.Cast.Display {
 
@@ -9,7 +9,7 @@ namespace Hover.Cast.Display {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		void Build(MenuState pMenuState, IPalmVisualSettings pSettings, float pAngle0, float pAngle1);
+		void Build(MenuState pMenuState, IItemVisualSettings pSettings, float pAngle0, float pAngle1);
 
 	}
 
