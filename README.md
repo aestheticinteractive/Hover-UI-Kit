@@ -26,7 +26,7 @@ Key features:
 **[Learn about Hovercast's GPLv3  licensing >](../../wiki/Licensing Details)**
 
 ---
-This project includes a complete [demo application](../tree/master/Unity/Assets/Hover/Demo/CastCubes) that provides several examples of **Hovercast** configuration and usage. The demo surrounds you with hundreds of cubes. Use the menu to control the scene's colors, animation, lighting, and camera. You can also review the [integration documents](../../wiki) page to learn how to integrate Hovercast into a Unity project.
+This project includes a complete [demo application](../../tree/master/Unity/Assets/Hover/Demo/CastCubes) that provides several examples of **Hovercast** configuration and usage. The demo surrounds you with hundreds of cubes. Use the menu to control the scene's colors, animation, lighting, and camera. You can also review the [integration documents](../../wiki) page to learn how to integrate Hovercast into a Unity project.
 
 **[Watch the latest Hovercast demo video >](https://www.youtube.com/watch?v=Phn3Ix-YxPA)**
 
@@ -38,6 +38,3 @@ Want to try the demo for yourself?
 This package includes a full "LeapVR" demo and two "LeapOnly" demos (for both PC and Mac). All demos require a [Leap Motion controller](https://www.leapmotion.com/product/vr), and the VR demo requires an [Oculus Rift headset](https://www.oculus.com/). 
 
 The "LeapOnly" demos are experimental. For reasons related to usability and Leap tracking, these may not work as well as the "LeapVR" demo. The "LeapOnly-HeadMount" demo provides a closer feel to the "LeapVR" demo, but requires the Leap Motion controller to be attached near to your eyes (try mounting it via hat or headband).
-
-
-[test](./)
