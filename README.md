@@ -1,9 +1,15 @@
-![Hovercast Slider Animation](http://www.aestheticinteractive.com/clients/hovercast/Hovercast-Slider.gif)
-[View more images >](https://github.com/aestheticinteractive/Hovercast-VR-Menu/wiki/Demo-Screenshots)
+### Hover VR Interface Kit
+
+**[Get started at the project wiki >](../wiki)**
+
+![Loading Hovercursor animation...](http://www.aestheticinteractive.com/hover/cursor/Hovercursor-Main-728.gif) 
+![Loading Hovercast animation...](http://www.aestheticinteractive.com/hover/cast/Hovercast-Main-728.gif) 
+![Loading Hoverboard animation...](http://www.aestheticinteractive.com/hover/board/Hoverboard-Main-728.gif) 
 
 ---
-
 ### Hovercast VR Menu
+![Hovercast Slider Animation](http://www.aestheticinteractive.com/clients/hovercast/Hovercast-Slider.gif)
+[View more images >](../wiki/Hovercast Video And Images)
 
 **Hovercast** is a customizable menu interface for virtual reality applications. It provides menu navigation, buttons, sliders, and toggles – all using simple, reliable gestures.
 
@@ -17,10 +23,10 @@ Key features:
 -	Complete customization options, via basic settings or custom item renderers
 -	Ability to support a variety of 3D input devices.
 
-**[Learn about Hovercast's GPLv3  licensing >](https://github.com/aestheticinteractive/Hovercast-VR-Menu/wiki/Hovercast-Licensing)**
+**[Learn about Hovercast's GPLv3  licensing >](../wiki/Licensing Details)**
 
 ---
-This project includes a complete [demo application](https://github.com/aestheticinteractive/Hovercast-VR-Menu/tree/master/Unity/Assets/Hovercast/Demo) that provides several examples of **Hovercast** configuration and usage. The demo surrounds you with hundreds of cubes. Use the menu to control the scene's colors, animation, lighting, and camera. You can also review the [Getting Started](https://github.com/aestheticinteractive/Hovercast-VR-Menu/wiki/Getting-Started) page to learn how to integrate Hovercast into a Unity project.
+This project includes a complete [demo application](tree/master/Unity/Assets/Hover/Demo/CastCubes) that provides several examples of **Hovercast** configuration and usage. The demo surrounds you with hundreds of cubes. Use the menu to control the scene's colors, animation, lighting, and camera. You can also review the [integration documents](../wiki) page to learn how to integrate Hovercast into a Unity project.
 
 **[Watch the latest Hovercast demo video >](https://www.youtube.com/watch?v=Phn3Ix-YxPA)**
 
