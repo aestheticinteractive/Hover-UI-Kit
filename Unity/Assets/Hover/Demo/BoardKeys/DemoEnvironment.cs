@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Hover.Common.Display;
+using Hover.Demo.Common;
 using UnityEngine;
 
 namespace Hover.Demo.BoardKeys {
@@ -15,7 +16,6 @@ namespace Hover.Demo.BoardKeys {
 		private readonly IList<DemoLetter> vLetters;
 		private readonly IList<DemoLetter> vLetterCache;
 
-		private System.Random vRandom;
 		private Light vLight;
 		private Light vLight2;
 		private DemoTextPixels vPixels;
@@ -33,13 +33,7 @@ namespace Hover.Demo.BoardKeys {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
-			if ( RandomSeed == 0 ) {
-				vRandom = new System.Random();
-			}
-			else {
-				vRandom = new System.Random(RandomSeed);
-				UnityEngine.Random.seed = RandomSeed;
-			}
+			RandomUtil.Init(RandomSeed);
 
 			////
 
@@ -97,7 +91,7 @@ namespace Hover.Demo.BoardKeys {
 				ringObj.transform.localRotation = Random.rotation;
 
 				DemoRing ring = ringObj.AddComponent<DemoRing>();
-				ring.Radius = (float)vRandom.NextDouble()*(LightRange*0.4f)+3;
+				ring.Radius = RandomUtil.Float(LightRange*0.4f)+3;
 			}
 
 			////

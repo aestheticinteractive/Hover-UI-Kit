@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Hover.Demo.Common;
 using UnityEngine;
 
 namespace Hover.Demo.CastCubes {
@@ -46,7 +47,6 @@ namespace Hover.Demo.CastCubes {
 		private readonly IDictionary<CameraPlacement, Vector3> vCameraMap;
 		private readonly IDictionary<CameraPlacement, Quaternion> vCameraRotMap;
 
-		private System.Random vRandom;
 		private GameObject vCubesObj;
 		private Light vLight;
 		private Light vSpotlight;
@@ -93,13 +93,7 @@ namespace Hover.Demo.CastCubes {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
-			if ( RandomSeed == 0 ) {
-				vRandom = new System.Random();
-			}
-			else {
-				vRandom = new System.Random(RandomSeed);
-				UnityEngine.Random.seed = RandomSeed;
-			}
+			RandomUtil.Init(RandomSeed);
 
 			vCubesObj = new GameObject("Cubes");
 			vCubesObj.transform.SetParent(gameObject.transform, false);
@@ -240,7 +234,7 @@ namespace Hover.Demo.CastCubes {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void BuildCube(int pIndex) {
-			float radius = RandomFloat(4, 10);
+			float radius = RandomUtil.Float(4, 10);
 			float radiusPercent = (radius-4)/6f;
 			float orbitSpeed = (float)Math.Pow(1-radiusPercent, 2)*0.2f + 0.8f;
 
@@ -249,8 +243,8 @@ namespace Hover.Demo.CastCubes {
 			vHolds[pIndex] = hold;
 
 			DemoCubeHold holdData = hold.AddComponent<DemoCubeHold>();
-			holdData.OrbitAxis = RandomUnitVector();
-			holdData.OrbitSpeed = RandomFloat(0.7f, 1, 2)*orbitSpeed;
+			holdData.OrbitAxis = RandomUtil.UnitVector();
+			holdData.OrbitSpeed = RandomUtil.Float(0.7f, 1, 2)*orbitSpeed;
 			holdData.OrbitInitRot = UnityEngine.Random.rotationUniform;
 
 			////
@@ -262,18 +256,18 @@ namespace Hover.Demo.CastCubes {
 			vCubes[pIndex] = cube;
 
 			DemoCube cubeData = cube.AddComponent<DemoCube>();
-			cubeData.ColorRandom = RandomUnitColor(0.1f, 1);
-			cubeData.SpinAxis = RandomUnitVector();
-			cubeData.SpinSpeed = RandomFloat(0.5f, 1, 2);
+			cubeData.ColorRandom = RandomUtil.UnitColor(0.1f, 1);
+			cubeData.SpinAxis = RandomUtil.UnitVector();
+			cubeData.SpinSpeed = RandomUtil.Float(0.5f, 1, 2);
 			cubeData.SpinInitRot = UnityEngine.Random.rotationUniform;
-			cubeData.BobSpeed = RandomFloat(0.5f, 1, 2);
-			cubeData.BobInitPos = RandomFloat(-1, 1);
+			cubeData.BobSpeed = RandomUtil.Float(0.5f, 1, 2);
+			cubeData.BobInitPos = RandomUtil.Float(-1, 1);
 			cubeData.BobRadiusMin = radius;
 			cubeData.BobRadiusMax = cubeData.BobRadiusMin+3;
-			cubeData.GrowSpeed = RandomFloat(0.5f, 1, 2);
-			cubeData.GrowInitPos = RandomFloat(-1, 1);
-			cubeData.GrowScaleMin = RandomUnitVector(0.4f)*0.6f;
-			cubeData.GrowScaleMax = RandomUnitVector(0.4f)*1.2f;
+			cubeData.GrowSpeed = RandomUtil.Float(0.5f, 1, 2);
+			cubeData.GrowInitPos = RandomUtil.Float(-1, 1);
+			cubeData.GrowScaleMin = RandomUtil.UnitVector(0.4f)*0.6f;
+			cubeData.GrowScaleMax = RandomUtil.UnitVector(0.4f)*1.2f;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -304,56 +298,6 @@ namespace Hover.Demo.CastCubes {
 		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		private Vector3 RandomUnitVector() {
-			var v = new Vector3(
-				RandomFloat(-1, 1),
-				RandomFloat(-1, 1),
-				RandomFloat(-1, 1)
-			);
-
-			return v.normalized;
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		private Color RandomUnitColor(float pMin, float pMax) {
-			int major = vRandom.Next()%3;
-			int minor = (major+(vRandom.Next()%2)+1)%3;
-
-			Func<int, float> getVal = (i => {
-				if ( i == major ) {
-					return pMax;
-				}
-
-				if ( i == minor ) {
-					return RandomFloat(pMin, pMax);
-				}
-
-				return RandomFloat(0, pMin);
-			});
-
-			return new Color(getVal(0), getVal(1), getVal(2));
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		private Vector3 RandomUnitVector(float pMinDimension) {
-			var v = RandomUnitVector();
-			v.x = Math.Max(v.x, pMinDimension);
-			v.y = Math.Max(v.y, pMinDimension);
-			v.z = Math.Max(v.z, pMinDimension);
-			return v.normalized;
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		private float RandomFloat(float pMin, float pMax) {
-			return (float)vRandom.NextDouble()*(pMax-pMin) + pMin;
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		private float RandomFloat(float pMin, float pMax, float pPow) {
-			return (float)Math.Pow(RandomFloat(pMin, pMax), pPow);
-		}
-
 		/*--------------------------------------------------------------------------------------------*/
 		//based on: http://stackoverflow.com/questions/1335426
 		public static Color HsvToColor(float pHue, float pSat, float pVal) {
