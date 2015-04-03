@@ -86,6 +86,8 @@
     <Compile Include="State\IHovercastState.cs" />
     <Compile Include="Display\UiItem.cs" />
     <Compile Include="Display\IUiItemRenderer.cs" />
+    <Compile Include="Input\Transform\InputMenu.cs" />
+    <Compile Include="Input\Transform\HovercastTransformInput.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Hover.Common\Hover.Common.csproj">
@@ -108,4 +110,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <Folder Include="Input\Transform\" />
+  </ItemGroup>
 </Project>

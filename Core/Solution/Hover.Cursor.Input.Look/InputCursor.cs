@@ -75,6 +75,15 @@ namespace Hover.Cursor.Input.Look {
 			Vector3 planePosLocal = localTx.InverseTransformPoint(pPlane.PointWorld);
 			Vector3 planeNormLocal = localTx.InverseTransformDirection(pPlane.NormalWorld);
 
+			if ( vSettings.UseMouseForTesting ) {
+				Vector3 mousePos = UnityEngine.Input.mousePosition;
+				mousePos.x -= Screen.width/2;
+				mousePos.y -= Screen.height/2;
+				mousePos /= Screen.width;
+
+				camPosLocal += mousePos*vSettings.MousePositionMultiplier;
+			}
+
 			float numer = Vector3.Dot(planePosLocal-camPosLocal, planeNormLocal);
 			float denom = Vector3.Dot(camDirLocal, planeNormLocal);
 

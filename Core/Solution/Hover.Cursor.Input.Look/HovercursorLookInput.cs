@@ -11,6 +11,8 @@ namespace Hover.Cursor.Input.Look {
 
 		public Transform HeadsetCameraTransform;
 		public float CursorSize = 0.1f;
+		public bool UseMouseForTesting = false;
+		public float MousePositionMultiplier = 4;
 
 		private InputCursor vCursor;
 
@@ -22,7 +24,9 @@ namespace Hover.Cursor.Input.Look {
 			sett.InputTransform = gameObject.transform;
 			sett.CameraTransform = HeadsetCameraTransform;
 			sett.CursorSize = CursorSize;
-
+			sett.UseMouseForTesting = UseMouseForTesting;
+			sett.MousePositionMultiplier = MousePositionMultiplier;
+			
 			if ( HeadsetCameraTransform == null ) {
 				IsFailure = true;
 				throw new Exception("The "+typeof(HovercursorLookInput)+" component "+
