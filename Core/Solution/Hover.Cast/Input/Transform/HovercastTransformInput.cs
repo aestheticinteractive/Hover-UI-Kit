@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using UnityEngine;
-
-namespace Hover.Cast.Input.Transform {
+﻿namespace Hover.Cast.Input.Transform {
 
 	/*================================================================================================*/
 	public class HovercastTransformInput : HovercastInput {

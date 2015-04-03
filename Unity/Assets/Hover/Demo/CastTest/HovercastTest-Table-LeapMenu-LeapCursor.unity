@@ -87,11 +87,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c9f2277f2b4414ff9abf05e783890171, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -3
+      value: -.0149999997
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c9f2277f2b4414ff9abf05e783890171, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -3
+      value: -.0149999997
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c9f2277f2b4414ff9abf05e783890171, type: 2}
       propertyPath: m_LocalRotation.x
@@ -137,15 +137,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c9f2277f2b4414ff9abf05e783890171, type: 2}
       propertyPath: m_LocalScale.x
-      value: 20
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c9f2277f2b4414ff9abf05e783890171, type: 2}
       propertyPath: m_LocalScale.y
-      value: 20
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c9f2277f2b4414ff9abf05e783890171, type: 2}
       propertyPath: m_LocalScale.z
-      value: 20
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c9f2277f2b4414ff9abf05e783890171, type: 2}
@@ -161,7 +161,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 301275808}
   - 114: {fileID: 301275809}
-  - 114: {fileID: 301275810}
+  - 114: {fileID: 301275811}
   m_Layer: 0
   m_Name: E
   m_TagString: Untagged
@@ -214,13 +214,37 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 11400002, guid: 05d0bc45b879b9a4ca2f95cd6fe9e557,
     type: 2}
   m_PrefabInternal: {fileID: 605266978}
+  m_GameObject: {fileID: 1186740686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -488157941, guid: 0287263cc8027804ca949b1a81526620, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextSize: 30
+  TextColor: {r: .324394464, g: .882352948, b: .85926491, a: 1}
+  TextFont: Tahoma
+  ArrowIconColor: {r: 1, g: 1, b: 1, a: 1}
+  ToggleIconColor: {r: 1, g: 1, b: 1, a: 1}
+  BackgroundColor: {r: .391544104, g: .601673365, b: .75, a: .666666687}
+  EdgeColor: {r: 1, g: 1, b: 1, a: 1}
+  HighlightColor: {r: .533604264, g: .683823526, b: .110618494, a: 1}
+  SelectionColor: {r: .899999976, g: .100000046, b: .613103509, a: 1}
+  SliderTrackColor: {r: .100000001, g: .100000001, b: .100000001, a: .5}
+  SliderFillColor: {r: .100000001, g: .899999976, b: .200000003, a: .5}
+  SliderTickColor: {r: 1, g: 1, b: 1, a: .200000003}
+--- !u!114 &301275811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400022, guid: 05d0bc45b879b9a4ca2f95cd6fe9e557,
+    type: 2}
+  m_PrefabInternal: {fileID: 605266978}
   m_GameObject: {fileID: 301275807}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1799712420, guid: ec0e2c4346a0dd94e9fa4af2ed7fcc12, type: 3}
+  m_Script: {fileID: -488157941, guid: 0287263cc8027804ca949b1a81526620, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TextSize: 36
+  TextSize: 30
   TextColor: {r: .324394464, g: .882352948, b: .85926491, a: 1}
   TextFont: Tahoma
   ArrowIconColor: {r: 1, g: 1, b: 1, a: 1}
@@ -229,6 +253,9 @@ MonoBehaviour:
   EdgeColor: {r: 1, g: 1, b: 1, a: 1}
   HighlightColor: {r: .533604264, g: .683823526, b: .110618494, a: 1}
   SelectionColor: {r: .899999976, g: .100000046, b: .613103509, a: 1}
+  SliderTrackColor: {r: .100000001, g: .100000001, b: .100000001, a: .5}
+  SliderFillColor: {r: .100000001, g: .899999976, b: .200000003, a: .5}
+  SliderTickColor: {r: 1, g: 1, b: 1, a: .200000003}
 --- !u!1 &379876345
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,7 +266,7 @@ GameObject:
   - 4: {fileID: 379876346}
   - 114: {fileID: 379876347}
   m_Layer: 0
-  m_Name: Parent 1
+  m_Name: Parent 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -252,14 +279,13 @@ Transform:
   m_PrefabInternal: {fileID: 605266978}
   m_GameObject: {fileID: 379876345}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: -1}
+  m_LocalPosition: {x: 0, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1286165868}
   - {fileID: 1862622603}
-  - {fileID: 1007366417}
   m_Father: {fileID: 2032650766}
-  m_RootOrder: 0
+  m_RootOrder: 2
 --- !u!114 &379876347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,7 +300,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 0
   Id: 
-  Label: Parent 1
+  Label: Parent 3
   RelativeSize: 1
   IsVisible: 1
   IsEnabled: 1
@@ -356,8 +382,8 @@ Transform:
   m_PrefabInternal: {fileID: 51099334}
   m_GameObject: {fileID: 759689952}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3, z: -3}
-  m_LocalScale: {x: 20, y: 20, z: 20}
+  m_LocalPosition: {x: 0, y: -.0149999997, z: -.0149999997}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1941104515}
   - {fileID: 1055260292}
@@ -386,6 +412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActivePalmDirection: {x: 0, y: -1, z: -1}
+  DistanceFromPalm: .200000003
   NavigationBackGrabThreshold: .300000012
   NavigationBackUngrabThreshold: .150000006
 --- !u!114 &759689956
@@ -440,7 +467,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 379876346}
+  m_Father: {fileID: 1122470684}
   m_RootOrder: 2
 --- !u!114 &1007366418
 MonoBehaviour:
@@ -512,7 +539,6 @@ MonoBehaviour:
   ItemHierarchy: {fileID: 0}
   Hovercursor: {fileID: 0}
   DefaultItemVisualSettings: {fileID: 0}
-  DefaultPalmVisualSettings: {fileID: 0}
   InteractionSettings: {fileID: 0}
   Input: {fileID: 0}
 --- !u!114 &1055260295
@@ -532,6 +558,64 @@ MonoBehaviour:
   ShowMiddle: 0
   ShowRing: 0
   ShowPinky: 1
+--- !u!1 &1122470683
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100022, guid: 05d0bc45b879b9a4ca2f95cd6fe9e557, type: 2}
+  m_PrefabInternal: {fileID: 605266978}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1122470684}
+  - 114: {fileID: 1122470685}
+  m_Layer: 0
+  m_Name: Parent 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1122470684
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400022, guid: 05d0bc45b879b9a4ca2f95cd6fe9e557, type: 2}
+  m_PrefabInternal: {fileID: 605266978}
+  m_GameObject: {fileID: 1122470683}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1804862203}
+  - {fileID: 1461126002}
+  - {fileID: 1007366417}
+  m_Father: {fileID: 2032650766}
+  m_RootOrder: 0
+--- !u!114 &1122470685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400030, guid: 05d0bc45b879b9a4ca2f95cd6fe9e557,
+    type: 2}
+  m_PrefabInternal: {fileID: 605266978}
+  m_GameObject: {fileID: 1122470683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 42094754, guid: 0287263cc8027804ca949b1a81526620, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 0
+  Id: 
+  Label: Parent 1
+  RelativeSize: 1
+  IsVisible: 1
+  IsEnabled: 1
+  NavigateBackUponSelect: 0
+  CheckboxValue: 0
+  RadioValue: 0
+  SliderTicks: 0
+  SliderSnaps: 0
+  SliderRangeMin: 0
+  SliderRangeMax: 1
+  SliderValue: 0
+  SliderAllowJump: 1
 --- !u!1 &1123838590
 GameObject:
   m_ObjectHideFlags: 0
@@ -596,6 +680,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1186740687}
   - 114: {fileID: 1186740688}
+  - 114: {fileID: 301275810}
   m_Layer: 0
   m_Name: Parent 2
   m_TagString: Untagged
@@ -685,9 +770,53 @@ MonoBehaviour:
   m_Script: {fileID: 42094754, guid: 0287263cc8027804ca949b1a81526620, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Type: 5
+  Id: 
+  Label: SlideA
+  RelativeSize: 1
+  IsVisible: 1
+  IsEnabled: 1
+  NavigateBackUponSelect: 0
+  CheckboxValue: 0
+  RadioValue: 0
+  SliderTicks: 0
+  SliderSnaps: 0
+  SliderRangeMin: 0
+  SliderRangeMax: 1000
+  SliderValue: 700
+  SliderAllowJump: 0
+--- !u!1 &1461126000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100018, guid: 05d0bc45b879b9a4ca2f95cd6fe9e557, type: 2}
+  m_PrefabInternal: {fileID: 605266978}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1461126002}
+  - 114: {fileID: 1461126001}
+  - 114: {fileID: 1862622604}
+  m_Layer: 0
+  m_Name: B
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1461126001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400026, guid: 05d0bc45b879b9a4ca2f95cd6fe9e557,
+    type: 2}
+  m_PrefabInternal: {fileID: 605266978}
+  m_GameObject: {fileID: 1461126000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 42094754, guid: 0287263cc8027804ca949b1a81526620, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   Type: 3
   Id: 
-  Label: A
+  Label: B
   RelativeSize: 1
   IsVisible: 1
   IsEnabled: 1
@@ -700,6 +829,18 @@ MonoBehaviour:
   SliderRangeMax: 1
   SliderValue: 0
   SliderAllowJump: 1
+--- !u!4 &1461126002
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400018, guid: 05d0bc45b879b9a4ca2f95cd6fe9e557, type: 2}
+  m_PrefabInternal: {fileID: 605266978}
+  m_GameObject: {fileID: 1461126000}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1122470684}
+  m_RootOrder: 1
 --- !u!1 &1697205596
 GameObject:
   m_ObjectHideFlags: 0
@@ -749,6 +890,61 @@ MonoBehaviour:
   NavigateBackUponSelect: 0
   CheckboxValue: 0
   RadioValue: 1
+  SliderTicks: 0
+  SliderSnaps: 0
+  SliderRangeMin: 0
+  SliderRangeMax: 1
+  SliderValue: 0
+  SliderAllowJump: 1
+--- !u!1 &1804862202
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100020, guid: 05d0bc45b879b9a4ca2f95cd6fe9e557, type: 2}
+  m_PrefabInternal: {fileID: 605266978}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1804862203}
+  - 114: {fileID: 1804862204}
+  m_Layer: 0
+  m_Name: A
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1804862203
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400020, guid: 05d0bc45b879b9a4ca2f95cd6fe9e557, type: 2}
+  m_PrefabInternal: {fileID: 605266978}
+  m_GameObject: {fileID: 1804862202}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1122470684}
+  m_RootOrder: 0
+--- !u!114 &1804862204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400028, guid: 05d0bc45b879b9a4ca2f95cd6fe9e557,
+    type: 2}
+  m_PrefabInternal: {fileID: 605266978}
+  m_GameObject: {fileID: 1804862202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 42094754, guid: 0287263cc8027804ca949b1a81526620, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 3
+  Id: 
+  Label: A
+  RelativeSize: 1
+  IsVisible: 1
+  IsEnabled: 1
+  NavigateBackUponSelect: 0
+  CheckboxValue: 0
+  RadioValue: 0
   SliderTicks: 0
   SliderSnaps: 0
   SliderRangeMin: 0
@@ -834,7 +1030,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1828910545}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -848,7 +1044,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1862622603}
   - 114: {fileID: 1862622602}
-  - 114: {fileID: 1862622604}
+  - 114: {fileID: 1862622605}
   m_Layer: 0
   m_Name: B
   m_TagString: Untagged
@@ -868,20 +1064,20 @@ MonoBehaviour:
   m_Script: {fileID: 42094754, guid: 0287263cc8027804ca949b1a81526620, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 3
+  Type: 5
   Id: 
-  Label: B
+  Label: SlideB
   RelativeSize: 1
   IsVisible: 1
   IsEnabled: 1
   NavigateBackUponSelect: 0
   CheckboxValue: 0
   RadioValue: 0
-  SliderTicks: 0
-  SliderSnaps: 0
+  SliderTicks: 6
+  SliderSnaps: 6
   SliderRangeMin: 0
-  SliderRangeMax: 1
-  SliderValue: 0
+  SliderRangeMax: 100
+  SliderValue: 50
   SliderAllowJump: 1
 --- !u!4 &1862622603
 Transform:
@@ -901,13 +1097,13 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 11400018, guid: 05d0bc45b879b9a4ca2f95cd6fe9e557,
     type: 2}
   m_PrefabInternal: {fileID: 605266978}
-  m_GameObject: {fileID: 1862622601}
+  m_GameObject: {fileID: 1461126000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1799712420, guid: ec0e2c4346a0dd94e9fa4af2ed7fcc12, type: 3}
+  m_Script: {fileID: -488157941, guid: 0287263cc8027804ca949b1a81526620, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TextSize: 36
+  TextSize: 30
   TextColor: {r: 1, g: .986004055, b: .492647052, a: 1}
   TextFont: Tahoma
   ArrowIconColor: {r: 1, g: 1, b: 1, a: 1}
@@ -916,6 +1112,33 @@ MonoBehaviour:
   EdgeColor: {r: 1, g: 1, b: 1, a: 1}
   HighlightColor: {r: .522058845, g: .213496953, b: .138192058, a: 1}
   SelectionColor: {r: .899999976, g: .61310339, b: .100000046, a: 1}
+  SliderTrackColor: {r: .100000001, g: .100000001, b: .100000001, a: .5}
+  SliderFillColor: {r: .100000001, g: .899999976, b: .200000003, a: .5}
+  SliderTickColor: {r: 1, g: 1, b: 1, a: .200000003}
+--- !u!114 &1862622605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400024, guid: 05d0bc45b879b9a4ca2f95cd6fe9e557,
+    type: 2}
+  m_PrefabInternal: {fileID: 605266978}
+  m_GameObject: {fileID: 1862622601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -488157941, guid: 0287263cc8027804ca949b1a81526620, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextSize: 30
+  TextColor: {r: 1, g: .986004055, b: .492647052, a: 1}
+  TextFont: Tahoma
+  ArrowIconColor: {r: 1, g: 1, b: 1, a: 1}
+  ToggleIconColor: {r: 1, g: 1, b: 1, a: 1}
+  BackgroundColor: {r: .100000001, g: .100000001, b: .100000001, a: .666000009}
+  EdgeColor: {r: 1, g: 1, b: 1, a: 1}
+  HighlightColor: {r: .522058845, g: .213496953, b: .138192058, a: 1}
+  SelectionColor: {r: .899999976, g: .61310339, b: .100000046, a: 1}
+  SliderTrackColor: {r: .100000001, g: .100000001, b: .100000001, a: .5}
+  SliderFillColor: {r: .676470578, g: .662337422, b: .164143592, a: .501960814}
+  SliderTickColor: {r: 1, g: 1, b: 1, a: .200000003}
 --- !u!1 &1941104513
 GameObject:
   m_ObjectHideFlags: 0
@@ -1047,8 +1270,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 379876346}
+  - {fileID: 1122470684}
   - {fileID: 1186740687}
+  - {fileID: 379876346}
   m_Father: {fileID: 0}
   m_RootOrder: 3
 --- !u!114 &2032650767

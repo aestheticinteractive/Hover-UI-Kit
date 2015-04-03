@@ -12,7 +12,7 @@ namespace Hover.Cursor.Input.Look {
 		public Transform HeadsetCameraTransform;
 		public float CursorSize = 0.1f;
 		public bool UseMouseForTesting = false;
-		public float MousePositionMultiplier = 4;
+		public float MousePositionMultiplier = 0.4f;
 
 		private InputCursor vCursor;
 

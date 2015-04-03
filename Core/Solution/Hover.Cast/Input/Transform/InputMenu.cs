@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Hover.Cast.Input.Transform {
 
@@ -22,7 +21,7 @@ namespace Hover.Cast.Input.Transform {
 		public InputMenu(bool pIsLeft) {
 			IsLeft = pIsLeft;
 			IsAvailable = true;
-			Radius = 1;
+			Radius = 0.1f;
 		}
 
 	}
