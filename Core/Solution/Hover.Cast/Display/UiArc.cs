@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using Hover.Cast.State;
 using Hover.Common.Custom;
 using UnityEngine;
@@ -8,7 +9,7 @@ namespace Hover.Cast.Display {
 	/*================================================================================================*/
 	public class UiArc : MonoBehaviour {
 
-		private const float LevelChangeMilliseconds = 1000;
+		public const float LevelChangeMilliseconds = 1000;
 		private const float LevelChangeDistance = 0.5f;
 
 		private MenuState vMenuState;
@@ -16,7 +17,7 @@ namespace Hover.Cast.Display {
 
 		private GameObject vPrevLevelObj;
 		private GameObject vCurrLevelObj;
-		private DateTime? vChangeTime;
+		private Stopwatch vChangeAnim;
 		private int vChangeDir;
 
 
@@ -71,7 +72,7 @@ namespace Hover.Cast.Display {
 
 			////
 
-			vChangeTime = DateTime.UtcNow;
+			vChangeAnim = Stopwatch.StartNew();
 			vChangeDir = pDirection;
 			UpdateItemChangeAnim();
 		}
@@ -89,11 +90,11 @@ namespace Hover.Cast.Display {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateItemChangeAnim() {
-			if ( vChangeTime == null ) {
+			if ( vChangeAnim == null ) {
 				return;
 			}
 
-			float ms = (float)(DateTime.UtcNow-(DateTime)vChangeTime).TotalMilliseconds;
+			float ms = (float)vChangeAnim.Elapsed.TotalMilliseconds;
 			float prog = Math.Min(1, ms/LevelChangeMilliseconds);
 			float push = 1-(float)Math.Pow(1-prog, 3);
 			float dist = LevelChangeDistance*vChangeDir;
@@ -126,7 +127,7 @@ namespace Hover.Cast.Display {
 				return;
 			}
 
-			vChangeTime = null;
+			vChangeAnim = null;
 			DestroyPrevLevel();
 		}
 

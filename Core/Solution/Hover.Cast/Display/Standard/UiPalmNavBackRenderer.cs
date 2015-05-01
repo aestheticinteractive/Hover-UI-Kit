@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using Hover.Cast.Custom.Standard;
 using Hover.Cast.State;
 using Hover.Common.Custom;
@@ -18,10 +19,13 @@ namespace Hover.Cast.Display.Standard {
 
 		protected MenuState vMenuState;
 		protected IBaseItemState vItemState;
+		protected ISelectableItem vSelItem;
 		protected ItemVisualSettingsStandard vSettings;
 
 		protected UiHoverMeshSlice vHoverSlice;
 		protected GameObject vIcon;
+		protected Stopwatch vEnabledAnim;
+		protected bool vPrevEnabled;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -30,6 +34,7 @@ namespace Hover.Cast.Display.Standard {
 													float pArcAngle, IItemVisualSettings pSettings) {
 			vMenuState = pMenuState;
 			vItemState = pItemState;
+			vSelItem = (vItemState.Item as ISelectableItem);
 			vSettings = (ItemVisualSettingsStandard)pSettings;
 
 			////
@@ -52,18 +57,20 @@ namespace Hover.Cast.Display.Standard {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void Update() {
-			ISelectableItem selItem = (vItemState.Item as ISelectableItem);
-
 			float high = vItemState.MaxHighlightProgress;
 			bool showEdge = (vItemState.IsNearestHighlight && !vItemState.IsSelectionPrevented && 
-				selItem != null && selItem.AllowSelection);
+				vSelItem.AllowSelection);
 			float edge = (showEdge ? high : 0);
-			float select = 1-(float)Math.Pow(1-vItemState.SelectionProgress, 1.5f);
+			float select = vItemState.SelectionProgress;
 			float alpha = Math.Max(0, 1-(float)Math.Pow(1-vMenuState.DisplayStrength, 2));
+			float enabledAnimProg = GetEnabledAnimProgress();
 
-			if ( vMenuState.NavBackStrength > select ) {
+			if ( vSelItem.IsEnabled && vMenuState.NavBackStrength > select ) {
 				select = vMenuState.NavBackStrength;
+				edge = select;
 			}
+
+			select = 1-(float)Math.Pow(1-select, 1.5f);
 
 			Color colBg = vSettings.BackgroundColor;
 			Color colEdge = vSettings.EdgeColor;
@@ -71,12 +78,11 @@ namespace Hover.Cast.Display.Standard {
 			Color colSel = vSettings.SelectionColor;
 			Color colIcon = vSettings.ArrowIconColor;
 
-			colBg.a *= alpha*(vItemState.Item.IsEnabled ? 1 : 0.333f);
+			colBg.a *= alpha*Mathf.Lerp(0.333f, 1, enabledAnimProg);
 			colEdge.a *= edge*alpha;
 			colHigh.a *= high*alpha;
 			colSel.a *= select*alpha;
-			colIcon.a *= (vItemState.MaxHighlightProgress*0.75f + 0.25f)*alpha*
-				(vItemState.Item.IsEnabled ? 1 : 0);
+			colIcon.a *= (vItemState.MaxHighlightProgress*0.75f + 0.25f)*alpha*enabledAnimProg;
 
 			vHoverSlice.UpdateBackground(colBg);
 			vHoverSlice.UpdateEdge(colEdge);
@@ -96,6 +102,34 @@ namespace Hover.Cast.Display.Standard {
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateHoverPoints(IBaseItemPointsState pPointsState, Vector3 pCursorWorldPos) {
 			vHoverSlice.UpdateHoverPoints(pPointsState);
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private float GetEnabledAnimProgress() {
+			if ( vSelItem.IsEnabled != vPrevEnabled ) {
+				vEnabledAnim = Stopwatch.StartNew();
+				vPrevEnabled = vSelItem.IsEnabled;
+			}
+
+			float prog = (vSelItem.IsEnabled ? 1 : 0);
+
+			if ( vEnabledAnim != null ) {
+				float ms = (float)vEnabledAnim.Elapsed.TotalMilliseconds;
+				prog = Math.Min(1, ms/UiArc.LevelChangeMilliseconds);
+				prog = 1-(float)Math.Pow(1-prog, 3);
+
+				if ( prog >= 1 ) {
+					vEnabledAnim = null;
+				}
+
+				if ( !vSelItem.IsEnabled ) {
+					prog = 1-prog;
+				}
+			}
+
+			return prog;
 		}
 
 	}
