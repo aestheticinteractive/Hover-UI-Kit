@@ -73,6 +73,12 @@ namespace Hover.Common.State {
 		/*--------------------------------------------------------------------------------------------*/
 		public float MaxHighlightProgress {
 			get {
+				ISelectableItem selItem = (Item as ISelectableItem);
+
+				if ( selItem != null && selItem.IsStickySelected ) {
+					return 1;
+				}
+
 				return vHighlightProgressMap.Max(x => x.Value);
 			}
 		}
