@@ -1,7 +1,9 @@
+using System;
 using Hover.Cast.Custom;
 using Hover.Cast.State;
 using Hover.Common.Custom;
 using Hover.Common.Items;
+using Hover.Common.State;
 using UnityEngine;
 
 namespace Hover.Cast.Display {
@@ -28,6 +30,19 @@ namespace Hover.Cast.Display {
 			vRendererHold = new GameObject("RendererHold");
 			vRendererHold.transform.SetParent(gameObject.transform, false);
 			vRendererHold.transform.localRotation = Quaternion.AngleAxis(170, Vector3.up);
+
+			////
+
+			BaseItemState itemState = pMenu.GetPalmItem();
+			IItemVisualSettings visualSett = pVisualSettingsProv.GetSettings(itemState.Item);
+
+			var itemObj = new GameObject("BackItem");
+			itemObj.transform.SetParent(vRendererHold.transform, false);
+
+			UiItem uiItem = itemObj.AddComponent<UiItem>();
+			uiItem.Build(vMenuState, itemState, (float)Math.PI*2, visualSett);
+
+			////
 
 			vMenuState.OnLevelChange += HandleLevelChange;
 			Rebuild();

@@ -6,10 +6,13 @@ namespace Hover.Common.Items.Groups {
 	/*================================================================================================*/
 	public class ItemHierarchy : IItemHierarchy {
 
+		public const string NavigateBackItemId = "__NavigateBackItem__";
+
 		public event ItemEvents.HierarchyLevelChangedHandler OnLevelChange;
 		public event ItemEvents.GroupItemSelectedHandler OnItemSelection;
 
 		public string Title { get; set; }
+		public SelectorItem NavigateBackItem { get; private set; }
 
 		private IItemGroup vCurrLevel;
 		private readonly Stack<IItemGroup> vHistory;
@@ -19,6 +22,16 @@ namespace Hover.Common.Items.Groups {
 		/*--------------------------------------------------------------------------------------------*/
 		public ItemHierarchy() {
 			vHistory = new Stack<IItemGroup>();
+
+			NavigateBackItem = new SelectorItem();
+			NavigateBackItem.Id = NavigateBackItemId;
+			NavigateBackItem.IsEnabled = true;
+			NavigateBackItem.IsVisible = true;
+			NavigateBackItem.NavigateBackUponSelect = true;
+			NavigateBackItem.Label = "Back";
+			NavigateBackItem.SetParentsEnabledFunc(() => true);
+			NavigateBackItem.SetParentsVisibleFunc(() => true);
+			NavigateBackItem.OnSelected += HandleNavigateBackItemSelected;
 
 			OnLevelChange += (d => {});
 			OnItemSelection += ((l,i) => {});
@@ -84,6 +97,11 @@ namespace Hover.Common.Items.Groups {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
+		private void HandleNavigateBackItemSelected(ISelectableItem pItem) {
+			Back();
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
 		private void SetNewLevel(IItemGroup pNewLevel, int pDirection) {
 			if ( vCurrLevel != null ) {
 				vCurrLevel.OnItemSelected -= HandleItemSelected;
@@ -95,6 +113,8 @@ namespace Hover.Common.Items.Groups {
 			vCurrLevel.SetParentsEnabledFunc(() => true);
 			vCurrLevel.SetParentsVisibleFunc(() => true);
 			vCurrLevel.OnItemSelected += HandleItemSelected;
+
+			NavigateBackItem.IsEnabled = (vHistory.Count > 0);
 
 			OnLevelChange(pDirection);
 		}

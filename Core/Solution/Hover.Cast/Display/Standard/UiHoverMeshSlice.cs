@@ -11,6 +11,9 @@ namespace Hover.Cast.Display.Standard {
 	public class UiHoverMeshSlice : UiHoverMesh {
 
 		public const float AngleInset = 0.0012f;
+		public const float EdgeThick = 0.01f;
+
+		public bool DrawOuterEdge { get; set; }
 
 		private readonly bool vBackgroundOnly;
 
@@ -85,8 +88,9 @@ namespace Hover.Cast.Display.Standard {
 			}
 
 			if ( pType == MeshType.Edge ) {
-				MeshUtil.BuildRingMesh(EdgeMesh, vRadInner-0.01f, vRadInner,
-					vAngle0, vAngle1, vMeshSteps);
+				float edgeInner = (DrawOuterEdge ? vRadOuter : vRadInner-EdgeThick);
+				float edgeOuter = (DrawOuterEdge ? vRadOuter+EdgeThick : vRadInner);
+				MeshUtil.BuildRingMesh(EdgeMesh, edgeInner, edgeOuter, vAngle0, vAngle1, vMeshSteps);
 				return;
 			}
 

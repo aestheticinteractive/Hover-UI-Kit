@@ -1,4 +1,6 @@
-﻿namespace Hover.Common.Items.Groups {
+﻿using Hover.Common.Items.Types;
+
+namespace Hover.Common.Items.Groups {
 
 	/*================================================================================================*/
 	public interface IItemHierarchy { 
@@ -10,6 +12,7 @@
 		IItemGroup CurrentLevel { get; }
 		IItemGroup ParentLevel { get; }
 		string CurrentLevelTitle { get; }
+		SelectorItem NavigateBackItem { get; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

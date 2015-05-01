@@ -11,12 +11,14 @@ namespace Hover.Cast.Display.Standard {
 	/*================================================================================================*/
 	public class UiPalmRenderer : MonoBehaviour, IUiPalmRenderer {
 
+		public const float InnerRadius = 0.13f;
+		public const float OuterRadius = InnerRadius+UiItemSelectRenderer.Thickness;
+
 		protected MenuState vMenuState;
 		protected float vAngle0;
 		protected float vAngle1;
 		protected int vMeshSteps;
 
-		protected float vInnerRadius;
 		protected float vMainAlpha;
 		private ItemVisualSettingsStandard vSettings;
 
@@ -33,7 +35,6 @@ namespace Hover.Cast.Display.Standard {
 			vAngle0 = pAngle0;
 			vAngle1 = pAngle1;
 			vMeshSteps = (int)Math.Round(Math.Max(2, (vAngle1-vAngle0)/Math.PI*60));
-			vInnerRadius = 0.17f;
 
 			////
 
@@ -51,7 +52,7 @@ namespace Hover.Cast.Display.Standard {
 
 			var labelObj = new GameObject("Label");
 			labelObj.transform.SetParent(gameObject.transform, false);
-			labelObj.transform.localPosition = new Vector3(0, 0, vInnerRadius);
+			labelObj.transform.localPosition = new Vector3(0, 0, InnerRadius);
 			labelObj.transform.localRotation = Quaternion.FromToRotation(Vector3.back, Vector3.right);
 			labelObj.transform.localScale = new Vector3((vMenuState.IsOnLeftSide ? 1 : -1), 1, 1);
 
@@ -93,7 +94,7 @@ namespace Hover.Cast.Display.Standard {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void BuildMesh(Mesh pMesh) {
-			MeshUtil.BuildRingMesh(pMesh, vInnerRadius, vInnerRadius+0.5f, vAngle0, vAngle1,vMeshSteps);
+			MeshUtil.BuildRingMesh(pMesh, InnerRadius, OuterRadius, vAngle0, vAngle1, vMeshSteps);
 		}
 
 	}

@@ -28,10 +28,12 @@ namespace Hover.Cast.State {
 		
 		private readonly IItemHierarchy vItemHierarchy;
 		private readonly InteractionSettings vInteractSettings;
+		private readonly IList<BaseItemState> vAllItems;
 		private readonly IList<BaseItemState> vItems;
+		private readonly BaseItemState vPalmItem;
 
 		private ICursorState[] vCurrentCursors;
-		private bool vIsGrabbing;
+		private bool vIsNavigateBackStarted;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -39,8 +41,11 @@ namespace Hover.Cast.State {
 		public MenuState(IItemHierarchy pItemHierarchy, InteractionSettings pInteractSettings) {
 			vItemHierarchy = pItemHierarchy;
 			vInteractSettings = pInteractSettings;
+
+			vAllItems = new List<BaseItemState>();
 			vItems = new List<BaseItemState>();
 			vCurrentCursors = new ICursorState[0];
+			vPalmItem = new BaseItemState(vItemHierarchy.NavigateBackItem, pInteractSettings);
 
 			OnLevelChange += (d => {});
 
@@ -58,6 +63,11 @@ namespace Hover.Cast.State {
 		/*--------------------------------------------------------------------------------------------*/
 		public IBaseItemState[] GetLevelItems() {
 			return vItems.Cast<IBaseItemState>().ToArray();
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public BaseItemState GetPalmItem() {
+			return vPalmItem;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -85,22 +95,22 @@ namespace Hover.Cast.State {
 			DisplayStrength = pInputMenu.DisplayStrength;
 			NavBackStrength = pInputMenu.NavigateBackStrength;
 
-			CheckGrabGesture(pInputMenu);
+			CheckNavigateBackAction(pInputMenu);
 
 			foreach ( ICursorState cursor in vCurrentCursors ) {
 				UpdateWithCursor(cursor);
 			}
 
-			foreach ( BaseItemState item in vItems ) {
+			foreach ( BaseItemState item in vAllItems ) {
 				if ( item.UpdateSelectionProcess() ) { //returns true if selection occurred
-					break; //exit loop, since the vItems list changes after a selection
+					break; //exit loop, since the items list changes after a selection
 				}
 			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void ResetAllItemCursorInteractions() {
-			foreach ( BaseItemState item in vItems ) {
+			foreach ( BaseItemState item in vAllItems ) {
 				item.ResetAllCursorInteractions();
 			}
 		}
@@ -116,7 +126,7 @@ namespace Hover.Cast.State {
 
 			NearestItem = null;
 
-			foreach ( BaseItemState item in vItems ) {
+			foreach ( BaseItemState item in vAllItems ) {
 				item.UpdateWithCursor(cursorType, cursorWorldPos);
 
 				if ( !allowSelect ) {
@@ -133,42 +143,45 @@ namespace Hover.Cast.State {
 				nearestDist = itemDist;
 			}
 
-			foreach ( BaseItemState item in vItems ) {
+			foreach ( BaseItemState item in vAllItems ) {
 				item.SetAsNearestItem(cursorType, (item == NearestItem));
 			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void CheckGrabGesture(IInputMenu pInputMenu) {
+		private void CheckNavigateBackAction(IInputMenu pInputMenu) {
 			if ( pInputMenu == null ) {
-				vIsGrabbing = false;
+				vIsNavigateBackStarted = false;
 				return;
 			}
 
-			if ( vIsGrabbing && pInputMenu.NavigateBackStrength <= 0 ) {
-				vIsGrabbing = false;
+			if ( vIsNavigateBackStarted && pInputMenu.NavigateBackStrength <= 0 ) {
+				vIsNavigateBackStarted = false;
 				return;
 			}
 
-			if ( vIsGrabbing || pInputMenu.NavigateBackStrength < 1 ) {
+			if ( vIsNavigateBackStarted || pInputMenu.NavigateBackStrength < 1 ) {
 				return;
 			}
 
-			vIsGrabbing = true;
+			vIsNavigateBackStarted = true;
 			vItemHierarchy.Back();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleLevelChange(int pDirection) {
+			vAllItems.Clear();
 			vItems.Clear();
 
 			IBaseItem[] items = vItemHierarchy.CurrentLevel.Items;
 
 			foreach ( IBaseItem item in items ) {
 				var seg = new BaseItemState(item, vInteractSettings);
+				vAllItems.Add(seg);
 				vItems.Add(seg);
 			}
 
+			vAllItems.Add(vPalmItem);
 			OnLevelChange(pDirection);
 		}
 
