@@ -1,20 +1,21 @@
 ﻿using System;
 using Hover.Common.Items;
 using Hover.Common.Items.Groups;
+using UnityEngine;
 
 namespace Hover.Board.Items {
 
 	/*================================================================================================*/
-	public class ItemGrid : ItemGroup, IItemGrid {
+	public class ItemLayout : ItemGroup, IItemLayout {
 
-		public int Cols { get; internal set; }
-		public float RowOffset { get; internal set; }
-		public float ColOffset { get; internal set; }
+		public Vector2 Anchor { get; internal set; }
+		public Vector2 Position { get; internal set; }
+		public Vector2 Direction { get; internal set; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public ItemGrid(Func<IBaseItem[]> pGetItems) : base(pGetItems) {
+		public ItemLayout(Func<IBaseItem[]> pGetItems) : base(pGetItems) {
 		}
 
 	}

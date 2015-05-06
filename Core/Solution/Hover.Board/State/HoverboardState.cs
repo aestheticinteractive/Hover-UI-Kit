@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using Hover.Board.Custom;
 using Hover.Board.Items;
@@ -15,7 +15,7 @@ namespace Hover.Board.State {
 
 		private struct ItemTree {
 			public PanelState Panel;
-			public GridState Grid;
+			public LayoutState Layout;
 			public BaseItemState Item;
 		}
 
@@ -51,11 +51,11 @@ namespace Hover.Board.State {
 					((GameObject)panel.ItemPanel.DisplayContainer).transform, Vector3.up);
 				panels.Add(panel);
 
-				foreach ( GridState grid in panel.Grids ) {
-					foreach ( BaseItemState item in grid.Items ) {
+				foreach ( LayoutState layout in panel.Layouts ) {
+					foreach ( BaseItemState item in layout.Items ) {
 						var tree = new ItemTree {
 							Panel = panel,
-							Grid = grid,
+							Layout = layout,
 							Item = item
 						};
 

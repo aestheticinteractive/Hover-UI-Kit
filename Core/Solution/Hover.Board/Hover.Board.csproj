@@ -64,25 +64,25 @@
     <Compile Include="Display\IUiItemRenderer.cs" />
     <Compile Include="Display\UiItem.cs" />
     <Compile Include="Display\UiProjection.cs" />
-    <Compile Include="Display\UiGrid.cs" />
     <Compile Include="Display\UiPanel.cs" />
     <Compile Include="Display\IUiProjectionRenderer.cs" />
     <Compile Include="HoverboardSetup.cs" />
-    <Compile Include="Items\HoverboardGrid.cs" />
     <Compile Include="Items\HoverboardItem.cs" />
     <Compile Include="Items\HoverboardItemListener.cs" />
     <Compile Include="Items\HoverboardPanelListener.cs" />
     <Compile Include="Items\HoverboardPanel.cs" />
-    <Compile Include="Items\IItemGrid.cs" />
-    <Compile Include="Items\ItemGrid.cs" />
     <Compile Include="Items\IItemPanel.cs" />
     <Compile Include="Items\ItemPanel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="State\ProjectionState.cs" />
-    <Compile Include="State\GridState.cs" />
     <Compile Include="State\IHoverboardState.cs" />
     <Compile Include="State\HoverboardState.cs" />
     <Compile Include="State\PanelState.cs" />
+    <Compile Include="Items\HoverboardLayout.cs" />
+    <Compile Include="Items\ItemLayout.cs" />
+    <Compile Include="Items\IItemLayout.cs" />
+    <Compile Include="Display\UiLayout.cs" />
+    <Compile Include="State\LayoutState.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Hover.Common\Hover.Common.csproj">

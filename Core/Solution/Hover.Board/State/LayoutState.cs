@@ -1,13 +1,13 @@
-﻿using Hover.Board.Custom;
+using Hover.Board.Custom;
 using Hover.Board.Items;
 using Hover.Common.State;
 
 namespace Hover.Board.State {
 
 	/*================================================================================================*/
-	public class GridState {
+	public class LayoutState {
 
-		public IItemGrid ItemGrid { get; private set; }
+		public IItemLayout ItemLayout { get; private set; }
 		public BaseItemState[] Items { get; private set; }
 
 		private readonly InteractionSettings vSettings;
@@ -15,8 +15,8 @@ namespace Hover.Board.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public GridState(IItemGrid pItemGrid, InteractionSettings pSettings) {
-			ItemGrid = pItemGrid;
+		public LayoutState(IItemLayout pItemLayout, InteractionSettings pSettings) {
+			ItemLayout = pItemLayout;
 			vSettings = pSettings;
 
 			RefreshItems();
@@ -26,10 +26,10 @@ namespace Hover.Board.State {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void RefreshItems() {
-			Items = new BaseItemState[ItemGrid.Items.Length];
+			Items = new BaseItemState[ItemLayout.Items.Length];
 
-			for ( int i = 0 ; i < ItemGrid.Items.Length ; i++ ) {
-				var item = new BaseItemState(ItemGrid.Items[i], vSettings);
+			for ( int i = 0 ; i < ItemLayout.Items.Length ; i++ ) {
+				var item = new BaseItemState(ItemLayout.Items[i], vSettings);
 				Items[i] = item;
 			}
 		}

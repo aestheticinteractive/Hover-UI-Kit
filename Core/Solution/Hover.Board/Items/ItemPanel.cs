@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Hover.Common.Items.Groups;
 
 namespace Hover.Board.Items {
@@ -15,9 +15,9 @@ namespace Hover.Board.Items {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public IItemGrid[] Grids {
+		public IItemLayout[] Layouts {
 			get {
-				return GetTypedGroups<IItemGrid>();
+				return GetTypedGroups<IItemLayout>();
 			}
 		}
 

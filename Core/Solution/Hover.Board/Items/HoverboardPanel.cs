@@ -16,7 +16,7 @@ namespace Hover.Board.Items {
 		/*--------------------------------------------------------------------------------------------*/
 		public ItemPanel GetPanel() {
 			if ( vPanel == null ) {
-				vPanel = new ItemPanel(GetChildGrids);
+				vPanel = new ItemPanel(GetChildLayouts);
 				vPanel.DisplayContainer = gameObject;
 				vPanel.IsEnabled = IsEnabled;
 				vPanel.IsVisible = IsVisible;
@@ -28,17 +28,17 @@ namespace Hover.Board.Items {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private IItemGrid[] GetChildGrids() {
+		private IItemLayout[] GetChildLayouts() {
 			Transform tx = gameObject.transform;
 			int childCount = tx.childCount;
-			var grids = new List<IItemGrid>();
+			var layouts = new List<IItemLayout>();
 			
 			for ( int i = 0 ; i < childCount ; ++i ) {
-				HoverboardGrid hgi = tx.GetChild(i).GetComponent<HoverboardGrid>();
-				grids.Add(hgi.GetGrid());
+				HoverboardLayout hgi = tx.GetChild(i).GetComponent<HoverboardLayout>();
+				layouts.Add(hgi.GetLayout());
 			}
 
-			return grids.ToArray();
+			return layouts.ToArray();
 		}
 
 	}

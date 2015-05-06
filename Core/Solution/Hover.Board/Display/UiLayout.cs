@@ -7,26 +7,26 @@ using UnityEngine;
 namespace Hover.Board.Display {
 
 	/*================================================================================================*/
-	public class UiGrid : MonoBehaviour {
+	public class UiLayout : MonoBehaviour {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal void Build(GridState pGridState, IItemVisualSettingsProvider pItemVisualSettProv) {
-			int cols = pGridState.ItemGrid.Cols;
-			int gi = 0;
+		internal void Build(LayoutState pLayoutState, IItemVisualSettingsProvider pItemVisualSettProv) {
+			Vector2 sumSize = Vector2.zero;
 
-			for ( int i = 0 ; i < pGridState.Items.Length ; i++ ) {
-				BaseItemState itemState = pGridState.Items[i];
+			for ( int i = 0 ; i < pLayoutState.Items.Length ; i++ ) {
+				BaseItemState itemState = pLayoutState.Items[i];
 				IItemVisualSettings visualSett = pItemVisualSettProv.GetSettings(itemState.Item);
 				GameObject itemObj = (GameObject)itemState.Item.DisplayContainer;
-				var pos = new Vector3(gi%cols, 0, (float)Math.Floor((float)gi/cols));
+				Vector2 pos = Vector2.Scale(sumSize, pLayoutState.ItemLayout.Direction);
 
 				UiItem uiItem = itemObj.AddComponent<UiItem>();
 				uiItem.Build(itemState, visualSett);
 				uiItem.transform.localPosition = pos*UiItem.Size;
 
-				gi += (int)itemState.Item.Width;
+				sumSize.x += itemState.Item.Width;
+				sumSize.y += itemState.Item.Height;
 			}
 
 			gameObject.transform.localPosition = Vector3.zero;
