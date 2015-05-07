@@ -12,6 +12,7 @@ namespace Hover.Board.Items {
 		public string Id = "";
 		public string Label = "";
 		public int Width = 1;
+		public int Height = 1;
 		public bool IsVisible = true;
 		public bool IsEnabled = true;
 
@@ -52,6 +53,7 @@ namespace Hover.Board.Items {
 			vItem.DisplayContainer = gameObject;
 			vItem.Label = (string.IsNullOrEmpty(Label) ? gameObject.name : Label);
 			vItem.Width = Width;
+			vItem.Height = Height;
 			vItem.IsVisible = IsVisible;
 			vItem.IsEnabled = IsEnabled;
 		}

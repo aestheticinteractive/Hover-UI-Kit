@@ -197,6 +197,7 @@ MonoBehaviour:
   Id: 
   Label: E
   Width: 1
+  Height: 1
   IsVisible: 1
   IsEnabled: 1
 --- !u!114 &301275810
@@ -220,6 +221,9 @@ MonoBehaviour:
   EdgeColor: {r: 1, g: 1, b: 1, a: 1}
   HighlightColor: {r: .533604264, g: .683823526, b: .110618494, a: 1}
   SelectionColor: {r: .899999976, g: .100000046, b: .613103509, a: 1}
+  SliderTrackColor: {r: .100000001, g: .100000001, b: .100000001, a: .5}
+  SliderFillColor: {r: .100000001, g: .899999976, b: .200000003, a: .5}
+  SliderTickColor: {r: 1, g: 1, b: 1, a: .200000003}
 --- !u!1 &379876345
 GameObject:
   m_ObjectHideFlags: 0
@@ -261,6 +265,8 @@ MonoBehaviour:
   m_Script: {fileID: -41654278, guid: ec0e2c4346a0dd94e9fa4af2ed7fcc12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsEnabled: 1
+  IsVisible: 1
 --- !u!1001 &549278135
 Prefab:
   m_ObjectHideFlags: 0
@@ -417,6 +423,7 @@ MonoBehaviour:
   Id: 
   Label: C
   Width: 1
+  Height: 1
   IsVisible: 1
   IsEnabled: 1
 --- !u!1 &1055260291
@@ -497,7 +504,7 @@ GameObject:
   - 4: {fileID: 1116306120}
   - 114: {fileID: 1116306121}
   m_Layer: 0
-  m_Name: Grid
+  m_Name: Layout
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -527,12 +534,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1116306119}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 871095036, guid: ec0e2c4346a0dd94e9fa4af2ed7fcc12, type: 3}
+  m_Script: {fileID: -1017713054, guid: ec0e2c4346a0dd94e9fa4af2ed7fcc12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Columns: 5
-  RowOffset: 0
-  ColumnOffset: -2
+  Anchor: 4
+  Position: {x: 0, y: 0}
+  GrowDirection: 1
+  IsEnabled: 1
+  IsVisible: 1
 --- !u!1 &1123838590
 GameObject:
   m_ObjectHideFlags: 0
@@ -577,6 +586,7 @@ MonoBehaviour:
   Id: 
   Label: F
   Width: 1
+  Height: 1
   IsVisible: 1
   IsEnabled: 1
 --- !u!1 &1186740686
@@ -620,6 +630,8 @@ MonoBehaviour:
   m_Script: {fileID: -41654278, guid: ec0e2c4346a0dd94e9fa4af2ed7fcc12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsEnabled: 1
+  IsVisible: 1
 --- !u!1 &1286165867
 GameObject:
   m_ObjectHideFlags: 0
@@ -664,6 +676,7 @@ MonoBehaviour:
   Id: 
   Label: A
   Width: 1
+  Height: 1
   IsVisible: 1
   IsEnabled: 1
 --- !u!1 &1697205596
@@ -710,6 +723,7 @@ MonoBehaviour:
   Id: 
   Label: D
   Width: 1
+  Height: 1
   IsVisible: 1
   IsEnabled: 1
 --- !u!1 &1828910545
@@ -829,6 +843,7 @@ MonoBehaviour:
   Id: 
   Label: B
   Width: 3
+  Height: 1
   IsVisible: 1
   IsEnabled: 1
 --- !u!4 &1862622603
@@ -864,6 +879,9 @@ MonoBehaviour:
   EdgeColor: {r: 1, g: 1, b: 1, a: 1}
   HighlightColor: {r: .522058845, g: .213496953, b: .138192058, a: 1}
   SelectionColor: {r: .899999976, g: .61310339, b: .100000046, a: 1}
+  SliderTrackColor: {r: .100000001, g: .100000001, b: .100000001, a: .5}
+  SliderFillColor: {r: .100000001, g: .899999976, b: .200000003, a: .5}
+  SliderTickColor: {r: 1, g: 1, b: 1, a: .200000003}
 --- !u!1 &1895604819
 GameObject:
   m_ObjectHideFlags: 0
@@ -874,7 +892,7 @@ GameObject:
   - 4: {fileID: 1895604820}
   - 114: {fileID: 1895604821}
   m_Layer: 0
-  m_Name: Grid
+  m_Name: Layout
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -904,12 +922,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1895604819}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 871095036, guid: ec0e2c4346a0dd94e9fa4af2ed7fcc12, type: 3}
+  m_Script: {fileID: -1017713054, guid: ec0e2c4346a0dd94e9fa4af2ed7fcc12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Columns: 3
-  RowOffset: 0
-  ColumnOffset: -1
+  Anchor: 4
+  Position: {x: 0, y: 0}
+  GrowDirection: 1
+  IsEnabled: 1
+  IsVisible: 1
 --- !u!1 &1941104513
 GameObject:
   m_ObjectHideFlags: 0

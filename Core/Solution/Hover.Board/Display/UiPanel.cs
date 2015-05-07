@@ -29,7 +29,10 @@ namespace Hover.Board.Display {
 				
 				UiLayout uiLayout = layoutObj.AddComponent<UiLayout>();
 				uiLayout.Build(layoutState, pItemVisualSettProv);
-				uiLayout.transform.localPosition = itemLayout.Position*UiItem.Size; //TODO: use Anchor
+
+				Vector2 pos = itemLayout.Position*UiItem.Size - uiLayout.Bounds.position - 
+					Vector2.Scale(itemLayout.Anchor, uiLayout.Bounds.size);
+				uiLayout.transform.localPosition = new Vector3(pos.x, 0, pos.y);
 			}
 		}
 		

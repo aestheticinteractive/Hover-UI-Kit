@@ -35,21 +35,22 @@ namespace Hover.Demo.BoardKeys.PrefabBuilders {
 
 			var panel = panelObj.AddComponent<HoverboardPanel>();
 
-			var rowList = new List<HoverboardGrid>();
-			HoverboardGrid row;
+			var rowList = new List<HoverboardLayout>();
+			HoverboardLayout row;
 
 			for ( int i = 0 ; i < 5 ; ++i ) {
 				var rowObj = new GameObject("Row"+i);
 				rowObj.transform.SetParent(panelObj.transform, false);
 
-				row = rowObj.AddComponent<HoverboardGrid>();
-				row.Columns = 100;
-				row.RowOffset = i-2.5f;
+				row = rowObj.AddComponent<HoverboardLayout>();
+				row.Anchor = HoverboardLayout.AnchorType.MiddleRight;
+				row.GrowDirection = HoverboardLayout.DirectionType.Left;
+				row.Position = new Vector2(0, i-2.5f);
 				rowList.Add(row);
 			}
 
 			row = rowList[0];
-			row.ColumnOffset = -5.5f;
+			row.Position.x = -5.5f;
 			BuildItem(row, "1", 1);
 			BuildItem(row, "2", 1);
 			BuildItem(row, "3", 1);
@@ -58,7 +59,7 @@ namespace Hover.Demo.BoardKeys.PrefabBuilders {
 			BuildItem(row, "6", 1);
 
 			row = rowList[1];
-			row.ColumnOffset = -5;
+			row.Position.x = -5;
 			BuildItem(row, "Q", 1);
 			BuildItem(row, "W", 1);
 			BuildItem(row, "E", 1);
@@ -66,7 +67,7 @@ namespace Hover.Demo.BoardKeys.PrefabBuilders {
 			BuildItem(row, "T", 1);
 
 			row = rowList[2];
-			row.ColumnOffset = -4.5f;
+			row.Position.x = -4.5f;
 			BuildItem(row, "A", 1);
 			BuildItem(row, "S", 1);
 			BuildItem(row, "D", 1);
@@ -74,7 +75,7 @@ namespace Hover.Demo.BoardKeys.PrefabBuilders {
 			BuildItem(row, "G", 1);
 
 			row = rowList[3];
-			row.ColumnOffset = -6;
+			row.Position.x = -6;
 			BuildItem(row, "^", 2);
 			BuildItem(row, "Z", 1);
 			BuildItem(row, "X", 1);
@@ -82,7 +83,7 @@ namespace Hover.Demo.BoardKeys.PrefabBuilders {
 			BuildItem(row, "V", 1);
 
 			row = rowList[4];
-			row.ColumnOffset = -3.5f;
+			row.Position.x = -3.5f;
 			BuildItem(row, " ", 4);
 
 			return panel;
@@ -95,21 +96,22 @@ namespace Hover.Demo.BoardKeys.PrefabBuilders {
 
 			var panel = panelObj.AddComponent<HoverboardPanel>();
 
-			var rowList = new List<HoverboardGrid>();
-			HoverboardGrid row;
+			var rowList = new List<HoverboardLayout>();
+			HoverboardLayout row;
 
 			for ( int i = 0 ; i < 5 ; ++i ) {
 				var rowObj = new GameObject("Row"+i);
 				rowObj.transform.SetParent(panelObj.transform, false);
 
-				row = rowObj.AddComponent<HoverboardGrid>();
-				row.Columns = 100;
-				row.RowOffset = i-2.5f;
+				row = rowObj.AddComponent<HoverboardLayout>();
+				row.Anchor = HoverboardLayout.AnchorType.MiddleLeft;
+				row.GrowDirection = HoverboardLayout.DirectionType.Right;
+				row.Position = new Vector2(0, i-2.5f);
 				rowList.Add(row);
 			}
 
 			row = rowList[0];
-			row.ColumnOffset = 0;
+			row.Position.x = 0;
 			BuildItem(row, "7", 1);
 			BuildItem(row, "8", 1);
 			BuildItem(row, "9", 1);
@@ -117,7 +119,7 @@ namespace Hover.Demo.BoardKeys.PrefabBuilders {
 			BuildItem(row, "BACK", 2);
 
 			row = rowList[1];
-			row.ColumnOffset = -0.5f;
+			row.Position.x = -0.5f;
 			BuildItem(row, "Y", 1);
 			BuildItem(row, "U", 1);
 			BuildItem(row, "I", 1);
@@ -125,7 +127,7 @@ namespace Hover.Demo.BoardKeys.PrefabBuilders {
 			BuildItem(row, "P", 1);
 
 			row = rowList[2];
-			row.ColumnOffset = 0;
+			row.Position.x = 0;
 			BuildItem(row, "H", 1);
 			BuildItem(row, "J", 1);
 			BuildItem(row, "K", 1);
@@ -133,7 +135,7 @@ namespace Hover.Demo.BoardKeys.PrefabBuilders {
 			BuildItem(row, "ENTER", 2);
 
 			row = rowList[3];
-			row.ColumnOffset = -0.5f;
+			row.Position.x = -0.5f;
 			BuildItem(row, "B", 1);
 			BuildItem(row, "N", 1);
 			BuildItem(row, "M", 1);
@@ -141,16 +143,16 @@ namespace Hover.Demo.BoardKeys.PrefabBuilders {
 			BuildItem(row, "^", 2);
 
 			row = rowList[4];
-			row.ColumnOffset = 0;
+			row.Position.x = 0;
 			BuildItem(row, " ", 4);
 
 			return panel;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private static HoverboardItem BuildItem(HoverboardGrid pGrid, string pLabel, int pWidth) {
+		private static HoverboardItem BuildItem(HoverboardLayout pLayout, string pLabel, int pWidth) {
 			var itemObj = new GameObject(pLabel);
-			itemObj.transform.SetParent(pGrid.gameObject.transform, false);
+			itemObj.transform.SetParent(pLayout.gameObject.transform, false);
 
 			var item = itemObj.AddComponent<HoverboardItem>();
 			item.Type = SelectableItemType.Selector;

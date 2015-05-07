@@ -29,8 +29,8 @@ namespace Hover.Demo.BoardKeys {
 				.ToArray();
 
 			foreach ( ItemPanel itemPanel in itemPanels ) {
-				foreach ( IItemGrid itemGrid in itemPanel.Grids ) {
-					foreach ( IBaseItem item in itemGrid.Items ) {
+				foreach ( IItemLayout itemLayout in itemPanel.Layouts ) {
+					foreach ( IBaseItem item in itemLayout.Items ) {
 						ISelectableItem selItem = (item as ISelectableItem);
 
 						if ( selItem == null ) {
