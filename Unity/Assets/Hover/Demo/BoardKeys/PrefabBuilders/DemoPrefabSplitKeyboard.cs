@@ -8,10 +8,15 @@ namespace Hover.Demo.BoardKeys.PrefabBuilders {
 	/*================================================================================================*/
 	public class DemoPrefabSplitKeyboard : MonoBehaviour {
 
+		private List<HoverboardItem> vItems;
+		private bool vAreRenderersRemoved;
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
+			vItems = new List<HoverboardItem>();
+
 			HoverboardPanel leftPanel = BuildLeftPanel(gameObject);
 			HoverboardPanel rightPanel = BuildRightPanel(gameObject);
 
@@ -25,11 +30,25 @@ namespace Hover.Demo.BoardKeys.PrefabBuilders {
 				Quaternion.FromToRotation(Vector3.up, Vector3.forward)*
 				Quaternion.AngleAxis(-40, Vector3.back);
 		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public void Update() {
+			if ( vAreRenderersRemoved ) {
+				return;
+			}
+
+			vAreRenderersRemoved = true;
+
+			//the renderers will be recreated by the components in the saved prefab (at runtime)
+			foreach ( HoverboardItem item in vItems ) {
+				Destroy(item.gameObject.transform.FindChild("Renderer").gameObject);
+			}
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private static HoverboardPanel BuildLeftPanel(GameObject pParent) {
+		private HoverboardPanel BuildLeftPanel(GameObject pParent) {
 			var panelObj = new GameObject("LeftPanel");
 			panelObj.transform.SetParent(pParent.transform, false);
 
@@ -44,13 +63,13 @@ namespace Hover.Demo.BoardKeys.PrefabBuilders {
 
 				row = rowObj.AddComponent<HoverboardLayout>();
 				row.Anchor = HoverboardLayout.AnchorType.MiddleRight;
-				row.GrowDirection = HoverboardLayout.DirectionType.Left;
+				row.GrowDirection = HoverboardLayout.DirectionType.Right;
 				row.Position = new Vector2(0, i-2.5f);
 				rowList.Add(row);
 			}
 
 			row = rowList[0];
-			row.Position.x = -5.5f;
+			row.Position.x = 0.5f;
 			BuildItem(row, "1", 1);
 			BuildItem(row, "2", 1);
 			BuildItem(row, "3", 1);
@@ -59,7 +78,7 @@ namespace Hover.Demo.BoardKeys.PrefabBuilders {
 			BuildItem(row, "6", 1);
 
 			row = rowList[1];
-			row.Position.x = -5;
+			row.Position.x = 0;
 			BuildItem(row, "Q", 1);
 			BuildItem(row, "W", 1);
 			BuildItem(row, "E", 1);
@@ -67,7 +86,7 @@ namespace Hover.Demo.BoardKeys.PrefabBuilders {
 			BuildItem(row, "T", 1);
 
 			row = rowList[2];
-			row.Position.x = -4.5f;
+			row.Position.x = 0.5f;
 			BuildItem(row, "A", 1);
 			BuildItem(row, "S", 1);
 			BuildItem(row, "D", 1);
@@ -75,7 +94,7 @@ namespace Hover.Demo.BoardKeys.PrefabBuilders {
 			BuildItem(row, "G", 1);
 
 			row = rowList[3];
-			row.Position.x = -6;
+			row.Position.x = 0;
 			BuildItem(row, "^", 2);
 			BuildItem(row, "Z", 1);
 			BuildItem(row, "X", 1);
@@ -83,14 +102,14 @@ namespace Hover.Demo.BoardKeys.PrefabBuilders {
 			BuildItem(row, "V", 1);
 
 			row = rowList[4];
-			row.Position.x = -3.5f;
+			row.Position.x = 0.5f;
 			BuildItem(row, " ", 4);
 
 			return panel;
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		private static HoverboardPanel BuildRightPanel(GameObject pParent) {
+		private HoverboardPanel BuildRightPanel(GameObject pParent) {
 			var panelObj = new GameObject("RightPanel");
 			panelObj.transform.SetParent(pParent.transform, false);
 
@@ -150,7 +169,7 @@ namespace Hover.Demo.BoardKeys.PrefabBuilders {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private static HoverboardItem BuildItem(HoverboardLayout pLayout, string pLabel, int pWidth) {
+		private HoverboardItem BuildItem(HoverboardLayout pLayout, string pLabel, int pWidth) {
 			var itemObj = new GameObject(pLabel);
 			itemObj.transform.SetParent(pLayout.gameObject.transform, false);
 
@@ -158,6 +177,8 @@ namespace Hover.Demo.BoardKeys.PrefabBuilders {
 			item.Type = SelectableItemType.Selector;
 			item.Label = pLabel;
 			item.Width = pWidth;
+
+			vItems.Add(item);
 			return item;
 		}
 
