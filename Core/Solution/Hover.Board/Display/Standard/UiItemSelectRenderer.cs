@@ -29,7 +29,7 @@ namespace Hover.Board.Display.Standard {
 			vVisualSettings = (ItemVisualSettingsStandard)pSettings;
 
 			float width = UiItem.Size*vItemState.Item.Width;
-			const float height = UiItem.Size;
+			float height = UiItem.Size*vItemState.Item.Height;
 
 			gameObject.transform.SetParent(gameObject.transform, false);
 			gameObject.transform.localPosition = new Vector3(width/2, 0, height/2f);
