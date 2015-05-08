@@ -14,12 +14,6 @@ namespace Hover.Board.Display.Standard {
 			return IconTex;
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
-		protected override Vector3 GetIconScale() {
-			float s = vSettings.TextSize*LabelCanvasScale;
-			return new Vector3(s, s, 1);
-		}
-
 	}
 
 }

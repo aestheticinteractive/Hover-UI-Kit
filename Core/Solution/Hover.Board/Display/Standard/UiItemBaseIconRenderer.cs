@@ -53,7 +53,7 @@ namespace Hover.Board.Display.Standard {
 			if ( vSettings.TextSize != vPrevTextSize ) {
 				vPrevTextSize = vSettings.TextSize;
 
-				float inset = vLabel.TextH*0.4f;
+				float inset = vSettings.TextSize;
 				vLabel.SetInset(false, inset);
 
 				vIcon.transform.localPosition = new Vector3(
