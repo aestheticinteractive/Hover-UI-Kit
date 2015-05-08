@@ -11,8 +11,8 @@ namespace Hover.Board.Items {
 		public SelectableItemType Type;
 		public string Id = "";
 		public string Label = "";
-		public int Width = 1;
-		public int Height = 1;
+		public float Width = 1;
+		public float Height = 1;
 		public bool IsVisible = true;
 		public bool IsEnabled = true;
 

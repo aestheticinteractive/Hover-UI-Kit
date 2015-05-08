@@ -32,8 +32,8 @@ namespace Hover.Board.Edit.Items {
 
 			vTarget.Id = EditorGUILayout.TextField("ID (optional)", vTarget.Id);
 			vTarget.Label = EditorGUILayout.TextField("Label", vTarget.Label);
-			vTarget.Width = EditorGUILayout.IntField("Width", vTarget.Width);
-			vTarget.Height = EditorGUILayout.IntField("Height", vTarget.Height);
+			vTarget.Width = EditorGUILayout.FloatField("Width", vTarget.Width);
+			vTarget.Height = EditorGUILayout.FloatField("Height", vTarget.Height);
 			vTarget.IsVisible = EditorGUILayout.Toggle("Visible", vTarget.IsVisible);
 			vTarget.IsEnabled = EditorGUILayout.Toggle("Enabled", vTarget.IsEnabled);
 
