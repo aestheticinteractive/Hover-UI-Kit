@@ -1,6 +1,9 @@
-﻿using Hover.Board.Display.Standard;
+﻿using System;
+using Hover.Board.Display.Standard;
 using Hover.Common.Custom;
 using Hover.Common.Items;
+using Hover.Common.Items.Groups;
+using Hover.Common.Items.Types;
 using UnityEngine;
 
 namespace Hover.Board.Custom.Standard {
@@ -48,8 +51,31 @@ namespace Hover.Board.Custom.Standard {
 				sett.SliderTickColor = SliderTickColor;
 			}
 
-			sett.Renderer = typeof(UiItemSelectRenderer); //TODO: FEATURE: handle other item types
+			sett.Renderer = GetRendererForItem(pItem);
 			return sett;
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private static Type GetRendererForItem(IBaseItem pItem) {
+			if ( (pItem as ISelectorItem) != null ) {
+				return typeof(UiItemSelectRenderer);
+			}
+
+			if ( (pItem as IStickyItem) != null ) {
+				return typeof(UiItemStickyRenderer);
+			}
+
+			if ( (pItem as ICheckboxItem) != null ) {
+				return typeof(UiItemCheckboxRenderer);
+			}
+
+			if ( (pItem as IRadioItem) != null ) {
+				return typeof(UiItemRadioRenderer);
+			}
+
+			return typeof(UiItemSelectRenderer);
 		}
 
 	}

@@ -54,10 +54,11 @@ namespace Hover.Common.Display {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void SetSize(float pWidth, float pHeight, float pCanvasScale) {
+		public void SetSize(float pWidth, float pHeight, float pTextPadW, float pCanvasScale) {
 			vCanvasGroupObj.transform.localScale = Vector3.one*pCanvasScale;
 			CanvasW = pWidth/pCanvasScale;
 			CanvasH = pHeight/pCanvasScale;
+			TextPadW = pTextPadW;
 			UpdateSizing();
 		}
 
@@ -75,7 +76,6 @@ namespace Hover.Common.Display {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateSizing() {
-			TextPadW = vFontSize*0.6f;
 			TextW = CanvasW-TextPadW*2;
 			TextH = CanvasH-TextPadH*2;
 

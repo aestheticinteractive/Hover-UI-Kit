@@ -98,7 +98,7 @@ namespace Hover.Cast.Display.Standard {
 
 			if ( vSettings.TextSize != vLabel.FontSize ) {
 				vLabel.SetSize(ArcCanvasThickness*ArcCanvasScale, 
-					vSettings.TextSize*1.5f*ArcCanvasScale, ArcCanvasScale);
+					vSettings.TextSize*1.5f*ArcCanvasScale, vSettings.TextSize*0.6f, ArcCanvasScale);
 			}
 
 			vLabel.Alpha = vMainAlpha;

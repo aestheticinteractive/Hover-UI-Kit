@@ -1,5 +1,4 @@
 using Hover.Board.Items;
-using Hover.Common.Items.Types;
 using UnityEditor;
 using UnityEngine;
 
@@ -37,8 +36,18 @@ namespace Hover.Board.Edit.Items {
 			vTarget.IsVisible = EditorGUILayout.Toggle("Visible", vTarget.IsVisible);
 			vTarget.IsEnabled = EditorGUILayout.Toggle("Enabled", vTarget.IsEnabled);
 
-			//vTarget.Type = (SelectableItemType)EditorGUILayout.EnumPopup("Item Type", vTarget.Type);
-			vTarget.Type = SelectableItemType.Selector;
+			vTarget.Type = (HoverboardItem.HoverboardItemType)EditorGUILayout.EnumPopup(
+				"Item Type", vTarget.Type);
+
+			switch ( vTarget.Type ) {
+				case HoverboardItem.HoverboardItemType.Checkbox:
+					vTarget.CheckboxValue = EditorGUILayout.Toggle("Value", vTarget.CheckboxValue);
+					break;
+
+				case HoverboardItem.HoverboardItemType.Radio:
+					vTarget.RadioValue = EditorGUILayout.Toggle("Value", vTarget.RadioValue);
+					break;
+			}
 
 			if ( GUI.changed ) {
 				EditorUtility.SetDirty(vTarget);

@@ -174,7 +174,7 @@ namespace Hover.Demo.BoardKeys.PrefabBuilders {
 			itemObj.transform.SetParent(pLayout.gameObject.transform, false);
 
 			var item = itemObj.AddComponent<HoverboardItem>();
-			item.Type = SelectableItemType.Selector;
+			item.Type = HoverboardItem.HoverboardItemType.Selector;
 			item.Label = pLabel;
 			item.Width = pWidth;
 

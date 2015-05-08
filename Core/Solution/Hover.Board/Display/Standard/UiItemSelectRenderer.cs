@@ -11,22 +11,22 @@ namespace Hover.Board.Display.Standard {
 	/*================================================================================================*/
 	public class UiItemSelectRenderer : MonoBehaviour, IUiItemRenderer {
 
-		public const float ArcCanvasScale = UiItem.Size*0.012f;
+		public const float LabelCanvasScale = UiItem.Size*0.012f;
 
-		private IBaseItemState vItemState;
-		private ItemVisualSettingsStandard vVisualSettings;
+		protected IBaseItemState vItemState;
+		protected ItemVisualSettingsStandard vSettings;
 
-		private float vMainAlpha;
+		protected float vMainAlpha;
 
-		private UiHoverMeshRect vHoverRect;
-		private UiLabel vLabel;
+		protected UiHoverMeshRect vHoverRect;
+		protected UiLabel vLabel;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Build(IBaseItemState pItemState, IItemVisualSettings pSettings) {
+		public virtual void Build(IBaseItemState pItemState, IItemVisualSettings pSettings) {
 			vItemState = pItemState;
-			vVisualSettings = (ItemVisualSettingsStandard)pSettings;
+			vSettings = (ItemVisualSettingsStandard)pSettings;
 
 			float width = UiItem.Size*vItemState.Item.Width;
 			float height = UiItem.Size*vItemState.Item.Height;
@@ -40,7 +40,7 @@ namespace Hover.Board.Display.Standard {
 			var labelObj = new GameObject("Label");
 			labelObj.transform.SetParent(gameObject.transform, false);
 			vLabel = labelObj.AddComponent<UiLabel>();
-			vLabel.SetSize(width, height, ArcCanvasScale);
+			vLabel.SetSize(width, height, vSettings.TextSize*0.25f, LabelCanvasScale);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -51,7 +51,7 @@ namespace Hover.Board.Display.Standard {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void Update() {
+		public virtual void Update() {
 			vMainAlpha = 1;
 
 			if ( !vItemState.Item.IsEnabled || !vItemState.Item.AreParentsEnabled ) {
@@ -70,10 +70,10 @@ namespace Hover.Board.Display.Standard {
 				selectAlpha = 1;
 			}
 
-			Color colBg = vVisualSettings.BackgroundColor;
-			Color colEdge = vVisualSettings.EdgeColor;
-			Color colHigh = vVisualSettings.HighlightColor;
-			Color colSel = vVisualSettings.SelectionColor;
+			Color colBg = vSettings.BackgroundColor;
+			Color colEdge = vSettings.EdgeColor;
+			Color colHigh = vSettings.HighlightColor;
+			Color colSel = vSettings.SelectionColor;
 
 			colBg.a *= vMainAlpha;
 			colEdge.a *= edge*vMainAlpha;
@@ -86,9 +86,9 @@ namespace Hover.Board.Display.Standard {
 			vHoverRect.UpdateSelect(colSel, select);
 
 			vLabel.Alpha = vMainAlpha;
-			vLabel.FontName = vVisualSettings.TextFont;
-			vLabel.FontSize = vVisualSettings.TextSize;
-			vLabel.Color = vVisualSettings.TextColor;
+			vLabel.FontName = vSettings.TextFont;
+			vLabel.FontSize = vSettings.TextSize;
+			vLabel.Color = vSettings.TextColor;
 			vLabel.Label = vItemState.Item.Label;
 		}
 

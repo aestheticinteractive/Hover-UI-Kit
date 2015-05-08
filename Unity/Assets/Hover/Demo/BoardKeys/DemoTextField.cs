@@ -35,7 +35,7 @@ namespace Hover.Demo.BoardKeys {
 			green.a *= 0.5f;
 
 			vTextEntry = lblObj.AddComponent<UiLabel>();
-			vTextEntry.SetSize(width, 1, UiItem.Size*0.012f);
+			vTextEntry.SetSize(width, 1, 60*0.6f, UiItem.Size*0.012f);
 			vTextEntry.FontName = "Tahoma";
 			vTextEntry.FontSize = 60;
 			vTextEntry.Color = green;

@@ -80,7 +80,7 @@ namespace Hover.Cast.Display.Standard {
 				const float scale = UiItemSelectRenderer.ArcCanvasScale;
 
 				vLabel.SetSize(UiItemSelectRenderer.ArcCanvasThickness*scale, 
-					vSettings.TextSize*1.5f*scale, scale);
+					vSettings.TextSize*1.5f*scale, vSettings.TextSize*0.6f, scale);
 			}
 
 			vLabel.Alpha = vMainAlpha;

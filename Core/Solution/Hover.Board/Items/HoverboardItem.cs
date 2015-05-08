@@ -8,13 +8,24 @@ namespace Hover.Board.Items {
 	/*================================================================================================*/
 	public class HoverboardItem : MonoBehaviour, IHovercommonItem {
 
-		public SelectableItemType Type;
+		public enum HoverboardItemType {
+			Selector = SelectableItemType.Selector,
+			Sticky = SelectableItemType.Sticky,
+			Checkbox = SelectableItemType.Checkbox,
+			Radio = SelectableItemType.Radio
+		}
+
+		public HoverboardItemType Type;
 		public string Id = "";
 		public string Label = "";
 		public float Width = 1;
 		public float Height = 1;
 		public bool IsVisible = true;
 		public bool IsEnabled = true;
+
+		public bool CheckboxValue;
+
+		public bool RadioValue;
 
 		private BaseItem vItem;
 
@@ -34,12 +45,24 @@ namespace Hover.Board.Items {
 		/*--------------------------------------------------------------------------------------------*/
 		private void BuildItem() {
 			switch ( Type ) {
-				case SelectableItemType.Selector:
+				case HoverboardItemType.Selector:
 					vItem = new SelectorItem();
 					break;
 
-				case SelectableItemType.Sticky:
+				case HoverboardItemType.Sticky:
 					vItem = new StickyItem();
+					break;
+
+				case HoverboardItemType.Checkbox:
+					var checkItem = new CheckboxItem();
+					checkItem.Value = CheckboxValue;
+					vItem = checkItem;
+					break;
+
+				case HoverboardItemType.Radio:
+					var radItem = new RadioItem();
+					radItem.Value = RadioValue;
+					vItem = radItem;
 					break;
 
 				default:

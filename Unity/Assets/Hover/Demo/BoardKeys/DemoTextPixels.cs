@@ -14,7 +14,7 @@ namespace Hover.Demo.BoardKeys {
 		/*--------------------------------------------------------------------------------------------*/
 		public DemoTextPixels(UiLabel pLabel) {
 			vUiLabel = pLabel;
-			vUiLabel.SetSize(1, 1, 1);
+			vUiLabel.SetSize(1, 1, 1, 1);
 			vUiLabel.FontName = "TahomaPixel16";
 			vUiLabel.Alpha = 1;
 			vUiLabel.Color = Color.red;
