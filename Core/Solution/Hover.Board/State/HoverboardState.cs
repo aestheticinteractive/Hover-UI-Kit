@@ -19,7 +19,7 @@ namespace Hover.Board.State {
 			public BaseItemState Item;
 		}
 
-		public PanelState[] Panels { get; private set; }
+		public PanelState[] FullPanels { get; private set; }
 
 		private readonly HovercursorSetup vHovercusorSetup;
 		private readonly InteractionSettings vInteractSett;
@@ -64,7 +64,7 @@ namespace Hover.Board.State {
 				}
 			}
 
-			Panels = panels.ToArray();
+			FullPanels = panels.ToArray();
 			vAllItems = allItems.ToArray();
 			ActiveCursorTypes = new CursorType[0];
 		}
@@ -75,6 +75,13 @@ namespace Hover.Board.State {
 		public IHovercursorState Hovercursor {
 			get {
 				return vHovercusorSetup.State;
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public IHoverboardPanelState[] Panels {
+			get {
+				return FullPanels.Cast<IHoverboardPanelState>().ToArray();
 			}
 		}
 
@@ -97,7 +104,7 @@ namespace Hover.Board.State {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateAfterInput() {
-			PanelState[] activePanels = Panels
+			PanelState[] activePanels = FullPanels
 				.Where(x => x.ItemPanel.IsVisible && x.ItemPanel.IsEnabled)
 				.ToArray();
 

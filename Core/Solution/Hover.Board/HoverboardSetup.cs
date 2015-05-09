@@ -69,7 +69,7 @@ namespace Hover.Board {
 			vUiPanels = new UiPanel[vState.Panels.Length];
 
 			for ( int i = 0 ; i < vUiPanels.Length ; ++i ) {
-				PanelState panelState = vState.Panels[i];
+				PanelState panelState = vState.FullPanels[i];
 				GameObject panelObj = (GameObject)panelState.ItemPanel.DisplayContainer;
 				UiPanel uiPanel = panelObj.AddComponent<UiPanel>();
 				uiPanel.Build(panelState, DefaultItemVisualSettings);
@@ -84,7 +84,7 @@ namespace Hover.Board {
 			vState.UpdateAfterInput();
 
 			foreach ( PanelState panelState in vState.Panels ) {
-				ItemPanel itemPanel = panelState.ItemPanel;
+				IItemPanel itemPanel = panelState.ItemPanel;
 				((GameObject)itemPanel.DisplayContainer).SetActive(itemPanel.IsVisible);
 			}
 

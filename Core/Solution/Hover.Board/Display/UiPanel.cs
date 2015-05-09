@@ -21,7 +21,7 @@ namespace Hover.Board.Display {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		internal void Build(PanelState pPanelState, IItemVisualSettingsProvider pItemVisualSettProv) {
-			vLayoutStates = pPanelState.Layouts;
+			vLayoutStates = pPanelState.FullLayouts;
 
 			foreach ( LayoutState layoutState in vLayoutStates ) {
 				IItemLayout itemLayout = layoutState.ItemLayout;

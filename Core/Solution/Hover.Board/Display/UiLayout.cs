@@ -19,8 +19,8 @@ namespace Hover.Board.Display {
 			Vector2 posMin = Vector2.zero;
 			Vector2 posMax = Vector2.zero;
 
-			for ( int i = 0 ; i < pLayoutState.Items.Length ; i++ ) {
-				BaseItemState itemState = pLayoutState.Items[i];
+			for ( int i = 0 ; i < pLayoutState.FullItems.Length ; i++ ) {
+				BaseItemState itemState = pLayoutState.FullItems[i];
 				IItemVisualSettings visualSett = pItemVisualSettProv.GetSettings(itemState.Item);
 				GameObject itemObj = (GameObject)itemState.Item.DisplayContainer;
 
