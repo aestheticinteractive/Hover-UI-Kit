@@ -24,11 +24,25 @@ namespace Hover.Board.State {
 			RefreshLayouts();
 		}
 
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public IHoverboardLayoutState[] Layouts {
 			get {
 				return FullLayouts.Cast<IHoverboardLayoutState>().ToArray();
 			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void PreventEveryItemSelectionViaDisplay(string pName, bool pPrevent) {
+			foreach ( LayoutState layout in FullLayouts ) {
+				layout.PreventEveryItemSelectionViaDisplay(pName, pPrevent);
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool IsEveryItemSelectionPreventedViaDisplay() {
+			return FullLayouts.All(x => x.IsEveryItemSelectionPreventedViaDisplay());
 		}
 
 

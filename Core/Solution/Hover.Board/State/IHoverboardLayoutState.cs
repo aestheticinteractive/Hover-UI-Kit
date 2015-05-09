@@ -9,6 +9,14 @@ namespace Hover.Board.State {
 		IItemLayout ItemLayout { get; }
 		IBaseItemState[] Items { get; }
 
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		void PreventEveryItemSelectionViaDisplay(string pName, bool pPrevent);
+
+		/*--------------------------------------------------------------------------------------------*/
+		bool IsEveryItemSelectionPreventedViaDisplay();
+
 	}
 
 }

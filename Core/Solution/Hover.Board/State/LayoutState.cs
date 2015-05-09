@@ -23,13 +23,26 @@ namespace Hover.Board.State {
 			RefreshItems();
 		}
 
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public IBaseItemState[] Items {
 			get {
 				return FullItems.Cast<IBaseItemState>().ToArray();
 			}
 		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public void PreventEveryItemSelectionViaDisplay(string pName, bool pPrevent) {
+			foreach ( BaseItemState item in FullItems ) {
+				item.PreventSelectionViaDisplay(pName, pPrevent);
+			}
+		}
 
+		/*--------------------------------------------------------------------------------------------*/
+		public bool IsEveryItemSelectionPreventedViaDisplay() {
+			return FullItems.All(x => x.IsSelectionPreventedViaDisplay());
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

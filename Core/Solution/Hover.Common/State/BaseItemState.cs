@@ -135,6 +135,17 @@ namespace Hover.Common.State {
 			vPreventSelectionViaDisplayMap[pName] = pPrevent;
 		}
 
+		/*--------------------------------------------------------------------------------------------*/
+		public bool IsSelectionPreventedViaDisplay() {
+			return vPreventSelectionViaDisplayMap.Values.Any(x => x);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool IsSelectionPreventedViaDisplay(string pName) {
+			return (vPreventSelectionViaDisplayMap.ContainsKey(pName) && 
+				vPreventSelectionViaDisplayMap[pName]);
+		}
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/

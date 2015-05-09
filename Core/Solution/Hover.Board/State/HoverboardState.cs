@@ -51,8 +51,8 @@ namespace Hover.Board.State {
 					((GameObject)panel.ItemPanel.DisplayContainer).transform, Vector3.up);
 				panels.Add(panel);
 
-				foreach ( LayoutState layout in panel.Layouts ) {
-					foreach ( BaseItemState item in layout.Items ) {
+				foreach ( LayoutState layout in panel.FullLayouts ) {
+					foreach ( BaseItemState item in layout.FullItems ) {
 						var tree = new ItemTree {
 							Panel = panel,
 							Layout = layout,
@@ -105,7 +105,8 @@ namespace Hover.Board.State {
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateAfterInput() {
 			PanelState[] activePanels = FullPanels
-				.Where(x => x.ItemPanel.IsVisible && x.ItemPanel.IsEnabled)
+				.Where(x => x.ItemPanel.IsVisible && x.ItemPanel.IsEnabled &&	
+					!x.IsEveryItemSelectionPreventedViaDisplay())
 				.ToArray();
 
 			IsCursorInteractionEnabled = (activePanels.Length > 0);

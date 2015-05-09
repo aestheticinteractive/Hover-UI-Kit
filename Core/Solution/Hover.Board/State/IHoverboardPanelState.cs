@@ -8,6 +8,14 @@ namespace Hover.Board.State {
 		IItemPanel ItemPanel { get; }
 		IHoverboardLayoutState[] Layouts { get; }
 
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		void PreventEveryItemSelectionViaDisplay(string pName, bool pPrevent);
+
+		/*--------------------------------------------------------------------------------------------*/
+		bool IsEveryItemSelectionPreventedViaDisplay();
+
 	}
 
 }
