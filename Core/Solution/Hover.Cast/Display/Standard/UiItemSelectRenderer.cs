@@ -18,7 +18,7 @@ namespace Hover.Cast.Display.Standard {
 		public const float ArcCanvasThickness = 250;
 		public const float ArcCanvasScale = 0.002f;
 
-		protected MenuState vMenuState;
+		protected IHovercastMenuState vMenuState;
 		protected IBaseItemState vItemState;
 		protected ItemVisualSettingsStandard vSettings;
 
@@ -31,7 +31,7 @@ namespace Hover.Cast.Display.Standard {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Build(MenuState pMenuState, IBaseItemState pItemState,
+		public virtual void Build(IHovercastMenuState pMenuState, IBaseItemState pItemState,
 													float pArcAngle, IItemVisualSettings pSettings) {
 			vMenuState = pMenuState;
 			vItemState = pItemState;
@@ -65,7 +65,7 @@ namespace Hover.Cast.Display.Standard {
 		public virtual void Update() {
 			vMainAlpha = GetArcAlpha(vMenuState)*vAnimAlpha;
 
-			if ( !vItemState.Item.IsEnabled || !vItemState.Item.AreParentsEnabled ) {
+			if ( !vItemState.Item.IsEnabled || !vItemState.Item.IsAncestryEnabled ) {
 				vMainAlpha *= 0.333f;
 			}
 
@@ -122,7 +122,7 @@ namespace Hover.Cast.Display.Standard {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public static float GetArcAlpha(MenuState pMenuState) {
+		public static float GetArcAlpha(IHovercastMenuState pMenuState) {
 			float alpha = 1-(float)Math.Pow(1-pMenuState.DisplayStrength, 2);
 			alpha -= (float)Math.Pow(pMenuState.NavBackStrength, 2)*0.5f;
 			return Math.Max(0, alpha);

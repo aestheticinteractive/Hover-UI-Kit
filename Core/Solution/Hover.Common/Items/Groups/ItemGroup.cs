@@ -17,8 +17,8 @@ namespace Hover.Common.Items.Groups {
 		private IBaseItem[] vActiveItems;
 		private bool vIsEnabled;
 		private bool vIsVisible;
-		private Func<bool> vAreParentsEnabledFunc;
-		private Func<bool> vAreParentsVisibleFunc;
+		private bool vIsAncestryEnabled;
+		private bool vIsAncestryVisible;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -27,6 +27,8 @@ namespace Hover.Common.Items.Groups {
 			vGetItems = pGetItems;
 			vIsEnabled = true;
 			vIsVisible = true;
+			vIsAncestryEnabled = true;
+			vIsAncestryVisible = true;
 
 			OnItemSelected += ((l,i) => {});
 		}
@@ -38,6 +40,7 @@ namespace Hover.Common.Items.Groups {
 			get {
 				if ( vActiveItems == null ) {
 					vActiveItems = GetLatestActiveItems();
+					UpdateActiveEnabledAndVisible();
 				}
 				
 				return vActiveItems;
@@ -50,13 +53,19 @@ namespace Hover.Common.Items.Groups {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void SetParentsEnabledFunc(Func<bool> pFunc) {
-			vAreParentsEnabledFunc = pFunc;
-		}
+		public void ReloadActiveItems() {
+			if ( vActiveItems == null ) {
+				return;
+			}
 
-		/*--------------------------------------------------------------------------------------------*/
-		public void SetParentsVisibleFunc(Func<bool> pFunc) {
-			vAreParentsVisibleFunc = pFunc;
+			ISelectableItem[] selItems = GetTypedItems<ISelectableItem>();
+
+			foreach ( ISelectableItem selItem in selItems ) {
+				selItem.OnSelected -= HandleItemSelected;
+				selItem.DeselectStickySelections();
+			}
+
+			vActiveItems = null; //list will be reloaded upon next "Items" property use
 		}
 
 
@@ -72,11 +81,7 @@ namespace Hover.Common.Items.Groups {
 				}
 
 				vIsEnabled = value;
-
-				if ( !vIsEnabled ) {
-					ResetActiveItems();
-				}
-
+				UpdateActiveEnabledAndVisible();
 			}
 		}
 		
@@ -91,32 +96,37 @@ namespace Hover.Common.Items.Groups {
 				}
 
 				vIsVisible = value;
-
-				if ( !vIsVisible ) {
-					ResetActiveItems();
-				}
+				UpdateActiveEnabledAndVisible();
 			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public bool AreParentsEnabled {
+		public virtual bool IsAncestryEnabled {
 			get {
-				if ( vAreParentsEnabledFunc == null ) {
-					throw new Exception("Use 'SetParentsEnabledFunc' before using this property.");
+				return vIsAncestryEnabled;
+			}
+			set {
+				if ( value == vIsAncestryEnabled ) {
+					return;
 				}
 
-				return (vIsEnabled && vAreParentsEnabledFunc());
+				vIsAncestryEnabled = value;
+				UpdateActiveEnabledAndVisible();
 			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public bool AreParentsVisible {
+		public virtual bool IsAncestryVisible {
 			get {
-				if ( vAreParentsVisibleFunc == null ) {
-					throw new Exception("Use 'SetParentsVisibleFunc' before using this property.");
+				return vIsAncestryVisible;
+			}
+			set {
+				if ( value == vIsAncestryVisible ) {
+					return;
 				}
 
-				return vAreParentsVisibleFunc();
+				vIsAncestryVisible = value;
+				UpdateActiveEnabledAndVisible();
 			}
 		}
 
@@ -129,17 +139,13 @@ namespace Hover.Common.Items.Groups {
 				.Where(x => (x != null))
 				.ToArray();
 		}
-		
+
 		/*--------------------------------------------------------------------------------------------*/
-		private void ResetActiveItems() {
-			ISelectableItem[] selItems = GetTypedItems<ISelectableItem>();
-
-			foreach ( ISelectableItem selItem in selItems ) {
-				selItem.OnSelected -= HandleItemSelected;
-				selItem.DeselectStickySelections();
+		private void UpdateActiveEnabledAndVisible() {
+			foreach ( IBaseItem item in Items ) { //loads new items if necessary
+				item.IsAncestryEnabled = (IsEnabled && IsAncestryEnabled);
+				item.IsAncestryVisible = (IsVisible && IsAncestryVisible);
 			}
-
-			vActiveItems = null; //list will be reloaded upon next "Items" property use
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -147,8 +153,6 @@ namespace Hover.Common.Items.Groups {
 			IBaseItem[] items = vGetItems();
 
 			foreach ( IBaseItem item in items ) {
-				item.SetParentsEnabledFunc(() => IsEnabled && AreParentsEnabled);
-				item.SetParentsVisibleFunc(() => IsVisible && AreParentsVisible);
 				ISelectableItem selItem = (item as ISelectableItem);
 
 				if ( selItem != null ) {

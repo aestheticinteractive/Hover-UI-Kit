@@ -10,6 +10,7 @@ namespace Hover.Board.State {
 
 		public IItemLayout ItemLayout { get; private set; }
 		public BaseItemState[] FullItems { get; private set; }
+		public float DisplayStrength { get; set; }
 
 		private readonly InteractionSettings vSettings;
 
@@ -19,6 +20,7 @@ namespace Hover.Board.State {
 		public LayoutState(IItemLayout pItemLayout, InteractionSettings pSettings) {
 			ItemLayout = pItemLayout;
 			vSettings = pSettings;
+			DisplayStrength = 1;
 
 			RefreshItems();
 		}

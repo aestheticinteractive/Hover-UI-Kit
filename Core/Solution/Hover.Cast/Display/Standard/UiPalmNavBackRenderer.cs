@@ -17,7 +17,7 @@ namespace Hover.Cast.Display.Standard {
 
 		private static readonly Texture2D IconTex = Resources.Load<Texture2D>("Parent");
 
-		protected MenuState vMenuState;
+		protected IHovercastMenuState vMenuState;
 		protected IBaseItemState vItemState;
 		protected ISelectableItem vSelItem;
 		protected ItemVisualSettingsStandard vSettings;
@@ -30,7 +30,7 @@ namespace Hover.Cast.Display.Standard {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Build(MenuState pMenuState, IBaseItemState pItemState,
+		public virtual void Build(IHovercastMenuState pMenuState, IBaseItemState pItemState,
 													float pArcAngle, IItemVisualSettings pSettings) {
 			vMenuState = pMenuState;
 			vItemState = pItemState;

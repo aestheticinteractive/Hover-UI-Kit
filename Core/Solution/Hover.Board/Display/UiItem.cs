@@ -1,4 +1,5 @@
-﻿using Hover.Common.Custom;
+﻿using Hover.Board.State;
+using Hover.Common.Custom;
 using Hover.Common.State;
 using UnityEngine;
 
@@ -17,14 +18,15 @@ namespace Hover.Board.Display {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal void Build(BaseItemState pItemState, IItemVisualSettings pVisualSettings) {
+		internal void Build(IHoverboardPanelState pPanelState, IHoverboardLayoutState pLayoutState, 
+										BaseItemState pItemState, IItemVisualSettings pVisualSettings) {
 			vItemState = pItemState;
 
 			vRendererObj = new GameObject("Renderer");
 			vRendererObj.transform.SetParent(gameObject.transform, false);
 
 			vRenderer = (IUiItemRenderer)vRendererObj.AddComponent(pVisualSettings.Renderer);
-			vRenderer.Build(vItemState, pVisualSettings);
+			vRenderer.Build(pPanelState, pLayoutState, vItemState, pVisualSettings);
 
 			vItemState.HoverPointUpdater = vRenderer.UpdateHoverPoints;
 

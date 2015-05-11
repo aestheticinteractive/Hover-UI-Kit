@@ -157,8 +157,8 @@ namespace Hover.Common.State {
 				!Item.IsEnabled ||
 				!Item.IsVisible ||
 				vPreventSelectionViaDisplayMap.Any(x => x.Value) ||
-				!Item.AreParentsEnabled ||
-				!Item.AreParentsVisible
+				!Item.IsAncestryEnabled ||
+				!Item.IsAncestryVisible
 			);
 
 			if ( prevent ) {

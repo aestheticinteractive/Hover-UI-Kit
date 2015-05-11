@@ -46,53 +46,7 @@ namespace Hover.Common.Items.Groups {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public bool IsEnabled {
-			get {
-				return vIsEnabled;
-			}
-			set {
-				if ( value == vIsEnabled ) {
-					return;
-				}
-
-				vIsEnabled = value;
-
-				if ( !vIsEnabled ) {
-					ResetActiveGroups();
-				}
-			}
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public bool IsVisible {
-			get {
-				return vIsVisible;
-			}
-			set {
-				if ( value == vIsVisible ) {
-					return;
-				}
-
-				vIsVisible = value;
-
-				if ( !vIsVisible ) {
-					ResetActiveGroups();
-				}
-			}
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		private static T[] GetTypedGroups<T>(IItemGroup[] pGroups) where T : class, IItemGroup {
-			return pGroups
-				.Select(x => (x as T))
-				.Where(x => (x != null))
-				.ToArray();
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		private void ResetActiveGroups() {
+		public void ReloadActiveGroups() {
 			if ( vActiveGroups == null ) {
 				return;
 			}
@@ -114,17 +68,65 @@ namespace Hover.Common.Items.Groups {
 			vActiveGroups = null; //list will be reloaded upon next "Items" property use
 		}
 
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public bool IsEnabled {
+			get {
+				return vIsEnabled;
+			}
+			set {
+				if ( value == vIsEnabled ) {
+					return;
+				}
+
+				vIsEnabled = value;
+				UpdateActiveEnabledAndVisible();
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool IsVisible {
+			get {
+				return vIsVisible;
+			}
+			set {
+				if ( value == vIsVisible ) {
+					return;
+				}
+
+				vIsVisible = value;
+				UpdateActiveEnabledAndVisible();
+			}
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private static T[] GetTypedGroups<T>(IItemGroup[] pGroups) where T : class, IItemGroup {
+			return pGroups
+				.Select(x => (x as T))
+				.Where(x => (x != null))
+				.ToArray();
+		}
+
 		/*--------------------------------------------------------------------------------------------*/
 		private IItemGroup[] GetLatestActiveGroups() {
 			IItemGroup[] groups = vGetGroups();
 
 			foreach ( IItemGroup group in groups ) {
-				group.SetParentsEnabledFunc(() => IsEnabled);
-				group.SetParentsVisibleFunc(() => IsVisible);
 				group.OnItemSelected += HandleItemSelected;
 			}
 
 			return groups;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateActiveEnabledAndVisible() {
+			foreach ( IItemGroup group in Groups ) { //loads new groups if necessary
+				group.IsAncestryEnabled = IsEnabled;
+				group.IsAncestryVisible = IsVisible;
+			}
 		}
 
 

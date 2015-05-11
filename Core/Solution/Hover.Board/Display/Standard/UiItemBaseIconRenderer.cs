@@ -1,3 +1,4 @@
+using Hover.Board.State;
 using Hover.Common.Custom;
 using Hover.Common.State;
 using UnityEngine;
@@ -25,8 +26,10 @@ namespace Hover.Board.Display.Standard {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public override void Build(IBaseItemState pItemState, IItemVisualSettings pSettings) {
-			base.Build(pItemState, pSettings);
+		public override void Build(IHoverboardPanelState pPanelState,
+										IHoverboardLayoutState pLayoutState, IBaseItemState pItemState,
+										IItemVisualSettings pSettings) {
+			base.Build(pPanelState, pLayoutState, pItemState, pSettings);
 
 			vLabel.AlignLeft = true;
 			vLabel.transform.localPosition = new Vector3(-vItemState.Item.Width/2, 0, 0);

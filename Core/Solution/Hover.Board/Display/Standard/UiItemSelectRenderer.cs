@@ -1,5 +1,6 @@
 ﻿using System;
 using Hover.Board.Custom.Standard;
+using Hover.Board.State;
 using Hover.Common.Custom;
 using Hover.Common.Display;
 using Hover.Common.Items;
@@ -13,6 +14,8 @@ namespace Hover.Board.Display.Standard {
 
 		public const float LabelCanvasScale = UiItem.Size*0.012f;
 
+		protected IHoverboardPanelState vPanelState;
+		protected IHoverboardLayoutState vLayoutState;
 		protected IBaseItemState vItemState;
 		protected ItemVisualSettingsStandard vSettings;
 
@@ -24,7 +27,11 @@ namespace Hover.Board.Display.Standard {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Build(IBaseItemState pItemState, IItemVisualSettings pSettings) {
+		public virtual void Build(IHoverboardPanelState pPanelState, 
+										IHoverboardLayoutState pLayoutState, IBaseItemState pItemState,
+										IItemVisualSettings pSettings) {
+			vPanelState = pPanelState;
+			vLayoutState = pLayoutState;
 			vItemState = pItemState;
 			vSettings = (ItemVisualSettingsStandard)pSettings;
 
@@ -52,9 +59,9 @@ namespace Hover.Board.Display.Standard {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void Update() {
-			vMainAlpha = 1;
+			vMainAlpha = vPanelState.DisplayStrength*vLayoutState.DisplayStrength;
 
-			if ( !vItemState.Item.IsEnabled || !vItemState.Item.AreParentsEnabled ) {
+			if ( !vItemState.Item.IsEnabled || !vItemState.Item.IsAncestryEnabled ) {
 				vMainAlpha *= 0.333f;
 			}
 

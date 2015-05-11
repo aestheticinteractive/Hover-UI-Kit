@@ -8,6 +8,7 @@ namespace Hover.Board.State {
 
 		IItemLayout ItemLayout { get; }
 		IBaseItemState[] Items { get; }
+		float DisplayStrength { get; set; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

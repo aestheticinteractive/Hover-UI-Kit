@@ -11,7 +11,7 @@ namespace Hover.Cast.Display {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		void Build(MenuState pMenuState, IBaseItemState pItemState, float pArcAngle,
+		void Build(IHovercastMenuState pMenuState, IBaseItemState pItemState, float pArcAngle,
 																		IItemVisualSettings pSettings);
 
 		/*--------------------------------------------------------------------------------------------*/

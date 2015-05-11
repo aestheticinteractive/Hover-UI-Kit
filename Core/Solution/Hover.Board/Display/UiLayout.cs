@@ -13,7 +13,8 @@ namespace Hover.Board.Display {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal void Build(LayoutState pLayoutState, IItemVisualSettingsProvider pItemVisualSettProv) {
+		internal void Build(IHoverboardPanelState pPanelState, LayoutState pLayoutState,
+													IItemVisualSettingsProvider pItemVisualSettProv) {
 			Vector2 dir = pLayoutState.ItemLayout.Direction;
 			Vector2 pos = Vector2.zero;
 			Vector2 posMin = Vector2.zero;
@@ -25,7 +26,7 @@ namespace Hover.Board.Display {
 				GameObject itemObj = (GameObject)itemState.Item.DisplayContainer;
 
 				UiItem uiItem = itemObj.AddComponent<UiItem>();
-				uiItem.Build(itemState, visualSett);
+				uiItem.Build(pPanelState, pLayoutState, itemState, visualSett);
 				uiItem.transform.localPosition = new Vector3(pos.x, 0, pos.y)*UiItem.Size;
 
 				var itemSize = new Vector2(itemState.Item.Width, itemState.Item.Height);

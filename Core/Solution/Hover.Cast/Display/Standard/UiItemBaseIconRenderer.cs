@@ -26,7 +26,7 @@ namespace Hover.Cast.Display.Standard {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public override void Build(MenuState pMenuState, IBaseItemState pItemState,
+		public override void Build(IHovercastMenuState pMenuState, IBaseItemState pItemState,
 													float pArcAngle, IItemVisualSettings pSettings) {
 			base.Build(pMenuState, pItemState, pArcAngle, pSettings);
 

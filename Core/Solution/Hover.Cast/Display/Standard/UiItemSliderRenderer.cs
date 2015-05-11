@@ -11,7 +11,7 @@ namespace Hover.Cast.Display.Standard {
 	/*================================================================================================*/
 	public class UiItemSliderRenderer : MonoBehaviour, IUiItemRenderer {
 
-		protected MenuState vMenuState;
+		protected IHovercastMenuState vMenuState;
 		protected IBaseItemState vItemState;
 		protected float vAngle0;
 		protected float vAngle1;
@@ -43,7 +43,7 @@ namespace Hover.Cast.Display.Standard {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Build(MenuState pMenuState, IBaseItemState pItemState,
+		public virtual void Build(IHovercastMenuState pMenuState, IBaseItemState pItemState,
 													float pArcAngle, IItemVisualSettings pSettings) {
 			vMenuState = pMenuState;
 			vItemState = pItemState;
@@ -124,7 +124,7 @@ namespace Hover.Cast.Display.Standard {
 		public virtual void Update() {
 			vMainAlpha = UiItemSelectRenderer.GetArcAlpha(vMenuState)*vAnimAlpha;
 
-			if ( !vItemState.Item.IsEnabled || !vItemState.Item.AreParentsEnabled ) {
+			if ( !vItemState.Item.IsEnabled || !vItemState.Item.IsAncestryEnabled ) {
 				vMainAlpha *= 0.333f;
 			}
 

@@ -28,7 +28,7 @@ namespace Hover.Board.Display {
 				GameObject layoutObj = (GameObject)itemLayout.DisplayContainer;
 				
 				UiLayout uiLayout = layoutObj.AddComponent<UiLayout>();
-				uiLayout.Build(layoutState, pItemVisualSettProv);
+				uiLayout.Build(pPanelState, layoutState, pItemVisualSettProv);
 
 				Vector2 pos = itemLayout.Position*UiItem.Size - uiLayout.Bounds.position - 
 					Vector2.Scale(itemLayout.Anchor, uiLayout.Bounds.size);

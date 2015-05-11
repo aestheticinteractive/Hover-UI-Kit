@@ -29,8 +29,6 @@ namespace Hover.Common.Items.Groups {
 			NavigateBackItem.IsVisible = true;
 			NavigateBackItem.NavigateBackUponSelect = true;
 			NavigateBackItem.Label = "Back";
-			NavigateBackItem.SetParentsEnabledFunc(() => true);
-			NavigateBackItem.SetParentsVisibleFunc(() => true);
 			NavigateBackItem.OnSelected += HandleNavigateBackItemSelected;
 
 			OnLevelChange += (d => {});
@@ -109,9 +107,8 @@ namespace Hover.Common.Items.Groups {
 			}
 
 			vCurrLevel = pNewLevel;
+			vCurrLevel.ReloadActiveItems();
 			vCurrLevel.IsEnabled = true;
-			vCurrLevel.SetParentsEnabledFunc(() => true);
-			vCurrLevel.SetParentsVisibleFunc(() => true);
 			vCurrLevel.OnItemSelected += HandleItemSelected;
 
 			NavigateBackItem.IsEnabled = (vHistory.Count > 0);

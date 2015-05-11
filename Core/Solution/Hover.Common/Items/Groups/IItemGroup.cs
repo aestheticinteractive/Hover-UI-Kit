@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Hover.Common.Items.Groups {
+﻿namespace Hover.Common.Items.Groups {
 
 	/*================================================================================================*/
 	public interface IItemGroup {
@@ -12,8 +10,8 @@ namespace Hover.Common.Items.Groups {
 		
 		bool IsEnabled { get; set; }
 		bool IsVisible { get; set; }
-		bool AreParentsEnabled { get; }
-		bool AreParentsVisible { get; }
+		bool IsAncestryEnabled { get; set; }
+		bool IsAncestryVisible { get; set; }
 
 		IBaseItem[] Items { get; }
 		ISelectableItem LastSelectedItem { get; }
@@ -24,10 +22,7 @@ namespace Hover.Common.Items.Groups {
 		T[] GetTypedItems<T>() where T : class, IBaseItem;
 
 		/*--------------------------------------------------------------------------------------------*/
-		void SetParentsEnabledFunc(Func<bool> pFunc);
-
-		/*--------------------------------------------------------------------------------------------*/
-		void SetParentsVisibleFunc(Func<bool> pFunc);
+		void ReloadActiveItems();
 
 	}
 
