@@ -2,6 +2,7 @@
 using Hover.Board.Custom;
 using Hover.Board.Custom.Standard;
 using Hover.Board.State;
+using Hover.Common.Display;
 using Hover.Common.Util;
 using UnityEngine;
 
@@ -14,6 +15,8 @@ namespace Hover.Board.Display.Standard {
 		private ProjectionVisualSettingsStandard vSettings;
 		private GameObject vSpotObj;
 		private GameObject vLineObj;
+		private Mesh vSpotMesh;
+		private Mesh vLineMesh;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -28,12 +31,12 @@ namespace Hover.Board.Display.Standard {
 			vSpotObj.transform.SetParent(gameObject.transform, false);
 			vSpotObj.transform.localScale = Vector3.zero;
 
-			MeshFilter spotMeshFilt = vSpotObj.AddComponent<MeshFilter>();
-			MeshUtil.BuildCircleMesh(spotMeshFilt.mesh, 0.5f, 32);
+			MeshFilter spotFilt = vSpotObj.AddComponent<MeshFilter>();
+			MeshUtil.BuildCircleMesh(spotFilt.mesh, 0.5f, 32);
+			vSpotMesh = spotFilt.mesh;
 
-			MeshRenderer spotMeshRend = vSpotObj.AddComponent<MeshRenderer>();
-			spotMeshRend.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
-			spotMeshRend.sharedMaterial.renderQueue += 100;
+			MeshRenderer spotRend = vSpotObj.AddComponent<MeshRenderer>();
+			spotRend.sharedMaterial = Materials.GetLayer(Materials.RenderQueueLayer.AboveText);
 
 			////
 
@@ -41,8 +44,10 @@ namespace Hover.Board.Display.Standard {
 			vLineObj.name = "Line";
 			vLineObj.transform.SetParent(gameObject.transform, false);
 			vLineObj.transform.localScale = Vector3.zero;
-			vLineObj.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
-			vLineObj.renderer.sharedMaterial.renderQueue += 200;
+			vLineMesh = vLineObj.GetComponent<MeshFilter>().mesh;
+
+			MeshRenderer lineRend = vLineObj.GetComponent<MeshRenderer>();
+			lineRend.sharedMaterial = Materials.GetLayer(Materials.RenderQueueLayer.AboveText);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -61,10 +66,10 @@ namespace Hover.Board.Display.Standard {
 			colSpot.a *= alphaMult;
 			colLine.a *= alphaMult;
 
-			vSpotObj.renderer.sharedMaterial.color = colSpot;
+			Materials.SetMeshColor(vSpotMesh, colSpot);
 			vSpotObj.transform.localScale = spotScale;
 
-			vLineObj.renderer.sharedMaterial.color = colLine;
+			Materials.SetMeshColor(vLineMesh, colLine);
 			vLineObj.transform.localScale = new Vector3(lineThick, dist, lineThick);
 			vLineObj.transform.localPosition = new Vector3(0, vLineObj.transform.localScale.y/2f, 0);
 		}

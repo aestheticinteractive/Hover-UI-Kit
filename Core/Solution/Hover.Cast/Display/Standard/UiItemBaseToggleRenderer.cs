@@ -34,17 +34,17 @@ namespace Hover.Cast.Display.Standard {
 			vOuter = GameObject.CreatePrimitive(PrimitiveType.Quad);
 			vOuter.name = "ToggleOuter";
 			vOuter.transform.SetParent(gameObject.transform, false);
-			vOuter.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
-			vOuter.renderer.sharedMaterial.color = Color.clear;
-			vOuter.renderer.sharedMaterial.mainTexture = GetOuterTexture();
+			vOuter.GetComponent<MeshRenderer>().sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
+			vOuter.GetComponent<MeshRenderer>().sharedMaterial.color = Color.clear;
+			vOuter.GetComponent<MeshRenderer>().sharedMaterial.mainTexture = GetOuterTexture();
 			vOuter.transform.localRotation = vLabel.CanvasLocalRotation;
 
 			vInner = GameObject.CreatePrimitive(PrimitiveType.Quad);
 			vInner.name = "ToggleInner";
 			vInner.transform.SetParent(gameObject.transform, false);
-			vInner.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
-			vInner.renderer.sharedMaterial.color = Color.clear;
-			vInner.renderer.sharedMaterial.mainTexture = GetInnerTexture();
+			vInner.GetComponent<MeshRenderer>().sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
+			vInner.GetComponent<MeshRenderer>().sharedMaterial.color = Color.clear;
+			vInner.GetComponent<MeshRenderer>().sharedMaterial.mainTexture = GetInnerTexture();
 			vInner.transform.localRotation = vLabel.CanvasLocalRotation;
 		}
 
@@ -55,9 +55,9 @@ namespace Hover.Cast.Display.Standard {
 			Color color = vSettings.ToggleIconColor;
 			color.a *= (vItemState.MaxHighlightProgress*0.25f + 0.75f)*vMainAlpha;
 
-			vOuter.renderer.sharedMaterial.color = color;
-			vInner.renderer.sharedMaterial.color = color;
-			vInner.renderer.enabled = IsToggled();
+			vOuter.GetComponent<MeshRenderer>().sharedMaterial.color = color;
+			vInner.GetComponent<MeshRenderer>().sharedMaterial.color = color;
+			vInner.GetComponent<MeshRenderer>().enabled = IsToggled();
 
 			if ( vSettings.TextSize != vPrevTextSize ) {
 				vPrevTextSize = vSettings.TextSize;

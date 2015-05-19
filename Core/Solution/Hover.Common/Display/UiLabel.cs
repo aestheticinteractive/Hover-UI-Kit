@@ -49,6 +49,7 @@ namespace Hover.Common.Display {
 			
 			Text text = vTextObj.AddComponent<Text>();
 			text.GetComponent<Text>().alignment = TextAnchor.MiddleCenter;
+			text.material.renderQueue = (int)Materials.RenderQueueLayer.Text;
 		}
 
 

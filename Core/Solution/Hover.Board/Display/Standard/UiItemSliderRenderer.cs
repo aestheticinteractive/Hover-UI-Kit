@@ -36,7 +36,6 @@ namespace Hover.Board.Display.Standard {
 		protected UiHoverMeshRectBg vFillA;
 		protected UiHoverMeshRectBg vFillB;
 
-		protected Material vTickMat;
 		protected GameObject[] vTicks;
 
 		protected GameObject vGrabHold;
@@ -79,25 +78,26 @@ namespace Hover.Board.Display.Standard {
 
 			////
 
-			vTickMat = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
-			vTickMat.renderQueue -= 400;
-			vTickMat.color = Color.clear;
-
 			if ( vSliderItem.Ticks > 1 ) {
 				Vector3 quadScale = new Vector3(UiHoverMeshRect.SizeInset*2, 0.36f, 0.1f);
 				float percPerTick = 1/(float)(vSliderItem.Ticks-1);
 
+				var tickMat = Materials.GetLayer(Materials.RenderQueueLayer.Ticks);
+
 				vTicks = new GameObject[vSliderItem.Ticks];
 
 				for ( int i = 0 ; i < vSliderItem.Ticks ; ++i ) {
-					GameObject tick = GameObject.CreatePrimitive(PrimitiveType.Quad);
-					tick.name = "Tick"+i;
-					tick.transform.SetParent(gameObject.transform, false);
-					tick.renderer.sharedMaterial = vTickMat;
-					tick.transform.localPosition = Vector3.right*(vSlideX0+vSlideW*i*percPerTick);
-					tick.transform.localRotation = TickQuatRot;
-					tick.transform.localScale = quadScale;
-					vTicks[i] = tick;
+					GameObject tickObj = GameObject.CreatePrimitive(PrimitiveType.Quad);
+					tickObj.name = "Tick"+i;
+					tickObj.transform.SetParent(gameObject.transform, false);
+					tickObj.transform.localPosition = Vector3.right*(vSlideX0+vSlideW*i*percPerTick);
+					tickObj.transform.localRotation = TickQuatRot;
+					tickObj.transform.localScale = quadScale;
+
+					tickObj.GetComponent<MeshRenderer>().sharedMaterial = tickMat;
+					Materials.SetMeshColor(tickObj.GetComponent<MeshFilter>().mesh, Color.clear);
+
+					vTicks[i] = tickObj;
 				}
 			}
 
@@ -156,7 +156,10 @@ namespace Hover.Board.Display.Standard {
 			vTrackB.UpdateBackground(colTrack);
 			vFillA.UpdateBackground(colFill);
 			vFillB.UpdateBackground(colFill);
-			vTickMat.color = colTick;
+
+			foreach ( GameObject tickObj in vTicks ) {
+				Materials.SetMeshColor(tickObj.GetComponent<MeshFilter>().mesh, colTick);
+			}
 
 			////
 

@@ -35,41 +35,36 @@ namespace Hover.Common.Display {
 		protected void Build(GameObject pParent) {
 			vParent = pParent;
 
-			Shader shader = Shader.Find("Unlit/AlphaSelfIllum");
-
 			Background = new GameObject("Background");
 			Background.transform.SetParent(pParent.transform, false);
-			Background.AddComponent<MeshRenderer>();
-			Background.renderer.sharedMaterial = new Material(shader);
-			Background.renderer.sharedMaterial.renderQueue -= 300;
-			Background.renderer.sharedMaterial.color = Color.clear;
+			MeshRenderer meshRend = Background.AddComponent<MeshRenderer>();
+			meshRend.sharedMaterial = Materials.GetLayer(Materials.RenderQueueLayer.Background);
 			BackgroundMesh = Background.AddComponent<MeshFilter>().mesh;
 
 			Edge = new GameObject("Edge");
 			Edge.transform.SetParent(pParent.transform, false);
-			Edge.AddComponent<MeshRenderer>();
-			Edge.renderer.sharedMaterial = new Material(shader);
-			Edge.renderer.sharedMaterial.renderQueue -= 50;
-			Edge.renderer.sharedMaterial.color = Color.clear;
+			meshRend = Edge.AddComponent<MeshRenderer>();
+			meshRend.sharedMaterial = Materials.GetLayer(Materials.RenderQueueLayer.SelectAndEdge);
 			EdgeMesh = Edge.AddComponent<MeshFilter>().mesh;
 
 			Highlight = new GameObject("Highlight");
 			Highlight.transform.SetParent(pParent.transform, false);
-			Highlight.AddComponent<MeshRenderer>();
-			Highlight.renderer.sharedMaterial = new Material(shader);
-			Highlight.renderer.sharedMaterial.renderQueue -= 200;
-			Highlight.renderer.sharedMaterial.color = Color.clear;
+			meshRend = Highlight.AddComponent<MeshRenderer>();
+			meshRend.sharedMaterial = Materials.GetLayer(Materials.RenderQueueLayer.Highlight);
 			HighlightMesh = Highlight.AddComponent<MeshFilter>().mesh;
 
 			Select = new GameObject("Select");
 			Select.transform.SetParent(pParent.transform, false);
-			Select.AddComponent<MeshRenderer>();
-			Select.renderer.sharedMaterial = new Material(shader);
-			Select.renderer.sharedMaterial.renderQueue -= 100;
-			Select.renderer.sharedMaterial.color = Color.clear;
+			meshRend = Select.AddComponent<MeshRenderer>();
+			meshRend.sharedMaterial = Materials.GetLayer(Materials.RenderQueueLayer.SelectAndEdge);
 			SelectMesh = Select.AddComponent<MeshFilter>().mesh;
 
 			UpdateAfterResize();
+
+			UpdateBackground(Color.clear);
+			UpdateEdge(Color.clear);
+			UpdateHighlight(Color.clear, vPrevHighAmount);
+			UpdateSelect(Color.clear, vPrevSelAmount);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -86,19 +81,19 @@ namespace Hover.Common.Display {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void UpdateBackground(Color pColor) {
-			Background.renderer.sharedMaterial.color = pColor;
+			Materials.SetMeshColor(BackgroundMesh, pColor);
 			Background.SetActive(pColor.a > 0);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void UpdateEdge(Color pColor) {
-			Edge.renderer.sharedMaterial.color = pColor;
+			Materials.SetMeshColor(EdgeMesh, pColor);
 			Edge.SetActive(pColor.a > 0);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void UpdateHighlight(Color pColor, float pAmount) {
-			Highlight.renderer.sharedMaterial.color = pColor;
+			Materials.SetMeshColor(HighlightMesh, pColor);
 			Highlight.SetActive(pAmount > 0 && pColor.a > 0);
 
 			if ( Math.Abs(pAmount-vPrevHighAmount) > 0.005f ) {
@@ -109,7 +104,7 @@ namespace Hover.Common.Display {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void UpdateSelect(Color pColor, float pAmount) {
-			Select.renderer.sharedMaterial.color = pColor;
+			Materials.SetMeshColor(SelectMesh, pColor);
 			Select.SetActive(pAmount > 0 && pColor.a > 0);
 
 			if ( Math.Abs(pAmount-vPrevSelAmount) > 0.005f ) {

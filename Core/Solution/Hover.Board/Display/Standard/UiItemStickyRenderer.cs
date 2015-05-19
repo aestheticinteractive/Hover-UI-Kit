@@ -1,17 +1,15 @@
-﻿using UnityEngine;
+﻿using Hover.Common.Display;
 
 namespace Hover.Board.Display.Standard {
 
 	/*================================================================================================*/
 	public class UiItemStickyRenderer : UiItemBaseIconRenderer {
 
-		private static readonly Texture2D IconTex = Resources.Load<Texture2D>("Textures/Sticky");
-
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected override Texture2D GetIconTexture() {
-			return IconTex;
+		protected override Materials.IconOffset GetIconOffset() {
+			return Materials.IconOffset.Sticky;
 		}
 
 	}

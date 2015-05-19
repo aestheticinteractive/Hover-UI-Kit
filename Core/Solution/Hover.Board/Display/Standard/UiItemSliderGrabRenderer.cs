@@ -1,5 +1,6 @@
 ﻿using Hover.Board.State;
 using Hover.Common.Custom;
+using Hover.Common.Display;
 using Hover.Common.State;
 using UnityEngine;
 
@@ -8,15 +9,14 @@ namespace Hover.Board.Display.Standard {
 	/*================================================================================================*/
 	public class UiItemSliderGrabRenderer : UiItemBaseIconRenderer {
 
-		private static readonly Texture2D IconTex = Resources.Load<Texture2D>("Textures/Slider");
 		private static readonly Quaternion IconRot =
 			Quaternion.FromToRotation(Vector3.up, Vector3.right);
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected override Texture2D GetIconTexture() {
-			return IconTex;
+		protected override Materials.IconOffset GetIconOffset() {
+			return Materials.IconOffset.Slider;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

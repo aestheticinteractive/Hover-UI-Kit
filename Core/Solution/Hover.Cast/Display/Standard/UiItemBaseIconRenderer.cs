@@ -33,9 +33,9 @@ namespace Hover.Cast.Display.Standard {
 			vIcon = GameObject.CreatePrimitive(PrimitiveType.Quad);
 			vIcon.name = "Icon";
 			vIcon.transform.SetParent(gameObject.transform, false);
-			vIcon.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
-			vIcon.renderer.sharedMaterial.color = Color.clear;
-			vIcon.renderer.sharedMaterial.mainTexture = GetIconTexture();
+			vIcon.GetComponent<MeshRenderer>().sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
+			vIcon.GetComponent<MeshRenderer>().sharedMaterial.color = Color.clear;
+			vIcon.GetComponent<MeshRenderer>().sharedMaterial.mainTexture = GetIconTexture();
 			vIcon.transform.localRotation = 
 				vLabel.gameObject.transform.localRotation*vLabel.CanvasLocalRotation;
 		}
@@ -47,7 +47,7 @@ namespace Hover.Cast.Display.Standard {
 			Color color = vSettings.ArrowIconColor;
 			color.a *= (vItemState.MaxHighlightProgress*0.75f + 0.25f)*vMainAlpha;
 
-			vIcon.renderer.sharedMaterial.color = color;
+			vIcon.GetComponent<MeshRenderer>().sharedMaterial.color = color;
 
 			if ( vSettings.TextSize != vPrevTextSize ) {
 				vPrevTextSize = vSettings.TextSize;

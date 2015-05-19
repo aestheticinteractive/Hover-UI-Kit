@@ -50,9 +50,9 @@ namespace Hover.Cast.Display.Standard {
 			vIcon.transform.SetParent(gameObject.transform, false);
 			vIcon.transform.localRotation = Quaternion.FromToRotation(Vector3.forward, Vector3.up)*
 				Quaternion.FromToRotation(Vector3.right, Vector3.up);
-			vIcon.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
-			vIcon.renderer.sharedMaterial.color = Color.clear;
-			vIcon.renderer.sharedMaterial.mainTexture = IconTex;
+			vIcon.GetComponent<MeshRenderer>().sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
+			vIcon.GetComponent<MeshRenderer>().sharedMaterial.color = Color.clear;
+			vIcon.GetComponent<MeshRenderer>().sharedMaterial.mainTexture = IconTex;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -89,7 +89,7 @@ namespace Hover.Cast.Display.Standard {
 			vHoverSlice.UpdateHighlight(colHigh, high);
 			vHoverSlice.UpdateSelect(colSel, select);
 
-			vIcon.renderer.sharedMaterial.color = colIcon;
+			vIcon.GetComponent<MeshRenderer>().sharedMaterial.color = colIcon;
 			vIcon.transform.localScale = Vector3.one*vSettings.TextSize*0.75f*
 				UiItemSelectRenderer.ArcCanvasScale;
 		}

@@ -1,4 +1,5 @@
 ﻿using System;
+using Hover.Common.Display;
 using Hover.Common.Util;
 using Hover.Cursor.Custom;
 using Hover.Cursor.Custom.Standard;
@@ -26,9 +27,9 @@ namespace Hover.Cursor.Display.Standard {
 
 			vRingObj = new GameObject("Ring");
 			vRingObj.transform.SetParent(gameObject.transform, false);
-			vRingObj.AddComponent<MeshRenderer>();
+			MeshRenderer meshRend = vRingObj.AddComponent<MeshRenderer>();
+			meshRend.sharedMaterial = Materials.GetLayer(Materials.RenderQueueLayer.Cursor);
 			vRingObj.AddComponent<MeshFilter>();
-			vRingObj.renderer.sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllumTop"));
 
 			vRingMesh = vRingObj.GetComponent<MeshFilter>().mesh;
 		}
@@ -46,7 +47,7 @@ namespace Hover.Cursor.Display.Standard {
 			BuildMesh(thick);
 
 			vRingObj.transform.localScale = Vector3.one*scale;
-			vRingObj.renderer.sharedMaterial.color = col;
+			Materials.SetMeshColor(vRingMesh, col);
 		}
 		
 		

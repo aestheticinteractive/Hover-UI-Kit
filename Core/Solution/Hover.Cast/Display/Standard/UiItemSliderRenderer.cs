@@ -95,7 +95,7 @@ namespace Hover.Cast.Display.Standard {
 					vTicks[i] = tick;
 
 					var quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
-					quad.renderer.sharedMaterial = vTickMat;
+					quad.GetComponent<MeshRenderer>().sharedMaterial = vTickMat;
 					quad.transform.SetParent(tick.transform, false);
 					quad.transform.localPosition = new Vector3(0, 0, 1.25f);
 					quad.transform.localRotation = TickQuatRot;
