@@ -83,7 +83,7 @@ namespace Hover.Board {
 		public void Update() {
 			vState.UpdateAfterInput();
 
-			foreach ( PanelState panelState in vState.Panels ) {
+			foreach ( IHoverboardPanelState panelState in vState.Panels ) {
 				IItemPanel itemPanel = panelState.ItemPanel;
 				((GameObject)itemPanel.DisplayContainer).SetActive(itemPanel.IsVisible);
 			}

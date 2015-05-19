@@ -3,6 +3,7 @@ using System.Linq;
 using Hover.Board.Custom;
 using Hover.Board.Items;
 using Hover.Common.Input;
+using Hover.Common.Items;
 using Hover.Common.State;
 using Hover.Cursor;
 using Hover.Cursor.State;
@@ -27,6 +28,7 @@ namespace Hover.Board.State {
 		private readonly IDictionary<CursorType, ProjectionState> vProjectionMap;
 		private readonly ItemTree[] vAllItems;
 
+		private ItemTree[] vActiveItems;
 		private IBaseItemInteractionState[] vActiveCursorInteractions;
 		private PlaneData[] vActiveCursorPlanes;
 
@@ -104,16 +106,14 @@ namespace Hover.Board.State {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateAfterInput() {
-			PanelState[] activePanels = FullPanels
-				.Where(x => x.ItemPanel.IsVisible && x.ItemPanel.IsEnabled &&	
-					!x.IsEveryItemSelectionPreventedViaDisplay())
-				.ToArray();
+			PanelState[] activePanels = FullPanels.Where(IsPanelActive).ToArray();
 
 			IsCursorInteractionEnabled = (activePanels.Length > 0);
-
 			ActiveCursorTypes = vInteractSett.Cursors;
 
-			vActiveCursorInteractions = vAllItems
+			vActiveItems = vAllItems.Where(IsItemTreeActive).ToArray();
+
+			vActiveCursorInteractions = vActiveItems
 				.Select(x => x.Item)
 				.Cast<IBaseItemInteractionState>()
 				.ToArray();
@@ -126,13 +126,26 @@ namespace Hover.Board.State {
 				UpdateProjection(proj);
 			}
 
-			foreach ( ItemTree itemTree in vAllItems ) {
+			foreach ( ItemTree itemTree in vActiveItems ) {
 				itemTree.Item.UpdateSelectionProcess();
 			}
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private bool IsPanelActive(PanelState pPanel) {
+			return (pPanel.ItemPanel.IsVisible && pPanel.ItemPanel.IsEnabled &&
+				!pPanel.IsEveryItemSelectionPreventedViaDisplay());
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private bool IsItemTreeActive(ItemTree pTree) {
+			IBaseItem baseItem = pTree.Item.Item;
+			return (baseItem.IsVisible && baseItem.IsEnabled && 
+				baseItem.IsAncestryVisible && baseItem.IsAncestryEnabled);
+		}
+
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateProjection(ProjectionState pProj) {
 			ICursorState cursor = pProj.Cursor;
@@ -142,7 +155,7 @@ namespace Hover.Board.State {
 			ItemTree nearestTree = new ItemTree();
 			float nearestDist = float.MaxValue;
 
-			foreach ( ItemTree itemTree in vAllItems ) {
+			foreach ( ItemTree itemTree in vActiveItems ) {
 				itemTree.Item.UpdateWithCursor(cursorType, cursorWorldPos);
 
 				if ( !allowSelect ) {
