@@ -55,6 +55,7 @@ namespace Hover.Board.Display.Standard {
 			vItemState = pItemState;
 			vSettings = (ItemVisualSettingsStandard)pSettings;
 			vSliderItem = (ISliderItem)vItemState.Item;
+			vTicks = new GameObject[vSliderItem.Ticks];
 
 			vWidth = UiItem.Size*vItemState.Item.Width;
 			vHeight = UiItem.Size*vItemState.Item.Height;
@@ -81,10 +82,7 @@ namespace Hover.Board.Display.Standard {
 			if ( vSliderItem.Ticks > 1 ) {
 				Vector3 quadScale = new Vector3(UiHoverMeshRect.SizeInset*2, 0.36f, 0.1f);
 				float percPerTick = 1/(float)(vSliderItem.Ticks-1);
-
 				var tickMat = Materials.GetLayer(Materials.RenderQueueLayer.Ticks);
-
-				vTicks = new GameObject[vSliderItem.Ticks];
 
 				for ( int i = 0 ; i < vSliderItem.Ticks ; ++i ) {
 					GameObject tickObj = GameObject.CreatePrimitive(PrimitiveType.Quad);

@@ -23,6 +23,7 @@ namespace Hover.Cast.Display.Standard {
 		private ItemVisualSettingsStandard vSettings;
 
 		protected GameObject vBackground;
+		protected Mesh vBackgroundMesh;
 		protected UiLabel vLabel;
 
 
@@ -40,13 +41,14 @@ namespace Hover.Cast.Display.Standard {
 
 			vBackground = new GameObject("Background");
 			vBackground.transform.SetParent(gameObject.transform, false);
-			vBackground.AddComponent<MeshFilter>();
-			vBackground.AddComponent<MeshRenderer>();
-			vBackground.GetComponent<MeshRenderer>().sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
-			vBackground.GetComponent<MeshRenderer>().sharedMaterial.renderQueue -= 100;
-			vBackground.GetComponent<MeshRenderer>().sharedMaterial.color = Color.clear;
 
-			BuildMesh(vBackground.GetComponent<MeshFilter>().mesh);
+			MeshRenderer bgRend = vBackground.AddComponent<MeshRenderer>();
+			bgRend.sharedMaterial = Materials.GetLayer(Materials.RenderQueueLayer.Background);
+			
+			MeshFilter bgFilt = vBackground.AddComponent<MeshFilter>();
+			vBackgroundMesh = bgFilt.mesh;
+			BuildMesh(vBackgroundMesh);
+			Materials.SetMeshColor(vBackgroundMesh, Color.clear);
 
 			////
 
@@ -74,7 +76,7 @@ namespace Hover.Cast.Display.Standard {
 			Color colBg = vSettings.BackgroundColor;
 			colBg.a *= vMainAlpha;
 
-			vBackground.GetComponent<MeshRenderer>().sharedMaterial.color = colBg;
+			Materials.SetMeshColor(vBackgroundMesh, colBg);
 
 			if ( vSettings.TextSize != vLabel.FontSize ) {
 				const float scale = UiItemSelectRenderer.ArcCanvasScale;

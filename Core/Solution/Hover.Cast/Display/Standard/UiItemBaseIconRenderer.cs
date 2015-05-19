@@ -1,5 +1,6 @@
 using Hover.Cast.State;
 using Hover.Common.Custom;
+using Hover.Common.Display;
 using Hover.Common.State;
 using UnityEngine;
 
@@ -9,13 +10,14 @@ namespace Hover.Cast.Display.Standard {
 	public abstract class UiItemBaseIconRenderer : UiItemSelectRenderer {
 
 		protected GameObject vIcon;
+		protected Mesh vIconMesh;
 
 		private int vPrevTextSize;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected abstract Texture2D GetIconTexture();
+		protected abstract Materials.IconOffset GetIconOffset();
 
 		/*--------------------------------------------------------------------------------------------*/
 		protected virtual Vector3 GetIconScale() {
@@ -33,11 +35,14 @@ namespace Hover.Cast.Display.Standard {
 			vIcon = GameObject.CreatePrimitive(PrimitiveType.Quad);
 			vIcon.name = "Icon";
 			vIcon.transform.SetParent(gameObject.transform, false);
-			vIcon.GetComponent<MeshRenderer>().sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
-			vIcon.GetComponent<MeshRenderer>().sharedMaterial.color = Color.clear;
-			vIcon.GetComponent<MeshRenderer>().sharedMaterial.mainTexture = GetIconTexture();
 			vIcon.transform.localRotation = 
 				vLabel.gameObject.transform.localRotation*vLabel.CanvasLocalRotation;
+
+			vIcon.GetComponent<MeshRenderer>().sharedMaterial = Materials.StandardIcons;
+
+			vIconMesh = vIcon.GetComponent<MeshFilter>().mesh;
+			Materials.SetMeshColor(vIconMesh, Color.clear);
+			Materials.SetMeshIconCoords(vIconMesh, GetIconOffset());
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -47,7 +52,7 @@ namespace Hover.Cast.Display.Standard {
 			Color color = vSettings.ArrowIconColor;
 			color.a *= (vItemState.MaxHighlightProgress*0.75f + 0.25f)*vMainAlpha;
 
-			vIcon.GetComponent<MeshRenderer>().sharedMaterial.color = color;
+			Materials.SetMeshColor(vIconMesh, color);
 
 			if ( vSettings.TextSize != vPrevTextSize ) {
 				vPrevTextSize = vSettings.TextSize;

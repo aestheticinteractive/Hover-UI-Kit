@@ -3,6 +3,7 @@ using System.Diagnostics;
 using Hover.Cast.Custom.Standard;
 using Hover.Cast.State;
 using Hover.Common.Custom;
+using Hover.Common.Display;
 using Hover.Common.Items;
 using Hover.Common.State;
 using UnityEngine;
@@ -15,8 +16,6 @@ namespace Hover.Cast.Display.Standard {
 		public const float InnerRadius = 0;
 		public const float OuterRadius = UiPalmRenderer.InnerRadius-UiHoverMeshSlice.EdgeThick-0.005f;
 
-		private static readonly Texture2D IconTex = Resources.Load<Texture2D>("Textures/Parent");
-
 		protected IHovercastMenuState vMenuState;
 		protected IBaseItemState vItemState;
 		protected ISelectableItem vSelItem;
@@ -24,6 +23,7 @@ namespace Hover.Cast.Display.Standard {
 
 		protected UiHoverMeshSlice vHoverSlice;
 		protected GameObject vIcon;
+		protected Mesh vIconMesh;
 		protected Stopwatch vEnabledAnim;
 		protected bool vPrevEnabled;
 
@@ -50,9 +50,12 @@ namespace Hover.Cast.Display.Standard {
 			vIcon.transform.SetParent(gameObject.transform, false);
 			vIcon.transform.localRotation = Quaternion.FromToRotation(Vector3.forward, Vector3.up)*
 				Quaternion.FromToRotation(Vector3.right, Vector3.up);
-			vIcon.GetComponent<MeshRenderer>().sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
-			vIcon.GetComponent<MeshRenderer>().sharedMaterial.color = Color.clear;
-			vIcon.GetComponent<MeshRenderer>().sharedMaterial.mainTexture = IconTex;
+
+			vIcon.GetComponent<MeshRenderer>().sharedMaterial = Materials.StandardIcons;
+
+			vIconMesh = vIcon.GetComponent<MeshFilter>().mesh;
+			Materials.SetMeshColor(vIconMesh, Color.clear);
+			Materials.SetMeshIconCoords(vIconMesh, Materials.IconOffset.Parent);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -89,7 +92,7 @@ namespace Hover.Cast.Display.Standard {
 			vHoverSlice.UpdateHighlight(colHigh, high);
 			vHoverSlice.UpdateSelect(colSel, select);
 
-			vIcon.GetComponent<MeshRenderer>().sharedMaterial.color = colIcon;
+			Materials.SetMeshColor(vIconMesh, colIcon);
 			vIcon.transform.localScale = Vector3.one*vSettings.TextSize*0.75f*
 				UiItemSelectRenderer.ArcCanvasScale;
 		}

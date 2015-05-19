@@ -37,7 +37,6 @@ namespace Hover.Cast.Display.Standard {
 		protected UiHoverMeshSlice vFillA;
 		protected UiHoverMeshSlice vFillB;
 
-		protected Material vTickMat;
 		protected GameObject[] vTicks;
 
 		protected GameObject vGrabHold;
@@ -57,6 +56,7 @@ namespace Hover.Cast.Display.Standard {
 			vAngle1 = pArcAngle/2f;
 			vSettings = (ItemVisualSettingsStandard)pSettings;
 			vSliderItem = (ISliderItem)vItemState.Item;
+			vTicks = new GameObject[vSliderItem.Ticks];
 
 			const float pi = (float)Math.PI;
 
@@ -77,29 +77,26 @@ namespace Hover.Cast.Display.Standard {
 
 			////
 
-			vTickMat = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
-			vTickMat.renderQueue -= 400;
-			vTickMat.color = Color.clear;
-
 			if ( vSliderItem.Ticks > 1 ) {
 				Vector3 quadScale = new Vector3(UiHoverMeshSlice.AngleInset*2, 0.36f, 0.1f);
 				float percPerTick = 1/(float)(vSliderItem.Ticks-1);
-
-				vTicks = new GameObject[vSliderItem.Ticks];
+				var tickMat = Materials.GetLayer(Materials.RenderQueueLayer.Ticks);
 
 				for ( int i = 0 ; i < vSliderItem.Ticks ; ++i ) {
-					var tick = new GameObject("Tick"+i);
-					tick.transform.SetParent(gameObject.transform, false);
-					tick.transform.localRotation = Quaternion.AngleAxis(
+					var tickObj = new GameObject("Tick"+i);
+					tickObj.transform.SetParent(gameObject.transform, false);
+					tickObj.transform.localRotation = Quaternion.AngleAxis(
 						vSlideDegree0+vSlideDegrees*i*percPerTick, Vector3.up);
-					vTicks[i] = tick;
+					vTicks[i] = tickObj;
 
-					var quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
-					quad.GetComponent<MeshRenderer>().sharedMaterial = vTickMat;
-					quad.transform.SetParent(tick.transform, false);
-					quad.transform.localPosition = new Vector3(0, 0, 1.25f);
-					quad.transform.localRotation = TickQuatRot;
-					quad.transform.localScale = quadScale;
+					var quadObj = GameObject.CreatePrimitive(PrimitiveType.Quad);
+					quadObj.transform.SetParent(tickObj.transform, false);
+					quadObj.transform.localPosition = new Vector3(0, 0, 1.25f);
+					quadObj.transform.localRotation = TickQuatRot;
+					quadObj.transform.localScale = quadScale;
+
+					quadObj.GetComponent<MeshRenderer>().sharedMaterial = tickMat;
+					Materials.SetMeshColor(quadObj.GetComponent<MeshFilter>().mesh, Color.clear);
 				}
 			}
 
@@ -157,8 +154,14 @@ namespace Hover.Cast.Display.Standard {
 			vTrackB.UpdateBackground(colTrack);
 			vFillA.UpdateBackground(colFill);
 			vFillB.UpdateBackground(colFill);
-			vTickMat.color = colTick;
 
+			foreach ( GameObject tickObj in vTicks ) {
+				GameObject quadObj = tickObj.transform.GetChild(0).gameObject;
+				Materials.SetMeshColor(quadObj.GetComponent<MeshFilter>().mesh, colTick);
+			}
+
+			////
+			
 			float slideDeg = vSlideDegree0 + vSlideDegrees*easedVal;
 			vGrabHold.transform.localRotation = Quaternion.AngleAxis(slideDeg, Vector3.up);
 

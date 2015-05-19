@@ -1,24 +1,21 @@
+using Hover.Common.Display;
 using Hover.Common.Items.Types;
-using UnityEngine;
 
 namespace Hover.Cast.Display.Standard {
 
 	/*================================================================================================*/
 	public class UiItemRadioRenderer : UiItemBaseToggleRenderer {
 
-		private static readonly Texture2D OuterTex = Resources.Load<Texture2D>("Textures/RadioOuter");
-		private static readonly Texture2D InnerTex = Resources.Load<Texture2D>("Textures/RadioInner");
-
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected override Texture2D GetOuterTexture() {
-			return OuterTex;
+		protected override Materials.IconOffset GetOuterIconOffset() {
+			return Materials.IconOffset.RadioOuter;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		protected override Texture2D GetInnerTexture() {
-			return InnerTex;
+		protected override Materials.IconOffset GetInnerIconOffset() {
+			return Materials.IconOffset.RadioInner;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

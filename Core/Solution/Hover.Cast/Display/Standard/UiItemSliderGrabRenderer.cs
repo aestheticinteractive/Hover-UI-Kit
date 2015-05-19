@@ -1,17 +1,16 @@
-﻿using UnityEngine;
+﻿using Hover.Common.Display;
+using UnityEngine;
 
 namespace Hover.Cast.Display.Standard {
 
 	/*================================================================================================*/
 	public class UiItemSliderGrabRenderer : UiItemBaseIconRenderer {
 
-		private static readonly Texture2D IconTex = Resources.Load<Texture2D>("Textures/Slider");
-
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected override Texture2D GetIconTexture() {
-			return IconTex;
+		protected override Materials.IconOffset GetIconOffset() {
+			return Materials.IconOffset.Slider;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

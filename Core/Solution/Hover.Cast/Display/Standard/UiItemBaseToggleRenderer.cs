@@ -1,5 +1,6 @@
 using Hover.Cast.State;
 using Hover.Common.Custom;
+using Hover.Common.Display;
 using Hover.Common.State;
 using UnityEngine;
 
@@ -10,16 +11,18 @@ namespace Hover.Cast.Display.Standard {
 
 		protected GameObject vOuter;
 		protected GameObject vInner;
+		protected Mesh vOuterMesh;
+		protected Mesh vInnerMesh;
 
 		private int vPrevTextSize;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected abstract Texture2D GetOuterTexture();
+		protected abstract Materials.IconOffset GetOuterIconOffset();
 
 		/*--------------------------------------------------------------------------------------------*/
-		protected abstract Texture2D GetInnerTexture();
+		protected abstract Materials.IconOffset GetInnerIconOffset();
 
 		/*--------------------------------------------------------------------------------------------*/
 		protected abstract bool IsToggled();
@@ -31,21 +34,31 @@ namespace Hover.Cast.Display.Standard {
 													float pArcAngle, IItemVisualSettings pSettings) {
 			base.Build(pMenuState, pItemState, pArcAngle, pSettings);
 
+			////
+
 			vOuter = GameObject.CreatePrimitive(PrimitiveType.Quad);
 			vOuter.name = "ToggleOuter";
 			vOuter.transform.SetParent(gameObject.transform, false);
-			vOuter.GetComponent<MeshRenderer>().sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
-			vOuter.GetComponent<MeshRenderer>().sharedMaterial.color = Color.clear;
-			vOuter.GetComponent<MeshRenderer>().sharedMaterial.mainTexture = GetOuterTexture();
 			vOuter.transform.localRotation = vLabel.CanvasLocalRotation;
+
+			vOuter.GetComponent<MeshRenderer>().sharedMaterial = Materials.StandardIcons;
+
+			vOuterMesh = vOuter.GetComponent<MeshFilter>().mesh;
+			Materials.SetMeshColor(vOuterMesh, Color.clear);
+			Materials.SetMeshIconCoords(vOuterMesh, GetOuterIconOffset());
+
+			////
 
 			vInner = GameObject.CreatePrimitive(PrimitiveType.Quad);
 			vInner.name = "ToggleInner";
 			vInner.transform.SetParent(gameObject.transform, false);
-			vInner.GetComponent<MeshRenderer>().sharedMaterial = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
-			vInner.GetComponent<MeshRenderer>().sharedMaterial.color = Color.clear;
-			vInner.GetComponent<MeshRenderer>().sharedMaterial.mainTexture = GetInnerTexture();
 			vInner.transform.localRotation = vLabel.CanvasLocalRotation;
+
+			vInner.GetComponent<MeshRenderer>().sharedMaterial = Materials.StandardIcons;
+
+			vInnerMesh = vInner.GetComponent<MeshFilter>().mesh;
+			Materials.SetMeshColor(vInnerMesh, Color.clear);
+			Materials.SetMeshIconCoords(vInnerMesh, GetInnerIconOffset());
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -55,9 +68,9 @@ namespace Hover.Cast.Display.Standard {
 			Color color = vSettings.ToggleIconColor;
 			color.a *= (vItemState.MaxHighlightProgress*0.25f + 0.75f)*vMainAlpha;
 
-			vOuter.GetComponent<MeshRenderer>().sharedMaterial.color = color;
-			vInner.GetComponent<MeshRenderer>().sharedMaterial.color = color;
-			vInner.GetComponent<MeshRenderer>().enabled = IsToggled();
+			Materials.SetMeshColor(vOuterMesh, color);
+			Materials.SetMeshColor(vInnerMesh, color);
+			vInner.SetActive(IsToggled());
 
 			if ( vSettings.TextSize != vPrevTextSize ) {
 				vPrevTextSize = vSettings.TextSize;
