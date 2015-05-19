@@ -14,6 +14,9 @@ namespace Hover.Cast.Display.Standard {
 
 		public const float HoverBarRelW = 0.333f;
 
+		public static readonly Quaternion TickQuatRot = 
+			Quaternion.FromToRotation(Vector3.back, Vector3.down);
+
 		protected IHovercastMenuState vMenuState;
 		protected IBaseItemState vItemState;
 		protected float vAngle0;
@@ -95,8 +98,7 @@ namespace Hover.Cast.Display.Standard {
 					quad.renderer.sharedMaterial = vTickMat;
 					quad.transform.SetParent(tick.transform, false);
 					quad.transform.localPosition = new Vector3(0, 0, 1.25f);
-					quad.transform.localRotation = 
-						Quaternion.FromToRotation(Vector3.back, Vector3.down);
+					quad.transform.localRotation = TickQuatRot;
 					quad.transform.localScale = quadScale;
 				}
 			}

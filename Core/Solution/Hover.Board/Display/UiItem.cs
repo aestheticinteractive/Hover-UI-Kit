@@ -1,5 +1,4 @@
-﻿using System;
-using Hover.Board.State;
+﻿using Hover.Board.State;
 using Hover.Common.Custom;
 using Hover.Common.Items.Types;
 using Hover.Common.State;
@@ -14,8 +13,8 @@ namespace Hover.Board.Display {
 
 		private BaseItemState vItemState;
 
-		private float vSlideDist;
 		private float vSlideX0;
+		private float vSlideW;
 
 		private GameObject vRendererObj;
 		private IUiItemRenderer vRenderer;
@@ -27,10 +26,8 @@ namespace Hover.Board.Display {
 										BaseItemState pItemState, IItemVisualSettings pVisualSettings) {
 			vItemState = pItemState;
 
-			const float slideBufferW = 0.5f;
-
-			vSlideDist = vItemState.Item.Width-slideBufferW*2;
-			vSlideX0 = slideBufferW;
+			vSlideX0 = 0.5f;
+			vSlideW = vItemState.Item.Width-vSlideX0*2;
 
 			////
 			
@@ -72,7 +69,7 @@ namespace Hover.Board.Display {
 			}
 
 			Vector3 cursorLocal = gameObject.transform.InverseTransformPoint((Vector3)cursorWorld);
-			float value = (cursorLocal.x-vSlideX0)/vSlideDist;
+			float value = (cursorLocal.x-vSlideX0)/vSlideW;
 
 			if ( sliderItem.IsStickySelected ) {
 				sliderItem.Value = value;

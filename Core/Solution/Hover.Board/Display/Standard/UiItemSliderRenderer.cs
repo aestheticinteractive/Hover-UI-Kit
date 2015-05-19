@@ -14,6 +14,9 @@ namespace Hover.Board.Display.Standard {
 
 		public const float HoverBarRelW = 0.333f;
 
+		public static readonly Quaternion TickQuatRot = 
+			Quaternion.FromToRotation(Vector3.back, Vector3.down);
+
 		protected IHoverboardPanelState vPanelState;
 		protected IHoverboardLayoutState vLayoutState;
 		protected IBaseItemState vItemState;
@@ -24,6 +27,8 @@ namespace Hover.Board.Display.Standard {
 		protected float vWidth;
 		protected float vHeight;
 		protected float vGrabW;
+		protected float vSlideX0;
+		protected float vSlideW;
 
 		protected UiHoverMeshRect vHiddenRect;
 		protected UiHoverMeshRectBg vTrackA;
@@ -55,6 +60,8 @@ namespace Hover.Board.Display.Standard {
 			vWidth = UiItem.Size*vItemState.Item.Width;
 			vHeight = UiItem.Size*vItemState.Item.Height;
 			vGrabW = 1;
+			vSlideX0 = (vGrabW-vWidth)/2;
+			vSlideW = vWidth-vGrabW;
 
 			gameObject.transform.SetParent(gameObject.transform, false);
 			gameObject.transform.localPosition = new Vector3(vWidth/2, 0, vHeight/2f);
@@ -72,32 +79,27 @@ namespace Hover.Board.Display.Standard {
 
 			////
 
-			/*vTickMat = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
+			vTickMat = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
 			vTickMat.renderQueue -= 400;
 			vTickMat.color = Color.clear;
 
 			if ( vSliderItem.Ticks > 1 ) {
-				Vector3 quadScale = new Vector3(UiHoverMeshRect.AngleInset*2, 0.36f, 0.1f);
+				Vector3 quadScale = new Vector3(UiHoverMeshRect.SizeInset*2, 0.36f, 0.1f);
 				float percPerTick = 1/(float)(vSliderItem.Ticks-1);
 
 				vTicks = new GameObject[vSliderItem.Ticks];
 
 				for ( int i = 0 ; i < vSliderItem.Ticks ; ++i ) {
-					var tick = new GameObject("Tick"+i);
+					GameObject tick = GameObject.CreatePrimitive(PrimitiveType.Quad);
+					tick.name = "Tick"+i;
 					tick.transform.SetParent(gameObject.transform, false);
-					tick.transform.localRotation = Quaternion.AngleAxis(
-						vSlideDegree0+vSlideDegrees*i*percPerTick, Vector3.up);
+					tick.renderer.sharedMaterial = vTickMat;
+					tick.transform.localPosition = Vector3.right*(vSlideX0+vSlideW*i*percPerTick);
+					tick.transform.localRotation = TickQuatRot;
+					tick.transform.localScale = quadScale;
 					vTicks[i] = tick;
-
-					var quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
-					quad.renderer.sharedMaterial = vTickMat;
-					quad.transform.SetParent(tick.transform, false);
-					quad.transform.localPosition = new Vector3(0, 0, 1.25f);
-					quad.transform.localRotation = 
-						Quaternion.FromToRotation(Vector3.back, Vector3.down);
-					quad.transform.localScale = quadScale;
 				}
-			}*/
+			}
 
 			////
 
@@ -154,18 +156,14 @@ namespace Hover.Board.Display.Standard {
 			vTrackB.UpdateBackground(colTrack);
 			vFillA.UpdateBackground(colFill);
 			vFillB.UpdateBackground(colFill);
-			//vTickMat.color = colTick;
+			vTickMat.color = colTick;
 
 			////
 
-			Vector3 slideOrigin = new Vector3((vGrabW-vWidth)/2, 0, 0);
-
-			vGrabHold.transform.localPosition = 
-				slideOrigin + new Vector3((vWidth-vGrabW)*easedVal, 0, 0);
+			vGrabHold.transform.localPosition = new Vector3(vSlideX0+vSlideW*easedVal, 0, 0);
 
 			if ( vSliderItem.HoverValue != null ) {
-				vHoverHold.transform.localPosition = 
-					slideOrigin + new Vector3((vWidth-vGrabW)*easedHover, 0, 0);
+				vHoverHold.transform.localPosition = new Vector3(vSlideX0+vSlideW*easedHover, 0, 0);
 
 				float high = vItemState.MaxHighlightProgress;
 				float select = 1-(float)Math.Pow(1-vItemState.SelectionProgress, 1.5f);
@@ -202,9 +200,8 @@ namespace Hover.Board.Display.Standard {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateMeshes(float pValue, float pHoverValue, float pHoverW) {
-			float fullW = vWidth-vGrabW;
-			float valPos = fullW*pValue;
-			float hovPos = fullW*pHoverValue;
+			float valPos = vSlideW*pValue;
+			float hovPos = vSlideW*pHoverValue;
 			float hoverWPad = (vGrabW-pHoverW)/2;
 			bool tooClose = (Math.Abs(valPos-hovPos) < vGrabW*(0.5f+HoverBarRelW));
 
