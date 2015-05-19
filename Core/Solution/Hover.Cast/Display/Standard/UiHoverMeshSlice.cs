@@ -46,22 +46,24 @@ namespace Hover.Cast.Display.Standard {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Resize(float pRadiusInner, float pRadiusOuter, float pArcAngle) {
-			Resize(pRadiusInner, pRadiusOuter, -pArcAngle/2f+AngleInset, pArcAngle/2f-AngleInset);
+			Resize(pRadiusInner, pRadiusOuter, -pArcAngle/2f, pArcAngle/2f);
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void Resize(float pRadiusInner, float pRadiusOuter, float pAngle0, float pAngle1) {
 			const float ep = 0.0001f;
+			float a0 = pAngle0+AngleInset;
+			float a1 = Math.Max(a0, pAngle1-AngleInset);
 
 			if ( Math.Abs(pRadiusInner-vRadInner) < ep && Math.Abs(pRadiusOuter-vRadOuter) < ep &&
-					Math.Abs(pAngle0-vAngle0) < ep && Math.Abs(pAngle1-vAngle1) < ep ) {
+					Math.Abs(a0-vAngle0) < ep && Math.Abs(a1-vAngle1) < ep ) {
 				return;
 			}
 
 			vRadInner = pRadiusInner;
 			vRadOuter = pRadiusOuter;
-			vAngle0 = pAngle0;
-			vAngle1 = pAngle1;
+			vAngle0 = a0;
+			vAngle1 = a1;
 
 			if ( vAngle1 > vAngle0 ) {
 				vMeshSteps = (int)Math.Round(Math.Max(2, (vAngle1-vAngle0)/Math.PI*60));

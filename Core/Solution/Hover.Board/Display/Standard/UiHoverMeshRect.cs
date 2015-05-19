@@ -44,8 +44,8 @@ namespace Hover.Board.Display.Standard {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateSize(float pWidth, float pHeight) {
-			var w = Math.Max(0, pWidth-SizeInset*2);
-			var h = Math.Max(0, pHeight-SizeInset*2);
+			float w = Math.Max(0, pWidth-SizeInset*2);
+			float h = Math.Max(0, pHeight-SizeInset*2);
 
 			if ( Math.Abs(w-vMeshW) < 0.005f && Math.Abs(h-vMeshH) < 0.005f ) {
 				return;

@@ -12,6 +12,8 @@ namespace Hover.Cast.Display.Standard {
 	/*================================================================================================*/
 	public class UiItemSliderRenderer : MonoBehaviour, IUiItemRenderer {
 
+		public const float HoverBarRelW = 0.333f;
+
 		protected IHovercastMenuState vMenuState;
 		protected IBaseItemState vItemState;
 		protected float vAngle0;
@@ -48,8 +50,8 @@ namespace Hover.Cast.Display.Standard {
 													float pArcAngle, IItemVisualSettings pSettings) {
 			vMenuState = pMenuState;
 			vItemState = pItemState;
-			vAngle0 = -pArcAngle/2f+UiHoverMeshSlice.AngleInset;
-			vAngle1 = pArcAngle/2f-UiHoverMeshSlice.AngleInset;
+			vAngle0 = -pArcAngle/2f;
+			vAngle1 = pArcAngle/2f;
 			vSettings = (ItemVisualSettingsStandard)pSettings;
 			vSliderItem = (ISliderItem)vItemState.Item;
 
@@ -134,7 +136,7 @@ namespace Hover.Cast.Display.Standard {
 			float easedVal = EasingUtil.GetEasedValue(
 				snaps, vSliderItem.Value, vSliderItem.SnappedValue, easePower);
 			float easedHover = easedVal;
-			float hoverArcHalf = 0;
+			float hoverArc = 0;
 
 			if ( vSliderItem.HoverValue != null ) {
 				easedHover = EasingUtil.GetEasedValue(snaps, (float)vSliderItem.HoverValue,
@@ -177,10 +179,10 @@ namespace Hover.Cast.Display.Standard {
 				vHover.UpdateHighlight(colHigh, high);
 				vHover.UpdateSelect(colSel, select);
 
-				hoverArcHalf = vGrabArcHalf*high*0.333f - UiHoverMeshSlice.AngleInset;
+				hoverArc = vGrabArcHalf*high*HoverBarRelW;
 			}
 
-			UpdateMeshes(easedVal, easedHover, hoverArcHalf);
+			UpdateMeshes(easedVal, easedHover, hoverArc);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -203,21 +205,20 @@ namespace Hover.Cast.Display.Standard {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateMeshes(float pValue, float pHoverValue, float pHoverArcHalf) {
+		private void UpdateMeshes(float pValue, float pHoverValue, float pHoverArc) {
 			const float ri1 = 1f;
 			const float ro1 = 1.5f;
 			const float ri2 = ri1+0.04f;
 			const float ro2 = ro1-0.04f;
 
-			float grabArc = (vGrabArcHalf+UiHoverMeshSlice.AngleInset)*2;
-			float hoverArc = Math.Max(0, pHoverArcHalf*2);
-			float hoverArcPad = vGrabArcHalf-pHoverArcHalf;
+			float grabArc = (vGrabArcHalf)*2;
 			float fullArc = vAngle1-vAngle0-grabArc;
 			float valAngle = vAngle0 + fullArc*pValue;
 			float hovAngle = vAngle0 + fullArc*pHoverValue;
-			bool tooClose = (Math.Abs(valAngle-hovAngle) < grabArc/2+hoverArc);
+			float hoverArcPad = vGrabArcHalf-pHoverArc/2;
+			bool tooClose = (Math.Abs(valAngle-hovAngle) < grabArc*(0.5f+HoverBarRelW));
 
-			if ( pHoverArcHalf == 0 || tooClose ) {
+			if ( pHoverArc == 0 || tooClose ) {
 				vHover.Resize(ri1, ro1, 0);
 				vFillA.Resize(ri2, ro2, vAngle0, valAngle);
 				vFillB.Resize(ri2, ro2, 0);
@@ -226,7 +227,7 @@ namespace Hover.Cast.Display.Standard {
 				return;
 			}
 
-			vHover.Resize(ri1, ro1, hoverArc);
+			vHover.Resize(ri1, ro1, pHoverArc);
 
 			if ( pValue <= pHoverValue ) {
 				vFillA.Resize(ri2, ro2, vAngle0, valAngle);
