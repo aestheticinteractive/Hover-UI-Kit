@@ -5,7 +5,7 @@ namespace Hover.Cast.Display.Standard {
 	/*================================================================================================*/
 	public class UiItemSliderGrabRenderer : UiItemBaseIconRenderer {
 
-		private static readonly Texture2D IconTex = Resources.Load<Texture2D>("Slider");
+		private static readonly Texture2D IconTex = Resources.Load<Texture2D>("Textures/Slider");
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

@@ -15,7 +15,7 @@ namespace Hover.Cast.Display.Standard {
 		public const float InnerRadius = 0;
 		public const float OuterRadius = UiPalmRenderer.InnerRadius-UiHoverMeshSlice.EdgeThick-0.005f;
 
-		private static readonly Texture2D IconTex = Resources.Load<Texture2D>("Parent");
+		private static readonly Texture2D IconTex = Resources.Load<Texture2D>("Textures/Parent");
 
 		protected IHovercastMenuState vMenuState;
 		protected IBaseItemState vItemState;

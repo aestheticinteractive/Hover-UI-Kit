@@ -6,8 +6,8 @@ namespace Hover.Board.Display.Standard {
 	/*================================================================================================*/
 	public class UiItemCheckboxRenderer : UiItemBaseToggleRenderer {
 
-		private static readonly Texture2D OuterTex = Resources.Load<Texture2D>("CheckboxOuter");
-		private static readonly Texture2D InnerTex = Resources.Load<Texture2D>("CheckboxInner");
+		private static readonly Texture2D OuterTex =Resources.Load<Texture2D>("Textures/CheckboxOuter");
+		private static readonly Texture2D InnerTex =Resources.Load<Texture2D>("Textures/CheckboxInner");
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

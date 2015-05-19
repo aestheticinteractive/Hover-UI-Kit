@@ -5,7 +5,7 @@ namespace Hover.Cast.Display.Standard {
 	/*================================================================================================*/
 	public class UiItemStickyRenderer : UiItemBaseIconRenderer {
 
-		private static readonly Texture2D IconTex = Resources.Load<Texture2D>("Sticky");
+		private static readonly Texture2D IconTex = Resources.Load<Texture2D>("Textures/Sticky");
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

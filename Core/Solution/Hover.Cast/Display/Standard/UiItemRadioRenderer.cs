@@ -6,8 +6,8 @@ namespace Hover.Cast.Display.Standard {
 	/*================================================================================================*/
 	public class UiItemRadioRenderer : UiItemBaseToggleRenderer {
 
-		private static readonly Texture2D OuterTex = Resources.Load<Texture2D>("RadioOuter");
-		private static readonly Texture2D InnerTex = Resources.Load<Texture2D>("RadioInner");
+		private static readonly Texture2D OuterTex = Resources.Load<Texture2D>("Textures/RadioOuter");
+		private static readonly Texture2D InnerTex = Resources.Load<Texture2D>("Textures/RadioInner");
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

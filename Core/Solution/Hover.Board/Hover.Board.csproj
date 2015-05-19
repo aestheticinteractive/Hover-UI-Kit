@@ -104,7 +104,6 @@
       <Name>Hover.Cursor</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy /Y "$(TargetDir)$(TargetFileName)" "$(SolutionDir)..\..\Unity\Assets\Plugins\"</PostBuildEvent>

@@ -151,7 +151,7 @@ namespace Hover.Common.Display {
 				}
 
 				vFontName = value;
-				vTextObj.GetComponent<Text>().font = Resources.Load<Font>(vFontName);
+				vTextObj.GetComponent<Text>().font = Resources.Load<Font>("Fonts/"+vFontName);
 			}
 		}
 
