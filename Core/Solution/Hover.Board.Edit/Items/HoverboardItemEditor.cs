@@ -47,6 +47,17 @@ namespace Hover.Board.Edit.Items {
 				case HoverboardItem.HoverboardItemType.Radio:
 					vTarget.RadioValue = EditorGUILayout.Toggle("Value", vTarget.RadioValue);
 					break;
+
+				case HoverboardItem.HoverboardItemType.Slider:
+					vTarget.SliderTicks = EditorGUILayout.IntField("Ticks", vTarget.SliderTicks);
+					vTarget.SliderSnaps = EditorGUILayout.IntField("Snaps", vTarget.SliderSnaps);
+					vTarget.SliderRangeMin = EditorGUILayout.FloatField("Min", vTarget.SliderRangeMin);
+					vTarget.SliderRangeMax = EditorGUILayout.FloatField("Max", vTarget.SliderRangeMax);
+					vTarget.SliderValue = EditorGUILayout.Slider("Value", vTarget.SliderValue,
+						vTarget.SliderRangeMin, vTarget.SliderRangeMax);
+					vTarget.SliderAllowJump = EditorGUILayout.Toggle("Allow Jump-To-Value",
+						vTarget.SliderAllowJump);
+					break;
 			}
 
 			if ( GUI.changed ) {

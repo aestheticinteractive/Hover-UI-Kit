@@ -12,7 +12,8 @@ namespace Hover.Board.Items {
 			Selector = SelectableItemType.Selector,
 			Sticky = SelectableItemType.Sticky,
 			Checkbox = SelectableItemType.Checkbox,
-			Radio = SelectableItemType.Radio
+			Radio = SelectableItemType.Radio,
+			Slider = SelectableItemType.Slider
 		}
 
 		public HoverboardItemType Type;
@@ -26,6 +27,13 @@ namespace Hover.Board.Items {
 		public bool CheckboxValue;
 
 		public bool RadioValue;
+
+		public int SliderTicks;
+		public int SliderSnaps;
+		public float SliderRangeMin;
+		public float SliderRangeMax = 1;
+		public float SliderValue;
+		public bool SliderAllowJump = true;
 
 		private BaseItem vItem;
 
@@ -63,6 +71,17 @@ namespace Hover.Board.Items {
 					var radItem = new RadioItem();
 					radItem.Value = RadioValue;
 					vItem = radItem;
+					break;
+
+				case HoverboardItemType.Slider:
+					var sliderItem = new SliderItem();
+					sliderItem.Ticks = SliderTicks;
+					sliderItem.Snaps = SliderSnaps;
+					sliderItem.RangeMin = SliderRangeMin;
+					sliderItem.RangeMax = SliderRangeMax;
+					sliderItem.Value = Mathf.InverseLerp(SliderRangeMin, SliderRangeMax, SliderValue);
+					sliderItem.AllowJump = SliderAllowJump;
+					vItem = sliderItem;
 					break;
 
 				default:

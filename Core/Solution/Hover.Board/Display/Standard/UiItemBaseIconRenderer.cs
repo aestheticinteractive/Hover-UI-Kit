@@ -11,6 +11,7 @@ namespace Hover.Board.Display.Standard {
 		private GameObject vIcon;
 
 		private int vPrevTextSize;
+		private bool vIsSizeChanged;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -32,7 +33,6 @@ namespace Hover.Board.Display.Standard {
 			base.Build(pPanelState, pLayoutState, pItemState, pSettings);
 
 			vLabel.AlignLeft = true;
-			vLabel.transform.localPosition = new Vector3(-vItemState.Item.Width/2, 0, 0);
 
 			vIcon = GameObject.CreatePrimitive(PrimitiveType.Quad);
 			vIcon.name = "Icon";
@@ -45,6 +45,13 @@ namespace Hover.Board.Display.Standard {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
+		public override void SetCustomSize(float pWidth, float pHeight, bool pCentered=true) {
+			base.SetCustomSize(pWidth, pHeight, pCentered);
+			vLabel.transform.localPosition = new Vector3(-vWidth/2, 0, 0);
+			vIsSizeChanged = true;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
 		public override void Update() {
 			base.Update();
 
@@ -53,14 +60,15 @@ namespace Hover.Board.Display.Standard {
 
 			vIcon.renderer.sharedMaterial.color = color;
 
-			if ( vSettings.TextSize != vPrevTextSize ) {
+			if ( vSettings.TextSize != vPrevTextSize || vIsSizeChanged ) {
 				vPrevTextSize = vSettings.TextSize;
+				vIsSizeChanged = false;
 
 				float inset = vSettings.TextSize;
 				vLabel.SetInset(false, inset);
 
 				vIcon.transform.localPosition = new Vector3(
-					vItemState.Item.Width/2-inset*0.666f*LabelCanvasScale, 0, 0);
+					vWidth/UiItem.Size/2-inset*0.666f*LabelCanvasScale, 0, 0);
 				vIcon.transform.localScale = GetIconScale();
 			}
 		}

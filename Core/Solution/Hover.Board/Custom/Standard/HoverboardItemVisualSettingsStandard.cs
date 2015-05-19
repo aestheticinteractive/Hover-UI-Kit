@@ -75,6 +75,10 @@ namespace Hover.Board.Custom.Standard {
 				return typeof(UiItemRadioRenderer);
 			}
 
+			if ( (pItem as ISliderItem) != null ) {
+				return typeof(UiItemSliderRenderer);
+			}
+
 			return typeof(UiItemSelectRenderer);
 		}
 

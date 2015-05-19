@@ -20,6 +20,8 @@ namespace Hover.Board.Display.Standard {
 		protected ItemVisualSettingsStandard vSettings;
 
 		protected float vMainAlpha;
+		protected float vWidth;
+		protected float vHeight;
 
 		protected UiHoverMeshRect vHoverRect;
 		protected UiLabel vLabel;
@@ -35,19 +37,28 @@ namespace Hover.Board.Display.Standard {
 			vItemState = pItemState;
 			vSettings = (ItemVisualSettingsStandard)pSettings;
 
-			float width = UiItem.Size*vItemState.Item.Width;
-			float height = UiItem.Size*vItemState.Item.Height;
-
 			gameObject.transform.SetParent(gameObject.transform, false);
-			gameObject.transform.localPosition = new Vector3(width/2, 0, height/2f);
 
 			vHoverRect = new UiHoverMeshRect(gameObject);
-			vHoverRect.UpdateSize(width, height);
 
 			var labelObj = new GameObject("Label");
 			labelObj.transform.SetParent(gameObject.transform, false);
 			vLabel = labelObj.AddComponent<UiLabel>();
-			vLabel.SetSize(width, height, vSettings.TextSize*0.25f, LabelCanvasScale);
+
+			float width = UiItem.Size*vItemState.Item.Width;
+			float height = UiItem.Size*vItemState.Item.Height;
+			SetCustomSize(width, height);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public virtual void SetCustomSize(float pWidth, float pHeight, bool pCentered=true) {
+			vWidth = pWidth;
+			vHeight = pHeight;
+
+			gameObject.transform.localPosition = (pCentered ? 
+				new Vector3(vWidth/2, 0, vHeight/2f) : Vector3.zero);
+			vHoverRect.UpdateSize(vWidth, vHeight);
+			vLabel.SetSize(vWidth, vHeight, vSettings.TextSize*0.25f, LabelCanvasScale);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

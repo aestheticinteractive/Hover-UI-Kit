@@ -125,6 +125,22 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: .0500000007
       objectReference: {fileID: 0}
+    - target: {fileID: 11400018, guid: a8d555a307d1cb84099801fcf69ab5b1, type: 2}
+      propertyPath: Type
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400018, guid: a8d555a307d1cb84099801fcf69ab5b1, type: 2}
+      propertyPath: Width
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400018, guid: a8d555a307d1cb84099801fcf69ab5b1, type: 2}
+      propertyPath: SliderValue
+      value: .75
+      objectReference: {fileID: 0}
+    - target: {fileID: 100010, guid: a8d555a307d1cb84099801fcf69ab5b1, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a8d555a307d1cb84099801fcf69ab5b1, type: 2}
   m_RootGameObject: {fileID: 1677082319}
@@ -177,6 +193,14 @@ MonoBehaviour:
   Height: 1
   IsVisible: 1
   IsEnabled: 1
+  CheckboxValue: 0
+  RadioValue: 0
+  SliderTicks: 0
+  SliderSnaps: 0
+  SliderRangeMin: 0
+  SliderRangeMax: 1
+  SliderValue: 0
+  SliderAllowJump: 1
 --- !u!1 &724536514
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,6 +248,14 @@ MonoBehaviour:
   Height: 1
   IsVisible: 1
   IsEnabled: 1
+  CheckboxValue: 0
+  RadioValue: 0
+  SliderTicks: 0
+  SliderSnaps: 0
+  SliderRangeMin: 0
+  SliderRangeMax: 1
+  SliderValue: 0
+  SliderAllowJump: 1
 --- !u!1 &887680268
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,6 +408,14 @@ MonoBehaviour:
   Height: 1
   IsVisible: 1
   IsEnabled: 1
+  CheckboxValue: 0
+  RadioValue: 0
+  SliderTicks: 0
+  SliderSnaps: 0
+  SliderRangeMin: 0
+  SliderRangeMax: 1
+  SliderValue: 0
+  SliderAllowJump: 1
 --- !u!1 &1475494900
 GameObject:
   m_ObjectHideFlags: 0
@@ -496,6 +536,14 @@ MonoBehaviour:
   Height: 1
   IsVisible: 1
   IsEnabled: 1
+  CheckboxValue: 0
+  RadioValue: 0
+  SliderTicks: 0
+  SliderSnaps: 0
+  SliderRangeMin: 0
+  SliderRangeMax: 1
+  SliderValue: 0
+  SliderAllowJump: 1
 --- !u!1 &1677082319
 GameObject:
   m_ObjectHideFlags: 0
@@ -572,6 +620,14 @@ MonoBehaviour:
   Height: 1
   IsVisible: 1
   IsEnabled: 1
+  CheckboxValue: 0
+  RadioValue: 0
+  SliderTicks: 0
+  SliderSnaps: 0
+  SliderRangeMin: 0
+  SliderRangeMax: 1
+  SliderValue: 0
+  SliderAllowJump: 1
 --- !u!1 &1724201462
 GameObject:
   m_ObjectHideFlags: 0
@@ -637,13 +693,21 @@ MonoBehaviour:
   m_Script: {fileID: 564958458, guid: ec0e2c4346a0dd94e9fa4af2ed7fcc12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 1
+  Type: 5
   Id: 
   Label: B
-  Width: 3
+  Width: 5
   Height: 1
   IsVisible: 1
   IsEnabled: 1
+  CheckboxValue: 0
+  RadioValue: 0
+  SliderTicks: 0
+  SliderSnaps: 0
+  SliderRangeMin: 0
+  SliderRangeMax: 1
+  SliderValue: .75
+  SliderAllowJump: 1
 --- !u!1 &1828910545
 GameObject:
   m_ObjectHideFlags: 0
@@ -743,7 +807,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1845993238
 Transform:
   m_ObjectHideFlags: 0
