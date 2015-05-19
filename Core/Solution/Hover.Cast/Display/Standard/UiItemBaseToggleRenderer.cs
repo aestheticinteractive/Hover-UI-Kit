@@ -8,8 +8,8 @@ namespace Hover.Cast.Display.Standard {
 	/*================================================================================================*/
 	public abstract class UiItemBaseToggleRenderer : UiItemSelectRenderer {
 
-		private GameObject vOuter;
-		private GameObject vInner;
+		protected GameObject vOuter;
+		protected GameObject vInner;
 
 		private int vPrevTextSize;
 

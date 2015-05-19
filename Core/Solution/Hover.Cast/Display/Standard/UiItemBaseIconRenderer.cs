@@ -8,7 +8,7 @@ namespace Hover.Cast.Display.Standard {
 	/*================================================================================================*/
 	public abstract class UiItemBaseIconRenderer : UiItemSelectRenderer {
 
-		private GameObject vIcon;
+		protected GameObject vIcon;
 
 		private int vPrevTextSize;
 
