@@ -56,7 +56,7 @@ namespace Hover.Demo.BoardKeys {
 
 			vPixels = new DemoTextPixels(pix);
 
-			//// 
+			////
 
 			/*var boxesObj = new GameObject("Boxes");
 			boxesObj.transform.SetParent(gameObject.transform, false);

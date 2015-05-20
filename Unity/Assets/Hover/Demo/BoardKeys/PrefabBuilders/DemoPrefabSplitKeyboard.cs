@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using Hover.Board.Display;
 using Hover.Board.Items;
-using Hover.Common.Items.Types;
 using UnityEngine;
 
 namespace Hover.Demo.BoardKeys.PrefabBuilders {
@@ -8,6 +8,8 @@ namespace Hover.Demo.BoardKeys.PrefabBuilders {
 	/*================================================================================================*/
 	public class DemoPrefabSplitKeyboard : MonoBehaviour {
 
+		private List<HoverboardPanel> vPanels;
+		private List<HoverboardLayout> vLayouts;
 		private List<HoverboardItem> vItems;
 		private bool vAreRenderersRemoved;
 
@@ -15,6 +17,8 @@ namespace Hover.Demo.BoardKeys.PrefabBuilders {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
+			vPanels = new List<HoverboardPanel>();
+			vLayouts = new List<HoverboardLayout>();
 			vItems = new List<HoverboardItem>();
 
 			HoverboardPanel leftPanel = BuildLeftPanel(gameObject);
@@ -39,10 +43,22 @@ namespace Hover.Demo.BoardKeys.PrefabBuilders {
 
 			vAreRenderersRemoved = true;
 
-			//the renderers will be recreated by the components in the saved prefab (at runtime)
+			//renderers and Ui* classes are created by Hover VR components at runtime
+
+			foreach ( HoverboardPanel panel in vPanels ) {
+				Destroy(panel.gameObject.GetComponent<UiPanel>());
+			}
+
+			foreach ( HoverboardLayout layout in vLayouts ) {
+				Destroy(layout.gameObject.GetComponent<UiLayout>());
+			}
+
 			foreach ( HoverboardItem item in vItems ) {
 				Destroy(item.gameObject.transform.FindChild("Renderer").gameObject);
+				Destroy(item.gameObject.GetComponent<UiItem>());
 			}
+
+			Destroy(gameObject.GetComponent<DemoPrefabSplitKeyboard>());
 		}
 
 
@@ -53,6 +69,7 @@ namespace Hover.Demo.BoardKeys.PrefabBuilders {
 			panelObj.transform.SetParent(pParent.transform, false);
 
 			var panel = panelObj.AddComponent<HoverboardPanel>();
+			vPanels.Add(panel);
 
 			var rowList = new List<HoverboardLayout>();
 			HoverboardLayout row;
@@ -66,6 +83,7 @@ namespace Hover.Demo.BoardKeys.PrefabBuilders {
 				row.GrowDirection = HoverboardLayout.DirectionType.Right;
 				row.Position = new Vector2(0, i-2.5f);
 				rowList.Add(row);
+				vLayouts.Add(row);
 			}
 
 			row = rowList[0];
@@ -114,6 +132,7 @@ namespace Hover.Demo.BoardKeys.PrefabBuilders {
 			panelObj.transform.SetParent(pParent.transform, false);
 
 			var panel = panelObj.AddComponent<HoverboardPanel>();
+			vPanels.Add(panel);
 
 			var rowList = new List<HoverboardLayout>();
 			HoverboardLayout row;
@@ -127,6 +146,7 @@ namespace Hover.Demo.BoardKeys.PrefabBuilders {
 				row.GrowDirection = HoverboardLayout.DirectionType.Right;
 				row.Position = new Vector2(0, i-2.5f);
 				rowList.Add(row);
+				vLayouts.Add(row);
 			}
 
 			row = rowList[0];

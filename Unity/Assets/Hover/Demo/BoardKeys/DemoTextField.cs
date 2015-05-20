@@ -29,9 +29,10 @@ namespace Hover.Demo.BoardKeys {
 			lblBgObj.transform.localScale = new Vector3(width, 1, 1);
 
 			Renderer lblRend = lblBgObj.GetComponent<Renderer>();
-			lblRend.material = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
-			lblRend.material.color = new Color(0.1f, 0.1f, 0.1f, 0.666f);
-			lblRend.material.renderQueue -= 300;
+			lblRend.material = Materials.GetLayer(Materials.Layer.Background, -2);
+
+			Materials.SetMeshColor(lblBgObj.GetComponent<MeshFilter>().mesh, 
+				new Color(0.1f, 0.1f, 0.1f, 0.666f));
 
 			Color green = HoverboardItemVisualSettingsStandard.Green;
 			green.a *= 0.5f;
@@ -43,6 +44,7 @@ namespace Hover.Demo.BoardKeys {
 			vTextEntry.Color = green;
 			vTextEntry.Alpha = 1;
 			vTextEntry.Label = "";
+			vTextEntry.SetDepthHint(-1);
 
 			ClearLetters();
 		}
