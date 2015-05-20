@@ -1,9 +1,11 @@
 ﻿using System;
+using Hover.Common.Items;
+using Hover.Common.State;
 
 namespace Hover.Common.Display {
 
 	/*================================================================================================*/
-	public static class EasingUtil {
+	public static class DisplayUtil {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -34,6 +36,17 @@ namespace Hover.Common.Display {
 
 			diff /= snaps;
 			return showVal + diff*sign;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public static bool IsEdgeVisible(IBaseItemState pItemState) {
+			ISelectableItem selItem = (pItemState.Item as ISelectableItem);
+
+			if ( selItem == null || !pItemState.IsNearestHighlight || !selItem.AllowSelection ) {
+				return false;
+			}
+
+			return (!pItemState.IsSelectionPrevented || selItem.IsStickySelected);
 		}
 
 	}

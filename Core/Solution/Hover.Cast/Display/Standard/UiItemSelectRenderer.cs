@@ -77,8 +77,7 @@ namespace Hover.Cast.Display.Standard {
 
 			ISelectableItem selItem = (vItemState.Item as ISelectableItem);
 			float high = vItemState.MaxHighlightProgress;
-			bool showEdge = (vItemState.IsNearestHighlight && !vItemState.IsSelectionPrevented && 
-				selItem != null && selItem.AllowSelection);
+			bool showEdge = DisplayUtil.IsEdgeVisible(vItemState);
 			float edge = (showEdge ? high : 0);
 			float select = 1-(float)Math.Pow(1-vItemState.SelectionProgress, 1.5f);
 			float selectAlpha = select;

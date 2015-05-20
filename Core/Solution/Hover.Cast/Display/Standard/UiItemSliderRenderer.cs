@@ -155,13 +155,13 @@ namespace Hover.Cast.Display.Standard {
 
 			const int easePower = 3;
 			int snaps = vSliderItem.Snaps;
-			float easedVal = EasingUtil.GetEasedValue(
+			float easedVal = DisplayUtil.GetEasedValue(
 				snaps, vSliderItem.Value, vSliderItem.SnappedValue, easePower);
 			float easedHover = easedVal;
 			float hoverArc = 0;
 
 			if ( vSliderItem.HoverValue != null ) {
-				easedHover = EasingUtil.GetEasedValue(snaps, (float)vSliderItem.HoverValue,
+				easedHover = DisplayUtil.GetEasedValue(snaps, (float)vSliderItem.HoverValue,
 					(float)vSliderItem.HoverSnappedValue, easePower);
 			} 
 

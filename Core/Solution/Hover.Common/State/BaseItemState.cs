@@ -230,7 +230,7 @@ namespace Hover.Common.State {
 
 			float selectProg = SelectionProgress;
 			
-			if ( selectProg <= 0 ) {
+			if ( selectProg <= 0 || !IsNearestHighlight ) {
 				selItem.DeselectStickySelections();
 			}
 
@@ -242,7 +242,7 @@ namespace Hover.Common.State {
 
 			////
 
-			bool allNearestCursorsHavePartialHighlight = true;
+			bool allNearestCursorsHavePartialHighlight = true; //where "partial" == "not 100%"
 
 			foreach ( CursorType cursorType in vCursorWorldPosMap.Keys ) {
 				if ( vIsNearestHighlightMap[cursorType] && vHighlightProgressMap[cursorType] >= 1 ) {
