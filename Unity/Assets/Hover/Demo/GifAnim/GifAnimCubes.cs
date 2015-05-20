@@ -48,7 +48,7 @@ namespace Hover.Demo.GifAnim {
 			GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
 			cube.name = "Cube"+pIndex;
 			cube.transform.SetParent(hold.transform, false);
-			cube.renderer.sharedMaterial = vCubeMat;
+			cube.GetComponent<Renderer>().sharedMaterial = vCubeMat;
 
 			////
 

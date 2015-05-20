@@ -49,7 +49,7 @@ namespace Hover.Demo.BoardKeys {
 					boxTx.SetParent(gameObject.transform, false);
 					boxTx.localPosition = new Vector3(xi-Width/2, 0, yi-Width/2)*1.1f;
 					boxTx.localScale = Vector3.zero;
-					boxObj.renderer.sharedMaterial.color = vBoxColor;
+					boxObj.GetComponent<Renderer>().sharedMaterial.color = vBoxColor;
 					boxObj.SetActive(false);
 
 					vCells[xi, yi] = boxObj.AddComponent<CellData>();

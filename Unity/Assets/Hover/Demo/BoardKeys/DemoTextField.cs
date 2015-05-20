@@ -27,9 +27,11 @@ namespace Hover.Demo.BoardKeys {
 			lblBgObj.transform.localPosition = new Vector3(0, 0, 0.01f);
 			lblBgObj.transform.localRotation = Quaternion.FromToRotation(Vector3.up, Vector3.back);
 			lblBgObj.transform.localScale = new Vector3(width, 1, 1);
-			lblBgObj.renderer.material = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
-			lblBgObj.renderer.material.color = new Color(0.1f, 0.1f, 0.1f, 0.666f);
-			lblBgObj.renderer.material.renderQueue -= 300;
+
+			Renderer lblRend = lblBgObj.GetComponent<Renderer>();
+			lblRend.material = new Material(Shader.Find("Unlit/AlphaSelfIllum"));
+			lblRend.material.color = new Color(0.1f, 0.1f, 0.1f, 0.666f);
+			lblRend.material.renderQueue -= 300;
 
 			Color green = HoverboardItemVisualSettingsStandard.Green;
 			green.a *= 0.5f;

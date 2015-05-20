@@ -52,7 +52,7 @@ namespace Hover.Demo.BoardKeys {
 					boxObj.transform.SetParent(gameObject.transform, false);
 					boxObj.transform.localPosition = new Vector3(xi-Width/2, 0, yi-Width/2)*1.04f;
 					boxObj.transform.localScale = new Vector3(1, 5, 1);
-					boxObj.renderer.material.color = vBoxColor;
+					boxObj.GetComponent<Renderer>().material.color = vBoxColor;
 
 					vBoxes[xi, yi] = boxObj.AddComponent<BoxData>();
 				}
@@ -145,7 +145,7 @@ namespace Hover.Demo.BoardKeys {
 					col = Color.Lerp(col, vCharColor, Mathf.Clamp(boxData.CurrVal, 0, 1));
 				}
 
-				boxObj.renderer.material.color = col;
+				boxObj.GetComponent<Renderer>().material.color = col;
 				isAnim = true;
 			}
 

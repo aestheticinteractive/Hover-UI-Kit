@@ -167,7 +167,7 @@ namespace Hover.Demo.CastCubes {
 					color = cube.GetComponent<DemoCube>().ColorRandom;
 				}
 
-				cube.renderer.sharedMaterial.color = color;
+				cube.GetComponent<Renderer>().sharedMaterial.color = color;
 			}
 		}
 
@@ -252,7 +252,7 @@ namespace Hover.Demo.CastCubes {
 			GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
 			cube.transform.parent = hold.transform;
 			cube.name = "Cube"+pIndex;
-			cube.renderer.sharedMaterial = new Material(Shader.Find("Diffuse"));
+			cube.GetComponent<Renderer>().sharedMaterial = new Material(Shader.Find("Diffuse"));
 			vCubes[pIndex] = cube;
 
 			DemoCube cubeData = cube.AddComponent<DemoCube>();
