@@ -8,13 +8,16 @@ namespace Hover.Common.Display {
 	/*================================================================================================*/
 	public static class Materials {
 
+		private static readonly Material VertColorTop =
+			new Material(Shader.Find("HoverVR/VertColorTop"));
+
 		private static readonly Material VertColorTex =
 			new Material(Shader.Find("HoverVR/VertColorTex"));
 
 		private static readonly Material VertColorTexTwoSided =
 			new Material(Shader.Find("HoverVR/VertColorTexTwoSided"));
 
-		public static int BaseRenderQueue = 3200;
+		public const int BaseRenderQueue = 3200;
 		public const int DepthHintMin = -4;
 		public const int DepthHintMax = 4;
 
@@ -22,6 +25,7 @@ namespace Hover.Common.Display {
 			new Dictionary<string, Material>();
 		private static readonly IDictionary<int, Material> TextMap = new Dictionary<int, Material>();
 		private static readonly int LayerCount = Enum.GetNames(typeof(Layer)).Length;
+		private static Material CursorMat;
 
 		public enum Layer {
 			Background,
@@ -30,8 +34,7 @@ namespace Hover.Common.Display {
 			SelectAndEdge,
 			Icon,
 			Text,
-			AboveText,
-			Cursor
+			AboveText
 		}
 
 		public enum IconOffset {
@@ -86,18 +89,14 @@ namespace Hover.Common.Display {
 			return TextMap[pDepthHint];
 		}
 
-		/*--------------------------------------------------------------------------------------------* /
-		public static Material Copy(Material pSource, int pRenderQueue) {
-			var matObj = new GameObject("CopyMaterial");
-			MeshRenderer rend = matObj.AddComponent<MeshRenderer>();
-			rend.material = pSource;
+		/*--------------------------------------------------------------------------------------------*/
+		public static Material GetCursorLayer() {
+			if ( CursorMat == null ) {
+				CursorMat = (Material)Object.Instantiate(VertColorTop);
+				CursorMat.renderQueue = BaseRenderQueue + LayerCount*(DepthHintMax+1);
+			}
 
-			Material matCopy = rend.material;
-			matCopy.name = matObj.name;
-			matCopy.renderQueue = pRenderQueue;
-
-			Object.Destroy(matObj);
-			return matCopy;
+			return CursorMat;
 		}
 
 
