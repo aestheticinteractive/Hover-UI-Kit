@@ -15,8 +15,6 @@ namespace Hover.Cast.Display.Standard {
 
 		public bool DrawOuterEdge { get; set; }
 
-		private readonly bool vBackgroundOnly;
-
 		private float vRadInner;
 		private float vRadOuter;
 		private float vAngle0;
@@ -27,11 +25,9 @@ namespace Hover.Cast.Display.Standard {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public UiHoverMeshSlice(GameObject pParent, bool pBackgroundOnly=false, string pBgName=null) {
-			vBackgroundOnly = pBackgroundOnly;
-
 			Build(pParent);
 
-			if ( vBackgroundOnly ) {
+			if ( pBackgroundOnly ) {
 				UnityEngine.Object.Destroy(Highlight);
 				UnityEngine.Object.Destroy(Select);
 				UnityEngine.Object.Destroy(Edge);
@@ -89,10 +85,6 @@ namespace Hover.Cast.Display.Standard {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected override void UpdateMesh(MeshType pType, Mesh pMesh, float pAmount=1) {
-			if ( vBackgroundOnly && pType != MeshType.Background ) {
-				return;
-			}
-
 			if ( pType == MeshType.Edge ) {
 				float edgeInner = (DrawOuterEdge ? vRadOuter : vRadInner-EdgeThick);
 				float edgeOuter = (DrawOuterEdge ? vRadOuter+EdgeThick : vRadInner);

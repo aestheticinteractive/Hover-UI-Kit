@@ -104,13 +104,6 @@ namespace Hover.Common.Display {
 		/*--------------------------------------------------------------------------------------------*/
 		public static void SetMeshColor(Mesh pMesh, Color32 pColor) {
 			int count = pMesh.vertexCount;
-
-			//TODO: BUG: the Hovercast arcs show strange-colored artifacts during mesh changes
-
-			if ( pMesh.colors32.Length == count && count > 0 && pMesh.colors32[0].Equals(pColor) ) {
-				return;
-			}
-
 			var colors32 = new Color32[count];
 
 			for ( int i = 0 ; i < count ; i++ ) {
