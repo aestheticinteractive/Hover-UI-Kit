@@ -103,7 +103,7 @@ namespace Hover.Common.Display {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public static void SetMeshColor(Mesh pMesh, Color32 pColor) {
-			int count = pMesh.vertexCount;
+			int count = pMesh.vertices.Length;
 			var colors32 = new Color32[count];
 
 			for ( int i = 0 ; i < count ; i++ ) {

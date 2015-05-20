@@ -43,6 +43,7 @@ namespace Hover.Board.Display.Standard {
 			vIcon.transform.SetParent(gameObject.transform, false);
 			vIcon.transform.localRotation = 
 				vLabel.gameObject.transform.localRotation*vLabel.CanvasLocalRotation;
+			vIcon.transform.localScale = GetIconScale();
 
 			vIconMesh = vIcon.GetComponent<MeshFilter>().mesh;
 			Materials.SetMeshColor(vIconMesh, Color.clear);
@@ -82,7 +83,6 @@ namespace Hover.Board.Display.Standard {
 
 				vIcon.transform.localPosition = new Vector3(
 					vWidth/UiItem.Size/2-inset*0.666f*LabelCanvasScale, 0, 0);
-				vIcon.transform.localScale = GetIconScale();
 			}
 		}
 

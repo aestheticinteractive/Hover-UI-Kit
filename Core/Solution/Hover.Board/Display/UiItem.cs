@@ -19,7 +19,7 @@ namespace Hover.Board.Display {
 
 		private GameObject vRendererObj;
 		private IUiItemRenderer vRenderer;
-		private int? vPrevDepth;
+		private int vPrevDepth;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -39,6 +39,8 @@ namespace Hover.Board.Display {
 
 			vRenderer = (IUiItemRenderer)vRendererObj.AddComponent(pVisualSettings.Renderer);
 			vRenderer.Build(pPanelState, pLayoutState, vItemState, pVisualSettings);
+			vRenderer.SetDepthHint(vPanelState.DisplayDepthHint);
+			vPrevDepth = vPanelState.DisplayDepthHint;
 
 			vItemState.HoverPointUpdater = vRenderer.UpdateHoverPoints;
 

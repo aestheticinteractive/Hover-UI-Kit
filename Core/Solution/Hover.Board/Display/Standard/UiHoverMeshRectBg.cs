@@ -75,14 +75,14 @@ namespace Hover.Board.Display.Standard {
 			MeshUtil.BuildRectangleMesh(pMesh, vMeshW, vMeshH, pAmount);
 
 			Vector3[] verts = pMesh.vertices;
-			const float inset = UiHoverMeshRect.SizeInset;
-			Vector3 shift = new Vector3(vMeshW/2+inset, 0, 0);
+			Vector3 shift = new Vector3(Width/2, 0, 0); //places pivot on the left edge
 
 			for ( int i = 0 ; i < verts.Length ; i++ ) {
 				verts[i] += shift;
 			}
 
 			pMesh.vertices = verts;
+			pMesh.RecalculateBounds();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

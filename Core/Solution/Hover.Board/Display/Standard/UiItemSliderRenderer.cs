@@ -30,7 +30,7 @@ namespace Hover.Board.Display.Standard {
 		protected float vSlideX0;
 		protected float vSlideW;
 
-		protected UiHoverMeshRect vHiddenRect;
+		protected UiHoverMeshRectBg vHiddenRect;
 		protected UiHoverMeshRectBg vTrackA;
 		protected UiHoverMeshRectBg vTrackB;
 		protected UiHoverMeshRectBg vFillA;
@@ -68,9 +68,8 @@ namespace Hover.Board.Display.Standard {
 
 			////
 
-			vHiddenRect = new UiHoverMeshRect(gameObject);
+			vHiddenRect = new UiHoverMeshRectBg(gameObject);
 			vHiddenRect.UpdateSize(vWidth, vHeight);
-			vHiddenRect.UpdateBackground(Color.clear);
 
 			vTrackA = new UiHoverMeshRectBg(gameObject, "TrackA");
 			vTrackB = new UiHoverMeshRectBg(gameObject, "TrackB");
@@ -121,6 +120,7 @@ namespace Hover.Board.Display.Standard {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void SetDepthHint(int pDepthHint) {
+			vHiddenRect.SetDepthHint(pDepthHint);
 			vTrackA.SetDepthHint(pDepthHint);
 			vTrackB.SetDepthHint(pDepthHint);
 			vFillA.SetDepthHint(pDepthHint);
