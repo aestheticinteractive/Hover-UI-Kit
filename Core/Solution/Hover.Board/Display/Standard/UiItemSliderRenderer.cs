@@ -5,6 +5,7 @@ using Hover.Common.Custom;
 using Hover.Common.Display;
 using Hover.Common.Items.Types;
 using Hover.Common.State;
+using Hover.Common.Util;
 using UnityEngine;
 
 namespace Hover.Board.Display.Standard {
@@ -37,6 +38,7 @@ namespace Hover.Board.Display.Standard {
 		protected UiHoverMeshRectBg vFillB;
 
 		protected GameObject[] vTicks;
+		protected Mesh vTickMesh;
 
 		protected GameObject vGrabHold;
 		protected UiItemSliderGrabRenderer vGrab;
@@ -82,16 +84,22 @@ namespace Hover.Board.Display.Standard {
 				Vector3 quadScale = new Vector3(UiHoverMeshRect.SizeInset*2, 0.36f, 0.1f);
 				float percPerTick = 1/(float)(vSliderItem.Ticks-1);
 
+				vTickMesh = new Mesh();
+				MeshUtil.BuildQuadMesh(vTickMesh);
+				Materials.SetMeshColor(vTickMesh, Color.clear);
+
 				for ( int i = 0 ; i < vSliderItem.Ticks ; ++i ) {
-					GameObject tickObj = GameObject.CreatePrimitive(PrimitiveType.Quad);
-					tickObj.name = "Tick"+i;
+					GameObject tickObj = new GameObject("Tick"+i);
 					tickObj.transform.SetParent(gameObject.transform, false);
 					tickObj.transform.localPosition = Vector3.right*(vSlideX0+vSlideW*i*percPerTick);
 					tickObj.transform.localRotation = TickQuatRot;
 					tickObj.transform.localScale = quadScale;
-					vTicks[i] = tickObj;
+					tickObj.AddComponent<MeshRenderer>();
 
-					Materials.SetMeshColor(tickObj.GetComponent<MeshFilter>().mesh, Color.clear);
+					MeshFilter tickFilt = tickObj.AddComponent<MeshFilter>();
+					tickFilt.sharedMesh = vTickMesh;
+
+					vTicks[i] = tickObj;
 				}
 			}
 
@@ -168,8 +176,8 @@ namespace Hover.Board.Display.Standard {
 			vFillA.UpdateBackground(colFill);
 			vFillB.UpdateBackground(colFill);
 
-			foreach ( GameObject tickObj in vTicks ) {
-				Materials.SetMeshColor(tickObj.GetComponent<MeshFilter>().mesh, colTick);
+			if ( vTickMesh != null ) {
+				Materials.SetMeshColor(vTickMesh, colTick);
 			}
 
 			////

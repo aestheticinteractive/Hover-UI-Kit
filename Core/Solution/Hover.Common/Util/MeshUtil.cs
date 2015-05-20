@@ -10,6 +10,36 @@ namespace Hover.Common.Util {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
+		public static void BuildQuadMesh(Mesh pMesh) {
+			const float size = 0.5f;
+
+			pMesh.vertices = new[] {
+				new Vector3( size,  size, 0), 
+				new Vector3( size, -size, 0), 
+				new Vector3(-size, -size, 0), 
+				new Vector3(-size,  size, 0)
+			};
+
+			pMesh.uv = new[] {
+				new Vector2(1, 1), 
+				new Vector2(1, 0), 
+				new Vector2(0, 0), 
+				new Vector2(0, 1)
+			};
+
+			pMesh.triangles = new[] {
+				0, 1, 2,
+				0, 2, 3
+			};
+
+			pMesh.RecalculateBounds();
+			pMesh.RecalculateNormals();
+			pMesh.Optimize();
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
 		public static Vector3 GetRingPoint(float pRadius, float pAngle) {
 			float x = (float)Math.Sin(pAngle);
 			float y = (float)Math.Cos(pAngle);

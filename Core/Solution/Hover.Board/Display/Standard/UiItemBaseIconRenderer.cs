@@ -2,6 +2,7 @@ using Hover.Board.State;
 using Hover.Common.Custom;
 using Hover.Common.Display;
 using Hover.Common.State;
+using Hover.Common.Util;
 using UnityEngine;
 
 namespace Hover.Board.Display.Standard {
@@ -38,14 +39,16 @@ namespace Hover.Board.Display.Standard {
 
 			////
 
-			vIcon = GameObject.CreatePrimitive(PrimitiveType.Quad);
-			vIcon.name = "Icon";
+			vIcon = new GameObject("Icon");
 			vIcon.transform.SetParent(gameObject.transform, false);
 			vIcon.transform.localRotation = 
 				vLabel.gameObject.transform.localRotation*vLabel.CanvasLocalRotation;
 			vIcon.transform.localScale = GetIconScale();
+			vIcon.AddComponent<MeshRenderer>();
 
-			vIconMesh = vIcon.GetComponent<MeshFilter>().mesh;
+			MeshFilter iconFilt = vIcon.AddComponent<MeshFilter>();
+			vIconMesh = iconFilt.mesh;
+			MeshUtil.BuildQuadMesh(vIconMesh);
 			Materials.SetMeshColor(vIconMesh, Color.clear);
 			Materials.SetMeshIconCoords(vIconMesh, GetIconOffset());
 		}

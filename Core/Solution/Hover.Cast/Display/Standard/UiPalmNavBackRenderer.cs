@@ -6,6 +6,7 @@ using Hover.Common.Custom;
 using Hover.Common.Display;
 using Hover.Common.Items;
 using Hover.Common.State;
+using Hover.Common.Util;
 using UnityEngine;
 
 namespace Hover.Cast.Display.Standard {
@@ -44,14 +45,16 @@ namespace Hover.Cast.Display.Standard {
 			vHoverSlice.Resize(InnerRadius, OuterRadius, pArcAngle);
 
 			////
-
-			vIcon = GameObject.CreatePrimitive(PrimitiveType.Quad);
-			vIcon.name = "Icon";
+			
+			vIcon = new GameObject("Icon");
 			vIcon.transform.SetParent(gameObject.transform, false);
 			vIcon.transform.localRotation = Quaternion.FromToRotation(Vector3.forward, Vector3.up)*
 				Quaternion.FromToRotation(Vector3.right, Vector3.up);
+			vIcon.AddComponent<MeshRenderer>();
 
-			vIconMesh = vIcon.GetComponent<MeshFilter>().mesh;
+			MeshFilter iconFilt = vIcon.AddComponent<MeshFilter>();
+			vIconMesh = iconFilt.mesh;
+			MeshUtil.BuildQuadMesh(vIconMesh);
 			Materials.SetMeshColor(vIconMesh, Color.clear);
 			Materials.SetMeshIconCoords(vIconMesh, Materials.IconOffset.Parent);
 		}

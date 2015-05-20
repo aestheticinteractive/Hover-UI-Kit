@@ -5,6 +5,7 @@ using Hover.Common.Custom;
 using Hover.Common.Display;
 using Hover.Common.Items.Types;
 using Hover.Common.State;
+using Hover.Common.Util;
 using UnityEngine;
 
 namespace Hover.Cast.Display.Standard {
@@ -38,6 +39,7 @@ namespace Hover.Cast.Display.Standard {
 		protected UiHoverMeshSlice vFillB;
 
 		protected GameObject[] vTicks;
+		protected Mesh vTickMesh;
 
 		protected GameObject vGrabHold;
 		protected UiItemSliderGrabRenderer vGrab;
@@ -81,6 +83,10 @@ namespace Hover.Cast.Display.Standard {
 				Vector3 quadScale = new Vector3(UiHoverMeshSlice.AngleInset*2, 0.36f, 0.1f);
 				float percPerTick = 1/(float)(vSliderItem.Ticks-1);
 
+				vTickMesh = new Mesh();
+				MeshUtil.BuildQuadMesh(vTickMesh);
+				Materials.SetMeshColor(vTickMesh, Color.clear);
+
 				for ( int i = 0 ; i < vSliderItem.Ticks ; ++i ) {
 					var tickObj = new GameObject("Tick"+i);
 					tickObj.transform.SetParent(gameObject.transform, false);
@@ -88,13 +94,15 @@ namespace Hover.Cast.Display.Standard {
 						vSlideDegree0+vSlideDegrees*i*percPerTick, Vector3.up);
 					vTicks[i] = tickObj;
 
-					var quadObj = GameObject.CreatePrimitive(PrimitiveType.Quad);
+					var quadObj = new GameObject("Quad");
 					quadObj.transform.SetParent(tickObj.transform, false);
 					quadObj.transform.localPosition = new Vector3(0, 0, 1.25f);
 					quadObj.transform.localRotation = TickQuatRot;
 					quadObj.transform.localScale = quadScale;
+					quadObj.AddComponent<MeshRenderer>();
 
-					Materials.SetMeshColor(quadObj.GetComponent<MeshFilter>().mesh, Color.clear);
+					MeshFilter quadFilt = quadObj.AddComponent<MeshFilter>();
+					quadFilt.sharedMesh = vTickMesh;
 				}
 			}
 
@@ -170,9 +178,8 @@ namespace Hover.Cast.Display.Standard {
 			vFillA.UpdateBackground(colFill);
 			vFillB.UpdateBackground(colFill);
 
-			foreach ( GameObject tickObj in vTicks ) {
-				GameObject quadObj = tickObj.transform.GetChild(0).gameObject;
-				Materials.SetMeshColor(quadObj.GetComponent<MeshFilter>().mesh, colTick);
+			if ( vTickMesh != null ) {
+				Materials.SetMeshColor(vTickMesh, colTick);
 			}
 
 			////

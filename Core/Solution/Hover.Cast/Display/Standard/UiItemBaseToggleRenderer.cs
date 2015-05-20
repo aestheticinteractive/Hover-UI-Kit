@@ -2,6 +2,7 @@ using Hover.Cast.State;
 using Hover.Common.Custom;
 using Hover.Common.Display;
 using Hover.Common.State;
+using Hover.Common.Util;
 using UnityEngine;
 
 namespace Hover.Cast.Display.Standard {
@@ -36,23 +37,27 @@ namespace Hover.Cast.Display.Standard {
 
 			////
 
-			vOuter = GameObject.CreatePrimitive(PrimitiveType.Quad);
-			vOuter.name = "ToggleOuter";
+			vOuter = new GameObject("ToggleOuter");
 			vOuter.transform.SetParent(gameObject.transform, false);
 			vOuter.transform.localRotation = vLabel.CanvasLocalRotation;
+			vOuter.AddComponent<MeshRenderer>();
 
-			vOuterMesh = vOuter.GetComponent<MeshFilter>().mesh;
+			MeshFilter outerFilt = vOuter.AddComponent<MeshFilter>();
+			vOuterMesh = outerFilt.mesh;
+			MeshUtil.BuildQuadMesh(vOuterMesh);
 			Materials.SetMeshColor(vOuterMesh, Color.clear);
 			Materials.SetMeshIconCoords(vOuterMesh, GetOuterIconOffset());
 
 			////
 
-			vInner = GameObject.CreatePrimitive(PrimitiveType.Quad);
-			vInner.name = "ToggleInner";
+			vInner = new GameObject("ToggleInner");
 			vInner.transform.SetParent(gameObject.transform, false);
 			vInner.transform.localRotation = vLabel.CanvasLocalRotation;
+			vInner.AddComponent<MeshRenderer>();
 
-			vInnerMesh = vInner.GetComponent<MeshFilter>().mesh;
+			MeshFilter iconFilt = vInner.AddComponent<MeshFilter>();
+			vInnerMesh = iconFilt.mesh;
+			MeshUtil.BuildQuadMesh(vInnerMesh);
 			Materials.SetMeshColor(vInnerMesh, Color.clear);
 			Materials.SetMeshIconCoords(vInnerMesh, GetInnerIconOffset());
 		}
