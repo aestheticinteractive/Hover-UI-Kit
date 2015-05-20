@@ -100,7 +100,7 @@ namespace Hover.Common.State {
 						return 0;
 					}
 
-					return Mathf.InverseLerp(vSettings.StickyReleaseDistance,
+					return Mathf.InverseLerp(vSettings.StickyReleaseDistance/vSettings.ScaleMultiplier,
 						vDistanceUponSelection, MinHighlightDistance);
 				}
 
