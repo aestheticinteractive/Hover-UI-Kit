@@ -22,9 +22,14 @@ namespace Hover.Board.Display.Standard {
 			Build(pParent);
 
 			Background.transform.localRotation = Quaternion.FromToRotation(Vector3.forward, Vector3.up);
+			
 			UnityEngine.Object.Destroy(Highlight);
 			UnityEngine.Object.Destroy(Select);
 			UnityEngine.Object.Destroy(Edge);
+
+			Highlight = null;
+			Select = null;
+			Edge = null;
 
 			if ( pBgName != null ) {
 				Background.name = pBgName;

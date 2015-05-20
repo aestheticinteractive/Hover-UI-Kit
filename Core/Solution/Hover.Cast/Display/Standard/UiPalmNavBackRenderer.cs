@@ -51,11 +51,16 @@ namespace Hover.Cast.Display.Standard {
 			vIcon.transform.localRotation = Quaternion.FromToRotation(Vector3.forward, Vector3.up)*
 				Quaternion.FromToRotation(Vector3.right, Vector3.up);
 
-			vIcon.GetComponent<MeshRenderer>().sharedMaterial = Materials.StandardIcons;
-
 			vIconMesh = vIcon.GetComponent<MeshFilter>().mesh;
 			Materials.SetMeshColor(vIconMesh, Color.clear);
 			Materials.SetMeshIconCoords(vIconMesh, Materials.IconOffset.Parent);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public virtual void SetDepthHint(int pDepthHint) {
+			vHoverSlice.SetDepthHint(pDepthHint);
+			vIcon.GetComponent<MeshRenderer>().sharedMaterial = 
+				Materials.GetLayer(Materials.Layer.Icon, pDepthHint, "StandardIcons");
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

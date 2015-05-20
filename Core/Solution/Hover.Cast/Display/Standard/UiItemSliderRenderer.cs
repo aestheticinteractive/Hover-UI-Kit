@@ -80,7 +80,6 @@ namespace Hover.Cast.Display.Standard {
 			if ( vSliderItem.Ticks > 1 ) {
 				Vector3 quadScale = new Vector3(UiHoverMeshSlice.AngleInset*2, 0.36f, 0.1f);
 				float percPerTick = 1/(float)(vSliderItem.Ticks-1);
-				var tickMat = Materials.GetLayer(Materials.RenderQueueLayer.Ticks);
 
 				for ( int i = 0 ; i < vSliderItem.Ticks ; ++i ) {
 					var tickObj = new GameObject("Tick"+i);
@@ -95,7 +94,6 @@ namespace Hover.Cast.Display.Standard {
 					quadObj.transform.localRotation = TickQuatRot;
 					quadObj.transform.localScale = quadScale;
 
-					quadObj.GetComponent<MeshRenderer>().sharedMaterial = tickMat;
 					Materials.SetMeshColor(quadObj.GetComponent<MeshFilter>().mesh, Color.clear);
 				}
 			}
@@ -120,6 +118,23 @@ namespace Hover.Cast.Display.Standard {
 			hoverObj.transform.SetParent(vHoverHold.transform, false);
 
 			vHover = new UiHoverMeshSlice(hoverObj, false, "Hover");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public virtual void SetDepthHint(int pDepthHint) {
+			vTrackA.SetDepthHint(pDepthHint);
+			vTrackB.SetDepthHint(pDepthHint);
+			vFillA.SetDepthHint(pDepthHint);
+			vFillB.SetDepthHint(pDepthHint);
+			vHover.SetDepthHint(pDepthHint);
+			vGrab.SetDepthHint(pDepthHint);
+
+			var tickMat = Materials.GetLayer(Materials.Layer.Ticks, pDepthHint);
+
+			foreach ( GameObject tickObj in vTicks ) {
+				GameObject quadObj = tickObj.transform.GetChild(0).gameObject;
+				quadObj.GetComponent<MeshRenderer>().sharedMaterial = tickMat;
+			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

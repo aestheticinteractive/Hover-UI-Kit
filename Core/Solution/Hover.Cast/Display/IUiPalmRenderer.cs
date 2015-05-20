@@ -11,6 +11,9 @@ namespace Hover.Cast.Display {
 		/*--------------------------------------------------------------------------------------------*/
 		void Build(MenuState pMenuState, IItemVisualSettings pSettings, float pAngle0, float pAngle1);
 
+		/*--------------------------------------------------------------------------------------------*/
+		void SetDepthHint(int pDepthHint);
+
 	}
 
 }

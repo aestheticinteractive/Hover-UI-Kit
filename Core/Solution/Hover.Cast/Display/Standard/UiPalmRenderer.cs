@@ -41,9 +41,7 @@ namespace Hover.Cast.Display.Standard {
 
 			vBackground = new GameObject("Background");
 			vBackground.transform.SetParent(gameObject.transform, false);
-
-			MeshRenderer bgRend = vBackground.AddComponent<MeshRenderer>();
-			bgRend.sharedMaterial = Materials.GetLayer(Materials.RenderQueueLayer.Background);
+			vBackground.AddComponent<MeshRenderer>();
 			
 			MeshFilter bgFilt = vBackground.AddComponent<MeshFilter>();
 			vBackgroundMesh = bgFilt.mesh;
@@ -60,6 +58,13 @@ namespace Hover.Cast.Display.Standard {
 
 			vLabel = labelObj.AddComponent<UiLabel>();
 			vLabel.AlignLeft = vMenuState.IsOnLeftSide;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public virtual void SetDepthHint(int pDepthHint) {
+			vBackground.GetComponent<MeshRenderer>().sharedMaterial = 
+				Materials.GetLayer(Materials.Layer.Background, pDepthHint);
+			vLabel.SetDepthHint(pDepthHint);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

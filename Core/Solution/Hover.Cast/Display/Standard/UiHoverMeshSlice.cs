@@ -35,6 +35,10 @@ namespace Hover.Cast.Display.Standard {
 				UnityEngine.Object.Destroy(Highlight);
 				UnityEngine.Object.Destroy(Select);
 				UnityEngine.Object.Destroy(Edge);
+
+				Highlight = null;
+				Select = null;
+				Edge = null;
 			}
 
 			if ( pBgName != null ) {

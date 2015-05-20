@@ -36,7 +36,8 @@ namespace Hover.Board.Display.Standard {
 			vSpotMesh = spotFilt.mesh;
 
 			MeshRenderer spotRend = vSpotObj.AddComponent<MeshRenderer>();
-			spotRend.sharedMaterial = Materials.GetLayer(Materials.RenderQueueLayer.AboveText);
+			spotRend.sharedMaterial = 
+				Materials.GetLayer(Materials.Layer.AboveText, Materials.DepthHintMax);
 
 			////
 
@@ -47,7 +48,8 @@ namespace Hover.Board.Display.Standard {
 			vLineMesh = vLineObj.GetComponent<MeshFilter>().mesh;
 
 			MeshRenderer lineRend = vLineObj.GetComponent<MeshRenderer>();
-			lineRend.sharedMaterial = Materials.GetLayer(Materials.RenderQueueLayer.AboveText);
+			lineRend.sharedMaterial = 
+				Materials.GetLayer(Materials.Layer.AboveText, Materials.DepthHintMax);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

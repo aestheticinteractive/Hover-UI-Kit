@@ -11,6 +11,7 @@ namespace Hover.Board.State {
 		public IItemPanel ItemPanel { get; private set; }
 		public LayoutState[] FullLayouts { get; private set; }
 		public PlaneData InteractionPlane { get; set; }
+		public int DisplayDepthHint { get; set; }
 		public float DisplayStrength { get; set; }
 
 		private readonly InteractionSettings vSettings;

@@ -12,6 +12,7 @@ namespace Hover.Cast.State {
 		Vector3 Center { get; }
 		Quaternion Rotation { get; }
 		float Size { get; }
+		int DisplayDepthHint { get; set; }
 		float DisplayStrength { get; }
 		float NavBackStrength { get; }
 		IBaseItemState NearestItem { get; }

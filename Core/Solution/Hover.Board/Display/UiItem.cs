@@ -11,6 +11,7 @@ namespace Hover.Board.Display {
 
 		public const float Size = 1;
 
+		private IHoverboardPanelState vPanelState;
 		private BaseItemState vItemState;
 
 		private float vSlideX0;
@@ -18,12 +19,14 @@ namespace Hover.Board.Display {
 
 		private GameObject vRendererObj;
 		private IUiItemRenderer vRenderer;
+		private int? vPrevDepth;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		internal void Build(IHoverboardPanelState pPanelState, IHoverboardLayoutState pLayoutState, 
 										BaseItemState pItemState, IItemVisualSettings pVisualSettings) {
+			vPanelState = pPanelState;
 			vItemState = pItemState;
 
 			vSlideX0 = 0.5f;
@@ -46,6 +49,11 @@ namespace Hover.Board.Display {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void Update() {
+			if ( vPanelState.DisplayDepthHint != vPrevDepth ) {
+				vRenderer.SetDepthHint(vPanelState.DisplayDepthHint);
+				vPrevDepth = vPanelState.DisplayDepthHint;
+			}
+
 			TryUpdateSliderValue();
 		}
 

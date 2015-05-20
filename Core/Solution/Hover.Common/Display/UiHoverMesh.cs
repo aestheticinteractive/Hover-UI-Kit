@@ -14,10 +14,10 @@ namespace Hover.Common.Display {
 			Select
 		}
 
-		public GameObject Background { get; private set; }
-		public GameObject Edge { get; private set; }
-		public GameObject Highlight { get; private set; }
-		public GameObject Select { get; private set; }
+		public GameObject Background { get; protected set; }
+		public GameObject Edge { get; protected set; }
+		public GameObject Highlight { get; protected set; }
+		public GameObject Select { get; protected set; }
 
 		public Mesh BackgroundMesh { get; private set; }
 		public Mesh EdgeMesh { get; private set; }
@@ -37,26 +37,22 @@ namespace Hover.Common.Display {
 
 			Background = new GameObject("Background");
 			Background.transform.SetParent(pParent.transform, false);
-			MeshRenderer meshRend = Background.AddComponent<MeshRenderer>();
-			meshRend.sharedMaterial = Materials.GetLayer(Materials.RenderQueueLayer.Background);
+			Background.AddComponent<MeshRenderer>();
 			BackgroundMesh = Background.AddComponent<MeshFilter>().mesh;
 
 			Edge = new GameObject("Edge");
 			Edge.transform.SetParent(pParent.transform, false);
-			meshRend = Edge.AddComponent<MeshRenderer>();
-			meshRend.sharedMaterial = Materials.GetLayer(Materials.RenderQueueLayer.SelectAndEdge);
+			Edge.AddComponent<MeshRenderer>();
 			EdgeMesh = Edge.AddComponent<MeshFilter>().mesh;
 
 			Highlight = new GameObject("Highlight");
 			Highlight.transform.SetParent(pParent.transform, false);
-			meshRend = Highlight.AddComponent<MeshRenderer>();
-			meshRend.sharedMaterial = Materials.GetLayer(Materials.RenderQueueLayer.Highlight);
+			Highlight.AddComponent<MeshRenderer>();
 			HighlightMesh = Highlight.AddComponent<MeshFilter>().mesh;
 
 			Select = new GameObject("Select");
 			Select.transform.SetParent(pParent.transform, false);
-			meshRend = Select.AddComponent<MeshRenderer>();
-			meshRend.sharedMaterial = Materials.GetLayer(Materials.RenderQueueLayer.SelectAndEdge);
+			Select.AddComponent<MeshRenderer>();
 			SelectMesh = Select.AddComponent<MeshFilter>().mesh;
 
 			UpdateAfterResize();
@@ -79,6 +75,29 @@ namespace Hover.Common.Display {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public virtual void SetDepthHint(int pDepthHint) {
+			if ( Background != null ) {
+				Background.GetComponent<MeshRenderer>().sharedMaterial = 
+					Materials.GetLayer(Materials.Layer.Background, pDepthHint);
+			}
+
+			if ( Edge != null ) {
+				Edge.GetComponent<MeshRenderer>().sharedMaterial = 
+					Materials.GetLayer(Materials.Layer.SelectAndEdge, pDepthHint);
+			}
+
+			if ( Highlight != null ) {
+				Highlight.GetComponent<MeshRenderer>().sharedMaterial = 
+					Materials.GetLayer(Materials.Layer.Highlight, pDepthHint);
+			}
+
+			if ( Select != null ) {
+				Select.GetComponent<MeshRenderer>().sharedMaterial = 
+					Materials.GetLayer(Materials.Layer.SelectAndEdge, pDepthHint);
+			}
+		}
+		
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void UpdateBackground(Color pColor) {
 			Materials.SetMeshColor(BackgroundMesh, pColor);

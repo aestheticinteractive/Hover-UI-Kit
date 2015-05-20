@@ -44,11 +44,17 @@ namespace Hover.Board.Display.Standard {
 			vIcon.transform.localRotation = 
 				vLabel.gameObject.transform.localRotation*vLabel.CanvasLocalRotation;
 
-			vIcon.GetComponent<MeshRenderer>().sharedMaterial = Materials.StandardIcons;
-			
 			vIconMesh = vIcon.GetComponent<MeshFilter>().mesh;
 			Materials.SetMeshColor(vIconMesh, Color.clear);
 			Materials.SetMeshIconCoords(vIconMesh, GetIconOffset());
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public override void SetDepthHint(int pDepthHint) {
+			base.SetDepthHint(pDepthHint);
+
+			vIcon.GetComponent<MeshRenderer>().sharedMaterial = 
+				Materials.GetLayer(Materials.Layer.Icon, pDepthHint, "StandardIcons");
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

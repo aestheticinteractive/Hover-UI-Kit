@@ -15,6 +15,9 @@ namespace Hover.Board.Display {
 			IBaseItemState pItemState, IItemVisualSettings pSettings);
 
 		/*--------------------------------------------------------------------------------------------*/
+		void SetDepthHint(int pDepthHint);
+
+		/*--------------------------------------------------------------------------------------------*/
 		void UpdateHoverPoints(IBaseItemPointsState pPointsState, Vector3 pCursorWorldPos);
 	}
 

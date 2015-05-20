@@ -28,7 +28,8 @@ namespace Hover.Cursor.Display.Standard {
 			vRingObj = new GameObject("Ring");
 			vRingObj.transform.SetParent(gameObject.transform, false);
 			MeshRenderer meshRend = vRingObj.AddComponent<MeshRenderer>();
-			meshRend.sharedMaterial = Materials.GetLayer(Materials.RenderQueueLayer.Cursor);
+			meshRend.sharedMaterial = 
+				Materials.GetLayer(Materials.Layer.Cursor, Materials.DepthHintMax);
 			vRingObj.AddComponent<MeshFilter>();
 
 			vRingMesh = vRingObj.GetComponent<MeshFilter>().mesh;

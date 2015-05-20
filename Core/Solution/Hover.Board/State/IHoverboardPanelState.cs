@@ -7,6 +7,7 @@ namespace Hover.Board.State {
 
 		IItemPanel ItemPanel { get; }
 		IHoverboardLayoutState[] Layouts { get; }
+		int DisplayDepthHint { get; set; }
 		float DisplayStrength { get; set; }
 
 

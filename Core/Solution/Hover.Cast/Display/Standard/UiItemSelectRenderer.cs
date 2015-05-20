@@ -55,6 +55,12 @@ namespace Hover.Cast.Display.Standard {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
+		public virtual void SetDepthHint(int pDepthHint) {
+			vHoverSlice.SetDepthHint(pDepthHint);
+			vLabel.SetDepthHint(pDepthHint);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
 		public void OnEnable() {
 			if ( vLabel != null ) {
 				vLabel.Alpha = 0;

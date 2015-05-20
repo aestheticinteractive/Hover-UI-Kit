@@ -82,7 +82,6 @@ namespace Hover.Board.Display.Standard {
 			if ( vSliderItem.Ticks > 1 ) {
 				Vector3 quadScale = new Vector3(UiHoverMeshRect.SizeInset*2, 0.36f, 0.1f);
 				float percPerTick = 1/(float)(vSliderItem.Ticks-1);
-				var tickMat = Materials.GetLayer(Materials.RenderQueueLayer.Ticks);
 
 				for ( int i = 0 ; i < vSliderItem.Ticks ; ++i ) {
 					GameObject tickObj = GameObject.CreatePrimitive(PrimitiveType.Quad);
@@ -91,11 +90,9 @@ namespace Hover.Board.Display.Standard {
 					tickObj.transform.localPosition = Vector3.right*(vSlideX0+vSlideW*i*percPerTick);
 					tickObj.transform.localRotation = TickQuatRot;
 					tickObj.transform.localScale = quadScale;
-
-					tickObj.GetComponent<MeshRenderer>().sharedMaterial = tickMat;
-					Materials.SetMeshColor(tickObj.GetComponent<MeshFilter>().mesh, Color.clear);
-
 					vTicks[i] = tickObj;
+
+					Materials.SetMeshColor(tickObj.GetComponent<MeshFilter>().mesh, Color.clear);
 				}
 			}
 
@@ -120,6 +117,22 @@ namespace Hover.Board.Display.Standard {
 			hoverObj.transform.SetParent(vHoverHold.transform, false);
 
 			vHover = new UiHoverMeshRect(hoverObj, "Hover");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public virtual void SetDepthHint(int pDepthHint) {
+			vTrackA.SetDepthHint(pDepthHint);
+			vTrackB.SetDepthHint(pDepthHint);
+			vFillA.SetDepthHint(pDepthHint);
+			vFillB.SetDepthHint(pDepthHint);
+			vHover.SetDepthHint(pDepthHint);
+			vGrab.SetDepthHint(pDepthHint);
+
+			var tickMat = Materials.GetLayer(Materials.Layer.Ticks, pDepthHint);
+
+			foreach ( GameObject tickObj in vTicks ) {
+				tickObj.GetComponent<MeshRenderer>().sharedMaterial = tickMat;
+			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

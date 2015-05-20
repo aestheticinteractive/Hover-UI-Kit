@@ -21,6 +21,7 @@ namespace Hover.Cast.Display {
 
 		private GameObject vRendererObj;
 		private IUiItemRenderer vRenderer;
+		private int? vPrevQueue;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -50,6 +51,11 @@ namespace Hover.Cast.Display {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void Update() {
+			if ( vMenuState.DisplayDepthHint != vPrevQueue ) {
+				vRenderer.SetDepthHint(vMenuState.DisplayDepthHint);
+				vPrevQueue = vMenuState.DisplayDepthHint;
+			}
+
 			TryUpdateSliderValue();
 		}
 

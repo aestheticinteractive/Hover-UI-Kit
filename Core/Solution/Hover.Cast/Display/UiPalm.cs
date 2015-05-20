@@ -19,6 +19,7 @@ namespace Hover.Cast.Display {
 		private GameObject vPrevRendererObj;
 		private GameObject vRendererObj;
 		private IUiPalmRenderer vRenderer;
+		private int? vPrevDepth;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -62,11 +63,16 @@ namespace Hover.Cast.Display {
 			}
 
 			if ( vRebuildOnUpdate ) {
-				vRebuildOnUpdate = false;
 				Rebuild();
 			}
 
+			if ( vRebuildOnUpdate || vMenuState.DisplayDepthHint != vPrevDepth ) {
+				vRenderer.SetDepthHint(vMenuState.DisplayDepthHint);
+				vPrevDepth = vMenuState.DisplayDepthHint;
+			}
+
 			vRendererHold.SetActive(vMenuState.DisplayStrength > 0);
+			vRebuildOnUpdate = false;
 		}
 
 

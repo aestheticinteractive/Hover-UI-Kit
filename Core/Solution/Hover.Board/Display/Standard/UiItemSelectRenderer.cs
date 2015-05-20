@@ -49,6 +49,12 @@ namespace Hover.Board.Display.Standard {
 			float height = UiItem.Size*vItemState.Item.Height;
 			SetCustomSize(width, height);
 		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public virtual void SetDepthHint(int pDepthHint) {
+			vHoverRect.SetDepthHint(pDepthHint);
+			vLabel.SetDepthHint(pDepthHint);
+		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void SetCustomSize(float pWidth, float pHeight, bool pCentered=true) {

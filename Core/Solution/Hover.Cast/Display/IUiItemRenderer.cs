@@ -15,6 +15,9 @@ namespace Hover.Cast.Display {
 																		IItemVisualSettings pSettings);
 
 		/*--------------------------------------------------------------------------------------------*/
+		void SetDepthHint(int pDepthHint);
+
+		/*--------------------------------------------------------------------------------------------*/
 		void HandleChangeAnimation(bool pFadeIn, int pDirection, float pProgress);
 
 		/*--------------------------------------------------------------------------------------------*/

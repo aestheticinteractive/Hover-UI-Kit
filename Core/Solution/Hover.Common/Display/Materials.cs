@@ -1,24 +1,30 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Hover.Common.Display {
 
 	/*================================================================================================*/
 	public static class Materials {
 
-		public static readonly Material VertColorTex =
+		private static readonly Material VertColorTex =
 			new Material(Shader.Find("HoverVR/VertColorTex"));
 
-		public static readonly Material VertColorTexTwoSided =
+		private static readonly Material VertColorTexTwoSided =
 			new Material(Shader.Find("HoverVR/VertColorTexTwoSided"));
 
-		public static readonly Material StandardIcons = InitStandardIcons();
+		public static int BaseRenderQueue = 3200;
+		public const int DepthHintMin = -4;
+		public const int DepthHintMax = 4;
 
-		private static readonly IDictionary<RenderQueueLayer, Material> LayerMap = 
-			new Dictionary<RenderQueueLayer, Material>();
+		private static readonly IDictionary<string, Material> LayerMap = 
+			new Dictionary<string, Material>();
+		private static readonly IDictionary<int, Material> TextMap = new Dictionary<int, Material>();
+		private static readonly int LayerCount = Enum.GetNames(typeof(Layer)).Length;
 
-		public enum RenderQueueLayer {
-			Background = 3000+100,
+		public enum Layer {
+			Background,
 			Ticks,
 			Highlight,
 			SelectAndEdge,
@@ -42,28 +48,45 @@ namespace Hover.Common.Display {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private static Material InitStandardIcons() {
-			Material mat = (Material)Object.Instantiate(VertColorTexTwoSided);
-			mat.mainTexture = Resources.Load<Texture2D>("Textures/StandardIcons");
-			mat.renderQueue = (int)RenderQueueLayer.Icon;
-			return mat;
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public static Material GetLayer(RenderQueueLayer pLayer, bool pTwoSided=true) {
-			if ( !LayerMap.ContainsKey(pLayer) ) {
-				Material mat = (Material)Object.Instantiate(pTwoSided ? 
-					VertColorTexTwoSided : VertColorTex);
-				mat.renderQueue = (int)pLayer;
-				LayerMap.Add(pLayer, mat);
+		public static int GetRenderQueue(Layer pLayer, int pDepthHint) {
+			if ( pDepthHint > DepthHintMax || pDepthHint < DepthHintMin ) {
+				throw new Exception("GroupQueue ("+pDepthHint+") is out of bounds: ["+
+					DepthHintMin+", "+DepthHintMax+"]");
 			}
 
-			return LayerMap[pLayer];
+			return BaseRenderQueue + LayerCount*pDepthHint + (int)pLayer;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
+		public static Material GetLayer(Layer pLayer, int pDepthHint, string pTexture=null) {
+			string key = pLayer+"|"+pDepthHint+(pTexture == null ? "" : "|"+pTexture);
+
+			if ( !LayerMap.ContainsKey(key) ) {
+				Material mat = (Material)Object.Instantiate(VertColorTexTwoSided);
+				mat.renderQueue = GetRenderQueue(pLayer, pDepthHint);
+
+				if ( pTexture != null ) {
+					mat.mainTexture = Resources.Load<Texture2D>("Textures/"+pTexture);
+				}
+
+				LayerMap.Add(key, mat);
+			}
+
+			return LayerMap[key];
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public static Material GetTextLayer(Material pTextMat, int pDepthHint) {
+			if ( !TextMap.ContainsKey(pDepthHint) ) {
+				Material mat = (Material)Object.Instantiate(pTextMat);
+				mat.renderQueue = GetRenderQueue(Layer.Text, pDepthHint);
+				TextMap.Add(pDepthHint, mat);
+			}
+
+			return TextMap[pDepthHint];
+		}
+
+		/*--------------------------------------------------------------------------------------------* /
 		public static Material Copy(Material pSource, int pRenderQueue) {
 			var matObj = new GameObject("CopyMaterial");
 			MeshRenderer rend = matObj.AddComponent<MeshRenderer>();
