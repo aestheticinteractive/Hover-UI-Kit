@@ -97,6 +97,10 @@ namespace Hover.Cast.State {
 			NavBackStrength = pInputMenu.NavigateBackStrength;
 
 			CheckNavigateBackAction(pInputMenu);
+			
+			foreach ( BaseItemState item in vAllItems ) {
+				item.UpdateBeforeCursors();
+			}
 
 			foreach ( ICursorState cursor in vCurrentCursors ) {
 				UpdateWithCursor(cursor);

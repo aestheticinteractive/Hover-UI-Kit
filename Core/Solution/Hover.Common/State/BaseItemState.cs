@@ -14,6 +14,7 @@ namespace Hover.Common.State {
 		public IBaseItem Item { get; private set; }
 		public Action<IBaseItemPointsState, Vector3> HoverPointUpdater { get; set; }
 
+		public bool IsHighlightPrevented { get; private set; }
 		public bool IsSelectionPrevented { get; private set; }
 
 		private readonly BaseInteractionSettings vSettings;
@@ -149,20 +150,39 @@ namespace Hover.Common.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
+		public void UpdateBeforeCursors() {
+			IsHighlightPrevented = (
+				!Item.IsEnabled ||
+				!Item.IsVisible ||
+				!Item.IsAncestryEnabled ||
+				!Item.IsAncestryVisible ||
+				!(Item is ISelectableItem) ||
+				vPreventSelectionViaDisplayMap.Any(x => x.Value)
+			);
+
+			if ( !IsHighlightPrevented ) {
+				return;
+			}
+
+			ResetAllCursorInteractions();
+			vSelectionStart = null;
+
+			ISelectableItem selItem = (Item as ISelectableItem);
+
+			if ( selItem != null ) {
+				selItem.DeselectStickySelections();
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateWithCursor(CursorType pType, Vector3? pCursorWorldPos) {
 			vCursorWorldPosMap[pType] = pCursorWorldPos;
 
-			bool prevent = (
-				pCursorWorldPos == null ||
-				!Item.IsEnabled ||
-				!Item.IsVisible ||
-				vPreventSelectionViaDisplayMap.Any(x => x.Value) ||
-				!Item.IsAncestryEnabled ||
-				!Item.IsAncestryVisible ||
-				!(Item is ISelectableItem)
-			);
+			if ( IsHighlightPrevented ) {
+				return;
+			}
 
-			if ( prevent ) {
+			if ( pCursorWorldPos == null ) {
 				vHighlightDistanceMap[pType] = float.MaxValue;
 				vHighlightProgressMap[pType] = 0;
 				return;

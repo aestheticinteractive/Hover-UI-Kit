@@ -122,6 +122,10 @@ namespace Hover.Board.State {
 				.Select(x => x.InteractionPlane)
 				.ToArray();
 
+			foreach ( ItemTree itemTree in vAllItems ) {
+				itemTree.Item.UpdateBeforeCursors();
+			}
+
 			foreach ( ProjectionState proj in vProjectionMap.Values ) {
 				UpdateProjection(proj);
 			}
