@@ -9,11 +9,12 @@ namespace Hover.Board.Items {
 	public class HoverboardItem : MonoBehaviour, IHovercommonItem {
 
 		public enum HoverboardItemType {
-			Selector = SelectableItemType.Selector,
-			Sticky = SelectableItemType.Sticky,
-			Checkbox = SelectableItemType.Checkbox,
-			Radio = SelectableItemType.Radio,
-			Slider = SelectableItemType.Slider
+			Selector = 1, //legacy value from SelectableItemType.Selector
+			Sticky,
+			Checkbox,
+			Radio,
+			Slider,
+			Text
 		}
 
 		public HoverboardItemType Type;
@@ -82,6 +83,10 @@ namespace Hover.Board.Items {
 					sliderItem.Value = Mathf.InverseLerp(SliderRangeMin, SliderRangeMax, SliderValue);
 					sliderItem.AllowJump = SliderAllowJump;
 					vItem = sliderItem;
+					break;
+
+				case HoverboardItemType.Text:
+					vItem = new TextItem();
 					break;
 
 				default:

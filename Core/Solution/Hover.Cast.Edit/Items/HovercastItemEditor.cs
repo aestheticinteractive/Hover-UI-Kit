@@ -1,5 +1,4 @@
 using Hover.Cast.Items;
-using Hover.Common.Items.Types;
 using UnityEditor;
 using UnityEngine;
 
@@ -36,23 +35,24 @@ namespace Hover.Cast.Edit.Items {
 			vTarget.IsVisible = EditorGUILayout.Toggle("Visible", vTarget.IsVisible);
 			vTarget.IsEnabled = EditorGUILayout.Toggle("Enabled", vTarget.IsEnabled);
 
-			vTarget.Type = (SelectableItemType)EditorGUILayout.EnumPopup("Item Type", vTarget.Type);
+			vTarget.Type = (HovercastItem.HovercastItemType)EditorGUILayout.EnumPopup(
+				"Item Type", vTarget.Type);
 
-			if ( vTarget.Type != SelectableItemType.Parent ) {
+			if ( vTarget.Type != HovercastItem.HovercastItemType.Parent ) {
 				vTarget.NavigateBackUponSelect = EditorGUILayout.Toggle(
 					"Navigate Back Upon Select", vTarget.NavigateBackUponSelect);
 			}
 
 			switch ( vTarget.Type ) {
-				case SelectableItemType.Checkbox:
+				case HovercastItem.HovercastItemType.Checkbox:
 					vTarget.CheckboxValue = EditorGUILayout.Toggle("Value", vTarget.CheckboxValue);
 					break;
 
-				case SelectableItemType.Radio:
+				case HovercastItem.HovercastItemType.Radio:
 					vTarget.RadioValue = EditorGUILayout.Toggle("Value", vTarget.RadioValue);
 					break;
 
-				case SelectableItemType.Slider:
+				case HovercastItem.HovercastItemType.Slider:
 					vTarget.SliderTicks = EditorGUILayout.IntField("Ticks", vTarget.SliderTicks);
 					vTarget.SliderSnaps = EditorGUILayout.IntField("Snaps", vTarget.SliderSnaps);
 					vTarget.SliderRangeMin = EditorGUILayout.FloatField("Min", vTarget.SliderRangeMin);

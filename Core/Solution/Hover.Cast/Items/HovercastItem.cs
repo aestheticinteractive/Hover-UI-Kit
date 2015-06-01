@@ -8,7 +8,17 @@ namespace Hover.Cast.Items {
 	/*================================================================================================*/
 	public class HovercastItem : MonoBehaviour, IHovercommonItem {
 
-		public SelectableItemType Type;
+		public enum HovercastItemType {
+			Parent,
+			Selector,
+			Sticky,
+			Checkbox,
+			Radio,
+			Slider,
+			Text
+		}
+
+		public HovercastItemType Type;
 		public string Id = "";
 		public string Label = "";
 		public float RelativeSize = 1;
@@ -45,27 +55,27 @@ namespace Hover.Cast.Items {
 		/*--------------------------------------------------------------------------------------------*/
 		private void BuildItem() {
 			switch ( Type ) {
-				case SelectableItemType.Checkbox:
+				case HovercastItemType.Checkbox:
 					var checkItem = new CheckboxItem();
 					checkItem.Value = CheckboxValue;
 					vItem = checkItem;
 					break;
 
-				case SelectableItemType.Parent:
+				case HovercastItemType.Parent:
 					vItem = new ParentItem(GetChildItems);
 					break;
 
-				case SelectableItemType.Radio:
+				case HovercastItemType.Radio:
 					var radItem = new RadioItem();
 					radItem.Value = RadioValue;
 					vItem = radItem;
 					break;
 
-				case SelectableItemType.Selector:
+				case HovercastItemType.Selector:
 					vItem = new SelectorItem();
 					break;
 
-				case SelectableItemType.Slider:
+				case HovercastItemType.Slider:
 					var sliderItem = new SliderItem();
 					sliderItem.Ticks = SliderTicks;
 					sliderItem.Snaps = SliderSnaps;
@@ -76,8 +86,12 @@ namespace Hover.Cast.Items {
 					vItem = sliderItem;
 					break;
 
-				case SelectableItemType.Sticky:
+				case HovercastItemType.Sticky:
 					vItem = new StickyItem();
+					break;
+
+				case HovercastItemType.Text:
+					vItem = new TextItem();
 					break;
 
 				default:
