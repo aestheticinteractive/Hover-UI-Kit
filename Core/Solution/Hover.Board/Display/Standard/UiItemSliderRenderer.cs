@@ -32,6 +32,7 @@ namespace Hover.Board.Display.Standard {
 		protected float vGrabW;
 		protected float vSlideX0;
 		protected float vSlideW;
+		protected float vZeroValue;
 
 		protected UiHoverMeshRectBg vHiddenRect;
 		protected UiItemSliderTrackRenderer vTrack;
@@ -58,10 +59,11 @@ namespace Hover.Board.Display.Standard {
 			vSliderItem = (ISliderItem)vItemState.Item;
 			vTicks = new GameObject[vSliderItem.Ticks];
 
-			vWidth = UiItem.Size*vItemState.Item.Width;
-			vHeight = UiItem.Size*vItemState.Item.Height;
+			vWidth = UiItem.Size*vSliderItem.Width;
+			vHeight = UiItem.Size*vSliderItem.Height;
 			vIsVert = (vHeight > vWidth);
 			vGrabW = 1;
+			vZeroValue = (0-vSliderItem.RangeMin)/(vSliderItem.RangeMax-vSliderItem.RangeMin);
 
 			gameObject.transform.SetParent(gameObject.transform, false);
 			gameObject.transform.localPosition = new Vector3(vWidth/2, 0, vHeight/2f);
@@ -161,7 +163,7 @@ namespace Hover.Board.Display.Standard {
 		public virtual void Update() {
 			vMainAlpha = vPanelState.DisplayStrength*vLayoutState.DisplayStrength;
 
-			if ( !vItemState.Item.IsEnabled || !vItemState.Item.IsAncestryEnabled ) {
+			if ( !vSliderItem.IsEnabled || !vSliderItem.IsAncestryEnabled ) {
 				vMainAlpha *= 0.333f;
 			}
 
@@ -236,27 +238,55 @@ namespace Hover.Board.Display.Standard {
 			var segs = new List<DisplayUtil.TrackSegment>();
 			var cuts = new List<DisplayUtil.TrackSegment>();
 
-			float valCenter = pValue*vSlideW + vGrabW/2;
-			float hovCenter = pHoverValue*vSlideW + vGrabW/2;
-			bool tooClose = (Math.Abs(valCenter-hovCenter) < vGrabW*(0.5f+HoverBarRelW));
+			float halfGrabW = vGrabW/2;
+			float valCenter = pValue*vSlideW + halfGrabW;
+			float hovCenter = pHoverValue*vSlideW + halfGrabW;
+			float zeroCenter = vZeroValue*vSlideW + halfGrabW;
+			bool isHoverTooClose = (Math.Abs(valCenter-hovCenter) < vGrabW*(0.5f+HoverBarRelW));
 
-			segs.Add(new DisplayUtil.TrackSegment {
-				StartValue = 0,
-				EndValue = valCenter,
-				IsFill = true
-			});
+			if ( vSliderItem.FillStartingPoint == SliderItem.FillType.Zero ) {
+				float break0 = Math.Min(zeroCenter, valCenter);
+				float break1 = Math.Max(zeroCenter, valCenter);
 
-			segs.Add(new DisplayUtil.TrackSegment {
-				StartValue = valCenter,
-				EndValue = vWidth
-			});
+				segs.Add(new DisplayUtil.TrackSegment {
+					StartValue = 0,
+					EndValue = break0
+				});
 
+				segs.Add(new DisplayUtil.TrackSegment {
+					StartValue = break0,
+					EndValue = break1,
+					IsFill = true,
+					IsZeroAtStart = (break0 == zeroCenter)
+				});
+
+				segs.Add(new DisplayUtil.TrackSegment {
+					StartValue = break1,
+					EndValue = vWidth
+				});
+			}
+			else {
+				bool isMinStart = (vSliderItem.FillStartingPoint == SliderItem.FillType.MinimumValue);
+
+				segs.Add(new DisplayUtil.TrackSegment {
+					StartValue = 0,
+					EndValue = valCenter,
+					IsFill = isMinStart
+				});
+
+				segs.Add(new DisplayUtil.TrackSegment {
+					StartValue = valCenter,
+					EndValue = vWidth,
+					IsFill = !isMinStart
+				});
+			}
+			
 			cuts.Add(new DisplayUtil.TrackSegment {
-				StartValue = valCenter - vGrabW/2,
-				EndValue = valCenter + vGrabW/2,
+				StartValue = valCenter - halfGrabW,
+				EndValue = valCenter + halfGrabW,
 			});
 
-			if ( pHoverW > 0 && !tooClose ) {
+			if ( pHoverW > 0 && !isHoverTooClose ) {
 				cuts.Add(new DisplayUtil.TrackSegment {
 					StartValue = hovCenter - pHoverW/2,
 					EndValue = hovCenter + pHoverW/2,

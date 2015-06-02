@@ -5,12 +5,19 @@ namespace Hover.Common.Items.Types {
 	/*================================================================================================*/
 	public class SliderItem : SelectableItem<float>, ISliderItem {
 
+		public enum FillType {
+			MinimumValue,
+			Zero,
+			MaximumValue
+		}
+
 		public int Ticks { get; set; }
 		public int Snaps { get; set; }
 		public float RangeMin { get; set; }
 		public float RangeMax { get; set; }
-		public Func<SliderItem, string> ValueToLabel { get; set; }
+		public Func<ISliderItem, string> ValueToLabel { get; set; }
 		public bool AllowJump { get; set; }
+		public FillType FillStartingPoint { get; set; }
 
 		private float? vHoverValue;
 

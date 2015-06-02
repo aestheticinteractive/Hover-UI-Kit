@@ -74,10 +74,23 @@ namespace Hover.Board.Display.Standard {
 				}
 
 				float width = slice.EndValue-slice.StartValue;
+				float zeroShiftW = 0;
+				float zeroShiftX = 0;
+
+				if ( slice.IsZeroAtStart == true ) {
+					zeroShiftW = UiHoverMeshRect.SizeInset*2;
+					zeroShiftX = -zeroShiftW;
+				}
+				else if ( slice.IsZeroAtStart == false ) {
+					zeroShiftW = UiHoverMeshRect.SizeInset*2;
+				}
+
+				width += zeroShiftW;
 
 				bg.Show(true);
 				bg.UpdateSize(width, pHeight);
-				bg.Background.transform.localPosition = Vector3.right*(slice.StartValue+width/2);
+				bg.Background.transform.localPosition = 
+					Vector3.right*(slice.StartValue+width/2+zeroShiftX);
 			}
 		}
 

@@ -12,6 +12,7 @@ namespace Hover.Common.Display {
 			public float StartValue;
 			public float EndValue;
 			public bool IsFill;
+			public bool? IsZeroAtStart;
 		}
 
 
@@ -73,14 +74,24 @@ namespace Hover.Common.Display {
 
 						slice.EndValue = cut.StartValue;
 						slices[i] = slice;
+						continue;
 					}
-					else if ( cut.StartValue >= slice.StartValue && cut.StartValue <= slice.EndValue ) {
+					
+					if ( cut.StartValue >= slice.StartValue && cut.StartValue <= slice.EndValue ) {
 						slice.EndValue = cut.StartValue;
 						slices[i] = slice;
+						continue;
 					}
-					else if ( cut.EndValue <= slice.EndValue && cut.EndValue >= slice.StartValue ) {
+					
+					if ( cut.EndValue <= slice.EndValue && cut.EndValue >= slice.StartValue ) {
 						slice.StartValue = cut.EndValue;
 						slices[i] = slice;
+						continue;
+					}
+
+					if ( cut.StartValue <= slice.StartValue && cut.EndValue >= slice.EndValue ) {
+						slices.RemoveAt(i);
+						i--;
 					}
 				}
 			}
