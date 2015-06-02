@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Hover.Board.Custom.Standard;
 using Hover.Board.State;
 using Hover.Common.Custom;
@@ -27,15 +28,13 @@ namespace Hover.Board.Display.Standard {
 		protected float vMainAlpha;
 		protected float vWidth;
 		protected float vHeight;
+		protected bool vIsVert;
 		protected float vGrabW;
 		protected float vSlideX0;
 		protected float vSlideW;
 
 		protected UiHoverMeshRectBg vHiddenRect;
-		protected UiHoverMeshRectBg vTrackA;
-		protected UiHoverMeshRectBg vTrackB;
-		protected UiHoverMeshRectBg vFillA;
-		protected UiHoverMeshRectBg vFillB;
+		protected UiItemSliderTrackRenderer vTrack;
 
 		protected GameObject[] vTicks;
 		protected Mesh vTickMesh;
@@ -61,22 +60,32 @@ namespace Hover.Board.Display.Standard {
 
 			vWidth = UiItem.Size*vItemState.Item.Width;
 			vHeight = UiItem.Size*vItemState.Item.Height;
+			vIsVert = (vHeight > vWidth);
 			vGrabW = 1;
-			vSlideX0 = (vGrabW-vWidth)/2;
-			vSlideW = vWidth-vGrabW;
 
 			gameObject.transform.SetParent(gameObject.transform, false);
 			gameObject.transform.localPosition = new Vector3(vWidth/2, 0, vHeight/2f);
+			gameObject.transform.localRotation = Quaternion.AngleAxis((vIsVert ? 90 : 0), Vector3.up);
+
+			if ( vIsVert ) { //swap dimensions here + rotate graphics later
+				float tempW = vWidth;
+				vWidth = vHeight;
+				vHeight = tempW;
+			}
+
+			vSlideX0 = (vGrabW-vWidth)/2;
+			vSlideW = vWidth-vGrabW;
 
 			////
 
 			vHiddenRect = new UiHoverMeshRectBg(gameObject);
 			vHiddenRect.UpdateSize(vWidth, vHeight);
 
-			vTrackA = new UiHoverMeshRectBg(gameObject, "TrackA");
-			vTrackB = new UiHoverMeshRectBg(gameObject, "TrackB");
-			vFillA = new UiHoverMeshRectBg(gameObject, "FillA");
-			vFillB = new UiHoverMeshRectBg(gameObject, "FillB");
+			var trackObj = new GameObject("Track");
+			trackObj.transform.SetParent(gameObject.transform, false);
+			trackObj.transform.localPosition = new Vector3(-vWidth/2, 0, 0);
+
+			vTrack = new UiItemSliderTrackRenderer(trackObj);
 
 			////
 
@@ -107,13 +116,21 @@ namespace Hover.Board.Display.Standard {
 
 			vGrabHold = new GameObject("GrabHold");
 			vGrabHold.transform.SetParent(gameObject.transform, false);
+			vGrabHold.transform.localRotation = Quaternion.Inverse(gameObject.transform.localRotation);
 
 			var grabObj = new GameObject("Grab");
 			grabObj.transform.SetParent(vGrabHold.transform, false);
 
 			vGrab = grabObj.AddComponent<UiItemSliderGrabRenderer>();
+			vGrab.IsVert = vIsVert;
 			vGrab.Build(vPanelState, vLayoutState, vItemState, vSettings);
-			vGrab.SetCustomSize(vGrabW, vHeight, false);
+
+			if ( vIsVert ) {
+				vGrab.SetCustomSize(vHeight, vGrabW, false);
+			}
+			else {
+				vGrab.SetCustomSize(vGrabW, vHeight, false);
+			}
 
 			////
 
@@ -129,12 +146,9 @@ namespace Hover.Board.Display.Standard {
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void SetDepthHint(int pDepthHint) {
 			vHiddenRect.SetDepthHint(pDepthHint);
-			vTrackA.SetDepthHint(pDepthHint);
-			vTrackB.SetDepthHint(pDepthHint);
-			vFillA.SetDepthHint(pDepthHint);
-			vFillB.SetDepthHint(pDepthHint);
 			vHover.SetDepthHint(pDepthHint);
 			vGrab.SetDepthHint(pDepthHint);
+			vTrack.SetDepthHint(pDepthHint);
 
 			var tickMat = Materials.GetLayer(Materials.Layer.Ticks, pDepthHint);
 
@@ -171,10 +185,7 @@ namespace Hover.Board.Display.Standard {
 			colFill.a *= vMainAlpha;
 			colTick.a *= vMainAlpha;
 
-			vTrackA.UpdateBackground(colTrack);
-			vTrackB.UpdateBackground(colTrack);
-			vFillA.UpdateBackground(colFill);
-			vFillB.UpdateBackground(colFill);
+			vTrack.SetColors(colTrack, colFill);
 
 			if ( vTickMesh != null ) {
 				Materials.SetMeshColor(vTickMesh, colTick);
@@ -222,71 +233,42 @@ namespace Hover.Board.Display.Standard {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateMeshes(float pValue, float pHoverValue, float pHoverW) {
-			float valPos = vSlideW*pValue;
-			float hovPos = vSlideW*pHoverValue;
-			float hoverWPad = (vGrabW-pHoverW)/2;
-			bool tooClose = (Math.Abs(valPos-hovPos) < vGrabW*(0.5f+HoverBarRelW));
+			var segs = new List<DisplayUtil.TrackSegment>();
+			var cuts = new List<DisplayUtil.TrackSegment>();
 
-			float trackH = vHeight*0.92f;
-			Vector3 origin = new Vector3(-vWidth/2, 0, 0);
-			Vector3 xPos = Vector3.right;
-			float x0, x1;
+			float valCenter = pValue*vSlideW + vGrabW/2;
+			float hovCenter = pHoverValue*vSlideW + vGrabW/2;
+			bool tooClose = (Math.Abs(valCenter-hovCenter) < vGrabW*(0.5f+HoverBarRelW));
 
-			Action<UiHoverMeshRectBg, float, float> setPos = ((bg, startX, endX) => {
-				bg.Show(endX != startX);
-				bg.UpdateSize(endX-startX, trackH);
-				bg.Background.transform.localPosition = origin + xPos*startX;
+			segs.Add(new DisplayUtil.TrackSegment {
+				StartValue = 0,
+				EndValue = valCenter,
+				IsFill = true
 			});
 
-			if ( pHoverW == 0 || tooClose ) {
-				vHover.UpdateSize(0, 0);
+			segs.Add(new DisplayUtil.TrackSegment {
+				StartValue = valCenter,
+				EndValue = vWidth
+			});
 
-				x0 = 0;
-				x1 = valPos;
-				setPos(vFillA, x0, x1);
+			cuts.Add(new DisplayUtil.TrackSegment {
+				StartValue = valCenter - vGrabW/2,
+				EndValue = valCenter + vGrabW/2,
+			});
 
-				vFillB.Show(false);
+			if ( pHoverW > 0 && !tooClose ) {
+				cuts.Add(new DisplayUtil.TrackSegment {
+					StartValue = hovCenter - pHoverW/2,
+					EndValue = hovCenter + pHoverW/2,
+				});
 
-				x0 = x1+vGrabW;
-				x1 = vWidth;
-				setPos(vTrackA, x0, x1);
-
-				vTrackB.Show(false);
-				return;
-			}
-
-			vHover.UpdateSize(pHoverW, vHeight);
-
-			if ( pValue <= pHoverValue ) {
-				x0 = 0;
-				x1 = valPos;
-				setPos(vFillA, x0, x1);
-
-				vFillB.Show(false);
-
-				x0 = valPos+vGrabW;
-				x1 = hovPos+hoverWPad;
-				setPos(vTrackA, x0, x1);
-
-				x0 = hovPos+vGrabW-hoverWPad;
-				x1 = vWidth;
-				setPos(vTrackB, x0, x1);
+				vHover.UpdateSize(pHoverW, vHeight);
 			}
 			else {
-				x0 = 0;
-				x1 = hovPos+hoverWPad;
-				setPos(vFillA, x0, x1);
-
-				x0 = hovPos+vGrabW-hoverWPad;
-				x1 = valPos;
-				setPos(vFillB, x0, x1);
-
-				x0 = valPos+vGrabW;
-				x1 = vWidth;
-				setPos(vTrackA, x0, x1);
-
-				vTrackB.Show(false);
+				vHover.UpdateSize(0, 0);
 			}
+
+			vTrack.UpdateSegments(segs.ToArray(), cuts.ToArray(), vHeight*0.92f);
 		}
 
 	}

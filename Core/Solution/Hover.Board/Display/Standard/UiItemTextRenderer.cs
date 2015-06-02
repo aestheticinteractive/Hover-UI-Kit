@@ -38,7 +38,7 @@ namespace Hover.Board.Display.Standard {
 			vHeight = UiItem.Size*vItemState.Item.Height;
 
 			gameObject.transform.SetParent(gameObject.transform, false);
-			gameObject.transform.localPosition = new Vector3(0, 0, vHeight/2f);
+			gameObject.transform.localPosition = new Vector3(vWidth/2, 0, vHeight/2f);
 
 			vHoverRect = new UiHoverMeshRectBg(gameObject);
 			vHoverRect.UpdateSize(vWidth, vHeight);
@@ -47,7 +47,6 @@ namespace Hover.Board.Display.Standard {
 			labelObj.transform.SetParent(gameObject.transform, false);
 			vLabel = labelObj.AddComponent<UiLabel>();
 			vLabel.SetSize(vWidth, vHeight, vSettings.TextSize*0.25f, LabelCanvasScale);
-			vLabel.transform.localPosition = new Vector3(vWidth/2, 0, 0);
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/

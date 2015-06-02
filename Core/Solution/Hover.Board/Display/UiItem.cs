@@ -15,7 +15,10 @@ namespace Hover.Board.Display {
 		private BaseItemState vItemState;
 
 		private float vSlideX0;
+		private float vSlideZ0;
 		private float vSlideW;
+		private float vSlideH;
+		private bool vIsVert;
 
 		private GameObject vRendererObj;
 		private IUiItemRenderer vRenderer;
@@ -30,7 +33,10 @@ namespace Hover.Board.Display {
 			vItemState = pItemState;
 
 			vSlideX0 = 0.5f;
+			vSlideZ0 = 0.5f;
 			vSlideW = vItemState.Item.Width-vSlideX0*2;
+			vSlideH = vItemState.Item.Height-vSlideZ0*2;
+			vIsVert = (vItemState.Item.Height > vItemState.Item.Width);
 
 			////
 			
@@ -78,8 +84,19 @@ namespace Hover.Board.Display {
 				return;
 			}
 
+			////
+
 			Vector3 cursorLocal = gameObject.transform.InverseTransformPoint((Vector3)cursorWorld);
-			float value = (cursorLocal.x-vSlideX0)/vSlideW;
+			float value;
+
+			if ( vIsVert ) {
+				value = 1-(cursorLocal.z-vSlideZ0)/vSlideH;
+			}
+			else {
+				value = (cursorLocal.x-vSlideX0)/vSlideW;
+			}
+
+			////
 
 			if ( sliderItem.IsStickySelected ) {
 				sliderItem.Value = value;

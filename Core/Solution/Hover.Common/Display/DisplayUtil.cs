@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Hover.Common.Items;
 using Hover.Common.State;
 
@@ -6,6 +7,12 @@ namespace Hover.Common.Display {
 
 	/*================================================================================================*/
 	public static class DisplayUtil {
+		
+		public struct TrackSegment {
+			public float StartValue;
+			public float EndValue;
+			public bool IsFill;
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -47,6 +54,47 @@ namespace Hover.Common.Display {
 			}
 
 			return (!pItemState.IsSelectionPrevented || selItem.IsStickySelected);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public static TrackSegment[] SplitTrackSegments(TrackSegment[] pSegments, TrackSegment[] pCuts){
+			var slices = pSegments.ToList();
+
+			foreach ( TrackSegment cut in pCuts ) {
+				for ( int i = 0 ; i < slices.Count ; i++ ) {
+					TrackSegment slice = slices[i];
+
+					if ( cut.StartValue >= slice.StartValue && cut.EndValue <= slice.EndValue ) {
+						var slice2 = new TrackSegment();
+						slice2.StartValue = cut.EndValue;
+						slice2.EndValue = slice.EndValue;
+						slice2.IsFill = slice.IsFill;
+						slices.Insert(i+1, slice2);
+
+						slice.EndValue = cut.StartValue;
+						slices[i] = slice;
+					}
+					else if ( cut.StartValue >= slice.StartValue && cut.StartValue <= slice.EndValue ) {
+						slice.EndValue = cut.StartValue;
+						slices[i] = slice;
+					}
+					else if ( cut.EndValue <= slice.EndValue && cut.EndValue >= slice.StartValue ) {
+						slice.StartValue = cut.EndValue;
+						slices[i] = slice;
+					}
+				}
+			}
+
+			for ( int i = 0 ; i < slices.Count ; i++ ) {
+				TrackSegment slice = slices[i];
+
+				if ( Math.Abs(slice.StartValue-slice.EndValue) <= 0.01f ) {
+					slices.RemoveAt(i);
+					i--;
+				}
+			}
+
+			return slices.ToArray();
 		}
 
 	}

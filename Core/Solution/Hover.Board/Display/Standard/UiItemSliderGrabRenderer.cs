@@ -11,6 +11,7 @@ namespace Hover.Board.Display.Standard {
 
 		private static readonly Quaternion IconRot =
 			Quaternion.FromToRotation(Vector3.up, Vector3.right);
+		public bool IsVert { get; set; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -33,7 +34,10 @@ namespace Hover.Board.Display.Standard {
 										IHoverboardLayoutState pLayoutState, IBaseItemState pItemState,
 										IItemVisualSettings pSettings) {
 			base.Build(pPanelState, pLayoutState, pItemState, pSettings);
-			vIcon.transform.localRotation *= IconRot;
+
+			if ( !IsVert ) {
+				vIcon.transform.localRotation *= IconRot;
+			}
 		}
 
 	}
