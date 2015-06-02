@@ -2,7 +2,6 @@
 using Hover.Board.Display.Standard;
 using Hover.Common.Custom;
 using Hover.Common.Items;
-using Hover.Common.Items.Groups;
 using Hover.Common.Items.Types;
 using UnityEngine;
 

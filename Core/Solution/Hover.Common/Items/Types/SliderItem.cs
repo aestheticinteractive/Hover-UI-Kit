@@ -25,7 +25,7 @@ namespace Hover.Common.Items.Types {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public SliderItem() {
-			ValueToLabel = (s => base.Label+": "+(s.SnappedValue*100).ToString("0.0")+"%");
+			ValueToLabel = (s => base.Label+": "+s.RangeSnappedValue.ToString("0.0"));
 		}
 
 
