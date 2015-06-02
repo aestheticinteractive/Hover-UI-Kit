@@ -45,12 +45,23 @@ namespace Hover.Cast.Display.Standard {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Resize(float pRadiusInner, float pRadiusOuter, float pArcAngle) {
-			Resize(pRadiusInner, pRadiusOuter, -pArcAngle/2f, pArcAngle/2f);
+		public void Show(bool pShow) {
+			Background.SetActive(pShow);
+
+			if ( Highlight != null ) {
+				Highlight.SetActive(pShow);
+				Select.SetActive(pShow);
+				Edge.SetActive(pShow);
+			}
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		public void Resize(float pRadiusInner, float pRadiusOuter, float pAngle0, float pAngle1) {
+		public void UpdateSize(float pRadiusInner, float pRadiusOuter, float pArcAngle) {
+			UpdateSize(pRadiusInner, pRadiusOuter, -pArcAngle/2f, pArcAngle/2f);
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public void UpdateSize(float pRadiusInner, float pRadiusOuter, float pAngle0, float pAngle1) {
 			const float ep = 0.0001f;
 			float a0 = pAngle0+AngleInset;
 			float a1 = Math.Max(a0, pAngle1-AngleInset);

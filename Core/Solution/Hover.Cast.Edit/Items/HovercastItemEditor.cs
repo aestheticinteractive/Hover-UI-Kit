@@ -1,4 +1,5 @@
 using Hover.Cast.Items;
+using Hover.Common.Items.Types;
 using UnityEditor;
 using UnityEngine;
 
@@ -61,6 +62,8 @@ namespace Hover.Cast.Edit.Items {
 						vTarget.SliderRangeMin, vTarget.SliderRangeMax);
 					vTarget.SliderAllowJump = EditorGUILayout.Toggle("Allow Jump-To-Value", 
 						vTarget.SliderAllowJump);
+					vTarget.SliderFillStartingPoint = (SliderItem.FillType)EditorGUILayout.EnumPopup(
+						"Starting Point For Fill", vTarget.SliderFillStartingPoint);
 					break;
 			}
 

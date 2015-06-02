@@ -36,6 +36,7 @@ namespace Hover.Cast.Items {
 		public float SliderRangeMax = 1;
 		public float SliderValue;
 		public bool SliderAllowJump = true;
+		public SliderItem.FillType SliderFillStartingPoint;
 
 		private BaseItem vItem;
 
@@ -83,6 +84,7 @@ namespace Hover.Cast.Items {
 					sliderItem.RangeMax = SliderRangeMax;
 					sliderItem.Value = Mathf.InverseLerp(SliderRangeMin, SliderRangeMax, SliderValue);
 					sliderItem.AllowJump = SliderAllowJump;
+					sliderItem.FillStartingPoint = SliderFillStartingPoint;
 					vItem = sliderItem;
 					break;
 

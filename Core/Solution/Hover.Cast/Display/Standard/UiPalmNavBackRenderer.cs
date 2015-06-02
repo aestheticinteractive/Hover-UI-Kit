@@ -42,7 +42,7 @@ namespace Hover.Cast.Display.Standard {
 
 			vHoverSlice = new UiHoverMeshSlice(gameObject);
 			vHoverSlice.DrawOuterEdge = true;
-			vHoverSlice.Resize(InnerRadius, OuterRadius, pArcAngle);
+			vHoverSlice.UpdateSize(InnerRadius, OuterRadius, pArcAngle);
 
 			////
 			
