@@ -4,6 +4,7 @@ using Hover.Board.Custom;
 using Hover.Board.Items;
 using Hover.Common.Input;
 using Hover.Common.Items;
+using Hover.Common.Items.Types;
 using Hover.Common.State;
 using Hover.Cursor;
 using Hover.Cursor.State;
@@ -54,6 +55,8 @@ namespace Hover.Board.State {
 				panels.Add(panel);
 
 				foreach ( LayoutState layout in panel.FullLayouts ) {
+					layout.ItemLayout.SetRadioSiblingsFunc(GetRadioSiblings);
+
 					foreach ( BaseItemState item in layout.FullItems ) {
 						var tree = new ItemTree {
 							Panel = panel,
@@ -85,6 +88,28 @@ namespace Hover.Board.State {
 			get {
 				return FullPanels.Cast<IHoverboardPanelState>().ToArray();
 			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public IRadioItem[] GetRadioSiblings(IRadioItem pSelectedItem) {
+			var siblings = new List<IRadioItem>();
+			string id = pSelectedItem.GroupId;
+
+			foreach ( IHoverboardPanelState panel in Panels ) {
+				foreach ( IHoverboardLayoutState layout in panel.Layouts ) {
+					foreach ( IBaseItemState item in layout.Items ) {
+						IRadioItem radItem = (item.Item as IRadioItem);
+
+						if ( radItem == null || radItem == pSelectedItem || radItem.GroupId != id ) {
+							continue;
+						}
+
+						siblings.Add(radItem);
+					}
+				}
+			}
+
+			return siblings.ToArray();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

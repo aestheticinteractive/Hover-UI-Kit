@@ -28,6 +28,7 @@ namespace Hover.Board.Items {
 		public bool CheckboxValue;
 
 		public bool RadioValue;
+		public string RadioGroupId;
 
 		public int SliderTicks;
 		public int SliderSnaps;
@@ -71,6 +72,7 @@ namespace Hover.Board.Items {
 				case HoverboardItemType.Radio:
 					var radItem = new RadioItem();
 					radItem.Value = RadioValue;
+					radItem.GroupId = RadioGroupId;
 					vItem = radItem;
 					break;
 

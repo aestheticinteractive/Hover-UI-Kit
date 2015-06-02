@@ -19,6 +19,7 @@ namespace Hover.Common.Items.Groups {
 		private bool vIsVisible;
 		private bool vIsAncestryEnabled;
 		private bool vIsAncestryVisible;
+		private Func<IRadioItem, IRadioItem[]> vRadioSiblingsFunc;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -45,6 +46,11 @@ namespace Hover.Common.Items.Groups {
 				
 				return vActiveItems;
 			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public IBaseItem[] GetAllItems() {
+			return vGetItems();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -130,6 +136,11 @@ namespace Hover.Common.Items.Groups {
 			}
 		}
 
+		/*--------------------------------------------------------------------------------------------*/
+		public void SetRadioSiblingsFunc(Func<IRadioItem, IRadioItem[]> pFunc) {
+			vRadioSiblingsFunc = pFunc;
+		}
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -165,17 +176,20 @@ namespace Hover.Common.Items.Groups {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void DeselectRadioSiblings(IRadioItem pSelectedRadioItem) {
-			foreach ( IBaseItem item in vActiveItems ) {
-				if ( item == pSelectedRadioItem ) {
-					continue;
-				}
+			IRadioItem[] siblings;
 
-				IRadioItem radItem = (item as IRadioItem);
+			if ( vRadioSiblingsFunc != null ) {
+				siblings = vRadioSiblingsFunc(pSelectedRadioItem);
+			}
+			else {
+				siblings = vActiveItems
+					.Where(x => x != pSelectedRadioItem)
+					.Select(x => (x as IRadioItem))
+					.Where(x => x != null)
+					.ToArray();
+			}
 
-				if ( radItem == null ) {
-					continue;
-				}
-
+			foreach ( IRadioItem radItem in siblings ) {
 				radItem.Value = false;
 			}
 		}

@@ -1,4 +1,7 @@
-﻿namespace Hover.Common.Items.Groups {
+﻿using System;
+using Hover.Common.Items.Types;
+
+namespace Hover.Common.Items.Groups {
 
 	/*================================================================================================*/
 	public interface IItemGroup {
@@ -23,6 +26,11 @@
 
 		/*--------------------------------------------------------------------------------------------*/
 		void ReloadActiveItems();
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		void SetRadioSiblingsFunc(Func<IRadioItem, IRadioItem[]> pFunc);
 
 	}
 

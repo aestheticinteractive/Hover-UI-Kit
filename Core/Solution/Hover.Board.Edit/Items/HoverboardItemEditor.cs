@@ -46,6 +46,8 @@ namespace Hover.Board.Edit.Items {
 
 				case HoverboardItem.HoverboardItemType.Radio:
 					vTarget.RadioValue = EditorGUILayout.Toggle("Value", vTarget.RadioValue);
+					vTarget.RadioGroupId = EditorGUILayout.TextField(
+						"Radio Group ID", vTarget.RadioGroupId);
 					break;
 
 				case HoverboardItem.HoverboardItemType.Slider:
