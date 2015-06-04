@@ -5,19 +5,16 @@
 **[Get started at the project wiki >](../../wiki)**
 
 ---
+**Hovercursor** provides cursor-related functionality for all other projects:
 ![Loading Hovercursor animation...](http://www.aestheticinteractive.com/hover/cursor/Hovercursor-Main-728.gif)
 
-**Hovercursor** provides cursor-related functionality for all other projects.
-
 ---
+**Hovercast** is an arc-shaped, hand-attached, hierarchical menu interface:
 ![Loading Hovercast animation...](http://www.aestheticinteractive.com/hover/cast/Hovercast-Main-728.gif)
 
-**Hovercast** is an arc-shaped, hand-attached, hierarchical menu interface.
-
 ---
+**Hoverboard** is general-use interface for attaching buttons to 3D planes:
 ![Loading Hoverboard animation...](http://www.aestheticinteractive.com/hover/board/Hoverboard-Main-728.gif)
-
-**Hoverboard** is general-use interface for attaching buttons to 3D planes.
 
 ---
 ### Downloadable Demos
