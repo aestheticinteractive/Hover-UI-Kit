@@ -12,8 +12,8 @@ namespace Hover.Board.Display.Standard {
 		public float Width { get; private set; }
 		public float Height { get; private set; }
 
-		private float vMeshW;
-		private float vMeshH;
+		protected float vMeshW;
+		protected float vMeshH;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

@@ -11,17 +11,17 @@ namespace Hover.Cursor.Display.Standard {
 	/*================================================================================================*/
 	public class UiCursorRenderer : MonoBehaviour, IUiCursorRenderer {
 
-		private ICursorState vCursorState;
-		private CursorSettingsStandard vSettings;
-		private Mesh vRingMesh;
-		private GameObject vRingObj;
+		protected ICursorState vCursorState;
+		protected CursorSettingsStandard vSettings;
+		protected Mesh vRingMesh;
+		protected GameObject vRingObj;
 
-		private float vCurrThickness;
+		protected float vCurrThickness;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Build(ICursorState pCursorState, ICursorSettings pSettings) {
+		public virtual void Build(ICursorState pCursorState, ICursorSettings pSettings) {
 			vCursorState = pCursorState;
 			vSettings = (CursorSettingsStandard)pSettings;
 
@@ -35,7 +35,7 @@ namespace Hover.Cursor.Display.Standard {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void Update() {
+		public virtual void Update() {
 			float maxProg = vCursorState.GetMaxHighlightProgress();
 			bool high = (maxProg >= 1);
 			float thick = Mathf.Lerp(vSettings.ThickNorm, vSettings.ThickHigh, maxProg);
@@ -53,7 +53,7 @@ namespace Hover.Cursor.Display.Standard {
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void BuildMesh(float pThickness) {
+		protected virtual void BuildMesh(float pThickness) {
 			if ( pThickness == vCurrThickness ) {
 				return;
 			}

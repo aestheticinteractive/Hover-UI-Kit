@@ -222,7 +222,8 @@ namespace Hover.Board.Display.Standard {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void UpdateHoverPoints(IBaseItemPointsState pPointsState, Vector3 pCursorWorldPos) {
+		public virtual void UpdateHoverPoints(IBaseItemPointsState pPointsState, 
+																			Vector3 pCursorWorldPos) {
 			if ( vSliderItem.AllowJump ) {
 				vHiddenRect.UpdateHoverPoints(pPointsState);
 				return;
@@ -234,7 +235,7 @@ namespace Hover.Board.Display.Standard {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateMeshes(float pValue, float pHoverValue, float pHoverW) {
+		protected virtual void UpdateMeshes(float pValue, float pHoverValue, float pHoverW) {
 			var segs = new List<DisplayUtil.TrackSegment>();
 			var cuts = new List<DisplayUtil.TrackSegment>();
 

@@ -68,7 +68,7 @@ namespace Hover.Board.Display.Standard {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void OnEnable() {
+		public virtual void OnEnable() {
 			if ( vLabel != null ) {
 				vLabel.Alpha = 0;
 			}
@@ -116,7 +116,8 @@ namespace Hover.Board.Display.Standard {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void UpdateHoverPoints(IBaseItemPointsState pPointsState, Vector3 pCursorWorldPos) {
+		public virtual void UpdateHoverPoints(IBaseItemPointsState pPointsState,
+																			Vector3 pCursorWorldPos) {
 			vHoverRect.UpdateHoverPoints(pPointsState);
 		}
 

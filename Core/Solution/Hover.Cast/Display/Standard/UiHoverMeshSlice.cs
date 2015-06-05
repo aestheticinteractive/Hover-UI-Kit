@@ -15,11 +15,11 @@ namespace Hover.Cast.Display.Standard {
 
 		public bool DrawOuterEdge { get; set; }
 
-		private float vRadInner;
-		private float vRadOuter;
-		private float vAngle0;
-		private float vAngle1;
-		private int vMeshSteps;
+		protected float vRadInner;
+		protected float vRadOuter;
+		protected float vAngle0;
+		protected float vAngle1;
+		protected int vMeshSteps;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -45,7 +45,7 @@ namespace Hover.Cast.Display.Standard {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Show(bool pShow) {
+		public virtual void Show(bool pShow) {
 			Background.SetActive(pShow);
 
 			if ( Highlight != null ) {
@@ -56,12 +56,13 @@ namespace Hover.Cast.Display.Standard {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		public void UpdateSize(float pRadiusInner, float pRadiusOuter, float pArcAngle) {
+		public virtual void UpdateSize(float pRadiusInner, float pRadiusOuter, float pArcAngle) {
 			UpdateSize(pRadiusInner, pRadiusOuter, -pArcAngle/2f, pArcAngle/2f);
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		public void UpdateSize(float pRadiusInner, float pRadiusOuter, float pAngle0, float pAngle1) {
+		public virtual void UpdateSize(float pRadiusInner, float pRadiusOuter, 
+																		float pAngle0, float pAngle1) {
 			const float ep = 0.0001f;
 			float a0 = pAngle0+AngleInset;
 			float a1 = Math.Max(a0, pAngle1-AngleInset);

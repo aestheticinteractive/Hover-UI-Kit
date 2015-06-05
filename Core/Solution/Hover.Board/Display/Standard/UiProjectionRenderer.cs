@@ -11,17 +11,18 @@ namespace Hover.Board.Display.Standard {
 	/*================================================================================================*/
 	public class UiProjectionRenderer : MonoBehaviour, IUiProjectionRenderer {
 
-		private ProjectionState vProjectionState;
-		private ProjectionVisualSettingsStandard vSettings;
-		private GameObject vSpotObj;
-		private GameObject vLineObj;
-		private Mesh vSpotMesh;
-		private Mesh vLineMesh;
+		protected ProjectionState vProjectionState;
+		protected ProjectionVisualSettingsStandard vSettings;
+		protected GameObject vSpotObj;
+		protected GameObject vLineObj;
+		protected Mesh vSpotMesh;
+		protected Mesh vLineMesh;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Build(ProjectionState pProjectionState, IProjectionVisualSettings pSettings) {
+		public virtual void Build(ProjectionState pProjectionState,
+																IProjectionVisualSettings pSettings) {
 			vProjectionState = pProjectionState;
 			vSettings = (ProjectionVisualSettingsStandard)pSettings;
 
@@ -53,7 +54,7 @@ namespace Hover.Board.Display.Standard {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void Update() {
+		public virtual void Update() {
 			float dist = vProjectionState.ProjectedPanelDistance;
 			float prog = vProjectionState.ProjectedPanelProgress;
 			float lineThick = 0.01f*vProjectionState.Cursor.Size;

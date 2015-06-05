@@ -68,7 +68,7 @@ namespace Hover.Cast.Display.Standard {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void OnEnable() {
+		public virtual void OnEnable() {
 			if ( vLabel != null ) {
 				vLabel.Alpha = 0;
 			}
@@ -100,7 +100,7 @@ namespace Hover.Cast.Display.Standard {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void BuildMesh(Mesh pMesh) {
+		protected virtual void BuildMesh(Mesh pMesh) {
 			MeshUtil.BuildRingMesh(pMesh, InnerRadius, OuterRadius, vAngle0, vAngle1, vMeshSteps);
 		}
 

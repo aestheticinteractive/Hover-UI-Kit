@@ -110,14 +110,15 @@ namespace Hover.Cast.Display.Standard {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void UpdateHoverPoints(IBaseItemPointsState pPointsState, Vector3 pCursorWorldPos) {
+		public virtual void UpdateHoverPoints(IBaseItemPointsState pPointsState, 
+																			Vector3 pCursorWorldPos) {
 			vHoverSlice.UpdateHoverPoints(pPointsState);
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private float GetEnabledAnimProgress() {
+		protected virtual float GetEnabledAnimProgress() {
 			if ( vSelItem.IsEnabled != vPrevEnabled ) {
 				vEnabledAnim = Stopwatch.StartNew();
 				vPrevEnabled = vSelItem.IsEnabled;

@@ -52,7 +52,7 @@ namespace Hover.Board.Display.Standard {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void UpdateSegments(DisplayUtil.TrackSegment[] pSegments,	
+		public virtual void UpdateSegments(DisplayUtil.TrackSegment[] pSegments,	
 													DisplayUtil.TrackSegment[] pCuts, float pHeight) {
 			DisplayUtil.TrackSegment[] slices = DisplayUtil.SplitTrackSegments(pSegments, pCuts);
 
