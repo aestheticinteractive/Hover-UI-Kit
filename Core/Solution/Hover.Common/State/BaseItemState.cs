@@ -27,6 +27,7 @@ namespace Hover.Common.State {
 
 		private DateTime? vSelectionStart;
 		private float vDistanceUponSelection;
+		private bool vIsInResetState;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -49,11 +50,19 @@ namespace Hover.Common.State {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public float GetHighlightDistance(CursorType pCursorType) {
+			if ( !vHighlightDistanceMap.ContainsKey(pCursorType) ) {
+				return float.MaxValue;
+			}
+
 			return vHighlightDistanceMap[pCursorType];
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public float GetHighlightProgress(CursorType pCursorType) {
+			if ( !vHighlightProgressMap.ContainsKey(pCursorType) ) {
+				return 0;
+			}
+
 			return vHighlightProgressMap[pCursorType];
 		}
 
@@ -78,6 +87,10 @@ namespace Hover.Common.State {
 
 				if ( selItem != null && selItem.IsStickySelected ) {
 					return 1;
+				}
+
+				if ( vHighlightProgressMap.Count == 0 ) {
+					return 0;
 				}
 
 				return vHighlightProgressMap.Max(x => x.Value);
@@ -161,6 +174,7 @@ namespace Hover.Common.State {
 			);
 
 			if ( !IsHighlightPrevented ) {
+				vIsInResetState = false;
 				return;
 			}
 
@@ -224,9 +238,16 @@ namespace Hover.Common.State {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void ResetAllCursorInteractions() {
-			IsSelectionPrevented = false;
+			if ( vIsInResetState ) {
+				return;
+			}
 
-			foreach ( CursorType cursorType in CursorTypeUtil.AllCursorTypes ) {
+			IsSelectionPrevented = false;
+			vIsInResetState = true;
+
+			CursorType[] activeCursorTypes = vCursorWorldPosMap.Keys.ToArray();
+
+			foreach ( CursorType cursorType in activeCursorTypes ) {
 				vCursorWorldPosMap[cursorType] = null;
 				vHighlightDistanceMap[cursorType] = float.MaxValue;
 				vHighlightProgressMap[cursorType] = 0;
