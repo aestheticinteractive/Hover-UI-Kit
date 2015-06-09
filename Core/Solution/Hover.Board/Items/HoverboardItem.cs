@@ -17,7 +17,7 @@ namespace Hover.Board.Items {
 			Text
 		}
 
-		public HoverboardItemType Type;
+		public HoverboardItemType Type = HoverboardItemType.Selector;
 		public string Id = "";
 		public string Label = "";
 		public float Width = 1;
