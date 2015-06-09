@@ -148,12 +148,14 @@ namespace Hover.Common.Display {
 		public virtual void UpdateHighlight(Color pColor, float pAmount) {
 			Highlight.SetActive(pAmount > 0 && pColor.a > 0);
 
-			if ( Math.Abs(pAmount-vPrevHighAmount) > 0.005f ) {
+			bool isNewAmount = (Math.Abs(pAmount-vPrevHighAmount) > 0.005f);
+
+			if ( isNewAmount ) {
 				UpdateMesh(MeshType.Highlight, HighlightMesh, pAmount);
 				vPrevHighAmount = pAmount;
 			}
 
-			if ( pColor != HighlightColor ) {
+			if ( pColor != HighlightColor || isNewAmount ) {
 				Materials.SetMeshColor(HighlightMesh, pColor);
 			}
 
@@ -164,12 +166,14 @@ namespace Hover.Common.Display {
 		public virtual void UpdateSelect(Color pColor, float pAmount) {
 			Select.SetActive(pAmount > 0 && pColor.a > 0);
 
-			if ( Math.Abs(pAmount-vPrevSelAmount) > 0.005f ) {
+			bool isNewAmount = (Math.Abs(pAmount-vPrevSelAmount) > 0.005f);
+
+			if ( isNewAmount ) {
 				UpdateMesh(MeshType.Select, SelectMesh, pAmount);
 				vPrevSelAmount = pAmount;
 			}
 
-			if ( pColor != SelectColor ) {
+			if ( pColor != SelectColor || isNewAmount ) {
 				Materials.SetMeshColor(SelectMesh, pColor);
 			}
 
