@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using Hover.Common.Input;
 using Hover.Cursor.State;
 using UnityEngine;
@@ -29,12 +30,12 @@ namespace Hover.Cursor.Input.Look {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void UpdateWithPlanes(PlaneState[] pPlanes) {
+		public void UpdateWithPlanes(ReadOnlyCollection<PlaneState> pPlanes) {
 			IsAvailable = false;
 			Position = Vector3.zero;
 			Size = 0;
 
-			if ( pPlanes.Length == 0 ) {
+			if ( pPlanes.Count == 0 ) {
 				return;
 			}
 
@@ -43,7 +44,8 @@ namespace Hover.Cursor.Input.Look {
 			float minDist = float.MaxValue;
 			PlaneState nearest = null;
 
-			foreach ( PlaneState plane in pPlanes ) {
+			for ( int i = 0 ; i < pPlanes.Count ; i++ ) {
+				PlaneState plane = pPlanes[i];
 				UpdateWithPlane(plane);
 
 				if ( plane.IsHit && plane.HitDist < minDist ) {

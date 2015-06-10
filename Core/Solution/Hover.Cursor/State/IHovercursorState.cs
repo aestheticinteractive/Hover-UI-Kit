@@ -1,4 +1,5 @@
-﻿using Hover.Common.Input;
+﻿using System.Collections.ObjectModel;
+using Hover.Common.Input;
 using Hover.Cursor.Custom;
 using Hover.Cursor.Input;
 using UnityEngine;
@@ -11,7 +12,7 @@ namespace Hover.Cursor.State {
 		HovercursorVisualSettings VisualSettings { get; }
 		IHovercursorInput Input { get; }
 		Transform CameraTransform { get; }
-		CursorType[] ActiveCursorTypes { get; }
+		ReadOnlyCollection<CursorType> ActiveCursorTypes { get; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

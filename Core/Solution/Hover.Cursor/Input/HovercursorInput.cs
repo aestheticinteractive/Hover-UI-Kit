@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using Hover.Common.Input;
 using Hover.Cursor.State;
 using UnityEngine;
@@ -11,7 +12,7 @@ namespace Hover.Cursor.Input {
 		public bool IsEnabled { get; set; }
 		public bool IsFailure { get; set; }
 
-		protected Func<CursorType, PlaneData[]> vPlaneProviderFunc;
+		protected Func<CursorType, ReadOnlyCollection<PlaneData>> vPlaneProviderFunc;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -23,7 +24,7 @@ namespace Hover.Cursor.Input {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void SetPlaneProvider(Func<CursorType, PlaneData[]> pProvider) {
+		public void SetPlaneProvider(Func<CursorType, ReadOnlyCollection<PlaneData>> pProvider) {
 			vPlaneProviderFunc = pProvider;
 		}
 

@@ -15,8 +15,12 @@ namespace Hover.Cursor.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public PlaneState(PlaneData pData) {
+		public void Init(PlaneData pData) {
 			Data = pData;
+			IsHit = false;
+			HitPosition = Vector3.zero;
+			HitDist = 0;
+			IsNearest = false;
 		}
 
 

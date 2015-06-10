@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
+using System.Collections.ObjectModel;
 using Hover.Common.Input;
 using Hover.Common.Util;
 using Hover.Cursor.Custom;
@@ -19,8 +19,10 @@ namespace Hover.Cursor {
 		public Transform CameraTransform;
 
 		private HovercursorState vState;
-		private CursorType[] vPrevActiveCursorTypes;
+		private ReadOnlyCollection<CursorType> vPrevActiveCursorTypes;
 		private IDictionary<CursorType, UiCursor> vCursorMap;
+		private List<CursorType> vHideCursorTypes;
+		private List<CursorType> vShowCursorTypes;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -49,8 +51,10 @@ namespace Hover.Cursor {
 			vState = new HovercursorState(gameObject.transform, Input,
 				DefaultVisualSettings, CameraTransform);
 
-			vPrevActiveCursorTypes = new CursorType[0];
+			vPrevActiveCursorTypes = new ReadOnlyCollection<CursorType>(new List<CursorType>());
 			vCursorMap = new Dictionary<CursorType, UiCursor>();
+			vHideCursorTypes = new List<CursorType>();
+			vShowCursorTypes = new List<CursorType>();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -63,16 +67,17 @@ namespace Hover.Cursor {
 			Input.UpdateInput();
 			vState.UpdateAfterInput();
 
-			CursorType[] activeTypes = vState.ActiveCursorTypes;
-			IEnumerable<CursorType> hideTypes = vPrevActiveCursorTypes.Except(activeTypes);
-			IEnumerable<CursorType> showTypes = activeTypes.Except(vPrevActiveCursorTypes);
+			ReadOnlyCollection<CursorType> activeTypes = vState.ActiveCursorTypes;
 			ICursorSettings visualSett = DefaultVisualSettings.GetSettings();
 
-			foreach ( CursorType type in hideTypes ) {
+			DataUtil<CursorType>.Exclude(vPrevActiveCursorTypes, activeTypes, vHideCursorTypes);
+			DataUtil<CursorType>.Exclude(activeTypes, vPrevActiveCursorTypes, vShowCursorTypes);
+			
+			foreach ( CursorType type in vHideCursorTypes ) {
 				vCursorMap[type].gameObject.SetActive(false);
 			}
 
-			foreach ( CursorType type in showTypes ) {
+			foreach ( CursorType type in vShowCursorTypes ) {
 				if ( vCursorMap.ContainsKey(type) ) {
 					vCursorMap[type].gameObject.SetActive(true);
 					continue;

@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.ObjectModel;
 using Hover.Common.Input;
+using Hover.Common.Util;
 using Hover.Cursor.State;
 using UnityEngine;
 
@@ -15,6 +16,7 @@ namespace Hover.Cursor.Input.Look {
 		public float MousePositionMultiplier = 0.4f;
 
 		private InputCursor vCursor;
+		private CacheList<PlaneState> vPlaneStates;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -34,19 +36,19 @@ namespace Hover.Cursor.Input.Look {
 			}
 
 			vCursor = new InputCursor(CursorType.Look, sett);
+			vPlaneStates = new CacheList<PlaneState>();
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public override void UpdateInput() {
-			PlaneData[] planeDataList = vPlaneProviderFunc(vCursor.Type);
-			
-			PlaneState[] planes = planeDataList
-				.Select(x => new PlaneState(x))
-				.ToArray();
+			ReadOnlyCollection<PlaneData> planeDataList = vPlaneProviderFunc(vCursor.Type);
 
-			vCursor.UpdateWithPlanes(planes);
+			//TODO: check this for GC allocations
+
+			//vPlaneStates.RebuildWith(planeDataList, InitState);
+			//vCursor.UpdateWithPlanes(vPlaneStates.ReadOnly);
 
 			//PlaneState nearest = planes.FirstOrDefault(x => x.IsNearest);
 			//Debug.Log("NEAREST: "+(nearest == null ? "---" : nearest.Id+" / "+nearest.HitDist));
@@ -60,6 +62,13 @@ namespace Hover.Cursor.Input.Look {
 			}
 
 			return vCursor;
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private void InitState(PlaneState pState, PlaneData pData) {
+			pState.Init(pData);
 		}
 
 	}

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Hover.Common.Input;
 using Hover.Common.State;
 using Hover.Cursor.Custom;
@@ -20,7 +21,7 @@ namespace Hover.Cursor.State {
 		private readonly ICursorSettings vSettings;
 		private readonly Transform vBaseTx;
 
-		private IBaseItemInteractionState[] vInteractItems;
+		private List<IBaseItemInteractionState> vInteractItems;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -29,7 +30,7 @@ namespace Hover.Cursor.State {
 			vInputCursor = pInputCursor;
 			vSettings = pSettings;
 			vBaseTx = pBaseTx;
-			vInteractItems = new IBaseItemInteractionState[0];
+			vInteractItems = new List<IBaseItemInteractionState>();
 
 			Type = vInputCursor.Type;
 		}
@@ -58,11 +59,20 @@ namespace Hover.Cursor.State {
 		public Vector3 GetWorldPosition() {
 			return vBaseTx.TransformPoint(Position);
 		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public void ClearInteractions() {
+			vInteractItems.Clear();
+		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void UpdateAfterInput(float pDisplayStren, IBaseItemInteractionState[] pInteractItems) {
+		public void AddInteractions(IEnumerable<IBaseItemInteractionState> pInteractions) {
+			vInteractItems.AddRange(pInteractions);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void UpdateAfterInput(float pDisplayStren) {
 			DisplayStrength = pDisplayStren;
-			vInteractItems = pInteractItems;
 
 			IsInputAvailable = vInputCursor.IsAvailable;
 			Size = vInputCursor.Size;

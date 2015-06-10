@@ -26,6 +26,8 @@ namespace Hover.Cursor.Input.Leap {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public override void UpdateInput() {
+			//TODO: check this for GC allocations
+
 			Frame frame = GetValidLeapFrame(vLeapControl);
 			Hand leapHandL = GetValidLeapHand(frame, true);
 			Hand leapHandR = GetValidLeapHand(frame, false);
