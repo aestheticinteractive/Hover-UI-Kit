@@ -1,4 +1,5 @@
-﻿using Hover.Common.Custom;
+﻿using System.Collections.Generic;
+using Hover.Common.Custom;
 using Hover.Common.Input;
 
 namespace Hover.Board.Custom {
@@ -6,7 +7,7 @@ namespace Hover.Board.Custom {
 	/*================================================================================================*/
 	public class InteractionSettings : BaseInteractionSettings {
 
-		public CursorType[] Cursors { get; set; }
+		public IList<CursorType> Cursors { get; set; }
 
 	}
 

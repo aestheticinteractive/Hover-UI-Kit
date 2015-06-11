@@ -1,9 +1,7 @@
-﻿using System;
-
-namespace Hover.Common.Items {
+﻿namespace Hover.Common.Items {
 
 	/*================================================================================================*/
-	public interface ISelectableItem<T> : ISelectableItem where T : IComparable {
+	public interface ISelectableItem<T> : ISelectableItem {
 
 		event ItemEvents.ValueChangedHandler<T> OnValueChanged;
 

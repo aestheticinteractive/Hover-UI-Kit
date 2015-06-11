@@ -1,4 +1,5 @@
-﻿using Hover.Common.Input;
+﻿using System.Collections.ObjectModel;
+using Hover.Common.Input;
 using Hover.Cursor.State;
 
 namespace Hover.Board.State {
@@ -7,7 +8,7 @@ namespace Hover.Board.State {
 	public interface IHoverboardState {
 
 		IHovercursorState Hovercursor { get; }
-		IHoverboardPanelState[] Panels { get; }
+		ReadOnlyCollection<IHoverboardPanelState> Panels { get; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

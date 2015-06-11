@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using UnityEngine;
 
 namespace Hover.Common.State {
@@ -9,7 +10,7 @@ namespace Hover.Common.State {
 
 		//TODO: OPTIMIZE: renderers can also provide a center point with max radius
 
-		public Vector3[] Points { get; set; }
+		public ReadOnlyCollection<Vector3> Points { get; set; }
 		public Transform RelativeToTransform { get; set; }
 
 

@@ -1,43 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace Hover.Common.Util {
 
 	/*================================================================================================*/
-	public class CacheList<T> where T : new() {
+	public class CacheList<T> : ReadList<T> where T : new() {
 
-		public ReadOnlyCollection<T> ReadOnly { get; private set; }
-
-		private readonly List<T> vCache;
-		private readonly List<T> vList;
+		protected readonly List<T> vCache;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public CacheList() {
 			vCache = new List<T>();
-			vList = new List<T>();
-			ReadOnly = new ReadOnlyCollection<T>(vList);
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public void Clear() {
-			vList.Clear();
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		public void Add(T pItem) {
-			vList.Add(pItem);
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public void AddRange(IEnumerable<T> pItems) {
-			vList.AddRange(pItems);
-		}
-
 		/*--------------------------------------------------------------------------------------------*/
 		public void RebuildWith<TParam>(IList<TParam> pParamItems, Action<T, TParam> pInitItemFunc) {
 			vCache.AddRange(vList);

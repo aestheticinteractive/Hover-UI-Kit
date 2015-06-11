@@ -1,4 +1,5 @@
-﻿using Hover.Common.Input;
+﻿using System.Collections.ObjectModel;
+using Hover.Common.Input;
 using Hover.Common.State;
 
 namespace Hover.Cursor.State {
@@ -8,16 +9,17 @@ namespace Hover.Cursor.State {
 
 		CursorDomain Domain { get; }
 		bool IsCursorInteractionEnabled { get; }
-		CursorType[] ActiveCursorTypes { get; }
+		ReadOnlyCollection<CursorType> ActiveCursorTypes { get; }
 		float CursorDisplayStrength { get; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		IBaseItemInteractionState[] GetActiveCursorInteractions(CursorType pCursorType);
+		ReadOnlyCollection<IBaseItemInteractionState> GetActiveCursorInteractions(
+			CursorType pCursorType);
 
 		/*--------------------------------------------------------------------------------------------*/
-		PlaneData[] GetActiveCursorPlanes(CursorType pCursorType);
+		ReadOnlyCollection<PlaneData> GetActiveCursorPlanes(CursorType pCursorType);
 
 	}
 

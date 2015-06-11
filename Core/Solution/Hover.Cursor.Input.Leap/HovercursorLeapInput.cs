@@ -12,8 +12,8 @@ namespace Hover.Cursor.Input.Leap {
 
 		private Controller vLeapControl;
 		private List<InputCursor> vCursors;
-		private IDictionary<CursorType, InputCursor> vCursorMap;
-		private IDictionary<CursorType, bool> vSideMap;
+		private Dictionary<CursorType, InputCursor> vCursorMap;
+		private Dictionary<CursorType, bool> vSideMap;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

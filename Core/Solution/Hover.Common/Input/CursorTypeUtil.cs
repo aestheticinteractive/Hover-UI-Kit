@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using Hover.Common.Util;
 
 namespace Hover.Common.Input {
 
@@ -9,6 +11,9 @@ namespace Hover.Common.Input {
 		public static readonly CursorType[] AllCursorTypes = Enum.GetValues(typeof(CursorType))
 			.Cast<CursorType>()
 			.ToArray();
+
+		private static readonly HashSet<CursorType> ExcludeMap = 
+			new HashSet<CursorType>(EnumIntKeyComparer.CursorType);
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -44,6 +49,27 @@ namespace Hover.Common.Input {
 			}
 
 			return false;
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public static void Exclude(IList<CursorType> pBaseTypes, IList<CursorType> pRemoveTypes,
+																	IList<CursorType> pResultTypes) {
+			pResultTypes.Clear();
+			ExcludeMap.Clear();
+
+			for ( int i = 0 ; i < pBaseTypes.Count ; i++ ) {
+				ExcludeMap.Add(pBaseTypes[i]);
+			}
+
+			for ( int i = 0 ; i < pRemoveTypes.Count ; i++ ) {
+				ExcludeMap.Remove(pRemoveTypes[i]);
+			}
+
+			foreach ( CursorType keepType in ExcludeMap ) {
+				pResultTypes.Add(keepType);
+			}
 		}
 	
 	}

@@ -1,5 +1,6 @@
 ﻿using System;
 using Hover.Common.State;
+using Hover.Common.Util;
 using UnityEngine;
 
 namespace Hover.Common.Display {
@@ -30,7 +31,7 @@ namespace Hover.Common.Display {
 		public Color SelectColor { get; private set; }
 
 		protected GameObject vParent;
-		protected Vector3[] vHoverPoints;
+		protected ReadList<Vector3> vHoverPoints;
 		private float vPrevHighAmount;
 		private float vPrevSelAmount;
 
@@ -39,6 +40,7 @@ namespace Hover.Common.Display {
 		/*--------------------------------------------------------------------------------------------*/
 		protected void Build(GameObject pParent) {
 			vParent = pParent;
+			vHoverPoints = new ReadList<Vector3>();
 
 			Background = new GameObject("Background");
 			Background.transform.SetParent(pParent.transform, false);
@@ -94,7 +96,7 @@ namespace Hover.Common.Display {
 				Materials.SetMeshColor(SelectMesh, SelectColor);
 			}
 
-			vHoverPoints = CalcHoverLocalPoints();
+			UpdateHoverLocalPoints();
 		}
 
 
@@ -189,7 +191,7 @@ namespace Hover.Common.Display {
 		protected abstract void UpdateMesh(MeshType pType, Mesh pMesh, float pAmount=1);
 		
 		/*--------------------------------------------------------------------------------------------*/
-		protected abstract Vector3[] CalcHoverLocalPoints();
+		protected abstract void UpdateHoverLocalPoints();
 
 	}
 

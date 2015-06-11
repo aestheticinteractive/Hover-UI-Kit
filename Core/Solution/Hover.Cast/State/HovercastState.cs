@@ -1,10 +1,12 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Hover.Cast.Custom;
 using Hover.Cast.Input;
 using Hover.Common.Input;
 using Hover.Common.Items.Groups;
 using Hover.Common.State;
+using Hover.Common.Util;
 using Hover.Cursor;
 using Hover.Cursor.State;
 using UnityEngine;
@@ -29,8 +31,9 @@ namespace Hover.Cast.State {
 		private readonly IDictionary<HovercastCursorType, CursorType> vRightCursorConvertMap;
 
 		private bool? vCurrIsMenuOnLeftSide;
-		private IBaseItemInteractionState[] vActiveCursorInteractions;
-		private PlaneData[] vMenuPlanes;
+		private ReadList<IBaseItemInteractionState> vActiveCursorInteractions;
+		private ReadList<PlaneData> vMenuPlanes;
+		private ReadList<CursorType> vActiveCursorTypes;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -43,9 +46,12 @@ namespace Hover.Cast.State {
 			BaseTransform = pBaseTx;
 
 			FullMenu = new MenuState(pItemHierarchy, vInteractSettings);
-			ActiveCursorTypes = new CursorType[0];
 
 			vCursorMap = new Dictionary<CursorType, ICursorState>();
+			vMenuPlanes = new ReadList<PlaneData>();
+			vActiveCursorTypes = new ReadList<CursorType>();
+
+			ActiveCursorTypes = vActiveCursorTypes.ReadOnly;
 
 			vLeftCursorConvertMap = new Dictionary<HovercastCursorType, CursorType> {
 				{ HovercastCursorType.Palm, CursorType.LeftPalm },
@@ -92,9 +98,8 @@ namespace Hover.Cast.State {
 		public void SetReferences(Transform pMenuTx) {
 			MenuTransform = pMenuTx;
 
-			vMenuPlanes = new [] {
-				new PlaneData("Hovercast.Menu", MenuTransform, Vector3.up)
-			};
+			vMenuPlanes.Clear();
+			vMenuPlanes.Add(new PlaneData("Hovercast.Menu", MenuTransform, Vector3.up));
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
@@ -105,13 +110,13 @@ namespace Hover.Cast.State {
 			IDictionary<HovercastCursorType, CursorType> convertMap = 
 				(vInteractSettings.IsMenuOnLeftSide ? vRightCursorConvertMap : vLeftCursorConvertMap);
 
-			ActiveCursorTypes = vInteractSettings.Cursors
-				.Select(x => convertMap[x])
-				.ToArray();
+			vActiveCursorTypes.Clear();
+			vActiveCursorTypes.AddRange(vInteractSettings.Cursors.Select(x => convertMap[x]));
 
-			vActiveCursorInteractions = FullMenu.GetItems()
+			//TODO: update for ReadList<>
+			/*vActiveCursorInteractions = FullMenu.GetItems()
 				.Cast<IBaseItemInteractionState>()
-				.ToArray();
+				.ToArray();*/
 
 			ICursorState[] cursors = ActiveCursorTypes
 				.Select(x => vHovercursorSetup.State.GetCursorState(x))
@@ -144,7 +149,7 @@ namespace Hover.Cast.State {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public CursorType[] ActiveCursorTypes { get; private set; }
+		public ReadOnlyCollection<CursorType> ActiveCursorTypes { get; private set; }
 
 		/*--------------------------------------------------------------------------------------------*/
 		public float CursorDisplayStrength {
@@ -154,13 +159,14 @@ namespace Hover.Cast.State {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public IBaseItemInteractionState[] GetActiveCursorInteractions(CursorType pCursorType) {
-			return vActiveCursorInteractions;
+		public ReadOnlyCollection<IBaseItemInteractionState> GetActiveCursorInteractions(
+																			CursorType pCursorType) {
+			return vActiveCursorInteractions.ReadOnly;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public PlaneData[] GetActiveCursorPlanes(CursorType pCursorType) {
-			return vMenuPlanes;
+		public ReadOnlyCollection<PlaneData> GetActiveCursorPlanes(CursorType pCursorType) {
+			return vMenuPlanes.ReadOnly;
 		}
 
 	}

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Hover.Common.Display;
 using Hover.Common.State;
 using Hover.Common.Util;
@@ -38,6 +37,7 @@ namespace Hover.Board.Display.Standard {
 
 			vMeshW = -1;
 			vMeshH = -1;
+			vHoverPoints = new ReadList<Vector3>();
 		}
 
 
@@ -62,7 +62,7 @@ namespace Hover.Board.Display.Standard {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public override void UpdateHoverPoints(IBaseItemPointsState pPointsState) {
-			pPointsState.Points = vHoverPoints;
+			pPointsState.Points = vHoverPoints.ReadOnly;
 			pPointsState.RelativeToTransform = vParent.transform;
 		}
 
@@ -82,13 +82,12 @@ namespace Hover.Board.Display.Standard {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		protected override Vector3[] CalcHoverLocalPoints() {
-			return CalcHoverPoints(vMeshW, vMeshH);
+		protected override void UpdateHoverLocalPoints() {
+			CalcHoverPoints(vMeshW, vMeshH, vHoverPoints);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public static Vector3[] CalcHoverPoints(float pWidth, float pHeight) {
-			var points = new List<Vector3>();
+		public static void CalcHoverPoints(float pWidth, float pHeight, ReadList<Vector3> pResult) {
 			int stepsX = (int)Math.Round(pWidth/UiItem.Size)*6;
 			int stepsY = (int)Math.Round(pHeight/UiItem.Size)*6;
 			float x0 = -pWidth/2f;
@@ -96,13 +95,13 @@ namespace Hover.Board.Display.Standard {
 			float xInc = pWidth/stepsX;
 			float yInc = pHeight/stepsY;
 
+			pResult.Clear();
+
 			for ( int xi = 1 ; xi < stepsX ; xi += 2 ) {
 				for ( int yi = 1 ; yi < stepsY ; yi += 2 ) {
-					points.Add(new Vector3(x0+xInc*xi, 0, y0+yInc*yi)); //relative to parent
+					pResult.Add(new Vector3(x0+xInc*xi, 0, y0+yInc*yi)); //relative to parent
 				}
 			}
-
-			return points.ToArray();
 		}
 
 	}

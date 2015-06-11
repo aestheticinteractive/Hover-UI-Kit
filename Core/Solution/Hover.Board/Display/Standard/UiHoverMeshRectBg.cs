@@ -64,7 +64,7 @@ namespace Hover.Board.Display.Standard {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public override void UpdateHoverPoints(IBaseItemPointsState pPointsState) {
-			pPointsState.Points = vHoverPoints;
+			pPointsState.Points = vHoverPoints.ReadOnly;
 			pPointsState.RelativeToTransform = vParent.transform;
 		}
 
@@ -76,8 +76,8 @@ namespace Hover.Board.Display.Standard {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		protected override Vector3[] CalcHoverLocalPoints() {
-			return UiHoverMeshRect.CalcHoverPoints(vMeshW, vMeshH);
+		protected override void UpdateHoverLocalPoints() {
+			UiHoverMeshRect.CalcHoverPoints(vMeshW, vMeshH, vHoverPoints);
 		}
 
 	}

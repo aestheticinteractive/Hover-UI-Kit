@@ -21,7 +21,7 @@ namespace Hover.Cursor.State {
 		private readonly ICursorSettings vSettings;
 		private readonly Transform vBaseTx;
 
-		private List<IBaseItemInteractionState> vInteractItems;
+		private readonly List<IBaseItemInteractionState> vInteractItems;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

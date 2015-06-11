@@ -12,7 +12,7 @@ namespace Hover.Common.Items {
 		public delegate void SelectedHandler(ISelectableItem pItem);
 		public delegate void DeselectedHandler(ISelectableItem pItem);
 
-		public delegate void ValueChangedHandler<T>(ISelectableItem<T> pItem) where T : IComparable;
+		public delegate void ValueChangedHandler<T>(ISelectableItem<T> pItem);
 
 		public delegate void GroupItemSelectedHandler(IItemGroup pGroup, ISelectableItem pItem);
 		public delegate void HierarchyLevelChangedHandler(int pDirection);

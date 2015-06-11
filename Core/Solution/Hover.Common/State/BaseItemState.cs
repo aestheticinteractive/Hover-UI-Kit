@@ -4,6 +4,7 @@ using System.Linq;
 using Hover.Common.Custom;
 using Hover.Common.Input;
 using Hover.Common.Items;
+using Hover.Common.Util;
 using UnityEngine;
 
 namespace Hover.Common.State {
@@ -19,11 +20,11 @@ namespace Hover.Common.State {
 
 		private readonly BaseInteractionSettings vSettings;
 		private readonly BaseItemPointsState vPoints;
-		private readonly IDictionary<CursorType, Vector3?> vCursorWorldPosMap;
-		private readonly IDictionary<CursorType, float> vHighlightDistanceMap;
-		private readonly IDictionary<CursorType, float> vHighlightProgressMap;
-		private readonly IDictionary<CursorType, bool> vIsNearestHighlightMap;
-		private readonly IDictionary<string, bool> vPreventSelectionViaDisplayMap;
+		private readonly ListMap<CursorType, Vector3?> vCursorWorldPosMap;
+		private readonly ListMap<CursorType, float> vHighlightDistanceMap;
+		private readonly ListMap<CursorType, float> vHighlightProgressMap;
+		private readonly ListMap<CursorType, bool> vIsNearestHighlightMap;
+		private readonly ListMap<string, bool> vPreventSelectionViaDisplayMap;
 
 		private DateTime? vSelectionStart;
 		private float vDistanceUponSelection;
@@ -37,12 +38,12 @@ namespace Hover.Common.State {
 			vSettings = pSettings;
 			vPoints = new BaseItemPointsState();
 
-			vCursorWorldPosMap = new Dictionary<CursorType, Vector3?>();
-			vHighlightDistanceMap = new Dictionary<CursorType, float>();
-			vHighlightProgressMap = new Dictionary<CursorType, float>();
-			vIsNearestHighlightMap = new Dictionary<CursorType, bool>();
-			vPreventSelectionViaDisplayMap = new Dictionary<string, bool>();
-
+			vCursorWorldPosMap = new ListMap<CursorType, Vector3?>(EnumIntKeyComparer.CursorType);
+			vHighlightDistanceMap = new ListMap<CursorType, float>(EnumIntKeyComparer.CursorType);
+			vHighlightProgressMap = new ListMap<CursorType, float>(EnumIntKeyComparer.CursorType);
+			vIsNearestHighlightMap = new ListMap<CursorType, bool>(EnumIntKeyComparer.CursorType);
+			vPreventSelectionViaDisplayMap = new ListMap<string, bool>(null);
+			
 			ResetAllCursorInteractions();
 		}
 
@@ -76,7 +77,7 @@ namespace Hover.Common.State {
 		/*--------------------------------------------------------------------------------------------*/
 		public float MinHighlightDistance {
 			get {
-				return vHighlightDistanceMap.Min(x => x.Value);
+				return vHighlightDistanceMap.GetValue((a,b) => (a < b));
 			}
 		}
 		
@@ -89,18 +90,18 @@ namespace Hover.Common.State {
 					return 1;
 				}
 
-				if ( vHighlightProgressMap.Count == 0 ) {
+				if ( vHighlightProgressMap.KeysReadOnly.Count == 0 ) {
 					return 0;
 				}
 
-				return vHighlightProgressMap.Max(x => x.Value);
+				return vHighlightProgressMap.GetValue((a, b) => (a > b));
 			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public bool IsNearestHighlight {
 			get {
-				return vIsNearestHighlightMap.Any(x => x.Value);
+				return vIsNearestHighlightMap.HasValue(x => x);
 			}
 		}
 
@@ -129,13 +130,15 @@ namespace Hover.Common.State {
 				float minDist = float.MaxValue;
 				CursorType? nearestType = null;
 
-				foreach ( KeyValuePair<CursorType, float> pair in vHighlightDistanceMap ) {
-					if ( pair.Value >= minDist ) {
+				foreach ( CursorType key in vHighlightDistanceMap.KeysReadOnly ) {
+					float dist = vHighlightDistanceMap[key];
+
+					if ( dist >= minDist ) {
 						continue;
 					}
 
-					minDist = pair.Value;
-					nearestType = pair.Key;
+					minDist = dist;
+					nearestType = key;
 				}
 
 				return (nearestType == null ? null : vCursorWorldPosMap[(CursorType)nearestType]);
@@ -151,7 +154,7 @@ namespace Hover.Common.State {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public bool IsSelectionPreventedViaDisplay() {
-			return vPreventSelectionViaDisplayMap.Values.Any(x => x);
+			return vPreventSelectionViaDisplayMap.HasValue(x => x);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -170,7 +173,7 @@ namespace Hover.Common.State {
 				!Item.IsAncestryEnabled ||
 				!Item.IsAncestryVisible ||
 				!(Item is ISelectableItem) ||
-				vPreventSelectionViaDisplayMap.Any(x => x.Value)
+				vPreventSelectionViaDisplayMap.HasValue(x => x)
 			);
 
 			if ( !IsHighlightPrevented ) {
@@ -245,9 +248,7 @@ namespace Hover.Common.State {
 			IsSelectionPrevented = false;
 			vIsInResetState = true;
 
-			CursorType[] activeCursorTypes = vCursorWorldPosMap.Keys.ToArray();
-
-			foreach ( CursorType cursorType in activeCursorTypes ) {
+			foreach ( CursorType cursorType in vCursorWorldPosMap.KeysReadOnly ) {
 				vCursorWorldPosMap[cursorType] = null;
 				vHighlightDistanceMap[cursorType] = float.MaxValue;
 				vHighlightProgressMap[cursorType] = 0;
@@ -286,7 +287,9 @@ namespace Hover.Common.State {
 
 			bool allNearestCursorsHavePartialHighlight = true; //where "partial" == "not 100%"
 
-			foreach ( CursorType cursorType in vCursorWorldPosMap.Keys ) {
+			for ( int i = 0 ; i < vCursorWorldPosMap.KeysReadOnly.Count ; i++ ) {
+				CursorType cursorType = vCursorWorldPosMap.KeysReadOnly[i];
+
 				if ( vIsNearestHighlightMap[cursorType] && vHighlightProgressMap[cursorType] >= 1 ) {
 					allNearestCursorsHavePartialHighlight = false;
 				}

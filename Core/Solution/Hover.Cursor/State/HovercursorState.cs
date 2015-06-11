@@ -19,15 +19,15 @@ namespace Hover.Cursor.State {
 
 		private readonly HovercursorInput vInput;
 		private readonly Transform vBaseTx;
-		private readonly IDictionary<CursorType, CursorState> vCursorStateMap;
-		private readonly IList<CursorState> vCursorStates;
-		private readonly IDictionary<CursorType, Transform> vTransformMap;
-		private readonly IList<IHovercursorDelegate> vDelegates;
+		private readonly Dictionary<CursorType, CursorState> vCursorStateMap;
+		private readonly List<CursorState> vCursorStates;
+		private readonly Dictionary<CursorType, Transform> vTransformMap;
+		private readonly List<IHovercursorDelegate> vDelegates;
 
-		private readonly IList<IHovercursorDelegate> vActiveDelegates;
+		private readonly List<IHovercursorDelegate> vActiveDelegates;
 		private readonly List<CursorType> vActiveCursorTypes;
 		private readonly HashSet<CursorType> vActiveCursorMap;
-		private readonly IDictionary<CursorType, CacheList<PlaneData>> vActiveCursorPlaneMap;
+		private readonly Dictionary<CursorType, ReadList<PlaneData>> vActiveCursorPlaneMap;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -48,7 +48,7 @@ namespace Hover.Cursor.State {
 			vActiveDelegates = new List<IHovercursorDelegate>();
 			vActiveCursorTypes = new List<CursorType>();
 			vActiveCursorMap = new HashSet<CursorType>(EnumIntKeyComparer.CursorType);
-			vActiveCursorPlaneMap = new Dictionary<CursorType, CacheList<PlaneData>>(
+			vActiveCursorPlaneMap = new Dictionary<CursorType, ReadList<PlaneData>>(
 				EnumIntKeyComparer.CursorType);
 
 			ActiveCursorTypes = new ReadOnlyCollection<CursorType>(vActiveCursorTypes);
@@ -91,12 +91,8 @@ namespace Hover.Cursor.State {
 			vActiveCursorTypes.Clear();
 			vActiveCursorMap.Clear();
 
-			for ( int delI = 0 ; delI < vActiveDelegates.Count ; delI++ ) {
-				IHovercursorDelegate del = vActiveDelegates[delI];
-
-				for ( int curI = 0 ; curI < del.ActiveCursorTypes.Length ; curI++ ) {
-					CursorType type = del.ActiveCursorTypes[curI];
-
+			foreach ( IHovercursorDelegate del in vActiveDelegates ) {
+				foreach ( CursorType type in del.ActiveCursorTypes ) {
 					if ( vActiveCursorMap.Contains(type) ) {
 						continue;
 					}
@@ -111,8 +107,7 @@ namespace Hover.Cursor.State {
 		public void UpdateAfterInput() {
 			UpdateActiveDelegates();
 
-			for ( int curI = 0 ; curI < vCursorStates.Count ; curI++ ) {
-				CursorState cursor = vCursorStates[curI];
+			foreach ( CursorState cursor in vCursorStates ) {
 				CursorType type = cursor.Type;
 				float maxDispStren = 0;
 
@@ -154,9 +149,7 @@ namespace Hover.Cursor.State {
 		private void UpdateActiveDelegates() {
 			vActiveDelegates.Clear();
 
-			for ( int i = 0 ; i < vDelegates.Count ; i++ ) {
-				IHovercursorDelegate del = vDelegates[i];
-
+			foreach ( IHovercursorDelegate del in vDelegates ) {
 				if ( !del.IsCursorInteractionEnabled || del.CursorDisplayStrength <= 0 ) {
 					continue;
 				}
@@ -167,7 +160,7 @@ namespace Hover.Cursor.State {
 						".ActiveCursorTypes list should not be null.");
 				}
 
-				if ( del.ActiveCursorTypes.Length == 0 ) {
+				if ( del.ActiveCursorTypes.Count == 0 ) {
 					continue;
 				}
 
@@ -179,18 +172,18 @@ namespace Hover.Cursor.State {
 		private ReadOnlyCollection<PlaneData> GetActiveCursorPlanes(CursorType pType) {
 			UpdateActiveDelegates();
 
-			CacheList<PlaneData> planes;
+			ReadList<PlaneData> planes;
 
 			if ( !vActiveCursorPlaneMap.TryGetValue(pType, out planes) ) {
-				planes = new CacheList<PlaneData>();
+				planes = new ReadList<PlaneData>();
 				vActiveCursorPlaneMap.Add(pType, planes);
 			}
 			else {
 				planes.Clear();
 			}
 
-			for ( int i = 0 ; i < vActiveDelegates.Count ; i++ ) {
-				planes.AddRange(vActiveDelegates[i].GetActiveCursorPlanes(pType));
+			foreach ( IHovercursorDelegate del in vActiveDelegates ) {
+				planes.AddRange(del.GetActiveCursorPlanes(pType));
 			}
 
 			return vActiveCursorPlaneMap[pType].ReadOnly;

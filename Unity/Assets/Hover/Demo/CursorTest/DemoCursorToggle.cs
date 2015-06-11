@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Hover.Common.Input;
 using Hover.Common.State;
 using Hover.Cursor;
@@ -37,6 +38,9 @@ namespace Hover.Demo.CursorTest {
 		private HovercursorSetup vSetup;
 		private Bundle[] vBundles;
 		private FakeItemState vFakeItem;
+		private List<CursorType> vActiveCursorTypes;
+		private ReadOnlyCollection<IBaseItemInteractionState> vFakeInteractions;
+		private ReadOnlyCollection<PlaneData> vFakePlanes;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -46,7 +50,11 @@ namespace Hover.Demo.CursorTest {
 			vFakeItem = new FakeItemState();
 			vFakeItem.ItemAutoId = 123;
 
-			ActiveCursorTypes = new CursorType[0];
+			vActiveCursorTypes = new List<CursorType>();
+
+			vFakeInteractions = new ReadOnlyCollection<IBaseItemInteractionState>(
+				new List<IBaseItemInteractionState>());
+			vFakePlanes = new ReadOnlyCollection<PlaneData>(new List<PlaneData>());
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -71,17 +79,15 @@ namespace Hover.Demo.CursorTest {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			var cursorTypes = new List<CursorType>();
+			vActiveCursorTypes.Clear();
 
 			foreach ( Bundle bundle in vBundles ) {
 				if ( bundle.ShowFunc() ) {
-					cursorTypes.Add(bundle.State.Type);
+					vActiveCursorTypes.Add(bundle.State.Type);
 				}
 
 				vFakeItem.MaxHighlightProgress = HighlightProgress;
 			}
-
-			ActiveCursorTypes = cursorTypes.ToArray();
 		}
 
 
@@ -112,7 +118,7 @@ namespace Hover.Demo.CursorTest {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public CursorType[] ActiveCursorTypes { get; private set; }
+		public ReadOnlyCollection<CursorType> ActiveCursorTypes { get; private set; }
 
 		/*--------------------------------------------------------------------------------------------*/
 		public float CursorDisplayStrength {
@@ -122,13 +128,14 @@ namespace Hover.Demo.CursorTest {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public IBaseItemInteractionState[] GetActiveCursorInteractions(CursorType pCursorType) {
-			return new [] { vFakeItem };
+		public ReadOnlyCollection<IBaseItemInteractionState> GetActiveCursorInteractions(
+																			CursorType pCursorType) {
+			return vFakeInteractions;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public PlaneData[] GetActiveCursorPlanes(CursorType pCursorType) {
-			return new PlaneData[0];
+		public ReadOnlyCollection<PlaneData> GetActiveCursorPlanes(CursorType pCursorType) {
+			return vFakePlanes;
 		}
 
 	}

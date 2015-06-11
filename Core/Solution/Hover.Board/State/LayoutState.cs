@@ -43,7 +43,13 @@ namespace Hover.Board.State {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public bool IsEveryItemSelectionPreventedViaDisplay() {
-			return FullItems.All(x => x.IsSelectionPreventedViaDisplay());
+			foreach ( BaseItemState item in FullItems ) {
+				if ( !item.IsSelectionPreventedViaDisplay() ) {
+					return false;
+				}
+			}
+
+			return true;
 		}
 
 

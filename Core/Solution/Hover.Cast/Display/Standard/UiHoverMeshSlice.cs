@@ -89,7 +89,7 @@ namespace Hover.Cast.Display.Standard {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public override void UpdateHoverPoints(IBaseItemPointsState pPointsState) {
-			pPointsState.Points = vHoverPoints;
+			pPointsState.Points = vHoverPoints.ReadOnly;
 			pPointsState.RelativeToTransform = Background.transform;
 		}
 
@@ -109,22 +109,20 @@ namespace Hover.Cast.Display.Standard {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		protected override Vector3[] CalcHoverLocalPoints() {
+		protected override void UpdateHoverLocalPoints() {
 			const int innerSteps = 5;
-
-			var points = new List<Vector3>();
 			Vector3[] bgVerts = BackgroundMesh.vertices;
+
+			vHoverPoints.Clear();
 
 			for ( int i = 3 ; i < bgVerts.Length-2 ; i += 2 ) {
 				Vector3 outer = bgVerts[i];
 				Vector3 inner = bgVerts[i-1];
 
 				for ( int j = 0 ; j < innerSteps ; ++j ) {
-					points.Add(Vector3.Lerp(outer, inner, j/(float)(innerSteps-1)));
+					vHoverPoints.Add(Vector3.Lerp(outer, inner, j/(float)(innerSteps-1)));
 				}
 			}
-
-			return points.ToArray();
 		}
 
 	}

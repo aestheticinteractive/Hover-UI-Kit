@@ -52,7 +52,7 @@ namespace Hover.Cursor {
 				DefaultVisualSettings, CameraTransform);
 
 			vPrevActiveCursorTypes = new ReadOnlyCollection<CursorType>(new List<CursorType>());
-			vCursorMap = new Dictionary<CursorType, UiCursor>();
+			vCursorMap = new Dictionary<CursorType, UiCursor>(EnumIntKeyComparer.CursorType);
 			vHideCursorTypes = new List<CursorType>();
 			vShowCursorTypes = new List<CursorType>();
 		}
@@ -70,8 +70,8 @@ namespace Hover.Cursor {
 			ReadOnlyCollection<CursorType> activeTypes = vState.ActiveCursorTypes;
 			ICursorSettings visualSett = DefaultVisualSettings.GetSettings();
 
-			DataUtil<CursorType>.Exclude(vPrevActiveCursorTypes, activeTypes, vHideCursorTypes);
-			DataUtil<CursorType>.Exclude(activeTypes, vPrevActiveCursorTypes, vShowCursorTypes);
+			CursorTypeUtil.Exclude(vPrevActiveCursorTypes, activeTypes, vHideCursorTypes);
+			CursorTypeUtil.Exclude(activeTypes, vPrevActiveCursorTypes, vShowCursorTypes);
 			
 			foreach ( CursorType type in vHideCursorTypes ) {
 				vCursorMap[type].gameObject.SetActive(false);

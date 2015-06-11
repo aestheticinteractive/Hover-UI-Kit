@@ -25,8 +25,10 @@ namespace Hover.Board {
 
 		private HoverboardState vState;
 		private UiPanel[] vUiPanels;
-		private CursorType[] vPrevActiveCursorTypes;
+		private IList<CursorType> vPrevActiveCursorTypes;
 		private IDictionary<CursorType, UiProjection> vProjMap;
+		private List<CursorType> vHideCursorTypes;
+		private List<CursorType> vShowCursorTypes;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -59,14 +61,16 @@ namespace Hover.Board {
 				InteractionSettings.GetSettings(), gameObject.transform);
 
 			vPrevActiveCursorTypes = new CursorType[0];
-			vProjMap = new Dictionary<CursorType, UiProjection>();
+			vProjMap = new Dictionary<CursorType, UiProjection>(EnumIntKeyComparer.CursorType);
+			vHideCursorTypes = new List<CursorType>();
+			vShowCursorTypes = new List<CursorType>();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Start() {
 			gameObject.transform.localScale = Vector3.one;
 
-			vUiPanels = new UiPanel[vState.Panels.Length];
+			vUiPanels = new UiPanel[vState.Panels.Count];
 
 			for ( int i = 0 ; i < vUiPanels.Length ; ++i ) {
 				PanelState panelState = vState.FullPanels[i];
@@ -83,8 +87,8 @@ namespace Hover.Board {
 		public void Update() {
 			vState.UpdateAfterInput();
 
-			foreach ( IHoverboardPanelState panelState in vState.Panels ) {
-				IItemPanel itemPanel = panelState.ItemPanel;
+			for ( int i = 0 ; i < vState.Panels.Count ; i++ ) {
+				IItemPanel itemPanel = vState.Panels[i].ItemPanel;
 				((GameObject)itemPanel.DisplayContainer).SetActive(itemPanel.IsVisible);
 			}
 
@@ -102,17 +106,18 @@ namespace Hover.Board {
 
 			////
 
-			CursorType[] activeCursorTypes = interSett.Cursors;
-			IEnumerable<CursorType> hideCursorTypes = vPrevActiveCursorTypes.Except(activeCursorTypes);
-			IEnumerable<CursorType> showCursorTypes = activeCursorTypes.Except(vPrevActiveCursorTypes);
+			IList<CursorType> activeCursorTypes = interSett.Cursors;
 			IProjectionVisualSettings projSett = ProjectionVisualSettings.GetSettings();
 
-			foreach ( CursorType cursorType in hideCursorTypes ) {
+			CursorTypeUtil.Exclude(vPrevActiveCursorTypes, activeCursorTypes, vHideCursorTypes);
+			CursorTypeUtil.Exclude(activeCursorTypes, vPrevActiveCursorTypes, vShowCursorTypes);
+
+			foreach ( CursorType cursorType in vHideCursorTypes ) {
 				vProjMap[cursorType].gameObject.SetActive(false);
 				vState.ActivateProjection(cursorType, false);
 			}
 
-			foreach ( CursorType cursorType in showCursorTypes ) {
+			foreach ( CursorType cursorType in vShowCursorTypes ) {
 				if ( vProjMap.ContainsKey(cursorType) ) {
 					vProjMap[cursorType].gameObject.SetActive(true);
 					vState.ActivateProjection(cursorType, true);
@@ -129,7 +134,6 @@ namespace Hover.Board {
 
 			vPrevActiveCursorTypes = activeCursorTypes;
 		}
-
 	}
 
 }

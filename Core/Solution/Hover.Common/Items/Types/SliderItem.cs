@@ -117,6 +117,13 @@ namespace Hover.Common.Items.Types {
 			return (float)Math.Round(pValue*s)/s;
 		}
 
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		protected override bool AreValuesEqual(float pValueA, float pValueB) {
+			return (pValueA == pValueB);
+		}
+
 	}
 
 }

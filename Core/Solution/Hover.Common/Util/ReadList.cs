@@ -1,40 +1,39 @@
-﻿namespace Hover.Common.Items {
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+
+namespace Hover.Common.Util {
 
 	/*================================================================================================*/
-	public abstract class SelectableItem<T> : SelectableItem, ISelectableItem<T> {
+	public class ReadList<T> {
 
-		public event ItemEvents.ValueChangedHandler<T> OnValueChanged;
+		public ReadOnlyCollection<T> ReadOnly { get; private set; }
 
-		protected T vValue;
+		protected readonly List<T> vList;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected SelectableItem() {
-			OnValueChanged += (i => {});
+		public ReadList() {
+			vList = new List<T>();
+			ReadOnly = new ReadOnlyCollection<T>(vList);
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual T Value {
-			get {
-				return vValue;
-			}
-			set {
-				if ( AreValuesEqual(value, vValue) ) {
-					return;
-				}
-
-				vValue = value;
-				OnValueChanged(this);
-			}
+		public void Clear() {
+			vList.Clear();
 		}
 		
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected abstract bool AreValuesEqual(T pValueA, T pValueB);
+		public void Add(T pItem) {
+			vList.Add(pItem);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void AddRange(IEnumerable<T> pItems) {
+			vList.AddRange(pItems);
+		}
 
 	}
 
