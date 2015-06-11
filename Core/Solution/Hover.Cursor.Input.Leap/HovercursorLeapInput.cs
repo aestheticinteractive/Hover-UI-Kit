@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Hover.Common.Input;
+using Hover.Common.Input.Leap;
+using Hover.Common.Util;
 using Leap;
 
 namespace Hover.Cursor.Input.Leap {
@@ -10,6 +11,7 @@ namespace Hover.Cursor.Input.Leap {
 	public class HovercursorLeapInput : HovercursorInput {
 
 		private Controller vLeapControl;
+		private List<InputCursor> vCursors;
 		private IDictionary<CursorType, InputCursor> vCursorMap;
 		private IDictionary<CursorType, bool> vSideMap;
 
@@ -17,27 +19,26 @@ namespace Hover.Cursor.Input.Leap {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void Awake() {
-			vLeapControl = new Controller();
-			vCursorMap = new Dictionary<CursorType, InputCursor>();
-			vSideMap = new Dictionary<CursorType, bool>();
+			vLeapControl = new Controller(); //GC-Alloc: 1 (56 B) recurring
+			vCursors = new List<InputCursor>();
+			vCursorMap = new Dictionary<CursorType, InputCursor>(EnumIntKeyComparer.CursorType);
+			vSideMap = new Dictionary<CursorType, bool>(EnumIntKeyComparer.CursorType);
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public override void UpdateInput() {
-			//TODO: check this for GC allocations
-
-			Frame frame = GetValidLeapFrame(vLeapControl);
-			Hand leapHandL = GetValidLeapHand(frame, true);
-			Hand leapHandR = GetValidLeapHand(frame, false);
+			Frame frame = LeapUtil.GetValidLeapFrame(vLeapControl);
+			Hand leapHandL = LeapUtil.GetValidLeapHand(frame, true);
+			Hand leapHandR = LeapUtil.GetValidLeapHand(frame, false);
 
 			if ( !IsEnabled ) {
 				leapHandL = null;
 				leapHandR = null;
 			}
 
-			foreach ( InputCursor cursor in vCursorMap.Values ) {
+			foreach ( InputCursor cursor in vCursors ) {
 				cursor.UpdateWithHand(vSideMap[cursor.Type] ? leapHandL : leapHandR);
 			}
 		}
@@ -50,28 +51,14 @@ namespace Hover.Cursor.Input.Leap {
 			}
 
 			if ( !vCursorMap.ContainsKey(pType) ) {
-				vCursorMap.Add(pType, new InputCursor(pType));
+				var cursor = new InputCursor(pType);
+
+				vCursors.Add(cursor);
+				vCursorMap.Add(pType, cursor);
 				vSideMap.Add(pType, CursorTypeUtil.IsLeft(pType));
 			}
 
 			return vCursorMap[pType];
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		private static Frame GetValidLeapFrame(Controller pLeapControl) {
-			Frame frame = pLeapControl.Frame(0);
-			return (frame != null && frame.IsValid ? frame : null);
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		private static Hand GetValidLeapHand(Frame pLeapFrame, bool pIsLeft) {
-			if ( pLeapFrame == null ) {
-				return null;
-			}
-
-			return pLeapFrame.Hands.FirstOrDefault(h => h.IsValid && h.IsLeft == pIsLeft);
 		}
 
 	}

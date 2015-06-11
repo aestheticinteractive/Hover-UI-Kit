@@ -66,6 +66,48 @@ namespace Hover.Common.Input.Leap {
 
 			throw new Exception("Unhandled CursorType: "+pCursorType);
 		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public static Frame GetValidLeapFrame(Controller pLeapControl) {
+			Frame frame = pLeapControl.Frame(0); //GC-Alloc: 1 (56 B)
+			return (frame != null && frame.IsValid ? frame : null);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public static Hand GetValidLeapHand(Frame pLeapFrame, bool pIsLeft) {
+			if ( pLeapFrame == null ) {
+				return null;
+			}
+
+			HandList hands = pLeapFrame.Hands;
+
+			for ( int i = 0 ; i < hands.Count ; i++ ) {
+				Hand leapHand = hands[i];
+
+				if ( leapHand.IsLeft == pIsLeft && leapHand.IsValid ) {
+					return leapHand;
+				}
+			}
+
+			return null;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public static Finger GetValidFinger(Hand pHand, Finger.FingerType pFingerType) {
+			//Skip "Fingers.FingerType()" API method to avoid GC allocations
+			FingerList fingers = pHand.Fingers; //GC-Alloc: 1 (56 B)
+
+			for ( int i = 0 ; i < fingers.Count ; i++ ) {
+				Finger finger = fingers[i];
+
+				if ( finger.Type() == pFingerType && finger.IsValid ) {
+					return finger;
+				}
+			}
+
+			return null;
+		}
+
 	}
 
 }

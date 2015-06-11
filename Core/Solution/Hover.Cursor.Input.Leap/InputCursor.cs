@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Hover.Common.Input;
 using Hover.Common.Input.Leap;
 using Leap;
@@ -62,9 +61,7 @@ namespace Hover.Cursor.Input.Leap {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateForFinger(Hand pLeapHand, Finger.FingerType pLeapFingerType) {
-			Finger leapFinger = pLeapHand.Fingers
-				.FingerType(pLeapFingerType)
-				.FirstOrDefault(f => f.IsValid);
+			Finger leapFinger = LeapUtil.GetValidFinger(pLeapHand, pLeapFingerType);
 
 			if ( leapFinger == null ) {
 				UpdateForNull();
@@ -76,6 +73,8 @@ namespace Hover.Cursor.Input.Leap {
 			IsAvailable = true;
 			Position = leapFinger.TipPosition.ToUnityScaled();
 			Rotation = LeapUtil.CalcQuaternion(bone.Basis);
+			//TODO: use Basis.Rotation()? See "LeapUnityExtensions.cs"
+
 			Size = leapFinger.Width*SizeScaleFactor;
 		}
 

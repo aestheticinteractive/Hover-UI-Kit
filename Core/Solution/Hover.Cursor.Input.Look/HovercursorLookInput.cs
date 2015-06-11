@@ -9,6 +9,8 @@ namespace Hover.Cursor.Input.Look {
 
 	/*================================================================================================*/
 	public class HovercursorLookInput : HovercursorInput {
+		
+		private static readonly Action<PlaneState, PlaneData> InitStateFunc = ((s,d) => s.Init(d));
 
 		public Transform HeadsetCameraTransform;
 		public float CursorSize = 0.1f;
@@ -45,10 +47,8 @@ namespace Hover.Cursor.Input.Look {
 		public override void UpdateInput() {
 			ReadOnlyCollection<PlaneData> planeDataList = vPlaneProviderFunc(vCursor.Type);
 
-			//TODO: check this for GC allocations
-
-			//vPlaneStates.RebuildWith(planeDataList, InitState);
-			//vCursor.UpdateWithPlanes(vPlaneStates.ReadOnly);
+			vPlaneStates.RebuildWith(planeDataList, InitStateFunc);
+			vCursor.UpdateWithPlanes(vPlaneStates.ReadOnly);
 
 			//PlaneState nearest = planes.FirstOrDefault(x => x.IsNearest);
 			//Debug.Log("NEAREST: "+(nearest == null ? "---" : nearest.Id+" / "+nearest.HitDist));
@@ -62,13 +62,6 @@ namespace Hover.Cursor.Input.Look {
 			}
 
 			return vCursor;
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		private void InitState(PlaneState pState, PlaneData pData) {
-			pState.Init(pData);
 		}
 
 	}

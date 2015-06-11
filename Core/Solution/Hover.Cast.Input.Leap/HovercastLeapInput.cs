@@ -38,6 +38,7 @@ namespace Hover.Cast.Input.Leap {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public override void UpdateInput() {
+			//TODO: use LeapUtil methods
 			Frame leapFrame = vLeapControl.Frame(0);
 
 			vFrame = (leapFrame != null && leapFrame.IsValid ? leapFrame : null);

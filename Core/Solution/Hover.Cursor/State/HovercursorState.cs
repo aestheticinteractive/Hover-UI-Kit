@@ -40,17 +40,16 @@ namespace Hover.Cursor.State {
 			VisualSettings = pVisualSett;
 			CameraTransform = pCamera;
 
-			var cursorComp = new EnumIntKeyComparer<CursorType>(((a,b) => (a == b)), (a => (int)a));
-
-			vCursorStateMap = new Dictionary<CursorType, CursorState>(cursorComp);
+			vCursorStateMap = new Dictionary<CursorType, CursorState>(EnumIntKeyComparer.CursorType);
 			vCursorStates = new List<CursorState>();
-			vTransformMap = new Dictionary<CursorType, Transform>(cursorComp);
+			vTransformMap = new Dictionary<CursorType, Transform>(EnumIntKeyComparer.CursorType);
 			vDelegates = new List<IHovercursorDelegate>();
 
 			vActiveDelegates = new List<IHovercursorDelegate>();
 			vActiveCursorTypes = new List<CursorType>();
-			vActiveCursorMap = new HashSet<CursorType>(cursorComp);
-			vActiveCursorPlaneMap = new Dictionary<CursorType, CacheList<PlaneData>>(cursorComp);
+			vActiveCursorMap = new HashSet<CursorType>(EnumIntKeyComparer.CursorType);
+			vActiveCursorPlaneMap = new Dictionary<CursorType, CacheList<PlaneData>>(
+				EnumIntKeyComparer.CursorType);
 
 			ActiveCursorTypes = new ReadOnlyCollection<CursorType>(vActiveCursorTypes);
 
