@@ -25,7 +25,7 @@ namespace Hover.Board {
 
 		private HoverboardState vState;
 		private UiPanel[] vUiPanels;
-		private IList<CursorType> vPrevActiveCursorTypes;
+		private List<CursorType> vPrevActiveCursorTypes;
 		private IDictionary<CursorType, UiProjection> vProjMap;
 		private List<CursorType> vHideCursorTypes;
 		private List<CursorType> vShowCursorTypes;
@@ -60,7 +60,7 @@ namespace Hover.Board {
 			vState = new HoverboardState(Panels.Select(x => x.GetPanel()).ToArray(), Hovercursor, 
 				InteractionSettings.GetSettings(), gameObject.transform);
 
-			vPrevActiveCursorTypes = new CursorType[0];
+			vPrevActiveCursorTypes = new List<CursorType>();
 			vProjMap = new Dictionary<CursorType, UiProjection>(EnumIntKeyComparer.CursorType);
 			vHideCursorTypes = new List<CursorType>();
 			vShowCursorTypes = new List<CursorType>();
@@ -132,7 +132,8 @@ namespace Hover.Board {
 				vProjMap.Add(cursorType, uiProj);
 			}
 
-			vPrevActiveCursorTypes = activeCursorTypes;
+			vPrevActiveCursorTypes.Clear();
+			vPrevActiveCursorTypes.AddRange(activeCursorTypes);
 		}
 	}
 

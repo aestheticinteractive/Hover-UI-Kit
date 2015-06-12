@@ -43,7 +43,13 @@ namespace Hover.Demo.BoardKeys.CastItems {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleValueChanged(ISelectableItem<bool> pItem) {
-			vInteractSett.Cursors = (pItem.Value ? vThumbCursors : vNoThumbCursors);
+			CursorType[] cursorTypes = (pItem.Value ? vThumbCursors : vNoThumbCursors);
+
+			vInteractSett.Cursors.Clear();
+
+			foreach ( CursorType cursorType in cursorTypes ) {
+				vInteractSett.Cursors.Add(cursorType);
+			}
 		}
 	}
 

@@ -50,7 +50,7 @@ namespace Hover.Cursor.State {
 			vActiveCursorPlaneMap = new Dictionary<CursorType, ReadList<PlaneData>>(
 				EnumIntKeyComparer.CursorType);
 
-			ActiveCursorTypes = new ReadOnlyCollection<CursorType>(vActiveCursorTypes);
+			ActiveCursorTypes = vActiveCursorTypes.AsReadOnly();
 
 			vInput.SetPlaneProvider(GetActiveCursorPlanes);
 		}
@@ -63,7 +63,6 @@ namespace Hover.Cursor.State {
 				return vInput;
 			}
 		}
-
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

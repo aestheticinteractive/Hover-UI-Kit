@@ -30,7 +30,10 @@ namespace Hover.Board.Custom {
 				vSettings.HighlightDistanceMax = HighlightDistanceMax;
 				vSettings.StickyReleaseDistance = StickyReleaseDistance;
 				vSettings.SelectionMilliseconds = SelectionMilliseconds;
-				vSettings.Cursors = Cursors;
+
+				foreach ( CursorType cursorType in Cursors ) {
+					vSettings.Cursors.Add(cursorType);
+				}
 			}
 
 			return vSettings;

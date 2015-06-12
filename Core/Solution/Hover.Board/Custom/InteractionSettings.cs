@@ -7,7 +7,14 @@ namespace Hover.Board.Custom {
 	/*================================================================================================*/
 	public class InteractionSettings : BaseInteractionSettings {
 
-		public IList<CursorType> Cursors { get; set; }
+		public IList<CursorType> Cursors { get; private set; }
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public InteractionSettings() {
+			Cursors = new List<CursorType>();
+		}
 
 	}
 

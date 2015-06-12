@@ -19,7 +19,7 @@ namespace Hover.Cursor {
 		public Transform CameraTransform;
 
 		private HovercursorState vState;
-		private ReadOnlyCollection<CursorType> vPrevActiveCursorTypes;
+		private List<CursorType> vPrevActiveCursorTypes;
 		private IDictionary<CursorType, UiCursor> vCursorMap;
 		private List<CursorType> vHideCursorTypes;
 		private List<CursorType> vShowCursorTypes;
@@ -51,7 +51,7 @@ namespace Hover.Cursor {
 			vState = new HovercursorState(gameObject.transform, Input,
 				DefaultVisualSettings, CameraTransform);
 
-			vPrevActiveCursorTypes = new ReadOnlyCollection<CursorType>(new List<CursorType>());
+			vPrevActiveCursorTypes = new List<CursorType>();
 			vCursorMap = new Dictionary<CursorType, UiCursor>(EnumIntKeyComparer.CursorType);
 			vHideCursorTypes = new List<CursorType>();
 			vShowCursorTypes = new List<CursorType>();
@@ -94,7 +94,8 @@ namespace Hover.Cursor {
 				vState.SetCursorTransform(type, cursorObj.transform);
 			}
 
-			vPrevActiveCursorTypes = activeTypes;
+			vPrevActiveCursorTypes.Clear();
+			vPrevActiveCursorTypes.AddRange(activeTypes);
 		}
 
 	}
