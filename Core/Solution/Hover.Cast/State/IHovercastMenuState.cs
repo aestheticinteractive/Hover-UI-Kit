@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using Hover.Common.Items;
 using Hover.Common.State;
 using UnityEngine;
@@ -20,7 +21,7 @@ namespace Hover.Cast.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		IBaseItemState[] GetLevelItems();
+		ReadOnlyCollection<IBaseItemState> GetLevelItems();
 
 		/*--------------------------------------------------------------------------------------------*/
 		IBaseItem GetLevelParentItem();

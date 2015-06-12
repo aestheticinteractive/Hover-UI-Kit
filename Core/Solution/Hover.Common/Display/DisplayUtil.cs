@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Hover.Common.Items;
 using Hover.Common.State;
 
@@ -58,54 +59,60 @@ namespace Hover.Common.Display {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public static TrackSegment[] SplitTrackSegments(TrackSegment[] pSegments, TrackSegment[] pCuts){
-			var slices = pSegments.ToList();
+		public static void SplitTrackSegments(ReadOnlyCollection<TrackSegment> pSegments, 
+							ReadOnlyCollection<TrackSegment> pCuts, IList<TrackSegment> pSliceResults) {
+			pSliceResults.Clear();
 
-			foreach ( TrackSegment cut in pCuts ) {
-				for ( int i = 0 ; i < slices.Count ; i++ ) {
-					TrackSegment slice = slices[i];
+			for ( int segI = 0 ; segI < pSegments.Count ; segI++ ) {
+				TrackSegment seg = pSegments[segI];
+				pSliceResults.Add(seg);
+			}
+
+			for ( int cutI = 0 ; cutI < pCuts.Count ; cutI++ ) {
+				TrackSegment cut = pCuts[cutI];
+
+				for ( int sliceI = 0 ; sliceI < pSliceResults.Count ; sliceI++ ) {
+					TrackSegment slice = pSliceResults[sliceI];
 
 					if ( cut.StartValue >= slice.StartValue && cut.EndValue <= slice.EndValue ) {
 						var slice2 = new TrackSegment();
 						slice2.StartValue = cut.EndValue;
 						slice2.EndValue = slice.EndValue;
 						slice2.IsFill = slice.IsFill;
-						slices.Insert(i+1, slice2);
+						pSliceResults.Insert(sliceI+1, slice2);
 
 						slice.EndValue = cut.StartValue;
-						slices[i] = slice;
+						pSliceResults[sliceI] = slice;
 						continue;
 					}
-					
+
 					if ( cut.StartValue >= slice.StartValue && cut.StartValue <= slice.EndValue ) {
 						slice.EndValue = cut.StartValue;
-						slices[i] = slice;
+						pSliceResults[sliceI] = slice;
 						continue;
 					}
-					
+
 					if ( cut.EndValue <= slice.EndValue && cut.EndValue >= slice.StartValue ) {
 						slice.StartValue = cut.EndValue;
-						slices[i] = slice;
+						pSliceResults[sliceI] = slice;
 						continue;
 					}
 
 					if ( cut.StartValue <= slice.StartValue && cut.EndValue >= slice.EndValue ) {
-						slices.RemoveAt(i);
-						i--;
+						pSliceResults.RemoveAt(sliceI);
+						sliceI--;
 					}
 				}
 			}
 
-			for ( int i = 0 ; i < slices.Count ; i++ ) {
-				TrackSegment slice = slices[i];
+			for ( int sliceI = 0 ; sliceI < pSliceResults.Count ; sliceI++ ) {
+				TrackSegment slice = pSliceResults[sliceI];
 
 				if ( Math.Abs(slice.StartValue-slice.EndValue) <= 0.01f ) {
-					slices.RemoveAt(i);
-					i--;
+					pSliceResults.RemoveAt(sliceI);
+					sliceI--;
 				}
 			}
-
-			return slices.ToArray();
 		}
 
 	}

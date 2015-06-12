@@ -12,8 +12,8 @@ namespace Hover.Board.Display.Standard {
 
 		protected GameObject vOuter;
 		protected GameObject vInner;
-		protected Mesh vOuterMesh;
-		protected Mesh vInnerMesh;
+		protected MeshBuilder vOuterMeshBuilder;
+		protected MeshBuilder vInnerMeshBuilder;
 
 		private int vPrevTextSize;
 
@@ -47,10 +47,12 @@ namespace Hover.Board.Display.Standard {
 			vOuter.AddComponent<MeshRenderer>();
 
 			MeshFilter outerFilt = vOuter.AddComponent<MeshFilter>();
-			vOuterMesh = outerFilt.mesh;
-			MeshUtil.BuildQuadMesh(vOuterMesh);
-			Materials.SetMeshColor(vOuterMesh, Color.clear);
-			Materials.SetMeshIconCoords(vOuterMesh, GetOuterIconOffset());
+			vOuterMeshBuilder = new MeshBuilder();
+			MeshUtil.BuildQuadMesh(vOuterMeshBuilder);
+			Materials.SetMeshIconCoords(vOuterMeshBuilder, GetOuterIconOffset());
+			vOuterMeshBuilder.Commit();
+			vOuterMeshBuilder.CommitColors(Color.clear);
+			outerFilt.sharedMesh = vOuterMeshBuilder.Mesh;
 
 			////
 
@@ -59,11 +61,13 @@ namespace Hover.Board.Display.Standard {
 			vInner.transform.localRotation = vLabel.CanvasLocalRotation;
 			vInner.AddComponent<MeshRenderer>();
 
-			MeshFilter iconFilt = vInner.AddComponent<MeshFilter>();
-			vInnerMesh = iconFilt.mesh;
-			MeshUtil.BuildQuadMesh(vInnerMesh);
-			Materials.SetMeshColor(vInnerMesh, Color.clear);
-			Materials.SetMeshIconCoords(vInnerMesh, GetInnerIconOffset());
+			MeshFilter innerFilt = vInner.AddComponent<MeshFilter>();
+			vInnerMeshBuilder = new MeshBuilder();
+			MeshUtil.BuildQuadMesh(vInnerMeshBuilder);
+			Materials.SetMeshIconCoords(vInnerMeshBuilder, GetInnerIconOffset());
+			vInnerMeshBuilder.Commit();
+			vInnerMeshBuilder.CommitColors(Color.clear);
+			innerFilt.sharedMesh = vInnerMeshBuilder.Mesh;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -83,8 +87,8 @@ namespace Hover.Board.Display.Standard {
 			Color color = vSettings.ToggleIconColor;
 			color.a *= (vItemState.MaxHighlightProgress*0.25f + 0.75f)*vMainAlpha;
 
-			Materials.SetMeshColor(vOuterMesh, color);
-			Materials.SetMeshColor(vInnerMesh, color);
+			vOuterMeshBuilder.CommitColors(color);
+			vInnerMeshBuilder.CommitColors(color);
 			vInner.SetActive(IsToggled());
 
 			if ( vSettings.TextSize != vPrevTextSize ) {

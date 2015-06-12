@@ -31,9 +31,9 @@ namespace Hover.Board.State {
 		private readonly ListMap<CursorType, ProjectionState> vProjectionMap;
 		private readonly ItemTree[] vAllItems;
 
-		private List<ItemTree> vActiveItems;
-		private ReadList<IBaseItemInteractionState> vActiveCursorInteractions;
-		private ReadList<PlaneData> vActiveCursorPlanes;
+		private readonly List<ItemTree> vActiveItems;
+		private readonly ReadList<IBaseItemInteractionState> vActiveCursorInteractions;
+		private readonly ReadList<PlaneData> vActiveCursorPlanes;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -91,14 +91,18 @@ namespace Hover.Board.State {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public IRadioItem[] GetRadioSiblings(IRadioItem pSelectedItem) {
-			var siblings = new List<IRadioItem>();
+		public IList<IRadioItem> GetRadioSiblings(IRadioItem pSelectedItem) {
+			var siblings = new List<IRadioItem>(); //GC_ALLOC
 			string id = pSelectedItem.GroupId;
 
-			foreach ( IHoverboardPanelState panel in Panels ) {
-				foreach ( IHoverboardLayoutState layout in panel.Layouts ) {
-					foreach ( IBaseItemState item in layout.Items ) {
-						IRadioItem radItem = (item.Item as IRadioItem);
+			for ( int panelI = 0 ; panelI < FullPanels.Length ; panelI++ ) {
+				IHoverboardPanelState panel = FullPanels[panelI];
+
+				for ( int layoutI = 0 ; layoutI < panel.Layouts.Count ; layoutI++ ) {
+					IHoverboardLayoutState layout = panel.Layouts[layoutI];
+
+					for ( int itemI = 0 ; itemI < layout.Items.Count ; itemI++ ) {
+						IRadioItem radItem = (layout.Items[itemI].Item as IRadioItem);
 
 						if ( radItem == null || radItem == pSelectedItem || radItem.GroupId != id ) {
 							continue;
@@ -109,7 +113,7 @@ namespace Hover.Board.State {
 				}
 			}
 
-			return siblings.ToArray();
+			return siblings;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

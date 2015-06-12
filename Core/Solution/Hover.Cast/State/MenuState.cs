@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Hover.Cast.Custom;
 using Hover.Cast.Input;
@@ -6,6 +7,7 @@ using Hover.Common.Input;
 using Hover.Common.Items;
 using Hover.Common.Items.Groups;
 using Hover.Common.State;
+using Hover.Common.Util;
 using Hover.Cursor.State;
 using UnityEngine;
 
@@ -29,11 +31,12 @@ namespace Hover.Cast.State {
 		
 		private readonly IItemHierarchy vItemHierarchy;
 		private readonly InteractionSettings vInteractSettings;
-		private readonly IList<BaseItemState> vAllItems;
-		private readonly IList<BaseItemState> vItems;
+		private readonly List<BaseItemState> vAllItems;
+		private readonly ReadList<BaseItemState> vItems;
+		private readonly ReadList<IBaseItemState> vLevelItems;
 		private readonly BaseItemState vPalmItem;
+		private readonly List<ICursorState> vCurrentCursors;
 
-		private ICursorState[] vCurrentCursors;
 		private bool vIsNavigateBackStarted;
 
 
@@ -44,9 +47,10 @@ namespace Hover.Cast.State {
 			vInteractSettings = pInteractSettings;
 
 			vAllItems = new List<BaseItemState>();
-			vItems = new List<BaseItemState>();
-			vCurrentCursors = new ICursorState[0];
+			vItems = new ReadList<BaseItemState>();
+			vLevelItems = new ReadList<IBaseItemState>();
 			vPalmItem = new BaseItemState(vItemHierarchy.NavigateBackItem, pInteractSettings);
+			vCurrentCursors = new List<ICursorState>();
 
 			OnLevelChange += (d => {});
 
@@ -57,13 +61,19 @@ namespace Hover.Cast.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public BaseItemState[] GetItems() {
-			return vItems.ToArray();
+		public ReadOnlyCollection<BaseItemState> GetItems() {
+			return vItems.ReadOnly;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public IBaseItemState[] GetLevelItems() {
-			return vItems.Cast<IBaseItemState>().ToArray();
+		public ReadOnlyCollection<IBaseItemState> GetLevelItems() {
+			vLevelItems.Clear();
+
+			for ( int i = 0 ; i < vItems.ReadOnly.Count ; i++ ) {
+				vLevelItems.Add(vItems.ReadOnly[i]);
+			}
+
+			return vLevelItems.ReadOnly;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -85,9 +95,17 @@ namespace Hover.Cast.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		internal void UpdateAfterInput(IInputMenu pInputMenu, ICursorState[] pCursors) {
-			vCurrentCursors = pCursors;
+		internal void ClearCursors() {
+			vCurrentCursors.Clear();
+		}
 
+		/*--------------------------------------------------------------------------------------------*/
+		internal void AddCursor(ICursorState pCursor) {
+			vCurrentCursors.Add(pCursor);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		internal void UpdateAfterInput(IInputMenu pInputMenu) {
 			IsInputAvailable = pInputMenu.IsAvailable;
 			IsOnLeftSide = pInputMenu.IsLeft;
 			Center = pInputMenu.Position;

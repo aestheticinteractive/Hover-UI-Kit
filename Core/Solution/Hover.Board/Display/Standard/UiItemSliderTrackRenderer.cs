@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Hover.Common.Display;
 using UnityEngine;
@@ -10,6 +12,7 @@ namespace Hover.Board.Display.Standard {
 		protected readonly UiHoverMeshRectBg[] vTracks;
 		protected readonly UiHoverMeshRectBg[] vFills;
 		protected readonly UiHoverMeshRectBg[] vAllBgs;
+		protected readonly List<DisplayUtil.TrackSegment> vSlices;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -27,6 +30,7 @@ namespace Hover.Board.Display.Standard {
 			}
 
 			vAllBgs = vTracks.Concat(vFills).ToArray();
+			vSlices = new List<DisplayUtil.TrackSegment>();
 		}
 
 
@@ -52,9 +56,9 @@ namespace Hover.Board.Display.Standard {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void UpdateSegments(DisplayUtil.TrackSegment[] pSegments,	
-													DisplayUtil.TrackSegment[] pCuts, float pHeight) {
-			DisplayUtil.TrackSegment[] slices = DisplayUtil.SplitTrackSegments(pSegments, pCuts);
+		public virtual void UpdateSegments(ReadOnlyCollection<DisplayUtil.TrackSegment> pSegments,	
+									ReadOnlyCollection<DisplayUtil.TrackSegment> pCuts, float pHeight) {
+			DisplayUtil.SplitTrackSegments(pSegments, pCuts, vSlices);
 
 			foreach ( UiHoverMeshRectBg bg in vAllBgs ) {
 				bg.Show(false);
@@ -63,7 +67,7 @@ namespace Hover.Board.Display.Standard {
 			int trackI = 0;
 			int fillI = 0;
 
-			foreach ( DisplayUtil.TrackSegment slice in slices ) {
+			foreach ( DisplayUtil.TrackSegment slice in vSlices ) {
 				UiHoverMeshRectBg bg;
 
 				if ( slice.IsFill ) {

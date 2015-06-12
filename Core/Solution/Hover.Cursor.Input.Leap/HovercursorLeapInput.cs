@@ -19,7 +19,7 @@ namespace Hover.Cursor.Input.Leap {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void Awake() {
-			vLeapControl = new Controller(); //GC-Alloc: 1 (56 B) recurring
+			vLeapControl = new Controller(); //GC_ALLOC: every frame
 			vCursors = new List<InputCursor>();
 			vCursorMap = new Dictionary<CursorType, InputCursor>(EnumIntKeyComparer.CursorType);
 			vSideMap = new Dictionary<CursorType, bool>(EnumIntKeyComparer.CursorType);

@@ -20,12 +20,24 @@ namespace Hover.Common.Items.Types {
 		public FillType FillStartingPoint { get; set; }
 
 		private float? vHoverValue;
+		private string vPrevLabel;
+		private float vPrevSnappedValue;
+		private string vPrevValueToLabel;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public SliderItem() {
-			ValueToLabel = (s => base.Label+": "+s.RangeSnappedValue.ToString("0.0"));
+			ValueToLabel = (s => {
+				if ( base.Label == vPrevLabel && s.RangeSnappedValue == vPrevSnappedValue ) {
+					return vPrevValueToLabel;
+				}
+
+				vPrevLabel = base.Label;
+				vPrevSnappedValue = s.RangeSnappedValue;
+				vPrevValueToLabel = vPrevLabel+": "+Math.Round(vPrevSnappedValue*10)/10f; //GC_ALLOC
+				return vPrevValueToLabel;
+			});
 		}
 
 

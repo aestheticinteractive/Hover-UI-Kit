@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Hover.Common.Items.Types;
 
@@ -19,7 +20,7 @@ namespace Hover.Common.Items.Groups {
 		private bool vIsVisible;
 		private bool vIsAncestryEnabled;
 		private bool vIsAncestryVisible;
-		private Func<IRadioItem, IRadioItem[]> vRadioSiblingsFunc;
+		private Func<IRadioItem, IList<IRadioItem>> vRadioSiblingsFunc;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -137,7 +138,7 @@ namespace Hover.Common.Items.Groups {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void SetRadioSiblingsFunc(Func<IRadioItem, IRadioItem[]> pFunc) {
+		public void SetRadioSiblingsFunc(Func<IRadioItem, IList<IRadioItem>> pFunc) {
 			vRadioSiblingsFunc = pFunc;
 		}
 
@@ -176,21 +177,25 @@ namespace Hover.Common.Items.Groups {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void DeselectRadioSiblings(IRadioItem pSelectedRadioItem) {
-			IRadioItem[] siblings;
+			IList<IRadioItem> siblings;
 
 			if ( vRadioSiblingsFunc != null ) {
 				siblings = vRadioSiblingsFunc(pSelectedRadioItem);
 			}
 			else {
-				siblings = vActiveItems
-					.Where(x => x != pSelectedRadioItem)
-					.Select(x => (x as IRadioItem))
-					.Where(x => x != null)
-					.ToArray();
+				siblings = new List<IRadioItem>();
+
+				foreach ( IBaseItem item in vActiveItems ) {
+					IRadioItem radItem = (item as IRadioItem);
+
+					if ( radItem != null && radItem != pSelectedRadioItem ) {
+						siblings.Add(radItem);
+					}
+				}
 			}
 
-			foreach ( IRadioItem radItem in siblings ) {
-				radItem.Value = false;
+			for ( int i = 0 ; i < siblings.Count ; i++ ) {
+				siblings[i].Value = false;
 			}
 		}
 

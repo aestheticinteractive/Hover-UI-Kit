@@ -13,7 +13,7 @@ namespace Hover.Cursor.Display.Standard {
 
 		protected ICursorState vCursorState;
 		protected CursorSettingsStandard vSettings;
-		protected Mesh vRingMesh;
+		protected MeshBuilder vRingMeshBuilder;
 		protected GameObject vRingObj;
 
 		protected float vCurrThickness;
@@ -31,7 +31,8 @@ namespace Hover.Cursor.Display.Standard {
 			meshRend.sharedMaterial = Materials.GetCursorLayer();
 			vRingObj.AddComponent<MeshFilter>();
 
-			vRingMesh = vRingObj.GetComponent<MeshFilter>().mesh;
+			vRingMeshBuilder = new MeshBuilder();
+			vRingObj.GetComponent<MeshFilter>().sharedMesh = vRingMeshBuilder.Mesh;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -47,19 +48,21 @@ namespace Hover.Cursor.Display.Standard {
 			BuildMesh(thick);
 
 			vRingObj.transform.localScale = Vector3.one*scale;
-			Materials.SetMeshColor(vRingMesh, col);
+			vRingMeshBuilder.CommitColors(col);
 		}
 		
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected virtual void BuildMesh(float pThickness) {
-			if ( pThickness == vCurrThickness ) {
+			if ( Math.Abs(pThickness-vCurrThickness) < 0.001f ) {
 				return;
 			}
 
 			vCurrThickness = pThickness;
-			MeshUtil.BuildRingMesh(vRingMesh, (1-pThickness)/2f, 0.5f, 0, (float)Math.PI*2, 24);
+
+			MeshUtil.BuildRingMesh(vRingMeshBuilder, (1-pThickness)/2f, 0.5f, 0, (float)Math.PI*2, 24);
+			vRingMeshBuilder.Commit();
 		}
 
 	}

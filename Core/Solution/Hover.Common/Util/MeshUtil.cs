@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using Hover.Common.Display;
 using UnityEngine;
 
 namespace Hover.Common.Util {
@@ -10,32 +10,24 @@ namespace Hover.Common.Util {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public static void BuildQuadMesh(Mesh pMesh) {
+		public static void BuildQuadMesh(MeshBuilder pMeshBuild) {
 			const float size = 0.5f;
 
-			pMesh.vertices = new[] {
-				new Vector3( size,  size, 0), 
-				new Vector3( size, -size, 0), 
-				new Vector3(-size, -size, 0), 
-				new Vector3(-size,  size, 0)
-			};
+			pMeshBuild.Resize(4, 6);
+			pMeshBuild.ResetIndices();
 
-			pMesh.uv = new[] {
-				new Vector2(1, 1), 
-				new Vector2(1, 0), 
-				new Vector2(0, 0), 
-				new Vector2(0, 1)
-			};
+			pMeshBuild.AddVertex(new Vector3( size,  size, 0));
+			pMeshBuild.AddVertex(new Vector3( size, -size, 0));
+			pMeshBuild.AddVertex(new Vector3(-size, -size, 0));
+			pMeshBuild.AddVertex(new Vector3(-size,  size, 0));
 
-			pMesh.triangles = new[] {
-				0, 1, 2,
-				0, 2, 3
-			};
+			pMeshBuild.AddUv(new Vector2(1, 1));
+			pMeshBuild.AddUv(new Vector2(1, 0));
+			pMeshBuild.AddUv(new Vector2(0, 0));
+			pMeshBuild.AddUv(new Vector2(0, 1));
 
-			pMesh.colors32 = new Color32[4];
-			pMesh.RecalculateBounds();
-			pMesh.RecalculateNormals();
-			pMesh.Optimize();
+			pMeshBuild.AddTriangle(0, 1, 2);
+			pMeshBuild.AddTriangle(0, 2, 3);
 		}
 
 
@@ -48,128 +40,95 @@ namespace Hover.Common.Util {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public static void BuildRingMesh(Mesh pMesh, float pInnerRadius, float pOuterRadius,
+		public static void BuildRingMesh(MeshBuilder pMeshBuild, float pInnerRadius, float pOuterRadius,
 															float pAngle0, float pAngle1, int pSteps) {
 			float angleFull = pAngle1-pAngle0;
 			float angleInc = angleFull/pSteps;
 			float angle = pAngle0;
 
-			var verts = new List<Vector3>();
-			var uvs = new List<Vector2>();
-			var tris = new List<int>();
+			pMeshBuild.Resize((pSteps+1)*2, pSteps*6);
+			pMeshBuild.ResetIndices();
 
 			for ( int i = 0 ; i <= pSteps ; ++i ) {
-				int vi = verts.Count;
 				float uvx = i/(float)pSteps;
 
-				verts.Add(GetRingPoint(pInnerRadius, angle));
-				verts.Add(GetRingPoint(pOuterRadius, angle));
+				pMeshBuild.AddVertex(GetRingPoint(pInnerRadius, angle));
+				pMeshBuild.AddVertex(GetRingPoint(pOuterRadius, angle));
 
-				uvs.Add(new Vector2(uvx, 0));
-				uvs.Add(new Vector2(uvx, 1));
+				pMeshBuild.AddUv(new Vector2(uvx, 0));
+				pMeshBuild.AddUv(new Vector2(uvx, 1));
 
 				if ( i > 0 ) {
-					tris.Add(vi-1);
-					tris.Add(vi-2);
-					tris.Add(vi);
-
-					tris.Add(vi+1);
-					tris.Add(vi-1);
-					tris.Add(vi);
+					int vi = pMeshBuild.VertexIndex;
+					pMeshBuild.AddTriangle(vi-3, vi-4, vi-2);
+					pMeshBuild.AddTriangle(vi-1, vi-3, vi-2);
 				}
 
 				angle += angleInc;
 			}
-
-			pMesh.Clear();
-			pMesh.vertices = verts.ToArray();
-			pMesh.uv = uvs.ToArray();
-			pMesh.triangles = tris.ToArray();
-			pMesh.colors32 = new Color32[verts.Count];
-			pMesh.RecalculateNormals();
-			pMesh.RecalculateBounds();
-			pMesh.Optimize();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public static void BuildCircleMesh(Mesh pMesh, float pRadius, int pSteps) {
+		public static void BuildCircleMesh(MeshBuilder pMeshBuild, float pRadius, int pSteps) {
 			const float angleFull = (float)Math.PI*2;
 			float angleInc = angleFull/pSteps;
 			float angle = 0;
 
-			var verts = new List<Vector3>();
-			var uvs = new List<Vector2>();
-			var tris = new List<int>();
+			pMeshBuild.Resize(pSteps+2, pSteps*3);
 
-			verts.Add(Vector3.zero);
-			uvs.Add(new Vector2(0, 0));
+			pMeshBuild.AddVertex(Vector3.zero);
+			pMeshBuild.AddUv(new Vector2(0, 0));
 
 			for ( int i = 0 ; i <= pSteps ; ++i ) {
-				int vi = verts.Count;
-				float uvx = i/(float)pSteps;
-
-				verts.Add(GetRingPoint(pRadius, angle));
-				uvs.Add(new Vector2(uvx, 1));
+				pMeshBuild.AddVertex(GetRingPoint(pRadius, angle));
+				pMeshBuild.AddUv(new Vector2(i/(float)pSteps, 1));
 
 				if ( i > 0 ) {
-					tris.Add(0);
-					tris.Add(vi-1);
-					tris.Add(vi);
+					int vi = pMeshBuild.VertexIndex;
+					pMeshBuild.AddTriangle(0, vi-2, vi-1);
 				}
 
 				angle += angleInc;
 			}
-
-			pMesh.Clear();
-			pMesh.vertices = verts.ToArray();
-			pMesh.uv = uvs.ToArray();
-			pMesh.triangles = tris.ToArray();
-			pMesh.colors32 = new Color32[verts.Count];
-			pMesh.RecalculateNormals();
-			pMesh.RecalculateBounds();
-			pMesh.Optimize();
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public static void BuildBorderMesh(Mesh pMesh, float pWidth, float pHeight, float pThickness) {
+		public static void BuildBorderMesh(MeshBuilder pMeshBuild, float pWidth, float pHeight, 
+																					float pThickness) {
 			float innerW = pWidth/2-pThickness;
 			float innerH = pHeight/2-pThickness;
 			float outerW = pWidth/2;
 			float outerH = pHeight/2;
 
-			pMesh.vertices = new[] {
-				new Vector3( outerW,  outerH, 0), 
-				new Vector3( outerW, -outerH, 0), 
-				new Vector3(-outerW, -outerH, 0), 
-				new Vector3(-outerW,  outerH, 0), 
-				new Vector3( innerW,  innerH, 0), 
-				new Vector3( innerW, -innerH, 0), 
-				new Vector3(-innerW, -innerH, 0), 
-				new Vector3(-innerW,  innerH, 0)
-			};
+			pMeshBuild.Resize(8, 24);
+			pMeshBuild.ResetIndices();
 
-			pMesh.triangles = new[] {
-				0, 1, 4,
-				1, 5, 4,
-				1, 2, 5,
-				2, 6, 5,
-				2, 3, 6,
-				3, 7, 6,
-				3, 4, 7,
-				3, 0, 4
-			};
+			pMeshBuild.AddVertex(new Vector3( outerW,  outerH, 0)); 
+			pMeshBuild.AddVertex(new Vector3( outerW, -outerH, 0));
+			pMeshBuild.AddVertex(new Vector3(-outerW, -outerH, 0));
+			pMeshBuild.AddVertex(new Vector3(-outerW,  outerH, 0));
+			pMeshBuild.AddVertex(new Vector3( innerW,  innerH, 0));
+			pMeshBuild.AddVertex(new Vector3( innerW, -innerH, 0)); 
+			pMeshBuild.AddVertex(new Vector3(-innerW, -innerH, 0));
+			pMeshBuild.AddVertex(new Vector3(-innerW,  innerH, 0));
 
-			pMesh.uv = new Vector2[8];
-			pMesh.colors32 = new Color32[8];
-			pMesh.RecalculateBounds();
-			pMesh.RecalculateNormals();
-			pMesh.Optimize();
+			pMeshBuild.AddTriangle(0, 1, 4);
+			pMeshBuild.AddTriangle(1, 5, 4);
+			pMeshBuild.AddTriangle(1, 2, 5);
+			pMeshBuild.AddTriangle(2, 6, 5);
+			pMeshBuild.AddTriangle(2, 3, 6);
+			pMeshBuild.AddTriangle(3, 7, 6);
+			pMeshBuild.AddTriangle(3, 4, 7);
+			pMeshBuild.AddTriangle(3, 0, 4);
+
+			pMeshBuild.AddRemainingUvs(Vector2.zero);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public static void BuildRectangleMesh(Mesh pMesh, float pWidth, float pHeight, float pAmount) {
+		public static void BuildRectangleMesh(MeshBuilder pMeshBuild, float pWidth, float pHeight, 
+																						float pAmount) {
 			float fullW;
 			float fullH;
 
@@ -185,23 +144,18 @@ namespace Hover.Common.Util {
 			float halfW = fullW/2f;
 			float halfH = fullH/2f;
 
-			pMesh.vertices = new[] {
-				new Vector3( halfW,  halfH, 0), 
-				new Vector3( halfW, -halfH, 0), 
-				new Vector3(-halfW, -halfH, 0), 
-				new Vector3(-halfW,  halfH, 0)
-			};
+			pMeshBuild.Resize(4, 6);
+			pMeshBuild.ResetIndices();
 
-			pMesh.triangles = new[] {
-				0, 1, 2,
-				0, 2, 3
-			};
+			pMeshBuild.AddVertex(new Vector3( halfW,  halfH, 0));
+			pMeshBuild.AddVertex(new Vector3( halfW, -halfH, 0)); 
+			pMeshBuild.AddVertex(new Vector3(-halfW, -halfH, 0));
+			pMeshBuild.AddVertex(new Vector3(-halfW,  halfH, 0));
 
-			pMesh.uv = new Vector2[4];
-			pMesh.colors32 = new Color32[4];
-			pMesh.RecalculateBounds();
-			pMesh.RecalculateNormals();
-			pMesh.Optimize();
+			pMeshBuild.AddTriangle(0, 1, 2);
+			pMeshBuild.AddTriangle(0, 2, 3);
+
+			pMeshBuild.AddRemainingUvs(Vector2.zero);
 		}
 
 	}

@@ -1,4 +1,4 @@
-using System.Linq;
+using System.Collections.ObjectModel;
 using Hover.Board.Custom;
 using Hover.Board.Items;
 using Hover.Common.State;
@@ -10,6 +10,7 @@ namespace Hover.Board.State {
 
 		public IItemLayout ItemLayout { get; private set; }
 		public BaseItemState[] FullItems { get; private set; }
+		public ReadOnlyCollection<IBaseItemState> Items { get; private set; }
 		public float DisplayStrength { get; set; }
 
 		private readonly InteractionSettings vSettings;
@@ -21,19 +22,18 @@ namespace Hover.Board.State {
 			ItemLayout = pItemLayout;
 			vSettings = pSettings;
 			DisplayStrength = 1;
+			FullItems = new BaseItemState[ItemLayout.Items.Length];
 
-			RefreshItems();
+			for ( int i = 0 ; i < ItemLayout.Items.Length ; i++ ) {
+				var item = new BaseItemState(ItemLayout.Items[i], vSettings);
+				FullItems[i] = item;
+			}
+
+			Items = new ReadOnlyCollection<IBaseItemState>(FullItems);
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public IBaseItemState[] Items {
-			get {
-				return FullItems.Cast<IBaseItemState>().ToArray();
-			}
-		}
-		
 		/*--------------------------------------------------------------------------------------------*/
 		public void PreventEveryItemSelectionViaDisplay(string pName, bool pPrevent) {
 			foreach ( BaseItemState item in FullItems ) {
@@ -50,18 +50,6 @@ namespace Hover.Board.State {
 			}
 
 			return true;
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		private void RefreshItems() {
-			FullItems = new BaseItemState[ItemLayout.Items.Length];
-
-			for ( int i = 0 ; i < ItemLayout.Items.Length ; i++ ) {
-				var item = new BaseItemState(ItemLayout.Items[i], vSettings);
-				FullItems[i] = item;
-			}
 		}
 
 	}

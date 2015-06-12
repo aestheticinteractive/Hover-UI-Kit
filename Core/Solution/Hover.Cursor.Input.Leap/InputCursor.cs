@@ -68,12 +68,11 @@ namespace Hover.Cursor.Input.Leap {
 				return;
 			}
 
-			Bone bone = leapFinger.Bone(Bone.BoneType.TYPE_DISTAL);
+			Bone bone = leapFinger.Bone(Bone.BoneType.TYPE_DISTAL); //GC_ALLOC
 
 			IsAvailable = true;
-			Position = leapFinger.TipPosition.ToUnityScaled();
-			Rotation = LeapUtil.CalcQuaternion(bone.Basis);
-			//TODO: use Basis.Rotation()? See "LeapUnityExtensions.cs"
+			Position = leapFinger.TipPosition.ToUnityScaled(); //GC_ALLOC
+			Rotation = LeapUtil.CalcQuaternion(bone.Basis); //GC_ALLOC
 
 			Size = leapFinger.Width*SizeScaleFactor;
 		}
@@ -82,7 +81,7 @@ namespace Hover.Cursor.Input.Leap {
 		private void UpdateForPalm(Hand pLeapHand) {
 			IsAvailable = true;
 			Position = pLeapHand.PalmPosition.ToUnityScaled();
-			Rotation = LeapUtil.CalcQuaternion(pLeapHand.Basis);
+			Rotation = LeapUtil.CalcQuaternion(pLeapHand.Basis); //GC_ALLOC
 			Size = pLeapHand.PalmWidth*SizeScaleFactor;
 		}
 

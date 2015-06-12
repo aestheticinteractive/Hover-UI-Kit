@@ -9,6 +9,9 @@ namespace Hover.Common.Input.Leap {
 
 		public const float InputScale = 0.001f;
 
+		private static readonly Vector LeapUp = new Vector(0, 1, 0);
+		private static readonly Vector LeapForward = new Vector(0, 0, 1);
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -25,13 +28,11 @@ namespace Hover.Common.Input.Leap {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public static Quaternion CalcQuaternion(Matrix pBasis) {
-			//Quaternion created using notes from:
-			//answers.unity3d.com/questions/11363/converting-matrix4x4-to-quaternion-vector3.html
-
-			float[] mat = pBasis.ToArray4x4();
-			var column2 = new Vector3(mat[8], mat[9], -mat[10]);
-			var column1 = new Vector3(mat[4], mat[5], -mat[6]);
-			return Quaternion.LookRotation(column2, column1);
+			//Adapted from "LeapUnityExtensions.cs" in the Leap Motion SDK
+			//Smaller GC allocations than the previous "ToMatrix4x4()" approach
+			Vector3 up = pBasis.TransformDirection(LeapUp).ToUnity(); //GC_ALLOC
+			Vector3 forward = pBasis.TransformDirection(LeapForward).ToUnity(); //GC_ALLOC
+			return Quaternion.LookRotation(forward, up);
 		}
 
 
@@ -69,7 +70,7 @@ namespace Hover.Common.Input.Leap {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public static Frame GetValidLeapFrame(Controller pLeapControl) {
-			Frame frame = pLeapControl.Frame(0); //GC-Alloc: 1 (56 B)
+			Frame frame = pLeapControl.Frame(0); //GC_ALLOC
 			return (frame != null && frame.IsValid ? frame : null);
 		}
 
@@ -79,9 +80,9 @@ namespace Hover.Common.Input.Leap {
 				return null;
 			}
 
-			HandList hands = pLeapFrame.Hands;
+			HandList hands = pLeapFrame.Hands; //GC_ALLOC
 
-			for ( int i = 0 ; i < hands.Count ; i++ ) {
+			for ( int i = 0 ; i < hands.Count ; i++ ) { //GC_ALLOC (get "Count")
 				Hand leapHand = hands[i];
 
 				if ( leapHand.IsLeft == pIsLeft && leapHand.IsValid ) {
@@ -95,10 +96,10 @@ namespace Hover.Common.Input.Leap {
 		/*--------------------------------------------------------------------------------------------*/
 		public static Finger GetValidFinger(Hand pHand, Finger.FingerType pFingerType) {
 			//Skip "Fingers.FingerType()" API method to avoid GC allocations
-			FingerList fingers = pHand.Fingers; //GC-Alloc: 1 (56 B)
+			FingerList fingers = pHand.Fingers; //GC_ALLOC
 
 			for ( int i = 0 ; i < fingers.Count ; i++ ) {
-				Finger finger = fingers[i];
+				Finger finger = fingers[i]; //GC_ALLOC
 
 				if ( finger.Type() == pFingerType && finger.IsValid ) {
 					return finger;

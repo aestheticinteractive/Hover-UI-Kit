@@ -1,5 +1,4 @@
-﻿using System;
-using Hover.Common.Items.Groups;
+﻿using Hover.Common.Items.Groups;
 
 namespace Hover.Common.Items {
 

@@ -11,6 +11,9 @@ namespace Hover.Common.State {
 	/*================================================================================================*/
 	public class BaseItemState : IBaseItemState {
 
+		private static readonly Func<float, float, bool> FindMin = ((a,b) => (a < b));
+		private static readonly Func<float, float, bool> FindMax = ((a,b) => (a > b));
+
 		public IBaseItem Item { get; private set; }
 		public Action<IBaseItemPointsState, Vector3> HoverPointUpdater { get; set; }
 
@@ -77,7 +80,7 @@ namespace Hover.Common.State {
 		/*--------------------------------------------------------------------------------------------*/
 		public float MinHighlightDistance {
 			get {
-				return vHighlightDistanceMap.GetValue((a,b) => (a < b));
+				return vHighlightDistanceMap.GetValue(FindMin);
 			}
 		}
 		
@@ -94,7 +97,7 @@ namespace Hover.Common.State {
 					return 0;
 				}
 
-				return vHighlightProgressMap.GetValue((a, b) => (a > b));
+				return vHighlightProgressMap.GetValue(FindMax);
 			}
 		}
 
@@ -130,15 +133,16 @@ namespace Hover.Common.State {
 				float minDist = float.MaxValue;
 				CursorType? nearestType = null;
 
-				foreach ( CursorType key in vHighlightDistanceMap.KeysReadOnly ) {
-					float dist = vHighlightDistanceMap[key];
+				for ( int i = 0 ; i < vHighlightDistanceMap.KeysReadOnly.Count ; i++ ) {
+					CursorType cursorType = vHighlightDistanceMap.KeysReadOnly[i];
+					float dist = vHighlightDistanceMap[cursorType];
 
 					if ( dist >= minDist ) {
 						continue;
 					}
 
 					minDist = dist;
-					nearestType = key;
+					nearestType = cursorType;
 				}
 
 				return (nearestType == null ? null : vCursorWorldPosMap[(CursorType)nearestType]);

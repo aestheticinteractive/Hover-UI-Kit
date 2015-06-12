@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Hover.Board.Custom.Standard;
 using Hover.Board.State;
 using Hover.Common.Custom;
@@ -36,9 +35,11 @@ namespace Hover.Board.Display.Standard {
 
 		protected UiHoverMeshRectBg vHiddenRect;
 		protected UiItemSliderTrackRenderer vTrack;
+		protected ReadList<DisplayUtil.TrackSegment> vTrackSegments;
+		protected ReadList<DisplayUtil.TrackSegment> vTrackCuts;
 
 		protected GameObject[] vTicks;
-		protected Mesh vTickMesh;
+		protected MeshBuilder vTickMeshBuilder;
 
 		protected GameObject vGrabHold;
 		protected UiItemSliderGrabRenderer vGrab;
@@ -88,6 +89,8 @@ namespace Hover.Board.Display.Standard {
 			trackObj.transform.localPosition = new Vector3(-vWidth/2, 0, 0);
 
 			vTrack = new UiItemSliderTrackRenderer(trackObj);
+			vTrackSegments = new ReadList<DisplayUtil.TrackSegment>();
+			vTrackCuts = new ReadList<DisplayUtil.TrackSegment>();
 
 			////
 
@@ -95,9 +98,10 @@ namespace Hover.Board.Display.Standard {
 				Vector3 quadScale = new Vector3(UiHoverMeshRect.SizeInset*2, 0.36f, 0.1f);
 				float percPerTick = 1/(float)(vSliderItem.Ticks-1);
 
-				vTickMesh = new Mesh();
-				MeshUtil.BuildQuadMesh(vTickMesh);
-				Materials.SetMeshColor(vTickMesh, Color.clear);
+				vTickMeshBuilder = new MeshBuilder();
+				MeshUtil.BuildQuadMesh(vTickMeshBuilder);
+				vTickMeshBuilder.Commit();
+				vTickMeshBuilder.CommitColors(Color.clear);
 
 				for ( int i = 0 ; i < vSliderItem.Ticks ; ++i ) {
 					GameObject tickObj = new GameObject("Tick"+i);
@@ -108,7 +112,7 @@ namespace Hover.Board.Display.Standard {
 					tickObj.AddComponent<MeshRenderer>();
 
 					MeshFilter tickFilt = tickObj.AddComponent<MeshFilter>();
-					tickFilt.sharedMesh = vTickMesh;
+					tickFilt.sharedMesh = vTickMeshBuilder.Mesh;
 
 					vTicks[i] = tickObj;
 				}
@@ -189,8 +193,8 @@ namespace Hover.Board.Display.Standard {
 
 			vTrack.SetColors(colTrack, colFill);
 
-			if ( vTickMesh != null ) {
-				Materials.SetMeshColor(vTickMesh, colTick);
+			if ( vTickMeshBuilder != null ) {
+				vTickMeshBuilder.CommitColors(colTick);
 			}
 
 			////
@@ -236,8 +240,8 @@ namespace Hover.Board.Display.Standard {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected virtual void UpdateMeshes(float pValue, float pHoverValue, float pHoverW) {
-			var segs = new List<DisplayUtil.TrackSegment>();
-			var cuts = new List<DisplayUtil.TrackSegment>();
+			vTrackSegments.Clear();
+			vTrackCuts.Clear();
 
 			float halfGrabW = vGrabW/2;
 			float valCenter = pValue*vSlideW + halfGrabW;
@@ -249,19 +253,19 @@ namespace Hover.Board.Display.Standard {
 				float break0 = Math.Min(zeroCenter, valCenter);
 				float break1 = Math.Max(zeroCenter, valCenter);
 
-				segs.Add(new DisplayUtil.TrackSegment {
+				vTrackSegments.Add(new DisplayUtil.TrackSegment {
 					StartValue = 0,
 					EndValue = break0
 				});
 
-				segs.Add(new DisplayUtil.TrackSegment {
+				vTrackSegments.Add(new DisplayUtil.TrackSegment {
 					StartValue = break0,
 					EndValue = break1,
 					IsFill = true,
 					IsZeroAtStart = (break0 == zeroCenter)
 				});
 
-				segs.Add(new DisplayUtil.TrackSegment {
+				vTrackSegments.Add(new DisplayUtil.TrackSegment {
 					StartValue = break1,
 					EndValue = vWidth
 				});
@@ -269,26 +273,26 @@ namespace Hover.Board.Display.Standard {
 			else {
 				bool isMinStart = (vSliderItem.FillStartingPoint == SliderItem.FillType.MinimumValue);
 
-				segs.Add(new DisplayUtil.TrackSegment {
+				vTrackSegments.Add(new DisplayUtil.TrackSegment {
 					StartValue = 0,
 					EndValue = valCenter,
 					IsFill = isMinStart
 				});
 
-				segs.Add(new DisplayUtil.TrackSegment {
+				vTrackSegments.Add(new DisplayUtil.TrackSegment {
 					StartValue = valCenter,
 					EndValue = vWidth,
 					IsFill = !isMinStart
 				});
 			}
 			
-			cuts.Add(new DisplayUtil.TrackSegment {
+			vTrackCuts.Add(new DisplayUtil.TrackSegment {
 				StartValue = valCenter - halfGrabW,
 				EndValue = valCenter + halfGrabW,
 			});
 
 			if ( pHoverW > 0 && !isHoverTooClose ) {
-				cuts.Add(new DisplayUtil.TrackSegment {
+				vTrackCuts.Add(new DisplayUtil.TrackSegment {
 					StartValue = hovCenter - pHoverW/2,
 					EndValue = hovCenter + pHoverW/2,
 				});
@@ -299,7 +303,7 @@ namespace Hover.Board.Display.Standard {
 				vHover.UpdateSize(0, 0);
 			}
 
-			vTrack.UpdateSegments(segs.ToArray(), cuts.ToArray(), vHeight*0.92f);
+			vTrack.UpdateSegments(vTrackSegments.ReadOnly, vTrackCuts.ReadOnly, vHeight*0.92f);
 		}
 
 	}

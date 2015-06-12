@@ -29,12 +29,14 @@ namespace Hover.Demo.BoardTest {
 
 		private HoverboardSetup vSetup;
 		private Bundle[] vBundles;
+		private List<CursorType> vActiveCursorTypes;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
 			vSetup = gameObject.GetComponent<HoverboardSetup>();
+			vActiveCursorTypes = new List<CursorType>();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -57,17 +59,17 @@ namespace Hover.Demo.BoardTest {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			var cursorTypes = new List<CursorType>();
+			vActiveCursorTypes.Clear();
 
 			foreach ( Bundle bundle in vBundles ) {
 				if ( !bundle.ShowFunc() ) {
 					continue;
 				}
 
-				cursorTypes.Add(bundle.CursorType);
+				vActiveCursorTypes.Add(bundle.CursorType);
 			}
 
-			vSetup.InteractionSettings.GetSettings().Cursors = cursorTypes.ToArray();
+			vSetup.InteractionSettings.GetSettings().Cursors = vActiveCursorTypes;
 		}
 
 

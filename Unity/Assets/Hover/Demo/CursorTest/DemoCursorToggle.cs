@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Hover.Common.Input;
 using Hover.Common.State;
+using Hover.Common.Util;
 using Hover.Cursor;
 using Hover.Cursor.State;
 using UnityEngine;
@@ -38,7 +39,7 @@ namespace Hover.Demo.CursorTest {
 		private HovercursorSetup vSetup;
 		private Bundle[] vBundles;
 		private FakeItemState vFakeItem;
-		private List<CursorType> vActiveCursorTypes;
+		private ReadList<CursorType> vActiveCursorTypes;
 		private ReadOnlyCollection<IBaseItemInteractionState> vFakeInteractions;
 		private ReadOnlyCollection<PlaneData> vFakePlanes;
 
@@ -50,7 +51,8 @@ namespace Hover.Demo.CursorTest {
 			vFakeItem = new FakeItemState();
 			vFakeItem.ItemAutoId = 123;
 
-			vActiveCursorTypes = new List<CursorType>();
+			vActiveCursorTypes = new ReadList<CursorType>();
+			ActiveCursorTypes = vActiveCursorTypes.ReadOnly;
 
 			vFakeInteractions = new ReadOnlyCollection<IBaseItemInteractionState>(
 				new List<IBaseItemInteractionState>());

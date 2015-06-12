@@ -102,24 +102,8 @@ namespace Hover.Common.Display {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public static void SetMeshColor(Mesh pMesh, Color32 pColor) {
-			int count = pMesh.vertexCount;
-			Color32[] colors32 = pMesh.colors32;
-			
-			if ( colors32 == null || colors32.Length != count ) {
-				colors32 = new Color32[count];
-			}
-
-			for ( int i = 0 ; i < count ; i++ ) {
-				colors32[i] = pColor;
-			}
-
-			pMesh.colors32 = colors32;
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public static void SetMeshIconCoords(Mesh pMesh, IconOffset pOffset) {
-			Vector2[] uvList = pMesh.uv;
+		public static void SetMeshIconCoords(MeshBuilder pMeshBuild, IconOffset pOffset) {
+			Vector2[] uvList = pMeshBuild.Uvs;
 			const float step = 1/8f;
 			float offset = step*(int)pOffset;
 			var uvCenter = new Vector2(0.5f, 0.5f);
@@ -130,10 +114,8 @@ namespace Hover.Common.Display {
 				uv = Vector2.Lerp(uv, uvCenter, cheatToCenterAmount);
 				uv.x *= step;
 				uv.x += offset;
-				uvList[i] = uv;
+				pMeshBuild.Uvs[i] = uv;
 			}
-
-			pMesh.uv = uvList;
 		}
 
 	}

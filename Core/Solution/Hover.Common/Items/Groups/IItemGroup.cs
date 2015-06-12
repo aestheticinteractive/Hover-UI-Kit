@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Hover.Common.Items.Types;
 
 namespace Hover.Common.Items.Groups {
@@ -30,7 +31,7 @@ namespace Hover.Common.Items.Groups {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		void SetRadioSiblingsFunc(Func<IRadioItem, IRadioItem[]> pFunc);
+		void SetRadioSiblingsFunc(Func<IRadioItem, IList<IRadioItem>> pFunc);
 
 	}
 

@@ -71,8 +71,9 @@ namespace Hover.Board.Display.Standard {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected override void UpdateMesh(MeshType pType, Mesh pMesh, float pAmount=1) {
-			MeshUtil.BuildRectangleMesh(pMesh, vMeshW, vMeshH, pAmount);
+		protected override void UpdateMesh(MeshType pType, MeshBuilder pMeshBuild, float pAmount=1) {
+			MeshUtil.BuildRectangleMesh(pMeshBuild, vMeshW, vMeshH, pAmount);
+			pMeshBuild.Commit();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

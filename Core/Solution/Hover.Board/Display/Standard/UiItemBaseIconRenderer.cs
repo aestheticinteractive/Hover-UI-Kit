@@ -11,7 +11,7 @@ namespace Hover.Board.Display.Standard {
 	public abstract class UiItemBaseIconRenderer : UiItemSelectRenderer {
 
 		protected GameObject vIcon;
-		protected Mesh vIconMesh;
+		protected MeshBuilder vIconMeshBuilder;
 
 		private int vPrevTextSize;
 		private bool vIsSizeChanged;
@@ -47,10 +47,12 @@ namespace Hover.Board.Display.Standard {
 			vIcon.AddComponent<MeshRenderer>();
 
 			MeshFilter iconFilt = vIcon.AddComponent<MeshFilter>();
-			vIconMesh = iconFilt.mesh;
-			MeshUtil.BuildQuadMesh(vIconMesh);
-			Materials.SetMeshColor(vIconMesh, Color.clear);
-			Materials.SetMeshIconCoords(vIconMesh, GetIconOffset());
+			vIconMeshBuilder = new MeshBuilder();
+			MeshUtil.BuildQuadMesh(vIconMeshBuilder);
+			Materials.SetMeshIconCoords(vIconMeshBuilder, GetIconOffset());
+			vIconMeshBuilder.Commit();
+			vIconMeshBuilder.CommitColors(Color.clear);
+			iconFilt.sharedMesh = vIconMeshBuilder.Mesh;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -75,7 +77,7 @@ namespace Hover.Board.Display.Standard {
 			Color color = vSettings.ArrowIconColor;
 			color.a *= (vItemState.MaxHighlightProgress*0.75f + 0.25f)*vMainAlpha;
 
-			Materials.SetMeshColor(vIconMesh, color);
+			vIconMeshBuilder.CommitColors(color);
 
 			if ( vSettings.TextSize != vPrevTextSize || vIsSizeChanged ) {
 				vPrevTextSize = vSettings.TextSize;

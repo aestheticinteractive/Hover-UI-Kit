@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Hover.Common.Display;
 using Hover.Common.State;
 using Hover.Common.Util;
@@ -96,22 +95,25 @@ namespace Hover.Cast.Display.Standard {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected override void UpdateMesh(MeshType pType, Mesh pMesh, float pAmount=1) {
+		protected override void UpdateMesh(MeshType pType, MeshBuilder pMeshBuild, float pAmount=1) {
 			if ( pType == MeshType.Edge ) {
 				float edgeInner = (DrawOuterEdge ? vRadOuter : vRadInner-EdgeThick);
 				float edgeOuter = (DrawOuterEdge ? vRadOuter+EdgeThick : vRadInner);
-				MeshUtil.BuildRingMesh(EdgeMesh, edgeInner, edgeOuter, vAngle0, vAngle1, vMeshSteps);
+				MeshUtil.BuildRingMesh(pMeshBuild, edgeInner, edgeOuter, vAngle0, vAngle1, vMeshSteps);
+				pMeshBuild.Commit();
 				return;
 			}
 
 			float radOuter = vRadInner+(vRadOuter-vRadInner)*pAmount;
-			MeshUtil.BuildRingMesh(pMesh, vRadInner, radOuter, vAngle0, vAngle1, vMeshSteps);
+
+			MeshUtil.BuildRingMesh(pMeshBuild, vRadInner, radOuter, vAngle0, vAngle1, vMeshSteps);
+			pMeshBuild.Commit();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		protected override void UpdateHoverLocalPoints() {
 			const int innerSteps = 5;
-			Vector3[] bgVerts = BackgroundMesh.vertices;
+			Vector3[] bgVerts = BackgroundMeshBuilder.Vertices;
 
 			vHoverPoints.Clear();
 

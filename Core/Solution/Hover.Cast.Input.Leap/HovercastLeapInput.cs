@@ -1,4 +1,4 @@
-﻿using System.Linq;
+﻿using Hover.Common.Input.Leap;
 using Leap;
 using UnityEngine;
 
@@ -16,7 +16,6 @@ namespace Hover.Cast.Input.Leap {
 		private InputSettings vSettings;
 		private InputMenu vMenuL;
 		private InputMenu vMenuR;
-		private Frame vFrame;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -38,29 +37,15 @@ namespace Hover.Cast.Input.Leap {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public override void UpdateInput() {
-			//TODO: use LeapUtil methods
-			Frame leapFrame = vLeapControl.Frame(0);
+			Frame leapFrame = LeapUtil.GetValidLeapFrame(vLeapControl);
 
-			vFrame = (leapFrame != null && leapFrame.IsValid ? leapFrame : null);
-
-			vMenuL.Rebuild(GetLeapHand(true));
-			vMenuR.Rebuild(GetLeapHand(false));
+			vMenuL.Rebuild(LeapUtil.GetValidLeapHand(leapFrame, true));
+			vMenuR.Rebuild(LeapUtil.GetValidLeapHand(leapFrame, false));
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public override IInputMenu GetMenu(bool pIsLeft) {
 			return (pIsLeft ? vMenuL : vMenuR);
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		private Hand GetLeapHand(bool pIsLeft) {
-			if ( vFrame == null ) {
-				return null;
-			}
-
-			return vFrame.Hands.FirstOrDefault(h => h.IsValid && h.IsLeft == pIsLeft);
 		}
 
 	}

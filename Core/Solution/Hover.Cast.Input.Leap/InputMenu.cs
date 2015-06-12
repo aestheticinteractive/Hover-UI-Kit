@@ -42,17 +42,21 @@ namespace Hover.Cast.Input.Leap {
 
 			IsAvailable = true;
 			Position = pLeapHand.PalmPosition.ToUnityScaled();
-			Rotation = LeapUtil.CalcQuaternion(pLeapHand.Basis);
+			Rotation = LeapUtil.CalcQuaternion(pLeapHand.Basis); //GC_ALLOC
 			Radius = 0.01f;
 
-			foreach ( Finger leapFinger in pLeapHand.Fingers ) {
+			FingerList leapFingers = pLeapHand.Fingers; //GC_ALLOC
+
+			for ( int i = 0 ; i < leapFingers.Count ; i++ ) {
+				Finger leapFinger = leapFingers[i]; //GC_ALLOC
+
 				if ( leapFinger == null || !leapFinger.IsValid ) {
 					continue;
 				}
 
-				Vector3 palmToFinger = leapFinger.TipPosition.ToUnityScaled()-Position;
-				Bone bone = leapFinger.Bone(Bone.BoneType.TYPE_DISTAL);
-				Quaternion boneRot = LeapUtil.CalcQuaternion(bone.Basis);
+				Vector3 palmToFinger = leapFinger.TipPosition.ToUnityScaled()-Position; //GC_ALLOC
+				Bone bone = leapFinger.Bone(Bone.BoneType.TYPE_DISTAL); //GC_ALLOC
+				Quaternion boneRot = LeapUtil.CalcQuaternion(bone.Basis); //GC_ALLOC
 
 				Radius = Math.Max(Radius, palmToFinger.sqrMagnitude);
 				Rotation = Quaternion.Slerp(Rotation, boneRot, 0.1f);

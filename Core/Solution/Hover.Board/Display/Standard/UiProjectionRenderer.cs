@@ -15,8 +15,8 @@ namespace Hover.Board.Display.Standard {
 		protected ProjectionVisualSettingsStandard vSettings;
 		protected GameObject vSpotObj;
 		protected GameObject vLineObj;
-		protected Mesh vSpotMesh;
-		protected Mesh vLineMesh;
+		protected MeshBuilder vSpotMeshBuilder;
+		protected MeshBuilder vLineMeshBuilder;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -33,8 +33,9 @@ namespace Hover.Board.Display.Standard {
 			vSpotObj.transform.localScale = Vector3.zero;
 
 			MeshFilter spotFilt = vSpotObj.AddComponent<MeshFilter>();
-			MeshUtil.BuildCircleMesh(spotFilt.mesh, 0.5f, 32);
-			vSpotMesh = spotFilt.mesh;
+			vSpotMeshBuilder = new MeshBuilder(spotFilt.mesh);
+			MeshUtil.BuildCircleMesh(vSpotMeshBuilder, 0.5f, 32);
+			vSpotMeshBuilder.Commit();
 
 			MeshRenderer spotRend = vSpotObj.AddComponent<MeshRenderer>();
 			spotRend.sharedMaterial = 
@@ -46,7 +47,8 @@ namespace Hover.Board.Display.Standard {
 			vLineObj.name = "Line";
 			vLineObj.transform.SetParent(gameObject.transform, false);
 			vLineObj.transform.localScale = Vector3.zero;
-			vLineMesh = vLineObj.GetComponent<MeshFilter>().mesh;
+
+			vLineMeshBuilder = new MeshBuilder(vLineObj.GetComponent<MeshFilter>().mesh);
 
 			MeshRenderer lineRend = vLineObj.GetComponent<MeshRenderer>();
 			lineRend.sharedMaterial = 
@@ -69,10 +71,10 @@ namespace Hover.Board.Display.Standard {
 			colSpot.a *= alphaMult;
 			colLine.a *= alphaMult;
 
-			Materials.SetMeshColor(vSpotMesh, colSpot);
+			vSpotMeshBuilder.CommitColors(colSpot);
 			vSpotObj.transform.localScale = spotScale;
 
-			Materials.SetMeshColor(vLineMesh, colLine);
+			vLineMeshBuilder.CommitColors(colLine);
 			vLineObj.transform.localScale = new Vector3(lineThick, dist, lineThick);
 			vLineObj.transform.localPosition = new Vector3(0, vLineObj.transform.localScale.y/2f, 0);
 		}

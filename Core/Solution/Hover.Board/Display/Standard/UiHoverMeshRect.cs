@@ -69,16 +69,18 @@ namespace Hover.Board.Display.Standard {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected override void UpdateMesh(MeshType pType, Mesh pMesh, float pAmount=1) {
+		protected override void UpdateMesh(MeshType pType, MeshBuilder pMeshBuild, float pAmount=1) {
 			if ( pType == MeshType.Edge ) {
-				MeshUtil.BuildBorderMesh(pMesh, vMeshW, vMeshH, EdgeThick);
+				MeshUtil.BuildBorderMesh(pMeshBuild, vMeshW, vMeshH, EdgeThick);
+				pMeshBuild.Commit();
 				return;
 			}
 
 			float inset = (pType != MeshType.Background ? EdgeThick*2 : 0);
 
-			MeshUtil.BuildRectangleMesh(pMesh, Math.Max(0, vMeshW-inset), 
+			MeshUtil.BuildRectangleMesh(pMeshBuild, Math.Max(0, vMeshW-inset), 
 				Math.Max(0, vMeshH-inset), pAmount);
+			pMeshBuild.Commit();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

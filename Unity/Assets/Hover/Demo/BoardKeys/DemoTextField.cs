@@ -31,8 +31,8 @@ namespace Hover.Demo.BoardKeys {
 			Renderer lblRend = lblBgObj.GetComponent<Renderer>();
 			lblRend.material = Materials.GetLayer(Materials.Layer.Background, -2);
 
-			Materials.SetMeshColor(lblBgObj.GetComponent<MeshFilter>().mesh, 
-				new Color(0.1f, 0.1f, 0.1f, 0.666f));
+			var lblMeshBuild = new MeshBuilder(lblBgObj.GetComponent<MeshFilter>().mesh);
+			lblMeshBuild.CommitColors(new Color(0.1f, 0.1f, 0.1f, 0.666f));
 
 			Color green = HoverboardItemVisualSettingsStandard.Green;
 			green.a *= 0.5f;

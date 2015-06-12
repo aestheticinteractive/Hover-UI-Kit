@@ -24,7 +24,7 @@ namespace Hover.Cast.Display.Standard {
 
 		protected UiHoverMeshSlice vHoverSlice;
 		protected GameObject vIcon;
-		protected Mesh vIconMesh;
+		protected MeshBuilder vIconMeshBuilder;
 		protected Stopwatch vEnabledAnim;
 		protected bool vPrevEnabled;
 
@@ -53,10 +53,12 @@ namespace Hover.Cast.Display.Standard {
 			vIcon.AddComponent<MeshRenderer>();
 
 			MeshFilter iconFilt = vIcon.AddComponent<MeshFilter>();
-			vIconMesh = iconFilt.mesh;
-			MeshUtil.BuildQuadMesh(vIconMesh);
-			Materials.SetMeshColor(vIconMesh, Color.clear);
-			Materials.SetMeshIconCoords(vIconMesh, Materials.IconOffset.Parent);
+			vIconMeshBuilder = new MeshBuilder();
+			MeshUtil.BuildQuadMesh(vIconMeshBuilder);
+			Materials.SetMeshIconCoords(vIconMeshBuilder, Materials.IconOffset.Parent);
+			vIconMeshBuilder.Commit();
+			vIconMeshBuilder.CommitColors(Color.clear);
+			iconFilt.sharedMesh = vIconMeshBuilder.Mesh;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -99,7 +101,7 @@ namespace Hover.Cast.Display.Standard {
 			vHoverSlice.UpdateHighlight(colHigh, high);
 			vHoverSlice.UpdateSelect(colSel, select);
 
-			Materials.SetMeshColor(vIconMesh, colIcon);
+			vIconMeshBuilder.CommitColors(colIcon);
 			vIcon.transform.localScale = Vector3.one*vSettings.TextSize*0.75f*
 				UiItemSelectRenderer.ArcCanvasScale;
 		}

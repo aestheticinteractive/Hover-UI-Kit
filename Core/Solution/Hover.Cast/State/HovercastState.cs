@@ -15,7 +15,10 @@ namespace Hover.Cast.State {
 
 	/*================================================================================================*/
 	public class HovercastState : IHovercastState, IHovercursorDelegate {
-		
+
+		private static readonly EnumIntKeyComparer<HovercastCursorType> HovercastCursorTypeComparer = 
+			new EnumIntKeyComparer<HovercastCursorType>(((a, b) => (a == b)), (a => (int)a));
+
 		public delegate void SideChangeHandler();
 		public event SideChangeHandler OnSideChange;
 
@@ -26,14 +29,13 @@ namespace Hover.Cast.State {
 		private readonly HovercursorSetup vHovercursorSetup;
 		private readonly InteractionSettings vInteractSettings;
 		private readonly IInput vInput;
-		private readonly IDictionary<CursorType, ICursorState> vCursorMap;
-		private readonly IDictionary<HovercastCursorType, CursorType> vLeftCursorConvertMap;
-		private readonly IDictionary<HovercastCursorType, CursorType> vRightCursorConvertMap;
+		private readonly Dictionary<HovercastCursorType, CursorType> vLeftCursorConvertMap;
+		private readonly Dictionary<HovercastCursorType, CursorType> vRightCursorConvertMap;
 
 		private bool? vCurrIsMenuOnLeftSide;
-		private ReadList<IBaseItemInteractionState> vActiveCursorInteractions;
-		private ReadList<PlaneData> vMenuPlanes;
-		private ReadList<CursorType> vActiveCursorTypes;
+		private readonly ReadList<IBaseItemInteractionState> vActiveCursorInteractions;
+		private readonly ReadList<PlaneData> vMenuPlanes;
+		private readonly ReadList<CursorType> vActiveCursorTypes;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -47,31 +49,31 @@ namespace Hover.Cast.State {
 
 			FullMenu = new MenuState(pItemHierarchy, vInteractSettings);
 
-			vCursorMap = new Dictionary<CursorType, ICursorState>();
+			vActiveCursorInteractions = new ReadList<IBaseItemInteractionState>();
 			vMenuPlanes = new ReadList<PlaneData>();
 			vActiveCursorTypes = new ReadList<CursorType>();
 
 			ActiveCursorTypes = vActiveCursorTypes.ReadOnly;
 
-			vLeftCursorConvertMap = new Dictionary<HovercastCursorType, CursorType> {
-				{ HovercastCursorType.Palm, CursorType.LeftPalm },
-				{ HovercastCursorType.Thumb, CursorType.LeftThumb },
-				{ HovercastCursorType.Index, CursorType.LeftIndex },
-				{ HovercastCursorType.Middle, CursorType.LeftMiddle },
-				{ HovercastCursorType.Ring, CursorType.LeftRing },
-				{ HovercastCursorType.Pinky, CursorType.LeftPinky },
-				{ HovercastCursorType.Look, CursorType.Look }
-			};
+			vLeftCursorConvertMap = 
+				new Dictionary<HovercastCursorType, CursorType>(HovercastCursorTypeComparer);
+			vLeftCursorConvertMap.Add(HovercastCursorType.Palm, CursorType.LeftPalm);
+			vLeftCursorConvertMap.Add(HovercastCursorType.Thumb, CursorType.LeftThumb);
+			vLeftCursorConvertMap.Add(HovercastCursorType.Index, CursorType.LeftIndex);
+			vLeftCursorConvertMap.Add(HovercastCursorType.Middle, CursorType.LeftMiddle);
+			vLeftCursorConvertMap.Add(HovercastCursorType.Ring, CursorType.LeftRing);
+			vLeftCursorConvertMap.Add(HovercastCursorType.Pinky, CursorType.LeftPinky);
+			vLeftCursorConvertMap.Add(HovercastCursorType.Look, CursorType.Look);
 
-			vRightCursorConvertMap = new Dictionary<HovercastCursorType, CursorType> {
-				{ HovercastCursorType.Palm, CursorType.RightPalm },
-				{ HovercastCursorType.Thumb, CursorType.RightThumb },
-				{ HovercastCursorType.Index, CursorType.RightIndex },
-				{ HovercastCursorType.Middle, CursorType.RightMiddle },
-				{ HovercastCursorType.Ring, CursorType.RightRing },
-				{ HovercastCursorType.Pinky, CursorType.RightPinky },
-				{ HovercastCursorType.Look, CursorType.Look }
-			};
+			vRightCursorConvertMap =
+				new Dictionary<HovercastCursorType, CursorType>(HovercastCursorTypeComparer);
+			vRightCursorConvertMap.Add(HovercastCursorType.Palm, CursorType.RightPalm);
+			vRightCursorConvertMap.Add(HovercastCursorType.Thumb, CursorType.RightThumb);
+			vRightCursorConvertMap.Add(HovercastCursorType.Index, CursorType.RightIndex);
+			vRightCursorConvertMap.Add(HovercastCursorType.Middle, CursorType.RightMiddle);
+			vRightCursorConvertMap.Add(HovercastCursorType.Ring, CursorType.RightRing);
+			vRightCursorConvertMap.Add(HovercastCursorType.Pinky, CursorType.RightPinky);
+			vRightCursorConvertMap.Add(HovercastCursorType.Look, CursorType.Look);
 
 			OnSideChange += (() => {});
 		}
@@ -106,23 +108,29 @@ namespace Hover.Cast.State {
 		public void UpdateAfterInput() {
 			var isMenuOnLeft = vInteractSettings.IsMenuOnLeftSide;
 			IInputMenu inputMenu = vInput.GetMenu(isMenuOnLeft);
+			HovercastCursorType[] cursorTypes = vInteractSettings.Cursors;
+			ReadOnlyCollection<BaseItemState> items = FullMenu.GetItems();
 
-			IDictionary<HovercastCursorType, CursorType> convertMap = 
+			Dictionary<HovercastCursorType, CursorType> convertMap = 
 				(vInteractSettings.IsMenuOnLeftSide ? vRightCursorConvertMap : vLeftCursorConvertMap);
 
 			vActiveCursorTypes.Clear();
-			vActiveCursorTypes.AddRange(vInteractSettings.Cursors.Select(x => convertMap[x]));
+			vActiveCursorInteractions.Clear();
+			FullMenu.ClearCursors();
 
-			//TODO: update for ReadList<>
-			/*vActiveCursorInteractions = FullMenu.GetItems()
-				.Cast<IBaseItemInteractionState>()
-				.ToArray();*/
+			foreach ( HovercastCursorType unsidedCursorType in cursorTypes ) {
+				CursorType cursorType = convertMap[unsidedCursorType];
+				ICursorState cursor = vHovercursorSetup.State.GetCursorState(cursorType);
 
-			ICursorState[] cursors = ActiveCursorTypes
-				.Select(x => vHovercursorSetup.State.GetCursorState(x))
-				.ToArray();
+				vActiveCursorTypes.Add(cursorType);
+				FullMenu.AddCursor(cursor);
+			}
 
-			FullMenu.UpdateAfterInput(inputMenu, cursors);
+			for ( int i = 0 ; i < items.Count ; i++ ) {
+				vActiveCursorInteractions.Add(items[i]);
+			}
+
+			FullMenu.UpdateAfterInput(inputMenu);
 
 			if ( isMenuOnLeft != vCurrIsMenuOnLeftSide ) {
 				vCurrIsMenuOnLeftSide = isMenuOnLeft;

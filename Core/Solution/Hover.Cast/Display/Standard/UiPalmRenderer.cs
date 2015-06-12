@@ -23,7 +23,7 @@ namespace Hover.Cast.Display.Standard {
 		private ItemVisualSettingsStandard vSettings;
 
 		protected GameObject vBackground;
-		protected Mesh vBackgroundMesh;
+		protected MeshBuilder vBackgroundMeshBuilder;
 		protected UiLabel vLabel;
 
 
@@ -44,9 +44,11 @@ namespace Hover.Cast.Display.Standard {
 			vBackground.AddComponent<MeshRenderer>();
 			
 			MeshFilter bgFilt = vBackground.AddComponent<MeshFilter>();
-			vBackgroundMesh = bgFilt.mesh;
-			BuildMesh(vBackgroundMesh);
-			Materials.SetMeshColor(vBackgroundMesh, Color.clear);
+			vBackgroundMeshBuilder = new MeshBuilder();
+			BuildMesh(vBackgroundMeshBuilder);
+			vBackgroundMeshBuilder.Commit();
+			vBackgroundMeshBuilder.CommitColors(Color.clear);
+			bgFilt.sharedMesh = vBackgroundMeshBuilder.Mesh;
 
 			////
 
@@ -81,7 +83,7 @@ namespace Hover.Cast.Display.Standard {
 			Color colBg = vSettings.BackgroundColor;
 			colBg.a *= vMainAlpha;
 
-			Materials.SetMeshColor(vBackgroundMesh, colBg);
+			vBackgroundMeshBuilder.CommitColors(colBg);
 
 			if ( vSettings.TextSize != vLabel.FontSize ) {
 				const float scale = UiItemSelectRenderer.ArcCanvasScale;
@@ -100,8 +102,8 @@ namespace Hover.Cast.Display.Standard {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected virtual void BuildMesh(Mesh pMesh) {
-			MeshUtil.BuildRingMesh(pMesh, InnerRadius, OuterRadius, vAngle0, vAngle1, vMeshSteps);
+		protected virtual void BuildMesh(MeshBuilder pMeshBuild) {
+			MeshUtil.BuildRingMesh(pMeshBuild, InnerRadius, OuterRadius, vAngle0, vAngle1, vMeshSteps);
 		}
 
 	}

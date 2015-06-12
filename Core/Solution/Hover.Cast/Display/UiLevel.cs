@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Hover.Cast.State;
 using Hover.Common.Custom;
 using Hover.Common.State;
@@ -24,8 +25,8 @@ namespace Hover.Cast.Display {
 			vMenuState = pMenuState;
 			vItemObjList = new List<GameObject>();
 
-			BaseItemState[] itemStates = vMenuState.GetItems();
-			int itemCount = itemStates.Length;
+			ReadOnlyCollection<BaseItemState> itemStates = vMenuState.GetItems();
+			int itemCount = itemStates.Count;
 			float degree = 170 + DegreeFull/2f;
 			float sizeSum = 0;
 

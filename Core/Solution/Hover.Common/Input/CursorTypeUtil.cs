@@ -12,8 +12,8 @@ namespace Hover.Common.Input {
 			.Cast<CursorType>()
 			.ToArray();
 
-		private static readonly HashSet<CursorType> ExcludeMap = 
-			new HashSet<CursorType>(EnumIntKeyComparer.CursorType);
+		private static readonly ListMap<CursorType, bool> ExcludeMap = 
+			new ListMap<CursorType, bool>(EnumIntKeyComparer.CursorType, false, true);
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -60,15 +60,19 @@ namespace Hover.Common.Input {
 			ExcludeMap.Clear();
 
 			for ( int i = 0 ; i < pBaseTypes.Count ; i++ ) {
-				ExcludeMap.Add(pBaseTypes[i]);
+				ExcludeMap[pBaseTypes[i]] = true;
 			}
 
 			for ( int i = 0 ; i < pRemoveTypes.Count ; i++ ) {
-				ExcludeMap.Remove(pRemoveTypes[i]);
+				ExcludeMap[pRemoveTypes[i]] = false;
 			}
 
-			foreach ( CursorType keepType in ExcludeMap ) {
-				pResultTypes.Add(keepType);
+			for ( int i = 0 ; i < ExcludeMap.KeysReadOnly.Count ; i++ ) {
+				CursorType type = ExcludeMap.KeysReadOnly[i];
+
+				if ( ExcludeMap[type] ) {
+					pResultTypes.Add(type);
+				}
 			}
 		}
 

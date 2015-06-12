@@ -20,10 +20,10 @@ namespace Hover.Common.Display {
 		public GameObject Highlight { get; protected set; }
 		public GameObject Select { get; protected set; }
 
-		public Mesh BackgroundMesh { get; private set; }
-		public Mesh EdgeMesh { get; private set; }
-		public Mesh HighlightMesh { get; private set; }
-		public Mesh SelectMesh { get; private set; }
+		public MeshBuilder BackgroundMeshBuilder { get; private set; }
+		public MeshBuilder EdgeMeshBuilder { get; private set; }
+		public MeshBuilder HighlightMeshBuilder { get; private set; }
+		public MeshBuilder SelectMeshBuilder { get; private set; }
 
 		public Color BackgroundColor { get; private set; }
 		public Color EdgeColor { get; private set; }
@@ -45,26 +45,32 @@ namespace Hover.Common.Display {
 			Background = new GameObject("Background");
 			Background.transform.SetParent(pParent.transform, false);
 			Background.AddComponent<MeshRenderer>();
-			BackgroundMesh = Background.AddComponent<MeshFilter>().mesh;
-			BackgroundMesh.MarkDynamic();
+			Background.AddComponent<MeshFilter>();
 
 			Edge = new GameObject("Edge");
 			Edge.transform.SetParent(pParent.transform, false);
 			Edge.AddComponent<MeshRenderer>();
-			EdgeMesh = Edge.AddComponent<MeshFilter>().mesh;
-			EdgeMesh.MarkDynamic();
+			Edge.AddComponent<MeshFilter>();
 
 			Highlight = new GameObject("Highlight");
 			Highlight.transform.SetParent(pParent.transform, false);
 			Highlight.AddComponent<MeshRenderer>();
-			HighlightMesh = Highlight.AddComponent<MeshFilter>().mesh;
-			HighlightMesh.MarkDynamic();
+			Highlight.AddComponent<MeshFilter>();
 
 			Select = new GameObject("Select");
 			Select.transform.SetParent(pParent.transform, false);
 			Select.AddComponent<MeshRenderer>();
-			SelectMesh = Select.AddComponent<MeshFilter>().mesh;
-			SelectMesh.MarkDynamic();
+			Select.AddComponent<MeshFilter>();
+
+			BackgroundMeshBuilder = new MeshBuilder();
+			EdgeMeshBuilder = new MeshBuilder();
+			HighlightMeshBuilder = new MeshBuilder();
+			SelectMeshBuilder = new MeshBuilder();
+
+			Background.GetComponent<MeshFilter>().sharedMesh = BackgroundMeshBuilder.Mesh;
+			Edge.GetComponent<MeshFilter>().sharedMesh = EdgeMeshBuilder.Mesh;
+			Highlight.GetComponent<MeshFilter>().sharedMesh = HighlightMeshBuilder.Mesh;
+			Select.GetComponent<MeshFilter>().sharedMesh = SelectMeshBuilder.Mesh;
 
 			BackgroundColor = Color.clear;
 			EdgeColor = Color.clear;
@@ -77,23 +83,23 @@ namespace Hover.Common.Display {
 		/*--------------------------------------------------------------------------------------------*/
 		protected void UpdateAfterResize() {
 			if ( Background != null ) {
-				UpdateMesh(MeshType.Background, BackgroundMesh);
-				Materials.SetMeshColor(BackgroundMesh, BackgroundColor);
+				UpdateMesh(MeshType.Background, BackgroundMeshBuilder);
+				BackgroundMeshBuilder.CommitColors(BackgroundColor);
 			}
 
 			if ( Edge != null ) {
-				UpdateMesh(MeshType.Edge, EdgeMesh);
-				Materials.SetMeshColor(EdgeMesh, EdgeColor);
+				UpdateMesh(MeshType.Edge, EdgeMeshBuilder);
+				EdgeMeshBuilder.CommitColors(EdgeColor);
 			}
 			
 			if ( Highlight != null ) {
-				UpdateMesh(MeshType.Highlight, HighlightMesh, vPrevHighAmount);
-				Materials.SetMeshColor(HighlightMesh, HighlightColor);
+				UpdateMesh(MeshType.Highlight, HighlightMeshBuilder, vPrevHighAmount);
+				HighlightMeshBuilder.CommitColors(HighlightColor);
 			}
 
 			if ( Select != null ) {
-				UpdateMesh(MeshType.Select, SelectMesh, vPrevSelAmount);
-				Materials.SetMeshColor(SelectMesh, SelectColor);
+				UpdateMesh(MeshType.Select, SelectMeshBuilder, vPrevSelAmount);
+				SelectMeshBuilder.CommitColors(SelectColor);
 			}
 
 			UpdateHoverLocalPoints();
@@ -129,7 +135,7 @@ namespace Hover.Common.Display {
 			Background.SetActive(pColor.a > 0);
 
 			if ( pColor != BackgroundColor ) {
-				Materials.SetMeshColor(BackgroundMesh, pColor);
+				BackgroundMeshBuilder.CommitColors(pColor);
 			}
 
 			BackgroundColor = pColor;
@@ -140,7 +146,7 @@ namespace Hover.Common.Display {
 			Edge.SetActive(pColor.a > 0);
 
 			if ( pColor != EdgeColor ) {
-				Materials.SetMeshColor(EdgeMesh, pColor);
+				EdgeMeshBuilder.CommitColors(pColor);
 			}
 
 			EdgeColor = pColor;
@@ -153,12 +159,12 @@ namespace Hover.Common.Display {
 			bool isNewAmount = (Math.Abs(pAmount-vPrevHighAmount) > 0.005f);
 
 			if ( isNewAmount ) {
-				UpdateMesh(MeshType.Highlight, HighlightMesh, pAmount);
+				UpdateMesh(MeshType.Highlight, HighlightMeshBuilder, pAmount);
 				vPrevHighAmount = pAmount;
 			}
 
 			if ( pColor != HighlightColor || isNewAmount ) {
-				Materials.SetMeshColor(HighlightMesh, pColor);
+				HighlightMeshBuilder.CommitColors(pColor);
 			}
 
 			HighlightColor = pColor;
@@ -171,12 +177,12 @@ namespace Hover.Common.Display {
 			bool isNewAmount = (Math.Abs(pAmount-vPrevSelAmount) > 0.005f);
 
 			if ( isNewAmount ) {
-				UpdateMesh(MeshType.Select, SelectMesh, pAmount);
+				UpdateMesh(MeshType.Select, SelectMeshBuilder, pAmount);
 				vPrevSelAmount = pAmount;
 			}
 
 			if ( pColor != SelectColor || isNewAmount ) {
-				Materials.SetMeshColor(SelectMesh, pColor);
+				SelectMeshBuilder.CommitColors(pColor);
 			}
 
 			SelectColor = pColor;
@@ -188,7 +194,7 @@ namespace Hover.Common.Display {
 		public abstract void UpdateHoverPoints(IBaseItemPointsState pPointsState);
 
 		/*--------------------------------------------------------------------------------------------*/
-		protected abstract void UpdateMesh(MeshType pType, Mesh pMesh, float pAmount=1);
+		protected abstract void UpdateMesh(MeshType pType, MeshBuilder pMeshBuild, float pAmount=1);
 		
 		/*--------------------------------------------------------------------------------------------*/
 		protected abstract void UpdateHoverLocalPoints();
