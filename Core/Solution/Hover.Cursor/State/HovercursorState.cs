@@ -92,7 +92,9 @@ namespace Hover.Cursor.State {
 			vActiveCursorMap.Clear();
 
 			foreach ( IHovercursorDelegate del in vActiveDelegates ) {
-				foreach ( CursorType type in del.ActiveCursorTypes ) {
+				for ( int i = 0 ; i < del.ActiveCursorTypes.Count ; i++ ) {
+					CursorType type = del.ActiveCursorTypes[i];
+
 					if ( vActiveCursorMap.Contains(type) ) {
 						continue;
 					}
@@ -114,7 +116,7 @@ namespace Hover.Cursor.State {
 				cursor.ClearInteractions();
 
 				foreach ( IHovercursorDelegate del in vActiveDelegates ) {
-					if ( !del.ActiveCursorTypes.Contains(type) ) {
+					if ( !CursorTypeUtil.Contains(del.ActiveCursorTypes, type) ) {
 						continue;
 					}
 

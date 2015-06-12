@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 using Hover.Common.Input;
 using Hover.Common.State;
 using Hover.Cursor.Custom;
@@ -39,18 +39,24 @@ namespace Hover.Cursor.State {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public float GetMaxHighlightProgress() {
-			return vInteractItems
-				.Select(x => x.MaxHighlightProgress)
-				.DefaultIfEmpty(0)
-				.Max();
+			float maxProg = 0;
+
+			foreach ( IBaseItemInteractionState interact in vInteractItems ) {
+				maxProg = Math.Max(maxProg, interact.MaxHighlightProgress);
+			}
+
+			return maxProg;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public float GetMaxSelectionProgress() {
-			return vInteractItems
-				.Select(x => x.SelectionProgress)
-				.DefaultIfEmpty(0)
-				.Max();
+			float maxProg = 0;
+
+			foreach ( IBaseItemInteractionState interact in vInteractItems ) {
+				maxProg = Math.Max(maxProg, interact.SelectionProgress);
+			}
+
+			return maxProg;
 		}
 
 

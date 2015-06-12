@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Collections.ObjectModel;
 using Hover.Common.Custom;
 using Hover.Common.Input;
 using Hover.Common.Items;
@@ -38,7 +37,8 @@ namespace Hover.Common.State {
 			vSettings = pSettings;
 			vPoints = new BaseItemPointsState();
 
-			vCursorWorldPosMap = new ListMap<CursorType, Vector3?>(EnumIntKeyComparer.CursorType);
+			vCursorWorldPosMap = new ListMap<CursorType, Vector3?>(
+				EnumIntKeyComparer.CursorType, false, true);
 			vHighlightDistanceMap = new ListMap<CursorType, float>(EnumIntKeyComparer.CursorType);
 			vHighlightProgressMap = new ListMap<CursorType, float>(EnumIntKeyComparer.CursorType);
 			vIsNearestHighlightMap = new ListMap<CursorType, bool>(EnumIntKeyComparer.CursorType);
@@ -208,21 +208,21 @@ namespace Hover.Common.State {
 			Vector3 cursorWorldPos = (Vector3)pCursorWorldPos;
 			HoverPointUpdater(vPoints, cursorWorldPos);
 
-			Vector3[] pointWorldPosList = vPoints.GetWorldPoints();
+			ReadOnlyCollection<Vector3> pointWorldPosList = vPoints.GetWorldPoints();
 
-			if ( pointWorldPosList.Length == 0 ) {
+			if ( pointWorldPosList.Count == 0 ) {
 				throw new Exception("No hover points provided.");
 			}
 
 			float sqrMagMin = float.MaxValue;
 			//Vector3 nearest = Vector3.zero;
 
-			foreach ( Vector3 pointWorldPos in pointWorldPosList ) {
-				float sqrMag = (pointWorldPos-cursorWorldPos).sqrMagnitude;
+			for ( int i = 0 ; i < pointWorldPosList.Count ; i++ ) {
+				float sqrMag = (pointWorldPosList[i]-cursorWorldPos).sqrMagnitude;
 
 				if ( sqrMag < sqrMagMin ) {
 					sqrMagMin = sqrMag;
-					//nearest = pointWorldPos;
+					//nearest = pointWorldPosList[i];
 				}
 			}
 

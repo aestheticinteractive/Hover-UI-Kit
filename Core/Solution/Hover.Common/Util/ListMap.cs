@@ -17,13 +17,18 @@ namespace Hover.Common.Util {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public ListMap(IEqualityComparer<TKey> pComparer) {
+		public ListMap(IEqualityComparer<TKey> pComparer, bool pSkipKeys=false, bool pSkipValues=false){
 			vMap = new Dictionary<TKey, TValue>(pComparer);
-			vKeys = new List<TKey>();
-			vValues = new List<TValue>();
 
-			KeysReadOnly = new ReadOnlyCollection<TKey>(vKeys);
-			ValuesReadOnly = new ReadOnlyCollection<TValue>(vValues);
+			if ( !pSkipKeys ) {
+				vKeys = new List<TKey>();
+				KeysReadOnly = new ReadOnlyCollection<TKey>(vKeys);
+			}
+
+			if ( !pSkipValues ) {
+				vValues = new List<TValue>();
+				ValuesReadOnly = new ReadOnlyCollection<TValue>(vValues);
+			}
 		}
 
 
@@ -37,23 +42,37 @@ namespace Hover.Common.Util {
 				TValue val;
 
 				if ( vMap.TryGetValue(pKey, out val) ) {
-					vValues.Remove(val);
+					if ( vValues != null ) {
+						vValues.Remove(val);
+					}
+
 					vMap[pKey] = value;
 				}
 				else {
 					vMap.Add(pKey, value);
-					vKeys.Add(pKey);
+
+					if ( vKeys != null ) {
+						vKeys.Add(pKey);
+					}
 				}
 
-				vValues.Add(value);
+				if ( vValues != null ) {
+					vValues.Add(value);
+				}
 			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Clear() {
 			vMap.Clear();
-			vKeys.Clear();
-			vValues.Clear();
+
+			if ( vKeys != null ) {
+				vKeys.Clear();
+			}
+
+			if ( vValues != null ) {
+				vValues.Clear();
+			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

@@ -71,7 +71,18 @@ namespace Hover.Common.Input {
 				pResultTypes.Add(keepType);
 			}
 		}
-	
+
+		/*--------------------------------------------------------------------------------------------*/
+		public static bool Contains(IList<CursorType> pList, CursorType pType) {
+			for ( int i = 0 ; i < pList.Count ; i++ ) {
+				if ( pList[i] == pType ) {
+					return true;
+				}
+			}
+
+			return false;
+		}
+
 	}
 
 }

@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Hover.Common.Util;
 using UnityEngine;
 
 namespace Hover.Common.State {
@@ -13,21 +13,30 @@ namespace Hover.Common.State {
 		public ReadOnlyCollection<Vector3> Points { get; set; }
 		public Transform RelativeToTransform { get; set; }
 
+		private readonly ReadList<Vector3> vWorldPoints;
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public Vector3[] GetWorldPoints() {
+		public BaseItemPointsState() {
+			vWorldPoints = new ReadList<Vector3>();
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public ReadOnlyCollection<Vector3> GetWorldPoints() {
 			if ( RelativeToTransform == null ) {
 				throw new Exception("Transform must be set.");
 			}
 
-			var worldList = new List<Vector3>();
+			vWorldPoints.Clear();
 
-			foreach ( Vector3 local in Points ) {
-				worldList.Add(RelativeToTransform.TransformPoint(local));
+			for ( int i = 0 ; i < Points.Count ; i++ ) {
+				vWorldPoints.Add(RelativeToTransform.TransformPoint(Points[i]));
 			}
 
-			return worldList.ToArray();
+			return vWorldPoints.ReadOnly;
 		}
 
 	}

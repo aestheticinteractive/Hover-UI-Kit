@@ -32,6 +32,7 @@ namespace Hover.Common.Util {
 				0, 2, 3
 			};
 
+			pMesh.colors32 = new Color32[4];
 			pMesh.RecalculateBounds();
 			pMesh.RecalculateNormals();
 			pMesh.Optimize();
@@ -84,6 +85,7 @@ namespace Hover.Common.Util {
 			pMesh.vertices = verts.ToArray();
 			pMesh.uv = uvs.ToArray();
 			pMesh.triangles = tris.ToArray();
+			pMesh.colors32 = new Color32[verts.Count];
 			pMesh.RecalculateNormals();
 			pMesh.RecalculateBounds();
 			pMesh.Optimize();
@@ -122,6 +124,7 @@ namespace Hover.Common.Util {
 			pMesh.vertices = verts.ToArray();
 			pMesh.uv = uvs.ToArray();
 			pMesh.triangles = tris.ToArray();
+			pMesh.colors32 = new Color32[verts.Count];
 			pMesh.RecalculateNormals();
 			pMesh.RecalculateBounds();
 			pMesh.Optimize();
@@ -159,6 +162,7 @@ namespace Hover.Common.Util {
 			};
 
 			pMesh.uv = new Vector2[8];
+			pMesh.colors32 = new Color32[8];
 			pMesh.RecalculateBounds();
 			pMesh.RecalculateNormals();
 			pMesh.Optimize();
@@ -194,6 +198,7 @@ namespace Hover.Common.Util {
 			};
 
 			pMesh.uv = new Vector2[4];
+			pMesh.colors32 = new Color32[4];
 			pMesh.RecalculateBounds();
 			pMesh.RecalculateNormals();
 			pMesh.Optimize();
