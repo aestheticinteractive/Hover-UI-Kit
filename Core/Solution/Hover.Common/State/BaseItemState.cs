@@ -252,7 +252,9 @@ namespace Hover.Common.State {
 			IsSelectionPrevented = false;
 			vIsInResetState = true;
 
-			foreach ( CursorType cursorType in vCursorWorldPosMap.KeysReadOnly ) {
+			for ( int i = 0 ; i < vCursorWorldPosMap.KeysReadOnly.Count ; i++ ) {
+				CursorType cursorType = vCursorWorldPosMap.KeysReadOnly[i];
+
 				vCursorWorldPosMap[cursorType] = null;
 				vHighlightDistanceMap[cursorType] = float.MaxValue;
 				vHighlightProgressMap[cursorType] = 0;
