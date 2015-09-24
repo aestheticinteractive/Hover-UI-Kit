@@ -105,6 +105,15 @@
     <Compile Include="Util\CacheList.cs" />
     <Compile Include="Util\UnityUtil.cs" />
     <Compile Include="Util\MeshUtil.cs" />
+    <Compile Include="Styles\ISelectableItemStyle.cs" />
+    <Compile Include="Styles\Color4.cs" />
+    <Compile Include="Styles\ISliderItemStyle.cs" />
+    <Compile Include="Styles\IItemStyle.cs" />
+    <Compile Include="Styles\AlignmentType.cs" />
+    <Compile Include="Styles\ITextStyle.cs" />
+    <Compile Include="Styles\IIconStyle.cs" />
+    <Compile Include="Styles\GraphicType.cs" />
+    <Compile Include="Styles\IFillStyle.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -118,4 +127,8 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <Folder Include="Styles\" />
+    <Folder Include="Styles\" />
+  </ItemGroup>
 </Project>
