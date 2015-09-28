@@ -101,7 +101,7 @@ namespace Hover.Common.Input.Leap {
 			for ( int i = 0 ; i < fingers.Count ; i++ ) {
 				Finger finger = fingers[i]; //GC_ALLOC
 
-				if ( finger.Type() == pFingerType && finger.IsValid ) {
+				if ( finger.Type == pFingerType && finger.IsValid ) {
 					return finger;
 				}
 			}
