@@ -216,19 +216,15 @@ namespace Hover.Demo.CastCubes {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private static void UpdateOculus() {
-			if ( OVRManager.capiHmd == null ) {
-				return;
-			}
-
 			if ( Input.GetKey(KeyCode.R) ) {
 				OVRManager.display.RecenterPose();
 			}
 
-			if ( !OVRManager.capiHmd.GetHSWDisplayState().Displayed ) {
+			if ( !OVRManager.isHSWDisplayed ) {
 				return;
 			}
 
-			OVRManager.capiHmd.DismissHSWDisplay();
+			OVRManager.DismissHSWDisplay();
 			OVRManager.display.RecenterPose();
 		}
 
