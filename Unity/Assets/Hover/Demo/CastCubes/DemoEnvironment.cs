@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Hover.Demo.Common;
 using UnityEngine;
+using UnityEngine.VR;
 
 namespace Hover.Demo.CastCubes {
 
@@ -207,8 +208,8 @@ namespace Hover.Demo.CastCubes {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void ReorientCamera() {
-			if ( OVRManager.display != null ) {
-				OVRManager.display.RecenterPose();
+			if ( VRDevice.isPresent ) {
+				InputTracking.Recenter();
 			}
 		}
 
@@ -217,7 +218,7 @@ namespace Hover.Demo.CastCubes {
 		/*--------------------------------------------------------------------------------------------*/
 		private static void UpdateOculus() {
 			if ( Input.GetKey(KeyCode.R) ) {
-				OVRManager.display.RecenterPose();
+				InputTracking.Recenter();
 			}
 
 			if ( !OVRManager.isHSWDisplayed ) {
@@ -225,7 +226,7 @@ namespace Hover.Demo.CastCubes {
 			}
 
 			OVRManager.DismissHSWDisplay();
-			OVRManager.display.RecenterPose();
+			InputTracking.Recenter();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

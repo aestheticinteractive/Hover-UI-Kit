@@ -3,6 +3,7 @@ using System.Linq;
 using Hover.Common.Display;
 using Hover.Demo.Common;
 using UnityEngine;
+using UnityEngine.VR;
 
 namespace Hover.Demo.BoardKeys {
 
@@ -180,7 +181,7 @@ namespace Hover.Demo.BoardKeys {
 		/*--------------------------------------------------------------------------------------------*/
 		private static void UpdateOculus() {
 			if ( Input.GetKey(KeyCode.R) ) {
-				OVRManager.display.RecenterPose();
+				InputTracking.Recenter();
 			}
 
 			if ( !OVRManager.isHSWDisplayed ) {
@@ -188,7 +189,7 @@ namespace Hover.Demo.BoardKeys {
 			}
 
 			OVRManager.DismissHSWDisplay();
-			OVRManager.display.RecenterPose();
+			InputTracking.Recenter();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
