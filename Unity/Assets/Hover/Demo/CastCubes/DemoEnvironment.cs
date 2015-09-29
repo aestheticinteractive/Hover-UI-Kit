@@ -208,9 +208,7 @@ namespace Hover.Demo.CastCubes {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void ReorientCamera() {
-			if ( VRDevice.isPresent ) {
-				InputTracking.Recenter();
-			}
+			InputTracking.Recenter();
 		}
 
 
