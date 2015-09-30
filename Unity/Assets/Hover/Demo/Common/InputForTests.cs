@@ -21,12 +21,12 @@ namespace Hover.Demo.Common {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private static void UpdateOculus() {
+		public static void UpdateOculus() {
 			if ( Input.GetKey(KeyCode.R) ) {
 				InputTracking.Recenter();
 			}
 
-			if ( !OVRManager.isHSWDisplayed ) {
+			if ( !VRSettings.enabled || !VRDevice.isPresent || !OVRManager.isHSWDisplayed ) {
 				return;
 			}
 

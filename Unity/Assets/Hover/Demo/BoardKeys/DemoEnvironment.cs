@@ -112,7 +112,7 @@ namespace Hover.Demo.BoardKeys {
 				return;
 			}
 
-			UpdateOculus();
+			InputForTests.UpdateOculus();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -178,20 +178,6 @@ namespace Hover.Demo.BoardKeys {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		private static void UpdateOculus() {
-			if ( Input.GetKey(KeyCode.R) ) {
-				InputTracking.Recenter();
-			}
-
-			if ( !OVRManager.isHSWDisplayed ) {
-				return;
-			}
-
-			OVRManager.DismissHSWDisplay();
-			InputTracking.Recenter();
-		}
-
 		/*--------------------------------------------------------------------------------------------*/
 		private void RemoveFirstLetter() {
 			DemoLetter lett = vLetters.First();

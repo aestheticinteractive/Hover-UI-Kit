@@ -126,7 +126,7 @@ namespace Hover.Demo.CastCubes {
 				return;
 			}
 
-			UpdateOculus();
+			InputForTests.UpdateOculus();
 
 			vOrbitMotion.Update();
 			vSpinMotion.Update();
@@ -213,20 +213,6 @@ namespace Hover.Demo.CastCubes {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		private static void UpdateOculus() {
-			if ( Input.GetKey(KeyCode.R) ) {
-				InputTracking.Recenter();
-			}
-
-			if ( !OVRManager.isHSWDisplayed ) {
-				return;
-			}
-
-			OVRManager.DismissHSWDisplay();
-			InputTracking.Recenter();
-		}
-
 		/*--------------------------------------------------------------------------------------------*/
 		private void BuildCube(int pIndex) {
 			float radius = RandomUtil.Float(4, 10);
