@@ -47,7 +47,7 @@ namespace Hover.Demo.BoardKeys.CastItems {
 					tx.localRotation = Quaternion.Euler(90, 0, 0);
 				}
 
-				vKeyboardObj.transform.localPosition = new Vector3(0, -0.1f, 0.15f);
+				vKeyboardObj.transform.localPosition = new Vector3(0, -0.05f, 0.1f);
 				vKeyboardObj.transform.localRotation = Quaternion.Euler(40, 0, 0);
 				return;
 			}
