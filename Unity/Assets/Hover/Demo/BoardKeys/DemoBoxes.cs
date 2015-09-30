@@ -40,8 +40,6 @@ namespace Hover.Demo.BoardKeys {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
-			var rand = new System.Random();
-
 			for ( int xi = 0 ; xi < Width ; ++xi ) {
 				for ( int yi = 0 ; yi < Height ; ++yi ) {
 					var mainTex = new Texture2D(1, 1);

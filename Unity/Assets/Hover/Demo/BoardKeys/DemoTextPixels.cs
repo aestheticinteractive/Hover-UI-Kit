@@ -27,58 +27,43 @@ namespace Hover.Demo.BoardKeys {
 		/*--------------------------------------------------------------------------------------------*/
 		public float[,] GetPixels(char pLetter, out int pWidth, out int pHeight) {
 			Texture2D tex = vUiLabel.Texture;
-			//string data = "";
 			CharacterInfo charInfo;
 
 			if ( !vUiLabel.FontObject.GetCharacterInfo(pLetter, out charInfo) ) {
 				throw new Exception("Character pixels not found: "+pLetter);
 			}
 
-			int x = (int)Math.Round(charInfo.uv.x*tex.width);
-			int y = (int)Math.Round(charInfo.uv.y*tex.height);
-			int w = (int)Math.Round(charInfo.uv.width*tex.width);
-			int h = (int)Math.Round(charInfo.uv.height*tex.height);
+			int x0 = (int)Math.Round(charInfo.uvTopLeft.x*tex.width);
+			int y0 = (int)Math.Round(charInfo.uvTopLeft.y*tex.height);
+			int x1 = (int)Math.Round(charInfo.uvBottomRight.x*tex.width);
+			int y1 = (int)Math.Round(charInfo.uvBottomRight.y*tex.height);
+			int texW = x1-x0;
+			int texH = y1-y0;
+			bool xPos = (texW > 0);
+			bool yPos = (texH > 0);
 
-			if ( w < 0 ) {
-				w *= -1;
-				x -= w;
-			}
+			texW = Math.Abs(texW);
+			texH = Math.Abs(texH);
+			bool swap = (texW == charInfo.glyphHeight && texH == charInfo.glyphWidth);
 
-			if ( h < 0 ) {
-				h *= -1;
-				y -= h;
-			}
+			pWidth = (swap ? texH : texW);
+			pHeight = (swap ? texW : texH);
 
-			var pixels = new float[w, h];
+			Debug.Log("WH: "+x0+"/"+x1+" ... "+y0+"/"+y1+" ... "+xPos+"/"+yPos+" ... "+
+				pWidth+"/"+pHeight+" ... "+charInfo.glyphWidth+"/"+charInfo.glyphHeight+" ... "+swap);
 
-			for ( int hi = y ; hi < y+h ; ++hi ) {
-				for ( int wi = x ; wi < x+w ; ++wi ) {
-					float a = tex.GetPixel(wi, hi).a;
-					pixels[wi-x, hi-y] = a;
-					//data += (a < 0.25f ? " " : (a < 0.5f ? "." : (a < 0.75f ? "*" : "#")));
+			var pixels = new float[pWidth, pHeight];
+
+			for ( int yi = 0 ; yi < texH ; yi++ ) {
+				for ( int xi = 0 ; xi < texW ; xi++ ) {
+					int xt = (xPos ? x0+xi : x0-xi);
+					int yt = (yPos ? y0+yi : y0-yi);
+					float a = tex.GetPixel(xt, yt).a;
+
+					pixels[(swap ? yi : xi), (swap ? xi : yi)] = a;
 				}
-
-				//data += "\n";
 			}
 
-			if ( charInfo.flipped ) {
-				float[,] oldPixels = pixels;
-				
-				pixels = new float[h, w];
-
-				for ( int hi = 0 ; hi < h ; ++hi ) {
-					for ( int wi = 0 ; wi < w ; ++wi ) {
-						pixels[hi, w-wi-1] = oldPixels[wi, hi];
-					}
-				}
-
-				int old = h;
-				h = w;
-				w = old;
-			}
-
-			pWidth = w;
-			pHeight = h;
 			return pixels;
 		}
 
