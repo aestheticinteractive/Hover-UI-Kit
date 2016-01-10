@@ -1,78 +1,45 @@
-﻿using Hover.Common.Components.Items;
+﻿using Hover.Common.Items;
 using Hover.Common.Util;
+using UnityEngine.Events;
 
-namespace Hover.Common.Items {
+namespace Hover.Common.Components.Items {
 
 	/*================================================================================================*/
-	public abstract class HoverSelectableItem : HoverBaseItem, ISelectableItem {
+	public abstract class HoverSelectableItem : HoverBaseItem {
 
-		public event ItemEvents.SelectedHandler OnSelected;
-		public event ItemEvents.DeselectedHandler OnDeselected;
+		public new ISelectableItem Item { get; private set; }
 
-		//TODO: add "UnityEvent" fields to set actions directly via the editor
+		private bool IsStickySelected;
+		private bool AllowSelection;
+		public bool NavigateBackUponSelect;
+		public UnityEvent<ISelectableItem> OnSelected;
+		public UnityEvent<ISelectableItem> OnDeselected;
 
-		private bool _IsStickySelected;
-		private bool _AllowSelection;
-		public bool _NavigateBackUponSelect;
-
-		private readonly SelectableItem vCoreItem;
 		private readonly ValueBinder<bool> vBindBack;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected HoverSelectableItem(SelectableItem pCoreItem) : base(pCoreItem) {
-			vCoreItem = pCoreItem;
+		protected HoverSelectableItem(SelectableItem pItem) : base(pItem) {
+			Item = pItem;
 
-			OnSelected += (i => {});
-			OnDeselected += (i => {});
+			Item.OnSelected += (x => {
+				if ( OnSelected != null ) {
+					OnSelected.Invoke(x);
+				}
+			});
 
-			vCoreItem.OnSelected += OnSelected; //TODO: is this valid?
-			vCoreItem.OnDeselected += OnDeselected;
+			Item.OnDeselected += (x => {
+				if ( OnDeselected != null ) {
+					OnDeselected.Invoke(x);
+				}
+			});
 
 			vBindBack = new ValueBinder<bool>(
-				(x => { vCoreItem.NavigateBackUponSelect = x; }),
-				(x => { _NavigateBackUponSelect = x; }),
+				(x => { Item.NavigateBackUponSelect = x; }),
+				(x => { NavigateBackUponSelect = x; }),
 				ValueBinder.AreBoolsEqual
 			);
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public bool IsStickySelected {
-			get {
-				return vCoreItem.IsStickySelected;
-			}
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public virtual bool AllowSelection {
-			get {
-				return vCoreItem.AllowSelection;
-			}
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public bool NavigateBackUponSelect {
-			get {
-				return vCoreItem.NavigateBackUponSelect;
-			}
-			set {
-				vBindBack.UpdateValuesIfChanged(value);
-			}
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Select() {
-			vCoreItem.Select();
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public virtual void DeselectStickySelections() {
-			vCoreItem.DeselectStickySelections();
 		}
 
 
@@ -81,9 +48,10 @@ namespace Hover.Common.Items {
 		protected override void UpdateAllValues(bool pForceUpdate=false) {
 			base.UpdateAllValues(pForceUpdate);
 
-			_IsStickySelected = vCoreItem.IsStickySelected;
-			_AllowSelection = vCoreItem.AllowSelection;
-			vBindBack.UpdateValuesIfChanged(_NavigateBackUponSelect, pForceUpdate);
+			IsStickySelected = Item.IsStickySelected;
+			AllowSelection = Item.AllowSelection;
+			vBindBack.UpdateValuesIfChanged(
+				Item.NavigateBackUponSelect, NavigateBackUponSelect, pForceUpdate);
 		}
 
 	}

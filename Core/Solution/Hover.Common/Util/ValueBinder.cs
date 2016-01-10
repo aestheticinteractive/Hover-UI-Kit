@@ -5,10 +5,10 @@ namespace Hover.Common.Util {
 	/*================================================================================================*/
 	public class ValueBinder {
 
-		public static Func<string, string, bool> AreStringsEqual = ((a, b) => (a == b));
-		public static Func<bool, bool, bool> AreBoolsEqual = ((a, b) => (a == b));
-		public static Func<int, int, bool> AreIntsEqual = ((a, b) => (a == b));
-		public static Func<float, float, bool> AreFloatsEqual = ((a, b) => (a == b));
+		public static Func<string, string, bool> AreStringsEqual = ((a,b) => (a == b));
+		public static Func<bool, bool, bool> AreBoolsEqual = ((a,b) => (a == b));
+		public static Func<int, int, bool> AreIntsEqual = ((a,b) => (a == b));
+		public static Func<float, float, bool> AreFloatsEqual = ((a,b) => (a == b));
 
 	}
 
@@ -33,15 +33,24 @@ namespace Hover.Common.Util {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public bool UpdateValuesIfChanged(T pValue, bool pForce=false) {
-			if ( !pForce && pValue == vValue ) {
-				return false;
+		public bool UpdateValuesIfChanged(T pCoreValue, T pEditorValue, bool pForceEditor=false) {
+			bool isUpdated = false;
+
+			if ( pForceEditor || !vAreEqual(pEditorValue, vValue) ) {
+				vValue = pEditorValue;
+				isUpdated = true;
+			}
+			else if ( !vAreEqual(pCoreValue, vValue) ) {
+				vValue = pCoreValue;
+				isUpdated = true;
 			}
 
-			vValue = pValue;
-			vSetCore(vValue);
-			vSetEditor(vValue);
-			return true;
+			if ( isUpdated ) {
+				vSetCore(vValue);
+				vSetEditor(vValue);
+			}
+
+			return isUpdated;
 		}
 
 	}
