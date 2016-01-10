@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using Hover.Common.Components.Items;
 using Hover.Common.Items;
 using Hover.Common.Items.Groups;
 using UnityEngine;
@@ -29,29 +29,7 @@ namespace Hover.Cast.Items {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		private IBaseItem[] GetChildItems() {
-			return GetChildItemsFromGameObject(gameObject);
-		}
-
-		
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		internal static IBaseItem[] GetChildItemsFromGameObject(GameObject pParentObj) {
-			Transform tx = pParentObj.transform;
-			int childCount = tx.childCount;
-			var items = new List<IBaseItem>();
-			
-			for ( int i = 0 ; i < childCount ; ++i ) {
-				HovercastItem hni = tx.GetChild(i).GetComponent<HovercastItem>();
-				IBaseItem item = hni.GetItem();
-
-				if ( !item.IsVisible ) {
-					continue;
-				}
-
-				items.Add(item);
-			}
-
-			return items.ToArray();
+			return HoverBaseItem.GetChildItems(gameObject);
 		}
 
 	}

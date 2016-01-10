@@ -34,7 +34,7 @@
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected abstract bool AreValuesEqual(T pValueA, T pValueB);
+		public abstract bool AreValuesEqual(T pValueA, T pValueB);
 
 	}
 

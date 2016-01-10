@@ -1,4 +1,5 @@
 ﻿using System;
+using Hover.Common.Components.Items;
 using Hover.Common.Items;
 using Hover.Common.Items.Types;
 using UnityEngine;
@@ -119,7 +120,7 @@ namespace Hover.Cast.Items {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private IBaseItem[] GetChildItems() {
-			return HovercastItemHierarchy.GetChildItemsFromGameObject(gameObject);
+			return HoverBaseItem.GetChildItems(gameObject);
 		}
 
 	}

@@ -23,7 +23,7 @@
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected override bool AreValuesEqual(bool pValueA, bool pValueB) {
+		public override bool AreValuesEqual(bool pValueA, bool pValueB) {
 			return (pValueA == pValueB);
 		}
 

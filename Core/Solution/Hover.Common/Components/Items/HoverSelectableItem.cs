@@ -20,7 +20,17 @@ namespace Hover.Common.Components.Items {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected HoverSelectableItem(SelectableItem pItem) : base(pItem) {
+		protected HoverSelectableItem() {
+			vBindBack = new ValueBinder<bool>(
+				(x => { Item.NavigateBackUponSelect = x; }),
+				(x => { NavigateBackUponSelect = x; }),
+				ValueBinder.AreBoolsEqual
+			);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		protected void Init(SelectableItem pItem) {
+			base.Init(pItem);
 			Item = pItem;
 
 			Item.OnSelected += (x => {
@@ -34,12 +44,6 @@ namespace Hover.Common.Components.Items {
 					OnDeselected.Invoke(x);
 				}
 			});
-
-			vBindBack = new ValueBinder<bool>(
-				(x => { Item.NavigateBackUponSelect = x; }),
-				(x => { NavigateBackUponSelect = x; }),
-				ValueBinder.AreBoolsEqual
-			);
 		}
 
 

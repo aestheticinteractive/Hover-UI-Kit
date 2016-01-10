@@ -1,4 +1,5 @@
-﻿using Hover.Common.Items;
+﻿using System.Collections.Generic;
+using Hover.Common.Items;
 using Hover.Common.Util;
 using UnityEngine;
 
@@ -28,13 +29,12 @@ namespace Hover.Common.Components.Items {
 		private readonly ValueBinder<bool> vBindEnabled;
 		private readonly ValueBinder<bool> vBindVisible;
 
+		private BaseItem vFullItem;
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected HoverBaseItem(BaseItem pItem) {
-			Item = pItem;
-			pItem.DisplayContainer = gameObject;
-
+		protected HoverBaseItem() {
 			vBindId = new ValueBinder<string>(
 				(x => { Item.Id = x; }),
 				(x => { Id = x; }),
@@ -48,13 +48,13 @@ namespace Hover.Common.Components.Items {
 			);
 
 			vBindWidth = new ValueBinder<float>(
-				(x => { pItem.Width = x; }),
+				(x => { vFullItem.Width = x; }),
 				(x => { Width = x; }),
 				ValueBinder.AreFloatsEqual
 			);
 
 			vBindHeight = new ValueBinder<float>(
-				(x => { pItem.Height = x; }),
+				(x => { vFullItem.Height = x; }),
 				(x => { Height = x; }),
 				ValueBinder.AreFloatsEqual
 			);
@@ -72,8 +72,19 @@ namespace Hover.Common.Components.Items {
 			);
 		}
 
+		/*--------------------------------------------------------------------------------------------*/
+		protected void Init(BaseItem pItem) {
+			Item = pItem;
+			vFullItem = pItem;
+		}
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public virtual void Awake() {
+			vFullItem.DisplayContainer = gameObject;
+		}
+
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void Start() {
 			UpdateAllValues(true);
@@ -98,6 +109,28 @@ namespace Hover.Common.Components.Items {
 			vBindVisible.UpdateValuesIfChanged(Item.IsVisible, IsVisible, pForceUpdate);
 			IsAncestryEnabled = Item.IsAncestryEnabled;
 			IsAncestryVisible = Item.IsAncestryVisible;
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public static IBaseItem[] GetChildItems(GameObject pParentGo) {
+			Transform tx = pParentGo.transform;
+			int childCount = tx.childCount;
+			var items = new List<IBaseItem>();
+
+			for ( int i = 0 ; i < childCount ; ++i ) {
+				HoverBaseItem hni = tx.GetChild(i).GetComponent<HoverBaseItem>();
+				IBaseItem item = hni.Item;
+
+				if ( !item.IsVisible ) {
+					continue;
+				}
+
+				items.Add(item);
+			}
+
+			return items.ToArray();
 		}
 
 	}

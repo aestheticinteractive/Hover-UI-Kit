@@ -132,7 +132,7 @@ namespace Hover.Common.Items.Types {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected override bool AreValuesEqual(float pValueA, float pValueB) {
+		public override bool AreValuesEqual(float pValueA, float pValueB) {
 			return (pValueA == pValueB);
 		}
 
