@@ -49,7 +49,7 @@ namespace Hover.Cast {
 
 			Input = UnityUtil.FindComponentOrFail(Input, Domain);
 
-			vState = new HovercastState(ItemHierarchy.GetRoot(), Hovercursor, 
+			vState = new HovercastState(ItemHierarchy.Root, Hovercursor, 
 				InteractionSettings.GetSettings(), Input, gameObject.transform);
 		}
 
