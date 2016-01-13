@@ -26,11 +26,12 @@ namespace Hover.Demo.Common {
 				InputTracking.Recenter();
 			}
 
-			if ( !VRSettings.enabled || !VRDevice.isPresent || !OVRManager.isHSWDisplayed ) {
+			if ( !VRSettings.enabled || !VRDevice.isPresent /*|| !OVRManager.isHSWDisplayed*/ ) {
 				return;
 			}
 
-			OVRManager.DismissHSWDisplay();
+			//TODO: fix this OVR reference
+			//OVRManager.DismissHSWDisplay();
 			InputTracking.Recenter();
 		}
 

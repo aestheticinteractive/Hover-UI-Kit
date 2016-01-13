@@ -1,4 +1,5 @@
-﻿using Hover.Common.Items;
+﻿using System;
+using Hover.Common.Items;
 using Hover.Common.Util;
 using UnityEngine.Events;
 
@@ -7,15 +8,18 @@ namespace Hover.Common.Components.Items {
 	/*================================================================================================*/
 	public abstract class HoverSelectableItem : HoverBaseItem {
 
+		[Serializable]
+		public class SelectedEventHandler : UnityEvent<ISelectableItem> {}
+		
 		public new ISelectableItem Item { get; private set; }
 
-		private bool IsStickySelected;
-		private bool AllowSelection;
-		public bool NavigateBackUponSelect;
-		public UnityEvent<ISelectableItem> OnSelected;
-		public UnityEvent<ISelectableItem> OnDeselected;
+		protected bool IsStickySelected;
+		protected bool AllowSelection;
+		public bool NavigateBackUponSelect = false;
+		public SelectedEventHandler OnSelected;
+		public SelectedEventHandler OnDeselected;
 
-		private readonly ValueBinder<bool> vBindBack;
+		protected readonly ValueBinder<bool> vBindBack;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

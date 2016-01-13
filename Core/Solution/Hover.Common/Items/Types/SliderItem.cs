@@ -32,6 +32,8 @@ namespace Hover.Common.Items.Types {
 				if ( base.Label == vPrevLabel && s.RangeSnappedValue == vPrevSnappedValue ) {
 					return vPrevValueToLabel;
 				}
+				
+				UnityEngine.Debug.Log("NEW LABEL: "+base.Label+" / "+s.RangeSnappedValue);
 
 				vPrevLabel = base.Label;
 				vPrevSnappedValue = s.RangeSnappedValue;
@@ -48,7 +50,14 @@ namespace Hover.Common.Items.Types {
 				return ValueToLabel(this);
 			}
 		}
-
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public string BaseLabel {
+			get {
+				return base.Label;
+			}
+		}
+		
 		/*--------------------------------------------------------------------------------------------*/
 		public override void DeselectStickySelections() {
 			Value = SnappedValue;

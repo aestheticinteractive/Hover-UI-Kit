@@ -10,24 +10,24 @@ namespace Hover.Common.Components.Items {
 
 		public IBaseItem Item { get; private set; }
 
-		private int AutoId;
-		public string Id;
-		public string Label;
-		public float Width;
-		public float Height;
+		protected int AutoId;
+		public string Id = "";
+		public string Label = "";
+		public float Width = 1;
+		public float Height = 1;
 
-		public bool IsEnabled;
-		public bool IsVisible;
-		private bool IsAncestryEnabled;
-		private bool IsAncestryVisible;
+		public bool IsEnabled = true;
+		public bool IsVisible = true;
+		protected bool IsAncestryEnabled;
+		protected bool IsAncestryVisible;
 
-		private readonly ValueBinder<string> vBindId;
-		private readonly ValueBinder<string> vBindLabel;
-		private readonly ValueBinder<float> vBindWidth;
-		private readonly ValueBinder<float> vBindHeight;
+		protected readonly ValueBinder<string> vBindId;
+		protected readonly ValueBinder<string> vBindLabel;
+		protected readonly ValueBinder<float> vBindWidth;
+		protected readonly ValueBinder<float> vBindHeight;
 
-		private readonly ValueBinder<bool> vBindEnabled;
-		private readonly ValueBinder<bool> vBindVisible;
+		protected readonly ValueBinder<bool> vBindEnabled;
+		protected readonly ValueBinder<bool> vBindVisible;
 
 		private BaseItem vFullItem;
 
@@ -83,6 +83,14 @@ namespace Hover.Common.Components.Items {
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void Awake() {
 			vFullItem.DisplayContainer = gameObject;
+			
+			if ( string.IsNullOrEmpty(Id) ) {
+				Id = Item.AutoId+"";
+			}
+			
+			if ( string.IsNullOrEmpty(Label) ) {
+				Label = gameObject.name;
+			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

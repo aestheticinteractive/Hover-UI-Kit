@@ -97,12 +97,13 @@ namespace Hover.Demo.BoardKeys {
 
 			////
 			
-			GameObject ovrObj = GameObject.Find("LeapOVRPlayerController");
+			//TODO: fix this OVR reference
+			/*GameObject ovrObj = GameObject.Find("LeapOVRPlayerController");
 
 			if ( ovrObj != null ) {
-				OVRPlayerController ovrPlayer = ovrObj.GetComponent<OVRPlayerController>();
-				ovrPlayer.SetSkipMouseRotation(true);
-			}
+				//OVRPlayerController ovrPlayer = ovrObj.GetComponent<OVRPlayerController>();
+				//ovrPlayer.SetSkipMouseRotation(true);
+			}*/
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

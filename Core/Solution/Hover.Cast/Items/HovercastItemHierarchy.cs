@@ -1,4 +1,5 @@
-﻿using Hover.Common.Components.Items;
+﻿using System;
+using Hover.Common.Components.Items;
 using Hover.Common.Items;
 using Hover.Common.Items.Groups;
 using Hover.Common.Util;
@@ -10,9 +11,15 @@ namespace Hover.Cast.Items {
 	/*================================================================================================*/
 	public class HovercastItemHierarchy : MonoBehaviour { 
 
+		[Serializable]
+		public class LevelChangeEventHandler : UnityEvent<int> {}
+		
+		[Serializable]
+		public class ItemSelectionEventHandler : UnityEvent<IItemGroup, ISelectableItem> {}
+		
 		public string Title = "Hovercast VR";
-		public UnityEvent<int> OnLevelChange;
-		public UnityEvent<IItemGroup, ISelectableItem> OnItemSelection;
+		public LevelChangeEventHandler OnLevelChange;
+		public ItemSelectionEventHandler OnItemSelection;
 		
 		private readonly ValueBinder<string> vBindTitle;
 		private IItemHierarchy vRoot;
@@ -79,7 +86,7 @@ namespace Hover.Cast.Items {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected virtual void UpdateAllValues(bool pForceUpdate=false) {
-			vBindTitle.UpdateValuesIfChanged(vRoot.Title, Title, pForceUpdate);
+			vBindTitle.UpdateValuesIfChanged(Root.Title, Title, pForceUpdate);
 		}
 
 	}

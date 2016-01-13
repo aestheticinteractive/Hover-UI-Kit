@@ -9,6 +9,7 @@ namespace Hover.Common.Items.Types {
 		int Snaps { get; set; }
 		float RangeMin { get; set; }
 		float RangeMax { get; set; }
+		string BaseLabel { get; }
 		Func<ISliderItem, string> ValueToLabel { get; set; }
 		bool AllowJump { get; set; }
 		SliderItem.FillType FillStartingPoint { get; set; }

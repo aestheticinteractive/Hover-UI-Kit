@@ -4,7 +4,7 @@ using Hover.Common.Items.Types;
 namespace Hover.Common.Components.Items.Types {
 
 	/*================================================================================================*/
-	public class HoverCheckboxItem : HoverSelectableItem<bool> {
+	public class HoverCheckboxItem : HoverSelectableItemBool {
 
 		public new ICheckboxItem Item { get; private set; }
 

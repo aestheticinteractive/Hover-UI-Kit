@@ -6,16 +6,16 @@ using UnityEngine;
 namespace Hover.Common.Components.Items.Types {
 
 	/*================================================================================================*/
-	public class HoverSliderItem : HoverSelectableItem<float> {
+	public class HoverSliderItem : HoverSelectableItemFloat {
 
 		public new ISliderItem Item { get; private set; }
 
-		public int Ticks;
-		public int Snaps;
-		public float RangeMin;
-		public float RangeMax;
-		public bool AllowJump;
-		public SliderItem.FillType FillStartingPoint;
+		public int Ticks = 3;
+		public int Snaps = 0;
+		public float RangeMin = 0;
+		public float RangeMax = 100;
+		public bool AllowJump = false;
+		public SliderItem.FillType FillStartingPoint = SliderItem.FillType.MinimumValue;
 
 		private float SnappedValue;
 		private float? HoverValue;
@@ -81,8 +81,14 @@ namespace Hover.Common.Components.Items.Types {
 			base.UpdateAllValues(pForceUpdate);
 
 			//Allow developers to set the RangeValue here, then normalized it (from 0 to 1)
-			float valueFromRange = Mathf.InverseLerp(RangeMin, RangeMax, Value);
-			vBindValue.UpdateValuesIfChanged(Item.Value, valueFromRange, pForceUpdate);
+			float valueNormalized = Mathf.InverseLerp(RangeMin, RangeMax, Value);
+			UnityEngine.Debug.Log("VALUE: "+Value+" / "+RangeMin+" / "+RangeMax+" / "+valueNormalized);
+			vBindValue.UpdateValuesIfChanged(Item.Value, valueNormalized, pForceUpdate);
+			
+			//TODO: fix issues with the slider component's label and value properties
+			//Reset label using "BaseLabel" due to the slider's dynamic "Label" string
+			Item.Label = Item.BaseLabel;
+			vBindLabel.UpdateValuesIfChanged(Item.BaseLabel, Label, pForceUpdate);
 
 			vBindTicks.UpdateValuesIfChanged(Item.Ticks, Ticks, pForceUpdate);
 			vBindSnaps.UpdateValuesIfChanged(Item.Snaps, Snaps, pForceUpdate);

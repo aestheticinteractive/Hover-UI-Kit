@@ -43,7 +43,6 @@
       <HintPath>..\..\Packages\Unity\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Packages\Unity\GUISystem\UnityEngine.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
@@ -55,7 +54,6 @@
     <Compile Include="Components\Items\Types\HoverRadioItem.cs" />
     <Compile Include="Components\Items\Types\HoverParentItem.cs" />
     <Compile Include="Components\Items\Types\HoverCheckboxItem.cs" />
-    <Compile Include="Components\Items\HoverSelectableItemT.cs" />
     <Compile Include="Custom\CustomItemFinder.cs" />
     <Compile Include="Custom\BaseInteractionSettings.cs" />
     <Compile Include="Custom\CustomUtil.cs" />
@@ -117,6 +115,8 @@
     <Compile Include="Util\CacheList.cs" />
     <Compile Include="Util\UnityUtil.cs" />
     <Compile Include="Util\MeshUtil.cs" />
+    <Compile Include="Components\Items\HoverSelectableItemBool.cs" />
+    <Compile Include="Components\Items\HoverSelectableItemFloat.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

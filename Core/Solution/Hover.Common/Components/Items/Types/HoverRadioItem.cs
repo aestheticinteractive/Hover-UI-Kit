@@ -5,7 +5,7 @@ using Hover.Common.Util;
 namespace Hover.Common.Components.Items.Types {
 
 	/*================================================================================================*/
-	public class HoverRadioItem : HoverSelectableItem<bool> {
+	public class HoverRadioItem : HoverSelectableItemBool {
 
 		public new IRadioItem Item { get; private set; }
 
@@ -28,6 +28,17 @@ namespace Hover.Common.Components.Items.Types {
 		}
 
 
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public override void Awake() {
+			base.Awake();
+			
+			if ( string.IsNullOrEmpty(GroupId) ) {
+				GroupId = gameObject.transform.parent.gameObject.name;
+			}
+		}
+		
+		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected override void UpdateAllValues(bool pForceUpdate=false) {
