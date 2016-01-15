@@ -33,8 +33,6 @@ namespace Hover.Common.Items.Types {
 					return vPrevValueToLabel;
 				}
 				
-				UnityEngine.Debug.Log("NEW LABEL: "+base.Label+" / "+s.RangeSnappedValue);
-
 				vPrevLabel = base.Label;
 				vPrevSnappedValue = s.RangeSnappedValue;
 				vPrevValueToLabel = vPrevLabel+": "+Math.Round(vPrevSnappedValue*10)/10f; //GC_ALLOC

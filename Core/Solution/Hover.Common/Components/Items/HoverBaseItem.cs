@@ -28,6 +28,9 @@ namespace Hover.Common.Components.Items {
 
 		protected readonly ValueBinder<bool> vBindEnabled;
 		protected readonly ValueBinder<bool> vBindVisible;
+		
+		[HideInInspector]
+		protected bool vBlockBaseLabelBinding;
 
 		private BaseItem vFullItem;
 
@@ -109,7 +112,11 @@ namespace Hover.Common.Components.Items {
 		protected virtual void UpdateAllValues(bool pForceUpdate=false) {
 			AutoId = Item.AutoId;
 			vBindId.UpdateValuesIfChanged(Item.Id, Id, pForceUpdate);
-			vBindLabel.UpdateValuesIfChanged(Item.Label, Label, pForceUpdate);
+			
+			if ( !vBlockBaseLabelBinding ) {
+				vBindLabel.UpdateValuesIfChanged(Item.Label, Label, pForceUpdate);
+			}
+			
 			vBindWidth.UpdateValuesIfChanged(Item.Width, Width, pForceUpdate);
 			vBindHeight.UpdateValuesIfChanged(Item.Height, Height, pForceUpdate);
 

@@ -19,6 +19,9 @@ namespace Hover.Common.Components.Items {
 		
 		protected readonly ValueBinder<float> vBindValue;
 		
+		[HideInInspector]
+		protected bool vBlockBaseValueBinding;
+		
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -49,7 +52,10 @@ namespace Hover.Common.Components.Items {
 		/*--------------------------------------------------------------------------------------------*/
 		protected override void UpdateAllValues(bool pForceUpdate=false) {
 			base.UpdateAllValues(pForceUpdate);
-			vBindValue.UpdateValuesIfChanged(Item.Value, Value, pForceUpdate);
+			
+			if ( !vBlockBaseValueBinding ) {
+				vBindValue.UpdateValuesIfChanged(Item.Value, Value, pForceUpdate);
+			}
 		}
 		
 	}

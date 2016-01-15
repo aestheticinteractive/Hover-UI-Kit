@@ -10,17 +10,19 @@ namespace Hover.Common.Components.Items.Types {
 
 		public new ISliderItem Item { get; private set; }
 
+		//TODO: Disable the "Value" property in the inspector
+
 		public int Ticks = 3;
 		public int Snaps = 0;
+		public float RangeValue = 0;
 		public float RangeMin = 0;
 		public float RangeMax = 100;
 		public bool AllowJump = false;
 		public SliderItem.FillType FillStartingPoint = SliderItem.FillType.MinimumValue;
 
 		private float SnappedValue;
-		private float? HoverValue;
-		private float? HoverSnappedValue;
-		private float RangeValue;
+		private string HoverValue;
+		private string HoverSnappedValue;
 		private float RangeSnappedValue;
 
 		private readonly ValueBinder<int> vBindTicks;
@@ -72,6 +74,9 @@ namespace Hover.Common.Components.Items.Types {
 				(x => { FillStartingPoint = x; }),
 				((a,b) => (a == b))
 			);
+			
+			vBlockBaseLabelBinding = true;
+			vBlockBaseValueBinding = true;
 		}
 
 
@@ -80,16 +85,13 @@ namespace Hover.Common.Components.Items.Types {
 		protected override void UpdateAllValues(bool pForceUpdate=false) {
 			base.UpdateAllValues(pForceUpdate);
 
-			//Allow developers to set the RangeValue here, then normalized it (from 0 to 1)
-			float valueNormalized = Mathf.InverseLerp(RangeMin, RangeMax, Value);
-			UnityEngine.Debug.Log("VALUE: "+Value+" / "+RangeMin+" / "+RangeMax+" / "+valueNormalized);
-			vBindValue.UpdateValuesIfChanged(Item.Value, valueNormalized, pForceUpdate);
+			float value = Mathf.InverseLerp(RangeMin, RangeMax, RangeValue);
+			vBindValue.UpdateValuesIfChanged(Item.Value, value, pForceUpdate);
 			
-			//TODO: fix issues with the slider component's label and value properties
 			//Reset label using "BaseLabel" due to the slider's dynamic "Label" string
-			Item.Label = Item.BaseLabel;
 			vBindLabel.UpdateValuesIfChanged(Item.BaseLabel, Label, pForceUpdate);
 
+			//TODO: the "Ticks" don't update visually for runtime changes
 			vBindTicks.UpdateValuesIfChanged(Item.Ticks, Ticks, pForceUpdate);
 			vBindSnaps.UpdateValuesIfChanged(Item.Snaps, Snaps, pForceUpdate);
 			vBindMin.UpdateValuesIfChanged(Item.RangeMin, RangeMin, pForceUpdate);
@@ -98,8 +100,8 @@ namespace Hover.Common.Components.Items.Types {
 			vBindFill.UpdateValuesIfChanged(Item.FillStartingPoint, FillStartingPoint, pForceUpdate);
 
 			SnappedValue = Item.SnappedValue;
-			HoverValue = Item.HoverValue;
-			HoverSnappedValue = Item.HoverSnappedValue;
+			HoverValue = Item.HoverValue+"";
+			HoverSnappedValue = Item.HoverSnappedValue+"";
 			RangeValue = Item.RangeValue;
 			RangeSnappedValue = Item.RangeSnappedValue;
 		}
