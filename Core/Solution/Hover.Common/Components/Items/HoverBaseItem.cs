@@ -10,7 +10,6 @@ namespace Hover.Common.Components.Items {
 
 		public IBaseItem Item { get; private set; }
 
-		protected int AutoId;
 		public string Id = "";
 		public string Label = "";
 		public float Width = 1;
@@ -18,8 +17,6 @@ namespace Hover.Common.Components.Items {
 
 		public bool IsEnabled = true;
 		public bool IsVisible = true;
-		protected bool IsAncestryEnabled;
-		protected bool IsAncestryVisible;
 
 		protected readonly ValueBinder<string> vBindId;
 		protected readonly ValueBinder<string> vBindLabel;
@@ -110,7 +107,6 @@ namespace Hover.Common.Components.Items {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected virtual void UpdateAllValues(bool pForceUpdate=false) {
-			AutoId = Item.AutoId;
 			vBindId.UpdateValuesIfChanged(Item.Id, Id, pForceUpdate);
 			
 			if ( !vBlockBaseLabelBinding ) {
@@ -122,8 +118,6 @@ namespace Hover.Common.Components.Items {
 
 			vBindEnabled.UpdateValuesIfChanged(Item.IsEnabled, IsEnabled, pForceUpdate);
 			vBindVisible.UpdateValuesIfChanged(Item.IsVisible, IsVisible, pForceUpdate);
-			IsAncestryEnabled = Item.IsAncestryEnabled;
-			IsAncestryVisible = Item.IsAncestryVisible;
 		}
 
 
