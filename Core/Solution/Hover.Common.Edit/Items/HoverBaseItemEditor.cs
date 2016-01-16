@@ -11,7 +11,7 @@ namespace Hover.Common.Edit.Items {
 	[CustomEditor(typeof(HoverBaseItem))]
 	public abstract class HoverBaseItemEditor : Editor {
 
-		protected bool vIsHiddenOpen;
+		protected string vIsHiddenOpenKey;
 		protected GUIStyle vVertStyle;
 		
 		
@@ -20,6 +20,8 @@ namespace Hover.Common.Edit.Items {
 		public virtual void OnEnable() {
 			vVertStyle = new GUIStyle();
 			vVertStyle.padding = new RectOffset(16, 0, 0, 0);
+			
+			vIsHiddenOpenKey = "IsHiddenOpen"+target.GetInstanceID();
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
@@ -35,7 +37,7 @@ namespace Hover.Common.Edit.Items {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public override bool RequiresConstantRepaint() {
-			return vIsHiddenOpen;
+			return EditorPrefs.GetBool(vIsHiddenOpenKey);
 		}
 		
 		
@@ -65,9 +67,10 @@ namespace Hover.Common.Edit.Items {
 			
 		/*--------------------------------------------------------------------------------------------*/
 		protected virtual void DrawHiddenItemGroup() {
-			vIsHiddenOpen = EditorGUILayout.Foldout(vIsHiddenOpen, "Info");
+			bool isHiddenOpen = EditorGUILayout.Foldout(EditorPrefs.GetBool(vIsHiddenOpenKey), "Info");
+			EditorPrefs.SetBool(vIsHiddenOpenKey, isHiddenOpen);
 			
-			if ( vIsHiddenOpen ) {
+			if ( isHiddenOpen ) {
 				EditorGUILayout.BeginVertical(vVertStyle);
 				DrawHiddenItems();
 				EditorGUILayout.EndVertical();

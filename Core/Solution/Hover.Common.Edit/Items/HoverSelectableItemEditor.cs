@@ -9,7 +9,7 @@ namespace Hover.Common.Edit.Items {
 	[CustomEditor(typeof(HoverSelectableItem))]
 	public abstract class HoverSelectableItemEditor : HoverBaseItemEditor {
 	
-		private bool vIsEventOpen;
+		private string vIsEventOpenKey;
 		private SerializedProperty vOnSelectedProp;
 		private SerializedProperty vOnDeselectedProp;
 		
@@ -25,6 +25,7 @@ namespace Hover.Common.Edit.Items {
 			string onSelName = GetPropertyName(() => t.OnSelected);
 			string onDeselName = GetPropertyName(() => t.OnDeselected);
 			
+			vIsEventOpenKey = "IsEventOpen"+target.GetInstanceID();
 			vOnSelectedProp = serializedObject.FindProperty(onSelName);
 			vOnDeselectedProp = serializedObject.FindProperty(onDeselName);
 		}
@@ -47,9 +48,10 @@ namespace Hover.Common.Edit.Items {
 		protected override void DrawEventItemGroup() {
 			base.DrawEventItemGroup();
 		
-			vIsEventOpen = EditorGUILayout.Foldout(vIsEventOpen, "Events");
+			bool isEventOpen = EditorGUILayout.Foldout(EditorPrefs.GetBool(vIsEventOpenKey), "Events");
+			EditorPrefs.SetBool(vIsEventOpenKey, isEventOpen);
 			
-			if ( vIsEventOpen ) {
+			if ( isEventOpen ) {
 				EditorGUILayout.BeginVertical(vVertStyle);
 				DrawEventItems();
 				EditorGUILayout.EndVertical();
