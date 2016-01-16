@@ -3,7 +3,7 @@
 	/*================================================================================================*/
 	public class RadioItem : SelectableItem<bool>, IRadioItem {
 
-		public string GroupId { get; set; }
+		public string GroupId { get; set; }  //TODO: doesn't update for runtime changes
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

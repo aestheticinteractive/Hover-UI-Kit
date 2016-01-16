@@ -4,14 +4,14 @@ namespace Hover.Common.Items.Types {
 
 	/*================================================================================================*/
 	public class SliderItem : SelectableItem<float>, ISliderItem {
-
+		
 		public enum FillType {
 			MinimumValue,
 			Zero,
 			MaximumValue
 		}
 
-		public int Ticks { get; set; }
+		public int Ticks { get; set; } //TODO: doesn't update visually for runtime changes
 		public int Snaps { get; set; }
 		public float RangeMin { get; set; }
 		public float RangeMax { get; set; }

@@ -10,6 +10,7 @@ namespace Hover.Common.Edit.Items {
 	public abstract class HoverSelectableItemBoolEditor : HoverSelectableItemEditor {
 	
 		private SerializedProperty vOnValueChangedProp;
+		protected string vValueLabel;
 		
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -21,6 +22,7 @@ namespace Hover.Common.Edit.Items {
 			string onValChangeName = GetPropertyName(() => t.OnValueChanged);
 			
 			vOnValueChangedProp = serializedObject.FindProperty(onValChangeName);
+			vValueLabel = "Value";
 		}
 		
 		
@@ -31,7 +33,7 @@ namespace Hover.Common.Edit.Items {
 			
 			var t = (HoverSelectableItemBool)target;
 			
-			t.Value = EditorGUILayout.Toggle("Value", t.Value);
+			t.Value = EditorGUILayout.Toggle(vValueLabel, t.Value);
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/

@@ -91,7 +91,6 @@ namespace Hover.Common.Components.Items.Types {
 			//Reset label using "BaseLabel" due to the slider's dynamic "Label" string
 			vBindLabel.UpdateValuesIfChanged(Item.BaseLabel, Label, pForceUpdate);
 
-			//TODO: the "Ticks" don't update visually for runtime changes
 			vBindTicks.UpdateValuesIfChanged(Item.Ticks, Ticks, pForceUpdate);
 			vBindSnaps.UpdateValuesIfChanged(Item.Snaps, Snaps, pForceUpdate);
 			vBindMin.UpdateValuesIfChanged(Item.RangeMin, RangeMin, pForceUpdate);
