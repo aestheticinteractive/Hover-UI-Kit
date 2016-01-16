@@ -64,12 +64,12 @@ namespace Hover.Common.Edit.Items {
 		protected virtual void DrawMainItems() {
 			var t = (HoverBaseItem)target;
 		
-			t.Id = EditorGUILayout.TextField("Id", t.Id);
+			t.Id = EditorGUILayout.TextField("ID", t.Id);
 			t.Label = EditorGUILayout.TextField("Label", t.Label);
-			t.Width = EditorGUILayout.Slider("Width", t.Width, 0.01f, 100f);
-			t.Height = EditorGUILayout.Slider("Height", t.Height, 0.01f, 100f);
-			t.IsEnabled = EditorGUILayout.Toggle("IsEnabled", t.IsEnabled);
-			t.IsVisible = EditorGUILayout.Toggle("IsVisible", t.IsVisible);
+			t.Width = EditorGUILayout.FloatField("Width", t.Width);
+			t.Height = EditorGUILayout.FloatField("Height", t.Height);
+			t.IsEnabled = EditorGUILayout.Toggle("Is Enabled", t.IsEnabled);
+			t.IsVisible = EditorGUILayout.Toggle("Is Visible", t.IsVisible);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -81,9 +81,9 @@ namespace Hover.Common.Edit.Items {
 			var t = (HoverBaseItem)target;
 			
 			GUI.enabled = false;
-			EditorGUILayout.IntField("AutoId", t.Item.AutoId);
-			EditorGUILayout.Toggle("IsAncestryEnabled2", t.Item.IsAncestryEnabled);
-			EditorGUILayout.Toggle("IsAncestryVisible", t.Item.IsAncestryVisible);
+			EditorGUILayout.IntField("Auto ID", t.Item.AutoId);
+			EditorGUILayout.Toggle("Is Ancestry Enabled", t.Item.IsAncestryEnabled);
+			EditorGUILayout.Toggle("Is Ancestry Visible", t.Item.IsAncestryVisible);
 			GUI.enabled = true;
 		}
 
