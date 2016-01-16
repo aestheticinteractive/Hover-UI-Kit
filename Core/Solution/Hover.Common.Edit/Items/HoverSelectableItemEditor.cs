@@ -33,18 +33,6 @@ namespace Hover.Common.Edit.Items {
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected override void DrawMainItems() {
-			base.DrawMainItems();
-			
-			var t = (HoverSelectableItem)target;
-			
-			if ( !vHideNavBack ) {
-				t.NavigateBackUponSelect = EditorGUILayout.Toggle(
-					"Navigate Back Upon Select", t.NavigateBackUponSelect);
-			}
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
 		protected override void DrawEventItemGroup() {
 			base.DrawEventItemGroup();
 		

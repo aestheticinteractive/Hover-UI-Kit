@@ -15,20 +15,6 @@ namespace Hover.Common.Items.Types {
 			ChildGroup = new ItemGroup(pGetItems);
 		}
 
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public override bool NavigateBackUponSelect {
-			get {
-				return false;
-			}
-			set {
-				if ( value ) {
-					throw new Exception("Cannot set NavigateBackUponSelect for "+GetType().Name+".");
-				}
-			}
-		}
-
 	}
 
 }

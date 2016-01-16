@@ -5,15 +5,7 @@ namespace Hover.Common.Edit.Items.Types {
 
 	/*================================================================================================*/
 	[CustomEditor(typeof(HoverParentItem))]
-	public class HoverParentEditor : HoverSelectableItemEditor {
-		
-		
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public override void OnEnable() {
-			base.OnEnable();
-			vHideNavBack = true;
-		}
+	public class HoverParentItemEditor : HoverSelectableItemEditor {
 		
 	}
 

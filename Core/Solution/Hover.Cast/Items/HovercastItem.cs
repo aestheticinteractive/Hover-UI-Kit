@@ -111,10 +111,10 @@ namespace Hover.Cast.Items {
 			vItem.IsVisible = IsVisible;
 			vItem.IsEnabled = IsEnabled;
 
-			ISelectableItem selItem = (vItem as ISelectableItem);
+			ISelectorItem selectorItem = (vItem as ISelectorItem);
 
-			if ( selItem != null && !(vItem is IParentItem) ) {
-				selItem.NavigateBackUponSelect = NavigateBackUponSelect;
+			if ( selectorItem != null ) {
+				selectorItem.NavigateBackUponSelect = NavigateBackUponSelect;
 			}
 		}
 

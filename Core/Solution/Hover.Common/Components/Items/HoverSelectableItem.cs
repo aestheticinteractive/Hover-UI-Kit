@@ -13,23 +13,11 @@ namespace Hover.Common.Components.Items {
 		
 		public new ISelectableItem Item { get; private set; }
 
-		public bool NavigateBackUponSelect;
 		public SelectedEventHandler OnSelected;
 		public SelectedEventHandler OnDeselected;
 
-		protected readonly ValueBinder<bool> vBindBack;
-
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		protected HoverSelectableItem() {
-			vBindBack = new ValueBinder<bool>(
-				(x => { Item.NavigateBackUponSelect = x; }),
-				(x => { NavigateBackUponSelect = x; }),
-				ValueBinder.AreBoolsEqual
-			);
-		}
-
 		/*--------------------------------------------------------------------------------------------*/
 		protected void Init(SelectableItem pItem) {
 			base.Init(pItem);
@@ -46,16 +34,6 @@ namespace Hover.Common.Components.Items {
 					OnDeselected.Invoke(x);
 				}
 			});
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		protected override void UpdateAllValues(bool pForceUpdate=false) {
-			base.UpdateAllValues(pForceUpdate);
-
-			vBindBack.UpdateValuesIfChanged(
-				Item.NavigateBackUponSelect, NavigateBackUponSelect, pForceUpdate);
 		}
 
 	}

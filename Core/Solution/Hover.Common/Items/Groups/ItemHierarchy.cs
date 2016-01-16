@@ -82,6 +82,7 @@ namespace Hover.Common.Items.Groups {
 			OnItemSelection(pLevel, pItem);
 
 			IParentItem parItem = (pItem as IParentItem);
+			ISelectorItem selectorItem = (pItem as ISelectorItem);
 
 			if ( parItem != null ) {
 				vHistory.Push(vCurrLevel);
@@ -89,7 +90,7 @@ namespace Hover.Common.Items.Groups {
 				return;
 			}
 
-			if ( pItem.NavigateBackUponSelect ) {
+			if ( selectorItem != null && selectorItem.NavigateBackUponSelect ) {
 				Back();
 			}
 		}
