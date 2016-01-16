@@ -72,7 +72,9 @@ namespace Hover.Common.Edit.Items {
 			
 			if ( isHiddenOpen ) {
 				EditorGUILayout.BeginVertical(vVertStyle);
+				GUI.enabled = false;
 				DrawHiddenItems();
+				GUI.enabled = true;
 				EditorGUILayout.EndVertical();
 			}
 		}
@@ -81,11 +83,9 @@ namespace Hover.Common.Edit.Items {
 		protected virtual void DrawHiddenItems() {
 			var t = (HoverBaseItem)target;
 			
-			GUI.enabled = false;
 			EditorGUILayout.IntField("Auto ID", t.Item.AutoId);
 			EditorGUILayout.Toggle("Is Ancestry Enabled", t.Item.IsAncestryEnabled);
 			EditorGUILayout.Toggle("Is Ancestry Visible", t.Item.IsAncestryVisible);
-			GUI.enabled = true;
 		}
 		
 		

@@ -22,7 +22,7 @@ namespace Hover.Common.Edit.Items {
 			string onValChangeName = GetPropertyName(() => t.OnValueChanged);
 			
 			vOnValueChangedProp = serializedObject.FindProperty(onValChangeName);
-			vValueLabel = "Value";
+			vValueLabel = "Bool Value";
 		}
 		
 		

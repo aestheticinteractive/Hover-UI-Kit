@@ -13,8 +13,6 @@ namespace Hover.Common.Edit.Items {
 		private SerializedProperty vOnSelectedProp;
 		private SerializedProperty vOnDeselectedProp;
 		
-		protected bool vHideNavBack;
-
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -58,10 +56,8 @@ namespace Hover.Common.Edit.Items {
 			
 			var t = (HoverSelectableItem)target;
 			
-			GUI.enabled = false;
 			EditorGUILayout.Toggle("Is Sticky-Selected", t.Item.IsStickySelected);
 			EditorGUILayout.Toggle("Allow Selection", t.Item.AllowSelection);
-			GUI.enabled = true;
 		}
 
 	}

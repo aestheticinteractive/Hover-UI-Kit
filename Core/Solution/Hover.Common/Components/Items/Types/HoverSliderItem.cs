@@ -10,8 +10,6 @@ namespace Hover.Common.Components.Items.Types {
 
 		public new ISliderItem Item { get; private set; }
 
-		//TODO: Disable the "Value" property in the inspector
-
 		public int Ticks = 3;
 		public int Snaps = 0;
 		public float RangeValue = 0;
@@ -19,11 +17,6 @@ namespace Hover.Common.Components.Items.Types {
 		public float RangeMax = 100;
 		public bool AllowJump = false;
 		public SliderItem.FillType FillStartingPoint = SliderItem.FillType.MinimumValue;
-
-		private float SnappedValue;
-		private string HoverValue;
-		private string HoverSnappedValue;
-		private float RangeSnappedValue;
 
 		private readonly ValueBinder<int> vBindTicks;
 		private readonly ValueBinder<int> vBindSnaps;
@@ -97,12 +90,6 @@ namespace Hover.Common.Components.Items.Types {
 			vBindMax.UpdateValuesIfChanged(Item.RangeMax, RangeMax, pForceUpdate);
 			vBindJump.UpdateValuesIfChanged(Item.AllowJump, AllowJump, pForceUpdate);
 			vBindFill.UpdateValuesIfChanged(Item.FillStartingPoint, FillStartingPoint, pForceUpdate);
-
-			SnappedValue = Item.SnappedValue;
-			HoverValue = Item.HoverValue+"";
-			HoverSnappedValue = Item.HoverSnappedValue+"";
-			RangeValue = Item.RangeValue;
-			RangeSnappedValue = Item.RangeSnappedValue;
 		}
 
 	}
