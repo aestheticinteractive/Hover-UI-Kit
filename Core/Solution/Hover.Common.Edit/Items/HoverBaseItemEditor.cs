@@ -9,15 +9,9 @@ namespace Hover.Common.Edit.Items {
 	[CustomEditor(typeof(HoverBaseItem))]
 	public abstract class HoverBaseItemEditor : Editor {
 
-		private bool vIsEventOpen;
-		private bool vIsReadOnlyOpen;
-		private GUIStyle vVertStyle;
+		protected bool vIsHiddenOpen;
+		protected GUIStyle vVertStyle;
 		
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public HoverBaseItemEditor() {
-		}
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -42,22 +36,8 @@ namespace Hover.Common.Edit.Items {
 		/*--------------------------------------------------------------------------------------------*/
 		protected virtual void DrawItems() {
 			DrawMainItems();
-			
-			vIsEventOpen = EditorGUILayout.Foldout(vIsEventOpen, "Events");
-			
-			if ( vIsEventOpen ) {
-				EditorGUILayout.BeginVertical(vVertStyle);
-				DrawEventItems();
-				EditorGUILayout.EndVertical();
-			}
-			
-			vIsReadOnlyOpen = EditorGUILayout.Foldout(vIsReadOnlyOpen, "Read-Only");
-			
-			if ( vIsReadOnlyOpen ) {
-				EditorGUILayout.BeginVertical(vVertStyle);
-				DrawHiddenItems();
-				EditorGUILayout.EndVertical();
-			}
+			DrawEventItemGroup();
+			DrawHiddenItemGroup();
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
@@ -73,9 +53,20 @@ namespace Hover.Common.Edit.Items {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		protected virtual void DrawEventItems() {
+		protected virtual void DrawEventItemGroup() {
 		}
-				
+			
+		/*--------------------------------------------------------------------------------------------*/
+		protected virtual void DrawHiddenItemGroup() {
+			vIsHiddenOpen = EditorGUILayout.Foldout(vIsHiddenOpen, "Read-Only");
+			
+			if ( vIsHiddenOpen ) {
+				EditorGUILayout.BeginVertical(vVertStyle);
+				DrawHiddenItems();
+				EditorGUILayout.EndVertical();
+			}
+		}
+		
 		/*--------------------------------------------------------------------------------------------*/
 		protected virtual void DrawHiddenItems() {
 			var t = (HoverBaseItem)target;
