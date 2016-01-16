@@ -10,7 +10,23 @@ namespace Hover.Common.Edit.Items {
 	public abstract class HoverSelectableItemEditor : HoverBaseItemEditor {
 	
 		private bool vIsEventOpen;
+		private SerializedProperty vOnSelectedProp;
+		private SerializedProperty vOnDeselectedProp;
 
+		
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public override void OnEnable() {
+			base.OnEnable();
+			
+			var t = (HoverSelectableItem)target;
+			string onSelName = GetPropertyName(() => t.OnSelected);
+			string onDeselName = GetPropertyName(() => t.OnDeselected);
+			
+			vOnSelectedProp = serializedObject.FindProperty(onSelName);
+			vOnDeselectedProp = serializedObject.FindProperty(onDeselName);
+		}
+		
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -38,8 +54,8 @@ namespace Hover.Common.Edit.Items {
 
 		/*--------------------------------------------------------------------------------------------*/
 		protected virtual void DrawEventItems() {
-			//public SelectedEventHandler OnSelected;
-			//public SelectedEventHandler OnDeselected;
+			EditorGUILayout.PropertyField(vOnSelectedProp);
+			EditorGUILayout.PropertyField(vOnDeselectedProp);
 		}
 				
 		/*--------------------------------------------------------------------------------------------*/
@@ -49,7 +65,7 @@ namespace Hover.Common.Edit.Items {
 			var t = (HoverSelectableItem)target;
 			
 			GUI.enabled = false;
-			EditorGUILayout.Toggle("Is Sticky Selected", t.Item.IsStickySelected);
+			EditorGUILayout.Toggle("Is Sticky-Selected", t.Item.IsStickySelected);
 			EditorGUILayout.Toggle("Allow Selection", t.Item.AllowSelection);
 			GUI.enabled = true;
 		}

@@ -13,9 +13,7 @@ namespace Hover.Common.Components.Items {
 		
 		public new ISelectableItem Item { get; private set; }
 
-		protected bool IsStickySelected;
-		protected bool AllowSelection;
-		public bool NavigateBackUponSelect = false;
+		public bool NavigateBackUponSelect;
 		public SelectedEventHandler OnSelected;
 		public SelectedEventHandler OnDeselected;
 
@@ -56,8 +54,6 @@ namespace Hover.Common.Components.Items {
 		protected override void UpdateAllValues(bool pForceUpdate=false) {
 			base.UpdateAllValues(pForceUpdate);
 
-			IsStickySelected = Item.IsStickySelected;
-			AllowSelection = Item.AllowSelection;
 			vBindBack.UpdateValuesIfChanged(
 				Item.NavigateBackUponSelect, NavigateBackUponSelect, pForceUpdate);
 		}

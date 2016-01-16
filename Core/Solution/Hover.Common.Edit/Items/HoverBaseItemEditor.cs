@@ -1,3 +1,5 @@
+using System;
+using System.Linq.Expressions;
 using Hover.Common.Components.Items;
 using Hover.Common.Components.Items.Types;
 using UnityEditor;
@@ -15,7 +17,7 @@ namespace Hover.Common.Edit.Items {
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void OnEnable() {
+		public virtual void OnEnable() {
 			vVertStyle = new GUIStyle();
 			vVertStyle.padding = new RectOffset(16, 0, 0, 0);
 		}
@@ -58,7 +60,7 @@ namespace Hover.Common.Edit.Items {
 			
 		/*--------------------------------------------------------------------------------------------*/
 		protected virtual void DrawHiddenItemGroup() {
-			vIsHiddenOpen = EditorGUILayout.Foldout(vIsHiddenOpen, "Read-Only");
+			vIsHiddenOpen = EditorGUILayout.Foldout(vIsHiddenOpen, "Info");
 			
 			if ( vIsHiddenOpen ) {
 				EditorGUILayout.BeginVertical(vVertStyle);
@@ -76,6 +78,13 @@ namespace Hover.Common.Edit.Items {
 			EditorGUILayout.Toggle("Is Ancestry Enabled", t.Item.IsAncestryEnabled);
 			EditorGUILayout.Toggle("Is Ancestry Visible", t.Item.IsAncestryVisible);
 			GUI.enabled = true;
+		}
+		
+		
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		protected string GetPropertyName<T>(Expression<Func<T>> pPropExpr) {
+			return (pPropExpr.Body as MemberExpression).Member.Name;
 		}
 
 	}
