@@ -5,7 +5,7 @@ namespace Hover.Common.Edit.Items.Types {
 
 	/*================================================================================================*/
 	[CustomEditor(typeof(HoverRadioItem))]
-	public class HoverRadiotemEditor : HoverSelectableItemBoolEditor {
+	public class HoverRadioItemEditor : HoverSelectableItemBoolEditor {
 		
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////

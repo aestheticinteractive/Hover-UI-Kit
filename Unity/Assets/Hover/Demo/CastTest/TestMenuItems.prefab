@@ -41,9 +41,9 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400004}
-  - 114: {fileID: 11432196}
+  - 114: {fileID: 11463882}
   m_Layer: 0
-  m_Name: Text
+  m_Name: Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57,9 +57,9 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400006}
-  - 114: {fileID: 11420042}
+  - 114: {fileID: 11404444}
   m_Layer: 0
-  m_Name: F
+  m_Name: Sticky
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -276,6 +276,38 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &136860
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 447260}
+  - 114: {fileID: 11420042}
+  m_Layer: 0
+  m_Name: F
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &188864
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 402774}
+  - 114: {fileID: 11432196}
+  m_Layer: 0
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &400000
 Transform:
   m_ObjectHideFlags: 1
@@ -310,11 +342,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100004}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: -0}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400022}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!4 &400006
 Transform:
   m_ObjectHideFlags: 1
@@ -326,7 +358,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400008}
-  m_RootOrder: 2
+  m_RootOrder: 3
 --- !u!4 &400008
 Transform:
   m_ObjectHideFlags: 1
@@ -339,6 +371,7 @@ Transform:
   m_Children:
   - {fileID: 400012}
   - {fileID: 400000}
+  - {fileID: 447260}
   - {fileID: 400006}
   m_Father: {fileID: 400016}
   m_RootOrder: 1
@@ -431,6 +464,7 @@ Transform:
   - {fileID: 400020}
   - {fileID: 400018}
   - {fileID: 400024}
+  - {fileID: 402774}
   - {fileID: 400004}
   m_Father: {fileID: 400016}
   m_RootOrder: 0
@@ -496,6 +530,30 @@ Transform:
   m_Children: []
   m_Father: {fileID: 400028}
   m_RootOrder: 1
+--- !u!4 &402774
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 188864}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 400022}
+  m_RootOrder: 3
+--- !u!4 &447260
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 136860}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 400008}
+  m_RootOrder: 2
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -610,6 +668,34 @@ MonoBehaviour:
   SliderTrackColor: {r: .100000001, g: .100000001, b: .100000001, a: .5}
   SliderFillColor: {r: .676470578, g: .662337422, b: .164143592, a: .501960814}
   SliderTickColor: {r: 1, g: 1, b: 1, a: .200000003}
+--- !u!114 &11404444
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1467700699, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Id: 
+  Label: Sticky
+  Width: 1
+  Height: 1
+  IsEnabled: 1
+  IsVisible: 1
+  NavigateBackUponSelect: 0
+  OnSelected:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
+      Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+  OnDeselected:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
+      Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!114 &11408020
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -646,6 +732,7 @@ MonoBehaviour:
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
   Ticks: 6
   Snaps: 6
+  RangeValue: 0
   RangeMin: 0
   RangeMax: 100
   AllowJump: 1
@@ -686,6 +773,7 @@ MonoBehaviour:
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
   Ticks: 0
   Snaps: 0
+  RangeValue: 0
   RangeMin: 0
   RangeMax: 1
   AllowJump: 1
@@ -764,7 +852,7 @@ MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100006}
+  m_GameObject: {fileID: 136860}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 680041219, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
@@ -827,7 +915,7 @@ MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100004}
+  m_GameObject: {fileID: 188864}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1339441498, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
@@ -910,6 +998,7 @@ MonoBehaviour:
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
   Ticks: 3
   Snaps: 0
+  RangeValue: 0
   RangeMin: -1
   RangeMax: 1
   AllowJump: 1
@@ -1012,10 +1101,39 @@ MonoBehaviour:
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
   Ticks: 0
   Snaps: 0
+  RangeValue: 0
   RangeMin: 0
   RangeMax: 1000
   AllowJump: 0
   FillStartingPoint: 0
+--- !u!114 &11463882
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1292171550, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Id: 
+  Label: Back
+  Width: 1
+  Height: 1
+  IsEnabled: 1
+  IsVisible: 1
+  NavigateBackUponSelect: 1
+  OnSelected:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
+      Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+  OnDeselected:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
+      Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!114 &11467716
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1114,6 +1232,7 @@ MonoBehaviour:
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
   Ticks: 0
   Snaps: 0
+  RangeValue: 0
   RangeMin: 0
   RangeMax: 1
   AllowJump: 1

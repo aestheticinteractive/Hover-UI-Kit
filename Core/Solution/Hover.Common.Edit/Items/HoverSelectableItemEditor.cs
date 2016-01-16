@@ -12,6 +12,8 @@ namespace Hover.Common.Edit.Items {
 		private bool vIsEventOpen;
 		private SerializedProperty vOnSelectedProp;
 		private SerializedProperty vOnDeselectedProp;
+		
+		protected bool vHideNavBack;
 
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -35,8 +37,10 @@ namespace Hover.Common.Edit.Items {
 			
 			var t = (HoverSelectableItem)target;
 			
-			t.NavigateBackUponSelect = EditorGUILayout.Toggle(
-				"Navigate Back Upon Select", t.NavigateBackUponSelect);
+			if ( !vHideNavBack ) {
+				t.NavigateBackUponSelect = EditorGUILayout.Toggle(
+					"Navigate Back Upon Select", t.NavigateBackUponSelect);
+			}
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/

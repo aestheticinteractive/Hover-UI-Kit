@@ -4,15 +4,15 @@ using UnityEditor;
 namespace Hover.Common.Edit.Items.Types {
 
 	/*================================================================================================*/
-	[CustomEditor(typeof(HoverCheckboxItem))]
-	public class HoverCheckboxItemEditor : HoverSelectableItemBoolEditor {
-
+	[CustomEditor(typeof(HoverParentItem))]
+	public class HoverParentEditor : HoverSelectableItemEditor {
+		
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public override void OnEnable() {
 			base.OnEnable();
-			vValueLabel = "Checkbox Value";
+			vHideNavBack = true;
 		}
 		
 	}
