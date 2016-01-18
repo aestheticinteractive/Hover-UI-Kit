@@ -29,12 +29,12 @@ namespace Hover.Common.Items.Types {
 		/*--------------------------------------------------------------------------------------------*/
 		public SliderItem() {
 			ValueToLabel = (s => {
-				if ( base.Label == vPrevLabel && s.RangeSnappedValue == vPrevSnappedValue ) {
+				if ( base.Label == vPrevLabel && s.SnappedRangeValue == vPrevSnappedValue ) {
 					return vPrevValueToLabel;
 				}
 				
 				vPrevLabel = base.Label;
-				vPrevSnappedValue = s.RangeSnappedValue;
+				vPrevSnappedValue = s.SnappedRangeValue;
 				vPrevValueToLabel = vPrevLabel+": "+Math.Round(vPrevSnappedValue*10)/10f; //GC_ALLOC
 				return vPrevValueToLabel;
 			});
@@ -71,11 +71,27 @@ namespace Hover.Common.Items.Types {
 				base.Value = Math.Max(0, Math.Min(1, value));
 			}
 		}
+		
+		
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public float RangeValue {
+			get {
+				return Value*(RangeMax-RangeMin)+RangeMin;
+			}
+		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public float SnappedValue {
 			get {
 				return CalcSnappedValue(Value);
+			}
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public float SnappedRangeValue {
+			get {
+				return SnappedValue*(RangeMax-RangeMin)+RangeMin;
 			}
 		}
 
@@ -102,20 +118,6 @@ namespace Hover.Common.Items.Types {
 				}
 
 				return CalcSnappedValue((float)HoverValue);
-			}
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public float RangeValue {
-			get {
-				return Value*(RangeMax-RangeMin)+RangeMin;
-			}
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public float RangeSnappedValue {
-			get {
-				return SnappedValue*(RangeMax-RangeMin)+RangeMin;
 			}
 		}
 

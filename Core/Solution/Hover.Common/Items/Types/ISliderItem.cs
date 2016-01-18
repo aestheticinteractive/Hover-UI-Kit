@@ -14,11 +14,11 @@ namespace Hover.Common.Items.Types {
 		bool AllowJump { get; set; }
 		SliderItem.FillType FillStartingPoint { get; set; }
 
+		float RangeValue { get; }
 		float SnappedValue { get; }
+		float SnappedRangeValue { get; }
 		float? HoverValue { get; set; }
 		float? HoverSnappedValue { get; }
-		float RangeValue { get; }
-		float RangeSnappedValue { get; }
 
 	}
 

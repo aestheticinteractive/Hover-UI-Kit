@@ -12,7 +12,6 @@ namespace Hover.Common.Components.Items.Types {
 
 		public int Ticks = 3;
 		public int Snaps = 0;
-		public float RangeValue = 0;
 		public float RangeMin = 0;
 		public float RangeMax = 100;
 		public bool AllowJump = false;
@@ -69,7 +68,6 @@ namespace Hover.Common.Components.Items.Types {
 			);
 			
 			vBlockBaseLabelBinding = true;
-			vBlockBaseValueBinding = true;
 		}
 
 
@@ -78,9 +76,6 @@ namespace Hover.Common.Components.Items.Types {
 		protected override void UpdateAllValues(bool pForceUpdate=false) {
 			base.UpdateAllValues(pForceUpdate);
 
-			float value = Mathf.InverseLerp(RangeMin, RangeMax, RangeValue);
-			vBindValue.UpdateValuesIfChanged(Item.Value, value, pForceUpdate);
-			
 			//Reset label using "BaseLabel" due to the slider's dynamic "Label" string
 			vBindLabel.UpdateValuesIfChanged(Item.BaseLabel, Label, pForceUpdate);
 

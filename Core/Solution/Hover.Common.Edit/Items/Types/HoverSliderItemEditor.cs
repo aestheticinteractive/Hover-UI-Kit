@@ -1,14 +1,13 @@
 using Hover.Common.Components.Items.Types;
-using UnityEditor;
 using Hover.Common.Items.Types;
+using UnityEditor;
+using UnityEngine;
 
 namespace Hover.Common.Edit.Items.Types {
 
 	/*================================================================================================*/
 	[CustomEditor(typeof(HoverSliderItem))]
 	public class HoverSliderItemEditor : HoverSelectableItemEditor {
-	
-		//TOOD: RangeValue slider and the "Hover" hidden items don't update in realtime
 	
 		private SerializedProperty vOnValueChangedProp;
 
@@ -31,11 +30,13 @@ namespace Hover.Common.Edit.Items.Types {
 			base.DrawMainItems();
 			
 			var t = (HoverSliderItem)target;
+			float rangeValue = Mathf.Lerp(t.RangeMin, t.RangeMax, t.Value);
 			
 			t.RangeMin = EditorGUILayout.FloatField("Slider Range Min", t.RangeMin);
 			t.RangeMax = EditorGUILayout.FloatField("Slider Range Max", t.RangeMax);
-			t.RangeValue = EditorGUILayout.Slider(
-				"Slider Range Value", t.RangeValue, t.RangeMin, t.RangeMax);
+			rangeValue = EditorGUILayout.Slider(
+				"Slider Range Value", rangeValue, t.RangeMin, t.RangeMax);
+			t.Value = Mathf.InverseLerp(t.RangeMin, t.RangeMax, rangeValue);
 			t.Ticks = EditorGUILayout.IntField("Slider Ticks", t.Ticks);
 			t.Snaps = EditorGUILayout.IntField("Slider Snaps", t.Snaps);
 			t.AllowJump = EditorGUILayout.Toggle("Slider Allow Jump", t.AllowJump);
@@ -58,7 +59,7 @@ namespace Hover.Common.Edit.Items.Types {
 			
 			EditorGUILayout.FloatField("Slider Value", t.Item.Value);
 			EditorGUILayout.FloatField("Slider Snapped Value", t.Item.SnappedValue);
-			EditorGUILayout.FloatField("Slider Range Snapped Value", t.Item.RangeSnappedValue);
+			EditorGUILayout.FloatField("Slider Snapped Range Value", t.Item.SnappedRangeValue);
 			EditorGUILayout.TextField("Slider Hover Value", t.Item.HoverValue+"");
 			EditorGUILayout.TextField("Slider Hover Snapped Value", t.Item.HoverSnappedValue+"");
 		}
