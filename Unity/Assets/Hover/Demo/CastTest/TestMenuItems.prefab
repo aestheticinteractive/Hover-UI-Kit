@@ -139,6 +139,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400016}
   - 114: {fileID: 11400020}
+  - 114: {fileID: 11466890}
   m_Layer: 0
   m_Name: TestMenuItems
   m_TagString: Untagged
@@ -687,12 +688,34 @@ MonoBehaviour:
   IsVisible: 1
   OnSelected:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11466890}
+        m_MethodName: HandleItemSelected
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselected:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11466890}
+        m_MethodName: HandleItemDeselected
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!114 &11408020
@@ -826,7 +849,18 @@ MonoBehaviour:
   IsVisible: 1
   OnSelected:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11466890}
+        m_MethodName: HandleItemSelected
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselected:
@@ -837,7 +871,18 @@ MonoBehaviour:
   Value: 0
   OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11466890}
+        m_MethodName: HandleItemValueChangedBool
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItemBool+ValueChangedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!114 &11420042
@@ -1045,7 +1090,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  Value: 0
+  Value: 1
   OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1118,6 +1163,17 @@ MonoBehaviour:
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
   NavigateBackUponSelect: 1
+--- !u!114 &11466890
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1744cd28f322e40c2bc43b236fea07a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11467716
 MonoBehaviour:
   m_ObjectHideFlags: 1

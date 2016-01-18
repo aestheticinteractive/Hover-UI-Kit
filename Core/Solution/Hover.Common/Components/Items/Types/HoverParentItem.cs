@@ -8,8 +8,6 @@ namespace Hover.Common.Components.Items.Types {
 
 		public new IParentItem Item { get; private set; }
 
-		//TODO: hide the NavigateBackUponSelect property
-		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
