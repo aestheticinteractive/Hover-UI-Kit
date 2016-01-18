@@ -18,8 +18,8 @@ namespace Hover.Cast.Items {
 		public class ItemSelectionEventHandler : UnityEvent<IItemGroup, ISelectableItem> {}
 		
 		public string Title = "Hovercast VR";
-		public LevelChangeEventHandler OnLevelChange;
-		public ItemSelectionEventHandler OnItemSelection;
+		public LevelChangeEventHandler OnLevelChanged;
+		public ItemSelectionEventHandler OnItemSelected;
 		
 		private readonly ValueBinder<string> vBindTitle;
 		private IItemHierarchy vRoot;
@@ -55,15 +55,15 @@ namespace Hover.Cast.Items {
 			var root = new ItemHierarchy();
 			root.Build(rootLevel);
 			
-			root.OnLevelChange += (d => {
-				if ( OnLevelChange != null ) {
-					OnLevelChange.Invoke(d);
+			root.OnLevelChanged += (d => {
+				if ( OnLevelChanged != null ) {
+					OnLevelChanged.Invoke(d);
 				}
 			});
 			
-			root.OnItemSelection += ((g,i) => {
-				if ( OnItemSelection != null ) {
-					OnItemSelection.Invoke(g, i);
+			root.OnItemSelected += ((g,i) => {
+				if ( OnItemSelected != null ) {
+					OnItemSelected.Invoke(g, i);
 				}
 			});
 			

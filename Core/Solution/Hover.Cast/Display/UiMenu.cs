@@ -35,7 +35,7 @@ namespace Hover.Cast.Display {
 			vUiArc = arcObj.AddComponent<UiArc>();
 			vUiArc.Build(vState.FullMenu, pItemVisualSettingsProv);
 
-			vState.OnSideChange += HandleSideChange;
+			vState.OnSideChanged += HandleSideChange;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

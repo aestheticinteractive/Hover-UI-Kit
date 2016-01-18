@@ -1,12 +1,12 @@
-﻿using Hover.Common.Items.Types;
+using Hover.Common.Items.Types;
 
 namespace Hover.Common.Items.Groups {
 
 	/*================================================================================================*/
 	public interface IItemHierarchy { 
 
-		event ItemEvents.HierarchyLevelChangedHandler OnLevelChange;
-		event ItemEvents.GroupItemSelectedHandler OnItemSelection;
+		event ItemEvents.HierarchyLevelChangedHandler OnLevelChanged;
+		event ItemEvents.GroupItemSelectedHandler OnItemSelected;
 
 		string Title { get; set; }
 		IItemGroup CurrentLevel { get; }

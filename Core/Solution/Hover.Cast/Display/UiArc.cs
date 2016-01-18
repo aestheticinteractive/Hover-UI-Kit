@@ -27,7 +27,7 @@ namespace Hover.Cast.Display {
 			vMenuState = pMenu;
 			vVisualSettingsProv = pVisualSettingsProv;
 
-			vMenuState.OnLevelChange += HandleLevelChange;
+			vMenuState.OnLevelChanged += HandleLevelChange;
 			UpdateAfterSideChange();
 		}
 

@@ -16,7 +16,7 @@ namespace Hover.Cast.State {
 	public class MenuState : IHovercastMenuState {
 
 		public delegate void LevelChangeHandler(int pDirection);
-		public event LevelChangeHandler OnLevelChange;
+		public event LevelChangeHandler OnLevelChanged;
 
 		public bool IsInputAvailable { get; private set; }
 		public bool IsOnLeftSide { get; private set; }
@@ -51,9 +51,9 @@ namespace Hover.Cast.State {
 			vPalmItem = new BaseItemState(vItemHierarchy.NavigateBackItem, pInteractSettings);
 			vCurrentCursors = new List<ICursorState>();
 
-			OnLevelChange += (d => {});
+			OnLevelChanged += (d => {});
 
-			vItemHierarchy.OnLevelChange += HandleLevelChange;
+			vItemHierarchy.OnLevelChanged += HandleLevelChange;
 			HandleLevelChange(0);
 		}
 
@@ -204,7 +204,7 @@ namespace Hover.Cast.State {
 			}
 
 			vAllItems.Add(vPalmItem);
-			OnLevelChange(pDirection);
+			OnLevelChanged(pDirection);
 		}
 
 	}

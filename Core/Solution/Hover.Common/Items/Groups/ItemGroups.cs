@@ -6,7 +6,7 @@ namespace Hover.Common.Items.Groups {
 	/*================================================================================================*/
 	public class ItemGroups : IItemGroups {
 
-		public event ItemEvents.GroupItemSelectedHandler OnItemSelection;
+		public event ItemEvents.GroupItemSelectedHandler OnItemSelected;
 
 		public string Title { get; set; }
 		public object DisplayContainer { get; set; }
@@ -24,7 +24,7 @@ namespace Hover.Common.Items.Groups {
 			vIsEnabled = true;
 			vIsVisible = true;
 			
-			OnItemSelection += ((l,i) => {});
+			OnItemSelected += ((l,i) => {});
 		}
 
 
@@ -133,7 +133,7 @@ namespace Hover.Common.Items.Groups {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleItemSelected(IItemGroup pGroup, ISelectableItem pItem) {
-			OnItemSelection(pGroup, pItem);
+			OnItemSelected(pGroup, pItem);
 		}
 
 	}

@@ -19,7 +19,7 @@ namespace Hover.Cast.State {
 			new EnumIntKeyComparer<HovercastCursorType>(((a, b) => (a == b)), (a => (int)a));
 
 		public delegate void SideChangeHandler();
-		public event SideChangeHandler OnSideChange;
+		public event SideChangeHandler OnSideChanged;
 
 		public MenuState FullMenu { get; private set; }
 		public Transform BaseTransform { get; private set; }
@@ -74,7 +74,7 @@ namespace Hover.Cast.State {
 			vRightCursorConvertMap.Add(HovercastCursorType.Pinky, CursorType.RightPinky);
 			vRightCursorConvertMap.Add(HovercastCursorType.Look, CursorType.Look);
 
-			OnSideChange += (() => {});
+			OnSideChanged += (() => {});
 		}
 
 
@@ -134,7 +134,7 @@ namespace Hover.Cast.State {
 			if ( isMenuOnLeft != vCurrIsMenuOnLeftSide ) {
 				vCurrIsMenuOnLeftSide = isMenuOnLeft;
 				FullMenu.ResetAllItemCursorInteractions();
-				OnSideChange();
+				OnSideChanged();
 			}
 		}
 

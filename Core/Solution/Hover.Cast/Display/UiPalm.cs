@@ -45,7 +45,7 @@ namespace Hover.Cast.Display {
 
 			////
 
-			vMenuState.OnLevelChange += HandleLevelChange;
+			vMenuState.OnLevelChanged += HandleLevelChange;
 			Rebuild();
 		}
 

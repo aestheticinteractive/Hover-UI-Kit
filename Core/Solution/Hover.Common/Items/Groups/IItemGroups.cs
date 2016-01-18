@@ -3,7 +3,7 @@
 	/*================================================================================================*/
 	public interface IItemGroups { 
 
-		event ItemEvents.GroupItemSelectedHandler OnItemSelection;
+		event ItemEvents.GroupItemSelectedHandler OnItemSelected;
 
 		string Title { get; }
 		object DisplayContainer { get; }

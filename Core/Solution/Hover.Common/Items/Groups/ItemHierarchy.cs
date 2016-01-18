@@ -8,8 +8,8 @@ namespace Hover.Common.Items.Groups {
 
 		public const string NavigateBackItemId = "__NavigateBackItem__";
 
-		public event ItemEvents.HierarchyLevelChangedHandler OnLevelChange;
-		public event ItemEvents.GroupItemSelectedHandler OnItemSelection;
+		public event ItemEvents.HierarchyLevelChangedHandler OnLevelChanged;
+		public event ItemEvents.GroupItemSelectedHandler OnItemSelected;
 
 		public string Title { get; set; }
 		public SelectorItem NavigateBackItem { get; private set; }
@@ -31,8 +31,8 @@ namespace Hover.Common.Items.Groups {
 			NavigateBackItem.Label = "Back";
 			NavigateBackItem.OnSelected += HandleNavigateBackItemSelected;
 
-			OnLevelChange += (d => {});
-			OnItemSelection += ((l,i) => {});
+			OnLevelChanged += (d => {});
+			OnItemSelected += ((l,i) => {});
 		}
 
 
@@ -79,7 +79,7 @@ namespace Hover.Common.Items.Groups {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void HandleItemSelected(IItemGroup pLevel, ISelectableItem pItem) {
-			OnItemSelection(pLevel, pItem);
+			OnItemSelected(pLevel, pItem);
 
 			IParentItem parItem = (pItem as IParentItem);
 			ISelectorItem selectorItem = (pItem as ISelectorItem);
@@ -114,7 +114,7 @@ namespace Hover.Common.Items.Groups {
 
 			NavigateBackItem.IsEnabled = (vHistory.Count > 0);
 
-			OnLevelChange(pDirection);
+			OnLevelChanged(pDirection);
 		}
 
 	}
