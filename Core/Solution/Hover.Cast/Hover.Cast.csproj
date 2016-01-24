@@ -92,6 +92,9 @@
     <Compile Include="Display\IUiItemRenderer.cs" />
     <Compile Include="Input\Transform\InputMenu.cs" />
     <Compile Include="Input\Transform\HovercastTransformInput.cs" />
+    <Compile Include="Renderers\HovercastItemRenderers.cs" />
+    <Compile Include="Renderers\IHovercastItemRenderer.cs" />
+    <Compile Include="Renderers\Standard\HovercastStandardSelectItemRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Hover.Common\Hover.Common.csproj">
@@ -115,4 +118,8 @@
   </Target>
   -->
   <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Renderers\" />
+    <Folder Include="Renderers\Standard\" />
+  </ItemGroup>
 </Project>
