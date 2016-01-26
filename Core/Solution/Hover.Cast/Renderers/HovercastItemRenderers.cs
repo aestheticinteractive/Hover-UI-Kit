@@ -66,41 +66,49 @@ namespace Hover.Cast.Renderers {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public Type GetItemRenderer<T>() where T : IBaseItem {
-			Type itemType = typeof(T);
-			
-			if ( itemType == CheckboxItemType ) {
-				return (Checkbox == null ? DefaultCheckboxType : Checkbox.GetType());
-			}
-			
-			if ( itemType == ParentItemType ) {
-				return (Parent == null ? DefaultParentType : Checkbox.GetType());
-			}
-			
-			if ( itemType == RadioItemType ) {
-				return (Radio == null ? DefaultRadioType : Radio.GetType());
-			}
-			
-			if ( itemType == SelectorItemType ) {
-				return (Selector == null ? DefaultSelectorType : Selector.GetType());
-			}
-			
-			if ( itemType == SliderItemType ) {
-				return (Slider == null ? DefaultSliderType : Slider.GetType());
-			}
-			
-			if ( itemType == StickyItemType ) {
-				return (Sticky == null ? DefaultStickyType : Sticky.GetType());
-			}
-			
-			if ( itemType == TextItemType ) {
-				return (Text == null ? DefaultTextType : Text.GetType());
-			}
-			
-			throw new Exception("Unhandled item type: '"+itemType+"'.");
+			return GetItemRenderer(typeof(T));
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public Type GetItemRenderer(IBaseItem pItem) {
+			return GetItemRenderer(pItem.GetType());
 		}
 		
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private Type GetItemRenderer(Type pItemType) {
+			if ( pItemType == CheckboxItemType ) {
+				return (Checkbox == null ? DefaultCheckboxType : Checkbox.GetType());
+			}
+			
+			if ( pItemType == ParentItemType ) {
+				return (Parent == null ? DefaultParentType : Checkbox.GetType());
+			}
+			
+			if ( pItemType == RadioItemType ) {
+				return (Radio == null ? DefaultRadioType : Radio.GetType());
+			}
+			
+			if ( pItemType == SelectorItemType ) {
+				return (Selector == null ? DefaultSelectorType : Selector.GetType());
+			}
+			
+			if ( pItemType == SliderItemType ) {
+				return (Slider == null ? DefaultSliderType : Slider.GetType());
+			}
+			
+			if ( pItemType == StickyItemType ) {
+				return (Sticky == null ? DefaultStickyType : Sticky.GetType());
+			}
+			
+			if ( pItemType == TextItemType ) {
+				return (Text == null ? DefaultTextType : Text.GetType());
+			}
+			
+			throw new Exception("Unhandled item type: '"+pItemType+"'.");
+		}
+		
 		/*--------------------------------------------------------------------------------------------*/
 		private void TryToFillRendererProperty(MonoBehaviour pComp) {
 			if ( !pComp.isActiveAndEnabled ) {
