@@ -1,13 +1,14 @@
 using Hover.Cast.State;
 using Hover.Common.Custom;
 using Hover.Common.Items;
+using Hover.Common.Renderers;
 using Hover.Common.State;
 using UnityEngine;
 
 namespace Hover.Cast.Renderers {
 
 	/*================================================================================================*/
-	public interface IHovercastItemRenderer<T> where T : IBaseItem {
+	public interface IHovercastItemRenderer<T> : IHoverItemRenderer where T : IBaseItem {
 	
 		IHovercastMenuState MenuState { get; set; }
 		IBaseItemState ItemState { get; set; }

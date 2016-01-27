@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Hover.Common.Items;
+using Hover.Common.Renderers;
+using Hover.Common.Styles;
 using Hover.Common.Util;
 using UnityEngine;
 
@@ -122,6 +125,20 @@ namespace Hover.Common.Components.Items {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public IItemStyle GetStyle() {
+			return gameObject.GetComponents<MonoBehaviour>()
+				.OfType<IItemStyle>()
+				.FirstOrDefault();
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public IHoverItemRenderer GetRenderer() {
+			return gameObject.GetComponents<MonoBehaviour>()
+				.OfType<IHoverItemRenderer>()
+				.FirstOrDefault();
+		}
+		
 		/*--------------------------------------------------------------------------------------------*/
 		public static IBaseItem[] GetChildItems(GameObject pParentGo) {
 			Transform tx = pParentGo.transform;

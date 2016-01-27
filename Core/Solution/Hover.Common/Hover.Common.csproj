@@ -126,6 +126,9 @@
     <Compile Include="Styles\IIconStyle.cs" />
     <Compile Include="Styles\GraphicType.cs" />
     <Compile Include="Styles\IFillStyle.cs" />
+    <Compile Include="Providers\ItemProvider.cs" />
+    <Compile Include="Renderers\IHoverItemRenderer.cs" />
+    <Compile Include="Providers\IItemProvider.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -141,5 +144,7 @@
   -->
   <ItemGroup>
     <Folder Include="Styles\" />
+    <Folder Include="Providers\" />
+    <Folder Include="Renderers\" />
   </ItemGroup>
 </Project>
