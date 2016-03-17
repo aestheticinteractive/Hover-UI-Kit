@@ -94,15 +94,6 @@ namespace Hover.Demo.BoardKeys {
 				DemoRing ring = ringObj.AddComponent<DemoRing>();
 				ring.Radius = RandomUtil.Float(LightRange*0.4f)+3;
 			}
-
-			////
-			
-			GameObject ovrObj = GameObject.Find("LeapOVRPlayerController");
-
-			if ( ovrObj != null ) {
-				OVRPlayerController ovrPlayer = ovrObj.GetComponent<OVRPlayerController>();
-				ovrPlayer.SetSkipMouseRotation(true);
-			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
