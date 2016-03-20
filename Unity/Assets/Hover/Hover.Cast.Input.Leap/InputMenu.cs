@@ -41,7 +41,7 @@ namespace Hover.Cast.Input.Leap {
 			}
 
 			IsAvailable = true;
-			Position = pLeapHand.PalmPosition.ToUnityScaled();
+			Position = pLeapHand.PalmPosition.ToVector3();
 			Rotation = pLeapHand.Basis.Rotation(); //GC_ALLOC
 			Radius = 0.01f;
 
@@ -54,22 +54,27 @@ namespace Hover.Cast.Input.Leap {
 					continue;
 				}
 
-				Vector3 palmToFinger = leapFinger.TipPosition.ToUnityScaled()-Position; //GC_ALLOC
-				Bone bone = leapFinger.Bone(Bone.BoneType.TYPE_DISTAL); //GC_ALLOC
-				Quaternion boneRot = bone.Basis.Rotation(); //GC_ALLOC
+				Vector3 palmToFinger = leapFinger.TipPosition.ToVector3()-Position; //GC_ALLOC
+				//Bone bone = leapFinger.Bone(Bone.BoneType.TYPE_DISTAL); //GC_ALLOC
+				//Quaternion boneRot = bone.Basis.Rotation(); //GC_ALLOC
 
 				Radius = Math.Max(Radius, palmToFinger.sqrMagnitude);
-				Rotation = Quaternion.Slerp(Rotation, boneRot, 0.1f);
+				//TODO: fix for Orion (causes menu to "jump" at a point during finger moving to palm)
+				//Rotation = Quaternion.Slerp(Rotation, boneRot, 0.1f);
 			}
 
+			Vector3 palmNormal = pLeapHand.PalmNormal.ToVector3();
+
 			Radius = (float)Math.Sqrt(Radius);
-			Position += Rotation*Vector3.down*vSettings.DistanceFromPalm*Radius;
+			Position += palmNormal*(vSettings.DistanceFromPalm*Radius);
 
 			NavigateBackStrength = pLeapHand.GrabStrength/vSettings.NavBackGrabThreshold;
 			NavigateBackStrength = Mathf.Clamp(NavigateBackStrength, 0, 1);
 
-			DisplayStrength = Vector3.Dot(pLeapHand.PalmNormal.ToUnity(), vSettings.PalmDirection);
-			DisplayStrength = Mathf.Clamp((DisplayStrength-0.7f)/0.25f, 0, 1);
+			Vector3 palmToEyeDir = (vSettings.CameraTransform.position-Position).normalized;
+			float palmNormalDotDir = Vector3.Dot(palmNormal, palmToEyeDir);
+
+			DisplayStrength = Mathf.Clamp((palmNormalDotDir-0.7f)/0.25f, 0, 1);
 		}
 
 	}

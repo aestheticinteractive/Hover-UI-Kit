@@ -22,8 +22,8 @@ namespace Hover.Cast.Display {
 		/*--------------------------------------------------------------------------------------------*/
 		internal void Build(HovercastState pState, IItemVisualSettingsProvider pItemVisualSettingsProv){
 			vState = pState;
-			vLeftRot = Quaternion.identity;
-			vRightRot = Quaternion.AngleAxis(180, Vector3.up);
+			vLeftRot = Quaternion.AngleAxis(180, Vector3.up);
+			vRightRot = Quaternion.identity;
 
 			var palmObj = new GameObject("Palm");
 			palmObj.transform.SetParent(gameObject.transform, false);
@@ -48,8 +48,8 @@ namespace Hover.Cast.Display {
 				scale.z *= -1;
 			}
 
-			gameObject.transform.localPosition = menu.Center;
-			gameObject.transform.localRotation = menu.Rotation;
+			gameObject.transform.position = menu.Center;
+			gameObject.transform.rotation = menu.Rotation;
 			gameObject.transform.localScale = scale;
 
 			vUiArc.gameObject.transform.localRotation = (isLeft ? vLeftRot : vRightRot);

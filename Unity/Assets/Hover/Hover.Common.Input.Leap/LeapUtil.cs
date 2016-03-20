@@ -41,11 +41,6 @@ namespace Hover.Common.Input.Leap {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public static Frame GetValidLeapFrame(Controller pLeapControl) {
-			return pLeapControl.Frame(0); //GC_ALLOC;
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
 		public static Hand GetValidLeapHand(Frame pLeapFrame, bool pIsLeft) {
 			if ( pLeapFrame == null ) {
 				return null;

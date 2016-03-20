@@ -20,7 +20,8 @@ namespace Hover.Cast {
 		public HovercastItemVisualSettings DefaultItemVisualSettings;
 		public HovercastInteractionSettings InteractionSettings;
 		public HovercastInput Input;
-		
+		public Camera CenterCamera;
+
 		private HovercastState vState;
 		private UiMenu vUiMenu;
 
@@ -48,6 +49,9 @@ namespace Hover.Cast {
 				HovercastInteractionSettings>(InteractionSettings, gameObject, Domain);
 
 			Input = UnityUtil.FindComponentOrFail(Input, Domain);
+			CenterCamera = UnityUtil.FindComponentOrFail(CenterCamera, Domain);
+
+			Input.SetCameraTransform(CenterCamera.gameObject.transform);
 
 			vState = new HovercastState(ItemHierarchy.GetRoot(), Hovercursor, 
 				InteractionSettings.GetSettings(), Input, gameObject.transform);

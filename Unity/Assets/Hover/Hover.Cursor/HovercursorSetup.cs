@@ -16,7 +16,7 @@ namespace Hover.Cursor {
 
 		public HovercursorVisualSettings DefaultVisualSettings;
 		public HovercursorInput Input;
-		public Transform CameraTransform;
+		public Camera CenterCamera;
 
 		private HovercursorState vState;
 		private List<CursorType> vPrevActiveCursorTypes;
@@ -43,13 +43,10 @@ namespace Hover.Cursor {
 				HovercursorVisualSettingsStandard>(DefaultVisualSettings, gameObject, prefix);
 
 			Input = UnityUtil.FindComponentOrFail(Input, prefix);
-
-			if ( CameraTransform == null ) {
-				CameraTransform = gameObject.transform;
-			}
+			CenterCamera = UnityUtil.FindComponentOrFail(CenterCamera, prefix);
 
 			vState = new HovercursorState(gameObject.transform, Input,
-				DefaultVisualSettings, CameraTransform);
+				DefaultVisualSettings, CenterCamera.gameObject.transform);
 
 			vPrevActiveCursorTypes = new List<CursorType>();
 			vCursorMap = new Dictionary<CursorType, UiCursor>(EnumIntKeyComparer.CursorType);
@@ -69,6 +66,7 @@ namespace Hover.Cursor {
 
 			ReadOnlyCollection<CursorType> activeTypes = vState.ActiveCursorTypes;
 			ICursorSettings visualSett = DefaultVisualSettings.GetSettings();
+			Transform cameraTx = CenterCamera.gameObject.transform;
 
 			CursorTypeUtil.Exclude(vPrevActiveCursorTypes, activeTypes, vHideCursorTypes);
 			CursorTypeUtil.Exclude(activeTypes, vPrevActiveCursorTypes, vShowCursorTypes);
@@ -88,7 +86,7 @@ namespace Hover.Cursor {
 				var cursorObj = new GameObject("Cursor-"+type);
 				cursorObj.transform.SetParent(gameObject.transform, false);
 				UiCursor uiCursor = cursorObj.AddComponent<UiCursor>();
-				uiCursor.Build(cursor, visualSett, CameraTransform);
+				uiCursor.Build(cursor, visualSett, cameraTx);
 
 				vCursorMap.Add(type, uiCursor);
 				vState.SetCursorTransform(type, cursorObj.transform);

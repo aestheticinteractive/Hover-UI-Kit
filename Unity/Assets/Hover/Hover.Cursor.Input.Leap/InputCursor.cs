@@ -71,7 +71,7 @@ namespace Hover.Cursor.Input.Leap {
 			Bone bone = leapFinger.Bone(Bone.BoneType.TYPE_DISTAL); //GC_ALLOC
 
 			IsAvailable = true;
-			Position = leapFinger.TipPosition.ToUnityScaled(); //GC_ALLOC
+			Position = leapFinger.TipPosition.ToVector3(); //GC_ALLOC
 			Rotation = bone.Basis.Rotation(); //GC_ALLOC
 
 			Size = leapFinger.Width*SizeScaleFactor;
@@ -80,7 +80,7 @@ namespace Hover.Cursor.Input.Leap {
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateForPalm(Hand pLeapHand) {
 			IsAvailable = true;
-			Position = pLeapHand.PalmPosition.ToUnityScaled();
+			Position = pLeapHand.PalmPosition.ToVector3();
 			Rotation = pLeapHand.Basis.Rotation(); //GC_ALLOC
 			Size = pLeapHand.PalmWidth*SizeScaleFactor;
 		}

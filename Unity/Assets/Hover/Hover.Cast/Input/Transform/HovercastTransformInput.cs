@@ -30,6 +30,11 @@
 		public override IInputMenu GetMenu(bool pIsLeft) {
 			return (pIsLeft ? vMenuL : vMenuR);
 		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public override void SetCameraTransform(UnityEngine.Transform pCameraTx) {
+			//do nothing...
+		}
 		
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////

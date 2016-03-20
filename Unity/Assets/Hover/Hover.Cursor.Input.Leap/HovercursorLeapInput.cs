@@ -10,7 +10,7 @@ namespace Hover.Cursor.Input.Leap {
 	/*================================================================================================*/
 	public class HovercursorLeapInput : HovercursorInput {
 
-		private Controller vLeapControl;
+		private LeapProvider vLeapProvider;
 		private List<InputCursor> vCursors;
 		private Dictionary<CursorType, InputCursor> vCursorMap;
 		private Dictionary<CursorType, bool> vSideMap;
@@ -19,7 +19,7 @@ namespace Hover.Cursor.Input.Leap {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void Awake() {
-			vLeapControl = new Controller(); //GC_ALLOC: every frame
+			vLeapProvider = GetComponent<LeapProvider>();
 			vCursors = new List<InputCursor>();
 			vCursorMap = new Dictionary<CursorType, InputCursor>(EnumIntKeyComparer.CursorType);
 			vSideMap = new Dictionary<CursorType, bool>(EnumIntKeyComparer.CursorType);
@@ -29,7 +29,7 @@ namespace Hover.Cursor.Input.Leap {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public override void UpdateInput() {
-			Frame frame = LeapUtil.GetValidLeapFrame(vLeapControl);
+			Frame frame = vLeapProvider.CurrentFrame;
 			Hand leapHandL = LeapUtil.GetValidLeapHand(frame, true);
 			Hand leapHandR = LeapUtil.GetValidLeapHand(frame, false);
 
