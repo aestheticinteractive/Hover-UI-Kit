@@ -19,17 +19,15 @@ namespace Hover.Cursor.State {
 
 		private readonly IInputCursor vInputCursor;
 		private readonly ICursorSettings vSettings;
-		private readonly Transform vBaseTx;
 
 		private readonly List<IBaseItemInteractionState> vInteractItems;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public CursorState(IInputCursor pInputCursor, ICursorSettings pSettings, Transform pBaseTx) {
+		public CursorState(IInputCursor pInputCursor, ICursorSettings pSettings) {
 			vInputCursor = pInputCursor;
 			vSettings = pSettings;
-			vBaseTx = pBaseTx;
 			vInteractItems = new List<IBaseItemInteractionState>();
 
 			Type = vInputCursor.Type;
@@ -61,11 +59,6 @@ namespace Hover.Cursor.State {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public Vector3 GetWorldPosition() {
-			return vBaseTx.TransformPoint(Position);
-		}
-		
 		/*--------------------------------------------------------------------------------------------*/
 		public void ClearInteractions() {
 			vInteractItems.Clear();

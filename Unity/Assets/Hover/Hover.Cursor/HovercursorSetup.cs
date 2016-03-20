@@ -45,8 +45,8 @@ namespace Hover.Cursor {
 			Input = UnityUtil.FindComponentOrFail(Input, prefix);
 			CenterCamera = UnityUtil.FindComponentOrFail(CenterCamera, prefix);
 
-			vState = new HovercursorState(gameObject.transform, Input,
-				DefaultVisualSettings, CenterCamera.gameObject.transform);
+			vState = new HovercursorState(Input, DefaultVisualSettings,
+				CenterCamera.gameObject.transform);
 
 			vPrevActiveCursorTypes = new List<CursorType>();
 			vCursorMap = new Dictionary<CursorType, UiCursor>(EnumIntKeyComparer.CursorType);

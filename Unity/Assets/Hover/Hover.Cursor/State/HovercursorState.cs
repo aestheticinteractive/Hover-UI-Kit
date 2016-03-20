@@ -17,7 +17,6 @@ namespace Hover.Cursor.State {
 		public ReadOnlyCollection<CursorType> ActiveCursorTypes { get; private set; }
 
 		private readonly HovercursorInput vInput;
-		private readonly Transform vBaseTx;
 		private readonly Dictionary<CursorType, CursorState> vCursorStateMap;
 		private readonly List<CursorState> vCursorStates;
 		private readonly Dictionary<CursorType, Transform> vTransformMap;
@@ -31,9 +30,8 @@ namespace Hover.Cursor.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public HovercursorState(Transform pBaseTx, HovercursorInput pInput,
+		public HovercursorState(HovercursorInput pInput,
 											HovercursorVisualSettings pVisualSett, Transform pCamera) {
-			vBaseTx = pBaseTx;
 			vInput = pInput;
 
 			VisualSettings = pVisualSett;
@@ -195,7 +193,7 @@ namespace Hover.Cursor.State {
 				return;
 			}
 
-			var cursor = new CursorState(Input.GetCursor(pType), VisualSettings.GetSettings(), vBaseTx);
+			var cursor = new CursorState(Input.GetCursor(pType), VisualSettings.GetSettings());
 
 			vCursorStateMap.Add(pType, cursor);
 			vCursorStates.Add(cursor);

@@ -9,7 +9,7 @@ namespace Hover.Cursor.Input.Leap {
 	/*================================================================================================*/
 	public class InputCursor : IInputCursor {
 
-		private const float SizeScaleFactor = 1/160f;
+		private const float SizeScaleFactor = 1/0.16f;
 
 		public CursorType Type { get; private set; }
 		public bool IsAvailable { get; private set; }

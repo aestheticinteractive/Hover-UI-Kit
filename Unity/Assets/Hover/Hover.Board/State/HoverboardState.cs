@@ -188,7 +188,7 @@ namespace Hover.Board.State {
 			ICursorState cursor = pProj.Cursor;
 			CursorType cursorType = cursor.Type;
 			bool allowSelect = (cursor.IsInputAvailable && pProj.IsActive);
-			Vector3? cursorWorldPos = (allowSelect ? cursor.GetWorldPosition() : (Vector3?)null);
+			Vector3? cursorWorldPos = (allowSelect ? cursor.Position : (Vector3?)null);
 			ItemTree nearestTree = new ItemTree();
 			float nearestDist = float.MaxValue;
 

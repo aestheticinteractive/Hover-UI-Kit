@@ -43,7 +43,7 @@ namespace Hover.Board.State {
 				return;
 			}
 
-			Vector3 cursorWorldPos = Cursor.GetWorldPosition();
+			Vector3 cursorWorldPos = Cursor.Position;
 			Vector3 cursorToPanelWorldVec = pPanelTx.position-cursorWorldPos;
 			Vector3 panelWorldNormal = pPanelTx.rotation*Vector3.up;
 			float normLength = Vector3.Dot(panelWorldNormal, cursorToPanelWorldVec);

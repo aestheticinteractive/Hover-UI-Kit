@@ -47,7 +47,7 @@ namespace Hover.Cursor.Display {
 
 			Vector3 camWorld = vCameraTx.TransformPoint(Vector3.zero);
 			Vector3 camLocal = holdTx.InverseTransformPoint(camWorld);
-			holdTx.localRotation = Quaternion.FromToRotation(Vector3.down, camLocal);
+			holdTx.rotation = Quaternion.FromToRotation(Vector3.down, camLocal);
 		}
 
 	}

@@ -142,7 +142,7 @@ namespace Hover.Cast.State {
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateWithCursor(ICursorState pCursor) {
 			bool allowSelect = (pCursor.IsInputAvailable && DisplayStrength > 0);
-			Vector3? cursorWorldPos = (allowSelect ? pCursor.GetWorldPosition() : (Vector3?)null);
+			Vector3? cursorWorldPos = (allowSelect ? pCursor.Position : (Vector3?)null);
 			CursorType cursorType = pCursor.Type;
 			float nearestDist = float.MaxValue;
 
