@@ -50,17 +50,16 @@ namespace Hover.Cast.Input.Leap {
 			for ( int i = 0 ; i < leapFingers.Count ; i++ ) {
 				Finger leapFinger = leapFingers[i]; //GC_ALLOC
 
-				if ( leapFinger == null ) {
+				if ( leapFinger == null || leapFinger.Type == Finger.FingerType.TYPE_THUMB ) {
 					continue;
 				}
 
 				Vector3 palmToFinger = leapFinger.TipPosition.ToVector3()-Position; //GC_ALLOC
-				//Bone bone = leapFinger.Bone(Bone.BoneType.TYPE_DISTAL); //GC_ALLOC
-				//Quaternion boneRot = bone.Basis.Rotation(); //GC_ALLOC
+				Bone bone = leapFinger.Bone(Bone.BoneType.TYPE_INTERMEDIATE); //GC_ALLOC
+				Quaternion boneRot = bone.Basis.Rotation(); //GC_ALLOC
 
 				Radius = Math.Max(Radius, palmToFinger.sqrMagnitude);
-				//TODO: fix for Orion (causes menu to "jump" at a point during finger moving to palm)
-				//Rotation = Quaternion.Slerp(Rotation, boneRot, 0.1f);
+				Rotation = Quaternion.Slerp(Rotation, boneRot, 0.1f);
 			}
 
 			Vector3 palmNormal = pLeapHand.PalmNormal.ToVector3();
