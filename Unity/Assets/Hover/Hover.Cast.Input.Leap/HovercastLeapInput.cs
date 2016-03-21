@@ -7,24 +7,26 @@ namespace Hover.Cast.Input.Leap {
 	public class HovercastLeapInput : HovercastInput {
 
 		public float DistanceFromPalm = 0.2f;
-		public float NavigationBackGrabThreshold = 0.3f;
-		public float NavigationBackUngrabThreshold = 0.15f;
+		public float NavigationBackGrabThreshold = 0.9f;
+		public float NavigationBackUngrabThreshold = 0.5f;
 
+		private readonly InputSettings vSettings;
 		private LeapProvider vLeapProvider;
-		private InputSettings vSettings;
 		private InputMenu vMenuL;
 		private InputMenu vMenuR;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
+		public HovercastLeapInput() {
+			vSettings = new InputSettings();
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
 		public virtual void Awake() {
 			vLeapProvider = GetComponent<LeapProvider>();
-
-			vSettings = new InputSettings();
-			vSettings.DistanceFromPalm = DistanceFromPalm;
-			vSettings.NavBackGrabThreshold = NavigationBackGrabThreshold;
-			vSettings.NavBackUngrabThreshold = NavigationBackUngrabThreshold;
 
 			vMenuL = new InputMenu(true, vSettings);
 			vMenuR = new InputMenu(false, vSettings);
@@ -40,6 +42,10 @@ namespace Hover.Cast.Input.Leap {
 		/*--------------------------------------------------------------------------------------------*/
 		public override void UpdateInput() {
 			Frame leapFrame = vLeapProvider.CurrentFrame;
+
+			vSettings.DistanceFromPalm = DistanceFromPalm;
+			vSettings.NavBackGrabThreshold = NavigationBackGrabThreshold;
+			vSettings.NavBackUngrabThreshold = NavigationBackUngrabThreshold;
 
 			vMenuL.Rebuild(LeapUtil.GetValidLeapHand(leapFrame, true));
 			vMenuR.Rebuild(LeapUtil.GetValidLeapHand(leapFrame, false));

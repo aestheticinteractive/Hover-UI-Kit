@@ -130,7 +130,7 @@ namespace Hover.Cast.Display.Standard {
 		/*--------------------------------------------------------------------------------------------*/
 		public static float GetArcAlpha(IHovercastMenuState pMenuState) {
 			float alpha = 1-(float)Math.Pow(1-pMenuState.DisplayStrength, 2);
-			alpha -= (float)Math.Pow(pMenuState.NavBackStrength, 2)*0.5f;
+			alpha -= (float)Math.Pow(pMenuState.NavBackStrength, 2);
 			return Math.Max(0, alpha);
 		}
 
