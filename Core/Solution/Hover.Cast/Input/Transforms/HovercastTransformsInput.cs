@@ -1,7 +1,7 @@
-﻿namespace Hover.Cast.Input.Transform {
+﻿namespace Hover.Cast.Input.Transforms {
 
 	/*================================================================================================*/
-	public class HovercastTransformInput : HovercastInput {
+	public class HovercastTransformsInput : HovercastInput {
 
 		public bool IsAvailable = true;
 		public float DisplayStrength = 1;

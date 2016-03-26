@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Hover.Cast.Input.Transform {
+namespace Hover.Cast.Input.Transforms {
 
 	/*================================================================================================*/
 	public class InputMenu : IInputMenu {
