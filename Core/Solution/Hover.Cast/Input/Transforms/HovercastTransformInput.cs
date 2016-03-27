@@ -1,19 +1,19 @@
 ﻿namespace Hover.Cast.Input.Transforms {
 
 	/*================================================================================================*/
-	public class HovercastTransformsInput : HovercastInput {
+	public class HovercastTransformInput : HovercastInput {
 
 		public bool IsAvailable = true;
 		public float DisplayStrength = 1;
 		public float NavigateBackStrength = 0;
 
-		private InputMenu vMenuL;
-		private InputMenu vMenuR;
+		private readonly InputMenu vMenuL;
+		private readonly InputMenu vMenuR;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Awake() {
+		public HovercastTransformInput() {
 			vMenuL = new InputMenu(true);
 			vMenuR = new InputMenu(false);
 		}

@@ -102,11 +102,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400016, guid: 05d0bc45b879b9a4ca2f95cd6fe9e557, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400016, guid: 05d0bc45b879b9a4ca2f95cd6fe9e557, type: 2}
       propertyPath: m_LocalRotation.x
-      value: .707106829
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400016, guid: 05d0bc45b879b9a4ca2f95cd6fe9e557, type: 2}
       propertyPath: m_LocalRotation.y
@@ -118,15 +118,81 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400016, guid: 05d0bc45b879b9a4ca2f95cd6fe9e557, type: 2}
       propertyPath: m_LocalRotation.w
-      value: .707106829
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400016, guid: 05d0bc45b879b9a4ca2f95cd6fe9e557, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 100016, guid: 05d0bc45b879b9a4ca2f95cd6fe9e557, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 05d0bc45b879b9a4ca2f95cd6fe9e557, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &393474990
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 393474993}
+  - 114: {fileID: 393474992}
+  - 114: {fileID: 393474991}
+  m_Layer: 0
+  m_Name: MenuItems
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &393474991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 393474990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1656511418, guid: 0287263cc8027804ca949b1a81526620, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &393474992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 393474990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 118527433, guid: 0287263cc8027804ca949b1a81526620, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Title: Hovercast VR
+  OnLevelChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Cast.Items.HovercastItemHierarchy+LevelChangeEventHandler, Hover.Cast,
+      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+  OnItemSelected:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Cast.Items.HovercastItemHierarchy+ItemSelectionEventHandler,
+      Hover.Cast, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+--- !u!4 &393474993
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 393474990}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1055260292}
+  m_RootOrder: 0
 --- !u!1 &506936641
 GameObject:
   m_ObjectHideFlags: 0
@@ -137,7 +203,7 @@ GameObject:
   - 4: {fileID: 506936642}
   - 114: {fileID: 506936643}
   m_Layer: 0
-  m_Name: MenuTransformInput
+  m_Name: HovercastTransformInput
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -153,7 +219,7 @@ Transform:
   m_LocalPosition: {x: -.100000001, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1055260292}
+  m_Father: {fileID: 628534592}
   m_RootOrder: 0
 --- !u!114 &506936643
 MonoBehaviour:
@@ -163,7 +229,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 506936641}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1979011440, guid: 0287263cc8027804ca949b1a81526620, type: 3}
+  m_Script: {fileID: 174433162, guid: 0287263cc8027804ca949b1a81526620, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsAvailable: 1
@@ -194,10 +260,11 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 506936642}
   - {fileID: 1941104515}
   - {fileID: 1055260292}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
 --- !u!1 &1055260291
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,8 +273,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1055260292}
-  - 114: {fileID: 1055260293}
   - 114: {fileID: 1055260294}
+  - 114: {fileID: 1055260293}
   m_Layer: 0
   m_Name: Hovercast
   m_TagString: Untagged
@@ -225,26 +292,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 506936642}
+  - {fileID: 393474993}
   m_Father: {fileID: 628534592}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!114 &1055260293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1055260291}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 201543926, guid: 0287263cc8027804ca949b1a81526620, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ItemHierarchy: {fileID: 0}
-  Hovercursor: {fileID: 0}
-  DefaultItemVisualSettings: {fileID: 0}
-  InteractionSettings: {fileID: 0}
-  Input: {fileID: 0}
---- !u!114 &1055260294
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -261,7 +312,23 @@ MonoBehaviour:
   HighlightDistanceMax: .0700000003
   StickyReleaseDistance: .0500000007
   SelectionMilliseconds: 400
-  Cursors: 06000000
+  Cursors: 02000000
+--- !u!114 &1055260294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1055260291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 201543926, guid: 0287263cc8027804ca949b1a81526620, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InteractionSettings: {fileID: 1055260293}
+  ItemHierarchy: {fileID: 393474992}
+  Hovercursor: {fileID: 1941104514}
+  Input: {fileID: 506936643}
+  MenuDisplay: {fileID: 393474991}
 --- !u!1 &1828910545
 GameObject:
   m_ObjectHideFlags: 0
@@ -390,7 +457,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 628534592}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!114 &1941104516
 MonoBehaviour:
   m_ObjectHideFlags: 0

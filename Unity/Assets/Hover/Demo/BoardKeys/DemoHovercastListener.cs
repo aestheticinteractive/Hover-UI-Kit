@@ -36,7 +36,7 @@ namespace Hover.Demo.BoardKeys {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			IHovercastState state = vHovercastSetup.State;
+			/*IHovercastState state = vHovercastSetup.State;
 			bool enableKey = (state.Menu.DisplayStrength <= 0);
 
 			if ( vPrevEnableKey == enableKey ) {
@@ -49,7 +49,7 @@ namespace Hover.Demo.BoardKeys {
 				itemPanel.IsEnabled = enableKey;
 			}
 
-			vPrevEnableKey = enableKey;
+			vPrevEnableKey = enableKey;*/
 		}
 
 	}

@@ -83,6 +83,23 @@ namespace Hover.Common.Util {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
+		public static string GetComponentFoundText<T>(string pDomain, T pComp) where T : Component {
+			return pDomain+" | Found a "+pComp.GetType().Name+" in the '"+
+				UnityUtil.GetPath(pComp.gameObject)+"' GameObject.";
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public static string GetComponentCreatedText<T>(string pDomain, T pComp) where T : Component {
+			return pDomain+" | Created a default "+pComp.GetType().Name+" in the '"+
+				UnityUtil.GetPath(pComp.gameObject)+"' GameObject.";
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public static string GetComponentMissingText<T>(string pDomain) where T : Component {
+			return pDomain+" | Could not find a "+typeof(T).Name+".";
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
 		public static string GetPath(GameObject pObj) {
 			if ( pObj.transform.parent == null ) {
 				return "/" + pObj.name;

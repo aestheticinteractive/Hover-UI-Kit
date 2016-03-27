@@ -22,7 +22,7 @@ namespace Hover.Demo.CastCubes.Items {
 
 			Enviro = GameObject.Find(env).GetComponent<DemoEnvironment>();
 			CastSetup = GameObject.Find("Hovercast").GetComponent<HovercastSetup>();
-			ItemSett = CastSetup.DefaultItemVisualSettings;
+			ItemSett = null; //CastSetup.DefaultItemVisualSettings;
 			InteractSett = CastSetup.InteractionSettings.GetSettings();
 		}
 

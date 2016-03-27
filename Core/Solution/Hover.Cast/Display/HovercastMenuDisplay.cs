@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Hover.Cast.Display {
 
 	/*================================================================================================*/
-	public class UiMenu : MonoBehaviour {
+	public class HovercastMenuDisplay : MonoBehaviour {
 
 		public const float ScaleArcSize = 1.1f;
 
@@ -19,7 +19,7 @@ namespace Hover.Cast.Display {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		internal void Build(HovercastState pState, IItemVisualSettingsProvider pItemVisualSettingsProv){
 			vState = pState;
 			vLeftRot = Quaternion.identity;
@@ -38,7 +38,7 @@ namespace Hover.Cast.Display {
 			vState.OnSideChanged += HandleSideChange;
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		public void Update() {
 			MenuState menu = vState.FullMenu;
 			bool isLeft = menu.IsOnLeftSide;
