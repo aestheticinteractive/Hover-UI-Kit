@@ -3,6 +3,7 @@ using Hover.Cast.Display;
 using Hover.Cast.Input;
 using Hover.Cast.Items;
 using Hover.Cast.State;
+using Hover.Common.Components.Items.Types;
 using Hover.Common.Util;
 using Hover.Cursor;
 using UnityEngine;
@@ -113,6 +114,25 @@ namespace Hover.Cast {
 				itemsGo.transform.SetParent(gameObject.transform, false);
 				ItemHierarchy = itemsGo.AddComponent<HovercastItemHierarchy>();
 				Debug.Log(UnityUtil.GetComponentCreatedText(Domain, ItemHierarchy));
+
+				var itemGo = new GameObject("ItemA");
+				itemGo.transform.SetParent(itemsGo.transform, false);
+				HoverCheckboxItem item = itemGo.AddComponent<HoverCheckboxItem>();
+				item.Label = "Item A";
+				item.Value = true;
+				Debug.Log(UnityUtil.GetComponentCreatedText(Domain, item));
+
+				itemGo = new GameObject("ItemB");
+				itemGo.transform.SetParent(itemsGo.transform, false);
+				item = itemGo.AddComponent<HoverCheckboxItem>();
+				item.Label = "Item B";
+				Debug.Log(UnityUtil.GetComponentCreatedText(Domain, item));
+
+				itemGo = new GameObject("ItemC");
+				itemGo.transform.SetParent(itemsGo.transform, false);
+				item = itemGo.AddComponent<HoverCheckboxItem>();
+				item.Label = "Item C";
+				Debug.Log(UnityUtil.GetComponentCreatedText(Domain, item));
 			}
 			else {
 				Debug.Log(UnityUtil.GetComponentFoundText(Domain, ItemHierarchy));

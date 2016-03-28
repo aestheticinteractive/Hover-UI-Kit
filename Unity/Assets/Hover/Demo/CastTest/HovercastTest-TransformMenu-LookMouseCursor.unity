@@ -8,16 +8,16 @@ SceneSettings:
   m_PVSPortalsArray: []
   m_OcclusionBakeSettings:
     smallestOccluder: 5
-    smallestHole: .25
+    smallestHole: 0.25
     backfaceThreshold: 100
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 6
   m_Fog: 0
-  m_FogColor: {r: .5, g: .5, b: .5, a: 1}
+  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
-  m_FogDensity: .00999999978
+  m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0, g: 0, b: 0, a: 1}
@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 3
   m_SkyboxMaterial: {fileID: 0}
-  m_HaloStrength: .5
+  m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
   m_HaloTexture: {fileID: 0}
@@ -40,7 +40,7 @@ RenderSettings:
 --- !u!157 &4
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 5
+  serializedVersion: 6
   m_GIWorkflowMode: 1
   m_LightmapsMode: 1
   m_GISettings:
@@ -66,7 +66,7 @@ LightmapSettings:
     m_FinalGather: 0
     m_FinalGatherRayCount: 1024
     m_ReflectionCompression: 2
-  m_LightmapSnapshot: {fileID: 0}
+  m_LightingDataAsset: {fileID: 0}
   m_RuntimeCPUUsage: 25
 --- !u!196 &5
 NavMeshSettings:
@@ -74,17 +74,78 @@ NavMeshSettings:
   m_ObjectHideFlags: 0
   m_BuildSettings:
     serializedVersion: 2
-    agentRadius: .5
+    agentRadius: 0.5
     agentHeight: 2
     agentSlope: 45
-    agentClimb: .400000006
+    agentClimb: 0.4
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     accuratePlacement: 0
     minRegionArea: 2
-    cellSize: .166666657
+    cellSize: 0.16666666
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &110327215
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 110327216}
+  - 114: {fileID: 110327217}
+  m_Layer: 0
+  m_Name: ExampleItemA
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &110327216
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 110327215}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 684179727}
+  m_RootOrder: 0
+--- !u!114 &110327217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 110327215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 355198992, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Id: 
+  Label: Item A
+  Width: 1
+  Height: 1
+  IsEnabled: 1
+  IsVisible: 1
+  OnSelected:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
+      Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+  OnDeselected:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
+      Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+  Value: 0
+  OnValueChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Components.Items.HoverSelectableItemBool+ValueChangedEventHandler,
+      Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!1001 &340132160
 Prefab:
   m_ObjectHideFlags: 0
@@ -131,68 +192,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 05d0bc45b879b9a4ca2f95cd6fe9e557, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &393474990
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 393474993}
-  - 114: {fileID: 393474992}
-  - 114: {fileID: 393474991}
-  m_Layer: 0
-  m_Name: MenuItems
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &393474991
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 393474990}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1656511418, guid: 0287263cc8027804ca949b1a81526620, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &393474992
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 393474990}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 118527433, guid: 0287263cc8027804ca949b1a81526620, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Title: Hovercast VR
-  OnLevelChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Hover.Cast.Items.HovercastItemHierarchy+LevelChangeEventHandler, Hover.Cast,
-      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  OnItemSelected:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Hover.Cast.Items.HovercastItemHierarchy+ItemSelectionEventHandler,
-      Hover.Cast, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
---- !u!4 &393474993
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 393474990}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1055260292}
-  m_RootOrder: 0
 --- !u!1 &506936641
 GameObject:
   m_ObjectHideFlags: 0
@@ -215,8 +214,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 506936641}
-  m_LocalRotation: {x: .541674972, y: -.45451948, z: -.45451948, w: .541675448}
-  m_LocalPosition: {x: -.100000001, y: 0, z: 0}
+  m_LocalRotation: {x: 0.541675, y: -0.45451948, z: -0.45451948, w: 0.54167545}
+  m_LocalPosition: {x: -0.1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 628534592}
@@ -265,6 +264,71 @@ Transform:
   - {fileID: 1055260292}
   m_Father: {fileID: 0}
   m_RootOrder: 3
+--- !u!1 &684179726
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 684179727}
+  - 114: {fileID: 684179729}
+  - 114: {fileID: 684179728}
+  m_Layer: 0
+  m_Name: MenuItems
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &684179727
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 684179726}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 110327216}
+  - {fileID: 1824044843}
+  - {fileID: 1212754399}
+  m_Father: {fileID: 1055260292}
+  m_RootOrder: 0
+--- !u!114 &684179728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 684179726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1656511418, guid: 0287263cc8027804ca949b1a81526620, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &684179729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 684179726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 118527433, guid: 0287263cc8027804ca949b1a81526620, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Title: Hovercast VR
+  OnLevelChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Cast.Items.HovercastItemHierarchy+LevelChangeEventHandler, Hover.Cast,
+      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+  OnItemSelected:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Cast.Items.HovercastItemHierarchy+ItemSelectionEventHandler,
+      Hover.Cast, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!1 &1055260291
 GameObject:
   m_ObjectHideFlags: 0
@@ -292,7 +356,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 393474993}
+  - {fileID: 684179727}
   m_Father: {fileID: 628534592}
   m_RootOrder: 2
 --- !u!114 &1055260293
@@ -308,9 +372,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsMenuOnLeftSide: 1
   ApplyScaleMultipler: 1
-  HighlightDistanceMin: .0299999993
-  HighlightDistanceMax: .0700000003
-  StickyReleaseDistance: .0500000007
+  HighlightDistanceMin: 0.03
+  HighlightDistanceMax: 0.07
+  StickyReleaseDistance: 0.05
   SelectionMilliseconds: 400
   Cursors: 02000000
 --- !u!114 &1055260294
@@ -325,10 +389,132 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InteractionSettings: {fileID: 1055260293}
-  ItemHierarchy: {fileID: 393474992}
+  ItemHierarchy: {fileID: 684179729}
   Hovercursor: {fileID: 1941104514}
   Input: {fileID: 506936643}
-  MenuDisplay: {fileID: 393474991}
+  MenuDisplay: {fileID: 684179728}
+--- !u!1 &1212754398
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1212754399}
+  - 114: {fileID: 1212754400}
+  m_Layer: 0
+  m_Name: ExampleItemC
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1212754399
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1212754398}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 684179727}
+  m_RootOrder: 2
+--- !u!114 &1212754400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1212754398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 355198992, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Id: 
+  Label: Item C
+  Width: 1
+  Height: 1
+  IsEnabled: 1
+  IsVisible: 1
+  OnSelected:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
+      Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+  OnDeselected:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
+      Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+  Value: 0
+  OnValueChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Components.Items.HoverSelectableItemBool+ValueChangedEventHandler,
+      Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+--- !u!1 &1824044842
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1824044843}
+  - 114: {fileID: 1824044844}
+  m_Layer: 0
+  m_Name: ExampleItemB
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1824044843
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1824044842}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 684179727}
+  m_RootOrder: 1
+--- !u!114 &1824044844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1824044842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 355198992, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Id: 
+  Label: Item B
+  Width: 1
+  Height: 1
+  IsEnabled: 1
+  IsVisible: 1
+  OnSelected:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
+      Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+  OnDeselected:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
+      Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+  Value: 0
+  OnValueChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Components.Items.HoverSelectableItemBool+ValueChangedEventHandler,
+      Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!1 &1828910545
 GameObject:
   m_ObjectHideFlags: 0
@@ -385,7 +571,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: .100000001
+  near clip plane: 0.1
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -401,7 +587,7 @@ Camera:
   m_HDR: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
-  m_StereoSeparation: .0219999999
+  m_StereoSeparation: 0.022
   m_StereoMirrorMode: 0
 --- !u!4 &1828910550
 Transform:
@@ -410,7 +596,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1828910545}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -.200000003}
+  m_LocalPosition: {x: 0, y: 0, z: -0.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -470,9 +656,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HeadsetCameraTransform: {fileID: 1828910550}
-  CursorSize: .100000001
+  CursorSize: 0.1
   UseMouseForTesting: 1
-  MousePositionMultiplier: .400000006
+  MousePositionMultiplier: 0.4
 --- !u!1 &1972290344
 GameObject:
   m_ObjectHideFlags: 0
@@ -507,8 +693,9 @@ Light:
     m_Type: 0
     m_Resolution: -1
     m_Strength: 1
-    m_Bias: .0500000007
-    m_NormalBias: .400000006
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
@@ -527,7 +714,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1972290344}
-  m_LocalRotation: {x: .408217937, y: -.234569728, z: .109381661, w: .875426114}
+  m_LocalRotation: {x: 0.40821794, y: -0.23456973, z: 0.10938166, w: 0.8754261}
   m_LocalPosition: {x: 0, y: 8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
