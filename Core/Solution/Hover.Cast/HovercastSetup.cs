@@ -49,18 +49,6 @@ namespace Hover.Cast {
 				Input.UpdateInput();
 				//vState.UpdateAfterInput();
 			}
-			
-			////
-			
-			InteractionSettings interSett = InteractionSettings.GetSettings();
-			
-			if ( interSett.ApplyScaleMultiplier ) {
-				Vector3 worldUp = transform.TransformVector(Vector3.up);
-				interSett.ScaleMultiplier = 1/worldUp.magnitude;
-			}
-			else {
-				interSett.ScaleMultiplier = 1;
-			}
 		}
 		
 		
@@ -110,7 +98,7 @@ namespace Hover.Cast {
 			ItemHierarchy = gameObject.GetComponentInChildren<HovercastItemHierarchy>();
 			
 			if ( ItemHierarchy == null ) {
-				var itemsGo = new GameObject("MenuItems");
+				var itemsGo = new GameObject("MenuData");
 				itemsGo.transform.SetParent(gameObject.transform, false);
 				ItemHierarchy = itemsGo.AddComponent<HovercastItemHierarchy>();
 				Debug.Log(UnityUtil.GetComponentCreatedText(Domain, ItemHierarchy));
@@ -138,19 +126,31 @@ namespace Hover.Cast {
 				Debug.Log(UnityUtil.GetComponentFoundText(Domain, ItemHierarchy));
 			}
 		}
-		
+
 		/*--------------------------------------------------------------------------------------------*/
 		private void TryBuildMenuDisplay() {
 			if ( MenuDisplay != null ) {
 				return;
 			}
-			
-			MenuDisplay = ItemHierarchy.gameObject.GetComponent<HovercastMenuDisplay>();
+
+			Transform menuDispTx = gameObject.transform.FindChild("MenuDisplay");
+			GameObject menuDispGo;
+
+			if ( menuDispTx == null ) {
+				menuDispGo = new GameObject("MenuDisplay");
+				menuDispGo.transform.SetParent(gameObject.transform, false);
+			}
+			else {
+				menuDispGo = menuDispTx.gameObject;
+			}
+
+			MenuDisplay = menuDispGo.GetComponent<HovercastMenuDisplay>();
 			
 			if ( MenuDisplay == null ) {
-				MenuDisplay = ItemHierarchy.gameObject.AddComponent<HovercastMenuDisplay>();
+				MenuDisplay = menuDispGo.gameObject.AddComponent<HovercastMenuDisplay>();
+				Debug.Log(UnityUtil.GetComponentCreatedText(Domain, MenuDisplay));
 			}
-			
+
 			//MenuDisplay.Build(vState, null);
 			//vState.SetReferences(MenuDisplay.gameObject.transform);
 			//Hovercursor.State.AddDelegate(vState);

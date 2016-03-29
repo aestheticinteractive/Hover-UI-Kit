@@ -36,6 +36,19 @@ namespace Hover.Cast.Custom {
 			return vSettings;
 		}
 
+		/*--------------------------------------------------------------------------------------------*/
+		public void Update() {
+			InteractionSettings sett = GetSettings();
+
+			if ( sett.ApplyScaleMultiplier ) {
+				Vector3 worldUp = transform.TransformVector(Vector3.up);
+				sett.ScaleMultiplier = 1/worldUp.magnitude;
+			}
+			else {
+				sett.ScaleMultiplier = 1;
+			}
+		}
+
 	}
 
 }

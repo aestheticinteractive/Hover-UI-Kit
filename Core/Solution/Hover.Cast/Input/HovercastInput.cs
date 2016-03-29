@@ -8,7 +8,7 @@ namespace Hover.Cast.Input {
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public abstract void UpdateInput();
+		public abstract void UpdateInput(); //TODO: can this just use MonoBehaviour.Update()?
 
 		/*--------------------------------------------------------------------------------------------*/
 		public abstract IInputMenu GetMenu(bool pIsLeft);
