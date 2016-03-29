@@ -1,19 +1,18 @@
-﻿using Hover.Common.Items;
+﻿using Hover.Common.Items.Groups;
 using Hover.Common.Items.Types;
 
 namespace Hover.Common.Components.Items.Types {
 
 	/*================================================================================================*/
-	public class HoverParentItem : HoverSelectableItem {
+	public class HoverParentItem : HoverSelectableItem, IParentItem {
 
-		public new IParentItem Item { get; private set; }
+		public IItemGroup ChildGroup { get; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected HoverParentItem() {
-			Item = new ParentItem(() => GetChildItems(gameObject));
-			Init((SelectableItem)Item);
+		public HoverParentItem() {
+			ChildGroup = new ItemGroup(() => GetChildItems(gameObject));
 		}
 
 	}

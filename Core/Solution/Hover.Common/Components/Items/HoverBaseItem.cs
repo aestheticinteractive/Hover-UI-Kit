@@ -3,124 +3,53 @@ using System.Linq;
 using Hover.Common.Items;
 using Hover.Common.Renderers;
 using Hover.Common.Styles;
-using Hover.Common.Util;
 using UnityEngine;
 
 namespace Hover.Common.Components.Items {
 
 	/*================================================================================================*/
-	public abstract class HoverBaseItem : MonoBehaviour {
+	public abstract class HoverBaseItem : MonoBehaviour, IBaseItem {
 
-		public IBaseItem Item { get; private set; }
+		private static int ItemCount;
 
-		public string Id = "";
-		public string Label = "";
-		public float Width = 1;
-		public float Height = 1;
+		public int AutoId { get; }
 
-		public bool IsEnabled = true;
-		public bool IsVisible = true;
+		public string Id {
+			get { return vId; }
+			set { vId = value; }
+		}
 
-		protected readonly ValueBinder<string> vBindId;
-		protected readonly ValueBinder<string> vBindLabel;
-		protected readonly ValueBinder<float> vBindWidth;
-		protected readonly ValueBinder<float> vBindHeight;
+		public virtual string Label {
+			get { return vLabel; }
+			set { vLabel = value; }
+		}
 
-		protected readonly ValueBinder<bool> vBindEnabled;
-		protected readonly ValueBinder<bool> vBindVisible;
-		
-		[HideInInspector]
-		protected bool vBlockBaseLabelBinding;
+		public float Width { get; set; }
+		public float Height { get; set; }
+		public object DisplayContainer { get; set; } //TODO: move setter to an "internal" interface
 
-		private BaseItem vFullItem;
+		public bool IsEnabled { get; set; }
+		public bool IsVisible { get; set; }
+		public bool IsAncestryEnabled { get; set; } //TODO: move setter to an "internal" interface
+		public bool IsAncestryVisible { get; set; } //TODO: move setter to an "internal" interface
+
+		[SerializeField] //TODO: serialize all item properties...
+		protected string vId = "";
+
+		[SerializeField]
+		protected string vLabel = "";
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected HoverBaseItem() {
-			vBindId = new ValueBinder<string>(
-				(x => { Item.Id = x; }),
-				(x => { Id = x; }),
-				ValueBinder.AreStringsEqual
-			);
+			AutoId = ++ItemCount;
+			Id = GetType().Name+AutoId;
 
-			vBindLabel = new ValueBinder<string>(
-				(x => { Item.Label = x; }),
-				(x => { Label = x; }),
-				ValueBinder.AreStringsEqual
-			);
-
-			vBindWidth = new ValueBinder<float>(
-				(x => { vFullItem.Width = x; }),
-				(x => { Width = x; }),
-				ValueBinder.AreFloatsEqual
-			);
-
-			vBindHeight = new ValueBinder<float>(
-				(x => { vFullItem.Height = x; }),
-				(x => { Height = x; }),
-				ValueBinder.AreFloatsEqual
-			);
-
-			vBindEnabled = new ValueBinder<bool>(
-				(x => { Item.IsEnabled = x; }),
-				(x => { IsEnabled = x; }),
-				ValueBinder.AreBoolsEqual
-			);
-
-			vBindVisible = new ValueBinder<bool>(
-				(x => { Item.IsVisible = x; }),
-				(x => { IsVisible = x; }),
-				ValueBinder.AreBoolsEqual
-			);
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		protected void Init(BaseItem pItem) {
-			Item = pItem;
-			vFullItem = pItem;
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Awake() {
-			vFullItem.DisplayContainer = gameObject;
-			
-			if ( string.IsNullOrEmpty(Id) ) {
-				Id = Item.AutoId+"";
-			}
-			
-			if ( string.IsNullOrEmpty(Label) ) {
-				Label = gameObject.name;
-			}
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Start() {
-			UpdateAllValues(true);
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Update() {
-			UpdateAllValues();
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		protected virtual void UpdateAllValues(bool pForceUpdate=false) {
-			vBindId.UpdateValuesIfChanged(Item.Id, Id, pForceUpdate);
-			
-			if ( !vBlockBaseLabelBinding ) {
-				vBindLabel.UpdateValuesIfChanged(Item.Label, Label, pForceUpdate);
-			}
-			
-			vBindWidth.UpdateValuesIfChanged(Item.Width, Width, pForceUpdate);
-			vBindHeight.UpdateValuesIfChanged(Item.Height, Height, pForceUpdate);
-
-			vBindEnabled.UpdateValuesIfChanged(Item.IsEnabled, IsEnabled, pForceUpdate);
-			vBindVisible.UpdateValuesIfChanged(Item.IsVisible, IsVisible, pForceUpdate);
+			IsEnabled = true;
+			IsVisible = true;
+			IsAncestryEnabled = true;
+			IsAncestryVisible = true;
 		}
 
 
@@ -147,13 +76,12 @@ namespace Hover.Common.Components.Items {
 
 			for ( int i = 0 ; i < childCount ; ++i ) {
 				HoverBaseItem hni = tx.GetChild(i).GetComponent<HoverBaseItem>();
-				IBaseItem item = hni.Item;
 
-				if ( !item.IsVisible ) {
+				if ( !hni.IsVisible ) {
 					continue;
 				}
 
-				items.Add(item);
+				items.Add(hni);
 			}
 
 			return items.ToArray();

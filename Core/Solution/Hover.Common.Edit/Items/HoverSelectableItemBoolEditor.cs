@@ -1,7 +1,5 @@
 using Hover.Common.Components.Items;
-using Hover.Common.Components.Items.Types;
 using UnityEditor;
-using UnityEngine;
 
 namespace Hover.Common.Edit.Items {
 
@@ -19,7 +17,7 @@ namespace Hover.Common.Edit.Items {
 			base.OnEnable();
 			
 			var t = (HoverSelectableItemBool)target;
-			string onValChangeName = GetPropertyName(() => t.OnValueChanged);
+			string onValChangeName = GetPropertyName(() => t._OnValueChanged);
 			
 			vOnValueChangedProp = serializedObject.FindProperty(onValChangeName);
 			vValueLabel = "Bool Value";

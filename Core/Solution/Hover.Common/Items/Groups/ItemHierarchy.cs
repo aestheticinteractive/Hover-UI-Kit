@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Hover.Common.Components.Items.Types;
 using Hover.Common.Items.Types;
 
 namespace Hover.Common.Items.Groups {
@@ -12,7 +13,7 @@ namespace Hover.Common.Items.Groups {
 		public event ItemEvents.GroupItemSelectedHandler OnItemSelected;
 
 		public string Title { get; set; }
-		public SelectorItem NavigateBackItem { get; private set; }
+		public ISelectorItem NavigateBackItem { get; private set; }
 
 		private IItemGroup vCurrLevel;
 		private readonly Stack<IItemGroup> vHistory;
@@ -23,7 +24,7 @@ namespace Hover.Common.Items.Groups {
 		public ItemHierarchy() {
 			vHistory = new Stack<IItemGroup>();
 
-			NavigateBackItem = new SelectorItem();
+			NavigateBackItem = new HoverSelectorItem(); //TODO: fail
 			NavigateBackItem.Id = NavigateBackItemId;
 			NavigateBackItem.IsEnabled = true;
 			NavigateBackItem.IsVisible = true;

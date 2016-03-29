@@ -1,7 +1,5 @@
 using Hover.Common.Components.Items;
-using Hover.Common.Components.Items.Types;
 using UnityEditor;
-using UnityEngine;
 
 namespace Hover.Common.Edit.Items {
 
@@ -20,8 +18,8 @@ namespace Hover.Common.Edit.Items {
 			base.OnEnable();
 			
 			var t = (HoverSelectableItem)target;
-			string onSelName = GetPropertyName(() => t.OnSelected);
-			string onDeselName = GetPropertyName(() => t.OnDeselected);
+			string onSelName = GetPropertyName(() => t._OnSelected);
+			string onDeselName = GetPropertyName(() => t._OnDeselected);
 			
 			vIsEventOpenKey = "IsEventOpen"+target.GetInstanceID();
 			vOnSelectedProp = serializedObject.FindProperty(onSelName);
@@ -56,8 +54,8 @@ namespace Hover.Common.Edit.Items {
 			
 			var t = (HoverSelectableItem)target;
 			
-			EditorGUILayout.Toggle("Is Sticky-Selected", t.Item.IsStickySelected);
-			EditorGUILayout.Toggle("Allow Selection", t.Item.AllowSelection);
+			EditorGUILayout.Toggle("Is Sticky-Selected", t.IsStickySelected);
+			EditorGUILayout.Toggle("Allow Selection", t.AllowSelection);
 		}
 
 	}

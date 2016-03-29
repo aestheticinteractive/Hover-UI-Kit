@@ -36,16 +36,16 @@ namespace Hover.Board.Items {
 		public float SliderRangeMax = 1;
 		public float SliderValue;
 		public bool SliderAllowJump = true;
-		public SliderItem.FillType SliderFillStartingPoint;
+		public SliderItemFillType SliderFillStartingPoint;
 
-		private BaseItem vItem;
+		private IBaseItem vItem;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public IBaseItem GetItem() {
 			if ( vItem == null ) {
-				BuildItem();
+				//BuildItem();
 			}
 
 			return vItem;
@@ -53,7 +53,7 @@ namespace Hover.Board.Items {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		private void BuildItem() {
 			switch ( Type ) {
 				case HoverboardItemType.Selector:
@@ -78,7 +78,7 @@ namespace Hover.Board.Items {
 					break;
 
 				case HoverboardItemType.Slider:
-					var sliderItem = new SliderItem();
+					var sliderItem = new SliderItemFillType();
 					sliderItem.Ticks = SliderTicks;
 					sliderItem.Snaps = SliderSnaps;
 					sliderItem.RangeMin = SliderRangeMin;
@@ -107,7 +107,7 @@ namespace Hover.Board.Items {
 			vItem.Height = Height;
 			vItem.IsVisible = IsVisible;
 			vItem.IsEnabled = IsEnabled;
-		}
+		}*/
 
 	}
 

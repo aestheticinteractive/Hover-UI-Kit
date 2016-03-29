@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Hover.Common.Components.Items.Types;
 using Hover.Common.Items;
 using Hover.Common.Items.Types;
 using UnityEngine;
@@ -35,7 +36,7 @@ namespace Hover.Common.Custom {
 		/*--------------------------------------------------------------------------------------------*/
 		public override IItemVisualSettings GetSettings(IBaseItem pItem) {
 			if ( vDefaultSettings == null ) {
-				vDefaultItem = new SelectorItem();
+				vDefaultItem = new HoverSelectorItem(); //TODO: fail
 				vDefaultSettings = GetSettingsInner(vDefaultItem, null, false);
 				vSettingsMap.Add(vDefaultItem, vDefaultSettings);
 			}

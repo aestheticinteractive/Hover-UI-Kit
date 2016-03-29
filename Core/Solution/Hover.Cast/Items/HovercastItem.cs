@@ -37,16 +37,16 @@ namespace Hover.Cast.Items {
 		public float SliderRangeMax = 1;
 		public float SliderValue;
 		public bool SliderAllowJump = true;
-		public SliderItem.FillType SliderFillStartingPoint;
+		public SliderItemFillType SliderFillStartingPoint;
 
-		private BaseItem vItem;
+		private IBaseItem vItem;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public IBaseItem GetItem() {
 			if ( vItem == null ) {
-				BuildItem();
+				//BuildItem();
 			}
 
 			return vItem;
@@ -54,7 +54,7 @@ namespace Hover.Cast.Items {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		private void BuildItem() {
 			switch ( Type ) {
 				case HovercastItemType.Checkbox:
@@ -78,7 +78,7 @@ namespace Hover.Cast.Items {
 					break;
 
 				case HovercastItemType.Slider:
-					var sliderItem = new SliderItem();
+					var sliderItem = new SliderItemFillType();
 					sliderItem.Ticks = SliderTicks;
 					sliderItem.Snaps = SliderSnaps;
 					sliderItem.RangeMin = SliderRangeMin;

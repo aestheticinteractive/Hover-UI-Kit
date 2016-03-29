@@ -1,7 +1,6 @@
 using System;
 using System.Linq.Expressions;
 using Hover.Common.Components.Items;
-using Hover.Common.Components.Items.Types;
 using UnityEditor;
 using UnityEngine;
 
@@ -83,9 +82,9 @@ namespace Hover.Common.Edit.Items {
 		protected virtual void DrawHiddenItems() {
 			var t = (HoverBaseItem)target;
 			
-			EditorGUILayout.IntField("Auto ID", t.Item.AutoId);
-			EditorGUILayout.Toggle("Is Ancestry Enabled", t.Item.IsAncestryEnabled);
-			EditorGUILayout.Toggle("Is Ancestry Visible", t.Item.IsAncestryVisible);
+			EditorGUILayout.IntField("Auto ID", t.AutoId);
+			EditorGUILayout.Toggle("Is Ancestry Enabled", t.IsAncestryEnabled);
+			EditorGUILayout.Toggle("Is Ancestry Visible", t.IsAncestryVisible);
 		}
 		
 		

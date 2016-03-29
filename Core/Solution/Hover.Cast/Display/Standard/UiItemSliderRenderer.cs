@@ -248,7 +248,7 @@ namespace Hover.Cast.Display.Standard {
 			float zeroCenter = vZeroValue*slideAngle + grabArcHalf;
 			bool isHoverTooClose = (Math.Abs(valCenter-hovCenter) < vGrabArc*(0.5f+HoverBarRelW));
 
-			if ( vSliderItem.FillStartingPoint == SliderItem.FillType.Zero ) {
+			if ( vSliderItem.FillStartingPoint == SliderItemFillType.Zero ) {
 				float break0 = Math.Min(zeroCenter, valCenter);
 				float break1 = Math.Max(zeroCenter, valCenter);
 
@@ -270,7 +270,7 @@ namespace Hover.Cast.Display.Standard {
 				});
 			}
 			else {
-				bool isMinStart = (vSliderItem.FillStartingPoint == SliderItem.FillType.MinimumValue);
+				bool isMinStart = (vSliderItem.FillStartingPoint == SliderItemFillType.MinimumValue);
 
 				vTrackSegments.Add(new DisplayUtil.TrackSegment {
 					StartValue = 0,

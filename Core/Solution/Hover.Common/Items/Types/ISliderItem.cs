@@ -12,7 +12,7 @@ namespace Hover.Common.Items.Types {
 		string BaseLabel { get; }
 		Func<ISliderItem, string> ValueToLabel { get; set; }
 		bool AllowJump { get; set; }
-		SliderItem.FillType FillStartingPoint { get; set; }
+		SliderItemFillType FillStartingPoint { get; set; }
 
 		float RangeValue { get; }
 		float SnappedValue { get; }

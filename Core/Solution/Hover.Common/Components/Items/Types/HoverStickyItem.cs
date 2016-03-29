@@ -1,19 +1,15 @@
-﻿using Hover.Common.Items;
-using Hover.Common.Items.Types;
+﻿using Hover.Common.Items.Types;
 
 namespace Hover.Common.Components.Items.Types {
 
 	/*================================================================================================*/
-	public class HoverStickyItem : HoverSelectableItem {
-
-		public new IStickyItem Item { get; private set; }
+	public class HoverStickyItem : HoverSelectableItem, IStickyItem {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected HoverStickyItem() {
-			Item = new StickyItem();
-			Init((SelectableItem)Item);
+		protected override bool UsesStickySelection() {
+			return true;
 		}
 
 	}

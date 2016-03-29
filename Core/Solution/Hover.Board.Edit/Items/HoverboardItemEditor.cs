@@ -60,7 +60,7 @@ namespace Hover.Board.Edit.Items {
 						vTarget.SliderRangeMin, vTarget.SliderRangeMax);
 					vTarget.SliderAllowJump = EditorGUILayout.Toggle("Allow Jump-To-Value",
 						vTarget.SliderAllowJump);
-					vTarget.SliderFillStartingPoint = (SliderItem.FillType)EditorGUILayout.EnumPopup(
+					vTarget.SliderFillStartingPoint = (SliderItemFillType)EditorGUILayout.EnumPopup(
 						"Starting Point For Fill", vTarget.SliderFillStartingPoint);
 					break;
 			}

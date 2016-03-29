@@ -1,55 +1,43 @@
 ﻿using System;
 using Hover.Common.Items;
-using Hover.Common.Util;
 using UnityEngine.Events;
-using UnityEngine;
 
 namespace Hover.Common.Components.Items {
 	
 	/*================================================================================================*/
-	public abstract class HoverSelectableItemBool : HoverSelectableItem {
+	public abstract class HoverSelectableItemBool : HoverSelectableItem, ISelectableItem<bool> {
 		
 		[Serializable]
 		public class ValueChangedEventHandler : UnityEvent<ISelectableItem<bool>> {}
 		
-		public new ISelectableItem<bool> Item { get; private set; }
+		public ValueChangedEventHandler _OnValueChanged = new ValueChangedEventHandler();
 
-		public bool Value;
-		public ValueChangedEventHandler OnValueChanged;
+		public event ItemEvents.ValueChangedHandler<bool> OnValueChanged;
 
-		protected readonly ValueBinder<bool> vBindValue;
+		protected bool vValue;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected HoverSelectableItemBool() {
-			vBindValue = new ValueBinder<bool>(
-				(x => { Item.Value = x; }),
-				(x => { Value = x; }),
-				ValueBinder.AreBoolsEqual
-			);
+			OnValueChanged += (x => { _OnValueChanged.Invoke(x); });
 		}
-		
-		
+
+
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected void Init(SelectableItem<bool> pItem) {
-			base.Init(pItem);
-			Item = pItem;
-
-			Item.OnValueChanged += (x => {
-				if ( OnValueChanged != null ) {
-					OnValueChanged.Invoke(x);
+		public virtual bool Value {
+			get {
+				return vValue;
+			}
+			set {
+				if ( value == vValue ) {
+					return;
 				}
-			});
-		}
 
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		protected override void UpdateAllValues(bool pForceUpdate=false) {
-			base.UpdateAllValues(pForceUpdate);
-			vBindValue.UpdateValuesIfChanged(Item.Value, Value, pForceUpdate);
+				vValue = value;
+				OnValueChanged(this);
+			}
 		}
 
 	}

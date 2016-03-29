@@ -1,19 +1,16 @@
-﻿using Hover.Common.Items;
-using Hover.Common.Items.Types;
+﻿using Hover.Common.Items.Types;
 
 namespace Hover.Common.Components.Items.Types {
 
 	/*================================================================================================*/
-	public class HoverCheckboxItem : HoverSelectableItemBool {
-
-		public new ICheckboxItem Item { get; private set; }
+	public class HoverCheckboxItem : HoverSelectableItemBool, ICheckboxItem {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected HoverCheckboxItem() {
-			Item = new CheckboxItem();
-			Init((SelectableItem<bool>)Item);
+		public override void Select() {
+			Value = !Value;
+			base.Select();
 		}
 
 	}

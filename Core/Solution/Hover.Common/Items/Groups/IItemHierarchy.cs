@@ -12,7 +12,7 @@ namespace Hover.Common.Items.Groups {
 		IItemGroup CurrentLevel { get; }
 		IItemGroup ParentLevel { get; }
 		string CurrentLevelTitle { get; }
-		SelectorItem NavigateBackItem { get; }
+		ISelectorItem NavigateBackItem { get; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

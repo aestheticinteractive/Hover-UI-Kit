@@ -18,7 +18,7 @@ namespace Hover.Common.Edit.Items.Types {
 			base.OnEnable();
 			
 			var t = (HoverSliderItem)target;
-			string onValChangeName = GetPropertyName(() => t.OnValueChanged);
+			string onValChangeName = GetPropertyName(() => t._OnValueChanged);
 			
 			vOnValueChangedProp = serializedObject.FindProperty(onValChangeName);
 		}
@@ -40,7 +40,7 @@ namespace Hover.Common.Edit.Items.Types {
 			t.Ticks = EditorGUILayout.IntField("Slider Ticks", t.Ticks);
 			t.Snaps = EditorGUILayout.IntField("Slider Snaps", t.Snaps);
 			t.AllowJump = EditorGUILayout.Toggle("Slider Allow Jump", t.AllowJump);
-			t.FillStartingPoint = (SliderItem.FillType)EditorGUILayout.EnumPopup(
+			t.FillStartingPoint = (SliderItemFillType)EditorGUILayout.EnumPopup(
 				"Slider Fill Starting-Point", t.FillStartingPoint);
 		}
 		
@@ -57,11 +57,11 @@ namespace Hover.Common.Edit.Items.Types {
 			
 			var t = (HoverSliderItem)target;
 			
-			EditorGUILayout.FloatField("Slider Value", t.Item.Value);
-			EditorGUILayout.FloatField("Slider Snapped Value", t.Item.SnappedValue);
-			EditorGUILayout.FloatField("Slider Snapped Range Value", t.Item.SnappedRangeValue);
-			EditorGUILayout.TextField("Slider Hover Value", t.Item.HoverValue+"");
-			EditorGUILayout.TextField("Slider Hover Snapped Value", t.Item.HoverSnappedValue+"");
+			EditorGUILayout.FloatField("Slider Value", t.Value);
+			EditorGUILayout.FloatField("Slider Snapped Value", t.SnappedValue);
+			EditorGUILayout.FloatField("Slider Snapped Range Value", t.SnappedRangeValue);
+			EditorGUILayout.TextField("Slider Hover Value", t.HoverValue+"");
+			EditorGUILayout.TextField("Slider Hover Snapped Value", t.HoverSnappedValue+"");
 		}
 		
 	}
