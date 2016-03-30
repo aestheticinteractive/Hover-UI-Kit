@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Hover.Cast.Custom;
 using Hover.Cast.Input;
+using Hover.Cast.Items;
 using Hover.Common.Input;
 using Hover.Common.Items;
 using Hover.Common.Items.Groups;
@@ -28,7 +29,7 @@ namespace Hover.Cast.State {
 		public float NavBackStrength { get; private set; }
 		public IBaseItemState NearestItem { get; private set; }
 		
-		private readonly IItemHierarchy vItemHierarchy;
+		private readonly HovercastItemHierarchy vItemHierarchy;
 		private readonly InteractionSettings vInteractSettings;
 		private readonly List<BaseItemState> vAllItems;
 		private readonly ReadList<BaseItemState> vItems;
@@ -41,7 +42,7 @@ namespace Hover.Cast.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public MenuState(IItemHierarchy pItemHierarchy, InteractionSettings pInteractSettings) {
+		public MenuState(HovercastItemHierarchy pItemHierarchy, InteractionSettings pInteractSettings) {
 			vItemHierarchy = pItemHierarchy;
 			vInteractSettings = pInteractSettings;
 

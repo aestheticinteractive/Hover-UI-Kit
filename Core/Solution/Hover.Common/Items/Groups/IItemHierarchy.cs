@@ -1,5 +1,3 @@
-using Hover.Common.Items.Types;
-
 namespace Hover.Common.Items.Groups {
 
 	/*================================================================================================*/
@@ -12,13 +10,9 @@ namespace Hover.Common.Items.Groups {
 		IItemGroup CurrentLevel { get; }
 		IItemGroup ParentLevel { get; }
 		string CurrentLevelTitle { get; }
-		ISelectorItem NavigateBackItem { get; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		void Build(IItemGroup pRootLevel);
-
 		/*--------------------------------------------------------------------------------------------*/
 		void Back();
 

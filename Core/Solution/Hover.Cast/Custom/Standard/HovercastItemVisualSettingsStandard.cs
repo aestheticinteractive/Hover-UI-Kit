@@ -2,9 +2,9 @@
 using Hover.Cast.Custom;
 using Hover.Cast.Custom.Standard;
 using Hover.Cast.Display.Standard;
+using Hover.Cast.Items;
 using Hover.Common.Custom;
 using Hover.Common.Items;
-using Hover.Common.Items.Groups;
 using Hover.Common.Items.Types;
 using UnityEngine;
 
@@ -60,7 +60,7 @@ namespace Hover.cast.Custom.Standard {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private static Type GetRendererForItem(IBaseItem pItem) {
-			if ( pItem != null && pItem.Id == ItemHierarchy.NavigateBackItemId ) {
+			if ( pItem != null && pItem.Id == HovercastItemHierarchy.NavigateBackItemId ) {
 				return typeof(UiPalmNavBackRenderer);
 			}
 

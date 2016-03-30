@@ -1,58 +1,58 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Hover.Common.Items.Types;
+using UnityEngine;
+using UnityEngine.Events;
 
 namespace Hover.Common.Items.Groups {
 
 	/*================================================================================================*/
-	public class ItemHierarchy : IItemHierarchy {
+	public class HoverItemHierarchy : MonoBehaviour, IItemHierarchy { 
 
-		public const string NavigateBackItemId = "__NavigateBackItem__";
+		[Serializable]
+		public class LevelChangeEventHandler : UnityEvent<int> {}
+		
+		[Serializable]
+		public class ItemSelectionEventHandler : UnityEvent<IItemGroup, ISelectableItem> {}
 
+		public LevelChangeEventHandler OnLevelChangedEvent;
+		public ItemSelectionEventHandler OnItemSelectedEvent;
+		
 		public event ItemEvents.HierarchyLevelChangedHandler OnLevelChanged;
 		public event ItemEvents.GroupItemSelectedHandler OnItemSelected;
+		
+		[SerializeField]
+		private string vTitle = "Hovercast VR";
 
-		public string Title { get; set; }
-		public ISelectorItem NavigateBackItem { get; private set; }
-
-		private IItemGroup vCurrLevel;
 		private readonly Stack<IItemGroup> vHistory;
+		private IItemGroup vCurrLevel;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public ItemHierarchy() {
+		protected HoverItemHierarchy() {
 			vHistory = new Stack<IItemGroup>();
 
-			NavigateBackItem = new HoverSelectorItem(); //TODO: fail
-			NavigateBackItem.Id = NavigateBackItemId;
-			NavigateBackItem.IsEnabled = true;
-			NavigateBackItem.IsVisible = true;
-			NavigateBackItem.NavigateBackUponSelect = true;
-			NavigateBackItem.Label = "Back";
-			NavigateBackItem.OnSelected += HandleNavigateBackItemSelected;
-
-			OnLevelChanged += (d => {});
-			OnItemSelected += ((l,i) => {});
+			OnLevelChanged += (d => { OnLevelChangedEvent.Invoke(d); });
+			OnItemSelected += ((l,i) => { OnItemSelectedEvent.Invoke(l, i); });
 		}
-
+		
+		
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public virtual void Awake() {
+			var rootLevel = new ItemGroup(() => HoverBaseItem.GetChildItems(gameObject));
+			SetNewLevel(rootLevel, 0);
+		}
+			
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Build(IItemGroup pRootLevel) {
-			SetNewLevel(pRootLevel, 0);
+		public string Title {
+			get { return vTitle; }
+			set { vTitle = value; }
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
-		public void Back() {
-			if ( vHistory.Count == 0 ) {
-				return;
-			}
-
-			SetNewLevel(vHistory.Pop(), -1);
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public IItemGroup CurrentLevel {
 			get {
@@ -73,6 +73,15 @@ namespace Hover.Common.Items.Groups {
 				IItemGroup parLevel = ParentLevel;
 				return (parLevel == null ? Title : parLevel.LastSelectedItem.Label);
 			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void Back() {
+			if ( vHistory.Count == 0 ) {
+				return;
+			}
+
+			SetNewLevel(vHistory.Pop(), -1);
 		}
 
 
@@ -96,12 +105,7 @@ namespace Hover.Common.Items.Groups {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void HandleNavigateBackItemSelected(ISelectableItem pItem) {
-			Back();
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		private void SetNewLevel(IItemGroup pNewLevel, int pDirection) {
+		protected virtual void SetNewLevel(IItemGroup pNewLevel, int pDirection) {
 			if ( vCurrLevel != null ) {
 				vCurrLevel.OnItemSelected -= HandleItemSelected;
 				vCurrLevel.IsEnabled = false;
@@ -111,8 +115,6 @@ namespace Hover.Common.Items.Groups {
 			vCurrLevel.ReloadActiveItems();
 			vCurrLevel.IsEnabled = true;
 			vCurrLevel.OnItemSelected += HandleItemSelected;
-
-			NavigateBackItem.IsEnabled = (vHistory.Count > 0);
 
 			OnLevelChanged(pDirection);
 		}

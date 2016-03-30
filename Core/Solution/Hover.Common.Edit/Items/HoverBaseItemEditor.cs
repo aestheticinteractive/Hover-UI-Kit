@@ -90,7 +90,7 @@ namespace Hover.Common.Edit.Items {
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected string GetPropertyName<T>(Expression<Func<T>> pPropExpr) {
+		public static string GetPropertyName<T>(Expression<Func<T>> pPropExpr) {
 			return (pPropExpr.Body as MemberExpression).Member.Name;
 		}
 

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -53,12 +53,17 @@
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
     <Compile Include="Items\HovercastItemEditor.cs" />
+    <Compile Include="Items\HovercastItemHierarchyEditor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Hover.Cast\Hover.Cast.csproj">
       <Project>{112FF634-EB3E-4351-B0BB-7729E455416E}</Project>
       <Name>Hover.Cast</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Hover.Common.Edit\Hover.Common.Edit.csproj">
+      <Project>{A3DC1C14-601B-4191-A226-F8069FD121C5}</Project>
+      <Name>Hover.Common.Edit</Name>
     </ProjectReference>
     <ProjectReference Include="..\Hover.Common\Hover.Common.csproj">
       <Project>{F60AF979-92BB-498A-BD95-34070B69E9DD}</Project>

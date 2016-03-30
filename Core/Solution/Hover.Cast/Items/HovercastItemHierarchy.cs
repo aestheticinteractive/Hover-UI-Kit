@@ -1,91 +1,58 @@
-﻿using System;
-using Hover.Common.Items;
+﻿using Hover.Common.Items;
 using Hover.Common.Items.Groups;
-using Hover.Common.Util;
-using UnityEngine;
-using UnityEngine.Events;
+using Hover.Common.Items.Types;
 
 namespace Hover.Cast.Items {
 
 	/*================================================================================================*/
-	public class HovercastItemHierarchy : MonoBehaviour { 
+	public class HovercastItemHierarchy : HoverItemHierarchy { 
 
-		[Serializable]
-		public class LevelChangeEventHandler : UnityEvent<int> {}
-		
-		[Serializable]
-		public class ItemSelectionEventHandler : UnityEvent<IItemGroup, ISelectableItem> {}
-		
-		public string Title = "Hovercast VR";
-		public LevelChangeEventHandler OnLevelChanged;
-		public ItemSelectionEventHandler OnItemSelected;
-		
-		private readonly ValueBinder<string> vBindTitle;
-		private IItemHierarchy vRoot;
+		public const string NavigateBackItemId = "__NavigateBackItem__";
 
-		
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		protected HovercastItemHierarchy() {
-			vBindTitle = new ValueBinder<string>(
-				(x => { vRoot.Title = x; }),
-				(x => { Title = x; }),
-				ValueBinder.AreStringsEqual
-			);
-		}
-			
+		private HoverSelectorItem vNavigateBackItem;
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public IItemHierarchy Root {
+		public ISelectorItem NavigateBackItem {
 			get {
-				if ( vRoot == null ) {
-					vRoot = BuildRoot();
+				if ( vNavigateBackItem != null ) {
+					return vNavigateBackItem;
 				}
 
-				return vRoot;
+				if ( gameObject == null ) {
+					return null;
+				}
+
+				vNavigateBackItem = gameObject.GetComponent<HoverSelectorItem>();
+
+				if ( vNavigateBackItem != null && vNavigateBackItem.Id == NavigateBackItemId ) {
+					return vNavigateBackItem;
+				}
+
+				vNavigateBackItem = gameObject.AddComponent<HoverSelectorItem>();
+				vNavigateBackItem.Id = NavigateBackItemId;
+				vNavigateBackItem.IsEnabled = true;
+				vNavigateBackItem.IsVisible = true;
+				vNavigateBackItem.NavigateBackUponSelect = true;
+				vNavigateBackItem.Label = "Back";
+				vNavigateBackItem.OnSelected += HandleNavigateBackItemSelected;
+
+				return vNavigateBackItem;
 			}
 		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		private IItemHierarchy BuildRoot() {
-			var rootLevel = new ItemGroup(() => HoverBaseItem.GetChildItems(gameObject));
-			
-			var root = new ItemHierarchy();
-			root.Build(rootLevel);
-			
-			root.OnLevelChanged += (d => {
-				if ( OnLevelChanged != null ) {
-					OnLevelChanged.Invoke(d);
-				}
-			});
-			
-			root.OnItemSelected += ((g,i) => {
-				if ( OnItemSelected != null ) {
-					OnItemSelected.Invoke(g, i);
-				}
-			});
-			
-			return root;
-		}
-		
-		
+
+
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Start() {
-			UpdateAllValues(true);
+		private void HandleNavigateBackItemSelected(ISelectableItem pItem) {
+			Back();
 		}
-		
+
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Update() {
-			UpdateAllValues();
-		}
-		
-		
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		protected virtual void UpdateAllValues(bool pForceUpdate=false) {
-			vBindTitle.UpdateValuesIfChanged(Root.Title, Title, pForceUpdate);
+		protected override void SetNewLevel(IItemGroup pNewLevel, int pDirection) {
+			NavigateBackItem.IsEnabled = (ParentLevel != null);
+			base.SetNewLevel(pNewLevel, pDirection);
 		}
 
 	}

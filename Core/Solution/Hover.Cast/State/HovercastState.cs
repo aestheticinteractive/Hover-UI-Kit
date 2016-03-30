@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Hover.Cast.Custom;
 using Hover.Cast.Input;
+using Hover.Cast.Items;
 using Hover.Common.Input;
-using Hover.Common.Items.Groups;
 using Hover.Common.State;
 using Hover.Common.Util;
 using Hover.Cursor;
@@ -39,7 +39,7 @@ namespace Hover.Cast.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public HovercastState(IItemHierarchy pItemHierarchy, HovercursorSetup pHovercusorSetup, 
+		public HovercastState(HovercastItemHierarchy pItemHierarchy, HovercursorSetup pHovercusorSetup, 
 				InteractionSettings pInterSett, IInput pInput, Transform pBaseTx) {
 			vInteractSettings = pInterSett;
 			vHovercursorSetup = pHovercusorSetup;

@@ -612,8 +612,7 @@ MonoBehaviour:
   m_Script: {fileID: 118527433, guid: 0287263cc8027804ca949b1a81526620, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Title: Hovercast VR
-  OnLevelChanged:
+  OnLevelChangedEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11466890}
@@ -627,13 +626,14 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: Hover.Cast.Items.HovercastItemHierarchy+LevelChangeEventHandler, Hover.Cast,
-      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  OnItemSelected:
+    m_TypeName: Hover.Common.Items.Groups.HoverItemHierarchy+LevelChangeEventHandler,
+      Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+  OnItemSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Cast.Items.HovercastItemHierarchy+ItemSelectionEventHandler,
-      Hover.Cast, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Common.Items.Groups.HoverItemHierarchy+ItemSelectionEventHandler,
+      Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+  vTitle: Hovercast VR
 --- !u!114 &11400022
 MonoBehaviour:
   m_ObjectHideFlags: 1
