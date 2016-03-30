@@ -12,8 +12,8 @@ namespace Hover.Common.Components.Items {
 		
 		public bool IsStickySelected { get; private set; }
 
-		public SelectedEventHandler _OnSelected = new SelectedEventHandler();
-		public SelectedEventHandler _OnDeselected = new SelectedEventHandler();
+		public SelectedEventHandler OnSelectedEvent = new SelectedEventHandler();
+		public SelectedEventHandler OnDeselectedEvent = new SelectedEventHandler();
 
 		public event ItemEvents.SelectedHandler OnSelected;
 		public event ItemEvents.DeselectedHandler OnDeselected;
@@ -22,8 +22,8 @@ namespace Hover.Common.Components.Items {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected HoverSelectableItem() {
-			OnSelected += (x => { _OnSelected.Invoke(x); });
-			OnDeselected += (x => { _OnDeselected.Invoke(x); });
+			OnSelected += (x => { OnSelectedEvent.Invoke(x); });
+			OnDeselected += (x => { OnDeselectedEvent.Invoke(x); });
 		}
 
 

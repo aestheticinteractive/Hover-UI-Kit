@@ -13,31 +13,27 @@ namespace Hover.Common.Components.Items {
 		private static int ItemCount;
 
 		public int AutoId { get; }
-
-		public string Id {
-			get { return vId; }
-			set { vId = value; }
-		}
-
-		public virtual string Label {
-			get { return vLabel; }
-			set { vLabel = value; }
-		}
-
-		public float Width { get; set; }
-		public float Height { get; set; }
 		public object DisplayContainer { get; set; } //TODO: move setter to an "internal" interface
-
-		public bool IsEnabled { get; set; }
-		public bool IsVisible { get; set; }
 		public bool IsAncestryEnabled { get; set; } //TODO: move setter to an "internal" interface
 		public bool IsAncestryVisible { get; set; } //TODO: move setter to an "internal" interface
 
-		[SerializeField] //TODO: serialize all item properties...
-		protected string vId = "";
+		[SerializeField]
+		private string vId;
 
 		[SerializeField]
-		protected string vLabel = "";
+		private string vLabel;
+
+		[SerializeField]
+		private float vWidth;
+
+		[SerializeField]
+		private float vHeight;
+
+		[SerializeField]
+		private bool vIsEnabled;
+
+		[SerializeField]
+		private bool vIsVisible;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -50,6 +46,44 @@ namespace Hover.Common.Components.Items {
 			IsVisible = true;
 			IsAncestryEnabled = true;
 			IsAncestryVisible = true;
+		}
+
+		
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public string Id {
+			get { return vId; }
+			set { vId = value; }
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public virtual string Label {
+			get { return vLabel; }
+			set { vLabel = value; }
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float Width {
+			get { return vWidth; }
+			set { vWidth = value; }
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float Height {
+			get { return vHeight; }
+			set { vHeight = value; }
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool IsEnabled {
+			get { return vIsEnabled; }
+			set { vIsEnabled = value; }
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool IsVisible {
+			get { return vIsVisible; }
+			set { vIsVisible = value; }
 		}
 
 
@@ -67,7 +101,9 @@ namespace Hover.Common.Components.Items {
 				.OfType<IHoverItemRenderer>()
 				.FirstOrDefault();
 		}
+
 		
+		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public static IBaseItem[] GetChildItems(GameObject pParentGo) {
 			Transform tx = pParentGo.transform;

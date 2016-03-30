@@ -1,14 +1,22 @@
 ﻿using Hover.Common.Items.Types;
+using UnityEngine;
 
 namespace Hover.Common.Components.Items.Types {
 
 	/*================================================================================================*/
 	public class HoverRadioItem : HoverSelectableItemBool, IRadioItem {
 
-		public string GroupId { get; set; }  //TODO: doesn't update for runtime changes
+		[SerializeField]
+		private string vGroupId;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public string GroupId { //TODO: doesn't update for runtime changes
+			get { return vGroupId; }
+			set { vGroupId = value; }
+		}
+
 		/*--------------------------------------------------------------------------------------------*/
 		public override void Select() {
 			Value = true;

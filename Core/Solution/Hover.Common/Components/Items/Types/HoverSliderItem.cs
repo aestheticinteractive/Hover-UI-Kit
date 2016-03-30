@@ -1,19 +1,32 @@
 ﻿using System;
 using Hover.Common.Items.Types;
+using UnityEngine;
 
 namespace Hover.Common.Components.Items.Types {
 
 	/*================================================================================================*/
 	public class HoverSliderItem : HoverSelectableItemFloat, ISliderItem {
-		
-		public int Ticks { get; set; } //TODO: doesn't update visually for runtime changes
-		public int Snaps { get; set; }
-		public float RangeMin { get; set; }
-		public float RangeMax { get; set; }
-		public Func<ISliderItem, string> ValueToLabel { get; set; }
-		public bool AllowJump { get; set; }
-		public SliderItemFillType FillStartingPoint { get; set; }
 
+		public Func<ISliderItem, string> ValueToLabel { get; set; }
+
+		[SerializeField]
+		private int vTicks;
+
+		[SerializeField]
+		private int vSnaps;
+
+		[SerializeField]
+		private float vRangeMin;
+
+		[SerializeField]
+		private float vRangeMax;
+
+		[SerializeField]
+		private bool vAllowJump;
+
+		[SerializeField]
+		private SliderItemFillType vFillStartingPoint;
+		
 		private float? vHoverValue;
 		private string vPrevLabel;
 		private float vPrevSnappedValue;
@@ -49,6 +62,42 @@ namespace Hover.Common.Components.Items.Types {
 			get {
 				return base.Label;
 			}
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public int Ticks { //TODO: doesn't update visually for runtime changes
+			get { return vTicks; }
+			set { vTicks = value; }
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public int Snaps {
+			get { return vSnaps; }
+			set { vSnaps = value; }
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float RangeMin {
+			get { return vRangeMin; }
+			set { vRangeMin = value; }
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float RangeMax {
+			get { return vRangeMax; }
+			set { vRangeMax = value; }
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool AllowJump {
+			get { return vAllowJump; }
+			set { vAllowJump = value; }
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public SliderItemFillType FillStartingPoint {
+			get { return vFillStartingPoint; }
+			set { vFillStartingPoint = value; }
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/

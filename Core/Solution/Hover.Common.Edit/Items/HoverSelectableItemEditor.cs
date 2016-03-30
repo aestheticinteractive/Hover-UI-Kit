@@ -18,8 +18,8 @@ namespace Hover.Common.Edit.Items {
 			base.OnEnable();
 			
 			var t = (HoverSelectableItem)target;
-			string onSelName = GetPropertyName(() => t._OnSelected);
-			string onDeselName = GetPropertyName(() => t._OnDeselected);
+			string onSelName = GetPropertyName(() => t.OnSelectedEvent);
+			string onDeselName = GetPropertyName(() => t.OnDeselectedEvent);
 			
 			vIsEventOpenKey = "IsEventOpen"+target.GetInstanceID();
 			vOnSelectedProp = serializedObject.FindProperty(onSelName);

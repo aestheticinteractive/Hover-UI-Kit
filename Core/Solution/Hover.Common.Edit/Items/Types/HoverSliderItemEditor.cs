@@ -18,7 +18,7 @@ namespace Hover.Common.Edit.Items.Types {
 			base.OnEnable();
 			
 			var t = (HoverSliderItem)target;
-			string onValChangeName = GetPropertyName(() => t._OnValueChanged);
+			string onValChangeName = GetPropertyName(() => t.OnValueChangedEvent);
 			
 			vOnValueChangedProp = serializedObject.FindProperty(onValChangeName);
 		}

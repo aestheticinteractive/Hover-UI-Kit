@@ -691,13 +691,13 @@ MonoBehaviour:
   m_Script: {fileID: -1467700699, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Id: 
-  Label: Sticky
-  Width: 1
-  Height: 1
-  IsEnabled: 1
-  IsVisible: 1
-  OnSelected:
+  vId: 
+  vLabel: Sticky
+  vWidth: 1
+  vHeight: 1
+  vIsEnabled: 1
+  vIsVisible: 1
+  OnSelectedEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11466890}
@@ -713,7 +713,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  OnDeselected:
+  OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11466890}
@@ -740,34 +740,34 @@ MonoBehaviour:
   m_Script: {fileID: -475705363, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Id: 
-  Label: SlideB
-  Width: 1
-  Height: 1
-  IsEnabled: 1
-  IsVisible: 1
-  OnSelected:
+  vId: 
+  vLabel: SlideB
+  vWidth: 1
+  vHeight: 1
+  vIsEnabled: 1
+  vIsVisible: 1
+  OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  OnDeselected:
+  OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  Value: .600000024
-  OnValueChanged:
+  vValue: .600000024
+  OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItemFloat+ValueChangedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  Ticks: 6
-  Snaps: 6
-  RangeMin: 0
-  RangeMax: 100
-  AllowJump: 1
-  FillStartingPoint: 0
+  vTicks: 6
+  vSnaps: 6
+  vRangeMin: 0
+  vRangeMax: 100
+  vAllowJump: 1
+  vFillStartingPoint: 0
 --- !u!114 &11411506
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -779,34 +779,34 @@ MonoBehaviour:
   m_Script: {fileID: -475705363, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Id: 
-  Label: SlideC
-  Width: 1
-  Height: 1
-  IsEnabled: 1
-  IsVisible: 1
-  OnSelected:
+  vId: 
+  vLabel: SlideC
+  vWidth: 1
+  vHeight: 1
+  vIsEnabled: 1
+  vIsVisible: 1
+  OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  OnDeselected:
+  OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  Value: .5
-  OnValueChanged:
+  vValue: .5
+  OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItemFloat+ValueChangedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  Ticks: 0
-  Snaps: 0
-  RangeMin: 0
-  RangeMax: 1
-  AllowJump: 1
-  FillStartingPoint: 0
+  vTicks: 0
+  vSnaps: 0
+  vRangeMin: 0
+  vRangeMax: 1
+  vAllowJump: 1
+  vFillStartingPoint: 0
 --- !u!114 &11412876
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -818,29 +818,29 @@ MonoBehaviour:
   m_Script: {fileID: 680041219, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Id: 
-  Label: E
-  Width: 1
-  Height: 1
-  IsEnabled: 1
-  IsVisible: 1
-  OnSelected:
+  vId: 
+  vLabel: E
+  vWidth: 1
+  vHeight: 1
+  vIsEnabled: 1
+  vIsVisible: 1
+  OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  OnDeselected:
+  OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  Value: 0
-  OnValueChanged:
+  vValue: 0
+  OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItemBool+ValueChangedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  GroupId: 
+  vGroupId: 
 --- !u!114 &11419602
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -852,13 +852,13 @@ MonoBehaviour:
   m_Script: {fileID: 355198992, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Id: 
-  Label: A
-  Width: 1
-  Height: 1
-  IsEnabled: 1
-  IsVisible: 1
-  OnSelected:
+  vId: 
+  vLabel: A
+  vWidth: 1
+  vHeight: 1
+  vIsEnabled: 1
+  vIsVisible: 1
+  OnSelectedEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11466890}
@@ -874,13 +874,13 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  OnDeselected:
+  OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  Value: 0
-  OnValueChanged:
+  vValue: 0
+  OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11466890}
@@ -907,29 +907,29 @@ MonoBehaviour:
   m_Script: {fileID: 680041219, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Id: 
-  Label: F
-  Width: 1
-  Height: 1
-  IsEnabled: 1
-  IsVisible: 1
-  OnSelected:
+  vId: 
+  vLabel: F
+  vWidth: 1
+  vHeight: 1
+  vIsEnabled: 1
+  vIsVisible: 1
+  OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  OnDeselected:
+  OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  Value: 0
-  OnValueChanged:
+  vValue: 0
+  OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItemBool+ValueChangedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  GroupId: 
+  vGroupId: 
 --- !u!114 &11426136
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -941,18 +941,18 @@ MonoBehaviour:
   m_Script: {fileID: 1677991526, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Id: 
-  Label: Parent 3
-  Width: 1
-  Height: 1
-  IsEnabled: 1
-  IsVisible: 1
-  OnSelected:
+  vId: 
+  vLabel: Parent 3
+  vWidth: 1
+  vHeight: 1
+  vIsEnabled: 1
+  vIsVisible: 1
+  OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  OnDeselected:
+  OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
@@ -968,12 +968,12 @@ MonoBehaviour:
   m_Script: {fileID: 1339441498, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Id: 
-  Label: Text
-  Width: 1
-  Height: 1
-  IsEnabled: 1
-  IsVisible: 1
+  vId: 
+  vLabel: Text
+  vWidth: 1
+  vHeight: 1
+  vIsEnabled: 1
+  vIsVisible: 1
 --- !u!114 &11437682
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -985,29 +985,29 @@ MonoBehaviour:
   m_Script: {fileID: 680041219, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Id: 
-  Label: D
-  Width: 1
-  Height: 1
-  IsEnabled: 1
-  IsVisible: 1
-  OnSelected:
+  vId: 
+  vLabel: D
+  vWidth: 1
+  vHeight: 1
+  vIsEnabled: 1
+  vIsVisible: 1
+  OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  OnDeselected:
+  OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  Value: 1
-  OnValueChanged:
+  vValue: 1
+  OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItemBool+ValueChangedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  GroupId: 
+  vGroupId: 
 --- !u!114 &11442178
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1019,34 +1019,34 @@ MonoBehaviour:
   m_Script: {fileID: -475705363, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Id: 
-  Label: SlideB
-  Width: 1
-  Height: 1
-  IsEnabled: 1
-  IsVisible: 1
-  OnSelected:
+  vId: 
+  vLabel: SlideB
+  vWidth: 1
+  vHeight: 1
+  vIsEnabled: 1
+  vIsVisible: 1
+  OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  OnDeselected:
+  OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  Value: .5
-  OnValueChanged:
+  vValue: .5
+  OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItemFloat+ValueChangedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  Ticks: 3
-  Snaps: 0
-  RangeMin: -1
-  RangeMax: 1
-  AllowJump: 1
-  FillStartingPoint: 1
+  vTicks: 3
+  vSnaps: 0
+  vRangeMin: -1
+  vRangeMax: 1
+  vAllowJump: 1
+  vFillStartingPoint: 1
 --- !u!114 &11442674
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1058,13 +1058,13 @@ MonoBehaviour:
   m_Script: {fileID: 1677991526, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Id: 
-  Label: Parent 1
-  Width: 1
-  Height: 1
-  IsEnabled: 1
-  IsVisible: 1
-  OnSelected:
+  vId: 
+  vLabel: Parent 1
+  vWidth: 1
+  vHeight: 1
+  vIsEnabled: 1
+  vIsVisible: 1
+  OnSelectedEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11466890}
@@ -1080,7 +1080,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  OnDeselected:
+  OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
@@ -1096,24 +1096,24 @@ MonoBehaviour:
   m_Script: {fileID: 355198992, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Id: 
-  Label: B
-  Width: 1
-  Height: 1
-  IsEnabled: 1
-  IsVisible: 1
-  OnSelected:
+  vId: 
+  vLabel: B
+  vWidth: 1
+  vHeight: 1
+  vIsEnabled: 1
+  vIsVisible: 1
+  OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  OnDeselected:
+  OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  Value: 1
-  OnValueChanged:
+  vValue: 1
+  OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItemBool+ValueChangedEventHandler,
@@ -1129,13 +1129,13 @@ MonoBehaviour:
   m_Script: {fileID: -475705363, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Id: 
-  Label: SlideA
-  Width: 1
-  Height: 1
-  IsEnabled: 1
-  IsVisible: 1
-  OnSelected:
+  vId: 
+  vLabel: SlideA
+  vWidth: 1
+  vHeight: 1
+  vIsEnabled: 1
+  vIsVisible: 1
+  OnSelectedEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11466890}
@@ -1151,7 +1151,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  OnDeselected:
+  OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11466890}
@@ -1167,8 +1167,8 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  Value: .600000024
-  OnValueChanged:
+  vValue: .600000024
+  OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11466890}
@@ -1184,12 +1184,12 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItemFloat+ValueChangedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  Ticks: 0
-  Snaps: 0
-  RangeMin: 0
-  RangeMax: 1000
-  AllowJump: 0
-  FillStartingPoint: 0
+  vTicks: 0
+  vSnaps: 0
+  vRangeMin: 0
+  vRangeMax: 1000
+  vAllowJump: 0
+  vFillStartingPoint: 0
 --- !u!114 &11463882
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1201,23 +1201,23 @@ MonoBehaviour:
   m_Script: {fileID: 1292171550, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Id: 
-  Label: Back
-  Width: 1
-  Height: 1
-  IsEnabled: 1
-  IsVisible: 1
-  OnSelected:
+  vId: 
+  vLabel: Back
+  vWidth: 1
+  vHeight: 1
+  vIsEnabled: 1
+  vIsVisible: 1
+  OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  OnDeselected:
+  OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  NavigateBackUponSelect: 1
+  vNavigateBackUponSelect: 1
 --- !u!114 &11466890
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1240,24 +1240,24 @@ MonoBehaviour:
   m_Script: {fileID: 355198992, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Id: 
-  Label: C
-  Width: 1
-  Height: 1
-  IsEnabled: 1
-  IsVisible: 1
-  OnSelected:
+  vId: 
+  vLabel: C
+  vWidth: 1
+  vHeight: 1
+  vIsEnabled: 1
+  vIsVisible: 1
+  OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  OnDeselected:
+  OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  Value: 0
-  OnValueChanged:
+  vValue: 0
+  OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItemBool+ValueChangedEventHandler,
@@ -1273,18 +1273,18 @@ MonoBehaviour:
   m_Script: {fileID: 1677991526, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Id: 
-  Label: Parent 2
-  Width: 1
-  Height: 1
-  IsEnabled: 1
-  IsVisible: 1
-  OnSelected:
+  vId: 
+  vLabel: Parent 2
+  vWidth: 1
+  vHeight: 1
+  vIsEnabled: 1
+  vIsVisible: 1
+  OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  OnDeselected:
+  OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
@@ -1300,34 +1300,34 @@ MonoBehaviour:
   m_Script: {fileID: -475705363, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Id: 
-  Label: SlideA
-  Width: 1
-  Height: 1
-  IsEnabled: 1
-  IsVisible: 1
-  OnSelected:
+  vId: 
+  vLabel: SlideA
+  vWidth: 1
+  vHeight: 1
+  vIsEnabled: 1
+  vIsVisible: 1
+  OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  OnDeselected:
+  OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  Value: .5
-  OnValueChanged:
+  vValue: .5
+  OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItemFloat+ValueChangedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  Ticks: 0
-  Snaps: 0
-  RangeMin: 0
-  RangeMax: 1
-  AllowJump: 1
-  FillStartingPoint: 2
+  vTicks: 0
+  vSnaps: 0
+  vRangeMin: 0
+  vRangeMax: 1
+  vAllowJump: 1
+  vFillStartingPoint: 2
 --- !u!114 &11492454
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1339,18 +1339,18 @@ MonoBehaviour:
   m_Script: {fileID: 1677991526, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Id: 
-  Label: Parent 4
-  Width: 1
-  Height: 1
-  IsEnabled: 1
-  IsVisible: 1
-  OnSelected:
+  vId: 
+  vLabel: Parent 4
+  vWidth: 1
+  vHeight: 1
+  vIsEnabled: 1
+  vIsVisible: 1
+  OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,
       Hover.Common, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  OnDeselected:
+  OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Hover.Common.Components.Items.HoverSelectableItem+SelectedEventHandler,

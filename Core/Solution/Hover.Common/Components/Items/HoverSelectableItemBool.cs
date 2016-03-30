@@ -1,5 +1,6 @@
 ﻿using System;
 using Hover.Common.Items;
+using UnityEngine;
 using UnityEngine.Events;
 
 namespace Hover.Common.Components.Items {
@@ -10,17 +11,18 @@ namespace Hover.Common.Components.Items {
 		[Serializable]
 		public class ValueChangedEventHandler : UnityEvent<ISelectableItem<bool>> {}
 		
-		public ValueChangedEventHandler _OnValueChanged = new ValueChangedEventHandler();
+		public ValueChangedEventHandler OnValueChangedEvent = new ValueChangedEventHandler();
 
 		public event ItemEvents.ValueChangedHandler<bool> OnValueChanged;
 
+		[SerializeField]
 		protected bool vValue;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected HoverSelectableItemBool() {
-			OnValueChanged += (x => { _OnValueChanged.Invoke(x); });
+			OnValueChanged += (x => { OnValueChangedEvent.Invoke(x); });
 		}
 
 

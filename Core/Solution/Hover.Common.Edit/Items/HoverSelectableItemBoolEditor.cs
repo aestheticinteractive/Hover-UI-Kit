@@ -17,7 +17,7 @@ namespace Hover.Common.Edit.Items {
 			base.OnEnable();
 			
 			var t = (HoverSelectableItemBool)target;
-			string onValChangeName = GetPropertyName(() => t._OnValueChanged);
+			string onValChangeName = GetPropertyName(() => t.OnValueChangedEvent);
 			
 			vOnValueChangedProp = serializedObject.FindProperty(onValChangeName);
 			vValueLabel = "Bool Value";
