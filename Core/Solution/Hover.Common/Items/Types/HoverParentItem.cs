@@ -1,16 +1,17 @@
-﻿using Hover.Common.Items.Types;
+﻿using Hover.Common.Items.Groups;
 
-namespace Hover.Common.Components.Items.Types {
+namespace Hover.Common.Items.Types {
 
 	/*================================================================================================*/
-	public class HoverCheckboxItem : HoverSelectableItemBool, ICheckboxItem {
+	public class HoverParentItem : HoverSelectableItem, IParentItem {
+
+		public IItemGroup ChildGroup { get; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public override void Select() {
-			Value = !Value;
-			base.Select();
+		public HoverParentItem() {
+			ChildGroup = new ItemGroup(() => GetChildItems(gameObject));
 		}
 
 	}

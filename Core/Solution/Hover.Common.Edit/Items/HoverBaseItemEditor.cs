@@ -1,6 +1,6 @@
 using System;
 using System.Linq.Expressions;
-using Hover.Common.Components.Items;
+using Hover.Common.Items;
 using UnityEditor;
 using UnityEngine;
 

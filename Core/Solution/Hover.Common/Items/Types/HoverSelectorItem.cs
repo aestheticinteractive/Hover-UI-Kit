@@ -1,7 +1,6 @@
-﻿using Hover.Common.Items.Types;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Hover.Common.Components.Items.Types {
+namespace Hover.Common.Items.Types {
 
 	/*================================================================================================*/
 	public class HoverSelectorItem : HoverSelectableItem, ISelectorItem {

@@ -1,5 +1,4 @@
 ﻿using System;
-using Hover.Common.Components.Items;
 using Hover.Common.Items;
 using Hover.Common.Items.Types;
 using UnityEngine;

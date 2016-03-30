@@ -1,20 +1,16 @@
-using Hover.Common.Items.Types;
-using UnityEditor;
-
-namespace Hover.Common.Edit.Items.Types {
+﻿namespace Hover.Common.Items.Types {
 
 	/*================================================================================================*/
-	[CustomEditor(typeof(HoverCheckboxItem))]
-	public class HoverCheckboxItemEditor : HoverSelectableItemBoolEditor {
+	public class HoverCheckboxItem : HoverSelectableItemBool, ICheckboxItem {
 
-		
+
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public override void OnEnable() {
-			base.OnEnable();
-			vValueLabel = "Checkbox Value";
+		public override void Select() {
+			Value = !Value;
+			base.Select();
 		}
-		
+
 	}
 
 }

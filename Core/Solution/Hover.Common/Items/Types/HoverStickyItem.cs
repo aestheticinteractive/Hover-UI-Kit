@@ -1,6 +1,4 @@
-﻿using Hover.Common.Items.Types;
-
-namespace Hover.Common.Components.Items.Types {
+﻿namespace Hover.Common.Items.Types {
 
 	/*================================================================================================*/
 	public class HoverStickyItem : HoverSelectableItem, IStickyItem {

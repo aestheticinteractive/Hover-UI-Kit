@@ -1,4 +1,4 @@
-using Hover.Common.Components.Items;
+using Hover.Common.Items;
 using UnityEditor;
 
 namespace Hover.Common.Edit.Items {

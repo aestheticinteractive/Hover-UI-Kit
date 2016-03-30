@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Hover.Common.Items;
 using Hover.Common.Renderers;
 using Hover.Common.Styles;
 using UnityEngine;
 
-namespace Hover.Common.Components.Items {
+namespace Hover.Common.Items {
 
 	/*================================================================================================*/
 	public abstract class HoverBaseItem : MonoBehaviour, IBaseItem {

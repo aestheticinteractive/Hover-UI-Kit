@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Hover.Common.Components.Items.Types;
 using Hover.Common.Items.Types;
 
 namespace Hover.Common.Items.Groups {

@@ -1,9 +1,8 @@
 ﻿using System;
-using Hover.Common.Items;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Hover.Common.Components.Items {
+namespace Hover.Common.Items {
 
 	/*================================================================================================*/
 	public abstract class HoverSelectableItemFloat : HoverSelectableItem, ISelectableItem<float> {
