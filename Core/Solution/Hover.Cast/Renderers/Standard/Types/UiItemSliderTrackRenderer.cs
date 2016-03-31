@@ -4,7 +4,7 @@ using System.Linq;
 using Hover.Common.Display;
 using UnityEngine;
 
-namespace Hover.Cast.Display.Standard {
+namespace Hover.Cast.Renderers.Standard.Types {
 
 	/*================================================================================================*/
 	public class UiItemSliderTrackRenderer {

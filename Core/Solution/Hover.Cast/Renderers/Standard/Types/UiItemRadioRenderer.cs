@@ -1,26 +1,26 @@
 using Hover.Common.Display;
 using Hover.Common.Items.Types;
 
-namespace Hover.Cast.Display.Standard {
+namespace Hover.Cast.Renderers.Standard.Types {
 
 	/*================================================================================================*/
-	public class UiItemCheckboxRenderer : UiItemBaseToggleRenderer {
+	public class UiItemRadioRenderer : UiItemBaseToggleRenderer {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected override Materials.IconOffset GetOuterIconOffset() {
-			return Materials.IconOffset.CheckOuter;
+			return Materials.IconOffset.RadioOuter;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		protected override Materials.IconOffset GetInnerIconOffset() {
-			return Materials.IconOffset.CheckInner;
+			return Materials.IconOffset.RadioInner;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		protected override bool IsToggled() {
-			return ((ICheckboxItem)vItemState.Item).Value;
+			return ((IRadioItem)vItemState.Item).Value;
 		}
 
 	}

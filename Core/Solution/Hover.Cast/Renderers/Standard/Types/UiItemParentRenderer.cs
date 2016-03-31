@@ -1,22 +1,15 @@
 ﻿using Hover.Common.Display;
-using UnityEngine;
 
-namespace Hover.Cast.Display.Standard {
+namespace Hover.Cast.Renderers.Standard.Types {
 
 	/*================================================================================================*/
-	public class UiItemStickyRenderer : UiItemBaseIconRenderer {
+	public class UiItemParentRenderer : UiItemBaseIconRenderer {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected override Materials.IconOffset GetIconOffset() {
-			return Materials.IconOffset.Sticky;
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		protected override Vector3 GetIconScale() {
-			float s = vSettings.TextSize*ArcCanvasScale;
-			return new Vector3(s, s, 1);
+			return Materials.IconOffset.Parent;
 		}
 
 	}

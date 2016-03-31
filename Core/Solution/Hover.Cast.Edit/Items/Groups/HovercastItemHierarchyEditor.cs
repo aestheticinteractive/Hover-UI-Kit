@@ -1,8 +1,8 @@
-using Hover.Cast.Items;
+using Hover.Cast.Items.Groups;
 using Hover.Common.Edit.Items.Groups;
 using UnityEditor;
 
-namespace Hover.Cast.Edit.Items {
+namespace Hover.Cast.Edit.Items.Groups {
 
 	/*================================================================================================*/
 	[CustomEditor(typeof(HovercastItemHierarchy))]

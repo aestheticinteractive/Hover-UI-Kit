@@ -1,23 +1,22 @@
-﻿using Hover.Cast.Display;
-using Hover.Cast.Items;
-using Hover.Common.Custom;
+﻿using Hover.Common.Display;
+using UnityEngine;
 
-namespace Hover.Cast.Custom {
-	
+namespace Hover.Cast.Renderers.Standard.Types {
+
 	/*================================================================================================*/
-	public abstract class HovercastItemVisualSettings : 
-										HovercommonItemVisualSettings<HovercastItem, IUiItemRenderer> {
+	public class UiItemStickyRenderer : UiItemBaseIconRenderer {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected override string GetDomain() {
-			return "Hovercast";
+		protected override Materials.IconOffset GetIconOffset() {
+			return Materials.IconOffset.Sticky;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		protected override string GetRendererUnit() {
-			return "Item";
+		protected override Vector3 GetIconScale() {
+			float s = vSettings.TextSize*ArcCanvasScale;
+			return new Vector3(s, s, 1);
 		}
 
 	}

@@ -1,5 +1,5 @@
 using System;
-using Hover.Cast.Custom.Standard;
+using Hover.Cast.Display;
 using Hover.Cast.State;
 using Hover.Common.Custom;
 using Hover.Common.Display;
@@ -7,7 +7,7 @@ using Hover.Common.Items;
 using Hover.Common.State;
 using UnityEngine;
 
-namespace Hover.Cast.Display.Standard {
+namespace Hover.Cast.Renderers.Standard.Types {
 
 	/*================================================================================================*/
 	public class UiItemSelectRenderer : MonoBehaviour, IUiItemRenderer {

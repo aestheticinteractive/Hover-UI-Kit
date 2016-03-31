@@ -4,7 +4,7 @@ using Hover.Common.State;
 using Hover.Common.Util;
 using UnityEngine;
 
-namespace Hover.Cast.Display.Standard {
+namespace Hover.Cast.Renderers.Standard.Types {
 
 	/*================================================================================================*/
 	public class UiHoverMeshSlice : UiHoverMesh {

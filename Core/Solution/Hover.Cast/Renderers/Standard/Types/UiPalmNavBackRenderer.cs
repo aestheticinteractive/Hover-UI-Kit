@@ -1,6 +1,6 @@
 using System;
 using System.Diagnostics;
-using Hover.Cast.Custom.Standard;
+using Hover.Cast.Display;
 using Hover.Cast.State;
 using Hover.Common.Custom;
 using Hover.Common.Display;
@@ -9,7 +9,7 @@ using Hover.Common.State;
 using Hover.Common.Util;
 using UnityEngine;
 
-namespace Hover.Cast.Display.Standard {
+namespace Hover.Cast.Renderers.Standard.Types {
 
 	/*================================================================================================*/
 	public class UiPalmNavBackRenderer : MonoBehaviour, IUiItemRenderer {

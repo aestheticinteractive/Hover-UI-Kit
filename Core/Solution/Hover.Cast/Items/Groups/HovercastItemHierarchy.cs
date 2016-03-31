@@ -2,7 +2,7 @@
 using Hover.Common.Items.Groups;
 using Hover.Common.Items.Types;
 
-namespace Hover.Cast.Items {
+namespace Hover.Cast.Items.Groups {
 
 	/*================================================================================================*/
 	public class HovercastItemHierarchy : HoverItemHierarchy { 

@@ -1,19 +1,16 @@
 using System;
-using Hover.Cast.Custom.Standard;
 using Hover.Cast.State;
-using Hover.Common.Custom;
 using Hover.Common.Display;
 using Hover.Common.Items;
+using Hover.Common.Renderers;
 using Hover.Common.State;
 using UnityEngine;
-using Hover.Common.Items.Types;
-using Hover.Cast.Display.Standard;
 
-namespace Hover.Cast.Renderers.Standard {
+namespace Hover.Cast.Renderers.Standard.Types {
 
 	/*================================================================================================*/
-	public class HovercastStandardSelectItemRenderer : 
-												MonoBehaviour, IHovercastItemRenderer<ISelectorItem> {
+	[ExecuteInEditMode]
+	public class HovercastStandardItemRenderer : MonoBehaviour, IHovercastItemRenderer {
 		
 		public const float Thickness = 0.5f;
 		public const float InnerRadius = 1;
@@ -23,21 +20,46 @@ namespace Hover.Cast.Renderers.Standard {
 		
 		public IHovercastMenuState MenuState { get; set; }
 		public IBaseItemState ItemState { get; set; }
-		
+
+		public HovercastStandardRendererSettings Settings {
+			get { return vSettings; }
+			set { vSettings = value; }
+		}
+
 		public float ArcAngle { get; set; }
-		public IItemVisualSettings Settings { get; set; }
-		
 		public bool? AnimIsFadingIn { get; set; }
 		public int AnimDirection { get; set; }
 		public float AnimProgress { get; set; }
 
 		protected float vMainAlpha;
 		protected float vAnimAlpha;
-
 		protected UiHoverMeshSlice vHoverSlice;
 		protected UiLabel vLabel;
 
+		private readonly RendererTypeSelector vRendererTypes;
+		private IHovercastItemRenderer vActiveRenderer;
 
+		[SerializeField]
+		private HovercastStandardRendererSettings vSettings;
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public HovercastStandardItemRenderer() {
+			vRendererTypes = new RendererTypeSelector(
+				typeof(UiItemCheckboxRenderer),
+				typeof(UiItemParentRenderer),
+				typeof(UiItemRadioRenderer),
+				typeof(UiItemSelectRenderer),
+				typeof(UiItemSliderRenderer),
+				typeof(UiItemStickyRenderer),
+				typeof(UiItemSliderRenderer)
+			);
+
+			vSettings = new HovercastStandardRendererSettings();
+		}
+
+			
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void Awake() {
@@ -82,7 +104,6 @@ namespace Hover.Cast.Renderers.Standard {
 			////
 
 			ISelectableItem selItem = (ISelectableItem)ItemState.Item;
-			ItemVisualSettingsStandard sett = (ItemVisualSettingsStandard)Settings;
 			float high = ItemState.MaxHighlightProgress;
 			bool showEdge = DisplayUtil.IsEdgeVisible(ItemState);
 			float edge = (showEdge ? high : 0);
@@ -93,10 +114,10 @@ namespace Hover.Cast.Renderers.Standard {
 				selectAlpha = 1;
 			}
 
-			Color colBg = sett.BackgroundColor;
-			Color colEdge = sett.EdgeColor;
-			Color colHigh = sett.HighlightColor;
-			Color colSel = sett.SelectionColor;
+			Color colBg = vSettings.BackgroundColor;
+			Color colEdge = vSettings.EdgeColor;
+			Color colHigh = vSettings.HighlightColor;
+			Color colSel = vSettings.SelectionColor;
 
 			colBg.a *= vMainAlpha;
 			colEdge.a *= edge*vMainAlpha;
@@ -108,15 +129,15 @@ namespace Hover.Cast.Renderers.Standard {
 			vHoverSlice.UpdateHighlight(colHigh, high);
 			vHoverSlice.UpdateSelect(colSel, select);
 
-			if ( sett.TextSize != vLabel.FontSize ) {
+			if ( vSettings.TextSize != vLabel.FontSize ) {
 				vLabel.SetSize(ArcCanvasThickness*ArcCanvasScale, 
-					sett.TextSize*1.5f*ArcCanvasScale, sett.TextSize*0.6f, ArcCanvasScale);
+					vSettings.TextSize*1.5f*ArcCanvasScale, vSettings.TextSize*0.6f, ArcCanvasScale);
 			}
 
 			vLabel.Alpha = vMainAlpha;
-			vLabel.FontName = sett.TextFont;
-			vLabel.FontSize = sett.TextSize;
-			vLabel.Color = sett.TextColor;
+			vLabel.Font = vSettings.TextFont;
+			vLabel.FontSize = vSettings.TextSize;
+			vLabel.Color = vSettings.TextColor;
 			vLabel.Label = ItemState.Item.Label;
 		}
 

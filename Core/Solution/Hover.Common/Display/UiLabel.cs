@@ -147,6 +147,21 @@ namespace Hover.Common.Display {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
+		public Font Font {
+			get {
+				return vTextObj.GetComponent<Text>().font;
+			}
+			set {
+				if ( value.name == vFontName ) {
+					return;
+				}
+
+				vFontName = value.name;
+				vTextObj.GetComponent<Text>().font = value;
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
 		public string FontName {
 			get {
 				return vFontName;

@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using Hover.Cast.Custom;
 using Hover.Cast.Input;
 using Hover.Cast.Items;
+using Hover.Cast.Items.Groups;
 using Hover.Common.Input;
 using Hover.Common.Items;
 using Hover.Common.Items.Groups;
