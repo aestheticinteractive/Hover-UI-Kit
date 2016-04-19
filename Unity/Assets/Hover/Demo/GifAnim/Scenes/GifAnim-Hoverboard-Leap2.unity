@@ -8,16 +8,16 @@ SceneSettings:
   m_PVSPortalsArray: []
   m_OcclusionBakeSettings:
     smallestOccluder: 5
-    smallestHole: .25
+    smallestHole: 0.25
     backfaceThreshold: 100
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 6
   m_Fog: 0
-  m_FogColor: {r: .5, g: .5, b: .5, a: 1}
+  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
-  m_FogDensity: .00999999978
+  m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0, g: 0, b: 0, a: 1}
@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 3
   m_SkyboxMaterial: {fileID: 0}
-  m_HaloStrength: .5
+  m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
   m_HaloTexture: {fileID: 0}
@@ -40,7 +40,7 @@ RenderSettings:
 --- !u!157 &4
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 5
+  serializedVersion: 6
   m_GIWorkflowMode: 1
   m_LightmapsMode: 1
   m_GISettings:
@@ -66,7 +66,7 @@ LightmapSettings:
     m_FinalGather: 0
     m_FinalGatherRayCount: 1024
     m_ReflectionCompression: 2
-  m_LightmapSnapshot: {fileID: 0}
+  m_LightingDataAsset: {fileID: 0}
   m_RuntimeCPUUsage: 25
 --- !u!196 &5
 NavMeshSettings:
@@ -74,15 +74,15 @@ NavMeshSettings:
   m_ObjectHideFlags: 0
   m_BuildSettings:
     serializedVersion: 2
-    agentRadius: .5
+    agentRadius: 0.5
     agentHeight: 2
     agentSlope: 45
-    agentClimb: .400000006
+    agentClimb: 0.4
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     accuratePlacement: 0
     minRegionArea: 2
-    cellSize: .166666657
+    cellSize: 0.16666666
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
 --- !u!1001 &211272013
@@ -390,13 +390,13 @@ MonoBehaviour:
   TextFont: Tahoma
   ArrowIconColor: {r: 1, g: 1, b: 1, a: 1}
   ToggleIconColor: {r: 1, g: 1, b: 1, a: 1}
-  BackgroundColor: {r: .100000001, g: .100000001, b: .100000001, a: .666666687}
+  BackgroundColor: {r: 0.1, g: 0.1, b: 0.1, a: 0.6666667}
   EdgeColor: {r: 1, g: 1, b: 1, a: 1}
-  HighlightColor: {r: .250980407, g: .250980407, b: .250980407, a: .431372553}
-  SelectionColor: {r: .501960814, g: .501960814, b: .501960814, a: 1}
-  SliderTrackColor: {r: .101960786, g: .101960786, b: .101960786, a: .5}
-  SliderFillColor: {r: .498039216, g: .498039216, b: .498039216, a: .250980407}
-  SliderTickColor: {r: 1, g: 1, b: 1, a: .250980407}
+  HighlightColor: {r: 0.2509804, g: 0.2509804, b: 0.2509804, a: 0.43137255}
+  SelectionColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+  SliderTrackColor: {r: 0.101960786, g: 0.101960786, b: 0.101960786, a: 0.5}
+  SliderFillColor: {r: 0.49803922, g: 0.49803922, b: 0.49803922, a: 0.2509804}
+  SliderTickColor: {r: 1, g: 1, b: 1, a: 0.2509804}
 --- !u!114 &1172396921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -462,6 +462,10 @@ Prefab:
     - target: {fileID: 100006, guid: 7536218140e53d243a6ec85d6219b828, type: 2}
       propertyPath: m_Name
       value: Camera (must disable Unity VR support)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 7536218140e53d243a6ec85d6219b828, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400006, guid: 7536218140e53d243a6ec85d6219b828, type: 2}
@@ -544,9 +548,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1699038951}
-  m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106829}
-  m_LocalPosition: {x: 0, y: 0, z: -.150000006}
-  m_LocalScale: {x: .100000001, y: .100000001, z: .100000001}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: -0.15}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children:
   - {fileID: 293747469}
   m_Father: {fileID: 0}
