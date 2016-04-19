@@ -1,7 +1,10 @@
-﻿namespace Hover.Common.Items.Types {
+﻿using System;
+
+namespace Hover.Common.Items.Types {
 
 	/*================================================================================================*/
-	public class CheckboxItem : SelectableItem<bool>, ICheckboxItem {
+	[Serializable]
+	public class CheckboxItem : SelectableItemBool, ICheckboxItem {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -9,13 +12,6 @@
 		public override void Select() {
 			Value = !Value;
 			base.Select();
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		protected override bool AreValuesEqual(bool pValueA, bool pValueB) {
-			return (pValueA == pValueB);
 		}
 
 	}

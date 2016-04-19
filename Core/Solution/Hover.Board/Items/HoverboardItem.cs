@@ -71,7 +71,7 @@ namespace Hover.Board.Items {
 					break;
 
 				case HoverboardItemType.Radio:
-					var radItem = new RadioItem();
+					var radItem = new RadioItem(gameObject.transform.parent.name);
 					radItem.Value = RadioValue;
 					radItem.GroupId = RadioGroupId;
 					vItem = radItem;

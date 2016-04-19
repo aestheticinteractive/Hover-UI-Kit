@@ -1,33 +1,86 @@
-﻿namespace Hover.Common.Items {
+﻿using System;
+using UnityEngine;
+
+namespace Hover.Common.Items {
 
 	/*================================================================================================*/
+	[Serializable]
 	public abstract class BaseItem : IBaseItem {
-
+		
 		private static int ItemCount;
 
-		public int AutoId { get; private set; }
-		public string Id { get; set; }
-		public virtual string Label { get; set; }
-		public float Width { get; set; }
-		public float Height { get; set; }
-		public object DisplayContainer { get; set; }
+		public int AutoId { get; }
+		public object DisplayContainer { get; set; } //TODO: move setter to an "internal" interface
+		public bool IsAncestryEnabled { get; set; } //TODO: move setter to an "internal" interface
+		public bool IsAncestryVisible { get; set; } //TODO: move setter to an "internal" interface
 
-		public bool IsEnabled { get; set; }
-		public bool IsVisible { get; set; }
-		public bool IsAncestryEnabled { get; set; }
-		public bool IsAncestryVisible { get; set; }
+		[SerializeField]
+		private string vId;
+
+		[SerializeField]
+		private string vLabel;
+
+		[SerializeField]
+		private float vWidth;
+
+		[SerializeField]
+		private float vHeight;
+
+		[SerializeField]
+		private bool vIsEnabled;
+
+		[SerializeField]
+		private bool vIsVisible;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected BaseItem() {
-			AutoId = (++ItemCount);
+			AutoId = ++ItemCount;
 			Id = GetType().Name+AutoId;
 
 			IsEnabled = true;
 			IsVisible = true;
 			IsAncestryEnabled = true;
 			IsAncestryVisible = true;
+		}
+
+		
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public string Id {
+			get { return vId; }
+			set { vId = value; }
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public virtual string Label {
+			get { return vLabel; }
+			set { vLabel = value; }
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float Width {
+			get { return vWidth; }
+			set { vWidth = value; }
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float Height {
+			get { return vHeight; }
+			set { vHeight = value; }
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool IsEnabled {
+			get { return vIsEnabled; }
+			set { vIsEnabled = value; }
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool IsVisible {
+			get { return vIsVisible; }
+			set { vIsVisible = value; }
 		}
 
 	}

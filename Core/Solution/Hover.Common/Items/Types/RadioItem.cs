@@ -1,12 +1,33 @@
-﻿namespace Hover.Common.Items.Types {
+﻿using System;
+using UnityEngine;
+
+namespace Hover.Common.Items.Types {
 
 	/*================================================================================================*/
-	public class RadioItem : SelectableItem<bool>, IRadioItem {
+	[Serializable]
+	public class RadioItem : SelectableItemBool, IRadioItem {
+		
+		[SerializeField]
+		private string vDefaultGroupId;
 
-		public string GroupId { get; set; }
+		[SerializeField]
+		private string vGroupId;
+		
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public RadioItem(string pDefaultGroupId) {
+
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public string GroupId { //TODO: doesn't update for runtime changes
+			get { return (string.IsNullOrEmpty(vGroupId) ? vDefaultGroupId : vGroupId); }
+			set { vGroupId = value; }
+		}
+
 		/*--------------------------------------------------------------------------------------------*/
 		public override void Select() {
 			Value = true;
@@ -18,13 +39,6 @@
 			get {
 				return (!Value && base.AllowSelection);
 			}
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		protected override bool AreValuesEqual(bool pValueA, bool pValueB) {
-			return (pValueA == pValueB);
 		}
 
 	}

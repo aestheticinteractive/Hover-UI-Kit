@@ -1,21 +1,29 @@
-﻿namespace Hover.Common.Items {
+﻿using System;
+using UnityEngine.Events;
+
+namespace Hover.Common.Items {
 
 	/*================================================================================================*/
+	[Serializable]
 	public abstract class SelectableItem : BaseItem, ISelectableItem {
+		
+		[Serializable]
+		public class SelectedEventHandler : UnityEvent<ISelectableItem> {}
+		
+		public bool IsStickySelected { get; private set; }
+
+		public SelectedEventHandler OnSelectedEvent = new SelectedEventHandler();
+		public SelectedEventHandler OnDeselectedEvent = new SelectedEventHandler();
 
 		public event ItemEvents.SelectedHandler OnSelected;
 		public event ItemEvents.DeselectedHandler OnDeselected;
-
-		public bool IsStickySelected { get; private set; }
-		public virtual bool NavigateBackUponSelect { get; set; }
-		//public float RelativeSize { get; internal set; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected SelectableItem() {
-			OnSelected += (i => {});
-			OnDeselected += (i => {});
+			OnSelected += (x => { OnSelectedEvent.Invoke(x); });
+			OnDeselected += (x => { OnDeselectedEvent.Invoke(x); });
 		}
 
 

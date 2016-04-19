@@ -67,7 +67,7 @@ namespace Hover.Cast.Items {
 					break;
 
 				case HovercastItemType.Radio:
-					var radItem = new RadioItem();
+					var radItem = new RadioItem(gameObject.transform.parent.name);
 					radItem.Value = RadioValue;
 					vItem = radItem;
 					break;
@@ -110,9 +110,9 @@ namespace Hover.Cast.Items {
 			vItem.IsVisible = IsVisible;
 			vItem.IsEnabled = IsEnabled;
 
-			ISelectableItem selItem = (vItem as ISelectableItem);
+			ISelectorItem selItem = (vItem as ISelectorItem);
 
-			if ( selItem != null && !(vItem is IParentItem) ) {
+			if ( selItem != null ) {
 				selItem.NavigateBackUponSelect = NavigateBackUponSelect;
 			}
 		}

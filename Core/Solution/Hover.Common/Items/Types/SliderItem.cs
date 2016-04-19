@@ -1,9 +1,11 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Hover.Common.Items.Types {
 
 	/*================================================================================================*/
-	public class SliderItem : SelectableItem<float>, ISliderItem {
+	[Serializable]
+	public class SliderItem : SelectableItemFloat, ISliderItem {
 
 		public enum FillType {
 			MinimumValue,
@@ -11,14 +13,26 @@ namespace Hover.Common.Items.Types {
 			MaximumValue
 		}
 
-		public int Ticks { get; set; }
-		public int Snaps { get; set; }
-		public float RangeMin { get; set; }
-		public float RangeMax { get; set; }
 		public Func<ISliderItem, string> ValueToLabel { get; set; }
-		public bool AllowJump { get; set; }
-		public FillType FillStartingPoint { get; set; }
 
+		[SerializeField]
+		private int vTicks;
+
+		[SerializeField]
+		private int vSnaps;
+
+		[SerializeField]
+		private float vRangeMin;
+
+		[SerializeField]
+		private float vRangeMax;
+
+		[SerializeField]
+		private bool vAllowJump;
+
+		[SerializeField]
+		private FillType vFillStartingPoint;
+		
 		private float? vHoverValue;
 		private string vPrevLabel;
 		private float vPrevSnappedValue;
@@ -29,12 +43,12 @@ namespace Hover.Common.Items.Types {
 		/*--------------------------------------------------------------------------------------------*/
 		public SliderItem() {
 			ValueToLabel = (s => {
-				if ( base.Label == vPrevLabel && s.RangeSnappedValue == vPrevSnappedValue ) {
+				if ( base.Label == vPrevLabel && s.SnappedRangeValue == vPrevSnappedValue ) {
 					return vPrevValueToLabel;
 				}
-
+				
 				vPrevLabel = base.Label;
-				vPrevSnappedValue = s.RangeSnappedValue;
+				vPrevSnappedValue = s.SnappedRangeValue;
 				vPrevValueToLabel = vPrevLabel+": "+Math.Round(vPrevSnappedValue*10)/10f; //GC_ALLOC
 				return vPrevValueToLabel;
 			});
@@ -48,7 +62,50 @@ namespace Hover.Common.Items.Types {
 				return ValueToLabel(this);
 			}
 		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public string BaseLabel {
+			get {
+				return base.Label;
+			}
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public int Ticks { //TODO: doesn't update visually for runtime changes
+			get { return vTicks; }
+			set { vTicks = value; }
+		}
 
+		/*--------------------------------------------------------------------------------------------*/
+		public int Snaps {
+			get { return vSnaps; }
+			set { vSnaps = value; }
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float RangeMin {
+			get { return vRangeMin; }
+			set { vRangeMin = value; }
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float RangeMax {
+			get { return vRangeMax; }
+			set { vRangeMax = value; }
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool AllowJump {
+			get { return vAllowJump; }
+			set { vAllowJump = value; }
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public FillType FillStartingPoint {
+			get { return vFillStartingPoint; }
+			set { vFillStartingPoint = value; }
+		}
+		
 		/*--------------------------------------------------------------------------------------------*/
 		public override void DeselectStickySelections() {
 			Value = SnappedValue;
@@ -64,11 +121,27 @@ namespace Hover.Common.Items.Types {
 				base.Value = Math.Max(0, Math.Min(1, value));
 			}
 		}
+		
+		
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public float RangeValue {
+			get {
+				return Value*(RangeMax-RangeMin)+RangeMin;
+			}
+		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public float SnappedValue {
 			get {
 				return CalcSnappedValue(Value);
+			}
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public float SnappedRangeValue {
+			get {
+				return SnappedValue*(RangeMax-RangeMin)+RangeMin;
 			}
 		}
 
@@ -88,27 +161,13 @@ namespace Hover.Common.Items.Types {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public float? HoverSnappedValue {
+		public float? SnappedHoverValue {
 			get {
 				if ( HoverValue == null ) {
 					return null;
 				}
 
 				return CalcSnappedValue((float)HoverValue);
-			}
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public float RangeValue {
-			get {
-				return Value*(RangeMax-RangeMin)+RangeMin;
-			}
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public float RangeSnappedValue {
-			get {
-				return SnappedValue*(RangeMax-RangeMin)+RangeMin;
 			}
 		}
 
@@ -127,13 +186,6 @@ namespace Hover.Common.Items.Types {
 
 			int s = Snaps-1;
 			return (float)Math.Round(pValue*s)/s;
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		protected override bool AreValuesEqual(float pValueA, float pValueB) {
-			return (pValueA == pValueB);
 		}
 
 	}

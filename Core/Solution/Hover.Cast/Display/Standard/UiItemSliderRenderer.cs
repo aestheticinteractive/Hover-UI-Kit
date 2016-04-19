@@ -164,7 +164,7 @@ namespace Hover.Cast.Display.Standard {
 
 			if ( vSliderItem.HoverValue != null ) {
 				easedHover = DisplayUtil.GetEasedValue(snaps, (float)vSliderItem.HoverValue,
-					(float)vSliderItem.HoverSnappedValue, easePower);
+					(float)vSliderItem.SnappedHoverValue, easePower);
 			} 
 
 			Color colTrack = vSettings.SliderTrackColor;

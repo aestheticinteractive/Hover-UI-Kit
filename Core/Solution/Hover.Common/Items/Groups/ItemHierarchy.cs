@@ -89,7 +89,7 @@ namespace Hover.Common.Items.Groups {
 				return;
 			}
 
-			if ( pItem.NavigateBackUponSelect ) {
+			if ( pItem is ISelectorItem && ((ISelectorItem)pItem).NavigateBackUponSelect ) {
 				Back();
 			}
 		}
