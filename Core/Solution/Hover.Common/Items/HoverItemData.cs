@@ -21,15 +21,14 @@ namespace Hover.Common.Items {
 		[SerializeField]
 		private HoverItemType vType;
 
-		[SerializeField]
-		private BaseItem vData;
+		public BaseItem DataProp;
 		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public HoverItemData() {
 			vType = HoverItemType.Selector;
-			vData = BuildData(vType);
+			DataProp = BuildData(vType);
 		}
 
 
@@ -41,7 +40,8 @@ namespace Hover.Common.Items {
 			}
 			set {
 				if ( vType != value ) {
-					vData = BuildData(value);
+					DataProp = BuildData(value);
+					Debug.Log("BUILD: "+value+" / "+DataProp);
 				}
 
 				vType = value;
@@ -49,8 +49,8 @@ namespace Hover.Common.Items {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public IBaseItem Data {
-			get { return vData; }
+		public BaseItem Data {
+			get { return DataProp; }
 		}
 		
 
