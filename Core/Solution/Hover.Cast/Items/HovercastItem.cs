@@ -63,11 +63,13 @@ namespace Hover.Cast.Items {
 					break;
 
 				case HovercastItemType.Parent:
-					vItem = new ParentItem(GetChildItems);
+					vItem = new ParentItem();
+					(vItem as ParentItem).InitChildGroup(GetChildItems);
 					break;
 
 				case HovercastItemType.Radio:
-					var radItem = new RadioItem(gameObject.transform.parent.name);
+					var radItem = new RadioItem();
+					radItem.InitDefaultGroupId(gameObject.transform);
 					radItem.Value = RadioValue;
 					vItem = radItem;
 					break;

@@ -5,11 +5,11 @@ namespace Hover.Common.Items {
 
 	/*================================================================================================*/
 	[Serializable]
-	public abstract class BaseItem : IBaseItem {
+	public abstract class BaseItem : ScriptableObject, IBaseItem {
 		
 		private static int ItemCount;
 
-		public int AutoId { get; }
+		public int AutoId { get; internal set; }
 		public object DisplayContainer { get; set; } //TODO: move setter to an "internal" interface
 		public bool IsAncestryEnabled { get; set; } //TODO: move setter to an "internal" interface
 		public bool IsAncestryVisible { get; set; } //TODO: move setter to an "internal" interface
@@ -37,7 +37,7 @@ namespace Hover.Common.Items {
 		/*--------------------------------------------------------------------------------------------*/
 		protected BaseItem() {
 			AutoId = ++ItemCount;
-			Id = GetType().Name+AutoId;
+			Id = "Item-"+AutoId;
 
 			IsEnabled = true;
 			IsVisible = true;

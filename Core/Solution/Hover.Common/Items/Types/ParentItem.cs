@@ -12,7 +12,7 @@ namespace Hover.Common.Items.Types {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public ParentItem(Func<IBaseItem[]> pGetItems) {
+		public void InitChildGroup(Func<IBaseItem[]> pGetItems) {
 			ChildGroup = new ItemGroup(pGetItems);
 		}
 

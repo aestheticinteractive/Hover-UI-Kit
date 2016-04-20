@@ -16,8 +16,20 @@ namespace Hover.Common.Items.Types {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public RadioItem(string pDefaultGroupId) {
+		public void InitDefaultGroupId(Transform pParentTx) {
+			if ( pParentTx == null ) {
+				vDefaultGroupId = "Group-Root";
+				return;
+			}
+			
+			HoverItemData parentData = pParentTx.GetComponent<HoverItemData>();
 
+			if ( parentData != null ) {
+				vDefaultGroupId = "Group-"+parentData.Data.AutoId;
+				return;
+			}
+
+			vDefaultGroupId = "Group-Instance"+pParentTx.GetInstanceID();
 		}
 
 

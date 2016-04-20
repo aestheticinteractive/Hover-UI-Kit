@@ -1,6 +1,7 @@
 using System;
 using System.Linq.Expressions;
 using Hover.Common.Items;
+using Hover.Common.Items.Types;
 using UnityEditor;
 using UnityEngine;
 
@@ -11,25 +12,34 @@ namespace Hover.Common.Edit.Items {
 	[CustomEditor(typeof(HoverItemData))]
 	public class HoverItemDataEditor : Editor {
 
-		private HoverItemData vTarget;
+		private string vOnSelectedEventName;
+		private string vOnDeselectedEventName;
+		private string vOnBoolValueChangedEventName;
+		private string vOnFloatValueChangedEventName;
 		private GUIStyle vVertStyle;
 
 		private string vIsHiddenOpenKey;
 		private string vIsEventOpenKey;
-
-		private SerializedProperty vOnSelectedProp;
-		private SerializedProperty vOnDeselectedProp;
+		
+		private HoverItemData vTarget;
+		private SerializedObject vSerializedData;
 		
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void OnEnable() {
-			vTarget = (HoverItemData)target;
+			CheckboxItem selBoolData = CreateInstance<CheckboxItem>();
+			SliderItem selFloatData = CreateInstance<SliderItem>();
+
+			vOnSelectedEventName = GetPropertyName(() => selBoolData.OnSelectedEvent);
+			vOnDeselectedEventName = GetPropertyName(() => selBoolData.OnDeselectedEvent);
+			vOnBoolValueChangedEventName = GetPropertyName(() => selBoolData.OnValueChangedEvent);
+			vOnFloatValueChangedEventName = GetPropertyName(() => selFloatData.OnValueChangedEvent);
 
 			vVertStyle = new GUIStyle();
 			vVertStyle.padding = new RectOffset(16, 0, 0, 0);
 			
-			int targetId = vTarget.GetInstanceID();
+			int targetId = target.GetInstanceID();
 
 			vIsHiddenOpenKey = "IsHiddenOpen"+targetId;
 			vIsEventOpenKey = "IsEventOpen"+targetId;
@@ -37,9 +47,9 @@ namespace Hover.Common.Edit.Items {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public override void OnInspectorGUI() {
+			vTarget = (HoverItemData)target;
+
 			Undo.RecordObject(vTarget, vTarget.GetType().Name);
-			
-			FindProperties();
 			DrawItems();
 			
 			if ( GUI.changed ) {
@@ -55,40 +65,12 @@ namespace Hover.Common.Edit.Items {
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void FindProperties() {
-			SelectableItem selectableData = (vTarget.Data as SelectableItem);
-
-			if ( selectableData == null ) {
-				vOnSelectedProp = null;
-				vOnDeselectedProp = null;
-				return;
-			}
-
-			/*if ( vOnSelectedProp == null ) {
-				string dataPropName = GetPropertyName(() => vTarget.DataProp);
-				string onSelName = GetPropertyName(() => selectableData.OnSelectedEvent);
-				string onDeselName = GetPropertyName(() => selectableData.OnDeselectedEvent);
-				SerializedProperty serializedProp = serializedObject.FindProperty(dataPropName);
-				Debug.Log("prop: "+selectableData+" / "+dataPropName+" / "+serializedProp);
-
-				if ( serializedProp == null ) {
-					return; //TODO: temporary
-				}
-
-				vOnSelectedProp = serializedProp.FindPropertyRelative(onSelName);
-				vOnDeselectedProp = serializedProp.FindPropertyRelative(onDeselName);
-			}*/
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
 		private void DrawItems() {
 			DrawMainItems();
 			DrawEventItemGroup();
 			DrawHiddenItemGroup();
 		}
 		
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void DrawMainItems() {
 			BaseItem baseData = vTarget.Data;
@@ -108,7 +90,9 @@ namespace Hover.Common.Edit.Items {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void DrawEventItemGroup() {
-			if ( vOnSelectedProp == null ) {
+			SelectableItem selectableData = (vTarget.Data as SelectableItem);
+
+			if ( selectableData == null ) {
 				return;
 			}
 
@@ -124,9 +108,14 @@ namespace Hover.Common.Edit.Items {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		private void DrawEventItems() {
+			vSerializedData = new SerializedObject(vTarget.Data);
+
+			var onSelectedProp = vSerializedData.FindProperty(vOnSelectedEventName);
+			var onDeselectedProp = vSerializedData.FindProperty(vOnDeselectedEventName);
+
 			//SelectableItem
-			EditorGUILayout.PropertyField(vOnSelectedProp);
-			EditorGUILayout.PropertyField(vOnDeselectedProp);
+			EditorGUILayout.PropertyField(onSelectedProp);
+			EditorGUILayout.PropertyField(onDeselectedProp);
 		}
 
 			

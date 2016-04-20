@@ -19,18 +19,11 @@ namespace Hover.Common.Items {
 		}
 
 		[SerializeField]
-		private HoverItemType vType;
+		private HoverItemType vType = HoverItemType.Selector;
 
-		public BaseItem DataProp;
+		[SerializeField]
+		private BaseItem vData;
 		
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public HoverItemData() {
-			vType = HoverItemType.Selector;
-			DataProp = BuildData(vType);
-		}
-
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -40,8 +33,7 @@ namespace Hover.Common.Items {
 			}
 			set {
 				if ( vType != value ) {
-					DataProp = BuildData(value);
-					Debug.Log("BUILD: "+value+" / "+DataProp);
+					vData = BuildAndTransferData(value);
 				}
 
 				vType = value;
@@ -50,34 +42,97 @@ namespace Hover.Common.Items {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public BaseItem Data {
-			get { return DataProp; }
+			get { 
+				if ( vData == null ) {
+					vData = BuildData(vType);
+				}
+
+				return vData;
+			}
 		}
 		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
+		private BaseItem BuildAndTransferData(HoverItemType pType) {
+			BaseItem oldData = vData;
+			BaseItem newData = BuildData(pType);
+			
+			if ( oldData == null ) {
+				return newData;
+			}
+
+			newData.AutoId = oldData.AutoId;
+			newData.DisplayContainer = oldData.DisplayContainer;
+			newData.IsAncestryEnabled = oldData.IsAncestryEnabled;
+			newData.IsAncestryVisible = oldData.IsAncestryVisible;
+			newData.Id = oldData.Id;
+			newData.Label = oldData.Label;
+			newData.Width = oldData.Width;
+			newData.Height = oldData.Height;
+			newData.IsEnabled = oldData.IsEnabled;
+			newData.IsVisible = oldData.IsVisible;
+
+			SelectableItem oldSelData = (oldData as SelectableItem);
+			SelectableItem newSelData = (newData as SelectableItem);
+
+			if ( oldSelData == null || newSelData == null ) {
+				return newData;
+			}
+
+			newSelData.OnSelectedEvent = oldSelData.OnSelectedEvent;
+			newSelData.OnDeselectedEvent = oldSelData.OnDeselectedEvent;
+			//newSelData.OnSelected += oldSelData.OnSelected;
+			//newSelData.OnDeselected += oldSelData.OnDeselected;
+			
+			SelectableItemBool oldSelBoolData = (oldData as SelectableItemBool);
+			SelectableItemBool newSelBoolData = (newData as SelectableItemBool);
+
+			if ( oldSelBoolData != null && newSelBoolData != null ) {
+				newSelBoolData.Value = oldSelBoolData.Value;
+				newSelBoolData.OnValueChangedEvent = oldSelBoolData.OnValueChangedEvent;
+				//newSelBoolData.OnValueChanged += oldSelBoolData.OnValueChanged;
+			}
+
+			SelectableItemFloat oldSelFloatData = (oldData as SelectableItemFloat);
+			SelectableItemFloat newSelFloatData = (newData as SelectableItemFloat);
+
+			if ( oldSelFloatData != null && newSelFloatData != null ) {
+				newSelFloatData.Value = oldSelFloatData.Value;
+				newSelFloatData.OnValueChangedEvent = oldSelFloatData.OnValueChangedEvent;
+				//newSelFloatData.OnValueChanged += oldSelFloatData.OnValueChanged;
+			}
+
+			return newData;
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
 		private BaseItem BuildData(HoverItemType pType) {
 			switch ( pType ) {
 				case HoverItemType.Parent:
-					return new ParentItem(GetChildItems);
+					ParentItem parent = ScriptableObject.CreateInstance<ParentItem>();
+					parent.InitChildGroup(GetChildItems);
+					return parent;
 
 				case HoverItemType.Selector:
-					return new SelectorItem();
+					return ScriptableObject.CreateInstance<SelectorItem>();
 
 				case HoverItemType.Sticky:
-					return new StickyItem();
+					return ScriptableObject.CreateInstance<StickyItem>();
 
 				case HoverItemType.Checkbox:
-					return new CheckboxItem();
+					return ScriptableObject.CreateInstance<CheckboxItem>();
 
 				case HoverItemType.Radio:
-					return new RadioItem(gameObject.transform.parent.name);
+					RadioItem radio = ScriptableObject.CreateInstance<RadioItem>();
+					radio.InitDefaultGroupId(gameObject.transform.parent);
+					return radio;
 
 				case HoverItemType.Slider:
-					return new SliderItem();
+					return ScriptableObject.CreateInstance<SliderItem>();
 
 				case HoverItemType.Text:
-					return new TextItem();
+					return ScriptableObject.CreateInstance<TextItem>();
 
 				default:
 					throw new InvalidEnumArgumentException("Unhandled type: "+pType);
