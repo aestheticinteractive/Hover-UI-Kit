@@ -13,7 +13,10 @@ namespace Hover.Common.Items.Types {
 			MaximumValue
 		}
 
-		public Func<ISliderItem, string> ValueToLabel { get; set; }
+		public Func<ISliderItem, string> GetFormattedLabel { get; set; }
+
+		[SerializeField]
+		private string vLabelFormat = "{0}: {1:N1}";
 
 		[SerializeField]
 		private int vTicks = 0;
@@ -35,7 +38,8 @@ namespace Hover.Common.Items.Types {
 		
 		private float? vHoverValue;
 		private string vPrevLabel;
-		private float vPrevSnappedValue;
+		private string vPrevLabelFormat;
+		private float vPrevSnappedRangeValue;
 		private string vPrevValueToLabel;
 
 
@@ -44,14 +48,17 @@ namespace Hover.Common.Items.Types {
 		public SliderItem() {
 			vValue = 0.5f;
 
-			ValueToLabel = (s => {
-				if ( base.Label == vPrevLabel && s.SnappedRangeValue == vPrevSnappedValue ) {
+			GetFormattedLabel = (s => {
+				if ( s.Label == vPrevLabel && s.LabelFormat == vPrevLabelFormat &&
+						s.SnappedRangeValue == vPrevSnappedRangeValue ) {
 					return vPrevValueToLabel;
 				}
 				
-				vPrevLabel = base.Label;
-				vPrevSnappedValue = s.SnappedRangeValue;
-				vPrevValueToLabel = vPrevLabel+": "+Math.Round(vPrevSnappedValue*10)/10f; //GC_ALLOC
+				vPrevLabel = s.Label;
+				vPrevLabelFormat = s.LabelFormat;
+				vPrevSnappedRangeValue = s.SnappedRangeValue;
+				vPrevValueToLabel = string.Format(vPrevLabelFormat,
+					vPrevLabel, vPrevSnappedRangeValue); //GC_ALLOC
 				return vPrevValueToLabel;
 			});
 		}
@@ -59,17 +66,9 @@ namespace Hover.Common.Items.Types {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public override string Label {
-			get {
-				return ValueToLabel(this);
-			}
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		public string BaseLabel {
-			get {
-				return base.Label;
-			}
+		public string LabelFormat {
+			get { return vLabelFormat; }
+			set { vLabelFormat = value; }
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/

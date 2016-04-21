@@ -109,6 +109,8 @@ namespace Hover.Common.Edit.Items {
 				float rangeValue = Mathf.Lerp(
 					sliderData.RangeMin, sliderData.RangeMax, sliderData.Value);
 
+				sliderData.LabelFormat = EditorGUILayout.TextField(
+					"Slider Label Format", sliderData.LabelFormat);
 				sliderData.RangeMin = EditorGUILayout.FloatField(
 					"Slider Range Min", sliderData.RangeMin);
 				sliderData.RangeMax = EditorGUILayout.FloatField(
@@ -208,6 +210,8 @@ namespace Hover.Common.Edit.Items {
 			}
 
 			if ( sliderData != null ) {
+				EditorGUILayout.TextField("Slider Formatted Label", 
+					sliderData.GetFormattedLabel(sliderData));
 				EditorGUILayout.FloatField("Slider Value", sliderData.Value);
 				EditorGUILayout.FloatField("Slider Snapped Value", sliderData.SnappedValue);
 				EditorGUILayout.FloatField("Slider Snapped Range Value", sliderData.SnappedRangeValue);

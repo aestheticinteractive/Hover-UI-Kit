@@ -5,11 +5,12 @@ namespace Hover.Common.Items.Types {
 	/*================================================================================================*/
 	public interface ISliderItem : ISelectableItem<float> {
 
+		string LabelFormat { get; set; }
 		int Ticks { get; set; }
 		int Snaps { get; set; }
 		float RangeMin { get; set; }
 		float RangeMax { get; set; }
-		Func<ISliderItem, string> ValueToLabel { get; set; }
+		Func<ISliderItem, string> GetFormattedLabel { get; set; }
 		bool AllowJump { get; set; }
 		SliderItem.FillType FillStartingPoint { get; set; }
 		

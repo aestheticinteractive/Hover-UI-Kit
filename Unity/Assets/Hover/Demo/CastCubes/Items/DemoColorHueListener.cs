@@ -12,7 +12,7 @@ namespace Hover.Demo.CastCubes.Items {
 		/*--------------------------------------------------------------------------------------------*/
 		protected override void Setup() {
 			base.Setup();
-			Item.ValueToLabel = (s => Component.Label+": "+Math.Round(s.RangeValue));
+			Item.GetFormattedLabel = (s => Component.Label+": "+Math.Round(s.RangeValue));
 			Item.OnValueChanged += HandleValueChanged;
 		}
 

@@ -13,7 +13,7 @@ namespace Hover.Demo.CastCubes.Items {
 		protected override void Setup() {
 			base.Setup();
 
-			Item.ValueToLabel = (s => {
+			Item.GetFormattedLabel = (s => {
 				string lbl = "";
 
 				switch ( (int)Math.Round(s.SnappedValue*(s.Snaps-1)) ) {

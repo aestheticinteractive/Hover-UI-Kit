@@ -11,7 +11,7 @@ namespace Hover.Demo.CastCubes.Items {
 		/*--------------------------------------------------------------------------------------------*/
 		protected override void Setup() {
 			base.Setup();
-			Item.ValueToLabel = (s => Component.Label+": "+s.RangeValue.ToString("0.0")+"x");
+			Item.GetFormattedLabel = (s => Component.Label+": "+s.RangeValue.ToString("0.0")+"x");
 			Item.OnValueChanged += HandleValueChanged;
 		}
 
