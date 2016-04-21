@@ -16,7 +16,7 @@ namespace Hover.Common.Items {
 		public event ItemEvents.ValueChangedHandler<bool> OnValueChanged;
 
 		[SerializeField]
-		protected bool vValue;
+		protected bool vValue = false;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

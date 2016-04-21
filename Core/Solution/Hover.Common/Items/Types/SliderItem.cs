@@ -16,22 +16,22 @@ namespace Hover.Common.Items.Types {
 		public Func<ISliderItem, string> ValueToLabel { get; set; }
 
 		[SerializeField]
-		private int vTicks;
+		private int vTicks = 0;
 
 		[SerializeField]
-		private int vSnaps;
+		private int vSnaps = 0;
 
 		[SerializeField]
-		private float vRangeMin;
+		private float vRangeMin = -100;
 
 		[SerializeField]
-		private float vRangeMax;
+		private float vRangeMax = 100;
 
 		[SerializeField]
-		private bool vAllowJump;
+		private bool vAllowJump = false;
 
 		[SerializeField]
-		private FillType vFillStartingPoint;
+		private FillType vFillStartingPoint = FillType.Zero;
 		
 		private float? vHoverValue;
 		private string vPrevLabel;
@@ -42,6 +42,8 @@ namespace Hover.Common.Items.Types {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public SliderItem() {
+			vValue = 0.5f;
+
 			ValueToLabel = (s => {
 				if ( base.Label == vPrevLabel && s.SnappedRangeValue == vPrevSnappedValue ) {
 					return vPrevValueToLabel;
@@ -71,7 +73,7 @@ namespace Hover.Common.Items.Types {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		public int Ticks { //TODO: doesn't update visually for runtime changes
+		public int Ticks {
 			get { return vTicks; }
 			set { vTicks = value; }
 		}

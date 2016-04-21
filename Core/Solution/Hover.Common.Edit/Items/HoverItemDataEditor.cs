@@ -22,7 +22,6 @@ namespace Hover.Common.Edit.Items {
 		private string vIsEventOpenKey;
 		
 		private HoverItemData vTarget;
-		private SerializedObject vSerializedData;
 		
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -84,6 +83,49 @@ namespace Hover.Common.Edit.Items {
 			baseData.Height = EditorGUILayout.FloatField("Height", baseData.Height);
 			baseData.IsEnabled = EditorGUILayout.Toggle("Is Enabled", baseData.IsEnabled);
 			baseData.IsVisible = EditorGUILayout.Toggle("Is Visible", baseData.IsVisible);
+			
+			////
+
+			ISelectorItem selectorData = (vTarget.Data as ISelectorItem);
+			ICheckboxItem checkboxData = (vTarget.Data as ICheckboxItem);
+			IRadioItem radioData = (vTarget.Data as IRadioItem);
+			ISliderItem sliderData = (vTarget.Data as ISliderItem);
+
+			if ( selectorData != null ) {
+				selectorData.NavigateBackUponSelect = EditorGUILayout.Toggle(
+					"Navigate Back Upon Select", selectorData.NavigateBackUponSelect);
+			}
+
+			if ( checkboxData != null ) {
+				checkboxData.Value = EditorGUILayout.Toggle("Checkbox Value", checkboxData.Value);
+			}
+
+			if ( radioData != null ) {
+				radioData.GroupId = EditorGUILayout.TextField("Radio Group ID", radioData.GroupId);
+				radioData.Value = EditorGUILayout.Toggle("Radio Value", radioData.Value);
+			}
+
+			if ( sliderData != null ) {
+				float rangeValue = Mathf.Lerp(
+					sliderData.RangeMin, sliderData.RangeMax, sliderData.Value);
+
+				sliderData.RangeMin = EditorGUILayout.FloatField(
+					"Slider Range Min", sliderData.RangeMin);
+				sliderData.RangeMax = EditorGUILayout.FloatField(
+					"Slider Range Max", sliderData.RangeMax);
+				rangeValue = EditorGUILayout.Slider(
+					"Slider Range Value", rangeValue, sliderData.RangeMin, sliderData.RangeMax);
+				sliderData.Value = Mathf.InverseLerp(
+					sliderData.RangeMin, sliderData.RangeMax, rangeValue);
+				sliderData.Ticks = EditorGUILayout.IntField(
+					"Slider Ticks", sliderData.Ticks);
+				sliderData.Snaps = EditorGUILayout.IntField(
+					"Slider Snaps", sliderData.Snaps);
+				sliderData.AllowJump = EditorGUILayout.Toggle(
+					"Slider Allow Jump", sliderData.AllowJump);
+				sliderData.FillStartingPoint = (SliderItem.FillType)EditorGUILayout.EnumPopup(
+					"Slider Fill Starting-Point", sliderData.FillStartingPoint);
+			}
 		}
 
 
@@ -108,14 +150,22 @@ namespace Hover.Common.Edit.Items {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		private void DrawEventItems() {
-			vSerializedData = new SerializedObject(vTarget.Data);
+			var serializedData = new SerializedObject(vTarget.Data);
+			var onSelectedProp = serializedData.FindProperty(vOnSelectedEventName);
+			var onDeselectedProp = serializedData.FindProperty(vOnDeselectedEventName);
 
-			var onSelectedProp = vSerializedData.FindProperty(vOnSelectedEventName);
-			var onDeselectedProp = vSerializedData.FindProperty(vOnDeselectedEventName);
-
-			//SelectableItem
 			EditorGUILayout.PropertyField(onSelectedProp);
 			EditorGUILayout.PropertyField(onDeselectedProp);
+
+			if ( vTarget.Data is ISelectableItem<bool> ) {
+				var onBoolValProp = serializedData.FindProperty(vOnBoolValueChangedEventName);
+				EditorGUILayout.PropertyField(onBoolValProp);
+			}
+
+			if ( vTarget.Data is ISelectableItem<float> ) {
+				var onFloatValProp = serializedData.FindProperty(vOnFloatValueChangedEventName);
+				EditorGUILayout.PropertyField(onFloatValProp);
+			}
 		}
 
 			
@@ -149,6 +199,21 @@ namespace Hover.Common.Edit.Items {
 
 			EditorGUILayout.Toggle("Is Sticky-Selected", selectableData.IsStickySelected);
 			EditorGUILayout.Toggle("Allow Selection", selectableData.AllowSelection);
+
+			IRadioItem radioData = (vTarget.Data as IRadioItem);
+			ISliderItem sliderData = (vTarget.Data as ISliderItem);
+
+			if ( radioData != null ) {
+				EditorGUILayout.TextField("Radio Default Group ID", radioData.DefaultGroupId);
+			}
+
+			if ( sliderData != null ) {
+				EditorGUILayout.FloatField("Slider Value", sliderData.Value);
+				EditorGUILayout.FloatField("Slider Snapped Value", sliderData.SnappedValue);
+				EditorGUILayout.FloatField("Slider Snapped Range Value", sliderData.SnappedRangeValue);
+				EditorGUILayout.TextField("Slider Hover Value", sliderData.HoverValue+"");
+				EditorGUILayout.TextField("Slider Snapped Hover Value",sliderData.SnappedHoverValue+"");
+			}
 		}
 		
 		

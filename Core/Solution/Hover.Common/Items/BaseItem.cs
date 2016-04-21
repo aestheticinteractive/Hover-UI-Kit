@@ -21,16 +21,16 @@ namespace Hover.Common.Items {
 		private string vLabel;
 
 		[SerializeField]
-		private float vWidth;
+		private float vWidth = 1;
 
 		[SerializeField]
-		private float vHeight;
+		private float vHeight = 1;
 
 		[SerializeField]
-		private bool vIsEnabled;
+		private bool vIsEnabled = true;
 
 		[SerializeField]
-		private bool vIsVisible;
+		private bool vIsVisible = true;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -38,9 +38,6 @@ namespace Hover.Common.Items {
 		protected BaseItem() {
 			AutoId = ++ItemCount;
 			Id = "Item-"+AutoId;
-
-			IsEnabled = true;
-			IsVisible = true;
 			IsAncestryEnabled = true;
 			IsAncestryVisible = true;
 		}

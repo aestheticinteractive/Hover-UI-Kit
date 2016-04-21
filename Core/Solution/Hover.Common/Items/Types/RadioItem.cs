@@ -35,9 +35,18 @@ namespace Hover.Common.Items.Types {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public string GroupId { //TODO: doesn't update for runtime changes
-			get { return (string.IsNullOrEmpty(vGroupId) ? vDefaultGroupId : vGroupId); }
-			set { vGroupId = value; }
+		public string DefaultGroupId {
+			get { return vDefaultGroupId; }
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public string GroupId {
+			get {
+				return (string.IsNullOrEmpty(vGroupId) ? vDefaultGroupId : vGroupId);
+			}
+			set {
+				vGroupId = value;
+			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
