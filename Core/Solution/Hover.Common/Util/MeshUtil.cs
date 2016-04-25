@@ -125,6 +125,56 @@ namespace Hover.Common.Util {
 
 			pMeshBuild.AddRemainingUvs(Vector2.zero);
 		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public static void BuildHollowRectangleMesh(MeshBuilder pMeshBuild, 
+								float pWidth, float pHeight, float pInnerAmount, float pOuterAmount) {
+			float outerW;
+			float outerH;
+			float innerW;
+			float innerH;
+			
+			if ( pWidth >= pHeight ) {
+				outerH = pHeight*pOuterAmount;
+				innerH = pHeight*pInnerAmount;
+				outerW = pWidth-(pHeight-outerH);
+				innerW = pWidth-(pHeight-innerH);
+			}
+			else {
+				outerW = pWidth*pOuterAmount;
+				innerW = pWidth*pInnerAmount;
+				outerH = pHeight-(pWidth-outerW);
+				innerH = pHeight-(pWidth-innerW);
+			}
+			
+			float halfOuterW = outerW/2;
+			float halfOuterH = outerH/2;
+			float halfInnerW = innerW/2;
+			float halfInnerH = innerH/2;
+			
+			pMeshBuild.Resize(8, 24);
+			pMeshBuild.ResetIndices();
+			
+			pMeshBuild.AddVertex(new Vector3( halfOuterW,  halfOuterH, 0)); 
+			pMeshBuild.AddVertex(new Vector3( halfOuterW, -halfOuterH, 0));
+			pMeshBuild.AddVertex(new Vector3(-halfOuterW, -halfOuterH, 0));
+			pMeshBuild.AddVertex(new Vector3(-halfOuterW,  halfOuterH, 0));
+			pMeshBuild.AddVertex(new Vector3( halfInnerW,  halfInnerH, 0));
+			pMeshBuild.AddVertex(new Vector3( halfInnerW, -halfInnerH, 0)); 
+			pMeshBuild.AddVertex(new Vector3(-halfInnerW, -halfInnerH, 0));
+			pMeshBuild.AddVertex(new Vector3(-halfInnerW,  halfInnerH, 0));
+			
+			pMeshBuild.AddTriangle(0, 1, 4);
+			pMeshBuild.AddTriangle(1, 5, 4);
+			pMeshBuild.AddTriangle(1, 2, 5);
+			pMeshBuild.AddTriangle(2, 6, 5);
+			pMeshBuild.AddTriangle(2, 3, 6);
+			pMeshBuild.AddTriangle(3, 7, 6);
+			pMeshBuild.AddTriangle(3, 4, 7);
+			pMeshBuild.AddTriangle(3, 0, 4);
+			
+			pMeshBuild.AddRemainingUvs(Vector2.zero); //TODO: set UVs
+		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public static void BuildRectangleMesh(MeshBuilder pMeshBuild, float pWidth, float pHeight, 

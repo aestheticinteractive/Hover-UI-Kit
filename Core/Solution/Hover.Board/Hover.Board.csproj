@@ -95,6 +95,8 @@
     <Compile Include="Items\IItemLayout.cs" />
     <Compile Include="Display\UiLayout.cs" />
     <Compile Include="State\LayoutState.cs" />
+    <Compile Include="Renderers\Elements\HoverRendererHollowRectangle.cs" />
+    <Compile Include="Renderers\HoverRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Hover.Common\Hover.Common.csproj">
@@ -117,4 +119,8 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <Folder Include="Renderers\" />
+    <Folder Include="Renderers\Elements\" />
+  </ItemGroup>
 </Project>
