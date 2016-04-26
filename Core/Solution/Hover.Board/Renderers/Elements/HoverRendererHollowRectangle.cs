@@ -1,14 +1,18 @@
-﻿using UnityEngine;
-using Hover.Common.Util;
+﻿using System;
 using Hover.Common.Display;
-using System;
+using Hover.Common.Util;
+using UnityEngine;
 
 namespace Hover.Board.Renderers.Elements {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
+	[RequireComponent(typeof(MeshRenderer))]
+	[RequireComponent(typeof(MeshFilter))]
 	public class HoverRendererHollowRectangle : MonoBehaviour {
 	
+		public bool ControlledByRenderer { get; set; }
+
 		[Range(0, 100)]
 		public float SizeX = 10;
 		
@@ -27,6 +31,11 @@ namespace Hover.Board.Renderers.Elements {
 		public Color FillColor = Color.gray;
 		
 		private MeshBuilder vMeshBuild;
+		private float vPrevWidth;
+		private float vPrevHeight;
+		private float vPrevInner;
+		private float vPrevOuter;
+		private Color vPrevColor;
 
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -38,13 +47,18 @@ namespace Hover.Board.Renderers.Elements {
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
 			CreateMeshBuilderIfNeeded();
-			
-			float width = Math.Max(0, SizeX-Inset);
-			float height = Math.Max(0, SizeY-Inset);
-			
-			MeshUtil.BuildHollowRectangleMesh(vMeshBuild, width, height, InnerAmount, OuterAmount);
-			vMeshBuild.Commit();
-			vMeshBuild.CommitColors(FillColor);
+
+			if ( ControlledByRenderer ) {
+				return;
+			}
+
+			UpdateAfterRenderer();
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public void UpdateAfterRenderer() {
+			UpdateMesh();
+			UpdateColor();
 		}
 		
 		
@@ -55,26 +69,58 @@ namespace Hover.Board.Renderers.Elements {
 				return;
 			}
 			
-			vMeshBuild = new MeshBuilder();
-			
-			Mesh mesh = vMeshBuild.Mesh;
 			MeshRenderer meshRend = gameObject.GetComponent<MeshRenderer>();
 			MeshFilter meshFilt = gameObject.GetComponent<MeshFilter>();
-			
-			if ( meshRend == null ) {
-				meshRend = gameObject.AddComponent<MeshRenderer>();
-			}
-			
-			if ( meshFilt == null ) {
-				meshFilt = gameObject.AddComponent<MeshFilter>();
-			}
 			
 			if ( meshRend.sharedMaterial == null ) {
 				meshRend.sharedMaterial = Resources.Load<Material>(
 					"Materials/HoverRendererVertexColorMaterial");
 			}
+
+			meshFilt.sharedMesh = new Mesh();
 			
-			meshFilt.sharedMesh = mesh;
+			vMeshBuild = new MeshBuilder(meshFilt.sharedMesh);
+			vMeshBuild.Mesh.name = gameObject.name+"Mesh";
+
+			vPrevWidth = -1;
+			vPrevColor = new Color(0, 0, 0, -1);
+
+			UpdateAfterRenderer();
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateMesh() {
+			float width = Math.Max(0, SizeX-Inset);
+			float height = Math.Max(0, SizeY-Inset);
+
+			bool hasSizeOrAmountChanged = (
+				width != vPrevWidth || 
+				height != vPrevHeight || 
+				InnerAmount != vPrevInner || 
+				OuterAmount != vPrevOuter
+			);
+
+			if ( !hasSizeOrAmountChanged ) {
+				return;
+			}
+
+			MeshUtil.BuildHollowRectangleMesh(vMeshBuild, width, height, InnerAmount, OuterAmount);
+			vMeshBuild.Commit();
+
+			vPrevWidth = width;
+			vPrevHeight = height;
+			vPrevInner = InnerAmount;
+			vPrevOuter = OuterAmount;
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateColor() {
+			if ( FillColor == vPrevColor ) {
+				return;
+			}
+
+			vMeshBuild.CommitColors(FillColor);
+			vPrevColor = FillColor;
 		}
 		
 	}
