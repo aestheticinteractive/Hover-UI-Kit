@@ -11,6 +11,7 @@ namespace Hover.Board.Renderers {
 		public HoverRendererHollowRectangle Highlight;
 		public HoverRendererHollowRectangle Selection;
 		public HoverRendererHollowRectangle Edge;
+		public HoverRendererLabel Label;
 		
 		[Range(0, 100)]
 		public float SizeX = 10;
@@ -48,6 +49,7 @@ namespace Hover.Board.Renderers {
 			Highlight.UpdateAfterRenderer();
 			Selection.UpdateAfterRenderer();
 			Edge.UpdateAfterRenderer();
+			Label.UpdateAfterRenderer();
 		}
 		
 
@@ -63,6 +65,8 @@ namespace Hover.Board.Renderers {
 			Highlight.FillColor = new Color(0.1f, 0.5f, 0.9f);
 			Selection.FillColor = new Color(0.1f, 0.9f, 0.2f);
 			Edge.FillColor = new Color(1, 1, 1, 1);
+
+			Label = BuildLabel();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -70,6 +74,13 @@ namespace Hover.Board.Renderers {
 			var rectGo = new GameObject(pName);
 			rectGo.transform.SetParent(gameObject.transform, false);
 			return rectGo.AddComponent<HoverRendererHollowRectangle>();
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		private HoverRendererLabel BuildLabel() {
+			var labelGo = new GameObject("Label");
+			labelGo.transform.SetParent(gameObject.transform, false);
+			return labelGo.AddComponent<HoverRendererLabel>();
 		}
 
 
@@ -82,6 +93,7 @@ namespace Hover.Board.Renderers {
 			Highlight.ControlledByRenderer = true;
 			Selection.ControlledByRenderer = true;
 			Edge.ControlledByRenderer = true;
+			Label.ControlledByRenderer = true;
 
 			Background.SizeX = SizeX;
 			Background.SizeY = SizeY;
@@ -91,6 +103,8 @@ namespace Hover.Board.Renderers {
 			Selection.SizeY = SizeY;
 			Edge.SizeX = SizeX;
 			Edge.SizeY = SizeY;
+			Label.SizeX = SizeX;
+			Label.SizeY = SizeY;
 			
 			Background.Inset = EdgeThickness;
 			Highlight.Inset = EdgeThickness;
@@ -104,6 +118,8 @@ namespace Hover.Board.Renderers {
 			Selection.InnerAmount = 0;
 			Edge.OuterAmount = 1;
 			Edge.InnerAmount = 1-EdgeThickness/Mathf.Min(SizeX, SizeY);
+
+			Label.Text.material.renderQueue = Background.MaterialRenderQueue+1;
 		}
 
 	}
