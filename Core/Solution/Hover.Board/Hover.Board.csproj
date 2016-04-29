@@ -88,7 +88,9 @@
     <Compile Include="Items\IItemPanel.cs" />
     <Compile Include="Items\ItemPanel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Renderers\Elements\HoverRendererCanvas.cs" />
     <Compile Include="Renderers\Elements\HoverRendererLabel.cs" />
+    <Compile Include="Renderers\Elements\HoverRendererIcon.cs" />
     <Compile Include="State\IHoverboardPanelState.cs" />
     <Compile Include="State\IHoverboardLayoutState.cs" />
     <Compile Include="State\ProjectionState.cs" />
@@ -124,8 +126,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <ItemGroup>
-    <Folder Include="Renderers\" />
-    <Folder Include="Renderers\Elements\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>

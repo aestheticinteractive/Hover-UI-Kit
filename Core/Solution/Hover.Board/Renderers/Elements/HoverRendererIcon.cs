@@ -1,15 +1,28 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 
-namespace Hover.Board.Renderers.Elements {
+namespace Hover.Board.Display.Standard {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
-	[RequireComponent(typeof(Text))]
-	public class HoverRendererLabel : MonoBehaviour {
+	[RequireComponent(typeof(RawImage))]
+	public class HoverRendererIcon : MonoBehaviour {
+
+		public enum IconOffset {
+			None,
+			CheckOuter,
+			CheckInner,
+			RadioOuter,
+			RadioInner,
+			Parent,
+			Slider,
+			Sticky
+		}
 
 		public bool ControlledByRenderer { get; set; }
 		
+		public IconOffset IconType = IconOffset.CheckOuter;
+
 		[Range(0.01f, 1)]
 		public float CanvasScale = 0.02f;
 		
@@ -19,14 +32,8 @@ namespace Hover.Board.Renderers.Elements {
 		[Range(0, 100)]
 		public float SizeY = 10;
 		
-		[Range(0, 20)]
-		public float PaddingX = 0.5f;
-		
-		[Range(0, 50)]
-		public float InsetL = 0;
-		
-		[Range(0, 50)]
-		public float InsetR = 0;
+		[Range(0, 0.01f)]
+		public float Inset = 0.002f;
 
 		[HideInInspector]
 		[SerializeField]
@@ -35,8 +42,8 @@ namespace Hover.Board.Renderers.Elements {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public Text TextComponent {
-			get { return GetComponent<Text>(); }
+		public RawImage ImageComponent {
+			get { return GetComponent<RawImage>(); }
 		}
 
 
@@ -44,7 +51,7 @@ namespace Hover.Board.Renderers.Elements {
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
 			if ( !vIsBuilt ) {
-				BuildText();
+				BuildIcon();
 				vIsBuilt = true;
 			}
 		}
@@ -58,27 +65,25 @@ namespace Hover.Board.Renderers.Elements {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateAfterRenderer() {
-			float textX = (PaddingX+InsetL)/CanvasScale;
-			float textSizeX = (SizeX-PaddingX*2-InsetL-InsetR)/CanvasScale;
-			float textSizeY = SizeY/CanvasScale;
-			RectTransform rectTx = TextComponent.rectTransform;
+			RawImage icon = ImageComponent;
+			RectTransform rectTx = icon.rectTransform;
+			const float w = 1/8f;
+			const float h = 1;
 
-			rectTx.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, textX, textSizeX);
-			rectTx.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, 0, textSizeY);
+			icon.uvRect = new Rect((int)IconType*w+Inset, Inset, w-Inset*2, h-Inset*2);
+
+			rectTx.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, SizeX/CanvasScale);
+			rectTx.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, SizeY/CanvasScale);
 		}
 		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void BuildText() {
-			Text text = TextComponent;
-			text.text = "Label";
-			text.font = Resources.Load<Font>("Fonts/Tahoma");
-			text.fontSize = 40;
-			text.lineSpacing = 0.75f;
-			text.color = Color.white;
-			text.alignment = TextAnchor.MiddleCenter;
-			text.raycastTarget = false;
+		private void BuildIcon() {
+			RawImage icon = ImageComponent;
+			icon.material = Resources.Load<Material>("Materials/HoverRendererStandardIconsMaterial");
+			icon.color = Color.white;
+			icon.raycastTarget = false;
 		}
 
 	}

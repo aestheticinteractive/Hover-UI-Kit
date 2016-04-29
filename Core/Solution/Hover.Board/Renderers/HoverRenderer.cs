@@ -1,4 +1,5 @@
-﻿using Hover.Board.Renderers.Elements;
+﻿using Hover.Board.Display.Standard;
+using Hover.Board.Renderers.Elements;
 using UnityEngine;
 
 namespace Hover.Board.Renderers {
@@ -11,7 +12,9 @@ namespace Hover.Board.Renderers {
 		public HoverRendererHollowRectangle Highlight;
 		public HoverRendererHollowRectangle Selection;
 		public HoverRendererHollowRectangle Edge;
+		public HoverRendererCanvas Canvas;
 		public HoverRendererLabel Label;
+		public HoverRendererIcon Icon;
 		
 		[Range(0, 100)]
 		public float SizeX = 10;
@@ -28,6 +31,7 @@ namespace Hover.Board.Renderers {
 		[Range(0, 1)]
 		public float SelectionProgress = 0.2f;
 
+		[HideInInspector]
 		[SerializeField]
 		private bool vIsBuilt;
 
@@ -49,7 +53,9 @@ namespace Hover.Board.Renderers {
 			Highlight.UpdateAfterRenderer();
 			Selection.UpdateAfterRenderer();
 			Edge.UpdateAfterRenderer();
+			Canvas.UpdateAfterRenderer();
 			Label.UpdateAfterRenderer();
+			Icon.UpdateAfterRenderer();
 		}
 		
 
@@ -66,7 +72,9 @@ namespace Hover.Board.Renderers {
 			Selection.FillColor = new Color(0.1f, 0.9f, 0.2f);
 			Edge.FillColor = new Color(1, 1, 1, 1);
 
-			Label = BuildLabel();
+			Canvas = BuildCanvas();
+			Label = BuildLabel(Canvas);
+			Icon = BuildIcon(Canvas);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -77,10 +85,24 @@ namespace Hover.Board.Renderers {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		private HoverRendererLabel BuildLabel() {
+		private HoverRendererCanvas BuildCanvas() {
+			var canvasGo = new GameObject("Canvas");
+			canvasGo.transform.SetParent(gameObject.transform, false);
+			return canvasGo.AddComponent<HoverRendererCanvas>();
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		private HoverRendererLabel BuildLabel(HoverRendererCanvas pCanvas) {
 			var labelGo = new GameObject("Label");
-			labelGo.transform.SetParent(gameObject.transform, false);
+			labelGo.transform.SetParent(pCanvas.gameObject.transform, false);
 			return labelGo.AddComponent<HoverRendererLabel>();
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		private HoverRendererIcon BuildIcon(HoverRendererCanvas pCanvas) {
+			var iconGo = new GameObject("Icon");
+			iconGo.transform.SetParent(pCanvas.gameObject.transform, false);
+			return iconGo.AddComponent<HoverRendererIcon>();
 		}
 
 
@@ -93,7 +115,12 @@ namespace Hover.Board.Renderers {
 			Highlight.ControlledByRenderer = true;
 			Selection.ControlledByRenderer = true;
 			Edge.ControlledByRenderer = true;
+			Canvas.ControlledByRenderer = true;
 			Label.ControlledByRenderer = true;
+			Icon.ControlledByRenderer = true;
+			
+			Label.CanvasScale = Canvas.CanvasScale;
+			Icon.CanvasScale = Canvas.CanvasScale;
 
 			Background.SizeX = SizeX;
 			Background.SizeY = SizeY;
@@ -103,8 +130,12 @@ namespace Hover.Board.Renderers {
 			Selection.SizeY = SizeY;
 			Edge.SizeX = SizeX;
 			Edge.SizeY = SizeY;
+			Canvas.SizeX = SizeX;
+			Canvas.SizeY = SizeY;
 			Label.SizeX = SizeX;
 			Label.SizeY = SizeY;
+			Icon.SizeX = Label.TextComponent.fontSize*Label.CanvasScale;
+			Icon.SizeY = Icon.SizeX;
 			
 			Background.Inset = EdgeThickness;
 			Highlight.Inset = EdgeThickness;
@@ -119,7 +150,10 @@ namespace Hover.Board.Renderers {
 			Edge.OuterAmount = 1;
 			Edge.InnerAmount = 1-EdgeThickness/Mathf.Min(SizeX, SizeY);
 
-			Label.Text.material.renderQueue = Background.MaterialRenderQueue+1;
+			int canvasRenderQueue = Background.MaterialRenderQueue+1;
+
+			Label.TextComponent.material.renderQueue = canvasRenderQueue;
+			Icon.ImageComponent.material.renderQueue = canvasRenderQueue;
 		}
 
 	}
