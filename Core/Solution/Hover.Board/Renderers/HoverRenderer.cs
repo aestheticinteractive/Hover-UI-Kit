@@ -9,7 +9,20 @@ namespace Hover.Board.Renderers {
 	[ExecuteInEditMode]
 	public class HoverRenderer : MonoBehaviour {
 	
-		public enum AlignmentType {
+		public enum AnchorType {
+			UpperLeft,
+			UpperCenter,
+			UpperRight,
+			MiddleLeft,
+			MiddleCenter,
+			MiddleRight,
+			LowerLeft,
+			LowerCenter,
+			LowerRight,
+			Custom
+		}
+		
+		public enum CanvasAlignmentType {
 			Left,
 			Center,
 			Right,
@@ -53,7 +66,8 @@ namespace Hover.Board.Renderers {
 		[Range(0, 50)]
 		public float CanvasPaddingY = 0.5f;
 		
-		public AlignmentType CanvasAlignment = AlignmentType.Left;
+		public AnchorType Anchor = AnchorType.MiddleCenter;
+		public CanvasAlignmentType CanvasAlignment = CanvasAlignmentType.Left;
 		public IconSizeType IconSize = IconSizeType.FontSize;
 		
 		[HideInInspector]
@@ -178,10 +192,29 @@ namespace Hover.Board.Renderers {
 			Label.TextComponent.material.renderQueue = canvasRenderQueue;
 			Icon.ImageComponent.material.renderQueue = canvasRenderQueue;
 			
+			UpdateAnchorSettings();
 			UpdateIconSizeSettings();
 			UpdateCanvasAlignmentSettings();
 		}
 		
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateAnchorSettings() {
+			if ( Anchor == AnchorType.Custom ) {
+				return;
+			}
+			
+			int ai = (int)Anchor;
+			float x = (ai%3)/2f - 0.5f;
+			float y = (ai/3)/2f - 0.5f;
+			var localPos = new Vector3(-SizeX*x, SizeY*y, 0);
+			
+			Background.transform.localPosition = localPos;
+			Highlight.transform.localPosition = localPos;
+			Selection.transform.localPosition = localPos;
+			Edge.transform.localPosition = localPos;
+			Canvas.transform.localPosition = localPos;
+		}
+				
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateIconSizeSettings() {
 			if ( IconSize == IconSizeType.Custom ) {
@@ -213,7 +246,7 @@ namespace Hover.Board.Renderers {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateCanvasAlignmentSettings() {
-			if ( CanvasAlignment == AlignmentType.Custom ) {
+			if ( CanvasAlignment == CanvasAlignmentType.Custom ) {
 				return;
 			}
 		
@@ -230,20 +263,20 @@ namespace Hover.Board.Renderers {
 			TextAnchor labelAlign;
 			
 			switch ( CanvasAlignment ) {
-				case AlignmentType.Left:
+				case CanvasAlignmentType.Left:
 					iconShiftX = -0.5f*iconAvailW;
 					iconShiftY = iconVertShiftMult*fontSize;
 					labelInsetL = Icon.SizeX*labelHorizInsetMult;
 					labelAlign = TextAnchor.MiddleLeft;
 					break;
 					
-				case AlignmentType.Center:
+				case CanvasAlignmentType.Center:
 					iconShiftY = fontSize/2;
 					labelInsetT = Icon.SizeY/2;
 					labelAlign = TextAnchor.MiddleCenter;
 					break;
 					
-				case AlignmentType.Right:
+				case CanvasAlignmentType.Right:
 					iconShiftX = 0.5f*iconAvailW;
 					iconShiftY = iconVertShiftMult*fontSize;
 					labelInsetR = Icon.SizeX*labelHorizInsetMult;
