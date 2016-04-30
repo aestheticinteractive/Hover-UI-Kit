@@ -66,6 +66,8 @@ namespace Hover.Board.Renderers.Elements {
 			text.color = Color.white;
 			text.alignment = TextAnchor.MiddleCenter;
 			text.raycastTarget = false;
+			text.horizontalOverflow = HorizontalWrapMode.Wrap;
+			text.verticalOverflow = VerticalWrapMode.Overflow;
 		}
 
 	}

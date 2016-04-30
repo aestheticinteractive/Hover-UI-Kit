@@ -1,5 +1,4 @@
 ﻿using System;
-using Hover.Board.Display.Standard;
 using Hover.Board.Renderers.Elements;
 using UnityEngine;
 
@@ -22,29 +21,11 @@ namespace Hover.Board.Renderers {
 			Custom
 		}
 		
-		public enum CanvasAlignmentType {
-			Left,
-			Center,
-			Right,
-			Custom
-		}
-		
-		public enum IconSizeType {
-			FontSize,
-			ThreeQuartersFontSize,
-			OneAndHalfFontSize,
-			DoubleFontSize,
-			Custom
-		}
-
 		public HoverRendererHollowRectangle Background;
 		public HoverRendererHollowRectangle Highlight;
 		public HoverRendererHollowRectangle Selection;
 		public HoverRendererHollowRectangle Edge;
 		public HoverRendererCanvas Canvas;
-		public HoverRendererLabel Label;
-		public HoverRendererIcon Icon;
-		public HoverRendererIcon Icon2;
 		
 		[Range(0, 100)]
 		public float SizeX = 10;
@@ -61,15 +42,7 @@ namespace Hover.Board.Renderers {
 		[Range(0, 1)]
 		public float SelectionProgress = 0.2f;
 		
-		[Range(0, 50)]
-		public float CanvasPaddingX = 0.5f;
-		
-		[Range(0, 50)]
-		public float CanvasPaddingY = 0.5f;
-		
 		public AnchorType Anchor = AnchorType.MiddleCenter;
-		public CanvasAlignmentType CanvasAlignment = CanvasAlignmentType.Left;
-		public IconSizeType IconSize = IconSizeType.FontSize;
 		
 		[HideInInspector]
 		[SerializeField]
@@ -87,16 +60,15 @@ namespace Hover.Board.Renderers {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			UpdateSettings();
+			UpdateGeneralSettings();
+			UpdateActiveStates();
+			UpdateAnchorSettings();
 
 			Background.UpdateAfterRenderer();
 			Highlight.UpdateAfterRenderer();
 			Selection.UpdateAfterRenderer();
 			Edge.UpdateAfterRenderer();
 			Canvas.UpdateAfterRenderer();
-			Label.UpdateAfterRenderer();
-			Icon.UpdateAfterRenderer();
-			Icon2.UpdateAfterRenderer();
 		}
 		
 
@@ -114,9 +86,6 @@ namespace Hover.Board.Renderers {
 			Edge.FillColor = new Color(1, 1, 1, 1);
 
 			Canvas = BuildCanvas();
-			Label = BuildLabel(Canvas);
-			Icon = BuildIcon(Canvas, 1);
-			Icon2 = BuildIcon(Canvas, 2);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -132,25 +101,11 @@ namespace Hover.Board.Renderers {
 			canvasGo.transform.SetParent(gameObject.transform, false);
 			return canvasGo.AddComponent<HoverRendererCanvas>();
 		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		private HoverRendererLabel BuildLabel(HoverRendererCanvas pCanvas) {
-			var labelGo = new GameObject("Label");
-			labelGo.transform.SetParent(pCanvas.gameObject.transform, false);
-			return labelGo.AddComponent<HoverRendererLabel>();
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		private HoverRendererIcon BuildIcon(HoverRendererCanvas pCanvas, int pNum) {
-			var iconGo = new GameObject("Icon"+pNum);
-			iconGo.transform.SetParent(pCanvas.gameObject.transform, false);
-			return iconGo.AddComponent<HoverRendererIcon>();
-		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateSettings() {
+		private void UpdateGeneralSettings() {
 			SelectionProgress = Mathf.Min(HighlightProgress, SelectionProgress);
 
 			Background.ControlledByRenderer = true;
@@ -158,13 +113,6 @@ namespace Hover.Board.Renderers {
 			Selection.ControlledByRenderer = true;
 			Edge.ControlledByRenderer = true;
 			Canvas.ControlledByRenderer = true;
-			Label.ControlledByRenderer = true;
-			Icon.ControlledByRenderer = true;
-			Icon2.ControlledByRenderer = true;
-			
-			Label.CanvasScale = Canvas.Scale;
-			Icon.CanvasScale = Canvas.Scale;
-			Icon2.CanvasScale = Canvas.Scale;
 
 			Background.SizeX = SizeX;
 			Background.SizeY = SizeY;
@@ -174,8 +122,8 @@ namespace Hover.Board.Renderers {
 			Selection.SizeY = SizeY;
 			Edge.SizeX = SizeX;
 			Edge.SizeY = SizeY;
-			Canvas.SizeX = SizeX-(CanvasPaddingX+EdgeThickness)*2;
-			Canvas.SizeY = SizeY-(CanvasPaddingY+EdgeThickness)*2;
+			Canvas.SizeX = SizeX-EdgeThickness*2;
+			Canvas.SizeY = SizeY-EdgeThickness*2;
 			
 			Background.Inset = EdgeThickness;
 			Highlight.Inset = EdgeThickness;
@@ -190,27 +138,13 @@ namespace Hover.Board.Renderers {
 			Edge.OuterAmount = 1;
 			Edge.InnerAmount = 1-EdgeThickness/Mathf.Min(SizeX, SizeY);
 			
-			////
-
-			int canvasRenderQueue = Background.MaterialRenderQueue+1;
-
-			Label.TextComponent.material.renderQueue = canvasRenderQueue;
-			Icon.ImageComponent.material.renderQueue = canvasRenderQueue;
-			Icon2.ImageComponent.material.renderQueue = canvasRenderQueue;
-			
-			UpdateActiveStates();
-			UpdateAnchorSettings();
-			UpdateIconSizeSettings();
-			UpdateCanvasAlignmentSettings();
+			Canvas.RenderQueue = Background.MaterialRenderQueue+1;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateActiveStates() {
 			Highlight.gameObject.SetActive(Highlight.OuterAmount > 0);
 			Selection.gameObject.SetActive(Selection.OuterAmount > 0);
-			Label.gameObject.SetActive(!string.IsNullOrEmpty(Label.TextComponent.text));
-			Icon.gameObject.SetActive(Icon.IconType != HoverRendererIcon.IconOffset.None);
-			Icon2.gameObject.SetActive(Icon2.IconType != HoverRendererIcon.IconOffset.None);
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
@@ -229,101 +163,6 @@ namespace Hover.Board.Renderers {
 			Selection.transform.localPosition = localPos;
 			Edge.transform.localPosition = localPos;
 			Canvas.transform.localPosition = localPos;
-		}
-				
-		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateIconSizeSettings() {
-			if ( IconSize == IconSizeType.Custom ) {
-				return;
-			}
-			
-			float fontSize = Label.TextComponent.fontSize*Label.CanvasScale;
-			
-			switch ( IconSize ) {
-				case IconSizeType.FontSize:
-					Icon.SizeX = fontSize;
-					break;
-					
-				case IconSizeType.ThreeQuartersFontSize:
-					Icon.SizeX = fontSize*0.75f;
-					break;
-					
-				case IconSizeType.OneAndHalfFontSize:
-					Icon.SizeX = fontSize*1.5f;
-					break;
-					
-				case IconSizeType.DoubleFontSize:
-					Icon.SizeX = fontSize*2;
-					break;
-			}
-			
-			Icon.SizeY = Icon.SizeX;
-			Icon2.SizeX = Icon.SizeX;
-			Icon2.SizeY = Icon.SizeY;
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateCanvasAlignmentSettings() {
-			if ( CanvasAlignment == CanvasAlignmentType.Custom ) {
-				return;
-			}
-		
-			const float iconVertShiftMult = -0.35f;
-			
-			float fontSize = Label.TextComponent.fontSize*Label.CanvasScale/2;
-			float iconAvailW = Canvas.SizeX-Icon.SizeX;
-			float iconPad = Icon.SizeX*0.2f;
-			float iconShiftX = 0;
-			float iconShiftY = 0;
-			float labelInsetL = 0;
-			float labelInsetR = 0;
-			float labelInsetT = 0;
-			TextAnchor labelAlign;
-			
-			switch ( CanvasAlignment ) {
-				case CanvasAlignmentType.Left:
-					iconShiftX = -0.5f*iconAvailW;
-					iconShiftY = iconVertShiftMult*fontSize;
-					labelInsetL = Icon.SizeX+iconPad;
-					labelAlign = TextAnchor.MiddleLeft;
-					break;
-					
-				case CanvasAlignmentType.Center:
-					iconShiftY = (fontSize+iconPad)/2;
-					labelInsetT = (Icon.SizeY+iconPad)/2;
-					labelAlign = TextAnchor.MiddleCenter;
-					break;
-					
-				case CanvasAlignmentType.Right:
-					iconShiftX = 0.5f*iconAvailW;
-					iconShiftY = iconVertShiftMult*fontSize;
-					labelInsetR = Icon.SizeX+iconPad;
-					labelAlign = TextAnchor.MiddleRight;
-					break;
-				
-				default:
-					throw new Exception("Unhandled alignment: "+CanvasAlignment);
-			}
-			
-			if ( !Icon.gameObject.activeSelf && !Icon2.gameObject.activeSelf ) {
-				iconShiftX = 0;
-				iconShiftY = 0;
-				labelInsetL = 0;
-				labelInsetR = 0;
-				labelInsetT = 0;
-			}
-			
-			var labelLocalPos = new Vector3((labelInsetL-labelInsetR)/2, -labelInsetT, 0);
-			var iconLocalPos = new Vector3(iconShiftX, iconShiftY, 0);
-			
-			Label.SizeX = Canvas.SizeX-labelInsetL-labelInsetR;
-			Label.SizeY = Canvas.SizeY-labelInsetT;
-			
-			Label.TextComponent.alignment = labelAlign;
-			
-			Label.transform.localPosition = labelLocalPos/Canvas.Scale;
-			Icon.transform.localPosition = iconLocalPos/Canvas.Scale;
-			Icon2.transform.localPosition = Icon.transform.localPosition;
 		}
 		
 	}
