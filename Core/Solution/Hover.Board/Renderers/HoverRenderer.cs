@@ -44,6 +44,7 @@ namespace Hover.Board.Renderers {
 		public HoverRendererCanvas Canvas;
 		public HoverRendererLabel Label;
 		public HoverRendererIcon Icon;
+		public HoverRendererIcon Icon2;
 		
 		[Range(0, 100)]
 		public float SizeX = 10;
@@ -95,6 +96,7 @@ namespace Hover.Board.Renderers {
 			Canvas.UpdateAfterRenderer();
 			Label.UpdateAfterRenderer();
 			Icon.UpdateAfterRenderer();
+			Icon2.UpdateAfterRenderer();
 		}
 		
 
@@ -113,7 +115,8 @@ namespace Hover.Board.Renderers {
 
 			Canvas = BuildCanvas();
 			Label = BuildLabel(Canvas);
-			Icon = BuildIcon(Canvas);
+			Icon = BuildIcon(Canvas, 1);
+			Icon2 = BuildIcon(Canvas, 2);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -138,8 +141,8 @@ namespace Hover.Board.Renderers {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		private HoverRendererIcon BuildIcon(HoverRendererCanvas pCanvas) {
-			var iconGo = new GameObject("Icon");
+		private HoverRendererIcon BuildIcon(HoverRendererCanvas pCanvas, int pNum) {
+			var iconGo = new GameObject("Icon"+pNum);
 			iconGo.transform.SetParent(pCanvas.gameObject.transform, false);
 			return iconGo.AddComponent<HoverRendererIcon>();
 		}
@@ -157,9 +160,11 @@ namespace Hover.Board.Renderers {
 			Canvas.ControlledByRenderer = true;
 			Label.ControlledByRenderer = true;
 			Icon.ControlledByRenderer = true;
+			Icon2.ControlledByRenderer = true;
 			
 			Label.CanvasScale = Canvas.Scale;
 			Icon.CanvasScale = Canvas.Scale;
+			Icon2.CanvasScale = Canvas.Scale;
 
 			Background.SizeX = SizeX;
 			Background.SizeY = SizeY;
@@ -191,6 +196,7 @@ namespace Hover.Board.Renderers {
 
 			Label.TextComponent.material.renderQueue = canvasRenderQueue;
 			Icon.ImageComponent.material.renderQueue = canvasRenderQueue;
+			Icon2.ImageComponent.material.renderQueue = canvasRenderQueue;
 			
 			UpdateAnchorSettings();
 			UpdateIconSizeSettings();
@@ -242,6 +248,8 @@ namespace Hover.Board.Renderers {
 			}
 			
 			Icon.SizeY = Icon.SizeX;
+			Icon2.SizeX = Icon.SizeX;
+			Icon2.SizeY = Icon.SizeY;
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
@@ -251,10 +259,10 @@ namespace Hover.Board.Renderers {
 			}
 		
 			const float iconVertShiftMult = -0.35f;
-			const float labelHorizInsetMult = 1.2f;
 			
 			float fontSize = Label.TextComponent.fontSize*Label.CanvasScale/2;
 			float iconAvailW = Canvas.SizeX-Icon.SizeX;
+			float iconPad = Icon.SizeX*0.2f;
 			float iconShiftX = 0;
 			float iconShiftY = 0;
 			float labelInsetL = 0;
@@ -266,25 +274,33 @@ namespace Hover.Board.Renderers {
 				case CanvasAlignmentType.Left:
 					iconShiftX = -0.5f*iconAvailW;
 					iconShiftY = iconVertShiftMult*fontSize;
-					labelInsetL = Icon.SizeX*labelHorizInsetMult;
+					labelInsetL = Icon.SizeX+iconPad;
 					labelAlign = TextAnchor.MiddleLeft;
 					break;
 					
 				case CanvasAlignmentType.Center:
-					iconShiftY = fontSize/2;
-					labelInsetT = Icon.SizeY/2;
+					iconShiftY = (fontSize+iconPad)/2;
+					labelInsetT = (Icon.SizeY+iconPad)/2;
 					labelAlign = TextAnchor.MiddleCenter;
 					break;
 					
 				case CanvasAlignmentType.Right:
 					iconShiftX = 0.5f*iconAvailW;
 					iconShiftY = iconVertShiftMult*fontSize;
-					labelInsetR = Icon.SizeX*labelHorizInsetMult;
+					labelInsetR = Icon.SizeX+iconPad;
 					labelAlign = TextAnchor.MiddleRight;
 					break;
 				
 				default:
 					throw new Exception("Unhandled alignment: "+CanvasAlignment);
+			}
+			
+			if ( Icon.IconType == HoverRendererIcon.IconOffset.None ) {
+				iconShiftX = 0;
+				iconShiftY = 0;
+				labelInsetL = 0;
+				labelInsetR = 0;
+				labelInsetT = 0;
 			}
 			
 			var labelLocalPos = new Vector3((labelInsetL-labelInsetR)/2, -labelInsetT, 0);
@@ -297,6 +313,7 @@ namespace Hover.Board.Renderers {
 			
 			Label.transform.localPosition = labelLocalPos/Canvas.Scale;
 			Icon.transform.localPosition = iconLocalPos/Canvas.Scale;
+			Icon2.transform.localPosition = Icon.transform.localPosition;
 		}
 		
 	}
