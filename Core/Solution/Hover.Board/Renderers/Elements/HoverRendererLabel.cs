@@ -18,15 +18,6 @@ namespace Hover.Board.Renderers.Elements {
 
 		[Range(0, 100)]
 		public float SizeY = 10;
-		
-		[Range(0, 20)]
-		public float PaddingX = 0.5f;
-		
-		[Range(0, 50)]
-		public float InsetL = 0;
-		
-		[Range(0, 50)]
-		public float InsetR = 0;
 
 		[HideInInspector]
 		[SerializeField]
@@ -58,13 +49,9 @@ namespace Hover.Board.Renderers.Elements {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateAfterRenderer() {
-			float textX = (PaddingX+InsetL)/CanvasScale;
-			float textSizeX = (SizeX-PaddingX*2-InsetL-InsetR)/CanvasScale;
-			float textSizeY = SizeY/CanvasScale;
 			RectTransform rectTx = TextComponent.rectTransform;
-
-			rectTx.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, textX, textSizeX);
-			rectTx.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, 0, textSizeY);
+			rectTx.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, SizeX/CanvasScale);
+			rectTx.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, SizeY/CanvasScale);
 		}
 		
 

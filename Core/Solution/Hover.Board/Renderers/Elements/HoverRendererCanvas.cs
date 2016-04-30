@@ -12,7 +12,7 @@ namespace Hover.Board.Renderers.Elements {
 		public float CanvasSizeY { get; private set; }
 		
 		[Range(0.01f, 1)]
-		public float CanvasScale = 0.02f;
+		public float Scale = 0.02f;
 		
 		[Range(0, 100)]
 		public float SizeX = 10;
@@ -46,10 +46,10 @@ namespace Hover.Board.Renderers.Elements {
 			Canvas canvas = CanvasComponent;
 			RectTransform rectTx = canvas.GetComponent<RectTransform>();
 
-			gameObject.transform.localScale = Vector3.one*CanvasScale;
+			gameObject.transform.localScale = Vector3.one*Scale;
 
-			CanvasSizeX = SizeX/CanvasScale;
-			CanvasSizeY = SizeY/CanvasScale;
+			CanvasSizeX = SizeX/Scale;
+			CanvasSizeY = SizeY/Scale;
 
 			rectTx.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, CanvasSizeX);
 			rectTx.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, CanvasSizeY);

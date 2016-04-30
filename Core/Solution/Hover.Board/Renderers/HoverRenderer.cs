@@ -1,4 +1,5 @@
-﻿using Hover.Board.Display.Standard;
+﻿using System;
+using Hover.Board.Display.Standard;
 using Hover.Board.Renderers.Elements;
 using UnityEngine;
 
@@ -7,6 +8,21 @@ namespace Hover.Board.Renderers {
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	public class HoverRenderer : MonoBehaviour {
+	
+		public enum AlignmentType {
+			Left,
+			Center,
+			Right,
+			Custom
+		}
+		
+		public enum IconSizeType {
+			FontSize,
+			ThreeQuartersFontSize,
+			OneAndHalfFontSize,
+			DoubleFontSize,
+			Custom
+		}
 
 		public HoverRendererHollowRectangle Background;
 		public HoverRendererHollowRectangle Highlight;
@@ -30,7 +46,16 @@ namespace Hover.Board.Renderers {
 		
 		[Range(0, 1)]
 		public float SelectionProgress = 0.2f;
-
+		
+		[Range(0, 50)]
+		public float CanvasPaddingX = 0.5f;
+		
+		[Range(0, 50)]
+		public float CanvasPaddingY = 0.5f;
+		
+		public AlignmentType CanvasAlignment = AlignmentType.Left;
+		public IconSizeType IconSize = IconSizeType.FontSize;
+		
 		[HideInInspector]
 		[SerializeField]
 		private bool vIsBuilt;
@@ -119,8 +144,8 @@ namespace Hover.Board.Renderers {
 			Label.ControlledByRenderer = true;
 			Icon.ControlledByRenderer = true;
 			
-			Label.CanvasScale = Canvas.CanvasScale;
-			Icon.CanvasScale = Canvas.CanvasScale;
+			Label.CanvasScale = Canvas.Scale;
+			Icon.CanvasScale = Canvas.Scale;
 
 			Background.SizeX = SizeX;
 			Background.SizeY = SizeY;
@@ -130,12 +155,8 @@ namespace Hover.Board.Renderers {
 			Selection.SizeY = SizeY;
 			Edge.SizeX = SizeX;
 			Edge.SizeY = SizeY;
-			Canvas.SizeX = SizeX;
-			Canvas.SizeY = SizeY;
-			Label.SizeX = SizeX;
-			Label.SizeY = SizeY;
-			Icon.SizeX = Label.TextComponent.fontSize*Label.CanvasScale;
-			Icon.SizeY = Icon.SizeX;
+			Canvas.SizeX = SizeX-(CanvasPaddingX+EdgeThickness)*2;
+			Canvas.SizeY = SizeY-(CanvasPaddingY+EdgeThickness)*2;
 			
 			Background.Inset = EdgeThickness;
 			Highlight.Inset = EdgeThickness;
@@ -149,13 +170,102 @@ namespace Hover.Board.Renderers {
 			Selection.InnerAmount = 0;
 			Edge.OuterAmount = 1;
 			Edge.InnerAmount = 1-EdgeThickness/Mathf.Min(SizeX, SizeY);
+			
+			////
 
 			int canvasRenderQueue = Background.MaterialRenderQueue+1;
 
 			Label.TextComponent.material.renderQueue = canvasRenderQueue;
 			Icon.ImageComponent.material.renderQueue = canvasRenderQueue;
+			
+			UpdateIconSizeSettings();
+			UpdateCanvasAlignmentSettings();
 		}
-
+		
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateIconSizeSettings() {
+			if ( IconSize == IconSizeType.Custom ) {
+				return;
+			}
+			
+			float fontSize = Label.TextComponent.fontSize*Label.CanvasScale;
+			
+			switch ( IconSize ) {
+				case IconSizeType.FontSize:
+					Icon.SizeX = fontSize;
+					break;
+					
+				case IconSizeType.ThreeQuartersFontSize:
+					Icon.SizeX = fontSize*0.75f;
+					break;
+					
+				case IconSizeType.OneAndHalfFontSize:
+					Icon.SizeX = fontSize*1.5f;
+					break;
+					
+				case IconSizeType.DoubleFontSize:
+					Icon.SizeX = fontSize*2;
+					break;
+			}
+			
+			Icon.SizeY = Icon.SizeX;
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateCanvasAlignmentSettings() {
+			if ( CanvasAlignment == AlignmentType.Custom ) {
+				return;
+			}
+		
+			const float iconVertShiftMult = -0.35f;
+			const float labelHorizInsetMult = 1.2f;
+			
+			float fontSize = Label.TextComponent.fontSize*Label.CanvasScale/2;
+			float iconAvailW = Canvas.SizeX-Icon.SizeX;
+			float iconShiftX = 0;
+			float iconShiftY = 0;
+			float labelInsetL = 0;
+			float labelInsetR = 0;
+			float labelInsetT = 0;
+			TextAnchor labelAlign;
+			
+			switch ( CanvasAlignment ) {
+				case AlignmentType.Left:
+					iconShiftX = -0.5f*iconAvailW;
+					iconShiftY = iconVertShiftMult*fontSize;
+					labelInsetL = Icon.SizeX*labelHorizInsetMult;
+					labelAlign = TextAnchor.MiddleLeft;
+					break;
+					
+				case AlignmentType.Center:
+					iconShiftY = fontSize/2;
+					labelInsetT = Icon.SizeY/2;
+					labelAlign = TextAnchor.MiddleCenter;
+					break;
+					
+				case AlignmentType.Right:
+					iconShiftX = 0.5f*iconAvailW;
+					iconShiftY = iconVertShiftMult*fontSize;
+					labelInsetR = Icon.SizeX*labelHorizInsetMult;
+					labelAlign = TextAnchor.MiddleRight;
+					break;
+				
+				default:
+					throw new Exception("Unhandled alignment: "+CanvasAlignment);
+			}
+			
+			var labelLocalPos = new Vector3((labelInsetL-labelInsetR)/2, -labelInsetT, 0);
+			var iconLocalPos = new Vector3(iconShiftX, iconShiftY, 0);
+			
+			Label.SizeX = Canvas.SizeX-labelInsetL-labelInsetR;
+			Label.SizeY = Canvas.SizeY-labelInsetT;
+			
+			Label.TextComponent.alignment = labelAlign;
+			
+			Label.transform.localPosition = labelLocalPos/Canvas.Scale;
+			Icon.transform.localPosition = iconLocalPos/Canvas.Scale;
+		}
+		
 	}
 
 }
