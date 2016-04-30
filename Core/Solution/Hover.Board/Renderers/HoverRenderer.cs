@@ -198,9 +198,19 @@ namespace Hover.Board.Renderers {
 			Icon.ImageComponent.material.renderQueue = canvasRenderQueue;
 			Icon2.ImageComponent.material.renderQueue = canvasRenderQueue;
 			
+			UpdateActiveStates();
 			UpdateAnchorSettings();
 			UpdateIconSizeSettings();
 			UpdateCanvasAlignmentSettings();
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateActiveStates() {
+			Highlight.gameObject.SetActive(Highlight.OuterAmount > 0);
+			Selection.gameObject.SetActive(Selection.OuterAmount > 0);
+			Label.gameObject.SetActive(!string.IsNullOrEmpty(Label.TextComponent.text));
+			Icon.gameObject.SetActive(Icon.IconType != HoverRendererIcon.IconOffset.None);
+			Icon2.gameObject.SetActive(Icon2.IconType != HoverRendererIcon.IconOffset.None);
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
@@ -295,7 +305,7 @@ namespace Hover.Board.Renderers {
 					throw new Exception("Unhandled alignment: "+CanvasAlignment);
 			}
 			
-			if ( Icon.IconType == HoverRendererIcon.IconOffset.None ) {
+			if ( !Icon.gameObject.activeSelf && !Icon2.gameObject.activeSelf ) {
 				iconShiftX = 0;
 				iconShiftY = 0;
 				labelInsetL = 0;
