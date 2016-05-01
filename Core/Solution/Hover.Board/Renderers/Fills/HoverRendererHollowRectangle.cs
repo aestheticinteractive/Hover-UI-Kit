@@ -3,7 +3,7 @@ using Hover.Common.Display;
 using Hover.Common.Util;
 using UnityEngine;
 
-namespace Hover.Board.Renderers.Elements {
+namespace Hover.Board.Renderers.Fills {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
@@ -25,14 +25,11 @@ namespace Hover.Board.Renderers.Elements {
 		[Range(0, 1)]
 		public float InnerAmount = 0.5f;
 		
-		[Range(0, 10)]
-		public float Inset = 0;
-		
 		public Color FillColor = Color.gray;
 		
 		private MeshBuilder vMeshBuild;
-		private float vPrevWidth;
-		private float vPrevHeight;
+		private float vPrevSizeX;
+		private float vPrevSizeY;
 		private float vPrevInner;
 		private float vPrevOuter;
 		private Color vPrevColor;
@@ -91,7 +88,7 @@ namespace Hover.Board.Renderers.Elements {
 			vMeshBuild = new MeshBuilder(meshFilt.sharedMesh);
 			vMeshBuild.Mesh.name = gameObject.name+"Mesh";
 
-			vPrevWidth = -1;
+			vPrevSizeX = -1;
 			vPrevColor = new Color(0, 0, 0, -1);
 
 			UpdateAfterRenderer();
@@ -99,12 +96,9 @@ namespace Hover.Board.Renderers.Elements {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateMesh() {
-			float width = Math.Max(0, SizeX-Inset);
-			float height = Math.Max(0, SizeY-Inset);
-
 			bool hasSizeOrAmountChanged = (
-				width != vPrevWidth || 
-				height != vPrevHeight || 
+				SizeX != vPrevSizeX || 
+				SizeY != vPrevSizeY || 
 				InnerAmount != vPrevInner || 
 				OuterAmount != vPrevOuter
 			);
@@ -113,11 +107,11 @@ namespace Hover.Board.Renderers.Elements {
 				return;
 			}
 
-			MeshUtil.BuildHollowRectangleMesh(vMeshBuild, width, height, InnerAmount, OuterAmount);
+			MeshUtil.BuildHollowRectangleMesh(vMeshBuild, SizeX, SizeY, InnerAmount, OuterAmount);
 			vMeshBuild.Commit();
 
-			vPrevWidth = width;
-			vPrevHeight = height;
+			vPrevSizeX = SizeX;
+			vPrevSizeY = SizeY;
 			vPrevInner = InnerAmount;
 			vPrevOuter = OuterAmount;
 		}
