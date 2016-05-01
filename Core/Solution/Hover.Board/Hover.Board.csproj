@@ -99,13 +99,15 @@
     <Compile Include="Items\IItemLayout.cs" />
     <Compile Include="Display\UiLayout.cs" />
     <Compile Include="State\LayoutState.cs" />
-    <Compile Include="Renderers\HoverRenderer.cs" />
     <Compile Include="Renderers\Fills\HoverRendererHollowRectangle.cs" />
     <Compile Include="Renderers\Contents\HoverRendererCanvas.cs" />
     <Compile Include="Renderers\Contents\HoverRendererLabel.cs" />
     <Compile Include="Renderers\Contents\HoverRendererIcon.cs" />
     <Compile Include="Renderers\Fills\HoverRendererFillRectangleFromCenter.cs" />
     <Compile Include="Renderers\Fills\HoverRendererFill.cs" />
+    <Compile Include="Renderers\HoverRendererSlider.cs" />
+    <Compile Include="Renderers\HoverRendererButton.cs" />
+    <Compile Include="Renderers\AnchorType.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Hover.Common\Hover.Common.csproj">

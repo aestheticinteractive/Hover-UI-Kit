@@ -7,21 +7,10 @@ namespace Hover.Board.Renderers {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
-	public class HoverRenderer : MonoBehaviour {
+	public class HoverRendererButton : MonoBehaviour {
 	
-		public enum AnchorType {
-			UpperLeft,
-			UpperCenter,
-			UpperRight,
-			MiddleLeft,
-			MiddleCenter,
-			MiddleRight,
-			LowerLeft,
-			LowerCenter,
-			LowerRight,
-			Custom
-		}
-		
+		public bool ControlledByRenderer { get; set; }
+	
 		public HoverRendererFillRectangleFromCenter Fill;
 		public HoverRendererCanvas Canvas;
 		
@@ -46,9 +35,16 @@ namespace Hover.Board.Renderers {
 				vIsBuilt = true;
 			}
 		}
-
+		
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
+			if ( !ControlledByRenderer ) {
+				UpdateAfterRenderer();
+			}
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public void UpdateAfterRenderer() {
 			UpdateGeneralSettings();
 			UpdateAnchorSettings();
 
