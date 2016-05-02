@@ -71,12 +71,14 @@ namespace Hover.Board.Renderers {
 			HandleButton = BuildButton("Handle");
 			JumpButton = BuildButton("Jump");
 			
-			HandleButton.SizeY = 2;
-			JumpButton.SizeY = 1;
-			
 			BackgroundA.FillColor = new Color(0.1f, 0.1f, 0.1f, 0.666f);
 			BackgroundB.FillColor = BackgroundA.FillColor;
 			BackgroundC.FillColor = BackgroundA.FillColor;
+			
+			HandleButton.SizeY = 2;
+			JumpButton.SizeY = 1;
+			
+			JumpButton.Canvas.gameObject.SetActive(false);
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
@@ -115,9 +117,10 @@ namespace Hover.Board.Renderers {
 			
 			BackgroundA.SizeY = Mathf.Max(0, availHandleSizeY*HandlePosition);
 			BackgroundB.SizeY = 0; //SizeY-handleY-HandleButton.SizeY/2;
-			BackgroundC.SizeY = 0;
+			BackgroundC.SizeY = Mathf.Max(0, availHandleSizeY*(1-HandlePosition));
 			
-			BackgroundA.transform.localPosition = new Vector3(0, -SizeY/2 + BackgroundA.SizeY/2, 0);
+			BackgroundA.transform.localPosition = new Vector3(0, (-SizeY+BackgroundA.SizeY)/2, 0);
+			BackgroundC.transform.localPosition = new Vector3(0, ( SizeY-BackgroundC.SizeY)/2, 0);
 			//BackgroundB.transform.localPosition = new Vector3(0, handleY+HandleButton.SizeY/2, 0);
 			
 			HandleButton.transform.localPosition = 
