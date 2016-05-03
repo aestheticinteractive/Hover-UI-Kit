@@ -52,17 +52,14 @@ namespace Hover.Board.Renderers.Fills {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			CreateMeshBuilderIfNeeded();
-
-			if ( ControlledByRenderer ) {
-				return;
+			if ( !ControlledByRenderer ) {
+				UpdateAfterRenderer();
 			}
-
-			UpdateAfterRenderer();
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateAfterRenderer() {
+			CreateMeshBuilderIfNeeded();
 			UpdateMesh();
 			UpdateColor();
 		}

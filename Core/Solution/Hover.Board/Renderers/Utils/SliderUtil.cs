@@ -11,7 +11,9 @@ namespace Hover.Board.Renderers.Utils {
 			Track,
 			Handle,
 			Jump,
-			Zero
+			Start,
+			Zero,
+			End
 		}
 		
 		public enum PositionType {
@@ -39,10 +41,10 @@ namespace Hover.Board.Renderers.Utils {
 			public float TrackStartPosition;
 			public float TrackEndPosition;
 			public float HandleSize;
-			public float HandlePosition;
+			public float HandleValue;
 			public float JumpSize;
-			public float JumpPosition;
-			public float ZeroPosition;
+			public float JumpValue;
+			public float ZeroValue;
 		}
 
 
@@ -51,18 +53,23 @@ namespace Hover.Board.Renderers.Utils {
 		public static void CalculateSegments(SliderInfo pInfo, List<Segment> pSegments) {
 			pSegments.Clear();
 
-			int posMult = (pInfo.TrackStartPosition < pInfo.TrackEndPosition ? 1 : -1);
-			float half = 0.5f*posMult;
+			int mult = (pInfo.TrackStartPosition < pInfo.TrackEndPosition ? 1 : -1);
+			float half = 0.5f*mult;
+			float handleMinPos = pInfo.TrackStartPosition + pInfo.HandleSize*half;
+			float handleMaxPos = pInfo.TrackEndPosition - pInfo.HandleSize*half;
+			float handlePos = Mathf.Lerp(handleMinPos, handleMaxPos, pInfo.HandleValue);
+			float jumpPos = Mathf.Lerp(handleMinPos, handleMaxPos, pInfo.JumpValue);
+			float zeroPos = Mathf.Lerp(handleMinPos, handleMaxPos, pInfo.ZeroValue);
 			bool hasJump = (pInfo.JumpSize > 0);
-			bool isJumpTooNear = (Mathf.Abs(pInfo.HandlePosition-pInfo.JumpPosition) <
-				pInfo.HandleSize+pInfo.JumpSize);
+			bool isJumpTooNear = (Mathf.Abs(handlePos-jumpPos) < 
+				(pInfo.HandleSize+pInfo.JumpSize)*0.6f);
 			
 			var handleSeg = new Segment {
 				Type = SegmentType.Handle,
 				StartPositionType = PositionType.HandleStart,
 				EndPositionType = PositionType.HandleEnd,
-				StartPosition = pInfo.HandlePosition-pInfo.HandleSize*half,
-				EndPosition = pInfo.HandlePosition+pInfo.HandleSize*half
+				StartPosition = handlePos-pInfo.HandleSize*half,
+				EndPosition = handlePos+pInfo.HandleSize*half
 			};
 			
 			pSegments.Add(handleSeg);
@@ -72,11 +79,11 @@ namespace Hover.Board.Renderers.Utils {
 					Type = SegmentType.Jump,
 					StartPositionType = PositionType.JumpStart,
 					EndPositionType = PositionType.JumpEnd,
-					StartPosition = pInfo.HandlePosition-pInfo.HandleSize*half,
-					EndPosition = pInfo.HandlePosition+pInfo.HandleSize*half
+					StartPosition = jumpPos-pInfo.JumpSize*half,
+					EndPosition = jumpPos+pInfo.JumpSize*half
 				};
 				
-				pSegments.Insert((pInfo.HandlePosition < pInfo.JumpPosition ? 1 : 0), jumpSeg);
+				pSegments.Insert((handlePos*mult < jumpPos*mult ? 1 : 0), jumpSeg);
 			}
 
 			if ( pInfo.FillType == SliderItem.FillType.Zero ) {
@@ -84,15 +91,14 @@ namespace Hover.Board.Renderers.Utils {
 					Type = SegmentType.Zero,
 					StartPositionType = PositionType.Zero,
 					EndPositionType = PositionType.Zero,
-					StartPosition = pInfo.ZeroPosition,
-					EndPosition = pInfo.ZeroPosition
+					StartPosition = zeroPos,
+					EndPosition = zeroPos
 				};
 				
-				if ( pInfo.ZeroPosition*posMult < pSegments[0].StartPosition*posMult ) {
+				if ( zeroPos*mult < pSegments[0].StartPosition*mult ) {
 					pSegments.Insert(0, zeroSeg);
 				}
-				else if ( pSegments.Count > 1 && 
-						pInfo.ZeroPosition*posMult < pSegments[1].StartPosition*posMult ) {
+				else if ( pSegments.Count > 1 && zeroPos*mult < pSegments[1].StartPosition*mult ) {
 					pSegments.Insert(1, zeroSeg);
 				}
 				else {
@@ -100,7 +106,40 @@ namespace Hover.Board.Renderers.Utils {
 				}
 			}
 			
-			//TODO: add track segments between the handle/jump/zero segments
+			var startSeg = new Segment {
+				Type = SegmentType.Start,
+				StartPositionType = PositionType.TrackStart,
+				EndPositionType = PositionType.TrackStart,
+				StartPosition = pInfo.TrackStartPosition,
+				EndPosition = pInfo.TrackStartPosition
+			};
+			
+			var endSeg = new Segment {
+				Type = SegmentType.End,
+				StartPositionType = PositionType.TrackEnd,
+				EndPositionType = PositionType.TrackEnd,
+				StartPosition = pInfo.TrackEndPosition,
+				EndPosition = pInfo.TrackEndPosition
+			};
+			
+			pSegments.Insert(0, startSeg);
+			pSegments.Add(endSeg);
+			
+			for ( int i = 1 ; i < pSegments.Count ; i++ ) {
+				var prevSeg = pSegments[i-1];
+				var nextSeg = pSegments[i];
+				
+				var trackSeg = new Segment {
+					Type = SegmentType.Track,
+					StartPositionType = prevSeg.EndPositionType,
+					EndPositionType = nextSeg.StartPositionType,
+					StartPosition = prevSeg.EndPosition,
+					EndPosition = nextSeg.StartPosition
+				};
+				
+				pSegments.Insert(i, trackSeg);
+				i++;
+			}
 		}
 
 	}
