@@ -123,7 +123,7 @@ namespace Hover.Board.Renderers {
 			
 			/*Debug.Log("INFO: "+info.TrackStartPosition+" / "+info.TrackEndPosition);
 			
-			foreach ( SliderUtil.Segment seg in vSegments ) {
+			foreach ( SliderUtil.Segment seg in vSegmentInfoList ) {
 				Debug.Log(" - "+seg.Type+": "+seg.StartPosition+" / "+seg.EndPosition);
 			}*/
 		}

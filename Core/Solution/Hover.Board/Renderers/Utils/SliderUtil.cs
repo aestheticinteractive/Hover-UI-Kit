@@ -95,14 +95,31 @@ namespace Hover.Board.Renderers.Utils {
 					EndPosition = zeroPos
 				};
 				
+				int zeroI;
+				
 				if ( zeroPos*mult < pSegments[0].StartPosition*mult ) {
-					pSegments.Insert(0, zeroSeg);
+					zeroI = 0;
+					pSegments.Insert(zeroI, zeroSeg);
 				}
 				else if ( pSegments.Count > 1 && zeroPos*mult < pSegments[1].StartPosition*mult ) {
-					pSegments.Insert(1, zeroSeg);
+					zeroI = 1;
+					pSegments.Insert(zeroI, zeroSeg);
 				}
 				else {
+					zeroI = pSegments.Count;
 					pSegments.Add(zeroSeg);
+				}
+								
+				if ( zeroI > 0 ) {
+					Segment beforeZeroSeg = pSegments[zeroI-1];
+					
+					if ( zeroSeg.StartPosition*mult < beforeZeroSeg.EndPosition*mult ) {
+						zeroSeg.StartPosition = beforeZeroSeg.EndPosition;
+						zeroSeg.EndPosition = beforeZeroSeg.EndPosition;
+						zeroSeg.StartPositionType = beforeZeroSeg.EndPositionType;
+						zeroSeg.EndPositionType = beforeZeroSeg.EndPositionType;
+						pSegments[zeroI] = zeroSeg;
+					}
 				}
 			}
 			
