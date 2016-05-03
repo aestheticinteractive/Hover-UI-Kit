@@ -47,7 +47,7 @@ namespace Hover.Board.Renderers.Fills {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
-			CreateMeshBuilderIfNeeded();
+			CreateMeshBuilderIfNeeded(true);
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
@@ -59,15 +59,20 @@ namespace Hover.Board.Renderers.Fills {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateAfterRenderer() {
-			CreateMeshBuilderIfNeeded();
+			CreateMeshBuilderIfNeeded(false);
 			UpdateMesh();
 			UpdateColor();
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public void OnDestroy() {
+			DestroyImmediate(gameObject.GetComponent<MeshFilter>().sharedMesh);
 		}
 		
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void CreateMeshBuilderIfNeeded() {			
+		private void CreateMeshBuilderIfNeeded(bool pNewMesh) {			
 			if ( vMeshBuild != null ) {
 				return;
 			}
@@ -80,10 +85,12 @@ namespace Hover.Board.Renderers.Fills {
 					"Materials/HoverRendererVertexColorMaterial");
 			}
 
-			meshFilt.sharedMesh = new Mesh();
+			if ( pNewMesh ) {
+				meshFilt.sharedMesh = new Mesh();
+			}
 			
 			vMeshBuild = new MeshBuilder(meshFilt.sharedMesh);
-			vMeshBuild.Mesh.name = gameObject.name+"Mesh";
+			vMeshBuild.Mesh.name = gameObject.name+"Mesh:"+GetInstanceID();
 
 			vPrevSizeX = -1;
 			vPrevColor = new Color(0, 0, 0, -1);
