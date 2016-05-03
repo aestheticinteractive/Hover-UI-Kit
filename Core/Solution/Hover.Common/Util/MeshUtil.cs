@@ -10,16 +10,17 @@ namespace Hover.Common.Util {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public static void BuildQuadMesh(MeshBuilder pMeshBuild) {
-			const float size = 0.5f;
+		public static void BuildQuadMesh(MeshBuilder pMeshBuild, float pSizeX=1, float pSizeY=1) {
+			float halfSizeX = pSizeX/2;
+			float halfSizeY = pSizeY/2;
 
 			pMeshBuild.Resize(4, 6);
 			pMeshBuild.ResetIndices();
 
-			pMeshBuild.AddVertex(new Vector3( size,  size, 0));
-			pMeshBuild.AddVertex(new Vector3( size, -size, 0));
-			pMeshBuild.AddVertex(new Vector3(-size, -size, 0));
-			pMeshBuild.AddVertex(new Vector3(-size,  size, 0));
+			pMeshBuild.AddVertex(new Vector3( halfSizeX,  halfSizeY, 0));
+			pMeshBuild.AddVertex(new Vector3( halfSizeX, -halfSizeY, 0));
+			pMeshBuild.AddVertex(new Vector3(-halfSizeX, -halfSizeY, 0));
+			pMeshBuild.AddVertex(new Vector3(-halfSizeX,  halfSizeY, 0));
 
 			pMeshBuild.AddUv(new Vector2(1, 1));
 			pMeshBuild.AddUv(new Vector2(1, 0));
