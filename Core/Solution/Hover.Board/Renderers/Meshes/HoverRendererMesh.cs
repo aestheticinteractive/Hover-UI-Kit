@@ -1,43 +1,23 @@
-﻿using System;
-using Hover.Common.Display;
+﻿using Hover.Common.Display;
 using Hover.Common.Util;
 using UnityEngine;
 
-namespace Hover.Board.Renderers.Fills {
+namespace Hover.Board.Renderers.Meshes {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(MeshRenderer))]
 	[RequireComponent(typeof(MeshFilter))]
-	public class HoverRendererHollowRectangle : MonoBehaviour {
+	public abstract class HoverRendererMesh : MonoBehaviour {
 	
 		public bool ControlledByRenderer { get; set; }
 
-		[Range(0, 100)]
-		public float SizeX = 10;
-		
-		[Range(0, 100)]
-		public float SizeY = 10;
-		
-		[Range(0, 1)]
-		public float OuterAmount = 1;
-		
-		[Range(0, 1)]
-		public float InnerAmount = 0.5f;
-		
-		public Color FillColor = Color.gray;
-		
-		private MeshBuilder vMeshBuild;
-		private float vPrevSizeX;
-		private float vPrevSizeY;
-		private float vPrevInner;
-		private float vPrevOuter;
-		private Color vPrevColor;
+		protected MeshBuilder vMeshBuild;
 
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public int MaterialRenderQueue {
+		public virtual int MaterialRenderQueue {
 			get {
 				return GetComponent<MeshRenderer>().sharedMaterial.renderQueue;
 			}
@@ -46,35 +26,34 @@ namespace Hover.Board.Renderers.Fills {
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Awake() {
+		public virtual void Awake() {
 			CreateMeshBuilderIfNeeded(true);
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		public void Update() {
+		public virtual void Update() {
 			if ( !ControlledByRenderer ) {
 				UpdateAfterRenderer();
 			}
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		public void UpdateAfterRenderer() {
+		public virtual void UpdateAfterRenderer() {
 			CreateMeshBuilderIfNeeded(false);
 			UpdateMesh();
-			UpdateColor();
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		public void OnDestroy() {
+		public virtual void OnDestroy() {
 			DestroyImmediate(gameObject.GetComponent<MeshFilter>().sharedMesh);
 		}
 		
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void CreateMeshBuilderIfNeeded(bool pNewMesh) {			
+		protected virtual bool CreateMeshBuilderIfNeeded(bool pNewMesh) {			
 			if ( vMeshBuild != null ) {
-				return;
+				return false;
 			}
 			
 			MeshRenderer meshRend = gameObject.GetComponent<MeshRenderer>();
@@ -91,44 +70,11 @@ namespace Hover.Board.Renderers.Fills {
 			
 			vMeshBuild = new MeshBuilder(meshFilt.sharedMesh);
 			vMeshBuild.Mesh.name = gameObject.name+"Mesh:"+GetInstanceID();
-
-			vPrevSizeX = -1;
-			vPrevColor = new Color(0, 0, 0, -1);
-
-			UpdateAfterRenderer();
+			return true;
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateMesh() {
-			bool hasSizeOrAmountChanged = (
-				SizeX != vPrevSizeX || 
-				SizeY != vPrevSizeY || 
-				InnerAmount != vPrevInner || 
-				OuterAmount != vPrevOuter
-			);
-
-			if ( !hasSizeOrAmountChanged ) {
-				return;
-			}
-
-			MeshUtil.BuildHollowRectangleMesh(vMeshBuild, SizeX, SizeY, InnerAmount, OuterAmount);
-			vMeshBuild.Commit();
-
-			vPrevSizeX = SizeX;
-			vPrevSizeY = SizeY;
-			vPrevInner = InnerAmount;
-			vPrevOuter = OuterAmount;
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateColor() {
-			if ( FillColor == vPrevColor ) {
-				return;
-			}
-
-			vMeshBuild.CommitColors(FillColor);
-			vPrevColor = FillColor;
-		}
+		protected abstract void UpdateMesh();
 		
 	}
 

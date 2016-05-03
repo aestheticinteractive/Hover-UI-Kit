@@ -99,7 +99,6 @@
     <Compile Include="Items\IItemLayout.cs" />
     <Compile Include="Display\UiLayout.cs" />
     <Compile Include="State\LayoutState.cs" />
-    <Compile Include="Renderers\Fills\HoverRendererHollowRectangle.cs" />
     <Compile Include="Renderers\Contents\HoverRendererCanvas.cs" />
     <Compile Include="Renderers\Contents\HoverRendererLabel.cs" />
     <Compile Include="Renderers\Contents\HoverRendererIcon.cs" />
@@ -109,6 +108,8 @@
     <Compile Include="Renderers\HoverRendererButton.cs" />
     <Compile Include="Renderers\AnchorType.cs" />
     <Compile Include="Renderers\Utils\SliderUtil.cs" />
+    <Compile Include="Renderers\Meshes\HoverRendererMeshHollowRectangle.cs" />
+    <Compile Include="Renderers\Meshes\HoverRendererMesh.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Hover.Common\Hover.Common.csproj">
@@ -135,5 +136,6 @@
   <ItemGroup>
     <Folder Include="Renderers\Fills\" />
     <Folder Include="Renderers\Utils\" />
+    <Folder Include="Renderers\Meshes\" />
   </ItemGroup>
 </Project>

@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using Hover.Board.Renderers.Meshes;
 using UnityEngine;
 
 namespace Hover.Board.Renderers.Fills {
@@ -7,10 +8,10 @@ namespace Hover.Board.Renderers.Fills {
 	[ExecuteInEditMode]
 	public class HoverRendererFillRectangleFromCenter : HoverRendererFill {
 	
-		public HoverRendererHollowRectangle Background;
-		public HoverRendererHollowRectangle Highlight;
-		public HoverRendererHollowRectangle Selection;
-		public HoverRendererHollowRectangle Edge;
+		public HoverRendererMeshHollowRectangle Background;
+		public HoverRendererMeshHollowRectangle Highlight;
+		public HoverRendererMeshHollowRectangle Selection;
+		public HoverRendererMeshHollowRectangle Edge;
 		
 		[Range(0, 100)]
 		public float SizeX = 10;
@@ -65,10 +66,10 @@ namespace Hover.Board.Renderers.Fills {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private HoverRendererHollowRectangle BuildHollowRect(string pName) {
+		private HoverRendererMeshHollowRectangle BuildHollowRect(string pName) {
 			var rectGo = new GameObject(pName);
 			rectGo.transform.SetParent(gameObject.transform, false);
-			return rectGo.AddComponent<HoverRendererHollowRectangle>();
+			return rectGo.AddComponent<HoverRendererMeshHollowRectangle>();
 		}
 		
 

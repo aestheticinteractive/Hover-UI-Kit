@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using Hover.Board.Renderers.Contents;
 using Hover.Board.Renderers.Fills;
+using Hover.Board.Renderers.Meshes;
 using Hover.Board.Renderers.Utils;
-using UnityEngine;
 using Hover.Common.Items.Types;
+using UnityEngine;
 
 namespace Hover.Board.Renderers {
 
@@ -13,7 +14,7 @@ namespace Hover.Board.Renderers {
 	public class HoverRendererSlider : MonoBehaviour {
 	
 		public GameObject Container;
-		public HoverRendererHollowRectangle[] Backgrounds;
+		public HoverRendererMeshHollowRectangle[] Backgrounds;
 		public HoverRendererButton HandleButton;
 		public HoverRendererButton JumpButton;
 		
@@ -66,7 +67,7 @@ namespace Hover.Board.Renderers {
 			UpdateGeneralSettings();
 			UpdateAnchorSettings();
 
-			foreach ( HoverRendererHollowRectangle background in Backgrounds ) {
+			foreach ( HoverRendererMeshHollowRectangle background in Backgrounds ) {
 				if ( background.gameObject.activeSelf ) {
 					background.UpdateAfterRenderer();
 				}
@@ -83,10 +84,10 @@ namespace Hover.Board.Renderers {
 			Container = new GameObject("Container");
 			Container.transform.SetParent(gameObject.transform, false);
 			
-			Backgrounds = new HoverRendererHollowRectangle[4];
+			Backgrounds = new HoverRendererMeshHollowRectangle[4];
 			
 			for ( int i = 0 ; i < Backgrounds.Length ; i++ ) {
-				HoverRendererHollowRectangle background = BuildHollowRect("Background"+i);
+				HoverRendererMeshHollowRectangle background = BuildHollowRect("Background"+i);
 				background.FillColor = new Color(0.1f, 0.1f, 0.1f, 0.666f);
 				Backgrounds[i] = background;
 			}
@@ -101,10 +102,10 @@ namespace Hover.Board.Renderers {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		private HoverRendererHollowRectangle BuildHollowRect(string pName) {
+		private HoverRendererMeshHollowRectangle BuildHollowRect(string pName) {
 			var rectGo = new GameObject(pName);
 			rectGo.transform.SetParent(Container.transform, false);
-			return rectGo.AddComponent<HoverRendererHollowRectangle>();
+			return rectGo.AddComponent<HoverRendererMeshHollowRectangle>();
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
@@ -143,14 +144,14 @@ namespace Hover.Board.Renderers {
 			int bgIndex = 0;
 			bool isJumpSegmentVisible = false;
 			
-			foreach ( HoverRendererHollowRectangle background in Backgrounds ) {
+			foreach ( HoverRendererMeshHollowRectangle background in Backgrounds ) {
 				background.SizeY = 0;
 			}
 			
 			foreach ( SliderUtil.Segment seg in vSegments ) {
 				switch ( seg.Type ) {
 					case SliderUtil.SegmentType.Track:
-						HoverRendererHollowRectangle background = Backgrounds[bgIndex++];
+						HoverRendererMeshHollowRectangle background = Backgrounds[bgIndex++];
 						background.SizeY = seg.EndPosition-seg.StartPosition;
 						background.transform.localPosition = 
 							new Vector3(0, (seg.StartPosition+seg.EndPosition)/2, 0);
@@ -174,7 +175,7 @@ namespace Hover.Board.Renderers {
 			HandleButton.ControlledByRenderer = true;
 			JumpButton.ControlledByRenderer = true;
 			
-			foreach ( HoverRendererHollowRectangle background in Backgrounds ) {
+			foreach ( HoverRendererMeshHollowRectangle background in Backgrounds ) {
 				background.ControlledByRenderer = true;
 				background.SizeX = SizeX*0.8f;
 				background.InnerAmount = 0;
