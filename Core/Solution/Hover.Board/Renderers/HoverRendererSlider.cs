@@ -14,7 +14,7 @@ namespace Hover.Board.Renderers {
 	public class HoverRendererSlider : MonoBehaviour {
 	
 		public GameObject Container;
-		public HoverRendererMeshSliderRectangle[] Backgrounds;
+		public HoverRendererFillSliderTrack Track;
 		public HoverRendererButton HandleButton;
 		public HoverRendererButton JumpButton;
 		
@@ -42,13 +42,13 @@ namespace Hover.Board.Renderers {
 		[SerializeField]
 		private bool vIsBuilt;
 		
-		private readonly List<SliderUtil.Segment> vSegments;
+		private readonly List<SliderUtil.Segment> vSegmentInfoList;
 		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public HoverRendererSlider() {
-			vSegments = new List<SliderUtil.Segment>();
+			vSegmentInfoList = new List<SliderUtil.Segment>();
 		}
 		
 
@@ -67,12 +67,7 @@ namespace Hover.Board.Renderers {
 			UpdateGeneralSettings();
 			UpdateAnchorSettings();
 
-			foreach ( HoverRendererMeshSliderRectangle background in Backgrounds ) {
-				if ( background.gameObject.activeSelf ) {
-					background.UpdateAfterRenderer();
-				}
-			}
-			
+			Track.UpdateAfterRenderer();
 			HandleButton.UpdateAfterRenderer();
 			JumpButton.UpdateAfterRenderer();
 		}
@@ -84,14 +79,7 @@ namespace Hover.Board.Renderers {
 			Container = new GameObject("Container");
 			Container.transform.SetParent(gameObject.transform, false);
 			
-			Backgrounds = new HoverRendererMeshSliderRectangle[4];
-			
-			for ( int i = 0 ; i < Backgrounds.Length ; i++ ) {
-				HoverRendererMeshSliderRectangle background = BuildHollowRect("Background"+i);
-				background.FillColor = new Color(0.1f, 0.1f, 0.1f, 0.666f);
-				Backgrounds[i] = background;
-			}
-			
+			Track = BuildTrack();
 			HandleButton = BuildButton("Handle");
 			JumpButton = BuildButton("Jump");
 			
@@ -102,10 +90,10 @@ namespace Hover.Board.Renderers {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		private HoverRendererMeshSliderRectangle BuildHollowRect(string pName) {
-			var rectGo = new GameObject(pName);
-			rectGo.transform.SetParent(Container.transform, false);
-			return rectGo.AddComponent<HoverRendererMeshSliderRectangle>();
+		private HoverRendererFillSliderTrack BuildTrack() {
+			var trackGo = new GameObject("Track");
+			trackGo.transform.SetParent(Container.transform, false);
+			return trackGo.AddComponent<HoverRendererFillSliderTrack>();
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
@@ -130,7 +118,8 @@ namespace Hover.Board.Renderers {
 				ZeroValue = ZeroValue,
 			};
 			
-			SliderUtil.CalculateSegments(info, vSegments);
+			SliderUtil.CalculateSegments(info, vSegmentInfoList);
+			Track.SegmentInfoList = vSegmentInfoList;
 			
 			/*Debug.Log("INFO: "+info.TrackStartPosition+" / "+info.TrackEndPosition);
 			
@@ -141,45 +130,31 @@ namespace Hover.Board.Renderers {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateGeneralSettings() {
-			int bgIndex = 0;
+			Track.ControlledByRenderer = true;
+			HandleButton.ControlledByRenderer = true;
+			JumpButton.ControlledByRenderer = true;
+			
 			bool isJumpSegmentVisible = false;
 			
-			foreach ( HoverRendererMeshSliderRectangle background in Backgrounds ) {
-				background.SizeY = 0;
-			}
-			
-			foreach ( SliderUtil.Segment seg in vSegments ) {
-				switch ( seg.Type ) {
-					case SliderUtil.SegmentType.Track:
-						HoverRendererMeshSliderRectangle background = Backgrounds[bgIndex++];
-						background.SizeY = seg.EndPosition-seg.StartPosition;
-						background.transform.localPosition = 
-							new Vector3(0, (seg.StartPosition+seg.EndPosition)/2, 0);
-						break;
+			foreach ( SliderUtil.Segment segInfo in vSegmentInfoList ) {
+				bool isHandle = (segInfo.Type == SliderUtil.SegmentType.Handle);
+				bool isJump = (segInfo.Type == SliderUtil.SegmentType.Jump);
 				
-					case SliderUtil.SegmentType.Handle:
-					case SliderUtil.SegmentType.Jump:
-						HoverRendererButton button = 
-							(seg.Type == SliderUtil.SegmentType.Handle ? HandleButton : JumpButton);
-						button.SizeY = seg.EndPosition-seg.StartPosition;
-						button.transform.localPosition = 
-							new Vector3(0, (seg.StartPosition+seg.EndPosition)/2, 0);
-						break;
+				if ( !isHandle && !isJump ) {
+					continue;
 				}
 				
-				if ( seg.Type == SliderUtil.SegmentType.Jump ) {
+				HoverRendererButton button = (isHandle ? HandleButton : JumpButton);
+				button.SizeY = segInfo.EndPosition-segInfo.StartPosition;
+				button.transform.localPosition = 
+					new Vector3(0, (segInfo.StartPosition+segInfo.EndPosition)/2, 0);
+				
+				if ( isJump ) {
 					isJumpSegmentVisible = true;
 				}
 			}
 			
-			HandleButton.ControlledByRenderer = true;
-			JumpButton.ControlledByRenderer = true;
-			
-			foreach ( HoverRendererMeshSliderRectangle background in Backgrounds ) {
-				background.ControlledByRenderer = true;
-				background.SizeX = SizeX*0.8f;
-				background.gameObject.SetActive(background.SizeY > 0);
-			}
+			Track.SizeX = SizeX*0.8f;
 			
 			JumpButton.gameObject.SetActive(ShowJump && isJumpSegmentVisible);
 		}
