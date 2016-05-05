@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Hover.Common.Items.Types;
 using UnityEngine;
@@ -33,7 +34,6 @@ namespace Hover.Board.Renderers.Utils {
 			public float StartPosition;
 			public float EndPosition;
 			public bool IsFill;
-			public bool? IsZeroAtStart;
 		}
 		
 		public struct SliderInfo {
@@ -86,6 +86,8 @@ namespace Hover.Board.Renderers.Utils {
 				pSegments.Insert((handlePos*mult < jumpPos*mult ? 1 : 0), jumpSeg);
 			}
 
+			////
+
 			if ( pInfo.FillType == SliderItem.FillType.Zero ) {
 				var zeroSeg = new Segment {
 					Type = SegmentType.Zero,
@@ -123,6 +125,8 @@ namespace Hover.Board.Renderers.Utils {
 				}
 			}
 			
+			////
+
 			var startSeg = new Segment {
 				Type = SegmentType.Start,
 				StartPositionType = PositionType.TrackStart,
@@ -141,19 +145,48 @@ namespace Hover.Board.Renderers.Utils {
 			
 			pSegments.Insert(0, startSeg);
 			pSegments.Add(endSeg);
+
+			////
+
+			bool isFilling = false;
+			SegmentType fillToSegType;
+
+			switch ( pInfo.FillType ) {
+				case SliderItem.FillType.Zero:
+					fillToSegType = SegmentType.Zero;
+					break;
+
+				case SliderItem.FillType.MinimumValue:
+					fillToSegType = SegmentType.Start;
+					break;
 			
+				case SliderItem.FillType.MaximumValue:
+					fillToSegType = SegmentType.End;
+					break;
+
+				default:
+					throw new Exception("Unhandled fill type: "+pInfo.FillType);
+			}
+
+			////
+
 			for ( int i = 1 ; i < pSegments.Count ; i++ ) {
-				var prevSeg = pSegments[i-1];
-				var nextSeg = pSegments[i];
-				
+				Segment prevSeg = pSegments[i-1];
+				Segment nextSeg = pSegments[i];
+
+				if ( prevSeg.Type == SegmentType.Handle || prevSeg.Type == fillToSegType ) {
+					isFilling = !isFilling;
+				}
+
 				var trackSeg = new Segment {
 					Type = SegmentType.Track,
 					StartPositionType = prevSeg.EndPositionType,
 					EndPositionType = nextSeg.StartPositionType,
 					StartPosition = prevSeg.EndPosition,
-					EndPosition = nextSeg.StartPosition
+					EndPosition = nextSeg.StartPosition,
+					IsFill = isFilling
 				};
-				
+
 				pSegments.Insert(i, trackSeg);
 				i++;
 			}

@@ -11,8 +11,11 @@ namespace Hover.Board.Renderers.Meshes {
 		
 		[Range(0, 100)]
 		public float SizeY = 10;
+
+		public bool IsFill = false;
 		
-		public Color FillColor = Color.gray;
+		public Color TrackColor = Color.gray;
+		public Color FillColor = Color.white;
 		
 		private float vPrevSizeX;
 		private float vPrevSizeY;
@@ -43,12 +46,7 @@ namespace Hover.Board.Renderers.Meshes {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		protected override void UpdateMesh() {
-			bool hasSizeOrAmountChanged = (
-				SizeX != vPrevSizeX || 
-				SizeY != vPrevSizeY
-			);
-
-			if ( !hasSizeOrAmountChanged ) {
+			if ( SizeX == vPrevSizeX && SizeY == vPrevSizeY ) {
 				return;
 			}
 
@@ -61,12 +59,15 @@ namespace Hover.Board.Renderers.Meshes {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateColor() {
-			if ( FillColor == vPrevColor ) {
+			Color color = (IsFill ? FillColor : TrackColor);
+
+			if ( color == vPrevColor ) {
 				return;
 			}
 
-			vMeshBuild.CommitColors(FillColor);
-			vPrevColor = FillColor;
+			vMeshBuild.CommitColors(color);
+
+			vPrevColor = color;
 		}
 		
 	}

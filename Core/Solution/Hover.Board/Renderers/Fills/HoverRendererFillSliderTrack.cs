@@ -46,7 +46,8 @@ namespace Hover.Board.Renderers.Fills {
 			
 			for ( int i = 0 ; i < Segments.Length ; i++ ) {
 				HoverRendererMeshSliderRectangle seg = BuildRectangle("Segment"+i);
-				seg.FillColor = new Color(0.1f, 0.1f, 0.1f, 0.666f);
+				seg.TrackColor = new Color(0.1f, 0.1f, 0.1f, 0.666f);
+				seg.FillColor = new Color(0.1f, 0.9f, 0.2f);
 				Segments[i] = seg;
 			}
 		}
@@ -77,6 +78,7 @@ namespace Hover.Board.Renderers.Fills {
 				seg.SizeY = segInfo.EndPosition-segInfo.StartPosition;
 				seg.transform.localPosition = 
 					new Vector3(0, (segInfo.StartPosition+segInfo.EndPosition)/2, 0);
+				seg.IsFill = segInfo.IsFill;
 			}
 			
 			foreach ( HoverRendererMeshSliderRectangle seg in Segments ) {
