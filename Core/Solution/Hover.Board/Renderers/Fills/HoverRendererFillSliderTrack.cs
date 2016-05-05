@@ -15,6 +15,12 @@ namespace Hover.Board.Renderers.Fills {
 		
 		[Range(0, 100)]
 		public float SizeX = 10;
+
+		[Range(0, 100)]
+		public float InsetL = 1;
+
+		[Range(0, 100)]
+		public float InsetR = 1;
 		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -64,6 +70,7 @@ namespace Hover.Board.Renderers.Fills {
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateSegmentsWithInfo() {
 			int segIndex = 0;
+			float insetSizeX = Mathf.Max(0, SizeX-InsetL-InsetR);
 			
 			foreach ( HoverRendererMeshSliderRectangle seg in Segments ) {
 				seg.SizeY = 0;
@@ -76,14 +83,18 @@ namespace Hover.Board.Renderers.Fills {
 					
 				HoverRendererMeshSliderRectangle seg = Segments[segIndex++];
 				seg.SizeY = segInfo.EndPosition-segInfo.StartPosition;
-				seg.transform.localPosition = 
-					new Vector3(0, (segInfo.StartPosition+segInfo.EndPosition)/2, 0);
 				seg.IsFill = segInfo.IsFill;
+
+				seg.transform.localPosition = new Vector3(
+					(InsetL-InsetR)/2,
+					(segInfo.StartPosition+segInfo.EndPosition)/2,
+					0
+				);
 			}
 			
 			foreach ( HoverRendererMeshSliderRectangle seg in Segments ) {
 				seg.ControlledByRenderer = true;
-				seg.SizeX = SizeX;
+				seg.SizeX = insetSizeX;
 				seg.gameObject.SetActive(seg.SizeY > 0);
 			}
 		}

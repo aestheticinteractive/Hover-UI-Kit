@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using Hover.Board.Renderers.Contents;
+﻿using System.Collections.Generic;
 using Hover.Board.Renderers.Fills;
-using Hover.Board.Renderers.Meshes;
 using Hover.Board.Renderers.Utils;
 using Hover.Common.Items.Types;
 using UnityEngine;
@@ -85,6 +82,9 @@ namespace Hover.Board.Renderers {
 			
 			HandleButton.SizeY = 2;
 			JumpButton.SizeY = 1;
+
+			Track.InsetL = 1;
+			Track.InsetR = 1;
 			
 			JumpButton.Canvas.gameObject.SetActive(false);
 		}
@@ -154,7 +154,9 @@ namespace Hover.Board.Renderers {
 				}
 			}
 			
-			Track.SizeX = SizeX*0.8f;
+			HandleButton.SizeX = SizeX;
+			JumpButton.SizeX = SizeX;
+			Track.SizeX = SizeX;
 			
 			JumpButton.gameObject.SetActive(ShowJump && isJumpSegmentVisible);
 		}
