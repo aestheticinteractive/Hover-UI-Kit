@@ -21,6 +21,8 @@ namespace Hover.Board.Renderers.Fills {
 
 		[Range(0, 100)]
 		public float InsetR = 1;
+
+		public bool UseTrackUv = false;
 		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -71,6 +73,8 @@ namespace Hover.Board.Renderers.Fills {
 		private void UpdateSegmentsWithInfo() {
 			int segIndex = 0;
 			float insetSizeX = Mathf.Max(0, SizeX-InsetL-InsetR);
+			float trackStartY = SegmentInfoList[0].StartPosition;
+			float trackEndY = SegmentInfoList[SegmentInfoList.Count-1].EndPosition;
 			
 			foreach ( HoverRendererMeshSliderRectangle seg in Segments ) {
 				seg.SizeY = 0;
@@ -80,10 +84,14 @@ namespace Hover.Board.Renderers.Fills {
 				if ( segInfo.Type != SliderUtil.SegmentType.Track ) {
 					continue;
 				}
-					
+
 				HoverRendererMeshSliderRectangle seg = Segments[segIndex++];
 				seg.SizeY = segInfo.EndPosition-segInfo.StartPosition;
 				seg.IsFill = segInfo.IsFill;
+				seg.UvStartY = (UseTrackUv ?
+					Mathf.InverseLerp(trackStartY, trackEndY, segInfo.StartPosition) : 0);
+				seg.UvEndY = (UseTrackUv ?
+					Mathf.InverseLerp(trackStartY, trackEndY, segInfo.EndPosition) : 1);
 
 				seg.transform.localPosition = new Vector3(
 					(InsetL-InsetR)/2,
