@@ -8,12 +8,16 @@ namespace Hover.Board.Renderers {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
-	public class HoverRendererSlider : MonoBehaviour {
+	public class HoverRendererRectangleSlider : MonoBehaviour {
+
+		//TODO: tick marks (use canvas RQ + hide when obscured by buttons)
+
+		public bool ControlledByItem { get; set; }
 	
 		public GameObject Container;
 		public HoverRendererFillSliderTrack Track;
-		public HoverRendererButton HandleButton;
-		public HoverRendererButton JumpButton;
+		public HoverRendererRectangleButton HandleButton;
+		public HoverRendererRectangleButton JumpButton;
 		
 		[Range(0, 100)]
 		public float SizeX = 10;
@@ -31,7 +35,7 @@ namespace Hover.Board.Renderers {
 		public float JumpValue = 0;
 		
 		public bool ShowJump = false;
-		public SliderItem.FillType FillType = SliderItem.FillType.Zero;
+		public SliderItem.FillType FillStartingPoint = SliderItem.FillType.Zero;
 		
 		public AnchorType Anchor = AnchorType.MiddleCenter;
 		
@@ -44,7 +48,7 @@ namespace Hover.Board.Renderers {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public HoverRendererSlider() {
+		public HoverRendererRectangleSlider() {
 			vSegmentInfoList = new List<SliderUtil.Segment>();
 		}
 		
@@ -57,16 +61,23 @@ namespace Hover.Board.Renderers {
 				vIsBuilt = true;
 			}
 		}
-
+		
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
+			if ( !ControlledByItem ) {
+				UpdateAfterParent();
+			}
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public void UpdateAfterParent() {
 			UpdateSliderSegments();
 			UpdateGeneralSettings();
 			UpdateAnchorSettings();
 
 			Track.UpdateAfterRenderer();
-			HandleButton.UpdateAfterRenderer();
-			JumpButton.UpdateAfterRenderer();
+			HandleButton.UpdateAfterParent();
+			JumpButton.UpdateAfterParent();
 		}
 		
 
@@ -97,10 +108,10 @@ namespace Hover.Board.Renderers {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		private HoverRendererButton BuildButton(string pName) {
+		private HoverRendererRectangleButton BuildButton(string pName) {
 			var rectGo = new GameObject(pName);
 			rectGo.transform.SetParent(Container.transform, false);
-			return rectGo.AddComponent<HoverRendererButton>();
+			return rectGo.AddComponent<HoverRendererRectangleButton>();
 		}
 		
 
@@ -108,7 +119,7 @@ namespace Hover.Board.Renderers {
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateSliderSegments() {
 			var info = new SliderUtil.SliderInfo {
-				FillType = FillType,
+				FillType = FillStartingPoint,
 				TrackStartPosition = -SizeY/2,
 				TrackEndPosition = SizeY/2,
 				HandleSize = HandleButton.SizeY,
@@ -144,7 +155,7 @@ namespace Hover.Board.Renderers {
 					continue;
 				}
 				
-				HoverRendererButton button = (isHandle ? HandleButton : JumpButton);
+				HoverRendererRectangleButton button = (isHandle ? HandleButton : JumpButton);
 				button.SizeY = segInfo.EndPosition-segInfo.StartPosition;
 				button.transform.localPosition = 
 					new Vector3(0, (segInfo.StartPosition+segInfo.EndPosition)/2, 0);

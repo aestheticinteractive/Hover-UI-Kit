@@ -8,8 +8,9 @@ namespace Hover.Board.Renderers {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
-	public class HoverRendererButton : MonoBehaviour {
+	public class HoverRendererRectangleButton : MonoBehaviour {
 	
+		public bool ControlledByItem { get; set; }
 		public bool ControlledByRenderer { get; set; }
 	
 		public HoverRendererFillRectangleFromCenter Fill;
@@ -39,13 +40,13 @@ namespace Hover.Board.Renderers {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			if ( !ControlledByRenderer ) {
-				UpdateAfterRenderer();
+			if ( !ControlledByRenderer && !ControlledByItem ) {
+				UpdateAfterParent();
 			}
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		public void UpdateAfterRenderer() {
+		public void UpdateAfterParent() {
 			UpdateGeneralSettings();
 			UpdateAnchorSettings();
 

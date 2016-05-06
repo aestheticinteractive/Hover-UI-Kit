@@ -75,7 +75,7 @@ namespace Hover.Common.Items {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public bool IsVisible {
+		public bool IsVisible { //TODO: remove this (in favor of GameObject.activeSelf)
 			get { return vIsVisible; }
 			set { vIsVisible = value; }
 		}

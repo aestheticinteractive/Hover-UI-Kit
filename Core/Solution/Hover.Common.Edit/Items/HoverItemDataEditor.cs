@@ -79,10 +79,8 @@ namespace Hover.Common.Edit.Items {
 
 			baseData.Id = EditorGUILayout.TextField("ID", baseData.Id);
 			baseData.Label = EditorGUILayout.TextField("Label", baseData.Label);
-			baseData.Width = EditorGUILayout.FloatField("Width", baseData.Width);
-			baseData.Height = EditorGUILayout.FloatField("Height", baseData.Height);
 			baseData.IsEnabled = EditorGUILayout.Toggle("Is Enabled", baseData.IsEnabled);
-			baseData.IsVisible = EditorGUILayout.Toggle("Is Visible", baseData.IsVisible);
+			baseData.IsVisible = vTarget.gameObject.activeSelf;
 			
 			////
 
