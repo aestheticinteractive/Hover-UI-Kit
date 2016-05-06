@@ -96,10 +96,8 @@ namespace Hover.Board.Renderers {
 				return;
 			}
 			
-			int ai = (int)Anchor;
-			float x = (ai%3)/2f - 0.5f;
-			float y = (ai/3)/2f - 0.5f;
-			var localPos = new Vector3(-SizeX*x, SizeY*y, 0);
+			Vector2 anchorPos = RendererHelper.GetRelativeAnchorPosition(Anchor);
+			var localPos = new Vector3(SizeX*anchorPos.x, SizeY*anchorPos.y, 0);
 			
 			Fill.transform.localPosition = localPos;
 			Canvas.transform.localPosition = localPos;
