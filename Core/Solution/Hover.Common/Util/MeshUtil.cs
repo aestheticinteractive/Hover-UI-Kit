@@ -102,29 +102,8 @@ namespace Hover.Common.Util {
 			float innerH = pHeight/2-pThickness;
 			float outerW = pWidth/2;
 			float outerH = pHeight/2;
-
-			pMeshBuild.Resize(8, 24);
-			pMeshBuild.ResetIndices();
-
-			pMeshBuild.AddVertex(new Vector3( outerW,  outerH, 0)); 
-			pMeshBuild.AddVertex(new Vector3( outerW, -outerH, 0));
-			pMeshBuild.AddVertex(new Vector3(-outerW, -outerH, 0));
-			pMeshBuild.AddVertex(new Vector3(-outerW,  outerH, 0));
-			pMeshBuild.AddVertex(new Vector3( innerW,  innerH, 0));
-			pMeshBuild.AddVertex(new Vector3( innerW, -innerH, 0)); 
-			pMeshBuild.AddVertex(new Vector3(-innerW, -innerH, 0));
-			pMeshBuild.AddVertex(new Vector3(-innerW,  innerH, 0));
-
-			pMeshBuild.AddTriangle(0, 1, 4);
-			pMeshBuild.AddTriangle(1, 5, 4);
-			pMeshBuild.AddTriangle(1, 2, 5);
-			pMeshBuild.AddTriangle(2, 6, 5);
-			pMeshBuild.AddTriangle(2, 3, 6);
-			pMeshBuild.AddTriangle(3, 7, 6);
-			pMeshBuild.AddTriangle(3, 4, 7);
-			pMeshBuild.AddTriangle(3, 0, 4);
-
-			pMeshBuild.AddRemainingUvs(Vector2.zero);
+			
+			FillHollowRectangleMesh(pMeshBuild, outerW, outerH, innerW, innerH);
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
@@ -148,22 +127,37 @@ namespace Hover.Common.Util {
 				innerH = pHeight-(pWidth-innerW);
 			}
 			
-			float halfOuterW = outerW/2;
-			float halfOuterH = outerH/2;
-			float halfInnerW = innerW/2;
-			float halfInnerH = innerH/2;
+			FillHollowRectangleMesh(pMeshBuild, outerW/2, outerH/2, innerW/2, innerH/2);
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		private static void FillHollowRectangleMesh(MeshBuilder pMeshBuild,
+										float pOuterW, float pOuterH, float pInnerW, float pInnerH) {
+			float innerUvMaxX = 0.5f + pInnerW/pOuterW/2;
+			float innerUvMinX = 0.5f - pInnerW/pOuterW/2;
+			float innerUvMaxY = 0.5f + pInnerH/pOuterH/2;
+			float innerUvMinY = 0.5f - pInnerH/pOuterH/2;
 			
 			pMeshBuild.Resize(8, 24);
 			pMeshBuild.ResetIndices();
 			
-			pMeshBuild.AddVertex(new Vector3( halfOuterW,  halfOuterH, 0)); 
-			pMeshBuild.AddVertex(new Vector3( halfOuterW, -halfOuterH, 0));
-			pMeshBuild.AddVertex(new Vector3(-halfOuterW, -halfOuterH, 0));
-			pMeshBuild.AddVertex(new Vector3(-halfOuterW,  halfOuterH, 0));
-			pMeshBuild.AddVertex(new Vector3( halfInnerW,  halfInnerH, 0));
-			pMeshBuild.AddVertex(new Vector3( halfInnerW, -halfInnerH, 0)); 
-			pMeshBuild.AddVertex(new Vector3(-halfInnerW, -halfInnerH, 0));
-			pMeshBuild.AddVertex(new Vector3(-halfInnerW,  halfInnerH, 0));
+			pMeshBuild.AddVertex(new Vector3( pOuterW,  pOuterH, 0)); 
+			pMeshBuild.AddVertex(new Vector3( pOuterW, -pOuterH, 0));
+			pMeshBuild.AddVertex(new Vector3(-pOuterW, -pOuterH, 0));
+			pMeshBuild.AddVertex(new Vector3(-pOuterW,  pOuterH, 0));
+			pMeshBuild.AddVertex(new Vector3( pInnerW,  pInnerH, 0));
+			pMeshBuild.AddVertex(new Vector3( pInnerW, -pInnerH, 0)); 
+			pMeshBuild.AddVertex(new Vector3(-pInnerW, -pInnerH, 0));
+			pMeshBuild.AddVertex(new Vector3(-pInnerW,  pInnerH, 0));
+			
+			pMeshBuild.AddUv(new Vector2(1, 1));
+			pMeshBuild.AddUv(new Vector2(1, 0));
+			pMeshBuild.AddUv(new Vector2(0, 0));
+			pMeshBuild.AddUv(new Vector2(0, 1));
+			pMeshBuild.AddUv(new Vector2(innerUvMaxX, innerUvMaxY));
+			pMeshBuild.AddUv(new Vector2(innerUvMaxX, innerUvMinY));
+			pMeshBuild.AddUv(new Vector2(innerUvMinX, innerUvMinY));
+			pMeshBuild.AddUv(new Vector2(innerUvMinX, innerUvMaxY));
 			
 			pMeshBuild.AddTriangle(0, 1, 4);
 			pMeshBuild.AddTriangle(1, 5, 4);
@@ -173,8 +167,6 @@ namespace Hover.Common.Util {
 			pMeshBuild.AddTriangle(3, 7, 6);
 			pMeshBuild.AddTriangle(3, 4, 7);
 			pMeshBuild.AddTriangle(3, 0, 4);
-			
-			pMeshBuild.AddRemainingUvs(Vector2.zero); //TODO: set UVs
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -203,6 +195,11 @@ namespace Hover.Common.Util {
 			pMeshBuild.AddVertex(new Vector3(-halfW, -halfH, 0));
 			pMeshBuild.AddVertex(new Vector3(-halfW,  halfH, 0));
 
+			pMeshBuild.AddUv(new Vector2(1, 1));
+			pMeshBuild.AddUv(new Vector2(1, 0));
+			pMeshBuild.AddUv(new Vector2(0, 0));
+			pMeshBuild.AddUv(new Vector2(0, 1));
+			
 			pMeshBuild.AddTriangle(0, 1, 2);
 			pMeshBuild.AddTriangle(0, 2, 3);
 
