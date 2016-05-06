@@ -1,6 +1,7 @@
 ﻿using System;
 using Hover.Board.Renderers.Fills;
 using Hover.Board.Renderers.Contents;
+using Hover.Board.Renderers.Helpers;
 using UnityEngine;
 
 namespace Hover.Board.Renderers {

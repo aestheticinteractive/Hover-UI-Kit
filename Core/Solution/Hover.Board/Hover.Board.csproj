@@ -106,12 +106,12 @@
     <Compile Include="Renderers\Fills\HoverRendererFill.cs" />
     <Compile Include="Renderers\HoverRendererSlider.cs" />
     <Compile Include="Renderers\HoverRendererButton.cs" />
-    <Compile Include="Renderers\AnchorType.cs" />
-    <Compile Include="Renderers\Utils\SliderUtil.cs" />
     <Compile Include="Renderers\Meshes\HoverRendererMesh.cs" />
     <Compile Include="Renderers\Meshes\HoverRendererMeshSliderRectangle.cs" />
     <Compile Include="Renderers\Meshes\HoverRendererMeshHollowRectangle.cs" />
     <Compile Include="Renderers\Fills\HoverRendererFillSliderTrack.cs" />
+    <Compile Include="Renderers\Helpers\SliderUtil.cs" />
+    <Compile Include="Renderers\Helpers\AnchorType.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Hover.Common\Hover.Common.csproj">
@@ -137,7 +137,7 @@
   <ItemGroup />
   <ItemGroup>
     <Folder Include="Renderers\Fills\" />
-    <Folder Include="Renderers\Utils\" />
     <Folder Include="Renderers\Meshes\" />
+    <Folder Include="Renderers\Helpers\" />
   </ItemGroup>
 </Project>
