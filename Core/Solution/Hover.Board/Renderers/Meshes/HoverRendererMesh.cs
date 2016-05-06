@@ -70,6 +70,7 @@ namespace Hover.Board.Renderers.Meshes {
 			
 			vMeshBuild = new MeshBuilder(meshFilt.sharedMesh);
 			vMeshBuild.Mesh.name = gameObject.name+"Mesh:"+GetInstanceID();
+			vMeshBuild.Mesh.MarkDynamic();
 			return true;
 		}
 		

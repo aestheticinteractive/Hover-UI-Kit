@@ -18,12 +18,14 @@ namespace Hover.Board.Renderers.Meshes {
 		[Range(0, 1)]
 		public float InnerAmount = 0.5f;
 		
+		public bool UseUvRelativeToSize = false;
 		public Color FillColor = Color.gray;
 		
 		private float vPrevSizeX;
 		private float vPrevSizeY;
 		private float vPrevInner;
 		private float vPrevOuter;
+		private bool vPrevUseUv;
 		private Color vPrevColor;
 
 		
@@ -55,20 +57,51 @@ namespace Hover.Board.Renderers.Meshes {
 				SizeX != vPrevSizeX || 
 				SizeY != vPrevSizeY || 
 				InnerAmount != vPrevInner || 
-				OuterAmount != vPrevOuter
+				OuterAmount != vPrevOuter ||
+				UseUvRelativeToSize != vPrevUseUv
 			);
 
 			if ( !hasSizeOrAmountChanged ) {
 				return;
 			}
+			
+			float outerW;
+			float outerH;
+			float innerW;
+			float innerH;
+			
+			if ( SizeX >= SizeY ) {
+				outerH = SizeY*OuterAmount;
+				innerH = SizeY*InnerAmount;
+				outerW = SizeX-(SizeY-outerH);
+				innerW = SizeX-(SizeY-innerH);
+			}
+			else {
+				outerW = SizeX*OuterAmount;
+				innerW = SizeX*InnerAmount;
+				outerH = SizeY-(SizeX-outerW);
+				innerH = SizeY-(SizeX-innerW);
+			}
+			
+			float uvToCenterX = (UseUvRelativeToSize ? 1-outerW/SizeX : 0);
+			float uvToCenterY = (UseUvRelativeToSize ? 1-outerH/SizeY : 0);
 
-			MeshUtil.BuildHollowRectangleMesh(vMeshBuild, SizeX, SizeY, InnerAmount, OuterAmount);
+			MeshUtil.BuildHollowRectangleMesh(vMeshBuild, outerW, outerH, innerW, innerH);
+			
+			for ( int i = 0 ; i < vMeshBuild.Uvs.Length ; i++ ) {
+				Vector2 uv = vMeshBuild.Uvs[i];
+				uv.x = Mathf.Lerp(uv.x, 0.5f, uvToCenterX);
+				uv.y = Mathf.Lerp(uv.y, 0.5f, uvToCenterY);
+				vMeshBuild.Uvs[i] = uv;
+			}
+			
 			vMeshBuild.Commit();
 
 			vPrevSizeX = SizeX;
 			vPrevSizeY = SizeY;
 			vPrevInner = InnerAmount;
 			vPrevOuter = OuterAmount;
+			vPrevUseUv = UseUvRelativeToSize;
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/

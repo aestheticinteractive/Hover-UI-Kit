@@ -28,6 +28,8 @@ namespace Hover.Board.Renderers.Fills {
 		[Range(0, 1)]
 		public float SelectionProgress = 0.2f;
 		
+		public bool UseUvRelativeToSize = false;
+		
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -101,6 +103,11 @@ namespace Hover.Board.Renderers.Fills {
 			Selection.InnerAmount = 0;
 			Edge.OuterAmount = 1;
 			Edge.InnerAmount = 1-EdgeThickness/Mathf.Min(SizeX, SizeY);
+			
+			Background.UseUvRelativeToSize = UseUvRelativeToSize;
+			Highlight.UseUvRelativeToSize = UseUvRelativeToSize;
+			Selection.UseUvRelativeToSize = UseUvRelativeToSize;
+			Edge.UseUvRelativeToSize = UseUvRelativeToSize;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

@@ -103,52 +103,32 @@ namespace Hover.Common.Util {
 			float outerW = pWidth/2;
 			float outerH = pHeight/2;
 			
-			FillHollowRectangleMesh(pMeshBuild, outerW, outerH, innerW, innerH);
+			BuildHollowRectangleMesh(pMeshBuild, outerW, outerH, innerW, innerH);
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		public static void BuildHollowRectangleMesh(MeshBuilder pMeshBuild, 
-								float pWidth, float pHeight, float pInnerAmount, float pOuterAmount) {
-			float outerW;
-			float outerH;
-			float innerW;
-			float innerH;
-			
-			if ( pWidth >= pHeight ) {
-				outerH = pHeight*pOuterAmount;
-				innerH = pHeight*pInnerAmount;
-				outerW = pWidth-(pHeight-outerH);
-				innerW = pWidth-(pHeight-innerH);
-			}
-			else {
-				outerW = pWidth*pOuterAmount;
-				innerW = pWidth*pInnerAmount;
-				outerH = pHeight-(pWidth-outerW);
-				innerH = pHeight-(pWidth-innerW);
-			}
-			
-			FillHollowRectangleMesh(pMeshBuild, outerW/2, outerH/2, innerW/2, innerH/2);
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		private static void FillHollowRectangleMesh(MeshBuilder pMeshBuild,
+		public static void BuildHollowRectangleMesh(MeshBuilder pMeshBuild,
 										float pOuterW, float pOuterH, float pInnerW, float pInnerH) {
-			float innerUvMaxX = 0.5f + pInnerW/pOuterW/2;
-			float innerUvMinX = 0.5f - pInnerW/pOuterW/2;
-			float innerUvMaxY = 0.5f + pInnerH/pOuterH/2;
-			float innerUvMinY = 0.5f - pInnerH/pOuterH/2;
+			float halfOuterW = pOuterW/2;
+			float halfOuterH = pOuterH/2;
+			float halfInnerW = pInnerW/2;
+			float halfInnerH = pInnerH/2;
+			float innerUvMaxX = 0.5f + halfInnerW/halfOuterW/2;
+			float innerUvMinX = 0.5f - halfInnerW/halfOuterW/2;
+			float innerUvMaxY = 0.5f + halfInnerH/halfOuterH/2;
+			float innerUvMinY = 0.5f - halfInnerH/halfOuterH/2;
 			
 			pMeshBuild.Resize(8, 24);
 			pMeshBuild.ResetIndices();
 			
-			pMeshBuild.AddVertex(new Vector3( pOuterW,  pOuterH, 0)); 
-			pMeshBuild.AddVertex(new Vector3( pOuterW, -pOuterH, 0));
-			pMeshBuild.AddVertex(new Vector3(-pOuterW, -pOuterH, 0));
-			pMeshBuild.AddVertex(new Vector3(-pOuterW,  pOuterH, 0));
-			pMeshBuild.AddVertex(new Vector3( pInnerW,  pInnerH, 0));
-			pMeshBuild.AddVertex(new Vector3( pInnerW, -pInnerH, 0)); 
-			pMeshBuild.AddVertex(new Vector3(-pInnerW, -pInnerH, 0));
-			pMeshBuild.AddVertex(new Vector3(-pInnerW,  pInnerH, 0));
+			pMeshBuild.AddVertex(new Vector3( halfOuterW,  halfOuterH, 0)); 
+			pMeshBuild.AddVertex(new Vector3( halfOuterW, -halfOuterH, 0));
+			pMeshBuild.AddVertex(new Vector3(-halfOuterW, -halfOuterH, 0));
+			pMeshBuild.AddVertex(new Vector3(-halfOuterW,  halfOuterH, 0));
+			pMeshBuild.AddVertex(new Vector3( halfInnerW,  halfInnerH, 0));
+			pMeshBuild.AddVertex(new Vector3( halfInnerW, -halfInnerH, 0)); 
+			pMeshBuild.AddVertex(new Vector3(-halfInnerW, -halfInnerH, 0));
+			pMeshBuild.AddVertex(new Vector3(-halfInnerW,  halfInnerH, 0));
 			
 			pMeshBuild.AddUv(new Vector2(1, 1));
 			pMeshBuild.AddUv(new Vector2(1, 0));
