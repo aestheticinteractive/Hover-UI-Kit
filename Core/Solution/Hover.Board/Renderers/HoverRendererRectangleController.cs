@@ -1,7 +1,9 @@
-﻿using Hover.Board.Renderers.Contents;
+﻿using System;
+using Hover.Board.Renderers.Contents;
 using Hover.Board.Renderers.Helpers;
 using Hover.Common.Items;
 using Hover.Common.Items.Types;
+using Hover.Common.Renderers;
 using Hover.Common.State;
 using UnityEngine;
 
@@ -11,7 +13,7 @@ namespace Hover.Board.Renderers {
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(HoverItemData))]
 	[RequireComponent(typeof(HoverItemCursorActivity))]
-	public class HoverRendererRectangleController : MonoBehaviour {
+	public class HoverRendererRectangleController : HoverRendererController {
 	
 		public HoverRendererRectangleButton ButtonRenderer;
 		public HoverRendererRectangleSlider SliderRenderer;
@@ -25,7 +27,8 @@ namespace Hover.Board.Renderers {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Update() {
+		public override void Update() {
+			base.Update();
 			HoverItemData hoverItemData = GetComponent<HoverItemData>();
 			HoverItemCursorActivity hoverItemCursorActivity = GetComponent<HoverItemCursorActivity>();
 
@@ -42,6 +45,21 @@ namespace Hover.Board.Renderers {
 				UpdateSliderSettings(hoverItemCursorActivity);
 				SliderRenderer.UpdateAfterParent();
 			}
+		}
+		
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public override Vector3 GetNearestWorldPosition(Vector3 pFromWorldPosition) {
+			if ( ButtonRenderer != null ) {
+				return ButtonRenderer.GetNearestWorldPosition(pFromWorldPosition);
+			}
+
+			if ( SliderRenderer != null ) {
+				return SliderRenderer.GetNearestWorldPosition(pFromWorldPosition);
+			}
+
+			throw new Exception("No button or slider renderer.");
 		}
 		
 
@@ -153,6 +171,7 @@ namespace Hover.Board.Renderers {
 			SliderRenderer.HandleValue = data.SnappedValue;
 			SliderRenderer.FillStartingPoint = data.FillStartingPoint;
 			SliderRenderer.ZeroValue = Mathf.InverseLerp(data.RangeMin, data.RangeMax, 0);
+			SliderRenderer.ShowJump = data.AllowJump;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -167,8 +186,14 @@ namespace Hover.Board.Renderers {
 		private void UpdateSliderSettings(HoverItemCursorActivity pHoverItemCursorActivity) {
 			HoverItemCursorActivity.Highlight? high = pHoverItemCursorActivity.NearestHighlight;
 
-			SliderRenderer.HandleButton.Fill.HighlightProgress = 
-				(high == null ? 0 : ((HoverItemCursorActivity.Highlight)high).Progress);
+			if ( high != null ) {
+				SliderRenderer.HandleButton.Fill.HighlightProgress = high.Value.Progress;
+				SliderRenderer.SetJumpValueViaNearestWorldPosition(high.Value.NearestWorldPos);
+			}
+			else {
+				SliderRenderer.HandleButton.Fill.HighlightProgress = 0;
+				SliderRenderer.ShowJump = false;
+			}
 		}
 		
 	}

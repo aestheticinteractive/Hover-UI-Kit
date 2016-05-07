@@ -51,6 +51,22 @@ namespace Hover.Board.Renderers.Helpers {
 
 			return default(T);
 		}
+
+		
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public static Vector3 GetNearestWorldPositionOnRectangle(Vector3 pFromWorldPosition, 
+												Transform pRectangleTx, float pSizeX, float pSizeY) {
+			Vector3 fromLocalPos = pRectangleTx.InverseTransformPoint(pFromWorldPosition);
+
+			var nearLocalPos = new Vector3(
+				Mathf.Clamp(fromLocalPos.x, -pSizeX/2, pSizeX/2),
+				Mathf.Clamp(fromLocalPos.y, -pSizeY/2, pSizeY/2),
+				0
+			);
+
+			return pRectangleTx.TransformPoint(nearLocalPos);
+		}
 		
 	}
 

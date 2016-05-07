@@ -2,13 +2,14 @@
 using Hover.Board.Renderers.Fills;
 using Hover.Board.Renderers.Contents;
 using Hover.Board.Renderers.Helpers;
+using Hover.Common.Renderers;
 using UnityEngine;
 
 namespace Hover.Board.Renderers {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
-	public class HoverRendererRectangleButton : MonoBehaviour {
+	public class HoverRendererRectangleButton : MonoBehaviour, IProximityProvider {
 	
 		public bool ControlledByItem { get; set; }
 		public bool ControlledByRenderer { get; set; }
@@ -52,6 +53,12 @@ namespace Hover.Board.Renderers {
 
 			Fill.UpdateAfterRenderer();
 			Canvas.UpdateAfterRenderer();
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public Vector3 GetNearestWorldPosition(Vector3 pFromWorldPosition) {
+			return RendererHelper.GetNearestWorldPositionOnRectangle(
+				pFromWorldPosition, Fill.transform, SizeX, SizeY);
 		}
 		
 

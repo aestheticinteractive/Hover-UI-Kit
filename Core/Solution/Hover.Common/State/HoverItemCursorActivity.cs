@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Hover.Common.Custom;
 using Hover.Common.Input;
 using Hover.Common.Items;
+using Hover.Common.Renderers;
 using UnityEngine;
 
 namespace Hover.Common.State {
@@ -10,11 +11,15 @@ namespace Hover.Common.State {
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(HoverItemData))]
+	[RequireComponent(typeof(HoverRendererController))]
 	public class HoverItemCursorActivity : MonoBehaviour {
+
+		//TODO: make Update() run constantly in editor mode, to keep the proximity values fresh
 
 		[Serializable]
 		public struct Highlight {
 			public HovercursorData Data;
+			public Vector3 NearestWorldPos;
 			public float Distance;
 			public float Progress;
 		}
@@ -62,12 +67,13 @@ namespace Hover.Common.State {
 				return;
 			}
 
-			Vector3 worldPos = gameObject.transform.position; //TODO: renderer must provide proximity
+			IProximityProvider proxProv = GetComponent<HoverRendererController>();
 
 			foreach ( HovercursorData data in CursorDataProvider.Cursors ) {
 				var high = new Highlight();
 				high.Data = data;
-				high.Distance = (data.transform.position-worldPos).magnitude;
+				high.NearestWorldPos = proxProv.GetNearestWorldPosition(data.transform.position);
+				high.Distance = (data.transform.position-high.NearestWorldPos).magnitude;
 				high.Progress = Mathf.InverseLerp(vSettings.HighlightDistanceMax,
 					vSettings.HighlightDistanceMin, high.Distance*vSettings.ScaleMultiplier);
 				Highlights.Add(high);

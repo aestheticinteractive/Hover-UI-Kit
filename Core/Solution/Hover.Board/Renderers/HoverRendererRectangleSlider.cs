@@ -2,13 +2,14 @@
 using Hover.Board.Renderers.Fills;
 using Hover.Board.Renderers.Helpers;
 using Hover.Common.Items.Types;
+using Hover.Common.Renderers;
 using UnityEngine;
 
 namespace Hover.Board.Renderers {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
-	public class HoverRendererRectangleSlider : MonoBehaviour {
+	public class HoverRendererRectangleSlider : MonoBehaviour, IProximityProvider {
 
 		//TODO: tick marks (use canvas RQ + hide when obscured by buttons)
 
@@ -78,6 +79,25 @@ namespace Hover.Board.Renderers {
 			Track.UpdateAfterRenderer();
 			HandleButton.UpdateAfterParent();
 			JumpButton.UpdateAfterParent();
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public Vector3 GetNearestWorldPosition(Vector3 pFromWorldPosition) {
+			if ( ShowJump ) {
+				return RendererHelper.GetNearestWorldPositionOnRectangle(
+					pFromWorldPosition, Container.transform, SizeX, SizeY);
+			}
+			
+			return RendererHelper.GetNearestWorldPositionOnRectangle(
+				pFromWorldPosition, HandleButton.transform, HandleButton.SizeX, HandleButton.SizeY);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void SetJumpValueViaNearestWorldPosition(Vector3 pNearestWorldPosition) {
+			Vector3 nearLocalPos = Container.transform.InverseTransformPoint(pNearestWorldPosition);
+			float halfTrackSizeY = (SizeY-HandleButton.SizeY)/2;
+
+			JumpValue = Mathf.InverseLerp(-halfTrackSizeY, halfTrackSizeY, nearLocalPos.y);
 		}
 		
 
