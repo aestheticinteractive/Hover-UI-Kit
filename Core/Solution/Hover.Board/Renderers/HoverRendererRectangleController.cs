@@ -2,6 +2,7 @@
 using Hover.Board.Renderers.Helpers;
 using Hover.Common.Items;
 using Hover.Common.Items.Types;
+using Hover.Common.State;
 using UnityEngine;
 
 namespace Hover.Board.Renderers {
@@ -9,6 +10,7 @@ namespace Hover.Board.Renderers {
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(HoverItemData))]
+	[RequireComponent(typeof(HoverItemCursorActivity))]
 	public class HoverRendererRectangleController : MonoBehaviour {
 	
 		public HoverRendererRectangleButton ButtonRenderer;
@@ -25,16 +27,19 @@ namespace Hover.Board.Renderers {
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
 			HoverItemData hoverItemData = GetComponent<HoverItemData>();
+			HoverItemCursorActivity hoverItemCursorActivity = GetComponent<HoverItemCursorActivity>();
 
 			TryRebuildWithItemType(hoverItemData.ItemType);
 
 			if ( ButtonRenderer != null ) {
 				UpdateButtonSettings(hoverItemData);
+				UpdateButtonSettings(hoverItemCursorActivity);
 				ButtonRenderer.UpdateAfterParent();
 			}
 
 			if ( SliderRenderer != null ) {
 				UpdateSliderSettings(hoverItemData);
+				UpdateSliderSettings(hoverItemCursorActivity);
 				SliderRenderer.UpdateAfterParent();
 			}
 		}
@@ -148,6 +153,22 @@ namespace Hover.Board.Renderers {
 			SliderRenderer.HandleValue = data.SnappedValue;
 			SliderRenderer.FillStartingPoint = data.FillStartingPoint;
 			SliderRenderer.ZeroValue = Mathf.InverseLerp(data.RangeMin, data.RangeMax, 0);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateButtonSettings(HoverItemCursorActivity pHoverItemCursorActivity) {
+			HoverItemCursorActivity.Highlight? high = pHoverItemCursorActivity.NearestHighlight;
+
+			ButtonRenderer.Fill.HighlightProgress = 
+				(high == null ? 0 : ((HoverItemCursorActivity.Highlight)high).Progress);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateSliderSettings(HoverItemCursorActivity pHoverItemCursorActivity) {
+			HoverItemCursorActivity.Highlight? high = pHoverItemCursorActivity.NearestHighlight;
+
+			SliderRenderer.HandleButton.Fill.HighlightProgress = 
+				(high == null ? 0 : ((HoverItemCursorActivity.Highlight)high).Progress);
 		}
 		
 	}
