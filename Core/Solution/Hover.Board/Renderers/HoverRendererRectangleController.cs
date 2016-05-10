@@ -30,19 +30,22 @@ namespace Hover.Board.Renderers {
 		public override void Update() {
 			base.Update();
 			HoverItemData hoverItemData = GetComponent<HoverItemData>();
-			HoverItemCursorActivity hoverItemCursorActivity = GetComponent<HoverItemCursorActivity>();
+			HoverItemCursorActivity hoverItemCursorAct = GetComponent<HoverItemCursorActivity>();
+			HoverItemSelectionActivity hoverItemSelectAct = GetComponent<HoverItemSelectionActivity>();
 
 			TryRebuildWithItemType(hoverItemData.ItemType);
 
 			if ( ButtonRenderer != null ) {
 				UpdateButtonSettings(hoverItemData);
-				UpdateButtonSettings(hoverItemCursorActivity);
+				//UpdateButtonSettings(hoverItemCursorAct);
+				UpdateButtonSettings(hoverItemSelectAct);
 				ButtonRenderer.UpdateAfterParent();
 			}
 
 			if ( SliderRenderer != null ) {
 				UpdateSliderSettings(hoverItemData);
-				UpdateSliderSettings(hoverItemCursorActivity);
+				UpdateSliderSettings(hoverItemCursorAct);
+				UpdateSliderSettings(hoverItemSelectAct);
 				SliderRenderer.UpdateAfterParent();
 			}
 		}
@@ -173,25 +176,44 @@ namespace Hover.Board.Renderers {
 			SliderRenderer.ZeroValue = Mathf.InverseLerp(data.RangeMin, data.RangeMax, 0);
 			SliderRenderer.ShowJump = data.AllowJump;
 		}
+		
 
-		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateButtonSettings(HoverItemCursorActivity pHoverItemCursorActivity) {
-			HoverItemCursorActivity.Highlight? high = pHoverItemCursorActivity.NearestHighlight;
-
-			ButtonRenderer.Fill.HighlightProgress = 
-				(high == null ? 0 : ((HoverItemCursorActivity.Highlight)high).Progress);
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------* /
+		private void UpdateButtonSettings(HoverItemCursorActivity pHoverItemCursorAct) {
+			HoverItemCursorActivity.Highlight? high = pHoverItemCursorAct.NearestHighlight;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateSliderSettings(HoverItemCursorActivity pHoverItemCursorActivity) {
-			HoverItemCursorActivity.Highlight? high = pHoverItemCursorActivity.NearestHighlight;
+		private void UpdateSliderSettings(HoverItemCursorActivity pHoverItemCursorAct) {
+			HoverItemCursorActivity.Highlight? high = pHoverItemCursorAct.NearestHighlight;
 
 			if ( high != null ) {
-				SliderRenderer.HandleButton.Fill.HighlightProgress = high.Value.Progress;
 				SliderRenderer.SetJumpValueViaNearestWorldPosition(high.Value.NearestWorldPos);
 			}
+		}
+		
+		
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateButtonSettings(HoverItemSelectionActivity pHoverItemSelectAct) {
+			ButtonRenderer.Fill.HighlightProgress = pHoverItemSelectAct.MaxHighlightProgress;
+			ButtonRenderer.Fill.SelectionProgress = pHoverItemSelectAct.SelectionProgress;
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateSliderSettings(HoverItemSelectionActivity pHoverItemSelectAct) {
+			float highProg = pHoverItemSelectAct.MaxHighlightProgress;
+			float selProg = pHoverItemSelectAct.SelectionProgress;
+			
+			SliderRenderer.HandleButton.Fill.HighlightProgress = highProg;
+			SliderRenderer.HandleButton.Fill.SelectionProgress = selProg;
+			
+			if ( highProg > 0 ) {
+				SliderRenderer.JumpButton.Fill.HighlightProgress = highProg;
+				SliderRenderer.JumpButton.Fill.SelectionProgress = selProg;
+			}
 			else {
-				SliderRenderer.HandleButton.Fill.HighlightProgress = 0;
 				SliderRenderer.ShowJump = false;
 			}
 		}

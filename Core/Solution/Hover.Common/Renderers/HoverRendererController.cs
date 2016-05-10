@@ -8,12 +8,22 @@ namespace Hover.Common.Renderers {
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(HoverItemData))]
 	[RequireComponent(typeof(HoverItemCursorActivity))]
+	[RequireComponent(typeof(HoverItemSelectionActivity))]
 	public abstract class HoverRendererController : MonoBehaviour, IProximityProvider {
 
 		public bool ShowProximityDebugLines = true;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public virtual void Awake() {
+			HoverItemCursorActivity hoverItemCursorAct = GetComponent<HoverItemCursorActivity>();
+			
+			if ( hoverItemCursorAct.ProximityProvider == null ) {
+				hoverItemCursorAct.ProximityProvider = this;
+			}
+		}
+		
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void Update() {
 			if ( ShowProximityDebugLines ) {

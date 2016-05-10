@@ -9,6 +9,18 @@
 		public float SelectionMilliseconds { get; set; }
 		public bool ApplyScaleMultiplier { get; set; }
 		public float ScaleMultiplier { get; set; }
+		
+		
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public BaseInteractionSettings() {
+			HighlightDistanceMin = 3;
+			HighlightDistanceMax = 7;
+			StickyReleaseDistance = 5;
+			SelectionMilliseconds = 400;
+			ApplyScaleMultiplier = false;
+			ScaleMultiplier = 1;
+		}
 
 	}
 

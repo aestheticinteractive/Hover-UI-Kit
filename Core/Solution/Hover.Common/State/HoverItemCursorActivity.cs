@@ -10,8 +10,6 @@ namespace Hover.Common.State {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
-	[RequireComponent(typeof(HoverItemData))]
-	[RequireComponent(typeof(HoverRendererController))]
 	public class HoverItemCursorActivity : MonoBehaviour {
 
 		[Serializable]
@@ -26,6 +24,7 @@ namespace Hover.Common.State {
 		public List<Highlight> Highlights { get; private set; }
 		
 		public HovercursorDataProvider CursorDataProvider;
+		public HoverRendererController ProximityProvider;
 		public bool AllowCursorHighlighting = true;
 
 		private readonly BaseInteractionSettings vSettings;
@@ -34,14 +33,7 @@ namespace Hover.Common.State {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public HoverItemCursorActivity() {
-			vSettings = new BaseInteractionSettings();
-			vSettings.HighlightDistanceMin = 3;
-			vSettings.HighlightDistanceMax = 7;
-			vSettings.StickyReleaseDistance = 5;
-			vSettings.SelectionMilliseconds = 400;
-			vSettings.ApplyScaleMultiplier = true;
-			vSettings.ScaleMultiplier = 1;
-			
+			vSettings = new BaseInteractionSettings(); //TODO: access from somewhere
 			Highlights = new List<Highlight>();
 		}
 
@@ -59,14 +51,12 @@ namespace Hover.Common.State {
 			Highlights.Clear();
 			NearestHighlight = null;
 
-			if ( !AllowCursorHighlighting ) {
+			if ( !AllowCursorHighlighting || !ProximityProvider ) {
 				return;
 			}
 
-			IProximityProvider proxProv = GetComponent<HoverRendererController>();
-
 			foreach ( HovercursorData data in CursorDataProvider.Cursors ) {
-				Highlight high = CalculateHighlight(proxProv, data);
+				Highlight high = CalculateHighlight(data);
 				Highlights.Add(high);
 
 				if ( NearestHighlight == null ||
@@ -92,7 +82,7 @@ namespace Hover.Common.State {
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private Highlight CalculateHighlight(IProximityProvider pProxProv, HovercursorData pData) {
+		private Highlight CalculateHighlight(HovercursorData pData) {
 			var high = new Highlight();
 			high.Data = pData;
 			
@@ -102,7 +92,7 @@ namespace Hover.Common.State {
 			
 			Vector3 cursorWorldPos = pData.transform.position;
 			
-			high.NearestWorldPos = pProxProv.GetNearestWorldPosition(cursorWorldPos);
+			high.NearestWorldPos = ProximityProvider.GetNearestWorldPosition(cursorWorldPos);
 			high.Distance = (cursorWorldPos-high.NearestWorldPos).magnitude;
 			high.Progress = Mathf.InverseLerp(vSettings.HighlightDistanceMax,
 				vSettings.HighlightDistanceMin, high.Distance*vSettings.ScaleMultiplier);
