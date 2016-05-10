@@ -14,8 +14,6 @@ namespace Hover.Common.State {
 	[RequireComponent(typeof(HoverRendererController))]
 	public class HoverItemCursorActivity : MonoBehaviour {
 
-		//TODO: make Update() run constantly in editor mode, to keep the proximity values fresh
-
 		[Serializable]
 		public struct Highlight {
 			public HovercursorData Data;
@@ -25,10 +23,10 @@ namespace Hover.Common.State {
 		}
 
 		public Highlight? NearestHighlight { get; private set; }
-
+		public List<Highlight> Highlights { get; private set; }
+		
 		public HovercursorDataProvider CursorDataProvider;
 		public bool AllowCursorHighlighting = true;
-		public List<Highlight> Highlights; //read-only
 
 		private readonly BaseInteractionSettings vSettings;
 
@@ -43,6 +41,8 @@ namespace Hover.Common.State {
 			vSettings.SelectionMilliseconds = 400;
 			vSettings.ApplyScaleMultiplier = true;
 			vSettings.ScaleMultiplier = 1;
+			
+			Highlights = new List<Highlight>();
 		}
 
 
@@ -51,10 +51,6 @@ namespace Hover.Common.State {
 		public void Awake() {
 			if ( CursorDataProvider == null ) {
 				FindObjectOfType<HovercursorDataProvider>();
-			}
-
-			if ( Highlights == null ) {
-				Highlights = new List<Highlight>();
 			}
 		}
 
@@ -70,12 +66,7 @@ namespace Hover.Common.State {
 			IProximityProvider proxProv = GetComponent<HoverRendererController>();
 
 			foreach ( HovercursorData data in CursorDataProvider.Cursors ) {
-				var high = new Highlight();
-				high.Data = data;
-				high.NearestWorldPos = proxProv.GetNearestWorldPosition(data.transform.position);
-				high.Distance = (data.transform.position-high.NearestWorldPos).magnitude;
-				high.Progress = Mathf.InverseLerp(vSettings.HighlightDistanceMax,
-					vSettings.HighlightDistanceMin, high.Distance*vSettings.ScaleMultiplier);
+				Highlight high = CalculateHighlight(proxProv, data);
 				Highlights.Add(high);
 
 				if ( NearestHighlight == null ||
@@ -96,6 +87,27 @@ namespace Hover.Common.State {
 			}
 
 			return null;
+		}
+		
+		
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private Highlight CalculateHighlight(IProximityProvider pProxProv, HovercursorData pData) {
+			var high = new Highlight();
+			high.Data = pData;
+			
+			if ( !Application.isPlaying ) {
+				return high;
+			}
+			
+			Vector3 cursorWorldPos = pData.transform.position;
+			
+			high.NearestWorldPos = pProxProv.GetNearestWorldPosition(cursorWorldPos);
+			high.Distance = (cursorWorldPos-high.NearestWorldPos).magnitude;
+			high.Progress = Mathf.InverseLerp(vSettings.HighlightDistanceMax,
+				vSettings.HighlightDistanceMin, high.Distance*vSettings.ScaleMultiplier);
+			
+			return high;
 		}
 
 	}

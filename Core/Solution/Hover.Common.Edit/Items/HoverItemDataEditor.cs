@@ -1,5 +1,6 @@
 using System;
 using System.Linq.Expressions;
+using Hover.Common.Edit.Utils;
 using Hover.Common.Items;
 using Hover.Common.Items.Types;
 using UnityEditor;
@@ -35,8 +36,7 @@ namespace Hover.Common.Edit.Items {
 			vOnBoolValueChangedEventName = GetPropertyName(() => selBoolData.OnValueChangedEvent);
 			vOnFloatValueChangedEventName = GetPropertyName(() => selFloatData.OnValueChangedEvent);
 
-			vVertStyle = new GUIStyle();
-			vVertStyle.padding = new RectOffset(16, 0, 0, 0);
+			vVertStyle = EditorUtil.GetVerticalSectionStyle();
 			
 			int targetId = target.GetInstanceID();
 

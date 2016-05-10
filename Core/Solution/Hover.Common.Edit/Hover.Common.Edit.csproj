@@ -54,6 +54,9 @@
     </Compile>
     <Compile Include="Items\HoverItemDataEditor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="State\HoverItemCursorActivityEditor.cs" />
+    <Compile Include="Utils\EditorUtil.cs" />
+    <Compile Include="State\HovercursorDataProviderEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Hover.Common\Hover.Common.csproj">
@@ -77,4 +80,8 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <Folder Include="State\" />
+    <Folder Include="Utils\" />
+  </ItemGroup>
 </Project>

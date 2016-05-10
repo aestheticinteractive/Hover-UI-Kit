@@ -10,8 +10,6 @@ namespace Hover.Common.Renderers {
 	[RequireComponent(typeof(HoverItemCursorActivity))]
 	public abstract class HoverRendererController : MonoBehaviour, IProximityProvider {
 
-		//TODO: in editor mode, send event via IProximityProvider so the CursorProvider can update?
-
 		public bool ShowProximityDebugLines = true;
 
 
