@@ -174,7 +174,7 @@ namespace Hover.Board.Renderers {
 			SliderRenderer.HandleValue = data.SnappedValue;
 			SliderRenderer.FillStartingPoint = data.FillStartingPoint;
 			SliderRenderer.ZeroValue = Mathf.InverseLerp(data.RangeMin, data.RangeMax, 0);
-			SliderRenderer.ShowJump = data.AllowJump;
+			SliderRenderer.AllowJump = data.AllowJump;
 		}
 		
 
@@ -201,11 +201,11 @@ namespace Hover.Board.Renderers {
 			SliderRenderer.JumpButton.Fill.Edge.gameObject.SetActive(
 				pHighState.IsNearestAcrossAllItemsForAnyCursor);
 
-			if ( high != null ) {
-				SliderRenderer.SetJumpValueViaNearestWorldPosition(high.Value.NearestWorldPos);
+			if ( high == null ) {
+				SliderRenderer.SetJumpValueToBeHidden();
 			}
 			else {
-				SliderRenderer.ShowJump = false;
+				SliderRenderer.SetJumpValueViaNearestWorldPosition(high.Value.NearestWorldPos);
 			}
 		}
 		

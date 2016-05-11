@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Hover.Board.Renderers.Fills;
 using Hover.Board.Renderers.Helpers;
 using Hover.Common.Items.Types;
@@ -35,7 +35,7 @@ namespace Hover.Board.Renderers {
 		[Range(0, 1)]
 		public float JumpValue = 0;
 		
-		public bool ShowJump = false;
+		public bool AllowJump = false;
 		public SliderItem.FillType FillStartingPoint = SliderItem.FillType.Zero;
 		
 		public AnchorType Anchor = AnchorType.MiddleCenter;
@@ -83,7 +83,7 @@ namespace Hover.Board.Renderers {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public Vector3 GetNearestWorldPosition(Vector3 pFromWorldPosition) {
-			if ( ShowJump ) {
+			if ( AllowJump ) {
 				return RendererHelper.GetNearestWorldPositionOnRectangle(
 					pFromWorldPosition, Container.transform, SizeX, SizeY);
 			}
@@ -98,6 +98,11 @@ namespace Hover.Board.Renderers {
 			float halfTrackSizeY = (SizeY-HandleButton.SizeY)/2;
 
 			JumpValue = Mathf.InverseLerp(-halfTrackSizeY, halfTrackSizeY, nearLocalPos.y);
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public void SetJumpValueToBeHidden() {
+			JumpValue = -1;
 		}
 		
 
@@ -144,7 +149,7 @@ namespace Hover.Board.Renderers {
 				TrackEndPosition = SizeY/2,
 				HandleSize = HandleButton.SizeY,
 				HandleValue = HandleValue,
-				JumpSize = (ShowJump ? JumpButton.SizeY : 0),
+				JumpSize = (AllowJump ? JumpButton.SizeY : 0),
 				JumpValue = JumpValue,
 				ZeroValue = ZeroValue,
 			};
@@ -189,7 +194,7 @@ namespace Hover.Board.Renderers {
 			JumpButton.SizeX = SizeX;
 			Track.SizeX = SizeX;
 			
-			JumpButton.gameObject.SetActive(ShowJump && isJumpSegmentVisible);
+			JumpButton.gameObject.SetActive(AllowJump && isJumpSegmentVisible);
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/

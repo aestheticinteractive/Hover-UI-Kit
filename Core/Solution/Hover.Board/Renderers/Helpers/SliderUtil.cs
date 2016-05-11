@@ -74,7 +74,7 @@ namespace Hover.Board.Renderers.Helpers {
 			
 			pSegments.Add(handleSeg);
 			
-			if ( hasJump && !isJumpTooNear ) {
+			if ( hasJump && !isJumpTooNear && pInfo.JumpValue >= 0 ) {
 				var jumpSeg = new Segment {
 					Type = SegmentType.Jump,
 					StartPositionType = PositionType.JumpStart,
