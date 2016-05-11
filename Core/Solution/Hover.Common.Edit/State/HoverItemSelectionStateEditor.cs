@@ -7,13 +7,13 @@ namespace Hover.Common.Edit.State {
 
 	/*================================================================================================*/
 	[CanEditMultipleObjects]
-	[CustomEditor(typeof(HoverItemSelectionActivity))]
-	public class HoverItemSelectionActivityEditor : Editor {
+	[CustomEditor(typeof(HoverItemSelectionState))]
+	public class HoverItemSelectionStateEditor : Editor {
 
 		private string vIsSelectionOpenKey;
 		private GUIStyle vVertStyle;
 		
-		private HoverItemSelectionActivity vTarget;
+		private HoverItemSelectionState vTarget;
 		
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -30,16 +30,16 @@ namespace Hover.Common.Edit.State {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public override void OnInspectorGUI() {
-			vTarget = (HoverItemSelectionActivity)target;
+			vTarget = (HoverItemSelectionState)target;
 			
 			DrawDefaultInspector();
-			DrawActivityInfo();
+			DrawSelectionInfo();
 		}
 		
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void DrawActivityInfo() {
+		private void DrawSelectionInfo() {
 			bool isHighOpen = EditorGUILayout.Foldout(EditorPrefs.GetBool(vIsSelectionOpenKey),
 				"Item Selection Information");
 			EditorPrefs.SetBool(vIsSelectionOpenKey, isHighOpen);

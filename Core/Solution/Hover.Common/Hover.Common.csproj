@@ -101,7 +101,6 @@
     <Compile Include="Renderers\IProximityProvider.cs" />
     <Compile Include="State\HovercursorData.cs" />
     <Compile Include="State\HovercursorDataProvider.cs" />
-    <Compile Include="State\HoverItemCursorActivity.cs" />
     <Compile Include="State\IBaseItemPointsState.cs" />
     <Compile Include="State\BaseItemPointsState.cs" />
     <Compile Include="State\IBaseItemInteractionState.cs" />
@@ -113,8 +112,9 @@
     <Compile Include="Util\CacheList.cs" />
     <Compile Include="Util\UnityUtil.cs" />
     <Compile Include="Util\MeshUtil.cs" />
-    <Compile Include="State\HoverItemSelectionActivity.cs" />
     <Compile Include="State\HoverItemsHighlightManager.cs" />
+    <Compile Include="State\HoverItemHighlightState.cs" />
+    <Compile Include="State\HoverItemSelectionState.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

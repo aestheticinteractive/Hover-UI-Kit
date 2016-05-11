@@ -10,7 +10,7 @@ namespace Hover.Common.State {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
-	public class HoverItemCursorActivity : MonoBehaviour {
+	public class HoverItemHighlightState : MonoBehaviour {
 
 		[Serializable]
 		public struct Highlight {
@@ -36,7 +36,7 @@ namespace Hover.Common.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public HoverItemCursorActivity() {
+		public HoverItemHighlightState() {
 			Highlights = new List<Highlight>();
 			vSettings = new BaseInteractionSettings(); //TODO: access from somewhere
 			vPreventHighlightMap = new HashSet<string>();
@@ -52,7 +52,7 @@ namespace Hover.Common.State {
 			
 			vHighMan = FindObjectOfType<HoverItemsHighlightManager>();
 			
-			if ( vHighMan != null ) {
+			if ( Application.isPlaying && vHighMan != null ) {
 				vHighMan.AddItem(this);
 			}
 		}
@@ -73,7 +73,7 @@ namespace Hover.Common.State {
 		public void OnDestroy() {
 			vHighMan = (vHighMan ?? FindObjectOfType<HoverItemsHighlightManager>());
 			
-			if ( vHighMan != null ) {
+			if ( Application.isPlaying && vHighMan != null ) {
 				vHighMan.RemoveItem(this);
 			}
 		}
@@ -103,8 +103,8 @@ namespace Hover.Common.State {
 					return 1;
 				}
 				
-				HoverItemCursorActivity.Highlight? nearestHigh = 
-					GetComponent<HoverItemCursorActivity>().NearestHighlight;
+				HoverItemHighlightState.Highlight? nearestHigh = 
+					GetComponent<HoverItemHighlightState>().NearestHighlight;
 				return (nearestHigh == null ? 0 : nearestHigh.Value.Progress);
 			}
 		}

@@ -7,13 +7,13 @@ namespace Hover.Common.Edit.State {
 
 	/*================================================================================================*/
 	[CanEditMultipleObjects]
-	[CustomEditor(typeof(HoverItemCursorActivity))]
-	public class HoverItemCursorActivityEditor : Editor {
+	[CustomEditor(typeof(HoverItemHighlightState))]
+	public class HoverItemHighlightStateEditor : Editor {
 
 		private string vIsHighlightOpenKey;
 		private GUIStyle vVertStyle;
 		
-		private HoverItemCursorActivity vTarget;
+		private HoverItemHighlightState vTarget;
 		
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -30,7 +30,7 @@ namespace Hover.Common.Edit.State {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public override void OnInspectorGUI() {
-			vTarget = (HoverItemCursorActivity)target;
+			vTarget = (HoverItemHighlightState)target;
 			
 			DrawDefaultInspector();
 			DrawHighlightInfo();
@@ -68,7 +68,7 @@ namespace Hover.Common.Edit.State {
 			GUI.enabled = true;
 			
 			for ( int i = 0 ; i < vTarget.Highlights.Count ; i++ ) {
-				HoverItemCursorActivity.Highlight high = vTarget.Highlights[i];
+				HoverItemHighlightState.Highlight high = vTarget.Highlights[i];
 				EditorGUILayout.Separator();
 				EditorGUILayout.LabelField(high.Data.Type+" Cursor", EditorStyles.boldLabel);
 				GUI.enabled = false;

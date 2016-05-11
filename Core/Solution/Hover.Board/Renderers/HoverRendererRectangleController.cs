@@ -12,7 +12,7 @@ namespace Hover.Board.Renderers {
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(HoverItemData))]
-	[RequireComponent(typeof(HoverItemCursorActivity))]
+	[RequireComponent(typeof(HoverItemHighlightState))]
 	public class HoverRendererRectangleController : HoverRendererController {
 	
 		public HoverRendererRectangleButton ButtonRenderer;
@@ -30,22 +30,22 @@ namespace Hover.Board.Renderers {
 		public override void Update() {
 			base.Update();
 			HoverItemData hoverItemData = GetComponent<HoverItemData>();
-			HoverItemCursorActivity hoverItemCursorAct = GetComponent<HoverItemCursorActivity>();
-			HoverItemSelectionActivity hoverItemSelectAct = GetComponent<HoverItemSelectionActivity>();
+			HoverItemHighlightState highState = GetComponent<HoverItemHighlightState>();
+			HoverItemSelectionState selState = GetComponent<HoverItemSelectionState>();
 
 			TryRebuildWithItemType(hoverItemData.ItemType);
 
 			if ( ButtonRenderer != null ) {
 				UpdateButtonSettings(hoverItemData);
-				UpdateButtonSettings(hoverItemCursorAct);
-				UpdateButtonSettings(hoverItemSelectAct);
+				UpdateButtonSettings(highState);
+				UpdateButtonSettings(selState);
 				ButtonRenderer.UpdateAfterParent();
 			}
 
 			if ( SliderRenderer != null ) {
 				UpdateSliderSettings(hoverItemData);
-				UpdateSliderSettings(hoverItemCursorAct);
-				UpdateSliderSettings(hoverItemSelectAct);
+				UpdateSliderSettings(highState);
+				UpdateSliderSettings(selState);
 				SliderRenderer.UpdateAfterParent();
 			}
 		}
@@ -180,26 +180,26 @@ namespace Hover.Board.Renderers {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateButtonSettings(HoverItemCursorActivity pHoverItemCursorAct) {
-			HoverItemCursorActivity.Highlight? high = pHoverItemCursorAct.NearestHighlight;
+		private void UpdateButtonSettings(HoverItemHighlightState pHighState) {
+			HoverItemHighlightState.Highlight? high = pHighState.NearestHighlight;
 			
-			ButtonRenderer.Fill.HighlightProgress = pHoverItemCursorAct.MaxHighlightProgress;
+			ButtonRenderer.Fill.HighlightProgress = pHighState.MaxHighlightProgress;
 			ButtonRenderer.Fill.Edge.gameObject.SetActive(
-				pHoverItemCursorAct.IsNearestAcrossAllItemsForAnyCursor);
+				pHighState.IsNearestAcrossAllItemsForAnyCursor);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateSliderSettings(HoverItemCursorActivity pHoverItemCursorAct) {
-			HoverItemCursorActivity.Highlight? high = pHoverItemCursorAct.NearestHighlight;
-			float highProg = pHoverItemCursorAct.MaxHighlightProgress;
+		private void UpdateSliderSettings(HoverItemHighlightState pHighState) {
+			HoverItemHighlightState.Highlight? high = pHighState.NearestHighlight;
+			float highProg = pHighState.MaxHighlightProgress;
 
 			SliderRenderer.HandleButton.Fill.HighlightProgress = highProg;
 			SliderRenderer.JumpButton.Fill.HighlightProgress = highProg;
 			
 			SliderRenderer.HandleButton.Fill.Edge.gameObject.SetActive(
-				pHoverItemCursorAct.IsNearestAcrossAllItemsForAnyCursor);
+				pHighState.IsNearestAcrossAllItemsForAnyCursor);
 			SliderRenderer.JumpButton.Fill.Edge.gameObject.SetActive(
-				pHoverItemCursorAct.IsNearestAcrossAllItemsForAnyCursor);
+				pHighState.IsNearestAcrossAllItemsForAnyCursor);
 
 			if ( high != null ) {
 				SliderRenderer.SetJumpValueViaNearestWorldPosition(high.Value.NearestWorldPos);
@@ -212,13 +212,13 @@ namespace Hover.Board.Renderers {
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateButtonSettings(HoverItemSelectionActivity pHoverItemSelectAct) {
-			ButtonRenderer.Fill.SelectionProgress = pHoverItemSelectAct.SelectionProgress;
+		private void UpdateButtonSettings(HoverItemSelectionState pSelState) {
+			ButtonRenderer.Fill.SelectionProgress = pSelState.SelectionProgress;
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateSliderSettings(HoverItemSelectionActivity pHoverItemSelectAct) {
-			float selProg = pHoverItemSelectAct.SelectionProgress;
+		private void UpdateSliderSettings(HoverItemSelectionState pSelState) {
+			float selProg = pSelState.SelectionProgress;
 			
 			SliderRenderer.HandleButton.Fill.SelectionProgress = selProg;
 			SliderRenderer.JumpButton.Fill.SelectionProgress = selProg;

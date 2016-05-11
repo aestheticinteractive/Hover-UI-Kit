@@ -1,4 +1,4 @@
-﻿using Hover.Common.Items;
+using Hover.Common.Items;
 using Hover.Common.State;
 using UnityEngine;
 
@@ -7,8 +7,8 @@ namespace Hover.Common.Renderers {
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(HoverItemData))]
-	[RequireComponent(typeof(HoverItemCursorActivity))]
-	[RequireComponent(typeof(HoverItemSelectionActivity))]
+	[RequireComponent(typeof(HoverItemHighlightState))]
+	[RequireComponent(typeof(HoverItemSelectionState))]
 	public abstract class HoverRendererController : MonoBehaviour, IProximityProvider {
 
 		public bool ShowProximityDebugLines = true;
@@ -17,10 +17,10 @@ namespace Hover.Common.Renderers {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void Awake() {
-			HoverItemCursorActivity hoverItemCursorAct = GetComponent<HoverItemCursorActivity>();
+			HoverItemHighlightState highState = GetComponent<HoverItemHighlightState>();
 			
-			if ( hoverItemCursorAct.ProximityProvider == null ) {
-				hoverItemCursorAct.ProximityProvider = this;
+			if ( highState.ProximityProvider == null ) {
+				highState.ProximityProvider = this;
 			}
 		}
 		
@@ -38,8 +38,8 @@ namespace Hover.Common.Renderers {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected void DrawProximityDebugLines() {
-			HoverItemCursorActivity.Highlight? nearHigh = 
-				GetComponent<HoverItemCursorActivity>().NearestHighlight;
+			HoverItemHighlightState.Highlight? nearHigh = 
+				GetComponent<HoverItemHighlightState>().NearestHighlight;
 
 			if ( nearHigh == null ) {
 				return;

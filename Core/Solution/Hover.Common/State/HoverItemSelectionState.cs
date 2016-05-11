@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Hover.Common.Items;
 using UnityEngine;
 using Hover.Common.Custom;
@@ -8,8 +8,8 @@ namespace Hover.Common.State {
 
 	/*================================================================================================*/
 	[RequireComponent(typeof(HoverItemData))]
-	[RequireComponent(typeof(HoverItemCursorActivity))]
-	public class HoverItemSelectionActivity : MonoBehaviour {
+	[RequireComponent(typeof(HoverItemHighlightState))]
+	public class HoverItemSelectionState : MonoBehaviour {
 
 		public bool IsSelectionPrevented { get; private set; }
 		
@@ -21,7 +21,7 @@ namespace Hover.Common.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public HoverItemSelectionActivity() {
+		public HoverItemSelectionState() {
 			vSettings = new BaseInteractionSettings(); //TODO: access from somewhere
 		}
 		
@@ -38,8 +38,8 @@ namespace Hover.Common.State {
 						return 0;
 					}
 					
-					HoverItemCursorActivity.Highlight? nearestHigh = 
-						GetComponent<HoverItemCursorActivity>().NearestHighlight;
+					HoverItemHighlightState.Highlight? nearestHigh = 
+						GetComponent<HoverItemHighlightState>().NearestHighlight;
 					float minHighDist = (nearestHigh == null ? 
 						float.MaxValue : nearestHigh.Value.Distance);
 
@@ -64,7 +64,7 @@ namespace Hover.Common.State {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void TryResetSelection() {
-			if ( !GetComponent<HoverItemCursorActivity>().IsHighlightPrevented ) {
+			if ( !GetComponent<HoverItemHighlightState>().IsHighlightPrevented ) {
 				return;
 			}
 			
@@ -90,11 +90,11 @@ namespace Hover.Common.State {
 			////
 
 			float selectProg = SelectionProgress;
-			HoverItemCursorActivity hoverItemCursorAct = GetComponent<HoverItemCursorActivity>();
+			HoverItemHighlightState highState = GetComponent<HoverItemHighlightState>();
 			
 			bool canSelect = (
-				!hoverItemCursorAct.IsHighlightPrevented && 
-				hoverItemCursorAct.IsNearestAcrossAllItemsForAnyCursor &&
+				!highState.IsHighlightPrevented && 
+				highState.IsNearestAcrossAllItemsForAnyCursor &&
 				selData.AllowSelection
 			);
 			
@@ -110,8 +110,8 @@ namespace Hover.Common.State {
 
 			////
 
-			HoverItemCursorActivity.Highlight? nearestHigh = 
-				GetComponent<HoverItemCursorActivity>().NearestHighlight;
+			HoverItemHighlightState.Highlight? nearestHigh = 
+				GetComponent<HoverItemHighlightState>().NearestHighlight;
 			
 			if ( nearestHigh == null || nearestHigh.Value.Progress < 1 ) {
 				IsSelectionPrevented = false;

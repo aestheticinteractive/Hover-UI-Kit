@@ -10,7 +10,7 @@ namespace Hover.Common.State {
 
 		public HovercursorDataProvider CursorDataProvider;
 
-		private List<HoverItemCursorActivity> vItems;
+		private List<HoverItemHighlightState> vHighStates;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -20,12 +20,12 @@ namespace Hover.Common.State {
 				FindObjectOfType<HovercursorDataProvider>();
 			}
 			
-			vItems = new List<HoverItemCursorActivity>();
+			vHighStates = new List<HoverItemHighlightState>();
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void Start() {
-			vItems = FindObjectsOfType<HoverItemCursorActivity>().ToList();
+			vHighStates = FindObjectsOfType<HoverItemHighlightState>().ToList();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -37,7 +37,7 @@ namespace Hover.Common.State {
 			
 			for ( int i = 0 ; i < cursorCount ; i++ ) {
 				HovercursorData cursor = cursors[i];
-				HoverItemCursorActivity item = FindNearestItemToCursor(cursor.Type);
+				HoverItemHighlightState item = FindNearestItemToCursor(cursor.Type);
 				
 				if ( item == null ) {
 					continue;
@@ -50,19 +50,19 @@ namespace Hover.Common.State {
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void AddItem(HoverItemCursorActivity pItem) {
-			if ( vItems.Contains(pItem) ) {
-				Debug.LogWarning("Cannot add duplicate item '"+pItem.name+"'.", pItem);
+		public void AddItem(HoverItemHighlightState pHighState) {
+			if ( vHighStates.Contains(pHighState) ) {
+				Debug.LogWarning("Cannot add duplicate item '"+pHighState.name+"'.", pHighState);
 				return;
 			}
 		
-			vItems.Add(pItem);
+			vHighStates.Add(pHighState);
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		public void RemoveItem(HoverItemCursorActivity pItem) {
-			if ( !vItems.Remove(pItem) ) {
-				Debug.LogWarning("Cannot remove missing item '"+pItem.name+"'.", pItem);
+		public void RemoveItem(HoverItemHighlightState pHighState) {
+			if ( !vHighStates.Remove(pHighState) ) {
+				Debug.LogWarning("Cannot remove missing item '"+pHighState.name+"'.", pHighState);
 				return;
 			}
 		}
@@ -71,33 +71,33 @@ namespace Hover.Common.State {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void ResetItems() {
-			for ( int i = 0 ; i < vItems.Count ; i++ ) {
-				HoverItemCursorActivity hoverItemCursorAct = vItems[i];
+			for ( int i = 0 ; i < vHighStates.Count ; i++ ) {
+				HoverItemHighlightState highState = vHighStates[i];
 				
-				if ( hoverItemCursorAct == null ) {
-					vItems.RemoveAt(i);
+				if ( highState == null ) {
+					vHighStates.RemoveAt(i);
 					i--;
 					Debug.LogWarning("Found and removed a null item; use RemoveItem() instead.");
 					continue;
 				}
 				
-				hoverItemCursorAct.ResetAllNearestStates();
+				highState.ResetAllNearestStates();
 			}
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		private HoverItemCursorActivity FindNearestItemToCursor(CursorType pCursorType) {
+		private HoverItemHighlightState FindNearestItemToCursor(CursorType pCursorType) {
 			float maxProg = 0;
-			HoverItemCursorActivity nearestItem = null;
+			HoverItemHighlightState nearestItem = null;
 			
-			for ( int i = 0 ; i < vItems.Count ; i++ ) {
-				HoverItemCursorActivity item = vItems[i];
+			for ( int i = 0 ; i < vHighStates.Count ; i++ ) {
+				HoverItemHighlightState item = vHighStates[i];
 				
 				if ( !item.gameObject.activeInHierarchy || item.IsHighlightPrevented ) {
 					continue;
 				}
 				
-				HoverItemCursorActivity.Highlight? high = item.GetHighlight(pCursorType);
+				HoverItemHighlightState.Highlight? high = item.GetHighlight(pCursorType);
 				
 				if ( high == null || high.Value.Progress <= maxProg ) {
 					continue;
