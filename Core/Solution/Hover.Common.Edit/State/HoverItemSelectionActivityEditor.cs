@@ -7,45 +7,42 @@ namespace Hover.Common.Edit.State {
 
 	/*================================================================================================*/
 	[CanEditMultipleObjects]
-	[CustomEditor(typeof(HoverItemCursorActivity))]
-	public class HoverItemCursorActivityEditor : Editor {
+	[CustomEditor(typeof(HoverItemSelectionActivity))]
+	public class HoverItemSelectionActivityEditor : Editor {
 
-		private string vIsHighlightOpenKey;
+		private string vIsSelectionOpenKey;
 		private GUIStyle vVertStyle;
 		
-		private HoverItemCursorActivity vTarget;
+		private HoverItemSelectionActivity vTarget;
 		
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void OnEnable() {
-			vIsHighlightOpenKey = "IsHighlightOpen"+target.GetInstanceID();
+			vIsSelectionOpenKey = "IsSelectionOpen"+target.GetInstanceID();
 			vVertStyle = EditorUtil.GetVerticalSectionStyle();
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public override bool RequiresConstantRepaint() {
-			return EditorPrefs.GetBool(vIsHighlightOpenKey);
+			return EditorPrefs.GetBool(vIsSelectionOpenKey);
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public override void OnInspectorGUI() {
-			vTarget = (HoverItemCursorActivity)target;
+			vTarget = (HoverItemSelectionActivity)target;
 			
 			DrawDefaultInspector();
-			
-			if ( vTarget.AllowCursorHighlighting ) {
-				DrawHighlightInfo();
-			}
+			DrawActivityInfo();
 		}
 		
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void DrawHighlightInfo() {
-			bool isHighOpen = EditorGUILayout.Foldout(EditorPrefs.GetBool(vIsHighlightOpenKey),
-				"Cursor-To-Item Highlight Information");
-			EditorPrefs.SetBool(vIsHighlightOpenKey, isHighOpen);
+		private void DrawActivityInfo() {
+			bool isHighOpen = EditorGUILayout.Foldout(EditorPrefs.GetBool(vIsSelectionOpenKey),
+				"Item Selection Information");
+			EditorPrefs.SetBool(vIsSelectionOpenKey, isHighOpen);
 			
 			if ( !isHighOpen ) {
 				return;
@@ -55,25 +52,21 @@ namespace Hover.Common.Edit.State {
 			
 			if ( !Application.isPlaying ) {
 				EditorGUILayout.HelpBox("At runtime, this section displays live information about "+
-					"the relationship between the item and each available cursor. You can access this "+
+					"the item's selection state. You can access this "+
 					"information via code.", MessageType.Info);
+				EditorGUILayout.EndVertical();
+				return;
 			}
 			
-			for ( int i = 0 ; i < vTarget.Highlights.Count ; i++ ) {
-				HoverItemCursorActivity.Highlight high = vTarget.Highlights[i];
-				EditorGUILayout.Separator();
-				EditorGUILayout.LabelField(high.Data.Type+" Cursor", EditorStyles.boldLabel);
-				GUI.enabled = false;
-				EditorGUILayout.ObjectField("Data", high.Data, high.Data.GetType(), true);
-				
-				if ( Application.isPlaying ) {
-					EditorGUILayout.Vector3Field("Nearest Position", high.NearestWorldPos);
-					EditorGUILayout.FloatField("Distance", high.Distance);
-					EditorGUILayout.Slider("Progress", high.Progress, 0, 1);
-				}
-				
-				GUI.enabled = true;
-			}
+			GUI.enabled = false;
+			EditorGUILayout.Toggle("Is Nearest Highlight", vTarget.IsNearestHighlight);
+			EditorGUILayout.Toggle("Is Highlight Prevented", vTarget.IsHighlightPrevented);
+			EditorGUILayout.Toggle("Is Selection Prevented", vTarget.IsSelectionPrevented);
+			EditorGUILayout.Toggle("Is Selection Prevented (Via Display)",
+				vTarget.IsSelectionPreventedViaDisplay());
+			EditorGUILayout.Slider("Maximum Highlight Progress", vTarget.MaxHighlightProgress, 0, 1);
+			EditorGUILayout.Slider("Selection Progress", vTarget.SelectionProgress, 0, 1);
+			GUI.enabled = true;
 			
 			EditorGUILayout.EndVertical();
 		}

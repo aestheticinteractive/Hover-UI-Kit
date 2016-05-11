@@ -210,9 +210,10 @@ namespace Hover.Common.Edit.Items {
 			if ( sliderData != null ) {
 				EditorGUILayout.TextField("Slider Formatted Label", 
 					sliderData.GetFormattedLabel(sliderData));
-				EditorGUILayout.FloatField("Slider Value", sliderData.Value);
-				EditorGUILayout.FloatField("Slider Snapped Value", sliderData.SnappedValue);
-				EditorGUILayout.FloatField("Slider Snapped Range Value", sliderData.SnappedRangeValue);
+				EditorGUILayout.Slider("Slider Value", sliderData.Value, 0, 1);
+				EditorGUILayout.Slider("Slider Snapped Value", sliderData.SnappedValue, 0, 1);
+				EditorGUILayout.Slider("Slider Snapped Range Value", sliderData.SnappedRangeValue, 
+					sliderData.RangeMin, sliderData.RangeMax);
 				EditorGUILayout.TextField("Slider Hover Value", sliderData.HoverValue+"");
 				EditorGUILayout.TextField("Slider Snapped Hover Value",sliderData.SnappedHoverValue+"");
 			}
