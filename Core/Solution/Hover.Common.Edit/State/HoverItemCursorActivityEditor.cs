@@ -33,10 +33,7 @@ namespace Hover.Common.Edit.State {
 			vTarget = (HoverItemCursorActivity)target;
 			
 			DrawDefaultInspector();
-			
-			if ( vTarget.AllowCursorHighlighting ) {
-				DrawHighlightInfo();
-			}
+			DrawHighlightInfo();
 		}
 		
 		
@@ -44,7 +41,7 @@ namespace Hover.Common.Edit.State {
 		/*--------------------------------------------------------------------------------------------*/
 		private void DrawHighlightInfo() {
 			bool isHighOpen = EditorGUILayout.Foldout(EditorPrefs.GetBool(vIsHighlightOpenKey),
-				"Cursor-To-Item Highlight Information");
+				"Item Highlight Information");
 			EditorPrefs.SetBool(vIsHighlightOpenKey, isHighOpen);
 			
 			if ( !isHighOpen ) {
@@ -57,7 +54,18 @@ namespace Hover.Common.Edit.State {
 				EditorGUILayout.HelpBox("At runtime, this section displays live information about "+
 					"the relationship between the item and each available cursor. You can access this "+
 					"information via code.", MessageType.Info);
+				EditorGUILayout.EndVertical();
+				return;
 			}
+			
+			GUI.enabled = false;
+			EditorGUILayout.Toggle("Is Highlight Prevented", vTarget.IsHighlightPrevented);
+			EditorGUILayout.Toggle("Is Highlight Prevented (Via Any Display)",
+				vTarget.IsHighlightPreventedViaAnyDisplay());
+			EditorGUILayout.Toggle("Is Nearest Across All Items (For Any Cursor)",
+				vTarget.IsNearestAcrossAllItemsForAnyCursor);
+			EditorGUILayout.Slider("Maximum Highlight Progress", vTarget.MaxHighlightProgress, 0, 1);
+			GUI.enabled = true;
 			
 			for ( int i = 0 ; i < vTarget.Highlights.Count ; i++ ) {
 				HoverItemCursorActivity.Highlight high = vTarget.Highlights[i];
@@ -65,13 +73,9 @@ namespace Hover.Common.Edit.State {
 				EditorGUILayout.LabelField(high.Data.Type+" Cursor", EditorStyles.boldLabel);
 				GUI.enabled = false;
 				EditorGUILayout.ObjectField("Data", high.Data, high.Data.GetType(), true);
-				
-				if ( Application.isPlaying ) {
-					EditorGUILayout.Vector3Field("Nearest Position", high.NearestWorldPos);
-					EditorGUILayout.FloatField("Distance", high.Distance);
-					EditorGUILayout.Slider("Progress", high.Progress, 0, 1);
-				}
-				
+				EditorGUILayout.Vector3Field("Nearest Position", high.NearestWorldPos);
+				EditorGUILayout.FloatField("Distance", high.Distance);
+				EditorGUILayout.Slider("Progress", high.Progress, 0, 1);
 				GUI.enabled = true;
 			}
 			

@@ -11,12 +11,9 @@ namespace Hover.Common.State {
 	[RequireComponent(typeof(HoverItemCursorActivity))]
 	public class HoverItemSelectionActivity : MonoBehaviour {
 
-		public bool IsNearestHighlight { get; set; }
-		public bool IsHighlightPrevented { get; private set; }
 		public bool IsSelectionPrevented { get; private set; }
 		
 		private readonly BaseInteractionSettings vSettings;
-		private readonly Dictionary<string, bool> vPreventSelectionMap;
 		
 		private DateTime? vSelectionStart;
 		private float vDistanceUponSelection;
@@ -26,32 +23,10 @@ namespace Hover.Common.State {
 		/*--------------------------------------------------------------------------------------------*/
 		public HoverItemSelectionActivity() {
 			vSettings = new BaseInteractionSettings(); //TODO: access from somewhere
-			vPreventSelectionMap = new Dictionary<string, bool>();
-			IsNearestHighlight = true; //TODO: temporary
 		}
 		
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public float MaxHighlightProgress {
-			get {
-				if ( IsHighlightPrevented ) {
-					return 0;
-				}
-				
-				BaseItem itemData = GetComponent<HoverItemData>().Data;
-				ISelectableItem selData = (itemData as ISelectableItem);
-
-				if ( selData != null && selData.IsStickySelected ) {
-					return 1;
-				}
-				
-				HoverItemCursorActivity.Highlight? nearestHigh = 
-					GetComponent<HoverItemCursorActivity>().NearestHighlight;
-				return (nearestHigh == null ? 0 : nearestHigh.Value.Progress);
-			}
-		}
-
 		/*--------------------------------------------------------------------------------------------*/
 		public float SelectionProgress {
 			get {
@@ -76,73 +51,30 @@ namespace Hover.Common.State {
 				return Math.Min(1, ms/vSettings.SelectionMilliseconds);
 			}
 		}
-		
-		/*--------------------------------------------------------------------------------------------* /
-		public void SetAsNearestItem(CursorType pCursorType, bool pIsNearest) {
-			vIsNearestHighlightMap[pCursorType] = pIsNearest;
-		}
-		
-		
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public void PreventSelectionViaDisplay(string pName, bool pPrevent) {
-			bool hasKey = vPreventSelectionMap.ContainsKey(pName);
-		
-			if ( !pPrevent ) {
-				if ( hasKey ) {
-					vPreventSelectionMap.Remove(pName);
-				}
-				
-				return;
-			}
-			
-			if ( !hasKey ) {
-				vPreventSelectionMap.Add(pName, false);
-			}
-			
-			vPreventSelectionMap[pName] = true;
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		public bool IsSelectionPreventedViaDisplay() {
-			return (vPreventSelectionMap.Count > 0);
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		public bool IsSelectionPreventedViaDisplay(string pName) {
-			return (vPreventSelectionMap.ContainsKey(pName) && vPreventSelectionMap[pName]);
-		}
 
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			UpdateIsHighlightPrevented();
+			TryResetSelection();
 			UpdateSelectionProgress();
 		}
 		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateIsHighlightPrevented() {
+		private void TryResetSelection() {
+			if ( !GetComponent<HoverItemCursorActivity>().IsHighlightPrevented ) {
+				return;
+			}
+			
 			BaseItem itemData = GetComponent<HoverItemData>().Data;
 			ISelectableItem selData = (itemData as ISelectableItem);
 			
-			IsHighlightPrevented = (
-				!itemData.IsEnabled ||
-				!itemData.IsVisible ||
-				!itemData.IsAncestryEnabled ||
-				!itemData.IsAncestryVisible ||
-				selData == null ||
-				IsSelectionPreventedViaDisplay()
-			);
-
-			if ( IsHighlightPrevented ) {
-				vSelectionStart = null;
-				
-				if ( selData != null ) {
-					selData.DeselectStickySelections();
-				}
+			vSelectionStart = null;
+			
+			if ( selData != null ) {
+				selData.DeselectStickySelections();
 			}
 		}
 
@@ -158,7 +90,13 @@ namespace Hover.Common.State {
 			////
 
 			float selectProg = SelectionProgress;
-			bool canSelect = (!IsHighlightPrevented && IsNearestHighlight && selData.AllowSelection);
+			HoverItemCursorActivity hoverItemCursorAct = GetComponent<HoverItemCursorActivity>();
+			
+			bool canSelect = (
+				!hoverItemCursorAct.IsHighlightPrevented && 
+				hoverItemCursorAct.IsNearestAcrossAllItemsForAnyCursor &&
+				selData.AllowSelection
+			);
 			
 			if ( selectProg <= 0 || !canSelect ) {
 				selData.DeselectStickySelections();

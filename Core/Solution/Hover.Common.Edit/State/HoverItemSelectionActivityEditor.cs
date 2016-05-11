@@ -59,12 +59,7 @@ namespace Hover.Common.Edit.State {
 			}
 			
 			GUI.enabled = false;
-			EditorGUILayout.Toggle("Is Nearest Highlight", vTarget.IsNearestHighlight);
-			EditorGUILayout.Toggle("Is Highlight Prevented", vTarget.IsHighlightPrevented);
 			EditorGUILayout.Toggle("Is Selection Prevented", vTarget.IsSelectionPrevented);
-			EditorGUILayout.Toggle("Is Selection Prevented (Via Display)",
-				vTarget.IsSelectionPreventedViaDisplay());
-			EditorGUILayout.Slider("Maximum Highlight Progress", vTarget.MaxHighlightProgress, 0, 1);
 			EditorGUILayout.Slider("Selection Progress", vTarget.SelectionProgress, 0, 1);
 			GUI.enabled = true;
 			
