@@ -47,7 +47,7 @@ namespace Hover.Common.State {
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
 			if ( CursorDataProvider == null ) {
-				FindObjectOfType<HovercursorDataProvider>();
+				CursorDataProvider = FindObjectOfType<HovercursorDataProvider>();
 			}
 			
 			vHighMan = FindObjectOfType<HoverItemsHighlightManager>();
