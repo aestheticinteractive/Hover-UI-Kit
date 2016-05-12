@@ -26,7 +26,8 @@ namespace Hover.Board.Renderers.Meshes {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void Awake() {
-			CreateMeshAndMeshBuilder();
+			CreateMesh();
+			CreateMeshBuilder();
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
@@ -42,6 +43,10 @@ namespace Hover.Board.Renderers.Meshes {
 				return false; //avoid create/update mesh while inactive, wait til Awake() to create
 			}
 
+			if ( vMeshBuild == null ) { //this can occur when recompiled DLLs cause a scene "refresh"
+				CreateMeshBuilder();
+			}
+
 			UpdateMesh();
 			return true;
 		}
@@ -54,7 +59,7 @@ namespace Hover.Board.Renderers.Meshes {
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected virtual void CreateMeshAndMeshBuilder() {
+		protected virtual void CreateMesh() {
 			MeshRenderer meshRend = gameObject.GetComponent<MeshRenderer>();
 			MeshFilter meshFilt = gameObject.GetComponent<MeshFilter>();
 			
@@ -69,8 +74,11 @@ namespace Hover.Board.Renderers.Meshes {
 			mesh.MarkDynamic();
 			
 			meshFilt.sharedMesh = mesh;
+		}
 
-			vMeshBuild = new MeshBuilder(mesh);
+		/*--------------------------------------------------------------------------------------------*/
+		protected virtual void CreateMeshBuilder() {
+			vMeshBuild = new MeshBuilder(gameObject.GetComponent<MeshFilter>().sharedMesh);
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
