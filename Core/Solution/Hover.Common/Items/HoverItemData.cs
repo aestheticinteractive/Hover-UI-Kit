@@ -6,6 +6,7 @@ using UnityEngine;
 namespace Hover.Common.Items {
 	
 	/*================================================================================================*/
+	[ExecuteInEditMode]
 	public class HoverItemData : MonoBehaviour {
 
 		public enum HoverItemType {
@@ -27,37 +28,48 @@ namespace Hover.Common.Items {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
+		public void Awake() {
+			if  ( vData == null ) {
+				vData = BuildData(vType);
+			}
+			else {
+				vData = Instantiate(vData); //handle duplication via Unity editor
+			}
+
+			vData.name = vData.GetType()+":"+GetInstanceID();
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
 		public HoverItemType ItemType {
 			get {
 				return vType;
 			}
 			set {
-				if ( vType != value ) {
-					vData = BuildAndTransferData(value);
+				if ( vType == value ) {
+					return;
 				}
 
 				vType = value;
+
+				BaseItem dataToFill = BuildData(vType);
+				vData = TransferData(dataToFill);
 			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public BaseItem Data {
-			get { 
-				if ( vData == null ) {
-					vData = BuildData(vType);
-				}
-
-				return vData;
-			}
+			get { return vData; }
 		}
 		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private BaseItem BuildAndTransferData(HoverItemType pType) {
+		private BaseItem TransferData(BaseItem pDataToFill) {
 			BaseItem oldData = vData;
-			BaseItem newData = BuildData(pType);
-			
+			BaseItem newData = pDataToFill;
+
 			if ( oldData == null ) {
 				return newData;
 			}
