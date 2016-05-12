@@ -43,19 +43,6 @@ namespace Hover.Board.Renderers.Meshes {
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected override bool CreateMeshBuilderIfNeeded(bool pNewMesh) {			
-			if ( !base.CreateMeshBuilderIfNeeded(pNewMesh) ) {
-				return false;
-			}
-			
-			vPrevSizeX = -1;
-			vPrevColor = new Color(0, 0, 0, -1);
-
-			UpdateAfterRenderer();
-			return true;
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
 		protected override void UpdateMesh() {
 			bool settingsAreUnchanged = (
 				SizeX == vPrevSizeX &&
