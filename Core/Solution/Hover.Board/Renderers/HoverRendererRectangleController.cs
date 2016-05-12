@@ -1,6 +1,7 @@
 ﻿using System;
 using Hover.Board.Renderers.Contents;
 using Hover.Board.Renderers.Helpers;
+using Hover.Common.Display;
 using Hover.Common.Items;
 using Hover.Common.Items.Types;
 using Hover.Common.Renderers;
@@ -44,7 +45,7 @@ namespace Hover.Board.Renderers {
 
 			if ( SliderRenderer != null ) {
 				UpdateSliderSettings(hoverItemData);
-				UpdateSliderSettings(highState);
+				UpdateSliderSettings(hoverItemData, highState);
 				UpdateSliderSettings(selState);
 				SliderRenderer.UpdateAfterParent();
 			}
@@ -189,7 +190,9 @@ namespace Hover.Board.Renderers {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateSliderSettings(HoverItemHighlightState pHighState) {
+		private void UpdateSliderSettings(
+									HoverItemData pHoverItemData, HoverItemHighlightState pHighState) {
+			ISliderItem data = (ISliderItem)pHoverItemData.Data;
 			HoverItemHighlightState.Highlight? high = pHighState.NearestHighlight;
 			float highProg = pHighState.MaxHighlightProgress;
 
@@ -202,10 +205,24 @@ namespace Hover.Board.Renderers {
 				pHighState.IsNearestAcrossAllItemsForAnyCursor);
 
 			if ( high == null ) {
-				SliderRenderer.SetJumpValueToBeHidden();
+				data.HoverValue = null;
+				SliderRenderer.JumpValue = -1;
+				return;
 			}
-			else {
-				SliderRenderer.SetJumpValueViaNearestWorldPosition(high.Value.NearestWorldPos);
+			
+			float value = SliderRenderer.GetValueViaNearestWorldPosition(high.Value.NearestWorldPos);
+			
+			data.HoverValue = value;
+			
+			float snapValue = (float)data.SnappedHoverValue;
+			//float easePower = (1-high.Value.Progress)*5+1; //gets "snappier" as you pull away
+			float showValue = DisplayUtil.GetEasedValue(data.Snaps, value, snapValue, 3);
+				
+			SliderRenderer.JumpValue = showValue;
+			
+			if ( data.IsStickySelected ) {
+				data.Value = value;
+				SliderRenderer.HandleValue = showValue;
 			}
 		}
 		

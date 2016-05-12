@@ -96,12 +96,13 @@ namespace Hover.Common.State {
 		/*--------------------------------------------------------------------------------------------*/
 		public float MaxHighlightProgress {
 			get {
-				BaseItem itemData = GetComponent<HoverItemData>().Data;
+				//TODO: how did this (highlight during/after a sticky selection) used to work?
+				/*BaseItem itemData = GetComponent<HoverItemData>().Data;
 				ISelectableItem selData = (itemData as ISelectableItem);
 				
 				if ( selData != null && selData.IsStickySelected ) {
 					return 1;
-				}
+				}*/
 				
 				HoverItemHighlightState.Highlight? nearestHigh = 
 					GetComponent<HoverItemHighlightState>().NearestHighlight;

@@ -93,16 +93,10 @@ namespace Hover.Board.Renderers {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void SetJumpValueViaNearestWorldPosition(Vector3 pNearestWorldPosition) {
+		public float GetValueViaNearestWorldPosition(Vector3 pNearestWorldPosition) {
 			Vector3 nearLocalPos = Container.transform.InverseTransformPoint(pNearestWorldPosition);
 			float halfTrackSizeY = (SizeY-HandleButton.SizeY)/2;
-
-			JumpValue = Mathf.InverseLerp(-halfTrackSizeY, halfTrackSizeY, nearLocalPos.y);
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		public void SetJumpValueToBeHidden() {
-			JumpValue = -1;
+			return Mathf.InverseLerp(-halfTrackSizeY, halfTrackSizeY, nearLocalPos.y);
 		}
 		
 
