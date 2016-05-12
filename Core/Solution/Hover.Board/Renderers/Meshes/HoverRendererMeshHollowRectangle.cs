@@ -31,9 +31,13 @@ namespace Hover.Board.Renderers.Meshes {
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public override void UpdateAfterRenderer() {
-			base.UpdateAfterRenderer();
+		public override bool UpdateAfterRenderer() {
+			if ( !base.UpdateAfterRenderer() ) {
+				return false;
+			}
+
 			UpdateColor();
+			return true;
 		}
 		
 		

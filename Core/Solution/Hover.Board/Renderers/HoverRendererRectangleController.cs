@@ -66,6 +66,17 @@ namespace Hover.Board.Renderers {
 			throw new Exception("No button or slider renderer.");
 		}
 		
+		/*--------------------------------------------------------------------------------------------*/
+		protected override void ReleaseControlOfRenderer() { //TODO: do this at each layer of control?
+			if ( ButtonRenderer != null ) {
+				ButtonRenderer.ControlledByItem = false;
+			}
+
+			if ( SliderRenderer != null ) {
+				SliderRenderer.ControlledByItem = false;
+			}
+		}
+		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/

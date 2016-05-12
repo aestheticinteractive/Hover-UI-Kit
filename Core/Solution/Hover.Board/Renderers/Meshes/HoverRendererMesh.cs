@@ -1,5 +1,4 @@
 ﻿using Hover.Common.Display;
-using Hover.Common.Util;
 using UnityEngine;
 
 namespace Hover.Board.Renderers.Meshes {
@@ -38,9 +37,14 @@ namespace Hover.Board.Renderers.Meshes {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void UpdateAfterRenderer() {
+		public virtual bool UpdateAfterRenderer() {
+			if ( !gameObject.activeInHierarchy ) {
+				return false; //avoid create/update mesh while inactive, wait til Awake() to create
+			}
+
 			CreateMeshBuilderIfNeeded(false);
 			UpdateMesh();
+			return true;
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
@@ -51,7 +55,7 @@ namespace Hover.Board.Renderers.Meshes {
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected virtual bool CreateMeshBuilderIfNeeded(bool pNewMesh) {			
+		protected virtual bool CreateMeshBuilderIfNeeded(bool pNewMesh) {
 			if ( vMeshBuild != null ) {
 				return false;
 			}
@@ -64,13 +68,16 @@ namespace Hover.Board.Renderers.Meshes {
 					"Materials/HoverRendererVertexColorMaterial");
 			}
 
-			if ( pNewMesh ) {
+			if ( pNewMesh || meshFilt.sharedMesh == null ) {
 				meshFilt.sharedMesh = new Mesh();
 			}
+
+			Mesh mesh = meshFilt.sharedMesh;
+			mesh.name = gameObject.name+"Mesh:"+GetInstanceID();
+			mesh.hideFlags = HideFlags.HideAndDontSave;
+			mesh.MarkDynamic();
 			
-			vMeshBuild = new MeshBuilder(meshFilt.sharedMesh);
-			vMeshBuild.Mesh.name = gameObject.name+"Mesh:"+GetInstanceID();
-			vMeshBuild.Mesh.MarkDynamic();
+			vMeshBuild = new MeshBuilder(mesh);
 			return true;
 		}
 		

@@ -11,6 +11,13 @@ namespace Hover.Common.State {
 		public HovercursorDataProvider CursorDataProvider;
 
 		private List<HoverItemHighlightState> vHighStates;
+		
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverItemsHighlightManager() {
+			vHighStates = new List<HoverItemHighlightState>();
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -19,8 +26,6 @@ namespace Hover.Common.State {
 			if ( CursorDataProvider == null ) {
 				FindObjectOfType<HovercursorDataProvider>();
 			}
-			
-			vHighStates = new List<HoverItemHighlightState>();
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
