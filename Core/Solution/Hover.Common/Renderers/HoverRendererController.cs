@@ -26,7 +26,7 @@ namespace Hover.Common.Renderers {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void Update() {
-			if ( ShowProximityDebugLines ) {
+			if ( ShowProximityDebugLines && Application.isPlaying ) {
 				DrawProximityDebugLines();
 			}
 		}

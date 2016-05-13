@@ -58,7 +58,7 @@ namespace Hover.Common.State {
 			UpdateIsHighlightPrevented();
 
 			if ( !IsHighlightPrevented && ProximityProvider != null ) {
-				UpdateHighlights();
+				AddLatestHighlightsAndFindNearest();
 			}
 		}
 
@@ -88,8 +88,7 @@ namespace Hover.Common.State {
 					return 1;
 				}*/
 				
-				HoverItemHighlightState.Highlight? nearestHigh = 
-					GetComponent<HoverItemHighlightState>().NearestHighlight;
+				Highlight? nearestHigh = GetComponent<HoverItemHighlightState>().NearestHighlight;
 				return (nearestHigh == null ? 0 : nearestHigh.Value.Progress);
 			}
 		}
@@ -171,17 +170,19 @@ namespace Hover.Common.State {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateHighlights() {
-			float maxProg = 0;
+		private void AddLatestHighlightsAndFindNearest() {
+			float minDist = float.MaxValue;
 			
 			foreach ( HovercursorData data in CursorDataProvider.Cursors ) {
 				Highlight high = CalculateHighlight(data);
 				Highlights.Add(high);
 				
-				if ( high.Progress > maxProg ) {
-					maxProg = high.Progress;
-					NearestHighlight = high;
+				if ( high.Distance >= minDist ) {
+					continue;
 				}
+
+				minDist = high.Distance;
+				NearestHighlight = high;
 			}
 		}
 		

@@ -71,7 +71,7 @@ namespace Hover.Common.State {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		private HoverItemHighlightState FindNearestItemToCursor(CursorType pCursorType) {
-			float maxProg = 0;
+			float minDist = float.MaxValue;
 			HoverItemHighlightState nearestItem = null;
 			
 			for ( int i = 0 ; i < vHighStates.Count ; i++ ) {
@@ -83,11 +83,11 @@ namespace Hover.Common.State {
 				
 				HoverItemHighlightState.Highlight? high = item.GetHighlight(pCursorType);
 				
-				if ( high == null || high.Value.Progress <= maxProg ) {
+				if ( high == null || high.Value.Distance >= minDist ) {
 					continue;
 				}
 				
-				maxProg = high.Value.Progress;
+				minDist = high.Value.Distance;
 				nearestItem = item;
 			}
 			
