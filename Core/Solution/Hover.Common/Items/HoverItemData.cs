@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using Hover.Common.Items.Types;
 using UnityEngine;
@@ -18,6 +19,9 @@ namespace Hover.Common.Items {
 			Slider,
 			Text
 		}
+
+		public delegate void ItemEvent(HoverItemData pItem);
+		public ItemEvent OnTypeChanged;
 
 		[SerializeField]
 		private HoverItemType vType = HoverItemType.Selector;
@@ -72,6 +76,8 @@ namespace Hover.Common.Items {
 
 				BaseItem dataToFill = BuildData(vType);
 				vData = TransferData(dataToFill);
+
+				OnTypeChanged?.Invoke(this);
 			}
 		}
 
