@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Hover.Common.Input;
 using Hover.Common.Items;
@@ -21,6 +22,10 @@ namespace Hover.Common.State {
 				FindObjectOfType<HovercursorDataProvider>();
 			}
 
+			if ( CursorDataProvider == null ) {
+				throw new ArgumentNullException("CursorDataProvider");
+			}
+
 			vHighStates = new List<HoverItemHighlightState>();
 		}
 
@@ -30,20 +35,7 @@ namespace Hover.Common.State {
 			
 			itemsMan.FillListWithExistingItemComponents(vHighStates);
 			ResetItems();
-			
-			List<HovercursorData> cursors = CursorDataProvider.Cursors;
-			int cursorCount = cursors.Count;
-			
-			for ( int i = 0 ; i < cursorCount ; i++ ) {
-				HovercursorData cursor = cursors[i];
-				HoverItemHighlightState item = FindNearestItemToCursor(cursor.Type);
-				
-				if ( item == null ) {
-					continue;
-				}
-				
-				item.SetNearestAcrossAllItemsForCursor(cursor.Type);
-			}
+			UpdateItems();
 		}
 		
 		
@@ -61,6 +53,19 @@ namespace Hover.Common.State {
 				}
 				
 				highState.ResetAllNearestStates();
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateItems() {
+			List<HovercursorData> cursors = CursorDataProvider.Cursors;
+			int cursorCount = cursors.Count;
+			
+			for ( int i = 0 ; i < cursorCount ; i++ ) {
+				HovercursorData cursor = cursors[i];
+				HoverItemHighlightState item = FindNearestItemToCursor(cursor.Type);
+
+				item?.SetNearestAcrossAllItemsForCursor(cursor.Type);
 			}
 		}
 		
