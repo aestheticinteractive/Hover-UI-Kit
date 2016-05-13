@@ -96,9 +96,6 @@ namespace Hover.Common.Items {
 
 			for ( int i = 0 ; i < vItemsBuffer.Count ; i++ ) {
 				((IRadioItem)vItemsBuffer[i].Data).Value = false;
-
-				var r = ((IRadioItem)vItemsBuffer[i].Data);
-				Debug.Log("OFF: "+r.Label, vItemsBuffer[i]);
 			}
 		}
 
