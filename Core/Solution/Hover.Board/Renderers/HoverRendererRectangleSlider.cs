@@ -27,6 +27,9 @@ namespace Hover.Board.Renderers {
 		public float SizeY = 10;
 		
 		[Range(0, 1)]
+		public float Alpha = 1;
+		
+		[Range(0, 1)]
 		public float ZeroValue = 0.5f;
 				
 		[Range(0, 1)]
@@ -187,7 +190,11 @@ namespace Hover.Board.Renderers {
 			HandleButton.SizeX = SizeX;
 			JumpButton.SizeX = SizeX;
 			Track.SizeX = SizeX;
-			
+
+			HandleButton.Alpha = Alpha;
+			JumpButton.Alpha = Alpha;
+			Track.Alpha = Alpha;
+
 			JumpButton.gameObject.SetActive(AllowJump && isJumpSegmentVisible);
 		}
 		

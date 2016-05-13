@@ -21,6 +21,9 @@ namespace Hover.Board.Renderers.Fills {
 
 		[Range(0, 100)]
 		public float InsetR = 1;
+		
+		[Range(0, 1)]
+		public float Alpha = 1;
 
 		public bool UseTrackUv = false;
 		
@@ -78,6 +81,7 @@ namespace Hover.Board.Renderers.Fills {
 			
 			foreach ( HoverRendererMeshSliderRectangle seg in Segments ) {
 				seg.SizeY = 0;
+				seg.Alpha = Alpha;
 			}
 			
 			foreach ( SliderUtil.Segment segInfo in SegmentInfoList ) {

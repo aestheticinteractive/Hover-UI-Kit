@@ -22,6 +22,9 @@ namespace Hover.Board.Renderers {
 		
 		[Range(0, 100)]
 		public float SizeY = 10;
+
+		[Range(0, 1)]
+		public float Alpha = 1;
 		
 		public AnchorType Anchor = AnchorType.MiddleCenter;
 		
@@ -95,6 +98,9 @@ namespace Hover.Board.Renderers {
 			Canvas.SizeX = SizeX-Fill.EdgeThickness*2;
 			Canvas.SizeY = SizeY-Fill.EdgeThickness*2;
 			
+			Fill.Alpha = Alpha;
+			Canvas.Alpha = Alpha;
+
 			Canvas.RenderQueue = Fill.MaterialRenderQueue+1;
 		}
 		

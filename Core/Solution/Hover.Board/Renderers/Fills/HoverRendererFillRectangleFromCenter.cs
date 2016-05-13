@@ -19,6 +19,9 @@ namespace Hover.Board.Renderers.Fills {
 		[Range(0, 100)]
 		public float SizeY = 10;
 		
+		[Range(0, 1)]
+		public float Alpha = 1;
+		
 		[Range(0.001f, 0.5f)]
 		public float EdgeThickness = 0.02f;
 		
@@ -94,6 +97,11 @@ namespace Hover.Board.Renderers.Fills {
 			Selection.SizeY = insetSizeY;
 			Edge.SizeX = SizeX;
 			Edge.SizeY = SizeY;
+
+			Background.Alpha = Alpha;
+			Highlight.Alpha = Alpha;
+			Selection.Alpha = Alpha;
+			Edge.Alpha = Alpha;
 			
 			Background.OuterAmount = 1;
 			Background.InnerAmount = HighlightProgress;

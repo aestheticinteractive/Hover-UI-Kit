@@ -1,4 +1,5 @@
-﻿using Hover.Common.Util;
+﻿using Hover.Common.Display;
+using Hover.Common.Util;
 using UnityEngine;
 
 namespace Hover.Board.Renderers.Meshes {
@@ -12,6 +13,9 @@ namespace Hover.Board.Renderers.Meshes {
 		[Range(0, 100)]
 		public float SizeY = 10;
 		
+		[Range(0, 1)]
+		public float Alpha = 1;
+
 		[Range(0, 1)]
 		public float OuterAmount = 1;
 		
@@ -97,12 +101,14 @@ namespace Hover.Board.Renderers.Meshes {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateColor() {
-			if ( FillColor == vPrevColor ) {
+			Color color = DisplayUtil.FadeColor(FillColor, Alpha);
+
+			if ( color == vPrevColor ) {
 				return;
 			}
 
-			vMeshBuild.CommitColors(FillColor);
-			vPrevColor = FillColor;
+			vMeshBuild.CommitColors(color);
+			vPrevColor = color;
 		}
 		
 	}

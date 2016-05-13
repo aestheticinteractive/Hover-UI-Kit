@@ -128,6 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SizeX: 7.98
   SizeY: 0.98000383
+  Alpha: 1
   OuterAmount: 1
   InnerAmount: 0
   UseUvRelativeToSize: 0
@@ -215,6 +216,7 @@ MonoBehaviour:
   Edge: {fileID: 459795589}
   SizeX: 8
   SizeY: 1.9999924
+  Alpha: 1
   EdgeThickness: 0.02
   HighlightProgress: 0
   SelectionProgress: 0
@@ -262,6 +264,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SizeX: 10
   SizeY: 4
+  Alpha: 1
   OuterAmount: 1
   InnerAmount: 0.995
   UseUvRelativeToSize: 0
@@ -309,6 +312,7 @@ GameObject:
   - 224: {fileID: 398768418}
   - 223: {fileID: 398768420}
   - 114: {fileID: 398768419}
+  - 225: {fileID: 398768421}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -355,7 +359,8 @@ MonoBehaviour:
   SizeY: 1.9599924
   PaddingX: 0.5
   PaddingY: 0.5
-  CanvasAlignment: 0
+  Alpha: 1
+  Alignment: 0
   IconSize: 0
   RenderQueue: 3001
   vIsBuilt: 1
@@ -378,6 +383,17 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!225 &398768421
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 398768417}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &399098155
 GameObject:
   m_ObjectHideFlags: 0
@@ -468,6 +484,7 @@ MonoBehaviour:
   Edge: {fileID: 1675972299}
   SizeX: 8
   SizeY: 1.0000038
+  Alpha: 1
   EdgeThickness: 0.02
   HighlightProgress: 0
   SelectionProgress: 0
@@ -515,6 +532,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SizeX: 8
   SizeY: 1.9999924
+  Alpha: 1
   OuterAmount: 1
   InnerAmount: 0.98999995
   UseUvRelativeToSize: 0
@@ -595,6 +613,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SizeX: 6
   SizeY: 0
+  Alpha: 1
   UvStartY: 0
   UvEndY: 1
   IsFill: 0
@@ -676,6 +695,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SizeX: 7.98
   SizeY: 1.9799924
+  Alpha: 1
   OuterAmount: 1
   InnerAmount: 0
   UseUvRelativeToSize: 0
@@ -1013,6 +1033,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SizeX: 7.98
   SizeY: 0.98000383
+  Alpha: 1
   OuterAmount: 0
   InnerAmount: 0
   UseUvRelativeToSize: 0
@@ -1093,6 +1114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SizeX: 6
   SizeY: 10
+  Alpha: 1
   UvStartY: 0
   UvEndY: 1
   IsFill: 0
@@ -1208,6 +1230,39 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1739426605}
   m_RootOrder: 1
+--- !u!114 &959128388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 895365499, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
+  m_Name: Hover.Common.Items.Types.CheckboxItem:11454
+  m_EditorClassIdentifier: 
+  vId: Item-2
+  vLabel: Button
+  vWidth: 1
+  vHeight: 1
+  vIsEnabled: 1
+  vIsVisible: 1
+  OnSelectedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Items.SelectableItem+SelectedEventHandler, Hover.Common,
+      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+  OnDeselectedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Items.SelectableItem+SelectedEventHandler, Hover.Common,
+      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+  OnValueChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Items.SelectableItemBool+ValueChangedEventHandler, Hover.Common,
+      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+  vValue: 1
 --- !u!1 &991353874
 GameObject:
   m_ObjectHideFlags: 0
@@ -1251,6 +1306,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SizeX: 6
   SizeY: 5.7500067
+  Alpha: 1
   UvStartY: 0
   UvEndY: 1
   IsFill: 1
@@ -1334,6 +1390,7 @@ MonoBehaviour:
   Canvas: {fileID: 398768419}
   SizeX: 8
   SizeY: 1.9999924
+  Alpha: 1
   Anchor: 4
   vIsBuilt: 1
 --- !u!1 &1113750951
@@ -1456,6 +1513,7 @@ MonoBehaviour:
   Canvas: {fileID: 1739222709}
   SizeX: 10
   SizeY: 4
+  Alpha: 1
   Anchor: 4
   vIsBuilt: 1
 --- !u!4 &1201955382
@@ -1507,6 +1565,7 @@ MonoBehaviour:
   SliderRenderer: {fileID: 0}
   SizeX: 10
   SizeY: 4
+  DisabledAlpha: 0.35
 --- !u!114 &1239769334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1519,7 +1578,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vType: 3
-  vData: {fileID: 1660514137}
+  vData: {fileID: 959128388}
 --- !u!4 &1239769335
 Transform:
   m_ObjectHideFlags: 0
@@ -1728,6 +1787,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SizeX: 7.98
   SizeY: 1.9799924
+  Alpha: 1
   OuterAmount: 0
   InnerAmount: 0
   UseUvRelativeToSize: 0
@@ -1808,6 +1868,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SizeX: 9.98
   SizeY: 3.98
+  Alpha: 1
   OuterAmount: 0
   InnerAmount: 0
   UseUvRelativeToSize: 0
@@ -2049,6 +2110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SizeX: 6
   SizeY: 2.250001
+  Alpha: 1
   UvStartY: 0
   UvEndY: 1
   IsFill: 0
@@ -2097,6 +2159,7 @@ GameObject:
   - 224: {fileID: 1504588011}
   - 223: {fileID: 1504588012}
   - 114: {fileID: 1504588010}
+  - 225: {fileID: 1504588013}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -2123,7 +2186,8 @@ MonoBehaviour:
   SizeY: 0.9600038
   PaddingX: 0.5
   PaddingY: 0.4799995
-  CanvasAlignment: 0
+  Alpha: 1
+  Alignment: 0
   IconSize: 0
   RenderQueue: 3001
   vIsBuilt: 1
@@ -2166,6 +2230,17 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!225 &1504588013
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1504588009}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1525654168
 GameObject:
   m_ObjectHideFlags: 0
@@ -2209,6 +2284,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SizeX: 7.98
   SizeY: 1.9799924
+  Alpha: 1
   OuterAmount: 0
   InnerAmount: 0
   UseUvRelativeToSize: 0
@@ -2309,6 +2385,7 @@ MonoBehaviour:
   JumpButton: {fileID: 2081192067}
   SizeX: 8
   SizeY: 20
+  Alpha: 1
   ZeroValue: 0.5
   HandleValue: 0.875
   JumpValue: -1
@@ -2393,7 +2470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: ce7ec7d85312d5e4bab252e59ce9dcbc, type: 2}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.69803923}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2413,39 +2490,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1600813234}
---- !u!114 &1660514137
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 895365499, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  vId: Item-2
-  vLabel: Button
-  vWidth: 1
-  vHeight: 1
-  vIsEnabled: 1
-  vIsVisible: 1
-  OnSelectedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Hover.Common.Items.SelectableItem+SelectedEventHandler, Hover.Common,
-      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  OnDeselectedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Hover.Common.Items.SelectableItem+SelectedEventHandler, Hover.Common,
-      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  OnValueChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Hover.Common.Items.SelectableItemBool+ValueChangedEventHandler, Hover.Common,
-      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  vValue: 1
 --- !u!1 &1675972297
 GameObject:
   m_ObjectHideFlags: 0
@@ -2489,6 +2533,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SizeX: 8
   SizeY: 1.0000038
+  Alpha: 1
   OuterAmount: 1
   InnerAmount: 0.9800001
   UseUvRelativeToSize: 0
@@ -2576,6 +2621,7 @@ MonoBehaviour:
   Edge: {fileID: 100510533}
   SizeX: 10
   SizeY: 4
+  Alpha: 1
   EdgeThickness: 0.02
   HighlightProgress: 0
   SelectionProgress: 0
@@ -2590,6 +2636,7 @@ GameObject:
   - 224: {fileID: 1739222710}
   - 223: {fileID: 1739222711}
   - 114: {fileID: 1739222709}
+  - 225: {fileID: 1739222712}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -2616,7 +2663,8 @@ MonoBehaviour:
   SizeY: 3.96
   PaddingX: 0.5
   PaddingY: 0.5
-  CanvasAlignment: 0
+  Alpha: 1
+  Alignment: 0
   IconSize: 0
   RenderQueue: 3001
   vIsBuilt: 1
@@ -2659,6 +2707,17 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!225 &1739222712
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1739222708}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1739426604
 GameObject:
   m_ObjectHideFlags: 0
@@ -2827,6 +2886,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SizeX: 7.98
   SizeY: 0.98000383
+  Alpha: 1
   OuterAmount: 0
   InnerAmount: 0
   UseUvRelativeToSize: 0
@@ -2997,7 +3057,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: ce7ec7d85312d5e4bab252e59ce9dcbc, type: 2}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.69803923}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3086,8 +3146,9 @@ MonoBehaviour:
   SizeX: 8
   InsetL: 1
   InsetR: 1
+  Alpha: 1
   UseTrackUv: 0
---- !u!114 &2002790412
+--- !u!114 &1993397876
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -3096,7 +3157,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1934516322, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
-  m_Name: 
+  m_Name: Hover.Common.Items.Types.SliderItem:11656
   m_EditorClassIdentifier: 
   vId: Item-3
   vLabel: Slider
@@ -3170,6 +3231,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SizeX: 9.98
   SizeY: 3.98
+  Alpha: 1
   OuterAmount: 1
   InnerAmount: 0
   UseUvRelativeToSize: 0
@@ -3327,7 +3389,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vType: 5
-  vData: {fileID: 2002790412}
+  vData: {fileID: 1993397876}
 --- !u!4 &2057927867
 Transform:
   m_ObjectHideFlags: 0
@@ -3357,6 +3419,7 @@ MonoBehaviour:
   SliderRenderer: {fileID: 1600221810}
   SizeX: 8
   SizeY: 20
+  DisabledAlpha: 0.35
 --- !u!114 &2057927869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3412,6 +3475,7 @@ MonoBehaviour:
   Canvas: {fileID: 1504588010}
   SizeX: 8
   SizeY: 1.0000038
+  Alpha: 1
   Anchor: 4
   vIsBuilt: 1
 --- !u!4 &2081192068
@@ -3471,6 +3535,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SizeX: 9.98
   SizeY: 3.98
+  Alpha: 1
   OuterAmount: 0
   InnerAmount: 0
   UseUvRelativeToSize: 0

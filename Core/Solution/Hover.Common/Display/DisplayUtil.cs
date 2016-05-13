@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Hover.Common.Items;
 using Hover.Common.State;
+using UnityEngine;
 
 namespace Hover.Common.Display {
 
@@ -45,6 +46,13 @@ namespace Hover.Common.Display {
 
 			diff /= snaps;
 			return showVal + diff*sign;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public static Color FadeColor(Color pColor, float pAlpha) {
+			Color faded = pColor;
+			faded.a *= pAlpha;
+			return faded;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

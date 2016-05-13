@@ -6,6 +6,7 @@ namespace Hover.Board.Renderers.Contents {
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(Canvas))]
+	[RequireComponent(typeof(CanvasGroup))]
 	public class HoverRendererCanvas : MonoBehaviour {
 
 		public enum CanvasAlignmentType {
@@ -43,8 +44,11 @@ namespace Hover.Board.Renderers.Contents {
 		
 		[Range(0, 50)]
 		public float PaddingY = 0.5f;
+
+		[Range(0, 1)]
+		public float Alpha = 1;
 		
-		public CanvasAlignmentType CanvasAlignment = CanvasAlignmentType.Left;
+		public CanvasAlignmentType Alignment = CanvasAlignmentType.Left;
 		public IconSizeType IconSize = IconSizeType.FontSize;
 		public int RenderQueue = 3001;
 		
@@ -57,6 +61,11 @@ namespace Hover.Board.Renderers.Contents {
 		/*--------------------------------------------------------------------------------------------*/
 		public Canvas CanvasComponent {
 			get { return GetComponent<Canvas>(); }
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public CanvasGroup CanvasGroupComponent {
+			get { return GetComponent<CanvasGroup>(); }
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
@@ -111,6 +120,8 @@ namespace Hover.Board.Renderers.Contents {
 			
 			IconOuter.IconType = HoverRendererIcon.IconOffset.RadioOuter;
 			IconInner.IconType = HoverRendererIcon.IconOffset.RadioInner;
+
+			IconInner.ImageComponent.color = new Color(1, 1, 1, 0.7f);
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
@@ -153,6 +164,8 @@ namespace Hover.Board.Renderers.Contents {
 			IconOuter.CanvasScale = Scale;
 			IconInner.CanvasScale = Scale;
 			
+			CanvasGroupComponent.alpha = Alpha;
+
 			Label.TextComponent.material.renderQueue = RenderQueue;
 			IconOuter.ImageComponent.material.renderQueue = RenderQueue;
 			IconInner.ImageComponent.material.renderQueue = RenderQueue;
@@ -198,7 +211,7 @@ namespace Hover.Board.Renderers.Contents {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateCanvasAlignmentSettings() {
-			if ( CanvasAlignment == CanvasAlignmentType.Custom ) {
+			if ( Alignment == CanvasAlignmentType.Custom ) {
 				return;
 			}
 			
@@ -214,7 +227,7 @@ namespace Hover.Board.Renderers.Contents {
 			float labelInsetT = 0;
 			TextAnchor labelAlign;
 			
-			switch ( CanvasAlignment ) {
+			switch ( Alignment ) {
 				case CanvasAlignmentType.Left:
 					iconShiftX = -0.5f*iconAvailW;
 					iconShiftY = iconVertShiftMult*fontSize;
@@ -236,7 +249,7 @@ namespace Hover.Board.Renderers.Contents {
 					break;
 					
 				default:
-					throw new Exception("Unhandled alignment: "+CanvasAlignment);
+					throw new Exception("Unhandled alignment: "+Alignment);
 			}
 			
 			if ( !IconOuter.gameObject.activeSelf && !IconInner.gameObject.activeSelf ) {

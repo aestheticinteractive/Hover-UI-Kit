@@ -24,6 +24,9 @@ namespace Hover.Board.Renderers {
 		
 		[Range(0, 100)]
 		public float SizeY = 10;
+
+		[Range(0.05f, 0.9f)]
+		public float DisabledAlpha = 0.35f;
 		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -143,6 +146,7 @@ namespace Hover.Board.Renderers {
 			ButtonRenderer.ControlledByItem = true;
 			ButtonRenderer.SizeX = SizeX;
 			ButtonRenderer.SizeY = SizeY;
+			ButtonRenderer.Alpha = (data.IsEnabled ? 1 : DisabledAlpha);
 
 			ButtonRenderer.Canvas.Label.TextComponent.text = data.Label;
 
@@ -178,6 +182,7 @@ namespace Hover.Board.Renderers {
 			SliderRenderer.ControlledByItem = true;
 			SliderRenderer.SizeX = SizeX;
 			SliderRenderer.SizeY = SizeY;
+			SliderRenderer.Alpha = (data.IsEnabled ? 1 : DisabledAlpha);
 
 			handleCanvas.Label.TextComponent.text = data.GetFormattedLabel(data);
 			handleCanvas.IconOuter.IconType = HoverRendererIcon.IconOffset.Slider;
