@@ -31,7 +31,6 @@ namespace Hover.Common.State {
 
 		private readonly BaseInteractionSettings vSettings;
 		private readonly HashSet<string> vPreventHighlightMap;
-		private HoverItemsHighlightManager vHighMan;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -49,12 +48,6 @@ namespace Hover.Common.State {
 			if ( CursorDataProvider == null ) {
 				CursorDataProvider = FindObjectOfType<HovercursorDataProvider>();
 			}
-			
-			vHighMan = FindObjectOfType<HoverItemsHighlightManager>();
-			
-			if ( Application.isPlaying && vHighMan != null ) {
-				vHighMan.AddItem(this);
-			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -66,15 +59,6 @@ namespace Hover.Common.State {
 
 			if ( !IsHighlightPrevented && ProximityProvider != null ) {
 				UpdateHighlights();
-			}
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		public void OnDestroy() {
-			vHighMan = (vHighMan ?? FindObjectOfType<HoverItemsHighlightManager>());
-			
-			if ( Application.isPlaying && vHighMan != null ) {
-				vHighMan.RemoveItem(this);
 			}
 		}
 

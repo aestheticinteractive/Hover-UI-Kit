@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using Hover.Common.Input;
+using Hover.Common.Items;
 
 namespace Hover.Common.State {
 
 	/*================================================================================================*/
+	[RequireComponent(typeof(HoverItemsManager))]
 	public class HoverItemsHighlightManager : MonoBehaviour {
 
 		public HovercursorDataProvider CursorDataProvider;
@@ -15,26 +16,19 @@ namespace Hover.Common.State {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public HoverItemsHighlightManager() {
-			vHighStates = new List<HoverItemHighlightState>();
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
 			if ( CursorDataProvider == null ) {
 				FindObjectOfType<HovercursorDataProvider>();
 			}
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
-			vHighStates = FindObjectsOfType<HoverItemHighlightState>().ToList();
+
+			vHighStates = new List<HoverItemHighlightState>();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
+			HoverItemsManager itemsMan = GetComponent<HoverItemsManager>();
+			
+			itemsMan.FillListWithExistingItemComponents(vHighStates);
 			ResetItems();
 			
 			List<HovercursorData> cursors = CursorDataProvider.Cursors;
@@ -49,26 +43,6 @@ namespace Hover.Common.State {
 				}
 				
 				item.SetNearestAcrossAllItemsForCursor(cursor.Type);
-			}
-		}
-		
-		
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public void AddItem(HoverItemHighlightState pHighState) {
-			if ( vHighStates.Contains(pHighState) ) {
-				Debug.LogWarning("Cannot add duplicate item '"+pHighState.name+"'.", pHighState);
-				return;
-			}
-		
-			vHighStates.Add(pHighState);
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		public void RemoveItem(HoverItemHighlightState pHighState) {
-			if ( !vHighStates.Remove(pHighState) ) {
-				Debug.LogWarning("Cannot remove missing item '"+pHighState.name+"'.", pHighState);
-				return;
 			}
 		}
 		

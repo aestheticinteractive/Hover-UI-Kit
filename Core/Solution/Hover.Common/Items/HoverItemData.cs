@@ -24,6 +24,8 @@ namespace Hover.Common.Items {
 
 		[SerializeField]
 		private BaseItem vData;
+
+		private HoverItemsManager vItemsMan;
 		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -37,6 +39,21 @@ namespace Hover.Common.Items {
 			}
 
 			vData.name = vData.GetType()+":"+GetInstanceID();
+			
+			////
+
+			if ( Application.isPlaying ) {
+				vItemsMan = FindObjectOfType<HoverItemsManager>();
+				vItemsMan?.AddItem(this);
+			}
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public void OnDestroy() {
+			if ( Application.isPlaying ) {
+				vItemsMan = (vItemsMan ?? FindObjectOfType<HoverItemsManager>());
+				vItemsMan?.RemoveItem(this);
+			}
 		}
 
 
