@@ -247,6 +247,41 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 56229819}
   m_Mesh: {fileID: 0}
+--- !u!114 &58541161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 359411374, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
+  m_Name: Hover.Common.Items.Types.RadioItem:9944
+  m_EditorClassIdentifier: 
+  vId: Item-2
+  vLabel: A2
+  vWidth: 1
+  vHeight: 1
+  vIsEnabled: 1
+  vIsVisible: 1
+  OnSelectedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Items.SelectableItem+SelectedEventHandler, Hover.Common,
+      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+  OnDeselectedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Items.SelectableItem+SelectedEventHandler, Hover.Common,
+      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+  OnValueChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Items.SelectableItemBool+ValueChangedEventHandler, Hover.Common,
+      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+  vValue: 0
+  vDefaultGroupId: Group-Root
+  vGroupId: A
 --- !u!1 &78196005
 GameObject:
   m_ObjectHideFlags: 0
@@ -377,7 +412,7 @@ MonoBehaviour:
   Selection: {fileID: 1291321130}
   Edge: {fileID: 459795589}
   SizeX: 8
-  SizeY: 1.9999924
+  SizeY: 2.000002
   Alpha: 1
   EdgeThickness: 0.1
   HighlightProgress: 0
@@ -1030,7 +1065,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vType: 4
-  vData: {fileID: 1753437758}
+  vData: {fileID: 1563117607}
 --- !u!4 &369951454
 Transform:
   m_ObjectHideFlags: 0
@@ -1164,7 +1199,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 340.00003, y: 39.99962}
+  m_SizeDelta: {x: 340.00003, y: 40.000095}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &398768419
 MonoBehaviour:
@@ -1182,7 +1217,7 @@ MonoBehaviour:
   IconInner: {fileID: 1600813236}
   Scale: 0.02
   SizeX: 7.8
-  SizeY: 1.7999923
+  SizeY: 1.8000019
   PaddingX: 0.5
   PaddingY: 0.5
   Alpha: 1
@@ -1731,10 +1766,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SizeX: 8
-  SizeY: 1.9999924
+  SizeY: 2.000002
   Alpha: 1
   OuterAmount: 1
-  InnerAmount: 0.9499998
+  InnerAmount: 0.95000005
   UseUvRelativeToSize: 0
   FillColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!23 &459795590
@@ -2023,7 +2058,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SizeX: 7.9
-  SizeY: 1.8999923
+  SizeY: 1.9000019
   Alpha: 1
   OuterAmount: 1
   InnerAmount: 0
@@ -2094,7 +2129,7 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -200, y: -7}
+  m_AnchoredPosition: {x: -205, y: -7}
   m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &530013670
@@ -2425,7 +2460,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 23.999998, y: 0}
-  m_SizeDelta: {x: 292, y: 0}
+  m_SizeDelta: {x: 327, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &654626624
 MonoBehaviour:
@@ -2478,7 +2513,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CanvasScale: 0.02
-  SizeX: 5.84
+  SizeX: 6.54
   SizeY: 0
   vIsBuilt: 1
 --- !u!1 &669716730
@@ -2706,41 +2741,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 682227255}
   m_Mesh: {fileID: 0}
---- !u!114 &711466625
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 359411374, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
-  m_Name: Hover.Common.Items.Types.RadioItem:-140554
-  m_EditorClassIdentifier: 
-  vId: Item-2
-  vLabel: A4
-  vWidth: 1
-  vHeight: 1
-  vIsEnabled: 1
-  vIsVisible: 1
-  OnSelectedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Hover.Common.Items.SelectableItem+SelectedEventHandler, Hover.Common,
-      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  OnDeselectedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Hover.Common.Items.SelectableItem+SelectedEventHandler, Hover.Common,
-      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  OnValueChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Hover.Common.Items.SelectableItemBool+ValueChangedEventHandler, Hover.Common,
-      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  vValue: 0
-  vDefaultGroupId: Group-Root
-  vGroupId: A
 --- !u!1 &731419485
 GameObject:
   m_ObjectHideFlags: 0
@@ -3335,6 +3335,39 @@ MonoBehaviour:
   SizeY: 0.79999995
   Inset: 0.002
   vIsBuilt: 1
+--- !u!114 &796229428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 895365499, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
+  m_Name: Hover.Common.Items.Types.CheckboxItem:9588
+  m_EditorClassIdentifier: 
+  vId: Item-2
+  vLabel: Button
+  vWidth: 1
+  vHeight: 1
+  vIsEnabled: 1
+  vIsVisible: 1
+  OnSelectedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Items.SelectableItem+SelectedEventHandler, Hover.Common,
+      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+  OnDeselectedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Items.SelectableItem+SelectedEventHandler, Hover.Common,
+      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+  OnValueChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Items.SelectableItemBool+ValueChangedEventHandler, Hover.Common,
+      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+  vValue: 1
 --- !u!1 &799630252
 GameObject:
   m_ObjectHideFlags: 0
@@ -3501,6 +3534,41 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 805265637}
   m_Mesh: {fileID: 0}
+--- !u!114 &805267300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 359411374, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
+  m_Name: Hover.Common.Items.Types.RadioItem:10046
+  m_EditorClassIdentifier: 
+  vId: Item-2
+  vLabel: A3
+  vWidth: 1
+  vHeight: 1
+  vIsEnabled: 1
+  vIsVisible: 1
+  OnSelectedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Items.SelectableItem+SelectedEventHandler, Hover.Common,
+      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+  OnDeselectedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Items.SelectableItem+SelectedEventHandler, Hover.Common,
+      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+  OnValueChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Items.SelectableItemBool+ValueChangedEventHandler, Hover.Common,
+      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+  vValue: 0
+  vDefaultGroupId: Group-Root
+  vGroupId: A
 --- !u!1 &838317098
 GameObject:
   m_ObjectHideFlags: 0
@@ -3585,6 +3653,41 @@ MonoBehaviour:
   SizeY: 0.79999995
   Inset: 0.002
   vIsBuilt: 1
+--- !u!114 &874253505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 359411374, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
+  m_Name: Hover.Common.Items.Types.RadioItem:9956
+  m_EditorClassIdentifier: 
+  vId: Item-2
+  vLabel: R3
+  vWidth: 1
+  vHeight: 1
+  vIsEnabled: 1
+  vIsVisible: 1
+  OnSelectedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Items.SelectableItem+SelectedEventHandler, Hover.Common,
+      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+  OnDeselectedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Items.SelectableItem+SelectedEventHandler, Hover.Common,
+      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+  OnValueChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Items.SelectableItemBool+ValueChangedEventHandler, Hover.Common,
+      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+  vValue: 1
+  vDefaultGroupId: Group-Root
+  vGroupId: R
 --- !u!1 &878104365
 GameObject:
   m_ObjectHideFlags: 0
@@ -3717,81 +3820,6 @@ MonoBehaviour:
   HighlightProgress: 0
   SelectionProgress: 0
   UseUvRelativeToSize: 0
---- !u!114 &910709168
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1934516322, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
-  m_Name: Hover.Common.Items.Types.SliderItem:11656
-  m_EditorClassIdentifier: 
-  vId: Item-3
-  vLabel: Slider
-  vWidth: 1
-  vHeight: 1
-  vIsEnabled: 1
-  vIsVisible: 1
-  OnSelectedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Hover.Common.Items.SelectableItem+SelectedEventHandler, Hover.Common,
-      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  OnDeselectedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Hover.Common.Items.SelectableItem+SelectedEventHandler, Hover.Common,
-      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  OnValueChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Hover.Common.Items.SelectableItemFloat+ValueChangedEventHandler, Hover.Common,
-      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  vValue: 0.895
-  vLabelFormat: '{0}: {1:N1}'
-  vTicks: 0
-  vSnaps: 9
-  vRangeMin: -100
-  vRangeMax: 100
-  vAllowJump: 0
-  vFillStartingPoint: 1
---- !u!114 &925895476
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 359411374, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
-  m_Name: Hover.Common.Items.Types.RadioItem:-140884
-  m_EditorClassIdentifier: 
-  vId: Item-2
-  vLabel: A1
-  vWidth: 1
-  vHeight: 1
-  vIsEnabled: 1
-  vIsVisible: 1
-  OnSelectedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Hover.Common.Items.SelectableItem+SelectedEventHandler, Hover.Common,
-      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  OnDeselectedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Hover.Common.Items.SelectableItem+SelectedEventHandler, Hover.Common,
-      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  OnValueChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Hover.Common.Items.SelectableItemBool+ValueChangedEventHandler, Hover.Common,
-      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  vValue: 0
-  vDefaultGroupId: Group-Root
-  vGroupId: A
 --- !u!1 &926977032
 GameObject:
   m_ObjectHideFlags: 0
@@ -4038,6 +4066,41 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 957277629}
   m_Mesh: {fileID: 0}
+--- !u!114 &967234457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 359411374, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
+  m_Name: Hover.Common.Items.Types.RadioItem:9908
+  m_EditorClassIdentifier: 
+  vId: Item-2
+  vLabel: A4
+  vWidth: 1
+  vHeight: 1
+  vIsEnabled: 1
+  vIsVisible: 1
+  OnSelectedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Items.SelectableItem+SelectedEventHandler, Hover.Common,
+      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+  OnDeselectedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Items.SelectableItem+SelectedEventHandler, Hover.Common,
+      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+  OnValueChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Items.SelectableItemBool+ValueChangedEventHandler, Hover.Common,
+      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+  vValue: 0
+  vDefaultGroupId: Group-Root
+  vGroupId: A
 --- !u!1 &973412639
 GameObject:
   m_ObjectHideFlags: 0
@@ -4111,7 +4174,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 991353874}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.8750033, z: 0}
+  m_LocalPosition: {x: 0, y: 2.874999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1927278404}
@@ -4128,7 +4191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SizeX: 6
-  SizeY: 5.7500067
+  SizeY: 5.749998
   Alpha: 1
   UvStartY: 0
   UvEndY: 1
@@ -4419,7 +4482,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1081350427}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 6.750003, z: 0}
+  m_LocalPosition: {x: 0, y: 6.749999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 96552891}
@@ -4440,7 +4503,7 @@ MonoBehaviour:
   Fill: {fileID: 96552892}
   Canvas: {fileID: 398768419}
   SizeX: 8
-  SizeY: 1.9999924
+  SizeY: 2.000002
   Alpha: 1
   Anchor: 4
   vIsBuilt: 1
@@ -4655,7 +4718,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 23.999996, y: 0}
-  m_SizeDelta: {x: 392.00003, y: 140}
+  m_SizeDelta: {x: 402, y: 140}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1113750953
 MonoBehaviour:
@@ -4708,7 +4771,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CanvasScale: 0.02
-  SizeX: 7.84
+  SizeX: 8.04
   SizeY: 2.8
   vIsBuilt: 1
 --- !u!1 &1122387894
@@ -5337,7 +5400,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vType: 3
-  vData: {fileID: 1398437012}
+  vData: {fileID: 796229428}
 --- !u!4 &1239769335
 Transform:
   m_ObjectHideFlags: 0
@@ -5710,7 +5773,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SizeX: 7.9
-  SizeY: 1.8999923
+  SizeY: 1.9000019
   Alpha: 1
   OuterAmount: 0
   InnerAmount: 0
@@ -5841,76 +5904,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!114 &1293461516
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 359411374, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
-  m_Name: Hover.Common.Items.Types.RadioItem:-140676
-  m_EditorClassIdentifier: 
-  vId: Item-2
-  vLabel: A3
-  vWidth: 1
-  vHeight: 1
-  vIsEnabled: 1
-  vIsVisible: 1
-  OnSelectedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Hover.Common.Items.SelectableItem+SelectedEventHandler, Hover.Common,
-      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  OnDeselectedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Hover.Common.Items.SelectableItem+SelectedEventHandler, Hover.Common,
-      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  OnValueChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Hover.Common.Items.SelectableItemBool+ValueChangedEventHandler, Hover.Common,
-      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  vValue: 0
-  vDefaultGroupId: Group-Root
-  vGroupId: A
---- !u!114 &1294860493
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 359411374, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
-  m_Name: Hover.Common.Items.Types.RadioItem:-140762
-  m_EditorClassIdentifier: 
-  vId: Item-2
-  vLabel: A2
-  vWidth: 1
-  vHeight: 1
-  vIsEnabled: 1
-  vIsVisible: 1
-  OnSelectedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Hover.Common.Items.SelectableItem+SelectedEventHandler, Hover.Common,
-      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  OnDeselectedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Hover.Common.Items.SelectableItem+SelectedEventHandler, Hover.Common,
-      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  OnValueChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Hover.Common.Items.SelectableItemBool+ValueChangedEventHandler, Hover.Common,
-      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  vValue: 0
-  vDefaultGroupId: Group-Root
-  vGroupId: A
 --- !u!1 &1320365593
 GameObject:
   m_ObjectHideFlags: 0
@@ -6240,7 +6233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vType: 4
-  vData: {fileID: 1573295941}
+  vData: {fileID: 1619825651}
 --- !u!4 &1354108570
 Transform:
   m_ObjectHideFlags: 0
@@ -6504,74 +6497,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1377259249}
   m_Mesh: {fileID: 0}
---- !u!114 &1398437012
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 895365499, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
-  m_Name: Hover.Common.Items.Types.CheckboxItem:11454
-  m_EditorClassIdentifier: 
-  vId: Item-2
-  vLabel: Button
-  vWidth: 1
-  vHeight: 1
-  vIsEnabled: 1
-  vIsVisible: 1
-  OnSelectedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Hover.Common.Items.SelectableItem+SelectedEventHandler, Hover.Common,
-      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  OnDeselectedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Hover.Common.Items.SelectableItem+SelectedEventHandler, Hover.Common,
-      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  OnValueChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Hover.Common.Items.SelectableItemBool+ValueChangedEventHandler, Hover.Common,
-      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  vValue: 1
---- !u!114 &1427512377
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 359411374, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
-  m_Name: Hover.Common.Items.Types.RadioItem:-136604
-  m_EditorClassIdentifier: 
-  vId: Item-2
-  vLabel: R3
-  vWidth: 1
-  vHeight: 1
-  vIsEnabled: 1
-  vIsVisible: 1
-  OnSelectedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Hover.Common.Items.SelectableItem+SelectedEventHandler, Hover.Common,
-      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  OnDeselectedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Hover.Common.Items.SelectableItem+SelectedEventHandler, Hover.Common,
-      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  OnValueChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Hover.Common.Items.SelectableItemBool+ValueChangedEventHandler, Hover.Common,
-      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  vValue: 1
-  vDefaultGroupId: Group-Root
-  vGroupId: R
 --- !u!1 &1454821264
 GameObject:
   m_ObjectHideFlags: 0
@@ -6653,7 +6578,7 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -150, y: -7}
+  m_AnchoredPosition: {x: -167.5, y: -7}
   m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1473459329
@@ -6790,7 +6715,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SizeX: 6
-  SizeY: 2.250001
+  SizeY: 2.25
   Alpha: 1
   UvStartY: 0
   UvEndY: 1
@@ -6902,7 +6827,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vType: 4
-  vData: {fileID: 925895476}
+  vData: {fileID: 1874440070}
 --- !u!4 &1483333537
 Transform:
   m_ObjectHideFlags: 0
@@ -6988,7 +6913,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vType: 4
-  vData: {fileID: 1608354225}
+  vData: {fileID: 2144078235}
 --- !u!4 &1485484494
 Transform:
   m_ObjectHideFlags: 0
@@ -7173,7 +7098,7 @@ MonoBehaviour:
   Scale: 0.02
   SizeX: 7.8
   SizeY: 0.8000038
-  PaddingX: 0.5
+  PaddingX: 0.15
   PaddingY: 0.4000019
   Alpha: 1
   Alignment: 0
@@ -7198,7 +7123,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 340.00003, y: 0}
+  m_SizeDelta: {x: 375, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &1504588012
 Canvas:
@@ -7272,7 +7197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SizeX: 7.9
-  SizeY: 1.8999923
+  SizeY: 1.9000019
   Alpha: 1
   OuterAmount: 0
   InnerAmount: 0
@@ -7443,6 +7368,41 @@ Transform:
   - {fileID: 1357440859}
   m_Father: {fileID: 1483333537}
   m_RootOrder: 0
+--- !u!114 &1563117607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 359411374, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
+  m_Name: Hover.Common.Items.Types.RadioItem:9082
+  m_EditorClassIdentifier: 
+  vId: Item-2
+  vLabel: R2
+  vWidth: 1
+  vHeight: 1
+  vIsEnabled: 1
+  vIsVisible: 1
+  OnSelectedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Items.SelectableItem+SelectedEventHandler, Hover.Common,
+      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+  OnDeselectedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Items.SelectableItem+SelectedEventHandler, Hover.Common,
+      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+  OnValueChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Items.SelectableItemBool+ValueChangedEventHandler, Hover.Common,
+      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+  vValue: 0
+  vDefaultGroupId: Group-Root
+  vGroupId: R
 --- !u!1 &1565780580
 GameObject:
   m_ObjectHideFlags: 0
@@ -7524,41 +7484,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1565780580}
   m_Mesh: {fileID: 0}
---- !u!114 &1573295941
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 359411374, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
-  m_Name: Hover.Common.Items.Types.RadioItem:-139344
-  m_EditorClassIdentifier: 
-  vId: Item-2
-  vLabel: R4
-  vWidth: 1
-  vHeight: 1
-  vIsEnabled: 1
-  vIsVisible: 1
-  OnSelectedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Hover.Common.Items.SelectableItem+SelectedEventHandler, Hover.Common,
-      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  OnDeselectedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Hover.Common.Items.SelectableItem+SelectedEventHandler, Hover.Common,
-      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  OnValueChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Hover.Common.Items.SelectableItemBool+ValueChangedEventHandler, Hover.Common,
-      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  vValue: 0
-  vDefaultGroupId: Group-Root
-  vGroupId: R
 --- !u!1 &1578974131
 GameObject:
   m_ObjectHideFlags: 0
@@ -7706,7 +7631,7 @@ MonoBehaviour:
   Alpha: 1
   ZeroValue: 0.5
   HandleValue: 0.875
-  JumpValue: -1
+  JumpValue: 0.5
   AllowJump: 0
   FillStartingPoint: 1
   Anchor: 4
@@ -7808,7 +7733,7 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1600813234}
---- !u!114 &1608354225
+--- !u!114 &1619825651
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -7817,10 +7742,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 359411374, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
-  m_Name: Hover.Common.Items.Types.RadioItem:-131776
+  m_Name: Hover.Common.Items.Types.RadioItem:9680
   m_EditorClassIdentifier: 
   vId: Item-2
-  vLabel: R1
+  vLabel: R4
   vWidth: 1
   vHeight: 1
   vIsEnabled: 1
@@ -8180,7 +8105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vType: 4
-  vData: {fileID: 711466625}
+  vData: {fileID: 967234457}
 --- !u!4 &1714430527
 Transform:
   m_ObjectHideFlags: 0
@@ -8284,7 +8209,7 @@ MonoBehaviour:
   Scale: 0.02
   SizeX: 9.8
   SizeY: 3.8
-  PaddingX: 0.5
+  PaddingX: 0.4
   PaddingY: 0.5
   Alpha: 1
   Alignment: 0
@@ -8309,7 +8234,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 440.00003, y: 140}
+  m_SizeDelta: {x: 450, y: 140}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &1739222711
 Canvas:
@@ -8382,41 +8307,6 @@ MonoBehaviour:
   m_Script: {fileID: 316585584, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1753437758
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 359411374, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
-  m_Name: Hover.Common.Items.Types.RadioItem:-135346
-  m_EditorClassIdentifier: 
-  vId: Item-2
-  vLabel: R2
-  vWidth: 1
-  vHeight: 1
-  vIsEnabled: 1
-  vIsVisible: 1
-  OnSelectedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Hover.Common.Items.SelectableItem+SelectedEventHandler, Hover.Common,
-      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  OnDeselectedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Hover.Common.Items.SelectableItem+SelectedEventHandler, Hover.Common,
-      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  OnValueChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Hover.Common.Items.SelectableItemBool+ValueChangedEventHandler, Hover.Common,
-      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
-  vValue: 0
-  vDefaultGroupId: Group-Root
-  vGroupId: R
 --- !u!1 &1758311385
 GameObject:
   m_ObjectHideFlags: 0
@@ -8489,7 +8379,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vType: 4
-  vData: {fileID: 1294860493}
+  vData: {fileID: 58541161}
 --- !u!4 &1758311390
 Transform:
   m_ObjectHideFlags: 0
@@ -8575,7 +8465,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vType: 4
-  vData: {fileID: 1427512377}
+  vData: {fileID: 874253505}
 --- !u!4 &1768774773
 Transform:
   m_ObjectHideFlags: 0
@@ -8621,7 +8511,7 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -150, y: -7}
+  m_AnchoredPosition: {x: -167.5, y: -7}
   m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1778980705
@@ -9295,7 +9185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vType: 4
-  vData: {fileID: 1293461516}
+  vData: {fileID: 805267300}
 --- !u!4 &1841574856
 Transform:
   m_ObjectHideFlags: 0
@@ -9390,7 +9280,7 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -200, y: -7}
+  m_AnchoredPosition: {x: -205, y: -7}
   m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1864500064
@@ -9474,6 +9364,41 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1864500064}
   m_Mesh: {fileID: 0}
+--- !u!114 &1874440070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 359411374, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
+  m_Name: Hover.Common.Items.Types.RadioItem:9756
+  m_EditorClassIdentifier: 
+  vId: Item-2
+  vLabel: A1
+  vWidth: 1
+  vHeight: 1
+  vIsEnabled: 1
+  vIsVisible: 1
+  OnSelectedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Items.SelectableItem+SelectedEventHandler, Hover.Common,
+      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+  OnDeselectedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Items.SelectableItem+SelectedEventHandler, Hover.Common,
+      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+  OnValueChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Items.SelectableItemBool+ValueChangedEventHandler, Hover.Common,
+      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+  vValue: 0
+  vDefaultGroupId: Group-Root
+  vGroupId: A
 --- !u!1 &1900462827
 GameObject:
   m_ObjectHideFlags: 0
@@ -10205,7 +10130,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 23.999998, y: 0}
-  m_SizeDelta: {x: 292, y: 39.99962}
+  m_SizeDelta: {x: 292, y: 40.000095}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2012099077
 MonoBehaviour:
@@ -10220,7 +10145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CanvasScale: 0.02
   SizeX: 5.84
-  SizeY: 0.7999923
+  SizeY: 0.80000186
   vIsBuilt: 1
 --- !u!114 &2012099078
 MonoBehaviour:
@@ -10347,7 +10272,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vType: 5
-  vData: {fileID: 910709168}
+  vData: {fileID: 2069565082}
 --- !u!4 &2057927867
 Transform:
   m_ObjectHideFlags: 0
@@ -10402,6 +10327,46 @@ MonoBehaviour:
   m_Script: {fileID: -192236889, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2069565082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1934516322, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
+  m_Name: Hover.Common.Items.Types.SliderItem:10170
+  m_EditorClassIdentifier: 
+  vId: Item-3
+  vLabel: Slider
+  vWidth: 1
+  vHeight: 1
+  vIsEnabled: 1
+  vIsVisible: 1
+  OnSelectedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Items.SelectableItem+SelectedEventHandler, Hover.Common,
+      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+  OnDeselectedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Items.SelectableItem+SelectedEventHandler, Hover.Common,
+      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+  OnValueChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Items.SelectableItemFloat+ValueChangedEventHandler, Hover.Common,
+      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+  vValue: 0.895
+  vLabelFormat: '{0}: {1:N1}'
+  vTicks: 0
+  vSnaps: 9
+  vRangeMin: -100
+  vRangeMax: 100
+  vAllowJump: 0
+  vFillStartingPoint: 1
 --- !u!1 &2081192066
 GameObject:
   m_ObjectHideFlags: 0
@@ -10612,6 +10577,41 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2099385541}
   m_Mesh: {fileID: 0}
+--- !u!114 &2144078235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 359411374, guid: 8730ab3dd9743b9488f32061e4bc0988, type: 3}
+  m_Name: Hover.Common.Items.Types.RadioItem:9768
+  m_EditorClassIdentifier: 
+  vId: Item-2
+  vLabel: R1
+  vWidth: 1
+  vHeight: 1
+  vIsEnabled: 1
+  vIsVisible: 1
+  OnSelectedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Items.SelectableItem+SelectedEventHandler, Hover.Common,
+      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+  OnDeselectedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Items.SelectableItem+SelectedEventHandler, Hover.Common,
+      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+  OnValueChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Common.Items.SelectableItemBool+ValueChangedEventHandler, Hover.Common,
+      Version=1.4.0.0, Culture=neutral, PublicKeyToken=null
+  vValue: 0
+  vDefaultGroupId: Group-Root
+  vGroupId: R
 --- !u!1 &2146171563
 GameObject:
   m_ObjectHideFlags: 0

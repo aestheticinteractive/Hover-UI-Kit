@@ -14,8 +14,10 @@ namespace Hover.Board.Renderers {
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(HoverItemData))]
 	[RequireComponent(typeof(HoverItemHighlightState))]
-	public class HoverRendererRectangleController : HoverRendererController {
+	public class HoverRendererRectangleController : HoverRendererController, ISettingsController {
 	
+		public bool IsButtonRendererType { get; private set; }
+
 		public HoverRendererRectangleButton ButtonRenderer;
 		public HoverRendererRectangleSlider SliderRenderer;
 		
@@ -69,17 +71,6 @@ namespace Hover.Board.Renderers {
 			throw new Exception("No button or slider renderer.");
 		}
 		
-		/*--------------------------------------------------------------------------------------------*/
-		protected override void ReleaseControlOfRenderer() { //TODO: do this at each layer of control?
-			if ( ButtonRenderer != null ) {
-				ButtonRenderer.ControlledByItem = false;
-			}
-
-			if ( SliderRenderer != null ) {
-				SliderRenderer.ControlledByItem = false;
-			}
-		}
-		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -87,10 +78,12 @@ namespace Hover.Board.Renderers {
 			if ( pType == HoverItemData.HoverItemType.Slider ) {
 				ButtonRenderer = RendererHelper.DestroyRenderer(ButtonRenderer);
 				SliderRenderer = UseOrFindOrBuildSlider();
+				IsButtonRendererType = false;
 			}
 			else {
 				SliderRenderer = RendererHelper.DestroyRenderer(SliderRenderer);
 				ButtonRenderer = UseOrFindOrBuildButton();
+				IsButtonRendererType = true;
 			}
 		}
 		
@@ -143,7 +136,7 @@ namespace Hover.Board.Renderers {
 			HoverRendererIcon iconOuter = ButtonRenderer.Canvas.IconOuter;
 			HoverRendererIcon iconInner = ButtonRenderer.Canvas.IconInner;
 
-			ButtonRenderer.ControlledByItem = true;
+			ButtonRenderer.ParentController = this;
 			ButtonRenderer.SizeX = SizeX;
 			ButtonRenderer.SizeY = SizeY;
 			ButtonRenderer.Alpha = (data.IsEnabled ? 1 : DisabledAlpha);
@@ -179,7 +172,7 @@ namespace Hover.Board.Renderers {
 			ISliderItem data = (ISliderItem)pHoverItemData.Data;
 			HoverRendererCanvas handleCanvas = SliderRenderer.HandleButton.Canvas;
 
-			SliderRenderer.ControlledByItem = true;
+			SliderRenderer.ParentController = this;
 			SliderRenderer.SizeX = SizeX;
 			SliderRenderer.SizeY = SizeY;
 			SliderRenderer.Alpha = (data.IsEnabled ? 1 : DisabledAlpha);

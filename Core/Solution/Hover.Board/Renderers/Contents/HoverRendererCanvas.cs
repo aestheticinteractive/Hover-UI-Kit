@@ -1,4 +1,5 @@
 ﻿using System;
+using Hover.Board.Renderers.Helpers;
 using UnityEngine;
 
 namespace Hover.Board.Renderers.Contents {
@@ -24,7 +25,7 @@ namespace Hover.Board.Renderers.Contents {
 			Custom
 		}
 		
-		public bool ControlledByRenderer { get; set; }
+		public ISettingsController ParentRenderer { get; set; }
 		
 		public HoverRendererLabel Label;
 		public HoverRendererIcon IconOuter;
@@ -90,13 +91,19 @@ namespace Hover.Board.Renderers.Contents {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			if ( !ControlledByRenderer ) {
-				UpdateAfterRenderer();
+			if ( RendererHelper.IsUpdatePreventedBy(ParentRenderer) ) {
+				return;
 			}
+
+			UpdateAfterParent();
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		public void UpdateAfterRenderer() {
+		public void UpdateAfterParent() {
+			if ( RendererHelper.IsUpdatePreventedBySelf(this) ) {
+				return;
+			}
+
 			UpdateCanvasComponent();
 			UpdateGeneralSettings();
 			UpdateActiveStates();

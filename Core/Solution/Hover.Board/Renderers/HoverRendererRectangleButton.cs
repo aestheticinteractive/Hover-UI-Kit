@@ -1,5 +1,4 @@
-﻿using System;
-using Hover.Board.Renderers.Fills;
+﻿using Hover.Board.Renderers.Fills;
 using Hover.Board.Renderers.Contents;
 using Hover.Board.Renderers.Helpers;
 using Hover.Common.Renderers;
@@ -9,10 +8,10 @@ namespace Hover.Board.Renderers {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
-	public class HoverRendererRectangleButton : MonoBehaviour, IProximityProvider {
+	public class HoverRendererRectangleButton : MonoBehaviour, IProximityProvider, ISettingsController {
 	
-		public bool ControlledByItem { get; set; }
-		public bool ControlledByRenderer { get; set; }
+		public ISettingsController ParentController { get; set; }
+		public ISettingsController ParentRenderer { get; set; }
 	
 		public HoverRendererFillRectangleFromCenter Fill;
 		public HoverRendererCanvas Canvas;
@@ -44,18 +43,25 @@ namespace Hover.Board.Renderers {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			if ( !ControlledByRenderer && !ControlledByItem ) {
-				UpdateAfterParent();
+			if ( RendererHelper.IsUpdatePreventedBy(ParentRenderer) ||
+					RendererHelper.IsUpdatePreventedBy(ParentController) ) {
+				return;
 			}
+
+			UpdateAfterParent();
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateAfterParent() {
+			if ( RendererHelper.IsUpdatePreventedBySelf(this) ) {
+				return;
+			}
+
 			UpdateGeneralSettings();
 			UpdateAnchorSettings();
 
 			Fill.UpdateAfterRenderer();
-			Canvas.UpdateAfterRenderer();
+			Canvas.UpdateAfterParent();
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
@@ -91,7 +97,7 @@ namespace Hover.Board.Renderers {
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateGeneralSettings() {
 			Fill.ControlledByRenderer = true;
-			Canvas.ControlledByRenderer = true;
+			Canvas.ParentRenderer = this;
 
 			Fill.SizeX = SizeX;
 			Fill.SizeY = SizeY;

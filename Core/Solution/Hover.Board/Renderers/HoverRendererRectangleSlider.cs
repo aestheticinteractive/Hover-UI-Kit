@@ -9,11 +9,11 @@ namespace Hover.Board.Renderers {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
-	public class HoverRendererRectangleSlider : MonoBehaviour, IProximityProvider {
+	public class HoverRendererRectangleSlider : MonoBehaviour, IProximityProvider, ISettingsController {
 
 		//TODO: tick marks (use canvas RQ + hide when obscured by buttons)
 
-		public bool ControlledByItem { get; set; }
+		public ISettingsController ParentController { get; set; }
 	
 		public GameObject Container;
 		public HoverRendererFillSliderTrack Track;
@@ -68,13 +68,19 @@ namespace Hover.Board.Renderers {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			if ( !ControlledByItem ) {
-				UpdateAfterParent();
+			if ( RendererHelper.IsUpdatePreventedBy(ParentController) ) {
+				return;
 			}
+
+			UpdateAfterParent();
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateAfterParent() {
+			if ( RendererHelper.IsUpdatePreventedBySelf(this) ) {
+				return;
+			}
+
 			UpdateSliderSegments();
 			UpdateGeneralSettings();
 			UpdateAnchorSettings();
@@ -164,8 +170,8 @@ namespace Hover.Board.Renderers {
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateGeneralSettings() {
 			Track.ControlledByRenderer = true;
-			HandleButton.ControlledByRenderer = true;
-			JumpButton.ControlledByRenderer = true;
+			HandleButton.ParentRenderer = this;
+			JumpButton.ParentRenderer = this;
 			
 			bool isJumpSegmentVisible = false;
 			

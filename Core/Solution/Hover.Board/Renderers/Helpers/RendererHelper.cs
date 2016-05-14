@@ -7,6 +7,45 @@ namespace Hover.Board.Renderers.Helpers {
 	/*================================================================================================*/
 	public static class RendererHelper {
 
+		private const string BulletText = "- ";
+		private const string DisabledSettingsText =
+			"The disabled settings below are controlled by:\n{0}";
+
+		
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public static bool IsUpdatePreventedBy(ISettingsController pController) {
+			return (pController != null && pController.isActiveAndEnabled);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public static bool IsUpdatePreventedBySelf(MonoBehaviour pBehaviour) {
+			return (!pBehaviour.gameObject.activeInHierarchy || !pBehaviour.enabled);
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public static string GetSettingsControllerName(ISettingsController pController) {
+			return pController.name+" ("+pController.GetType().Name+")";
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public static string GetDisabledSettingsText(params ISettingsController[] pControllers) {
+			if ( pControllers.Length == 1 ) {
+				return string.Format(DisabledSettingsText, 
+					BulletText+GetSettingsControllerName(pControllers[0]));
+			}
+
+			string list = "";
+
+			foreach ( ISettingsController cont in pControllers ) {
+				if ( IsUpdatePreventedBy(cont) ) {
+					list += BulletText+GetSettingsControllerName(cont);
+				}
+			}
+
+			return string.Format(DisabledSettingsText, list);
+		}
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
