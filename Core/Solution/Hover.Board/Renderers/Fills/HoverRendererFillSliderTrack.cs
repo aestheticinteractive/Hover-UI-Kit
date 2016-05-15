@@ -37,15 +37,9 @@ namespace Hover.Board.Renderers.Fills {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		public override void UpdateAfterRenderer() {
+		public void Update() {
 			if ( SegmentInfoList != null ) {
 				UpdateSegmentsWithInfo();
-			}
-
-			foreach ( HoverRendererMeshSliderRectangle seg in Segments ) {
-				if ( seg.gameObject.activeSelf ) {
-					seg.UpdateAfterRenderer();
-				}
 			}
 		}
 		

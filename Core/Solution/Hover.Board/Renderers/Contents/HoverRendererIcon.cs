@@ -58,13 +58,6 @@ namespace Hover.Board.Renderers.Contents {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			if ( !ControlledByRenderer ) {
-				UpdateAfterRenderer();
-			}
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		public void UpdateAfterRenderer() {
 			RawImage icon = ImageComponent;
 			RectTransform rectTx = icon.rectTransform;
 			const float w = 1/8f;

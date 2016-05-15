@@ -45,14 +45,12 @@ namespace Hover.Board.Renderers {
 				UpdateButtonSettings(hoverItemData);
 				UpdateButtonSettings(highState);
 				UpdateButtonSettings(selState);
-				ButtonRenderer.UpdateAfterParent();
 			}
 
 			if ( SliderRenderer != null ) {
 				UpdateSliderSettings(hoverItemData);
 				UpdateSliderSettings(hoverItemData, highState);
 				UpdateSliderSettings(selState);
-				SliderRenderer.UpdateAfterParent();
 			}
 		}
 		

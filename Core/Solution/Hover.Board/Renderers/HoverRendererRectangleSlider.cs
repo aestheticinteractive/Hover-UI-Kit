@@ -68,26 +68,9 @@ namespace Hover.Board.Renderers {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			if ( RendererHelper.IsUpdatePreventedBy(ParentController) ) {
-				return;
-			}
-
-			UpdateAfterParent();
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		public void UpdateAfterParent() {
-			if ( RendererHelper.IsUpdatePreventedBySelf(this) ) {
-				return;
-			}
-
 			UpdateSliderSegments();
 			UpdateGeneralSettings();
 			UpdateAnchorSettings();
-
-			Track.UpdateAfterRenderer();
-			HandleButton.UpdateAfterParent();
-			JumpButton.UpdateAfterParent();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

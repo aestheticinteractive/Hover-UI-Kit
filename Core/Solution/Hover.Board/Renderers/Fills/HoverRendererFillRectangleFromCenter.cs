@@ -43,14 +43,9 @@ namespace Hover.Board.Renderers.Fills {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		public override void UpdateAfterRenderer() {
+		public void Update() {
 			UpdateGeneralSettings();
 			UpdateActiveStates();
-
-			Background.UpdateAfterRenderer();
-			Highlight.UpdateAfterRenderer();
-			Selection.UpdateAfterRenderer();
-			Edge.UpdateAfterRenderer();
 		}
 		
 

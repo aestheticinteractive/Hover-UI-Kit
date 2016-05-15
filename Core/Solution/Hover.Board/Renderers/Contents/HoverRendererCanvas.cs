@@ -91,28 +91,11 @@ namespace Hover.Board.Renderers.Contents {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			if ( RendererHelper.IsUpdatePreventedBy(ParentRenderer) ) {
-				return;
-			}
-
-			UpdateAfterParent();
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		public void UpdateAfterParent() {
-			if ( RendererHelper.IsUpdatePreventedBySelf(this) ) {
-				return;
-			}
-
 			UpdateCanvasComponent();
 			UpdateGeneralSettings();
 			UpdateActiveStates();
 			UpdateIconSizeSettings();
 			UpdateCanvasAlignmentSettings();
-			
-			Label.UpdateAfterRenderer();
-			IconOuter.UpdateAfterRenderer();
-			IconInner.UpdateAfterRenderer();
 		}
 		
 		

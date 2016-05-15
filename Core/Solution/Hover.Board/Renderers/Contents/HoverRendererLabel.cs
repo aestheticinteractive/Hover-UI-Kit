@@ -42,13 +42,6 @@ namespace Hover.Board.Renderers.Contents {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			if ( !ControlledByRenderer ) {
-				UpdateAfterRenderer();
-			}
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		public void UpdateAfterRenderer() {
 			RectTransform rectTx = TextComponent.rectTransform;
 			rectTx.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, SizeX/CanvasScale);
 			rectTx.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, SizeY/CanvasScale);

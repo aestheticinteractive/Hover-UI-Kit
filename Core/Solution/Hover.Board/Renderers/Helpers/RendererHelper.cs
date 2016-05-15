@@ -19,11 +19,6 @@ namespace Hover.Board.Renderers.Helpers {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public static bool IsUpdatePreventedBySelf(MonoBehaviour pBehaviour) {
-			return (!pBehaviour.gameObject.activeInHierarchy || !pBehaviour.enabled);
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
 		public static string GetSettingsControllerName(ISettingsController pController) {
 			return pController.name+" ("+pController.GetType().Name+")";
 		}

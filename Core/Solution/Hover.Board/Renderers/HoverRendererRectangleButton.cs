@@ -43,25 +43,8 @@ namespace Hover.Board.Renderers {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			if ( RendererHelper.IsUpdatePreventedBy(ParentRenderer) ||
-					RendererHelper.IsUpdatePreventedBy(ParentController) ) {
-				return;
-			}
-
-			UpdateAfterParent();
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		public void UpdateAfterParent() {
-			if ( RendererHelper.IsUpdatePreventedBySelf(this) ) {
-				return;
-			}
-
 			UpdateGeneralSettings();
 			UpdateAnchorSettings();
-
-			Fill.UpdateAfterRenderer();
-			Canvas.UpdateAfterParent();
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/

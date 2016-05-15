@@ -32,25 +32,13 @@ namespace Hover.Board.Renderers.Meshes {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void Update() {
-			if ( !ControlledByRenderer ) {
-				UpdateAfterRenderer();
-			}
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		public virtual bool UpdateAfterRenderer() {
-			if ( !gameObject.activeInHierarchy ) {
-				return false; //avoid create/update mesh while inactive, wait til Awake() to create
-			}
-
 			if ( vMeshBuild == null ) { //this can occur when recompiled DLLs cause a scene "refresh"
 				CreateMeshBuilder();
 			}
 
 			UpdateMesh();
-			return true;
 		}
-		
+
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void OnDestroy() {
 			DestroyImmediate(gameObject.GetComponent<MeshFilter>().sharedMesh);
