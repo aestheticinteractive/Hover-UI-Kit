@@ -24,7 +24,7 @@ namespace Hover.Board.Renderers {
 		public const string AllowJumpName = "AllowJump";
 		public const string FillStartingPointName = "FillStartingPoint";
 
-		public ISettingsControllerMap Controllers { get; set; }
+		public ISettingsControllerMap Controllers { get; private set; }
 	
 		[DisableWhenControlled(DisplayMessage=true)]
 		public GameObject Container;

@@ -1,3 +1,5 @@
+using Hover.Common;
+using Hover.Common.Util;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +9,11 @@ namespace Hover.Board.Renderers.Contents {
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(RawImage))]
 	public class HoverRendererIcon : MonoBehaviour {
+		
+		public const string IconTypeName = "IconType";
+		public const string CanvasScaleName = "CanvasScale";
+		public const string SizeXName = "SizeX";
+		public const string SizeYName = "SizeY";
 
 		public enum IconOffset {
 			None,
@@ -19,26 +26,38 @@ namespace Hover.Board.Renderers.Contents {
 			Sticky
 		}
 
-		public bool ControlledByRenderer { get; set; }
+		public ISettingsControllerMap Controllers { get; private set; }
 		
+		[DisableWhenControlled(DisplayMessage=true)]
 		public IconOffset IconType = IconOffset.CheckOuter;
 
 		[Range(0.01f, 1)]
+		[DisableWhenControlled]
 		public float CanvasScale = 0.02f;
 		
 		[Range(0, 100)]
+		[DisableWhenControlled]
 		public float SizeX = 10;
 
 		[Range(0, 100)]
+		[DisableWhenControlled]
 		public float SizeY = 10;
 		
 		[Range(0, 0.01f)]
+		[DisableWhenControlled]
 		public float Inset = 0.002f;
 
 		[HideInInspector]
 		[SerializeField]
 		private bool vIsBuilt;
 		
+		
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverRendererIcon() {
+			Controllers = new SettingsControllerMap();
+		}
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/

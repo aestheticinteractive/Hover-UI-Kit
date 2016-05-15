@@ -98,7 +98,11 @@ namespace Hover.Board.Renderers {
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateGeneralSettings() {
 			Fill.ControlledByRenderer = true;
-			Canvas.ParentRenderer = this;
+
+			Canvas.Controllers.Set(HoverRendererCanvas.SizeXName, this);
+			Canvas.Controllers.Set(HoverRendererCanvas.SizeYName, this);
+			Canvas.Controllers.Set(HoverRendererCanvas.AlphaName, this);
+			Canvas.Controllers.Set(HoverRendererCanvas.RenderQueueName, this);
 
 			Fill.SizeX = SizeX;
 			Fill.SizeY = SizeY;

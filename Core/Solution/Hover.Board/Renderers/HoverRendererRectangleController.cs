@@ -137,6 +137,9 @@ namespace Hover.Board.Renderers {
 			ButtonRenderer.Controllers.Set(HoverRendererRectangleButton.SizeXName, this);
 			ButtonRenderer.Controllers.Set(HoverRendererRectangleButton.SizeYName, this);
 			ButtonRenderer.Controllers.Set(HoverRendererRectangleButton.AlphaName, this);
+			ButtonRenderer.Canvas.Label.Controllers.Set("Text.text", this);
+			iconOuter.Controllers.Set(HoverRendererIcon.IconTypeName, this);
+			iconInner.Controllers.Set(HoverRendererIcon.IconTypeName, this);
 
 			ButtonRenderer.SizeX = SizeX;
 			ButtonRenderer.SizeY = SizeY;
@@ -172,6 +175,8 @@ namespace Hover.Board.Renderers {
 		private void UpdateSliderSettings(HoverItemData pHoverItemData) {
 			ISliderItem data = (ISliderItem)pHoverItemData.Data;
 			HoverRendererCanvas handleCanvas = SliderRenderer.HandleButton.Canvas;
+			HoverRendererIcon handleIconOuter = handleCanvas.IconOuter;
+			HoverRendererIcon handleIconInner = handleCanvas.IconInner;
 
 			SizeY = Mathf.Max(SizeY, SliderRenderer.HandleButton.SizeY);
 
@@ -183,14 +188,17 @@ namespace Hover.Board.Renderers {
 			SliderRenderer.Controllers.Set(HoverRendererRectangleSlider.JumpValueName, this);
 			SliderRenderer.Controllers.Set(HoverRendererRectangleSlider.AllowJumpName, this);
 			SliderRenderer.Controllers.Set(HoverRendererRectangleSlider.FillStartingPointName, this);
+			handleCanvas.Label.Controllers.Set("Text.text", this);
+			handleIconOuter.Controllers.Set(HoverRendererIcon.IconTypeName, this);
+			handleIconInner.Controllers.Set(HoverRendererIcon.IconTypeName, this);
 
 			SliderRenderer.SizeX = SizeX;
 			SliderRenderer.SizeY = SizeY;
 			SliderRenderer.Alpha = (data.IsEnabled ? 1 : DisabledAlpha);
 
 			handleCanvas.Label.TextComponent.text = data.GetFormattedLabel(data);
-			handleCanvas.IconOuter.IconType = HoverRendererIcon.IconOffset.Slider;
-			handleCanvas.IconInner.IconType = HoverRendererIcon.IconOffset.None;
+			handleIconOuter.IconType = HoverRendererIcon.IconOffset.Slider;
+			handleIconInner.IconType = HoverRendererIcon.IconOffset.None;
 
 			SliderRenderer.HandleValue = data.SnappedValue;
 			SliderRenderer.FillStartingPoint = data.FillStartingPoint;

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Hover.Common;
+using Hover.Common.Util;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Hover.Board.Renderers.Contents {
@@ -7,22 +9,36 @@ namespace Hover.Board.Renderers.Contents {
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(Text))]
 	public class HoverRendererLabel : MonoBehaviour {
+		
+		public const string CanvasScaleName = "CanvasScale";
+		public const string SizeXName = "SizeX";
+		public const string SizeYName = "SizeY";
 
-		public bool ControlledByRenderer { get; set; }
+		public ISettingsControllerMap Controllers { get; private set; }
 		
 		[Range(0.01f, 1)]
+		[DisableWhenControlled(DisplayMessage=true)]
 		public float CanvasScale = 0.02f;
 		
 		[Range(0, 100)]
+		[DisableWhenControlled]
 		public float SizeX = 10;
 
 		[Range(0, 100)]
+		[DisableWhenControlled]
 		public float SizeY = 10;
 
 		[HideInInspector]
 		[SerializeField]
 		private bool vIsBuilt;
 		
+		
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverRendererLabel() {
+			Controllers = new SettingsControllerMap();
+		}
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/

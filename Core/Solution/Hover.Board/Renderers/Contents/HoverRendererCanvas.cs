@@ -1,4 +1,5 @@
 ﻿using System;
+using Hover.Common;
 using Hover.Common.Renderers;
 using Hover.Common.Util;
 using UnityEngine;
@@ -9,7 +10,12 @@ namespace Hover.Board.Renderers.Contents {
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(Canvas))]
 	[RequireComponent(typeof(CanvasGroup))]
-	public class HoverRendererCanvas : MonoBehaviour {
+	public class HoverRendererCanvas : MonoBehaviour, ISettingsController {
+		
+		public const string SizeXName = "SizeX";
+		public const string SizeYName = "SizeY";
+		public const string AlphaName = "Alpha";
+		public const string RenderQueueName = "RenderQueue";
 
 		public enum CanvasAlignmentType {
 			Left,
@@ -26,38 +32,57 @@ namespace Hover.Board.Renderers.Contents {
 			Custom
 		}
 		
-		public ISettingsController ParentRenderer { get; set; }
+		public ISettingsControllerMap Controllers { get; private set; }
 		
+		[DisableWhenControlled(DisplayMessage=true)]
 		public HoverRendererLabel Label;
 		public HoverRendererIcon IconOuter;
 		public HoverRendererIcon IconInner;
 		
 		[Range(0.01f, 1)]
+		[DisableWhenControlled]
 		public float Scale = 0.02f;
 		
 		[Range(0, 100)]
+		[DisableWhenControlled]
 		public float SizeX = 10;
 
 		[Range(0, 100)]
+		[DisableWhenControlled]
 		public float SizeY = 10;
 		
 		[Range(0, 50)]
+		[DisableWhenControlled]
 		public float PaddingX = 0.5f;
 		
 		[Range(0, 50)]
+		[DisableWhenControlled]
 		public float PaddingY = 0.5f;
 
 		[Range(0, 1)]
+		[DisableWhenControlled]
 		public float Alpha = 1;
 		
+		[DisableWhenControlled]
 		public CanvasAlignmentType Alignment = CanvasAlignmentType.Left;
+
+		[DisableWhenControlled]
 		public IconSizeType IconSize = IconSizeType.FontSize;
+
+		[DisableWhenControlled]
 		public int RenderQueue = 3001;
 		
 		[HideInInspector]
 		[SerializeField]
 		private bool vIsBuilt;
 		
+		
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverRendererCanvas() {
+			Controllers = new SettingsControllerMap();
+		}
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -144,9 +169,19 @@ namespace Hover.Board.Renderers.Contents {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateGeneralSettings() {
-			Label.ControlledByRenderer = true;
-			IconOuter.ControlledByRenderer = true;
-			IconInner.ControlledByRenderer = true;
+			Label.Controllers.Set(HoverRendererLabel.CanvasScaleName, this);
+			Label.Controllers.Set(HoverRendererLabel.SizeXName, this);
+			Label.Controllers.Set(HoverRendererLabel.SizeYName, this);
+			Label.Controllers.Set("Text.alignment", this);
+			Label.Controllers.Set("Text.material.renderQueue", this);
+			
+			IconOuter.Controllers.Set(HoverRendererIcon.CanvasScaleName, this);
+			IconOuter.Controllers.Set(HoverRendererIcon.SizeXName, this);
+			IconOuter.Controllers.Set(HoverRendererIcon.SizeYName, this);
+			
+			IconInner.Controllers.Set(HoverRendererIcon.CanvasScaleName, this);
+			IconInner.Controllers.Set(HoverRendererIcon.SizeXName, this);
+			IconInner.Controllers.Set(HoverRendererIcon.SizeYName, this);
 			
 			Label.CanvasScale = Scale;
 			IconOuter.CanvasScale = Scale;
