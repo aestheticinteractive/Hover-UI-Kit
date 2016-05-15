@@ -183,7 +183,7 @@ namespace Hover.Board.Renderers {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateGeneralSettings() {
-			Track.ControlledByRenderer = true;
+			//TODO: Track.ControlledByRenderer = true;
 			//HandleButton.ParentRenderer = this;
 			//JumpButton.ParentRenderer = this;
 			

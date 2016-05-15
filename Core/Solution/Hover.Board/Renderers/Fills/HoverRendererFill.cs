@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Hover.Common.Util;
+using UnityEngine;
 
 namespace Hover.Board.Renderers.Fills {
 
@@ -6,12 +7,19 @@ namespace Hover.Board.Renderers.Fills {
 	[ExecuteInEditMode]
 	public abstract class HoverRendererFill : MonoBehaviour {
 	
-		public bool ControlledByRenderer { get; set; }
+		public ISettingsControllerMap Controllers { get; private set; }
 		
 		[HideInInspector]
 		[SerializeField]
 		private bool vIsBuilt;
 		
+		
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverRendererFill() {
+			Controllers = new SettingsControllerMap();
+		}
+
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/

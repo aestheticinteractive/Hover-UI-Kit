@@ -7,6 +7,10 @@ namespace Hover.Board.Renderers.Meshes {
 	/*================================================================================================*/
 	public class HoverRendererMeshSliderRectangle : HoverRendererMesh {
 	
+		public const string SizeXName = "SizeX";
+		public const string SizeYName = "SizeY";
+		public const string AlphaName = "Alpha";
+
 		[Range(0, 100)]
 		public float SizeX = 10;
 		

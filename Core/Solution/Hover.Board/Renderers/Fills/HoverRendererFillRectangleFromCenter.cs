@@ -1,37 +1,59 @@
 using System;
 using Hover.Board.Renderers.Meshes;
+using Hover.Common;
 using Hover.Common.Renderers;
+using Hover.Common.Util;
 using UnityEngine;
 
 namespace Hover.Board.Renderers.Fills {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
-	public class HoverRendererFillRectangleFromCenter : HoverRendererFill {
+	public class HoverRendererFillRectangleFromCenter : HoverRendererFill, ISettingsController {
 	
+		public const string SizeXName = "SizeX";
+		public const string SizeYName = "SizeY";
+		public const string AlphaName = "Alpha";
+		public const string HighlightProgressName = "HighlightProgress";
+		public const string SelectionProgressName = "SelectionProgress";
+
+		[DisableWhenControlled(DisplayMessage=true)]
 		public HoverRendererMeshHollowRectangle Background;
+
+		[DisableWhenControlled]
 		public HoverRendererMeshHollowRectangle Highlight;
+
+		[DisableWhenControlled]
 		public HoverRendererMeshHollowRectangle Selection;
+
+		[DisableWhenControlled]
 		public HoverRendererMeshHollowRectangle Edge;
 		
 		[Range(0, 100)]
+		[DisableWhenControlled]
 		public float SizeX = 10;
 		
 		[Range(0, 100)]
+		[DisableWhenControlled]
 		public float SizeY = 10;
 		
 		[Range(0, 1)]
+		[DisableWhenControlled]
 		public float Alpha = 1;
 		
 		[Range(0.001f, 0.5f)]
+		[DisableWhenControlled]
 		public float EdgeThickness = 0.02f;
 		
 		[Range(0, 1)]
+		[DisableWhenControlled]
 		public float HighlightProgress = 0.7f;
 		
 		[Range(0, 1)]
+		[DisableWhenControlled]
 		public float SelectionProgress = 0.2f;
 		
+		[DisableWhenControlled]
 		public bool UseUvRelativeToSize = false;
 		
 		
@@ -76,11 +98,13 @@ namespace Hover.Board.Renderers.Fills {
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateGeneralSettings() {
 			SelectionProgress = Mathf.Min(HighlightProgress, SelectionProgress);
-
-			Background.ControlledByRenderer = true;
-			Highlight.ControlledByRenderer = true;
-			Selection.ControlledByRenderer = true;
-			Edge.ControlledByRenderer = true;
+			
+			Highlight.Controllers.Set("GameObject.activeSelf", this);
+			Selection.Controllers.Set("GameObject.activeSelf", this);
+			SetControllers(Background);
+			SetControllers(Highlight);
+			SetControllers(Selection);
+			SetControllers(Edge);
 			
 			float insetSizeX = Math.Max(0, SizeX-EdgeThickness);
 			float insetSizeY = Math.Max(0, SizeY-EdgeThickness);
@@ -112,6 +136,16 @@ namespace Hover.Board.Renderers.Fills {
 			Highlight.UseUvRelativeToSize = UseUvRelativeToSize;
 			Selection.UseUvRelativeToSize = UseUvRelativeToSize;
 			Edge.UseUvRelativeToSize = UseUvRelativeToSize;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void SetControllers(HoverRendererMeshHollowRectangle pMesh) {
+			pMesh.Controllers.Set(HoverRendererMeshHollowRectangle.SizeXName, this);
+			pMesh.Controllers.Set(HoverRendererMeshHollowRectangle.SizeYName, this);
+			pMesh.Controllers.Set(HoverRendererMeshHollowRectangle.AlphaName, this);
+			pMesh.Controllers.Set(HoverRendererMeshHollowRectangle.OuterAmountName, this);
+			pMesh.Controllers.Set(HoverRendererMeshHollowRectangle.InnerAmountName, this);
+			pMesh.Controllers.Set(HoverRendererMeshHollowRectangle.UseUvRelativeToSizeName, this);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

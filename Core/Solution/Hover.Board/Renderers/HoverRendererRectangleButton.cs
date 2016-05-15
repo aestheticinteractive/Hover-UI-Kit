@@ -97,7 +97,9 @@ namespace Hover.Board.Renderers {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateGeneralSettings() {
-			Fill.ControlledByRenderer = true;
+			Fill.Controllers.Set(HoverRendererFillRectangleFromCenter.SizeXName, this);
+			Fill.Controllers.Set(HoverRendererFillRectangleFromCenter.SizeYName, this);
+			Fill.Controllers.Set(HoverRendererFillRectangleFromCenter.AlphaName, this);
 
 			Canvas.Controllers.Set(HoverRendererCanvas.SizeXName, this);
 			Canvas.Controllers.Set(HoverRendererCanvas.SizeYName, this);

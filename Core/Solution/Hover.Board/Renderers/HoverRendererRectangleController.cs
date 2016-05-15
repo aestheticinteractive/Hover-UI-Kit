@@ -1,5 +1,6 @@
 ﻿using System;
 using Hover.Board.Renderers.Contents;
+using Hover.Board.Renderers.Fills;
 using Hover.Common.Display;
 using Hover.Common.Items;
 using Hover.Common.Items.Types;
@@ -188,6 +189,17 @@ namespace Hover.Board.Renderers {
 			SliderRenderer.Controllers.Set(HoverRendererRectangleSlider.JumpValueName, this);
 			SliderRenderer.Controllers.Set(HoverRendererRectangleSlider.AllowJumpName, this);
 			SliderRenderer.Controllers.Set(HoverRendererRectangleSlider.FillStartingPointName, this);
+			SliderRenderer.HandleButton.Fill.Controllers
+				.Set(HoverRendererFillRectangleFromCenter.HighlightProgressName, this);
+			SliderRenderer.HandleButton.Fill.Controllers
+				.Set(HoverRendererFillRectangleFromCenter.SelectionProgressName, this);
+			SliderRenderer.HandleButton.Fill.Edge.Controllers.Set("GameObject.activeSelf", this);
+			SliderRenderer.JumpButton.Controllers.Set("GameObject.activeSelf", this);
+			SliderRenderer.JumpButton.Fill.Controllers
+				.Set(HoverRendererFillRectangleFromCenter.HighlightProgressName, this);
+			SliderRenderer.JumpButton.Fill.Controllers
+				.Set(HoverRendererFillRectangleFromCenter.SelectionProgressName, this);
+			SliderRenderer.JumpButton.Fill.Edge.Controllers.Set("GameObject.activeSelf", this);
 			handleCanvas.Label.Controllers.Set("Text.text", this);
 			handleIconOuter.Controllers.Set(HoverRendererIcon.IconTypeName, this);
 			handleIconInner.Controllers.Set(HoverRendererIcon.IconTypeName, this);

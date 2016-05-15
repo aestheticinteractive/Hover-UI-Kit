@@ -1,4 +1,5 @@
 ﻿using Hover.Common.Display;
+using Hover.Common.Util;
 using UnityEngine;
 
 namespace Hover.Board.Renderers.Meshes {
@@ -9,11 +10,18 @@ namespace Hover.Board.Renderers.Meshes {
 	[RequireComponent(typeof(MeshFilter))]
 	public abstract class HoverRendererMesh : MonoBehaviour {
 	
-		public bool ControlledByRenderer { get; set; }
+		public ISettingsControllerMap Controllers { get; private set; }
 
 		protected MeshBuilder vMeshBuild;
 
-		
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverRendererMesh() {
+			Controllers = new SettingsControllerMap();
+		}
+
+
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual int MaterialRenderQueue {

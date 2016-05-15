@@ -1,4 +1,5 @@
-﻿using Hover.Common.Display;
+﻿using Hover.Common;
+using Hover.Common.Display;
 using Hover.Common.Util;
 using UnityEngine;
 
@@ -7,22 +8,37 @@ namespace Hover.Board.Renderers.Meshes {
 	/*================================================================================================*/
 	public class HoverRendererMeshHollowRectangle : HoverRendererMesh {
 	
+		public const string SizeXName = "SizeX";
+		public const string SizeYName = "SizeY";
+		public const string AlphaName = "Alpha";
+		public const string OuterAmountName = "OuterAmount";
+		public const string InnerAmountName = "InnerAmount";
+		public const string UseUvRelativeToSizeName = "UseUvRelativeToSize";
+
 		[Range(0, 100)]
+		[DisableWhenControlled(DisplayMessage=true)]
 		public float SizeX = 10;
 		
 		[Range(0, 100)]
+		[DisableWhenControlled]
 		public float SizeY = 10;
 		
 		[Range(0, 1)]
+		[DisableWhenControlled]
 		public float Alpha = 1;
 
 		[Range(0, 1)]
+		[DisableWhenControlled]
 		public float OuterAmount = 1;
 		
 		[Range(0, 1)]
+		[DisableWhenControlled]
 		public float InnerAmount = 0.5f;
 		
+		[DisableWhenControlled]
 		public bool UseUvRelativeToSize = false;
+
+		[DisableWhenControlled]
 		public Color FillColor = Color.gray;
 		
 		private float vPrevSizeX;
@@ -32,7 +48,7 @@ namespace Hover.Board.Renderers.Meshes {
 		private bool vPrevUseUv;
 		private Color vPrevColor;
 
-		
+
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public override void Update() {
