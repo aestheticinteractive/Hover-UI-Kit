@@ -86,6 +86,18 @@ namespace Hover.Board.Renderers.Helpers {
 			return default(T);
 		}
 
+		/*--------------------------------------------------------------------------------------------*/
+		public static void SetActiveWithUpdate(MonoBehaviour pBehaviour, bool pIsActive) {
+			GameObject go = pBehaviour.gameObject;
+			bool wasActive = go.activeSelf;
+
+			go.SetActive(pIsActive);
+
+			if ( pIsActive && !wasActive ) {
+				go.SendMessage("Update");
+			}
+		}
+
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/

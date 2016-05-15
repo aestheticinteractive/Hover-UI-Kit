@@ -101,7 +101,7 @@ namespace Hover.Board.Renderers.Fills {
 			foreach ( HoverRendererMeshSliderRectangle seg in Segments ) {
 				seg.ControlledByRenderer = true;
 				seg.SizeX = insetSizeX;
-				seg.gameObject.SetActive(seg.SizeY > 0);
+				RendererHelper.SetActiveWithUpdate(seg, (seg.SizeY > 0));
 			}
 		}
 		

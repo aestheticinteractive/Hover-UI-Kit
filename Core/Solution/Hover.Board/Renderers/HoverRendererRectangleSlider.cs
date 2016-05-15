@@ -68,6 +68,8 @@ namespace Hover.Board.Renderers {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
+			SizeY = Mathf.Max(SizeY, HandleButton.SizeY);
+
 			UpdateSliderSegments();
 			UpdateGeneralSettings();
 			UpdateAnchorSettings();
@@ -108,7 +110,7 @@ namespace Hover.Board.Renderers {
 			Track.InsetL = 1;
 			Track.InsetR = 1;
 			
-			JumpButton.Canvas.gameObject.SetActive(false);
+			RendererHelper.SetActiveWithUpdate(JumpButton.Canvas, false);
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
@@ -167,7 +169,6 @@ namespace Hover.Board.Renderers {
 				}
 				
 				HoverRendererRectangleButton button = (isHandle ? HandleButton : JumpButton);
-				button.SizeY = segInfo.EndPosition-segInfo.StartPosition;
 				button.transform.localPosition = 
 					new Vector3(0, (segInfo.StartPosition+segInfo.EndPosition)/2, 0);
 				
@@ -184,7 +185,7 @@ namespace Hover.Board.Renderers {
 			JumpButton.Alpha = Alpha;
 			Track.Alpha = Alpha;
 
-			JumpButton.gameObject.SetActive(AllowJump && isJumpSegmentVisible);
+			RendererHelper.SetActiveWithUpdate(JumpButton, (AllowJump && isJumpSegmentVisible));
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/

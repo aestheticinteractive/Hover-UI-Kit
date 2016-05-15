@@ -143,9 +143,6 @@ namespace Hover.Board.Renderers.Contents {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateGeneralSettings() {
-			PaddingX = Mathf.Min(PaddingX, SizeX/2);
-			PaddingY = Mathf.Min(PaddingY, SizeY/2);
-			
 			Label.ControlledByRenderer = true;
 			IconOuter.ControlledByRenderer = true;
 			IconInner.ControlledByRenderer = true;
@@ -163,9 +160,13 @@ namespace Hover.Board.Renderers.Contents {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateActiveStates() {
-			Label.gameObject.SetActive(!string.IsNullOrEmpty(Label.TextComponent.text));
-			IconOuter.gameObject.SetActive(IconOuter.IconType != HoverRendererIcon.IconOffset.None);
-			IconInner.gameObject.SetActive(IconInner.IconType != HoverRendererIcon.IconOffset.None);
+			bool isLabelActive = (!string.IsNullOrEmpty(Label.TextComponent.text));
+			bool isIconOuterActive = (IconOuter.IconType != HoverRendererIcon.IconOffset.None);
+			bool isIconInnerActive = (IconInner.IconType != HoverRendererIcon.IconOffset.None);
+
+			RendererHelper.SetActiveWithUpdate(Label, isLabelActive);
+			RendererHelper.SetActiveWithUpdate(IconOuter, isIconOuterActive);
+			RendererHelper.SetActiveWithUpdate(IconInner, isIconInnerActive);
 		}
 				
 		/*--------------------------------------------------------------------------------------------*/

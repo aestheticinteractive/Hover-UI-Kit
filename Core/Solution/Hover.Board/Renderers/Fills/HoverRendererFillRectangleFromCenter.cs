@@ -1,4 +1,5 @@
 using System;
+using Hover.Board.Renderers.Helpers;
 using Hover.Board.Renderers.Meshes;
 using UnityEngine;
 
@@ -115,8 +116,8 @@ namespace Hover.Board.Renderers.Fills {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateActiveStates() {
-			Highlight.gameObject.SetActive(Highlight.OuterAmount > 0);
-			Selection.gameObject.SetActive(Selection.OuterAmount > 0);
+			RendererHelper.SetActiveWithUpdate(Highlight, (Highlight.OuterAmount > 0));
+			RendererHelper.SetActiveWithUpdate(Selection, (Selection.OuterAmount > 0));
 		}
 				
 	}

@@ -170,6 +170,8 @@ namespace Hover.Board.Renderers {
 			ISliderItem data = (ISliderItem)pHoverItemData.Data;
 			HoverRendererCanvas handleCanvas = SliderRenderer.HandleButton.Canvas;
 
+			SizeY = Mathf.Max(SizeY, SliderRenderer.HandleButton.SizeY);
+
 			SliderRenderer.ParentController = this;
 			SliderRenderer.SizeX = SizeX;
 			SliderRenderer.SizeY = SizeY;
@@ -192,7 +194,8 @@ namespace Hover.Board.Renderers {
 			HoverItemHighlightState.Highlight? high = pHighState.NearestHighlight;
 			
 			ButtonRenderer.Fill.HighlightProgress = pHighState.MaxHighlightProgress;
-			ButtonRenderer.Fill.Edge.gameObject.SetActive(
+
+			RendererHelper.SetActiveWithUpdate(ButtonRenderer.Fill.Edge,
 				pHighState.IsNearestAcrossAllItemsForAnyCursor);
 		}
 
@@ -206,9 +209,9 @@ namespace Hover.Board.Renderers {
 			SliderRenderer.HandleButton.Fill.HighlightProgress = highProg;
 			SliderRenderer.JumpButton.Fill.HighlightProgress = highProg;
 			
-			SliderRenderer.HandleButton.Fill.Edge.gameObject.SetActive(
+			RendererHelper.SetActiveWithUpdate(SliderRenderer.HandleButton.Fill.Edge,
 				pHighState.IsNearestAcrossAllItemsForAnyCursor);
-			SliderRenderer.JumpButton.Fill.Edge.gameObject.SetActive(
+			RendererHelper.SetActiveWithUpdate(SliderRenderer.JumpButton.Fill.Edge,
 				pHighState.IsNearestAcrossAllItemsForAnyCursor);
 
 			if ( high == null ) {
