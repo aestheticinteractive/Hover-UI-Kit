@@ -1,4 +1,5 @@
-﻿using Hover.Common.Display;
+﻿using Hover.Common;
+using Hover.Common.Display;
 using Hover.Common.Util;
 using UnityEngine;
 
@@ -10,24 +11,37 @@ namespace Hover.Board.Renderers.Meshes {
 		public const string SizeXName = "SizeX";
 		public const string SizeYName = "SizeY";
 		public const string AlphaName = "Alpha";
+		public const string UvStartYName = "UvStartY";
+		public const string UvEndYName = "UvEndY";
+		public const string IsFillName = "IsFill";
 
 		[Range(0, 100)]
+		[DisableWhenControlled(DisplayMessage=true)]
 		public float SizeX = 10;
 		
 		[Range(0, 100)]
+		[DisableWhenControlled]
 		public float SizeY = 10;
 		
 		[Range(0, 1)]
+		[DisableWhenControlled]
 		public float Alpha = 1;
 
 		[Range(0, 1)]
+		[DisableWhenControlled]
 		public float UvStartY = 0;
 
 		[Range(0, 1)]
+		[DisableWhenControlled]
 		public float UvEndY = 1;
 
+		[DisableWhenControlled]
 		public bool IsFill = false;
+
+		[DisableWhenControlled]
 		public Color TrackColor = Color.gray;
+
+		[DisableWhenControlled]
 		public Color FillColor = Color.white;
 		
 		private float vPrevSizeX;

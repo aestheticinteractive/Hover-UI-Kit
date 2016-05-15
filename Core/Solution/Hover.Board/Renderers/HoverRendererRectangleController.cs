@@ -138,6 +138,11 @@ namespace Hover.Board.Renderers {
 			ButtonRenderer.Controllers.Set(HoverRendererRectangleButton.SizeXName, this);
 			ButtonRenderer.Controllers.Set(HoverRendererRectangleButton.SizeYName, this);
 			ButtonRenderer.Controllers.Set(HoverRendererRectangleButton.AlphaName, this);
+			ButtonRenderer.Fill.Controllers
+				.Set(HoverRendererFillRectangleFromCenter.HighlightProgressName, this);
+			ButtonRenderer.Fill.Controllers
+				.Set(HoverRendererFillRectangleFromCenter.SelectionProgressName, this);
+			ButtonRenderer.Fill.Edge.Controllers.Set("GameObject.activeSelf", this);
 			ButtonRenderer.Canvas.Label.Controllers.Set("Text.text", this);
 			iconOuter.Controllers.Set(HoverRendererIcon.IconTypeName, this);
 			iconInner.Controllers.Set(HoverRendererIcon.IconTypeName, this);
@@ -194,7 +199,6 @@ namespace Hover.Board.Renderers {
 			SliderRenderer.HandleButton.Fill.Controllers
 				.Set(HoverRendererFillRectangleFromCenter.SelectionProgressName, this);
 			SliderRenderer.HandleButton.Fill.Edge.Controllers.Set("GameObject.activeSelf", this);
-			SliderRenderer.JumpButton.Controllers.Set("GameObject.activeSelf", this);
 			SliderRenderer.JumpButton.Fill.Controllers
 				.Set(HoverRendererFillRectangleFromCenter.HighlightProgressName, this);
 			SliderRenderer.JumpButton.Fill.Controllers

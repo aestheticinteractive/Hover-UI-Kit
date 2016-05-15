@@ -22,7 +22,7 @@ namespace Hover.Common.Renderers {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public static string GetControlledSettingsText(ISettingsControllerMap pControllerMap) {
-			if ( Application.isPlaying ) {
+			if ( !Application.isEditor ) {
 				throw new Exception("This method is meant for editor mode only.");
 			}
 
@@ -92,7 +92,7 @@ namespace Hover.Common.Renderers {
 			go.SetActive(pIsActive);
 
 			if ( pIsActive && !wasActive ) {
-				go.SendMessage("Update");
+				go.SendMessage("Update", SendMessageOptions.DontRequireReceiver);
 			}
 		}
 

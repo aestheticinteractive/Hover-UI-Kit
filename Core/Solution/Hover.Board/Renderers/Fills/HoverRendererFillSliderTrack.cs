@@ -1,33 +1,43 @@
 ﻿using System.Collections.Generic;
 using Hover.Board.Renderers.Meshes;
 using Hover.Board.Renderers.Helpers;
+using Hover.Common;
 using Hover.Common.Renderers;
+using Hover.Common.Util;
 using UnityEngine;
 
 namespace Hover.Board.Renderers.Fills {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
-	public class HoverRendererFillSliderTrack : HoverRendererFill {
+	public class HoverRendererFillSliderTrack : HoverRendererFill, ISettingsController {
 	
+		public const string SizeXName = "SizeX";
+		public const string AlphaName = "Alpha";
+
 		public List<SliderUtil.Segment> SegmentInfoList { get; set; }
 	
 		public HoverRendererMeshSliderRectangle[] Segments;
 		
 		[Range(0, 100)]
+		[DisableWhenControlled(DisplayMessage=true)]
 		public float SizeX = 10;
 
 		[Range(0, 100)]
+		[DisableWhenControlled]
 		public float InsetL = 1;
 
 		[Range(0, 100)]
+		[DisableWhenControlled]
 		public float InsetR = 1;
 		
 		[Range(0, 1)]
+		[DisableWhenControlled]
 		public float Alpha = 1;
 
+		[DisableWhenControlled]
 		public bool UseTrackUv = false;
-		
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -75,6 +85,15 @@ namespace Hover.Board.Renderers.Fills {
 			float trackEndY = SegmentInfoList[SegmentInfoList.Count-1].EndPosition;
 			
 			foreach ( HoverRendererMeshSliderRectangle seg in Segments ) {
+				seg.Controllers.Set("GameObject.activeSelf", this);
+				seg.Controllers.Set("Transform.localPosition", this);
+				seg.Controllers.Set(HoverRendererMeshSliderRectangle.SizeXName, this);
+				seg.Controllers.Set(HoverRendererMeshSliderRectangle.SizeYName, this);
+				seg.Controllers.Set(HoverRendererMeshSliderRectangle.AlphaName, this);
+				seg.Controllers.Set(HoverRendererMeshSliderRectangle.UvStartYName, this);
+				seg.Controllers.Set(HoverRendererMeshSliderRectangle.UvEndYName, this);
+				seg.Controllers.Set(HoverRendererMeshSliderRectangle.IsFillName, this);
+
 				seg.SizeY = 0;
 				seg.Alpha = Alpha;
 			}
@@ -100,7 +119,6 @@ namespace Hover.Board.Renderers.Fills {
 			}
 			
 			foreach ( HoverRendererMeshSliderRectangle seg in Segments ) {
-				//TODO: seg.ControlledByRenderer = true;
 				seg.SizeX = insetSizeX;
 				RendererHelper.SetActiveWithUpdate(seg, (seg.SizeY > 0));
 			}

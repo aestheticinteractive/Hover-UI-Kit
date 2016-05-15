@@ -183,9 +183,17 @@ namespace Hover.Board.Renderers {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateGeneralSettings() {
-			//TODO: Track.ControlledByRenderer = true;
-			//HandleButton.ParentRenderer = this;
-			//JumpButton.ParentRenderer = this;
+			Track.Controllers.Set(HoverRendererFillSliderTrack.SizeXName, this);
+			Track.Controllers.Set(HoverRendererFillSliderTrack.AlphaName, this);
+
+			HandleButton.Controllers.Set("Transform.localPosition", this);
+			HandleButton.Controllers.Set(HoverRendererRectangleButton.SizeXName, this);
+			HandleButton.Controllers.Set(HoverRendererRectangleButton.AlphaName, this);
+			
+			JumpButton.Controllers.Set("GameObject.activeSelf", this);
+			JumpButton.Controllers.Set("Transform.localPosition", this);
+			JumpButton.Controllers.Set(HoverRendererRectangleButton.SizeXName, this);
+			JumpButton.Controllers.Set(HoverRendererRectangleButton.AlphaName, this);
 			
 			bool isJumpSegmentVisible = false;
 			
