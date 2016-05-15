@@ -1,5 +1,6 @@
 ﻿using System;
-using Hover.Board.Renderers.Helpers;
+using Hover.Common.Renderers;
+using Hover.Common.Util;
 using UnityEngine;
 
 namespace Hover.Board.Renderers.Contents {

@@ -1,7 +1,8 @@
 ﻿using Hover.Board.Renderers.Fills;
 using Hover.Board.Renderers.Contents;
-using Hover.Board.Renderers.Helpers;
+using Hover.Common;
 using Hover.Common.Renderers;
+using Hover.Common.Util;
 using UnityEngine;
 
 namespace Hover.Board.Renderers {
@@ -10,26 +11,43 @@ namespace Hover.Board.Renderers {
 	[ExecuteInEditMode]
 	public class HoverRendererRectangleButton : MonoBehaviour, IProximityProvider, ISettingsController {
 	
-		public ISettingsController ParentController { get; set; }
-		public ISettingsController ParentRenderer { get; set; }
-	
+		public const string SizeXName = "SizeX";
+		public const string SizeYName = "SizeY";
+		public const string AlphaName = "Alpha";
+
+		public ISettingsControllerMap Controllers { get; private set; }
+
+		[DisableWhenControlled(DisplayMessage=true)]
 		public HoverRendererFillRectangleFromCenter Fill;
+
+		[DisableWhenControlled]
 		public HoverRendererCanvas Canvas;
 		
 		[Range(0, 100)]
+		[DisableWhenControlled]
 		public float SizeX = 10;
 		
 		[Range(0, 100)]
+		[DisableWhenControlled]
 		public float SizeY = 10;
 
 		[Range(0, 1)]
+		[DisableWhenControlled]
 		public float Alpha = 1;
 		
+		[DisableWhenControlled]
 		public AnchorType Anchor = AnchorType.MiddleCenter;
 		
 		[HideInInspector]
 		[SerializeField]
 		private bool vIsBuilt;
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverRendererRectangleButton() {
+			Controllers = new SettingsControllerMap();
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using Hover.Board.Renderers.Fills;
 using Hover.Board.Renderers.Helpers;
+using Hover.Common;
 using Hover.Common.Items.Types;
 using Hover.Common.Renderers;
+using Hover.Common.Util;
 using UnityEngine;
 
 namespace Hover.Board.Renderers {
@@ -12,35 +14,61 @@ namespace Hover.Board.Renderers {
 	public class HoverRendererRectangleSlider : MonoBehaviour, IProximityProvider, ISettingsController {
 
 		//TODO: tick marks (use canvas RQ + hide when obscured by buttons)
+		
+		public const string SizeXName = "SizeX";
+		public const string SizeYName = "SizeY";
+		public const string AlphaName = "Alpha";
+		public const string ZeroValueName = "ZeroValue";
+		public const string HandleValueName = "HandleValue";
+		public const string JumpValueName = "JumpValue";
+		public const string AllowJumpName = "AllowJump";
+		public const string FillStartingPointName = "FillStartingPoint";
 
-		public ISettingsController ParentController { get; set; }
+		public ISettingsControllerMap Controllers { get; set; }
 	
+		[DisableWhenControlled(DisplayMessage=true)]
 		public GameObject Container;
+
+		[DisableWhenControlled]
 		public HoverRendererFillSliderTrack Track;
+
+		[DisableWhenControlled]
 		public HoverRendererRectangleButton HandleButton;
+
+		[DisableWhenControlled]
 		public HoverRendererRectangleButton JumpButton;
 		
 		[Range(0, 100)]
+		[DisableWhenControlled]
 		public float SizeX = 10;
 		
 		[Range(0, 100)]
+		[DisableWhenControlled]
 		public float SizeY = 10;
 		
 		[Range(0, 1)]
+		[DisableWhenControlled]
 		public float Alpha = 1;
 		
 		[Range(0, 1)]
+		[DisableWhenControlled]
 		public float ZeroValue = 0.5f;
 				
 		[Range(0, 1)]
+		[DisableWhenControlled]
 		public float HandleValue = 0.5f;
 		
 		[Range(0, 1)]
+		[DisableWhenControlled]
 		public float JumpValue = 0;
 		
+		[DisableWhenControlled]
 		public bool AllowJump = false;
+
+		[DisableWhenControlled]
 		public SliderItem.FillType FillStartingPoint = SliderItem.FillType.Zero;
 		
+		[DisableWhenControlled]
 		public AnchorType Anchor = AnchorType.MiddleCenter;
 		
 		[HideInInspector]
@@ -53,6 +81,7 @@ namespace Hover.Board.Renderers {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public HoverRendererRectangleSlider() {
+			Controllers = new SettingsControllerMap();
 			vSegmentInfoList = new List<SliderUtil.Segment>();
 		}
 		
@@ -155,8 +184,8 @@ namespace Hover.Board.Renderers {
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateGeneralSettings() {
 			Track.ControlledByRenderer = true;
-			HandleButton.ParentRenderer = this;
-			JumpButton.ParentRenderer = this;
+			//HandleButton.ParentRenderer = this;
+			//JumpButton.ParentRenderer = this;
 			
 			bool isJumpSegmentVisible = false;
 			

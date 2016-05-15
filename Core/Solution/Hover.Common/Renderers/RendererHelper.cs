@@ -1,44 +1,42 @@
 ﻿using System;
+using System.Collections.Generic;
+using Hover.Common.Util;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Hover.Board.Renderers.Helpers {
+namespace Hover.Common.Renderers {
 
 	/*================================================================================================*/
 	public static class RendererHelper {
 
-		private const string BulletText = "- ";
-		private const string DisabledSettingsText =
-			"The disabled settings below are controlled by:\n{0}";
+		private const string BulletText = "\n - ";
+		private const string ControlledSettingsText =
+			"The following settings are controlled externally.{0}";
 
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public static bool IsUpdatePreventedBy(ISettingsController pController) {
-			return (pController != null && pController.isActiveAndEnabled);
-		}
-
 		/*--------------------------------------------------------------------------------------------*/
 		public static string GetSettingsControllerName(ISettingsController pController) {
 			return pController.name+" ("+pController.GetType().Name+")";
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public static string GetDisabledSettingsText(params ISettingsController[] pControllers) {
-			if ( pControllers.Length == 1 ) {
-				return string.Format(DisabledSettingsText, 
-					BulletText+GetSettingsControllerName(pControllers[0]));
+		public static string GetControlledSettingsText(ISettingsControllerMap pControllerMap) {
+			if ( Application.isPlaying ) {
+				throw new Exception("This method is meant for editor mode only.");
 			}
 
-			string list = "";
+			List<string> valueNames = pControllerMap.GetNewListOfControlledValueNames();
+			string text = "";
 
-			foreach ( ISettingsController cont in pControllers ) {
-				if ( IsUpdatePreventedBy(cont) ) {
-					list += BulletText+GetSettingsControllerName(cont);
-				}
+			for ( int i = 0 ; i < valueNames.Count ; i++ ) {
+				string valueName = valueNames[i];
+				ISettingsController controller = pControllerMap.Get(valueName);
+
+				text += BulletText+valueName+": "+GetSettingsControllerName(controller);
 			}
 
-			return string.Format(DisabledSettingsText, list);
+			return string.Format(ControlledSettingsText, text);
 		}
 
 

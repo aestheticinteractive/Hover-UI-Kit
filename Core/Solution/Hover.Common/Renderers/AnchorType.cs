@@ -1,4 +1,4 @@
-﻿namespace Hover.Board.Renderers.Helpers {
+﻿namespace Hover.Common.Renderers {
 
 	/*================================================================================================*/
 	public enum AnchorType {

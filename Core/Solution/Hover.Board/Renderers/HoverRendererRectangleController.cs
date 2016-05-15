@@ -1,11 +1,11 @@
 ﻿using System;
 using Hover.Board.Renderers.Contents;
-using Hover.Board.Renderers.Helpers;
 using Hover.Common.Display;
 using Hover.Common.Items;
 using Hover.Common.Items.Types;
 using Hover.Common.Renderers;
 using Hover.Common.State;
+using Hover.Common.Util;
 using UnityEngine;
 
 namespace Hover.Board.Renderers {
@@ -134,7 +134,10 @@ namespace Hover.Board.Renderers {
 			HoverRendererIcon iconOuter = ButtonRenderer.Canvas.IconOuter;
 			HoverRendererIcon iconInner = ButtonRenderer.Canvas.IconInner;
 
-			ButtonRenderer.ParentController = this;
+			ButtonRenderer.Controllers.Set(HoverRendererRectangleButton.SizeXName, this);
+			ButtonRenderer.Controllers.Set(HoverRendererRectangleButton.SizeYName, this);
+			ButtonRenderer.Controllers.Set(HoverRendererRectangleButton.AlphaName, this);
+
 			ButtonRenderer.SizeX = SizeX;
 			ButtonRenderer.SizeY = SizeY;
 			ButtonRenderer.Alpha = (data.IsEnabled ? 1 : DisabledAlpha);
@@ -172,7 +175,15 @@ namespace Hover.Board.Renderers {
 
 			SizeY = Mathf.Max(SizeY, SliderRenderer.HandleButton.SizeY);
 
-			SliderRenderer.ParentController = this;
+			SliderRenderer.Controllers.Set(HoverRendererRectangleSlider.SizeXName, this);
+			SliderRenderer.Controllers.Set(HoverRendererRectangleSlider.SizeYName, this);
+			SliderRenderer.Controllers.Set(HoverRendererRectangleSlider.AlphaName, this);
+			SliderRenderer.Controllers.Set(HoverRendererRectangleSlider.ZeroValueName, this);
+			SliderRenderer.Controllers.Set(HoverRendererRectangleSlider.HandleValueName, this);
+			SliderRenderer.Controllers.Set(HoverRendererRectangleSlider.JumpValueName, this);
+			SliderRenderer.Controllers.Set(HoverRendererRectangleSlider.AllowJumpName, this);
+			SliderRenderer.Controllers.Set(HoverRendererRectangleSlider.FillStartingPointName, this);
+
 			SliderRenderer.SizeX = SizeX;
 			SliderRenderer.SizeY = SizeY;
 			SliderRenderer.Alpha = (data.IsEnabled ? 1 : DisabledAlpha);
