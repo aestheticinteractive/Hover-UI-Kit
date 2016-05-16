@@ -16,25 +16,25 @@ namespace Hover.Common.Items.Types {
 		public Func<ISliderItem, string> GetFormattedLabel { get; set; }
 
 		[SerializeField]
-		private string vLabelFormat = "{0}: {1:N1}";
+		private string _LabelFormat = "{0}: {1:N1}";
 
 		[SerializeField]
-		private int vTicks = 0;
+		private int _Ticks = 0;
 
 		[SerializeField]
-		private int vSnaps = 0;
+		private int _Snaps = 0;
 
 		[SerializeField]
-		private float vRangeMin = -100;
+		private float _RangeMin = -100;
 
 		[SerializeField]
-		private float vRangeMax = 100;
+		private float _RangeMax = 100;
 
 		[SerializeField]
-		private bool vAllowJump = false;
+		private bool _AllowJump = false;
 
 		[SerializeField]
-		private FillType vFillStartingPoint = FillType.Zero;
+		private FillType _FillStartingPoint = FillType.Zero;
 		
 		private float? vHoverValue;
 		private string vPrevLabel;
@@ -46,7 +46,7 @@ namespace Hover.Common.Items.Types {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public SliderItem() {
-			vValue = 0.5f;
+			_Value = 0.5f;
 
 			GetFormattedLabel = (s => {
 				if ( s.Label == vPrevLabel && s.LabelFormat == vPrevLabelFormat &&
@@ -67,44 +67,44 @@ namespace Hover.Common.Items.Types {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public string LabelFormat {
-			get { return vLabelFormat; }
-			set { vLabelFormat = value; }
+			get { return _LabelFormat; }
+			set { _LabelFormat = value; }
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public int Ticks {
-			get { return vTicks; }
-			set { vTicks = value; }
+			get { return _Ticks; }
+			set { _Ticks = value; }
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public int Snaps {
-			get { return vSnaps; }
-			set { vSnaps = value; }
+			get { return _Snaps; }
+			set { _Snaps = value; }
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public float RangeMin {
-			get { return vRangeMin; }
-			set { vRangeMin = value; }
+			get { return _RangeMin; }
+			set { _RangeMin = value; }
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public float RangeMax {
-			get { return vRangeMax; }
-			set { vRangeMax = value; }
+			get { return _RangeMax; }
+			set { _RangeMax = value; }
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public bool AllowJump {
-			get { return vAllowJump; }
-			set { vAllowJump = value; }
+			get { return _AllowJump; }
+			set { _AllowJump = value; }
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public FillType FillStartingPoint {
-			get { return vFillStartingPoint; }
-			set { vFillStartingPoint = value; }
+			get { return _FillStartingPoint; }
+			set { _FillStartingPoint = value; }
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/

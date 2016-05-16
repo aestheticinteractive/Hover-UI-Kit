@@ -15,22 +15,22 @@ namespace Hover.Common.Items {
 		public bool IsAncestryVisible { get; set; } //TODO: move setter to an "internal" interface
 
 		[SerializeField]
-		private string vId;
+		private string _Id;
 
 		[SerializeField]
-		private string vLabel;
+		private string _Label;
 
 		[SerializeField]
-		private float vWidth = 1;
+		private float _Width = 1;
 
 		[SerializeField]
-		private float vHeight = 1;
+		private float _Height = 1;
 
 		[SerializeField]
-		private bool vIsEnabled = true;
+		private bool _IsEnabled = true;
 
 		[SerializeField]
-		private bool vIsVisible = true;
+		private bool _IsVisible = true;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -46,38 +46,38 @@ namespace Hover.Common.Items {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public string Id {
-			get { return vId; }
-			set { vId = value; }
+			get { return _Id; }
+			set { _Id = value; }
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual string Label {
-			get { return vLabel; }
-			set { vLabel = value; }
+			get { return _Label; }
+			set { _Label = value; }
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public float Width {
-			get { return vWidth; }
-			set { vWidth = value; }
+			get { return _Width; }
+			set { _Width = value; }
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public float Height {
-			get { return vHeight; }
-			set { vHeight = value; }
+			get { return _Height; }
+			set { _Height = value; }
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public bool IsEnabled {
-			get { return vIsEnabled; }
-			set { vIsEnabled = value; }
+			get { return _IsEnabled; }
+			set { _IsEnabled = value; }
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public bool IsVisible { //TODO: remove this (in favor of GameObject.activeSelf)
-			get { return vIsVisible; }
-			set { vIsVisible = value; }
+			get { return _IsVisible; }
+			set { _IsVisible = value; }
 		}
 
 	}

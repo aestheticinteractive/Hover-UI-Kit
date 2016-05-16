@@ -29,7 +29,7 @@ namespace Hover.Common.Renderers.Contents {
 
 		[HideInInspector]
 		[SerializeField]
-		private bool vIsBuilt;
+		private bool _IsBuilt;
 		
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -49,9 +49,9 @@ namespace Hover.Common.Renderers.Contents {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
-			if ( !vIsBuilt ) {
+			if ( !_IsBuilt ) {
 				BuildText();
-				vIsBuilt = true;
+				_IsBuilt = true;
 			}
 		}
 		

@@ -8,17 +8,17 @@ namespace Hover.Common.Items.Types {
 	public class RadioItem : SelectableItemBool, IRadioItem {
 		
 		[SerializeField]
-		private string vDefaultGroupId;
+		private string _DefaultGroupId;
 
 		[SerializeField]
-		private string vGroupId;
+		private string _GroupId;
 		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void InitDefaultGroupId(Transform pParentTx) {
 			if ( pParentTx == null ) {
-				vDefaultGroupId = "Group-Root";
+				_DefaultGroupId = "Group-Root";
 				return;
 			}
 
@@ -30,23 +30,23 @@ namespace Hover.Common.Items.Types {
 				return;
 			}*/
 
-			vDefaultGroupId = "Group-Instance"+pParentTx.GetInstanceID();
+			_DefaultGroupId = "Group-Instance"+pParentTx.GetInstanceID();
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public string DefaultGroupId {
-			get { return vDefaultGroupId; }
+			get { return _DefaultGroupId; }
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public string GroupId {
 			get {
-				return (string.IsNullOrEmpty(vGroupId) ? vDefaultGroupId : vGroupId);
+				return (string.IsNullOrEmpty(_GroupId) ? _DefaultGroupId : _GroupId);
 			}
 			set {
-				vGroupId = value;
+				_GroupId = value;
 			}
 		}
 

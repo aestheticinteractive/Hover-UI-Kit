@@ -8,14 +8,14 @@ namespace Hover.Common.Items.Types {
 	public class SelectorItem : SelectableItem, ISelectorItem {
 		
 		[SerializeField]
-		private bool vNavigateBackUponSelect;
+		private bool _NavigateBackUponSelect;
 
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public bool NavigateBackUponSelect {
-			get { return vNavigateBackUponSelect; }
-			set { vNavigateBackUponSelect = value; }
+			get { return _NavigateBackUponSelect; }
+			set { _NavigateBackUponSelect = value; }
 		}
 
 	}

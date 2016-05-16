@@ -16,7 +16,7 @@ namespace Hover.Common.Items {
 		public event ItemEvents.ValueChangedHandler<bool> OnValueChanged;
 
 		[SerializeField]
-		protected bool vValue = false;
+		protected bool _Value = false;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -30,14 +30,14 @@ namespace Hover.Common.Items {
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual bool Value {
 			get {
-				return vValue;
+				return _Value;
 			}
 			set {
-				if ( value == vValue ) {
+				if ( value == _Value ) {
 					return;
 				}
 
-				vValue = value;
+				_Value = value;
 				OnValueChanged(this);
 			}
 		}

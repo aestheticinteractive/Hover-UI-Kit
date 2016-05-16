@@ -24,10 +24,10 @@ namespace Hover.Common.Items {
 		public ItemEvent OnTypeChanged;
 
 		[SerializeField]
-		private HoverItemType vType = HoverItemType.Selector;
+		private HoverItemType _Type = HoverItemType.Selector;
 
 		[SerializeField]
-		private BaseItem vData;
+		private BaseItem _Data;
 
 		private HoverItemsManager vItemsMan;
 		
@@ -35,14 +35,14 @@ namespace Hover.Common.Items {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
-			if  ( vData == null ) {
-				vData = BuildData(vType);
+			if  ( _Data == null ) {
+				_Data = BuildData(_Type);
 			}
 			else {
-				vData = Instantiate(vData); //handle duplication via Unity editor
+				_Data = Instantiate(_Data); //handle duplication via Unity editor
 			}
 
-			vData.name = vData.GetType()+":"+GetInstanceID();
+			_Data.name = _Data.GetType()+":"+GetInstanceID();
 			
 			////
 
@@ -71,17 +71,17 @@ namespace Hover.Common.Items {
 		/*--------------------------------------------------------------------------------------------*/
 		public HoverItemType ItemType {
 			get {
-				return vType;
+				return _Type;
 			}
 			set {
-				if ( vType == value ) {
+				if ( _Type == value ) {
 					return;
 				}
 
-				vType = value;
+				_Type = value;
 
-				BaseItem dataToFill = BuildData(vType);
-				vData = TransferData(dataToFill);
+				BaseItem dataToFill = BuildData(_Type);
+				_Data = TransferData(dataToFill);
 
 				if ( OnTypeChanged != null ) {
 					OnTypeChanged.Invoke(this);
@@ -91,14 +91,14 @@ namespace Hover.Common.Items {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public BaseItem Data {
-			get { return vData; }
+			get { return _Data; }
 		}
 		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private BaseItem TransferData(BaseItem pDataToFill) {
-			BaseItem oldData = vData;
+			BaseItem oldData = _Data;
 			BaseItem newData = pDataToFill;
 
 			if ( oldData == null ) {
