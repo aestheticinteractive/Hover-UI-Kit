@@ -17,15 +17,6 @@ namespace Hover.Common.Renderers {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Awake() {
-			HoverItemHighlightState highState = GetComponent<HoverItemHighlightState>();
-			
-			if ( highState.ProximityProvider == null ) {
-				highState.ProximityProvider = this;
-			}
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
 		public virtual void Update() {
 			if ( ShowProximityDebugLines && Application.isPlaying ) {
 				DrawProximityDebugLines();
