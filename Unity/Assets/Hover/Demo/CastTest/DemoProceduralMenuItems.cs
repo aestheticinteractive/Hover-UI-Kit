@@ -1,12 +1,11 @@
 ﻿using System;
-using Hover.Cast.Items;
 using Hover.Common.Items;
 using Hover.Common.Items.Types;
 using UnityEngine;
 
 namespace Hover.Demo.CastTest {
 
-	/*================================================================================================*/
+	/*================================================================================================* /
 	public class DemoProceduralMenuItems : MonoBehaviour {
 
 		// Any code that creates items for Hovercast/Hoverboard must be scheduled earlier than
@@ -19,7 +18,7 @@ namespace Hover.Demo.CastTest {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		public void Awake() {
 			vHoverHierarchy = gameObject.AddComponent<HovercastItemHierarchy>();
 			vHoverHierarchy.Title = "Hovercast VR";
@@ -41,7 +40,7 @@ namespace Hover.Demo.CastTest {
 			}
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		public void Update() {
 			IBaseItem item = vHoverItems[3].GetItem();
 			item.Label = "T = "+(DateTime.UtcNow.Ticks/TimeSpan.TicksPerSecond%1000);
@@ -49,11 +48,11 @@ namespace Hover.Demo.CastTest {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		private void HandleRadioItemSelected(ISelectableItem pItem) {
 			Debug.Log("Radio Item Selected! "+pItem.Label);
 		}
 
-	}
+	}*/
 
 }

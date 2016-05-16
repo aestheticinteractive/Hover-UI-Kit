@@ -1,10 +1,9 @@
-﻿using Hover.Cast.Items;
-using Hover.Common.Items;
+﻿using Hover.Common.Items;
 using Hover.Common.Items.Types;
 
 namespace Hover.Demo.CastCubes.Items {
 
-	/*================================================================================================*/
+	/*================================================================================================* /
 	public class DemoColorModeListener : DemoBaseListener<IRadioItem> {
 
 		public HovercastItem HueSlider;
@@ -12,20 +11,20 @@ namespace Hover.Demo.CastCubes.Items {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		protected override void Setup() {
 			base.Setup();
 			Item.OnValueChanged += HandleValueChanged;
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		protected override void BroadcastInitialValue() {
 			HandleValueChanged(Item);
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		private void HandleValueChanged(ISelectableItem<bool> pItem) {
 			if ( !pItem.Value ) {
 				return;
@@ -36,6 +35,6 @@ namespace Hover.Demo.CastCubes.Items {
 			Enviro.SetColorMode(Mode, hue.RangeValue);
 		}
 
-	}
+	}*/
 
 }

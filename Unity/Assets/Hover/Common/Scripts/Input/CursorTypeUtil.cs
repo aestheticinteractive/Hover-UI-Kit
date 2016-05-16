@@ -5,7 +5,7 @@ using Hover.Common.Util;
 
 namespace Hover.Common.Input {
 
-	/*================================================================================================*/
+	/*================================================================================================* /
 	public static class CursorTypeUtil {
 
 		public static readonly CursorType[] AllCursorTypes = Enum.GetValues(typeof(CursorType))
@@ -17,7 +17,7 @@ namespace Hover.Common.Input {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		public static bool IsLeft(CursorType pCursorType) {
 			switch ( pCursorType ) {
 				case CursorType.LeftPalm:
@@ -40,7 +40,7 @@ namespace Hover.Common.Input {
 			throw new Exception("Unhandled CursorType: "+pCursorType);
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		public static bool IsPalm(CursorType pCursorType) {
 			switch ( pCursorType ) {
 				case CursorType.LeftPalm:
@@ -53,7 +53,7 @@ namespace Hover.Common.Input {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		public static void Exclude(IList<CursorType> pBaseTypes, IList<CursorType> pRemoveTypes,
 																	IList<CursorType> pResultTypes) {
 			pResultTypes.Clear();
@@ -76,7 +76,7 @@ namespace Hover.Common.Input {
 			}
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		public static bool Contains(IList<CursorType> pList, CursorType pType) {
 			for ( int i = 0 ; i < pList.Count ; i++ ) {
 				if ( pList[i] == pType ) {
@@ -87,6 +87,6 @@ namespace Hover.Common.Input {
 			return false;
 		}
 
-	}
+	}*/
 
 }

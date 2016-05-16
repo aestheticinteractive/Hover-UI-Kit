@@ -1,12 +1,11 @@
-﻿using Hover.Cast.Custom.Standard;
-using Hover.Common.Custom;
+﻿using Hover.Common.Custom;
 using Hover.Common.Items;
 using Hover.Common.Items.Types;
 using UnityEngine;
 
 namespace Hover.Demo.CastCubes.Items {
 
-	/*================================================================================================*/
+	/*================================================================================================* /
 	public class DemoCustomThemeListener : DemoBaseListener<IRadioItem> {
 
 		public enum ThemeType {
@@ -19,20 +18,20 @@ namespace Hover.Demo.CastCubes.Items {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		protected override void Setup() {
 			base.Setup();
 			Item.OnValueChanged += HandleValueChanged;
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		protected override void BroadcastInitialValue() {
 			HandleValueChanged(Item);
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		private void HandleValueChanged(ISelectableItem<bool> pItem) {
 			if ( !pItem.Value ) {
 				return;
@@ -53,7 +52,7 @@ namespace Hover.Demo.CastCubes.Items {
 			}
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		private static void SetDark(IItemVisualSettings pSettings) {
 			ItemVisualSettingsStandard sett = (ItemVisualSettingsStandard)pSettings;
 			sett.TextColor = new Color(1, 1, 1);
@@ -69,7 +68,7 @@ namespace Hover.Demo.CastCubes.Items {
 			DemoCustomBgListener.UpdateSettingsWithBgAlpha(sett);
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		private static void SetLight(IItemVisualSettings pSettings) {
 			ItemVisualSettingsStandard sett = (ItemVisualSettingsStandard)pSettings;
 			sett.TextColor = new Color(0, 0, 0);
@@ -85,7 +84,7 @@ namespace Hover.Demo.CastCubes.Items {
 			DemoCustomBgListener.UpdateSettingsWithBgAlpha(sett);
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		private static void SetColor(IItemVisualSettings pSettings) {
 			ItemVisualSettingsStandard sett = (ItemVisualSettingsStandard)pSettings;
 			sett.TextColor = new Color(1, 1, 0.7f);
@@ -101,6 +100,6 @@ namespace Hover.Demo.CastCubes.Items {
 			DemoCustomBgListener.UpdateSettingsWithBgAlpha(sett);
 		}
 
-	}
+	}*/
 
 }

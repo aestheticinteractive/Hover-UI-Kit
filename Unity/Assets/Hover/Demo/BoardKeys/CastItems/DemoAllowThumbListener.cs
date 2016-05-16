@@ -1,11 +1,10 @@
-﻿using Hover.Board.Custom;
-using Hover.Common.Input;
+﻿using Hover.Common.Input;
 using Hover.Common.Items;
 using Hover.Common.Items.Types;
 
 namespace Hover.Demo.BoardKeys.CastItems {
 
-	/*================================================================================================*/
+	/*================================================================================================* /
 	public class DemoAllowThumbListener : DemoBaseListener<ICheckboxItem> {
 
 		private InteractionSettings vInteractSett;
@@ -14,7 +13,7 @@ namespace Hover.Demo.BoardKeys.CastItems {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		protected override void Setup() {
 			base.Setup();
 			vInteractSett = HoverboardSetup.InteractionSettings.GetSettings();
@@ -34,14 +33,14 @@ namespace Hover.Demo.BoardKeys.CastItems {
 			Item.OnValueChanged += HandleValueChanged;
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		protected override void BroadcastInitialValue() {
 			HandleValueChanged(Item);
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		private void HandleValueChanged(ISelectableItem<bool> pItem) {
 			CursorType[] cursorTypes = (pItem.Value ? vThumbCursors : vNoThumbCursors);
 
@@ -51,6 +50,7 @@ namespace Hover.Demo.BoardKeys.CastItems {
 				vInteractSett.Cursors.Add(cursorType);
 			}
 		}
-	}
+
+	}*/
 
 }

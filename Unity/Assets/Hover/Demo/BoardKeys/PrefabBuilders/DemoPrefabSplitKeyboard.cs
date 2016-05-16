@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
-using Hover.Board.Display;
-using Hover.Board.Items;
 using UnityEngine;
 
 namespace Hover.Demo.BoardKeys.PrefabBuilders {
 
-	/*================================================================================================*/
+	/*================================================================================================* /
 	public class DemoPrefabSplitKeyboard : MonoBehaviour {
 
 		private List<HoverboardPanel> vPanels;
@@ -15,7 +13,7 @@ namespace Hover.Demo.BoardKeys.PrefabBuilders {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		public void Awake() {
 			vPanels = new List<HoverboardPanel>();
 			vLayouts = new List<HoverboardLayout>();
@@ -35,7 +33,7 @@ namespace Hover.Demo.BoardKeys.PrefabBuilders {
 				Quaternion.AngleAxis(-40, Vector3.back);
 		}
 		
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		public void Update() {
 			if ( vAreRenderersRemoved ) {
 				return;
@@ -63,7 +61,7 @@ namespace Hover.Demo.BoardKeys.PrefabBuilders {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		private HoverboardPanel BuildLeftPanel(GameObject pParent) {
 			var panelObj = new GameObject("LeftPanel");
 			panelObj.transform.SetParent(pParent.transform, false);
@@ -126,7 +124,7 @@ namespace Hover.Demo.BoardKeys.PrefabBuilders {
 			return panel;
 		}
 		
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		private HoverboardPanel BuildRightPanel(GameObject pParent) {
 			var panelObj = new GameObject("RightPanel");
 			panelObj.transform.SetParent(pParent.transform, false);
@@ -188,7 +186,7 @@ namespace Hover.Demo.BoardKeys.PrefabBuilders {
 			return panel;
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		private HoverboardItem BuildItem(HoverboardLayout pLayout, string pLabel, int pWidth) {
 			var itemObj = new GameObject(pLabel);
 			itemObj.transform.SetParent(pLayout.gameObject.transform, false);
@@ -202,6 +200,6 @@ namespace Hover.Demo.BoardKeys.PrefabBuilders {
 			return item;
 		}
 
-	}
+	}*/
 
 }

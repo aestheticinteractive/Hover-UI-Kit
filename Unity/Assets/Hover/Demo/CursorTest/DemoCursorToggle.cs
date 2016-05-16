@@ -4,13 +4,11 @@ using System.Collections.ObjectModel;
 using Hover.Common.Input;
 using Hover.Common.State;
 using Hover.Common.Util;
-using Hover.Cursor;
-using Hover.Cursor.State;
 using UnityEngine;
 
 namespace Hover.Demo.CursorTest {
 
-	/*================================================================================================*/
+	/*================================================================================================* /
 	public class DemoCursorToggle : MonoBehaviour, IHovercursorDelegate {
 
 		private struct Bundle {
@@ -45,7 +43,7 @@ namespace Hover.Demo.CursorTest {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		public void Awake() {
 			vSetup = gameObject.GetComponent<HovercursorSetup>();
 			vFakeItem = new FakeItemState();
@@ -59,7 +57,7 @@ namespace Hover.Demo.CursorTest {
 			vFakePlanes = new ReadOnlyCollection<PlaneData>(new List<PlaneData>());
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		public void Start() {
 			vBundles = new[] {
 				GetBundle(CursorType.LeftPalm, () => ShowLeftPalm),
@@ -79,7 +77,7 @@ namespace Hover.Demo.CursorTest {
 			vSetup.State.AddDelegate(this);
 		}
 		
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		public void Update() {
 			vActiveCursorTypes.Clear();
 
@@ -94,7 +92,7 @@ namespace Hover.Demo.CursorTest {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		private Bundle GetBundle(CursorType pType, Func<bool> pShowFunc) {
 			var bundle = new Bundle();
 			bundle.State = vSetup.State.GetCursorState(pType);
@@ -105,37 +103,37 @@ namespace Hover.Demo.CursorTest {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		// IHovercursorDelegate
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		public CursorDomain Domain {
 			get {
 				return CursorDomain.Hovercursor;
 			}
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		public bool IsCursorInteractionEnabled {
 			get {
 				return IsInteractionEnabled;
 			}
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		public ReadOnlyCollection<CursorType> ActiveCursorTypes { get; private set; }
 
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		public float CursorDisplayStrength {
 			get {
 				return DisplayStrength;
 			}
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		public ReadOnlyCollection<IBaseItemInteractionState> GetActiveCursorInteractions(
 																			CursorType pCursorType) {
 			return vFakeInteractions;
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		public ReadOnlyCollection<PlaneData> GetActiveCursorPlanes(CursorType pCursorType) {
 			return vFakePlanes;
 		}
@@ -143,7 +141,7 @@ namespace Hover.Demo.CursorTest {
 	}
 
 
-	/*================================================================================================*/
+	/*================================================================================================* /
 	public class FakeItemState : IBaseItemInteractionState {
 
 		public int ItemAutoId { get; set; }
@@ -151,7 +149,7 @@ namespace Hover.Demo.CursorTest {
 		public float MaxHighlightProgress { get; set; }
 		public float SelectionProgress { get; set; }
 
-	}
+	}*/
 
 }
 

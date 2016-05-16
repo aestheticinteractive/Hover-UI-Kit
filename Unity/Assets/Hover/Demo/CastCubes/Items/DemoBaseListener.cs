@@ -1,12 +1,9 @@
-﻿using Hover.Cast;
-using Hover.Cast.Custom;
-using Hover.Cast.Items;
-using Hover.Common.Items;
+﻿using Hover.Common.Items;
 using UnityEngine;
 
 namespace Hover.Demo.CastCubes.Items {
 
-	/*================================================================================================*/
+	/*================================================================================================* /
 	public abstract class DemoBaseListener<T> : HovercastItemListener<T> where T : ISelectableItem {
 
 		protected DemoEnvironment Enviro { get; private set; }
@@ -16,7 +13,7 @@ namespace Hover.Demo.CastCubes.Items {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		protected override void Setup() {
 			const string env = "DemoEnvironment";
 
@@ -26,6 +23,6 @@ namespace Hover.Demo.CastCubes.Items {
 			InteractSett = CastSetup.InteractionSettings.GetSettings();
 		}
 
-	}
+	}*/
 
 }

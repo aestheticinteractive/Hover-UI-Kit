@@ -1,12 +1,11 @@
 ﻿using System.Linq;
 using Hover.Board;
-using Hover.Board.Items;
 using Hover.Common.Items;
 using UnityEngine;
 
 namespace Hover.Demo.BoardKeys {
 
-	/*================================================================================================*/
+	/*================================================================================================* /
 	public class DemoKeyboardListener : MonoBehaviour {
 
 		private DemoEnvironment vEnviro;
@@ -14,13 +13,13 @@ namespace Hover.Demo.BoardKeys {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		public void Awake() {
 			vEnviro = GameObject.Find("DemoEnvironment").GetComponent<DemoEnvironment>();
 			vTextField = GameObject.Find("DemoTextField").GetComponent<DemoTextField>();
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		public void Start() {
 			ItemPanel[] itemPanels = GameObject.Find("Hoverboard")
 				.GetComponentInChildren<HoverboardSetup>()
@@ -45,7 +44,7 @@ namespace Hover.Demo.BoardKeys {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		private void HandleItemSelected(ISelectableItem pItem) {
 			if ( pItem.Label == "^" ) {
 				return;
@@ -67,6 +66,6 @@ namespace Hover.Demo.BoardKeys {
 			}
 		}
 
-	}
+	}*/
 
 }

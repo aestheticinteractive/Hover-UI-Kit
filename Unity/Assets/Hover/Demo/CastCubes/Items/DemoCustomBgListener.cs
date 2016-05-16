@@ -1,26 +1,25 @@
 ﻿using System;
-using Hover.Cast.Custom.Standard;
 using Hover.Common.Items;
 using Hover.Common.Items.Types;
 using UnityEngine;
 
 namespace Hover.Demo.CastCubes.Items {
 
-	/*================================================================================================*/
+	/*================================================================================================* /
 	public class DemoCustomBgListener : DemoBaseListener<ISliderItem> {
 
 		private static float BgAlpha;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		protected override void Setup() {
 			base.Setup();
 			Item.GetFormattedLabel = (s => Component.Label+": "+Math.Round(s.RangeValue*100)+"%");
 			Item.OnValueChanged += HandleValueChanged;
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		protected override void BroadcastInitialValue() {
 			BgAlpha = Item.RangeValue;
 			HandleValueChanged(Item);
@@ -28,7 +27,7 @@ namespace Hover.Demo.CastCubes.Items {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		private void HandleValueChanged(ISelectableItem<float> pItem) {
 			BgAlpha = Item.RangeValue;
 
@@ -37,7 +36,7 @@ namespace Hover.Demo.CastCubes.Items {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		internal static void UpdateSettingsWithBgAlpha(ItemVisualSettingsStandard pSettings) {
 			Color c = pSettings.BackgroundColor;
 			c.a = BgAlpha;
@@ -48,6 +47,6 @@ namespace Hover.Demo.CastCubes.Items {
 			pSettings.SliderFillColor = c;
 		}
 
-	}
+	}*/
 
 }

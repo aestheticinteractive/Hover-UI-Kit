@@ -7,7 +7,7 @@ namespace Hover.Common {
 	[AttributeUsage(AttributeTargets.Field)]
 	public class DisableWhenControlledAttribute : PropertyAttribute {
 
-		public string ControllerMapName { get; }
+		public string ControllerMapName { get; private set; }
 		public bool DisplayMessage { get; set; }
 
 

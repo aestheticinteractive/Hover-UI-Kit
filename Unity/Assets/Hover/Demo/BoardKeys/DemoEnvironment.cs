@@ -7,7 +7,7 @@ using UnityEngine.VR;
 
 namespace Hover.Demo.BoardKeys {
 
-	/*================================================================================================*/
+	/*================================================================================================* /
 	public class DemoEnvironment : MonoBehaviour {
 
 		public int RandomSeed = 0;
@@ -24,7 +24,7 @@ namespace Hover.Demo.BoardKeys {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		public DemoEnvironment() {
 			vLetters = new List<DemoLetter>();
 			vLetterCache = new List<DemoLetter>();
@@ -32,7 +32,7 @@ namespace Hover.Demo.BoardKeys {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		public void Awake() {
 			RandomUtil.Init(RandomSeed);
 
@@ -66,7 +66,7 @@ namespace Hover.Demo.BoardKeys {
 				Quaternion.FromToRotation(Vector3.up, new Vector3(0, 1, -1.5f).normalized);
 			boxesObj.transform.localScale = Vector3.one*0.2f;
 
-			vBoxes = boxesObj.AddComponent<DemoBoxes>();*/
+			vBoxes = boxesObj.AddComponent<DemoBoxes>();* /
 
 			for ( int i = 0 ; i < 6 ; ++i ) {
 				var lettHoldObj = new GameObject("LetterHold"+i);
@@ -105,7 +105,7 @@ namespace Hover.Demo.BoardKeys {
 			}
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		public void Update() {
 			if ( Input.GetKey(KeyCode.Escape) ) {
 				Application.Quit();
@@ -115,7 +115,7 @@ namespace Hover.Demo.BoardKeys {
 			InputForTests.UpdateOculus();
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		public void FixedUpdate() {
 			bool removeFirst = false;
 
@@ -136,7 +136,7 @@ namespace Hover.Demo.BoardKeys {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		public void AddLetter(char pLetter) {
 			int w;
 			int h;
@@ -163,7 +163,7 @@ namespace Hover.Demo.BoardKeys {
 			vLetters.Add(lett);
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		public void RemoveLatestLetter() {
 			if ( vLetters.Count == 0 ) {
 				return;
@@ -178,7 +178,7 @@ namespace Hover.Demo.BoardKeys {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		private void RemoveFirstLetter() {
 			DemoLetter lett = vLetters.First();
 			lett.gameObject.SetActive(false);
@@ -187,6 +187,6 @@ namespace Hover.Demo.BoardKeys {
 			vLetterCache.Add(lett);
 		}
 
-	}
+	}*/
 
 }

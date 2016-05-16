@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Hover.Demo.BoardKeys.CastItems {
 
-	/*================================================================================================*/
+	/*================================================================================================* /
 	public class DemoSplitModeListener : DemoBaseListener<ICheckboxItem> {
 
 		private GameObject vKeyboardObj;
@@ -14,7 +14,7 @@ namespace Hover.Demo.BoardKeys.CastItems {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		protected override void Setup() {
 			base.Setup();
 
@@ -31,14 +31,14 @@ namespace Hover.Demo.BoardKeys.CastItems {
 			Item.OnValueChanged += HandleValueChanged;
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		protected override void BroadcastInitialValue() {
 			HandleValueChanged(Item);
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		private void HandleValueChanged(ISelectableItem<bool> pItem) {
 			if ( !pItem.Value ) {
 				for ( int i = 0 ; i < ItemPanels.Length ; ++i ) {
@@ -62,11 +62,11 @@ namespace Hover.Demo.BoardKeys.CastItems {
 			vKeyboardObj.transform.localRotation = Quaternion.identity;
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		private Transform GetTransform(object pDisplayContainer) {
 			return ((GameObject)pDisplayContainer).transform;
 		}
 
-	}
+	}*/
 
 }
