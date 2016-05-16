@@ -6,13 +6,6 @@ namespace Hover.Common.Utils {
 	/*================================================================================================*/
 	public static class DisplayUtil {
 		
-		public struct TrackSegment {
-			public float StartValue;
-			public float EndValue;
-			public bool IsFill;
-			public bool? IsZeroAtStart;
-		}
-
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/

@@ -1,5 +1,4 @@
 using System;
-using Hover.Common.Input;
 using UnityEngine;
 
 namespace Hover.Common.Items.Managers {
@@ -11,23 +10,16 @@ namespace Hover.Common.Items.Managers {
 
 		public bool IsSelectionPrevented { get; private set; }
 		
-		private readonly BaseInteractionSettings vSettings;
-		
 		private DateTime? vSelectionStart;
 		private float vDistanceUponSelection;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public HoverItemSelectionState() {
-			vSettings = new BaseInteractionSettings(); //TODO: access from somewhere
-		}
-		
-		
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
 		public float SelectionProgress {
 			get {
+				HoverItemHighlightState highState = GetComponent<HoverItemHighlightState>();
+
 				if ( vSelectionStart == null ) {
 					BaseItem itemData = GetComponent<HoverItemData>().Data;
 					ISelectableItem selData = (itemData as ISelectableItem);
@@ -36,17 +28,16 @@ namespace Hover.Common.Items.Managers {
 						return 0;
 					}
 					
-					HoverItemHighlightState.Highlight? nearestHigh = 
-						GetComponent<HoverItemHighlightState>().NearestHighlight;
+					HoverItemHighlightState.Highlight? nearestHigh = highState.NearestHighlight;
 					float minHighDist = (nearestHigh == null ? 
 						float.MaxValue : nearestHigh.Value.Distance);
 
-					return Mathf.InverseLerp(vSettings.StickyReleaseDistance/vSettings.ScaleMultiplier,
+					return Mathf.InverseLerp(highState.InteractionSettings.StickyReleaseDistance,
 						vDistanceUponSelection, minHighDist);
 				}
 				
 				float ms = (float)(DateTime.UtcNow-(DateTime)vSelectionStart).TotalMilliseconds;
-				return Math.Min(1, ms/vSettings.SelectionMilliseconds);
+				return Math.Min(1, ms/highState.InteractionSettings.SelectionMilliseconds);
 			}
 		}
 

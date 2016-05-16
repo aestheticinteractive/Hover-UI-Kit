@@ -26,8 +26,8 @@ namespace Hover.Common.Items.Managers {
 		
 		public HovercursorDataProvider CursorDataProvider;
 		public HoverRendererController ProximityProvider;
+		public HoverInteractionSettings InteractionSettings;
 
-		private readonly BaseInteractionSettings vSettings;
 		private readonly HashSet<string> vPreventHighlightMap;
 
 
@@ -35,7 +35,6 @@ namespace Hover.Common.Items.Managers {
 		/*--------------------------------------------------------------------------------------------*/
 		public HoverItemHighlightState() {
 			Highlights = new List<Highlight>();
-			vSettings = new BaseInteractionSettings(); //TODO: access from somewhere
 			vPreventHighlightMap = new HashSet<string>();
 		}
 
@@ -50,6 +49,23 @@ namespace Hover.Common.Items.Managers {
 			if ( ProximityProvider == null ) {
 				ProximityProvider = GetComponent<HoverRendererController>();
 			}
+
+			if ( InteractionSettings == null ) {
+				InteractionSettings = (GetComponent<HoverInteractionSettings>() ?? 
+					FindObjectOfType<HoverInteractionSettings>());
+			}
+
+			if ( CursorDataProvider == null ) {
+				Debug.LogWarning("Could not find 'CursorDataProvider'.");
+			}
+
+			if ( ProximityProvider == null ) {
+				Debug.LogWarning("Could not find 'ProximityProvider'.");
+			}
+
+			if ( InteractionSettings == null ) {
+				Debug.LogWarning("Could not find 'InteractionSettings'.");
+			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -59,9 +75,12 @@ namespace Hover.Common.Items.Managers {
 			
 			UpdateIsHighlightPrevented();
 
-			if ( !IsHighlightPrevented && ProximityProvider != null ) {
-				AddLatestHighlightsAndFindNearest();
+			if ( IsHighlightPrevented || ProximityProvider == null || 
+					CursorDataProvider == null || InteractionSettings == null ) {
+				return;
 			}
+
+			AddLatestHighlightsAndFindNearest();
 		}
 
 
@@ -201,8 +220,8 @@ namespace Hover.Common.Items.Managers {
 			
 			high.NearestWorldPos = ProximityProvider.GetNearestWorldPosition(cursorWorldPos);
 			high.Distance = (cursorWorldPos-high.NearestWorldPos).magnitude;
-			high.Progress = Mathf.InverseLerp(vSettings.HighlightDistanceMax,
-				vSettings.HighlightDistanceMin, high.Distance*vSettings.ScaleMultiplier);
+			high.Progress = Mathf.InverseLerp(InteractionSettings.HighlightDistanceMax,
+				InteractionSettings.HighlightDistanceMin, high.Distance);
 			
 			return high;
 		}
