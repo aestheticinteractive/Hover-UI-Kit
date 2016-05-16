@@ -21,13 +21,14 @@ namespace Hover.Common.Items.Types {
 				vDefaultGroupId = "Group-Root";
 				return;
 			}
-			
-			HoverItemData parentData = pParentTx.GetComponent<HoverItemData>();
+
+			//TODO: 
+			/*HoverItemData parentData = pParentTx.GetComponent<HoverItemData>();
 
 			if ( parentData != null ) {
 				vDefaultGroupId = "Group-"+parentData.Data.AutoId;
 				return;
-			}
+			}*/
 
 			vDefaultGroupId = "Group-Instance"+pParentTx.GetInstanceID();
 		}
