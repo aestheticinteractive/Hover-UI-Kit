@@ -1,10 +1,9 @@
 ﻿using System;
-using Hover.Common;
-using Hover.Common.Renderers;
-using Hover.Common.Util;
+using Hover.Common.Renderers.Helpers;
+using Hover.Common.Utils;
 using UnityEngine;
 
-namespace Hover.Board.Renderers.Contents {
+namespace Hover.Common.Renderers.Contents {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]

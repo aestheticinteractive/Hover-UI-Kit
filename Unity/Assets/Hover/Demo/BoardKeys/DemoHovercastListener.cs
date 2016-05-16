@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using Hover.Board;
 using UnityEngine;
 
 namespace Hover.Demo.BoardKeys {

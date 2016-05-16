@@ -1,5 +1,6 @@
 using Hover.Common.Items;
-using Hover.Common.State;
+using Hover.Common.Items.Managers;
+using Hover.Common.Renderers.Helpers;
 using UnityEngine;
 
 namespace Hover.Common.Renderers {

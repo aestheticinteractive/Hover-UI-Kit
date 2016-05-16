@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Hover.Common.Display;
 using Hover.Demo.Common;
 using UnityEngine;
 using UnityEngine.VR;

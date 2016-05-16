@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Hover.Common.Items.Types;
 using UnityEngine;
 
-namespace Hover.Board.Renderers.Helpers {
+namespace Hover.Common.Renderers.Helpers {
 
 	/*================================================================================================*/
 	public static class SliderUtil {

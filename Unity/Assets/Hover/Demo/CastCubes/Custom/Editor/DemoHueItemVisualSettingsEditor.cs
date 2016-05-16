@@ -1,6 +1,4 @@
-using UnityEditor;
-
-namespace Assets.Hover.Demo.CastCubes.Custom.Editor {
+namespace Hover.Demo.CastCubes.Custom.Editor {
 
 	/*================================================================================================* /
 	[CustomEditor(typeof(DemoHueItemVisualSettings))]

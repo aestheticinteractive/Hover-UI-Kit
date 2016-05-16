@@ -1,9 +1,7 @@
-﻿using Hover.Common;
-using Hover.Common.Display;
-using Hover.Common.Util;
+﻿using Hover.Common.Utils;
 using UnityEngine;
 
-namespace Hover.Board.Renderers.Meshes {
+namespace Hover.Common.Renderers.Meshes {
 
 	/*================================================================================================*/
 	public class HoverRendererMeshSliderRectangle : HoverRendererMesh {

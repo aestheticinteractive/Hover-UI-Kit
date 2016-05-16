@@ -1,13 +1,11 @@
 using System.Collections.Generic;
-using Hover.Board.Renderers.Fills;
-using Hover.Board.Renderers.Helpers;
-using Hover.Common;
 using Hover.Common.Items.Types;
-using Hover.Common.Renderers;
-using Hover.Common.Util;
+using Hover.Common.Renderers.Fills;
+using Hover.Common.Renderers.Helpers;
+using Hover.Common.Utils;
 using UnityEngine;
 
-namespace Hover.Board.Renderers {
+namespace Hover.Common.Renderers {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]

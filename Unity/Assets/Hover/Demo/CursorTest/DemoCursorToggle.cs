@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Hover.Common.Input;
-using Hover.Common.State;
-using Hover.Common.Util;
 using UnityEngine;
 
 namespace Hover.Demo.CursorTest {
