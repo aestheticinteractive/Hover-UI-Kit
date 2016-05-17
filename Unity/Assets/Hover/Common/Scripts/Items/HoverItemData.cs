@@ -105,14 +105,11 @@ namespace Hover.Common.Items {
 				return newData;
 			}
 
-			//TODO: newData.AutoId = oldData.AutoId;
-			newData.DisplayContainer = oldData.DisplayContainer;
+			newData.AutoId = oldData.AutoId;
 			newData.IsAncestryEnabled = oldData.IsAncestryEnabled;
 			newData.IsAncestryVisible = oldData.IsAncestryVisible;
 			newData.Id = oldData.Id;
 			newData.Label = oldData.Label;
-			newData.Width = oldData.Width;
-			newData.Height = oldData.Height;
 			newData.IsEnabled = oldData.IsEnabled;
 			newData.IsVisible = oldData.IsVisible;
 

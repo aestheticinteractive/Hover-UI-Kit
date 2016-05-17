@@ -79,7 +79,7 @@ namespace Hover.Common.Editor.Items {
 			baseData.Id = EditorGUILayout.TextField("ID", baseData.Id);
 			baseData.Label = EditorGUILayout.TextField("Label", baseData.Label);
 			baseData.IsEnabled = EditorGUILayout.Toggle("Is Enabled", baseData.IsEnabled);
-			baseData.IsVisible = vTarget.gameObject.activeSelf;
+			baseData.IsVisible = vTarget.gameObject.activeInHierarchy;
 			
 			////
 
