@@ -11,6 +11,9 @@ namespace Hover.Common.Utils {
 		void Set(string pValueName, ISettingsController pController);
 
 		/*--------------------------------------------------------------------------------------------*/
+		bool Unset(string pValueName, ISettingsController pController);
+
+		/*--------------------------------------------------------------------------------------------*/
 		ISettingsController Get(string pValueName);
 
 		/*--------------------------------------------------------------------------------------------*/

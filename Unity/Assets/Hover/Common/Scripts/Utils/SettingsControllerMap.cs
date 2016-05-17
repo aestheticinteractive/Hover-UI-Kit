@@ -27,7 +27,17 @@ namespace Hover.Common.Utils {
 				vMap.Add(pValueName, pController);
 				vKeys.Add(pValueName);
 			}
+		}
 
+		/*--------------------------------------------------------------------------------------------*/
+		public bool Unset(string pValueName, ISettingsController pController) {
+			if ( vMap.ContainsKey(pValueName) && vMap[pValueName] == pController ) {
+				vMap.Remove(pValueName);
+				vKeys.Remove(pValueName);
+				return true;
+			}
+
+			return false;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

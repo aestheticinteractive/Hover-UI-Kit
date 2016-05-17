@@ -2,6 +2,7 @@
 using Hover.Common.Items;
 using Hover.Common.Items.Managers;
 using Hover.Common.Items.Types;
+using Hover.Common.Layouts;
 using Hover.Common.Renderers.Contents;
 using Hover.Common.Renderers.Fills;
 using Hover.Common.Renderers.Helpers;
@@ -14,22 +15,33 @@ namespace Hover.Common.Renderers {
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(HoverItemData))]
 	[RequireComponent(typeof(HoverItemHighlightState))]
-	public class HoverRendererRectangleController : HoverRendererController, ISettingsController {
+	public class HoverRendererRectangleController : HoverRendererController, IRectangleLayoutElement {
 	
+		public const string ButtonRendererName = "ButtonRenderer";
+		public const string SliderRendererName = "SliderRenderer";
+		public const string SizeXName = "SizeX";
+		public const string SizeYName = "SizeY";
+
 		public bool IsButtonRendererType { get; private set; }
 
+		[DisableWhenControlled(DisplayMessage=true)]
 		public HoverRendererRectangleButton ButtonRenderer;
+
+		[DisableWhenControlled]
 		public HoverRendererRectangleSlider SliderRenderer;
 		
 		[Range(0, 100)]
+		[DisableWhenControlled]
 		public float SizeX = 10;
 		
 		[Range(0, 100)]
+		[DisableWhenControlled]
 		public float SizeY = 10;
 
 		[Range(0.05f, 0.9f)]
+		[DisableWhenControlled]
 		public float DisabledAlpha = 0.35f;
-		
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -74,16 +86,37 @@ namespace Hover.Common.Renderers {
 			throw new Exception("No button or slider renderer.");
 		}
 		
+		/*--------------------------------------------------------------------------------------------*/
+		public void SetLayoutSize(float pSizeX, float pSizeY, ISettingsController pController) {
+			Controllers.Set(SizeXName, pController);
+			Controllers.Set(SizeYName, pController);
+
+			SizeX = pSizeX;
+			SizeY = pSizeY;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void UnsetLayoutSize(ISettingsController pController) {
+			Controllers.Unset(SizeXName, pController);
+			Controllers.Unset(SizeYName, pController);
+		}
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void TryRebuildWithItemType(HoverItemData.HoverItemType pType) {
 			if ( pType == HoverItemData.HoverItemType.Slider ) {
+				Controllers.Set(ButtonRendererName, this);
+				Controllers.Unset(SliderRendererName, this);
+
 				ButtonRenderer = RendererHelper.DestroyRenderer(ButtonRenderer);
 				SliderRenderer = UseOrFindOrBuildSlider();
 				IsButtonRendererType = false;
 			}
 			else {
+				Controllers.Set(SliderRendererName, this);
+				Controllers.Unset(ButtonRendererName, this);
+
 				SliderRenderer = RendererHelper.DestroyRenderer(SliderRenderer);
 				ButtonRenderer = UseOrFindOrBuildButton();
 				IsButtonRendererType = true;

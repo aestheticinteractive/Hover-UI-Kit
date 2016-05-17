@@ -1,6 +1,7 @@
 using Hover.Common.Items;
 using Hover.Common.Items.Managers;
 using Hover.Common.Renderers.Helpers;
+using Hover.Common.Utils;
 using UnityEngine;
 
 namespace Hover.Common.Renderers {
@@ -10,9 +11,19 @@ namespace Hover.Common.Renderers {
 	[RequireComponent(typeof(HoverItemData))]
 	[RequireComponent(typeof(HoverItemHighlightState))]
 	[RequireComponent(typeof(HoverItemSelectionState))]
-	public abstract class HoverRendererController : MonoBehaviour, IProximityProvider {
+	public abstract class HoverRendererController : MonoBehaviour,
+															ISettingsController, IProximityProvider {
+
+		public ISettingsControllerMap Controllers { get; private set; }
 
 		public bool ShowProximityDebugLines = true;
+		
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		protected HoverRendererController() {
+			Controllers = new SettingsControllerMap();
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
