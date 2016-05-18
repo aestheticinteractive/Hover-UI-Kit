@@ -111,12 +111,12 @@ namespace Hover.Demo.CastCubes {
 
 			////
 
-			GameObject ovrObj = GameObject.Find("LeapOVRPlayerController");
+			/*GameObject ovrObj = GameObject.Find("LeapOVRPlayerController");
 
 			if ( ovrObj != null ) {
 				OVRPlayerController ovrPlayer = ovrObj.GetComponent<OVRPlayerController>();
 				ovrPlayer.SetSkipMouseRotation(true);
-			}
+			}*/
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

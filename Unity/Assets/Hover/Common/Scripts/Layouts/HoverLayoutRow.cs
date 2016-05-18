@@ -25,20 +25,16 @@ namespace Hover.Common.Items {
 		[DisableWhenControlled]
 		public bool UsedFixedSize = true;
 		
-		[Range(0, 100)]
-		[DisableWhenControlled]
+		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
 		public float SizeX = 40;
 		
-		[Range(0, 100)]
-		[DisableWhenControlled]
+		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
 		public float SizeY = 8;
 
-		[Range(0, 10)]
-		[DisableWhenControlled]
+		[DisableWhenControlled(RangeMin=0, RangeMax=10)]
 		public float OuterPadding = 0;
 
-		[Range(0, 10)]
-		[DisableWhenControlled]
+		[DisableWhenControlled(RangeMin=0, RangeMax=10)]
 		public float InnerPadding = 0;
 
 		[DisableWhenControlled]

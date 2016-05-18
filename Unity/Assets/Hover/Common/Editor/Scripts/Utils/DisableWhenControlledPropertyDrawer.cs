@@ -16,7 +16,6 @@ namespace Hover.Common.Editor.Utils {
 			DisableWhenControlledAttribute attrib = (DisableWhenControlledAttribute)attribute;
 			string mapName = attrib.ControllerMapName;
 			ISettingsControllerMap map = EditorUtil.GetControllerMap(pProp.serializedObject, mapName);
-			RangeAttribute range = EditorUtil.GetFieldRangeAttribute(pProp);
 			bool wasEnabled = GUI.enabled;
 			Rect propRect = pPosition;
 			float messageH = 0;
@@ -35,9 +34,9 @@ namespace Hover.Common.Editor.Utils {
 			propRect.height -= messageH;
 
 			GUI.enabled = (map == null || !map.IsControlled(pProp.name));
-
-			if ( range != null ) {
-				EditorGUI.Slider(propRect, pProp, range.min, range.max);
+			
+			if ( attrib.RangeMin != 0 || attrib.RangeMax != 0 ) {
+				EditorGUI.Slider(propRect, pProp, attrib.RangeMin, attrib.RangeMax);
 			}
 			else {
 				EditorGUI.PropertyField(propRect, pProp, pLabel, true);

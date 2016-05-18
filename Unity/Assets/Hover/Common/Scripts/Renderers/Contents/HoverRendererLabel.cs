@@ -15,16 +15,13 @@ namespace Hover.Common.Renderers.Contents {
 
 		public ISettingsControllerMap Controllers { get; private set; }
 		
-		[Range(0.01f, 1)]
-		[DisableWhenControlled(DisplayMessage=true)]
+		[DisableWhenControlled(RangeMin=0.01f, RangeMax=1, DisplayMessage=true)]
 		public float CanvasScale = 0.02f;
 		
-		[Range(0, 100)]
-		[DisableWhenControlled]
+		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
 		public float SizeX = 10;
 
-		[Range(0, 100)]
-		[DisableWhenControlled]
+		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
 		public float SizeY = 10;
 
 		[HideInInspector]

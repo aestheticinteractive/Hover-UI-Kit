@@ -30,16 +30,13 @@ namespace Hover.Common.Renderers {
 		[DisableWhenControlled]
 		public HoverRendererRectangleSlider SliderRenderer;
 		
-		[Range(0, 100)]
-		[DisableWhenControlled]
+		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
 		public float SizeX = 10;
 		
-		[Range(0, 100)]
-		[DisableWhenControlled]
+		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
 		public float SizeY = 10;
 
-		[Range(0.05f, 0.9f)]
-		[DisableWhenControlled]
+		[DisableWhenControlled(RangeMin=0.05f, RangeMax=0.9f)]
 		public float DisabledAlpha = 0.35f;
 
 

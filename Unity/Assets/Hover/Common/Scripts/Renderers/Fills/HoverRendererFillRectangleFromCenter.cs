@@ -28,28 +28,22 @@ namespace Hover.Common.Renderers.Fills {
 		[DisableWhenControlled]
 		public HoverRendererMeshHollowRectangle Edge;
 		
-		[Range(0, 100)]
-		[DisableWhenControlled]
+		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
 		public float SizeX = 10;
 		
-		[Range(0, 100)]
-		[DisableWhenControlled]
+		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
 		public float SizeY = 10;
 		
-		[Range(0, 1)]
-		[DisableWhenControlled]
+		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
 		public float Alpha = 1;
 		
-		[Range(0.001f, 0.5f)]
-		[DisableWhenControlled]
+		[DisableWhenControlled(RangeMin=0.001f, RangeMax=0.5f)]
 		public float EdgeThickness = 0.02f;
 		
-		[Range(0, 1)]
-		[DisableWhenControlled]
+		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
 		public float HighlightProgress = 0.7f;
 		
-		[Range(0, 1)]
-		[DisableWhenControlled]
+		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
 		public float SelectionProgress = 0.2f;
 		
 		[DisableWhenControlled]

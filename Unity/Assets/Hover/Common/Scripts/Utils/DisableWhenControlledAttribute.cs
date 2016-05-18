@@ -9,6 +9,8 @@ namespace Hover.Common.Utils {
 
 		public string ControllerMapName { get; private set; }
 		public bool DisplayMessage { get; set; }
+		public float RangeMin { get; set; }
+		public float RangeMax { get; set; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

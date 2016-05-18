@@ -30,20 +30,16 @@ namespace Hover.Common.Renderers.Contents {
 		[DisableWhenControlled(DisplayMessage=true)]
 		public IconOffset IconType = IconOffset.CheckOuter;
 
-		[Range(0.01f, 1)]
-		[DisableWhenControlled]
+		[DisableWhenControlled(RangeMin=0.01f, RangeMax=1)]
 		public float CanvasScale = 0.02f;
 		
-		[Range(0, 100)]
-		[DisableWhenControlled]
+		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
 		public float SizeX = 10;
 
-		[Range(0, 100)]
-		[DisableWhenControlled]
+		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
 		public float SizeY = 10;
 		
-		[Range(0, 0.01f)]
-		[DisableWhenControlled]
+		[DisableWhenControlled(RangeMin=0, RangeMax=0.01f)]
 		public float Inset = 0.002f;
 
 		[HideInInspector]

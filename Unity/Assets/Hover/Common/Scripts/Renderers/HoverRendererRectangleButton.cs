@@ -22,16 +22,13 @@ namespace Hover.Common.Renderers {
 		[DisableWhenControlled]
 		public HoverRendererCanvas Canvas;
 		
-		[Range(0, 100)]
-		[DisableWhenControlled]
+		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
 		public float SizeX = 10;
 		
-		[Range(0, 100)]
-		[DisableWhenControlled]
+		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
 		public float SizeY = 10;
 
-		[Range(0, 1)]
-		[DisableWhenControlled]
+		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
 		public float Alpha = 1;
 		
 		[DisableWhenControlled]

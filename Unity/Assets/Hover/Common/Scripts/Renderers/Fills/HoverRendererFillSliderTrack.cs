@@ -17,20 +17,16 @@ namespace Hover.Common.Renderers.Fills {
 	
 		public HoverRendererMeshSliderRectangle[] Segments;
 		
-		[Range(0, 100)]
-		[DisableWhenControlled(DisplayMessage=true)]
+		[DisableWhenControlled(RangeMin=0, RangeMax=100, DisplayMessage=true)]
 		public float SizeX = 10;
 
-		[Range(0, 100)]
-		[DisableWhenControlled]
+		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
 		public float InsetL = 1;
 
-		[Range(0, 100)]
-		[DisableWhenControlled]
+		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
 		public float InsetR = 1;
 		
-		[Range(0, 1)]
-		[DisableWhenControlled]
+		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
 		public float Alpha = 1;
 
 		[DisableWhenControlled]

@@ -41,7 +41,7 @@ namespace Hover.Common.Editor {
 			return (ISettingsControllerMap)propInfo.GetValue(behaviour, null);
 		}
 		
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		public static RangeAttribute GetFieldRangeAttribute(SerializedProperty pProp) {
 			Object behaviour = pProp.serializedObject.targetObject;
 			Type behaviourType = behaviour.GetType();
@@ -49,7 +49,7 @@ namespace Hover.Common.Editor {
 			object[] ranges = fieldInfo.GetCustomAttributes(typeof(RangeAttribute), false);
 
 			return (ranges.Length == 0 ? null : (RangeAttribute)ranges[0]);
-		}
+		}*/
 
 	}
 
