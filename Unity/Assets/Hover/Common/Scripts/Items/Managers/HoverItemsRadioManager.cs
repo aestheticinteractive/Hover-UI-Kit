@@ -9,13 +9,13 @@ namespace Hover.Common.Items.Managers {
 	[RequireComponent(typeof(HoverItemsManager))]
 	public class HoverItemsRadioManager : MonoBehaviour {
 
-		private List<HoverItemData> vItemsBuffer;
+		private List<HoverItem> vItemsBuffer;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
-			vItemsBuffer = new List<HoverItemData>();
+			vItemsBuffer = new List<HoverItem>();
 
 			HoverItemsManager itemsMan = GetComponent<HoverItemsManager>();
 
@@ -32,19 +32,19 @@ namespace Hover.Common.Items.Managers {
 
 			itemsMan.FillListWithAllItems(vItemsBuffer);
 
-			foreach ( HoverItemData item in vItemsBuffer ) {
+			foreach ( HoverItem item in vItemsBuffer ) {
 				AddItemListeners(item);
 			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void AddItemListeners(HoverItemData pItem) {
+		private void AddItemListeners(HoverItem pItem) {
 			AddRadioDataListeners(pItem);
 			pItem.OnTypeChanged += AddRadioDataListeners;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void RemoveItemListeners(HoverItemData pItem) {
+		private void RemoveItemListeners(HoverItem pItem) {
 			pItem.OnTypeChanged -= AddRadioDataListeners;
 			RemoveRadioDataListeners(pItem);
 		}
@@ -52,7 +52,7 @@ namespace Hover.Common.Items.Managers {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void AddRadioDataListeners(HoverItemData pItem) {
+		private void AddRadioDataListeners(HoverItem pItem) {
 			IRadioItem radData = (pItem.Data as IRadioItem);
 
 			if ( radData != null ) {
@@ -61,7 +61,7 @@ namespace Hover.Common.Items.Managers {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void RemoveRadioDataListeners(HoverItemData pItem) {
+		private void RemoveRadioDataListeners(HoverItem pItem) {
 			IRadioItem radData = (pItem.Data as IRadioItem);
 
 			if ( radData != null ) {
@@ -87,7 +87,7 @@ namespace Hover.Common.Items.Managers {
 			HoverItemsManager itemsMan = GetComponent<HoverItemsManager>();
 			string groupId = pRadioData.GroupId;
 
-			Func<HoverItemData, bool> filter = (tryItem => {
+			Func<HoverItem, bool> filter = (tryItem => {
 				IRadioItem match = (tryItem.Data as IRadioItem);
 				return (match != null && match != pRadioData && match.GroupId == groupId);
 			});

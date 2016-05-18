@@ -9,14 +9,14 @@ namespace Hover.Common.Items {
 
 		public ISettingsControllerMap Controllers { get; private set; }
 		
-		protected readonly List<HoverItemData> vChildItems;
+		protected readonly List<HoverItem> vChildItems;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected HoverLayoutGroup() {
 			Controllers = new SettingsControllerMap();
-			vChildItems = new List<HoverItemData>();
+			vChildItems = new List<HoverItem>();
 		}
 
 		
@@ -33,13 +33,13 @@ namespace Hover.Common.Items {
 			vChildItems.Clear();
 
 			foreach ( Transform childTx in gameObject.transform ) {
-				HoverItemData itemData = childTx.GetComponent<HoverItemData>();
+				HoverItem item = childTx.GetComponent<HoverItem>();
 
-				if ( itemData == null ) {
+				if ( item == null ) {
 					continue;
 				}
 
-				vChildItems.Add(itemData);
+				vChildItems.Add(item);
 			}
 		}
 

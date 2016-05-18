@@ -8,33 +8,21 @@ using UnityEngine;
 namespace Hover.Common.Editor.Items {
 
 	/*================================================================================================*/
+	[CustomEditor(typeof(HoverItemData), true)]
 	[CanEditMultipleObjects]
-	[CustomEditor(typeof(HoverItemData))]
 	public class HoverItemDataEditor : UnityEditor.Editor {
 
-		private string vOnSelectedEventName;
-		private string vOnDeselectedEventName;
-		private string vOnBoolValueChangedEventName;
-		private string vOnFloatValueChangedEventName;
 		private GUIStyle vVertStyle;
 
 		private string vIsHiddenOpenKey;
 		private string vIsEventOpenKey;
 		
-		private HoverItemData vTarget;
-		
-		
+		private HoverItemData vData;
+
+
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void OnEnable() {
-			CheckboxItem selBoolData = CreateInstance<CheckboxItem>();
-			SliderItem selFloatData = CreateInstance<SliderItem>();
-
-			vOnSelectedEventName = GetPropertyName(() => selBoolData.OnSelectedEvent);
-			vOnDeselectedEventName = GetPropertyName(() => selBoolData.OnDeselectedEvent);
-			vOnBoolValueChangedEventName = GetPropertyName(() => selBoolData.OnValueChangedEvent);
-			vOnFloatValueChangedEventName = GetPropertyName(() => selFloatData.OnValueChangedEvent);
-
 			vVertStyle = EditorUtil.GetVerticalSectionStyle();
 			
 			int targetId = target.GetInstanceID();
@@ -45,14 +33,11 @@ namespace Hover.Common.Editor.Items {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public override void OnInspectorGUI() {
-			vTarget = (HoverItemData)target;
+			vData = (HoverItemData)target;
 
-			Undo.RecordObject(vTarget, vTarget.GetType().Name);
+			serializedObject.Update();
 			DrawItems();
-			
-			if ( GUI.changed ) {
-				EditorUtility.SetDirty(vTarget);
-			}
+			serializedObject.ApplyModifiedProperties();
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
@@ -71,35 +56,31 @@ namespace Hover.Common.Editor.Items {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		private void DrawMainItems() {
-			BaseItem baseData = vTarget.Data;
-		
-			vTarget.ItemType = (HoverItemData.HoverItemType)EditorGUILayout.EnumPopup(
-				"Item Type", vTarget.ItemType);
-
-			baseData.Id = EditorGUILayout.TextField("ID", baseData.Id);
-			baseData.Label = EditorGUILayout.TextField("Label", baseData.Label);
-			baseData.IsEnabled = EditorGUILayout.Toggle("Is Enabled", baseData.IsEnabled);
-			baseData.IsVisible = vTarget.gameObject.activeInHierarchy;
+			EditorGUILayout.PropertyField(serializedObject.FindProperty("_Id"), new GUIContent("ID"));
+			EditorGUILayout.PropertyField(serializedObject.FindProperty("_Label"));
+			EditorGUILayout.PropertyField(serializedObject.FindProperty("_IsEnabled"));
 			
 			////
 
-			ISelectorItem selectorData = (vTarget.Data as ISelectorItem);
-			ICheckboxItem checkboxData = (vTarget.Data as ICheckboxItem);
-			IRadioItem radioData = (vTarget.Data as IRadioItem);
-			ISliderItem sliderData = (vTarget.Data as ISliderItem);
+			SelectorItem selectorData = (vData as SelectorItem);
+			CheckboxItem checkboxData = (vData as CheckboxItem);
+			RadioItem radioData = (vData as RadioItem);
+			SliderItem sliderData = (vData as SliderItem);
 
 			if ( selectorData != null ) {
-				selectorData.NavigateBackUponSelect = EditorGUILayout.Toggle(
-					"Navigate Back Upon Select", selectorData.NavigateBackUponSelect);
+				EditorGUILayout.PropertyField(serializedObject.FindProperty("_NavigateBackUponSelect"));
 			}
 
 			if ( checkboxData != null ) {
-				checkboxData.Value = EditorGUILayout.Toggle("Checkbox Value", checkboxData.Value);
+				EditorGUILayout.PropertyField(serializedObject.FindProperty("_Value"),
+					new GUIContent("Checkbox Value"));
 			}
 
 			if ( radioData != null ) {
-				radioData.GroupId = EditorGUILayout.TextField("Radio Group ID", radioData.GroupId);
-				radioData.Value = EditorGUILayout.Toggle("Radio Value", radioData.Value);
+				EditorGUILayout.PropertyField(serializedObject.FindProperty("_GroupId"),
+					new GUIContent("Radio Group ID"));
+				EditorGUILayout.PropertyField(serializedObject.FindProperty("_Value"),
+					new GUIContent("Radio Value"));
 			}
 
 			if ( sliderData != null ) {
@@ -131,7 +112,7 @@ namespace Hover.Common.Editor.Items {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void DrawEventItemGroup() {
-			SelectableItem selectableData = (vTarget.Data as SelectableItem);
+			SelectableItem selectableData = (vData as SelectableItem);
 
 			if ( selectableData == null ) {
 				return;
@@ -149,21 +130,18 @@ namespace Hover.Common.Editor.Items {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		private void DrawEventItems() {
-			var serializedData = new SerializedObject(vTarget.Data);
-			var onSelectedProp = serializedData.FindProperty(vOnSelectedEventName);
-			var onDeselectedProp = serializedData.FindProperty(vOnDeselectedEventName);
+			SelectableItemBool selBoolData = (vData as SelectableItemBool);
+			SelectableItemFloat selFloatData = (vData as SelectableItemFloat);
+			
+			EditorGUILayout.PropertyField(serializedObject.FindProperty("OnSelectedEvent"));
+			EditorGUILayout.PropertyField(serializedObject.FindProperty("OnDeselectedEvent"));
 
-			EditorGUILayout.PropertyField(onSelectedProp);
-			EditorGUILayout.PropertyField(onDeselectedProp);
-
-			if ( vTarget.Data is ISelectableItem<bool> ) {
-				var onBoolValProp = serializedData.FindProperty(vOnBoolValueChangedEventName);
-				EditorGUILayout.PropertyField(onBoolValProp);
+			if ( selBoolData != null ) {
+				EditorGUILayout.PropertyField(serializedObject.FindProperty("OnValueChangedEvent"));
 			}
 
-			if ( vTarget.Data is ISelectableItem<float> ) {
-				var onFloatValProp = serializedData.FindProperty(vOnFloatValueChangedEventName);
-				EditorGUILayout.PropertyField(onFloatValProp);
+			if ( selFloatData != null ) {
+				EditorGUILayout.PropertyField(serializedObject.FindProperty("OnValueChangedEvent"));
 			}
 		}
 
@@ -185,12 +163,11 @@ namespace Hover.Common.Editor.Items {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		private void DrawHiddenItems() {
-			BaseItem baseData = vTarget.Data;
-			SelectableItem selectableData = (baseData as SelectableItem);
+			SelectableItem selectableData = (vData as SelectableItem);
 
-			EditorGUILayout.IntField("Auto ID", baseData.AutoId);
-			EditorGUILayout.Toggle("Is Ancestry Enabled", baseData.IsAncestryEnabled);
-			EditorGUILayout.Toggle("Is Ancestry Visible", baseData.IsAncestryVisible);
+			EditorGUILayout.IntField("Auto ID", vData.AutoId);
+			EditorGUILayout.Toggle("Is Ancestry Enabled", vData.IsAncestryEnabled);
+			EditorGUILayout.Toggle("Is Ancestry Visible", vData.IsAncestryVisible);
 
 			if ( selectableData == null ) {
 				return;
@@ -199,8 +176,8 @@ namespace Hover.Common.Editor.Items {
 			EditorGUILayout.Toggle("Is Sticky-Selected", selectableData.IsStickySelected);
 			EditorGUILayout.Toggle("Allow Selection", selectableData.AllowSelection);
 
-			IRadioItem radioData = (vTarget.Data as IRadioItem);
-			ISliderItem sliderData = (vTarget.Data as ISliderItem);
+			IRadioItem radioData = (vData as IRadioItem);
+			ISliderItem sliderData = (vData as ISliderItem);
 
 			if ( radioData != null ) {
 				EditorGUILayout.TextField("Radio Default Group ID", radioData.DefaultGroupId);
@@ -216,13 +193,6 @@ namespace Hover.Common.Editor.Items {
 				EditorGUILayout.TextField("Slider Hover Value", sliderData.HoverValue+"");
 				EditorGUILayout.TextField("Slider Snapped Hover Value",sliderData.SnappedHoverValue+"");
 			}
-		}
-		
-		
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		private static string GetPropertyName<T>(Expression<Func<T>> pPropExpr) {
-			return ((MemberExpression)pPropExpr.Body).Member.Name;
 		}
 
 	}

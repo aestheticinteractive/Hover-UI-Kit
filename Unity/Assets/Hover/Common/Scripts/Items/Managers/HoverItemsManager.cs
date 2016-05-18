@@ -10,26 +10,26 @@ namespace Hover.Common.Items.Managers {
 	public class HoverItemsManager : MonoBehaviour {
 
 		[Serializable]
-		public class ItemEvent : UnityEvent<HoverItemData> {}
+		public class ItemEvent : UnityEvent<HoverItem> {}
 
 		public UnityEvent OnItemListInitialized;
 		public ItemEvent OnItemAdded;
 		public ItemEvent OnItemRemoved;
 
-		private List<HoverItemData> vItems;
+		private List<HoverItem> vItems;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Start() {
-			vItems = FindObjectsOfType<HoverItemData>().ToList();
+			vItems = FindObjectsOfType<HoverItem>().ToList();
 			OnItemListInitialized.Invoke();
 		}
 
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void AddItem(HoverItemData pItem) {
+		public void AddItem(HoverItem pItem) {
 			if ( vItems == null ) {
 				return;
 			}
@@ -44,7 +44,7 @@ namespace Hover.Common.Items.Managers {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		public void RemoveItem(HoverItemData pItem) {
+		public void RemoveItem(HoverItem pItem) {
 			if ( vItems == null ) {
 				return;
 			}
@@ -77,7 +77,7 @@ namespace Hover.Common.Items.Managers {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void FillListWithAllItems(IList<HoverItemData> pItems) {
+		public void FillListWithAllItems(IList<HoverItem> pItems) {
 			pItems.Clear();
 			
 			if ( vItems == null ) {
@@ -90,8 +90,8 @@ namespace Hover.Common.Items.Managers {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void FillListWithMatchingItems(IList<HoverItemData> pMatches, 
-																Func<HoverItemData, bool> pFilterFunc) {
+		public void FillListWithMatchingItems(IList<HoverItem> pMatches, 
+																Func<HoverItem, bool> pFilterFunc) {
 			pMatches.Clear();
 			
 			if ( vItems == null ) {
@@ -99,7 +99,7 @@ namespace Hover.Common.Items.Managers {
 			}
 
 			for ( int i = 0 ; i < vItems.Count ; i++ ) {
-				HoverItemData item = vItems[i];
+				HoverItem item = vItems[i];
 				
 				if ( pFilterFunc(item) ) {
 					pMatches.Add(item);

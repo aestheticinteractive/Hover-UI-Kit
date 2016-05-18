@@ -13,7 +13,7 @@ namespace Hover.Common.Renderers {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
-	[RequireComponent(typeof(HoverItemData))]
+	[RequireComponent(typeof(HoverItem))]
 	[RequireComponent(typeof(HoverItemHighlightState))]
 	public class HoverRendererRectangleController : HoverRendererController, IRectangleLayoutElement {
 	
@@ -49,21 +49,21 @@ namespace Hover.Common.Renderers {
 		/*--------------------------------------------------------------------------------------------*/
 		public override void Update() {
 			base.Update();
-			HoverItemData hoverItemData = GetComponent<HoverItemData>();
+			HoverItem hoverItem = GetComponent<HoverItem>();
 			HoverItemHighlightState highState = GetComponent<HoverItemHighlightState>();
 			HoverItemSelectionState selState = GetComponent<HoverItemSelectionState>();
 
-			TryRebuildWithItemType(hoverItemData.ItemType);
+			TryRebuildWithItemType(hoverItem.ItemType);
 
 			if ( ButtonRenderer != null ) {
-				UpdateButtonSettings(hoverItemData);
+				UpdateButtonSettings(hoverItem);
 				UpdateButtonSettings(highState);
 				UpdateButtonSettings(selState);
 			}
 
 			if ( SliderRenderer != null ) {
-				UpdateSliderSettings(hoverItemData);
-				UpdateSliderSettings(hoverItemData, highState);
+				UpdateSliderSettings(hoverItem);
+				UpdateSliderSettings(hoverItem, highState);
 				UpdateSliderSettings(selState);
 			}
 		}
@@ -101,8 +101,8 @@ namespace Hover.Common.Renderers {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void TryRebuildWithItemType(HoverItemData.HoverItemType pType) {
-			if ( pType == HoverItemData.HoverItemType.Slider ) {
+		private void TryRebuildWithItemType(HoverItem.HoverItemType pType) {
+			if ( pType == HoverItem.HoverItemType.Slider ) {
 				Controllers.Set(ButtonRendererName, this);
 				Controllers.Unset(SliderRendererName, this);
 
@@ -159,8 +159,8 @@ namespace Hover.Common.Renderers {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateButtonSettings(HoverItemData pHoverItemData) {
-			BaseItem data = pHoverItemData.Data;
+		private void UpdateButtonSettings(HoverItem pHoverItem) {
+			HoverItemData data = pHoverItem.Data;
 			ICheckboxItem checkboxData = (data as ICheckboxItem);
 			IRadioItem radioData = (data as IRadioItem);
 			IParentItem parentData = (data as IParentItem);
@@ -212,8 +212,8 @@ namespace Hover.Common.Renderers {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateSliderSettings(HoverItemData pHoverItemData) {
-			ISliderItem data = (ISliderItem)pHoverItemData.Data;
+		private void UpdateSliderSettings(HoverItem pHoverItem) {
+			ISliderItem data = (ISliderItem)pHoverItem.Data;
 			HoverRendererCanvas handleCanvas = SliderRenderer.HandleButton.Canvas;
 			HoverRendererIcon handleIconOuter = handleCanvas.IconOuter;
 			HoverRendererIcon handleIconInner = handleCanvas.IconInner;
@@ -268,8 +268,8 @@ namespace Hover.Common.Renderers {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateSliderSettings(
-									HoverItemData pHoverItemData, HoverItemHighlightState pHighState) {
-			ISliderItem data = (ISliderItem)pHoverItemData.Data;
+									HoverItem pHoverItem, HoverItemHighlightState pHighState) {
+			SliderItem data = (SliderItem)pHoverItem.Data;
 			HoverItemHighlightState.Highlight? high = pHighState.NearestHighlight;
 			float highProg = pHighState.MaxHighlightProgress;
 

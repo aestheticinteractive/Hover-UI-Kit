@@ -5,7 +5,7 @@ namespace Hover.Common.Items {
 
 	/*================================================================================================*/
 	[Serializable]
-	public abstract class SelectableItem : BaseItem, ISelectableItem {
+	public abstract class SelectableItem : HoverItemData, ISelectableItem {
 		
 		[Serializable]
 		public class SelectedEventHandler : UnityEvent<ISelectableItem> {}

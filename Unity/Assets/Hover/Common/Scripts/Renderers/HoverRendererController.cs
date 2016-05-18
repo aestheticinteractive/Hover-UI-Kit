@@ -8,7 +8,7 @@ namespace Hover.Common.Renderers {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
-	[RequireComponent(typeof(HoverItemData))]
+	[RequireComponent(typeof(HoverItem))]
 	[RequireComponent(typeof(HoverItemHighlightState))]
 	[RequireComponent(typeof(HoverItemSelectionState))]
 	public abstract class HoverRendererController : MonoBehaviour,

@@ -3,7 +3,7 @@
 	/*================================================================================================*/
 	public interface ISelectorItem : ISelectableItem {
 
-		bool NavigateBackUponSelect { get; set; }
+		bool NavigateBackUponSelect { get; }
 
 	}
 

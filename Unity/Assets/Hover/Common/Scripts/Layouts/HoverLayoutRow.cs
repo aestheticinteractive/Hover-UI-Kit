@@ -129,7 +129,7 @@ namespace Hover.Common.Items {
 
 			for ( int i = 0 ; i < itemCount ; i++ ) {
 				int childI = (isRev ? itemCount-i-1 : i);
-				HoverItemData childItem = vChildItems[childI];
+				HoverItem childItem = vChildItems[childI];
 				IRectangleLayoutElement elem = childItem.GetComponent<IRectangleLayoutElement>();
 
 				if ( elem == null ) {

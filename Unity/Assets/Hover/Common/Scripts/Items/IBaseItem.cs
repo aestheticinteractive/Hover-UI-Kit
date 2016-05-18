@@ -4,11 +4,11 @@
 	public interface IBaseItem {
 
 		int AutoId { get; }
-		string Id { get; set; }
-		string Label { get; set; }
+		string Id { get; }
+		string Label { get; }
 
-		bool IsEnabled { get; set; }
-		bool IsVisible { get; set; }
+		bool IsEnabled { get; }
+		bool IsVisible { get; }
 		bool IsAncestryEnabled { get; set; }
 		bool IsAncestryVisible { get; set; }
 

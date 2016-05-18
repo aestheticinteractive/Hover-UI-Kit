@@ -175,8 +175,8 @@ namespace Hover.Common.Items.Managers {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateIsHighlightPrevented() {
-			HoverItemData hoverItemData = GetComponent<HoverItemData>();
-			BaseItem itemData = GetComponent<HoverItemData>().Data;
+			HoverItem hoverItem = GetComponent<HoverItem>();
+			HoverItemData itemData = GetComponent<HoverItem>().Data;
 			ISelectableItem selData = (itemData as ISelectableItem);
 			
 			IsHighlightPrevented = (
@@ -185,7 +185,7 @@ namespace Hover.Common.Items.Managers {
 				//!itemData.IsVisible ||
 				!itemData.IsAncestryEnabled ||
 				//!itemData.IsAncestryVisible ||
-				!hoverItemData.gameObject.activeInHierarchy ||
+				!hoverItem.gameObject.activeInHierarchy ||
 				IsHighlightPreventedViaAnyDisplay()
 			);
 		}

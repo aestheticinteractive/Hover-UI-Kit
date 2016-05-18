@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Hover.Common.Items.Managers {
 
 	/*================================================================================================*/
-	[RequireComponent(typeof(HoverItemData))]
+	[RequireComponent(typeof(HoverItem))]
 	[RequireComponent(typeof(HoverItemHighlightState))]
 	public class HoverItemSelectionState : MonoBehaviour {
 
@@ -21,7 +21,7 @@ namespace Hover.Common.Items.Managers {
 				HoverItemHighlightState highState = GetComponent<HoverItemHighlightState>();
 
 				if ( vSelectionStart == null ) {
-					BaseItem itemData = GetComponent<HoverItemData>().Data;
+					HoverItemData itemData = GetComponent<HoverItem>().Data;
 					ISelectableItem selData = (itemData as ISelectableItem);
 
 					if ( selData == null || !selData.IsStickySelected ) {
@@ -57,7 +57,7 @@ namespace Hover.Common.Items.Managers {
 				return;
 			}
 			
-			BaseItem itemData = GetComponent<HoverItemData>().Data;
+			HoverItemData itemData = GetComponent<HoverItem>().Data;
 			ISelectableItem selData = (itemData as ISelectableItem);
 			
 			vSelectionStart = null;
@@ -69,7 +69,7 @@ namespace Hover.Common.Items.Managers {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private bool UpdateSelectionProgress() {
-			BaseItem itemData = GetComponent<HoverItemData>().Data;
+			HoverItemData itemData = GetComponent<HoverItem>().Data;
 			ISelectableItem selData = (itemData as ISelectableItem);
 
 			if ( selData == null ) {
