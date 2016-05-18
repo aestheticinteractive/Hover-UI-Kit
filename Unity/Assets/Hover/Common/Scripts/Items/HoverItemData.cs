@@ -38,7 +38,7 @@ namespace Hover.Common.Items {
 			if  ( _Data == null ) {
 				_Data = BuildData(_Type);
 			}
-			else {
+			else if ( FindDuplicateData() ) {
 				_Data = Instantiate(_Data); //handle duplication via Unity editor
 			}
 
@@ -96,6 +96,19 @@ namespace Hover.Common.Items {
 		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private bool FindDuplicateData() {
+			HoverItemData[] items = FindObjectsOfType<HoverItemData>();
+			
+			foreach ( HoverItemData item in items ) {
+				if ( item != this && item.Data == _Data ) {
+					return true;
+				}
+			}
+			
+			return false;
+		}
+		
 		/*--------------------------------------------------------------------------------------------*/
 		private BaseItem TransferData(BaseItem pDataToFill) {
 			BaseItem oldData = _Data;
