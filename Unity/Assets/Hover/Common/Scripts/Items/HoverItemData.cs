@@ -35,17 +35,8 @@ namespace Hover.Common.Items {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
-			if  ( _Data == null ) {
-				_Data = BuildData(_Type);
-			}
-			else if ( FindDuplicateData() ) {
-				_Data = Instantiate(_Data); //handle duplication via Unity editor
-			}
-
-			_Data.name = _Data.GetType()+":"+GetInstanceID();
+			BuildDataIfNeeded();
 			
-			////
-
 			if ( Application.isPlaying ) {
 				vItemsMan = FindObjectOfType<HoverItemsManager>();
 
@@ -96,6 +87,21 @@ namespace Hover.Common.Items {
 		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private void BuildDataIfNeeded() {
+			if ( _Data == null ) {
+				_Data = BuildData(_Type);
+			}
+			else if ( FindDuplicateData() ) {
+				_Data = Instantiate(_Data); //handle duplication via Unity editor
+			}
+			else {
+				return;
+			}
+
+			_Data.name = _Data.GetType()+":"+GetInstanceID();
+		}
+
 		/*--------------------------------------------------------------------------------------------*/
 		private bool FindDuplicateData() {
 			HoverItemData[] items = FindObjectsOfType<HoverItemData>();
