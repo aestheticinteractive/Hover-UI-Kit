@@ -8,7 +8,7 @@ namespace Hover.Common.Renderers.Contents {
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
 	[RequireComponent(typeof(RawImage))]
-	public class HoverRendererIcon : MonoBehaviour {
+	public class HoverRendererIcon : MonoBehaviour, ITreeUpdateable {
 		
 		public const string IconTypeName = "IconType";
 		public const string CanvasScaleName = "CanvasScale";
@@ -69,6 +69,11 @@ namespace Hover.Common.Renderers.Contents {
 				BuildIcon();
 				_IsBuilt = true;
 			}
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public virtual void Start() {
+			//do nothing...
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/

@@ -13,7 +13,7 @@ namespace Hover.Common.Renderers {
 	[RequireComponent(typeof(HoverItemHighlightState))]
 	[RequireComponent(typeof(HoverItemSelectionState))]
 	public abstract class HoverRendererController : MonoBehaviour,
-															ISettingsController, IProximityProvider {
+											ISettingsController, IProximityProvider, ITreeUpdateable {
 
 		public ISettingsControllerMap Controllers { get; private set; }
 
@@ -28,6 +28,11 @@ namespace Hover.Common.Renderers {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public virtual void Start() {
+			//do nothing...
+		}
+		
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void TreeUpdate() {
 			if ( ShowProximityDebugLines && Application.isPlaying ) {

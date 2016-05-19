@@ -15,7 +15,8 @@ namespace Hover.Common.Renderers {
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(HoverItem))]
 	[RequireComponent(typeof(HoverItemHighlightState))]
-	public class HoverRendererRectangleController : HoverRendererController, IRectangleLayoutElement {
+	public class HoverRendererRectangleController : HoverRendererController, 
+															IRectangleLayoutElement, ITreeUpdateable {
 	
 		public const string ButtonRendererName = "ButtonRenderer";
 		public const string SliderRendererName = "SliderRenderer";

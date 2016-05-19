@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Hover.Common.Utils {
 
@@ -8,6 +9,18 @@ namespace Hover.Common.Utils {
 	public class TreeUpdater : MonoBehaviour {
 		
 		public bool DidTreeUpdateThisFrame { get; private set; }
+		public TreeUpdater TreeParentThisFrame { get; private set; }
+		public int TreeDepthLevelThisFrame { get; private set; }
+		public List<ITreeUpdateable> TreeUpdatablesThisFrame { get; private set; }
+		public List<TreeUpdater> TreeChildrenThisFrame { get; private set; }
+		
+		
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public TreeUpdater() {
+			TreeUpdatablesThisFrame = new List<ITreeUpdateable>();
+			TreeChildrenThisFrame = new List<TreeUpdater>();
+		}
 		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -17,7 +30,7 @@ namespace Hover.Common.Utils {
 				return;
 			}
 			
-			AscendOrBegin(true);
+			AscendTreeOrBegin(true);
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
@@ -28,36 +41,51 @@ namespace Hover.Common.Utils {
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void AscendOrBegin(bool pFromUpdate) {
-			//Debug.Log("AscendOrBegin: "+gameObject.name, gameObject);
+		private void AscendTreeOrBegin(bool pFromUpdate) {
+			//Debug.Log("AscendTreeOrBegin: "+gameObject.name, gameObject);
 			Transform parTx = transform.parent;
 			TreeUpdater parTreeUp = (parTx == null ? null : parTx.GetComponent<TreeUpdater>());
 			
 			if ( parTreeUp == null || !parTreeUp.isActiveAndEnabled ) {
-				BeginAtThisLevel();
+				BeginAtThisTreeLevel();
 				return;
 			}
 			
-			parTreeUp.AscendOrBegin(false);
+			parTreeUp.AscendTreeOrBegin(false);
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		private void BeginAtThisLevel() {
-			//Debug.Log("BeginAtThisLevel: "+gameObject.name, gameObject);
-			SendAndDescend(0);
+		private void BeginAtThisTreeLevel() {
+			//Debug.Log("BeginAtThisTreeLevel: "+gameObject.name, gameObject);
+			SendTreeUpdates(0);
+			DescendTree(0);
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		private void SendAndDescend(int pDepth) {
-			//Debug.Log(new string('-', pDepth)+"SendAndDescend: "+gameObject.name, gameObject);
+		private void SendTreeUpdates(int pDepth) {
+			//Debug.Log(new string('-', pDepth)+"SendTreeUpdates: "+gameObject.name, gameObject);
+			gameObject.GetComponents<ITreeUpdateable>(TreeUpdatablesThisFrame);
 			
-			//TODO: SendMessage() also sends to inactive components, which is not desired
-			//TODO: use an ITreeUpdateable interface for this?
-			//TODO: optionally provide an update-order of components within each GameObject
-			SendMessage("TreeUpdate", SendMessageOptions.DontRequireReceiver);
+			for ( int i = 0 ; i < TreeUpdatablesThisFrame.Count ; i++ ) {
+				ITreeUpdateable treeUpdatable = TreeUpdatablesThisFrame[i];
+				
+				if ( !treeUpdatable.isActiveAndEnabled ) {
+					continue;
+				}
+				
+				treeUpdatable.TreeUpdate();
+			}
+			
 			DidTreeUpdateThisFrame = true;
-			
+			TreeDepthLevelThisFrame = pDepth;
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		private void DescendTree(int pDepth) {
+			//Debug.Log(new string('-', pDepth)+"DescendTree: "+gameObject.name, gameObject);
 			int childDepth = pDepth+1;
+			
+			TreeChildrenThisFrame.Clear();
 			
 			foreach ( Transform childTx in transform ) {
 				TreeUpdater childTreeUp = childTx.GetComponent<TreeUpdater>();
@@ -66,7 +94,11 @@ namespace Hover.Common.Utils {
 					continue;
 				}
 				
-				childTreeUp.SendAndDescend(childDepth);
+				childTreeUp.TreeParentThisFrame = this;
+				childTreeUp.SendTreeUpdates(childDepth);
+				childTreeUp.DescendTree(childDepth);
+				
+				TreeChildrenThisFrame.Add(childTreeUp);
 			}
 		}
 

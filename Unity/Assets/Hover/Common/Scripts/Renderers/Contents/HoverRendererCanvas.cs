@@ -10,7 +10,7 @@ namespace Hover.Common.Renderers.Contents {
 	[RequireComponent(typeof(TreeUpdater))]
 	[RequireComponent(typeof(Canvas))]
 	[RequireComponent(typeof(CanvasGroup))]
-	public class HoverRendererCanvas : MonoBehaviour, ISettingsController {
+	public class HoverRendererCanvas : MonoBehaviour, ISettingsController, ITreeUpdateable {
 		
 		public const string SizeXName = "SizeX";
 		public const string SizeYName = "SizeY";
@@ -107,6 +107,11 @@ namespace Hover.Common.Renderers.Contents {
 				BuildElements();
 				_IsBuilt = true;
 			}
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public virtual void Start() {
+			//do nothing...
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/

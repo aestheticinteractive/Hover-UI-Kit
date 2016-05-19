@@ -9,7 +9,7 @@ namespace Hover.Common.Items {
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
-	public class HoverLayoutGroup : MonoBehaviour, ISettingsController {
+	public class HoverLayoutGroup : MonoBehaviour, ISettingsController, ITreeUpdateable {
 
 		public ISettingsControllerMap Controllers { get; private set; }
 		
@@ -26,8 +26,8 @@ namespace Hover.Common.Items {
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Update() {
-			//do nothing: Unity shows the enabled checkbox when Update() is present.
+		public void Start() {
+			//do nothing...
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/

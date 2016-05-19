@@ -9,7 +9,8 @@ namespace Hover.Common.Renderers {
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
-	public class HoverRendererRectangleButton : MonoBehaviour, IProximityProvider, ISettingsController {
+	public class HoverRendererRectangleButton : MonoBehaviour, 
+											IProximityProvider, ISettingsController, ITreeUpdateable {
 	
 		public const string SizeXName = "SizeX";
 		public const string SizeYName = "SizeY";
@@ -54,6 +55,11 @@ namespace Hover.Common.Renderers {
 				BuildElements();
 				_IsBuilt = true;
 			}
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public virtual void Start() {
+			//do nothing...
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/

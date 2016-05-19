@@ -6,7 +6,7 @@ namespace Hover.Common.Renderers.Fills {
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
-	public abstract class HoverRendererFill : MonoBehaviour {
+	public abstract class HoverRendererFill : MonoBehaviour, ITreeUpdateable {
 	
 		public ISettingsControllerMap Controllers { get; private set; }
 		
@@ -35,6 +35,14 @@ namespace Hover.Common.Renderers.Fills {
 				_IsBuilt = true;
 			}
 		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public virtual void Start() {
+			//do nothing...
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public abstract void TreeUpdate();
 		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

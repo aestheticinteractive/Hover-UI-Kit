@@ -10,7 +10,7 @@ namespace Hover.Common.Items {
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
-	public class HoverItem : MonoBehaviour {
+	public class HoverItem : MonoBehaviour, ITreeUpdateable {
 
 		public enum HoverItemType {
 			Parent,
@@ -42,6 +42,11 @@ namespace Hover.Common.Items {
 
 			BuildDataIfNeeded();
 			UpdateItemsManager(true);
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public void Start() {
+			//do nothing...
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

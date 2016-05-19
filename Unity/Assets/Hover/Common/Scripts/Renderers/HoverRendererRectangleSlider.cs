@@ -10,7 +10,8 @@ namespace Hover.Common.Renderers {
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
-	public class HoverRendererRectangleSlider : MonoBehaviour, IProximityProvider, ISettingsController {
+	public class HoverRendererRectangleSlider : MonoBehaviour, 
+											IProximityProvider, ISettingsController, ITreeUpdateable {
 
 		//TODO: tick marks (use canvas RQ + hide when obscured by buttons)
 		
@@ -86,6 +87,11 @@ namespace Hover.Common.Renderers {
 				BuildElements();
 				_IsBuilt = true;
 			}
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public virtual void Start() {
+			//do nothing...
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/

@@ -8,7 +8,7 @@ namespace Hover.Common.Renderers.Meshes {
 	[RequireComponent(typeof(TreeUpdater))]
 	[RequireComponent(typeof(MeshRenderer))]
 	[RequireComponent(typeof(MeshFilter))]
-	public abstract class HoverRendererMesh : MonoBehaviour {
+	public abstract class HoverRendererMesh : MonoBehaviour, ITreeUpdateable {
 	
 		public ISettingsControllerMap Controllers { get; private set; }
 
@@ -36,6 +36,11 @@ namespace Hover.Common.Renderers.Meshes {
 		public virtual void Awake() {
 			CreateMesh();
 			CreateMeshBuilder();
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public virtual void Start() {
+			//do nothing...
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/

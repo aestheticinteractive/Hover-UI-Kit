@@ -8,7 +8,7 @@ namespace Hover.Common.Renderers.Contents {
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
 	[RequireComponent(typeof(Text))]
-	public class HoverRendererLabel : MonoBehaviour {
+	public class HoverRendererLabel : MonoBehaviour, ITreeUpdateable {
 		
 		public const string CanvasScaleName = "CanvasScale";
 		public const string SizeXName = "SizeX";
@@ -51,6 +51,11 @@ namespace Hover.Common.Renderers.Contents {
 				BuildText();
 				_IsBuilt = true;
 			}
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public virtual void Start() {
+			//do nothing...
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
