@@ -8,6 +8,7 @@ namespace Hover.Common.Renderers {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
+	[RequireComponent(typeof(TreeUpdater))]
 	public class HoverRendererRectangleButton : MonoBehaviour, IProximityProvider, ISettingsController {
 	
 		public const string SizeXName = "SizeX";
@@ -56,7 +57,7 @@ namespace Hover.Common.Renderers {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		public void Update() {
+		public void TreeUpdate() {
 			UpdateGeneralSettings();
 			UpdateAnchorSettings();
 		}

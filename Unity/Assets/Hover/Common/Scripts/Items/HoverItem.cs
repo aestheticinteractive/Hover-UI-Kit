@@ -2,12 +2,14 @@
 using System.ComponentModel;
 using Hover.Common.Items.Managers;
 using Hover.Common.Items.Types;
+using Hover.Common.Utils;
 using UnityEngine;
 
 namespace Hover.Common.Items {
 	
 	/*================================================================================================*/
 	[ExecuteInEditMode]
+	[RequireComponent(typeof(TreeUpdater))]
 	public class HoverItem : MonoBehaviour {
 
 		public enum HoverItemType {
@@ -30,7 +32,6 @@ namespace Hover.Common.Items {
 		private HoverItemData _Data;
 
 		private HoverItemsManager vItemsMan;
-		private HoverItemData vOldData;
 		private HoverItemType vPrevItemType;
 		
 
@@ -44,10 +45,11 @@ namespace Hover.Common.Items {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void Update() {
-			if ( vOldData != null ) {
-				DestroyImmediate(vOldData);
-			}
+		public void TreeUpdate() {
+			UpdateWithLatestItemTypeIfNeeded();
+			
+			_Data.IsVisible = gameObject.activeSelf;
+			_Data.IsAncestryVisible = gameObject.activeInHierarchy;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -68,15 +70,6 @@ namespace Hover.Common.Items {
 			get { return _Data; }
 		}
 		
-		/*--------------------------------------------------------------------------------------------*/
-		public void UpdateAfterInspector() {
-			//TODO: when causeing a button/slider switch, the new renderer is not updated immediately
-			UpdateWithLatestItemTypeIfNeeded();
-
-			Data.IsVisible = gameObject.activeSelf;
-			Data.IsAncestryVisible = gameObject.activeInHierarchy;
-		}
-		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -91,11 +84,6 @@ namespace Hover.Common.Items {
 			else if ( FindDuplicateData() ) {
 				_Data = Instantiate(_Data); //handle duplication via Unity editor
 			}
-			else {
-				return;
-			}
-
-			_Data.name = _Data.GetType()+":"+GetInstanceID();
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
@@ -107,7 +95,7 @@ namespace Hover.Common.Items {
 			HoverItemData newData = BuildData(_ItemType);
 			TransferData(newData);
 
-			vOldData = _Data;
+			DestroyImmediate(_Data);
 			_Data = newData;
 
 			if ( OnTypeChanged != null ) {

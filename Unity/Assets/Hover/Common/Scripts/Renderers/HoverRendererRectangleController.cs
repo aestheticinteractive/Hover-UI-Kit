@@ -43,12 +43,13 @@ namespace Hover.Common.Renderers {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
-			Update();
+			TreeUpdate();
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		public override void Update() {
-			base.Update();
+		public override void TreeUpdate() {
+			base.TreeUpdate();
+			
 			HoverItem hoverItem = GetComponent<HoverItem>();
 			HoverItemHighlightState highState = GetComponent<HoverItemHighlightState>();
 			HoverItemSelectionState selState = GetComponent<HoverItemSelectionState>();

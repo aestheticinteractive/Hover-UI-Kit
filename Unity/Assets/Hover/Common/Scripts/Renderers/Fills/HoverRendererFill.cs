@@ -5,6 +5,7 @@ namespace Hover.Common.Renderers.Fills {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
+	[RequireComponent(typeof(TreeUpdater))]
 	public abstract class HoverRendererFill : MonoBehaviour {
 	
 		public ISettingsControllerMap Controllers { get; private set; }

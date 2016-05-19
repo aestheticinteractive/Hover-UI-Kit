@@ -59,7 +59,7 @@ namespace Hover.Common.Renderers.Fills {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		public void Update() {
+		public void TreeUpdate() {
 			UpdateGeneralSettings();
 			UpdateActiveStates();
 		}

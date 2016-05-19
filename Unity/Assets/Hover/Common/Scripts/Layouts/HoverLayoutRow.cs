@@ -6,7 +6,6 @@ using UnityEngine;
 namespace Hover.Common.Items {
 
 	/*================================================================================================*/
-	[ExecuteInEditMode]
 	public class HoverLayoutRow : HoverLayoutGroup, IRectangleLayoutElement {
 
 		public const string SizeXName = "SizeX";
@@ -43,8 +42,8 @@ namespace Hover.Common.Items {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public override void Update() {
-			base.Update();
+		public override void TreeUpdate() {
+			base.TreeUpdate();
 
 			if ( UsedFixedSize ) {
 				Controllers.Unset(SizeXName, this);

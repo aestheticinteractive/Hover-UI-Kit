@@ -6,6 +6,7 @@ namespace Hover.Common.Renderers.Contents {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
+	[RequireComponent(typeof(TreeUpdater))]
 	[RequireComponent(typeof(RawImage))]
 	public class HoverRendererIcon : MonoBehaviour {
 		
@@ -71,7 +72,7 @@ namespace Hover.Common.Renderers.Contents {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		public void Update() {
+		public void TreeUpdate() {
 			RawImage icon = ImageComponent;
 			RectTransform rectTx = icon.rectTransform;
 			const float w = 1/8f;

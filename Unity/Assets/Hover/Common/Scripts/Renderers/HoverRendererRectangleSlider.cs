@@ -9,6 +9,7 @@ namespace Hover.Common.Renderers {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
+	[RequireComponent(typeof(TreeUpdater))]
 	public class HoverRendererRectangleSlider : MonoBehaviour, IProximityProvider, ISettingsController {
 
 		//TODO: tick marks (use canvas RQ + hide when obscured by buttons)
@@ -88,7 +89,7 @@ namespace Hover.Common.Renderers {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		public void Update() {
+		public void TreeUpdate() {
 			SizeY = Mathf.Max(SizeY, HandleButton.SizeY);
 
 			UpdateSliderSegments();
@@ -120,6 +121,7 @@ namespace Hover.Common.Renderers {
 		private void BuildElements() {
 			Container = new GameObject("Container");
 			Container.transform.SetParent(gameObject.transform, false);
+			Container.AddComponent<TreeUpdater>();
 			
 			Track = BuildTrack();
 			HandleButton = BuildButton("Handle");

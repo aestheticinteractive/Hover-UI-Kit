@@ -5,6 +5,8 @@ using UnityEngine;
 namespace Hover.Common.Items {
 
 	/*================================================================================================*/
+	[ExecuteInEditMode]
+	[RequireComponent(typeof(TreeUpdater))]
 	public class HoverLayoutGroup : MonoBehaviour, ISettingsController {
 
 		public ISettingsControllerMap Controllers { get; private set; }
@@ -22,7 +24,7 @@ namespace Hover.Common.Items {
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Update() {
+		public virtual void TreeUpdate() {
 			FillChildItemsList();
 		}
 

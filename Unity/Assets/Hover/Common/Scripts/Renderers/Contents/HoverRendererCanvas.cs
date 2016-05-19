@@ -7,6 +7,7 @@ namespace Hover.Common.Renderers.Contents {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
+	[RequireComponent(typeof(TreeUpdater))]
 	[RequireComponent(typeof(Canvas))]
 	[RequireComponent(typeof(CanvasGroup))]
 	public class HoverRendererCanvas : MonoBehaviour, ISettingsController {
@@ -109,7 +110,7 @@ namespace Hover.Common.Renderers.Contents {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		public void Update() {
+		public void TreeUpdate() {
 			UpdateCanvasComponent();
 			UpdateGeneralSettings();
 			UpdateActiveStates();

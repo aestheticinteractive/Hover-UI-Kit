@@ -44,8 +44,8 @@ namespace Hover.Common.Renderers.Meshes {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public override void Update() {
-			base.Update();
+		public override void TreeUpdate() {
+			base.TreeUpdate();
 			UpdateColor();
 		}
 		

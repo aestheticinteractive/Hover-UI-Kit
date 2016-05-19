@@ -5,6 +5,7 @@ namespace Hover.Common.Renderers.Meshes {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
+	[RequireComponent(typeof(TreeUpdater))]
 	[RequireComponent(typeof(MeshRenderer))]
 	[RequireComponent(typeof(MeshFilter))]
 	public abstract class HoverRendererMesh : MonoBehaviour {
@@ -38,7 +39,7 @@ namespace Hover.Common.Renderers.Meshes {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Update() {
+		public virtual void TreeUpdate() {
 			if ( vMeshBuild == null ) { //this can occur when recompiled DLLs cause a scene "refresh"
 				CreateMeshBuilder();
 			}

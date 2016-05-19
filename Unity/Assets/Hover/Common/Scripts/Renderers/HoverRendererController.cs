@@ -8,6 +8,7 @@ namespace Hover.Common.Renderers {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
+	[RequireComponent(typeof(TreeUpdater))]
 	[RequireComponent(typeof(HoverItem))]
 	[RequireComponent(typeof(HoverItemHighlightState))]
 	[RequireComponent(typeof(HoverItemSelectionState))]
@@ -28,7 +29,7 @@ namespace Hover.Common.Renderers {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Update() {
+		public virtual void TreeUpdate() {
 			if ( ShowProximityDebugLines && Application.isPlaying ) {
 				DrawProximityDebugLines();
 			}

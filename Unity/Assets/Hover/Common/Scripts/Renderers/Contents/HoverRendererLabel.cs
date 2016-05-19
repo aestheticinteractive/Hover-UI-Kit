@@ -6,6 +6,7 @@ namespace Hover.Common.Renderers.Contents {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
+	[RequireComponent(typeof(TreeUpdater))]
 	[RequireComponent(typeof(Text))]
 	public class HoverRendererLabel : MonoBehaviour {
 		
@@ -53,7 +54,7 @@ namespace Hover.Common.Renderers.Contents {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		public void Update() {
+		public void TreeUpdate() {
 			RectTransform rectTx = TextComponent.rectTransform;
 			rectTx.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, SizeX/CanvasScale);
 			rectTx.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, SizeY/CanvasScale);
