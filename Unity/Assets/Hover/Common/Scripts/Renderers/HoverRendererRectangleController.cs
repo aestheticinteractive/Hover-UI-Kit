@@ -22,6 +22,8 @@ namespace Hover.Common.Renderers {
 		public const string SliderRendererName = "SliderRenderer";
 		public const string SizeXName = "SizeX";
 		public const string SizeYName = "SizeY";
+		public const string RelativeLayoutSizeXName = "_RelativeLayoutSizeX";
+		public const string RelativeLayoutSizeYName = "_RelativeLayoutSizeY";
 
 		public bool IsButtonRendererType { get; private set; }
 
@@ -36,17 +38,20 @@ namespace Hover.Common.Renderers {
 		
 		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
 		public float SizeY = 10;
+		
+		[SerializeField]
+		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
+		private float _RelativeLayoutSizeX = 1;
+		
+		[SerializeField]
+		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
+		private float _RelativeLayoutSizeY = 1;
 
 		[DisableWhenControlled(RangeMin=0.05f, RangeMax=0.9f)]
 		public float DisabledAlpha = 0.35f;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public void Awake() {
-			TreeUpdate();
-		}
-		
 		/*--------------------------------------------------------------------------------------------*/
 		public override void TreeUpdate() {
 			base.TreeUpdate();
@@ -68,6 +73,8 @@ namespace Hover.Common.Renderers {
 				UpdateSliderSettings(hoverItem, highState);
 				UpdateSliderSettings(selState);
 			}
+			
+			UpdateLayoutControl();
 		}
 		
 
@@ -85,6 +92,20 @@ namespace Hover.Common.Renderers {
 			throw new Exception("No button or slider renderer.");
 		}
 		
+		
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public float RelativeLayoutSizeX {
+			get { return _RelativeLayoutSizeX; }
+			set { _RelativeLayoutSizeX = value; }
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public float RelativeLayoutSizeY {
+			get { return _RelativeLayoutSizeY; }
+			set { _RelativeLayoutSizeY = value; }
+		}
+		
 		/*--------------------------------------------------------------------------------------------*/
 		public void SetLayoutSize(float pSizeX, float pSizeY, ISettingsController pController) {
 			Controllers.Set(SizeXName, pController);
@@ -98,6 +119,18 @@ namespace Hover.Common.Renderers {
 		public void UnsetLayoutSize(ISettingsController pController) {
 			Controllers.Unset(SizeXName, pController);
 			Controllers.Unset(SizeYName, pController);
+		}
+			
+		/*--------------------------------------------------------------------------------------------*/
+		public void UpdateLayoutControl() {
+			if ( Controllers.IsControlled(SizeXName) ) { //TODO: is this acceptable logic?
+				Controllers.Unset(RelativeLayoutSizeXName, this);
+				Controllers.Unset(RelativeLayoutSizeYName, this);
+			}
+			else {
+				Controllers.Set(RelativeLayoutSizeXName, this);
+				Controllers.Set(RelativeLayoutSizeYName, this);
+			}
 		}
 
 

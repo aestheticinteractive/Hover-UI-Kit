@@ -17,11 +17,16 @@ namespace Hover.Common.Renderers.Helpers {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public static string GetSettingsControllerName(ISettingsController pController) {
+			if ( pController == null ) {
+				return "NULL"; //TODO: why does this happen?
+			}
+			
 			return pController.name+" ("+pController.GetType().Name+")";
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public static string GetControlledSettingsText(ISettingsControllerMap pControllerMap) {
+		public static string GetControlledSettingsText(
+											Object pSelf, ISettingsControllerMap pControllerMap) {
 			if ( !Application.isEditor ) {
 				throw new Exception("This method is meant for editor mode only.");
 			}
@@ -30,10 +35,13 @@ namespace Hover.Common.Renderers.Helpers {
 			string text = "";
 
 			for ( int i = 0 ; i < valueNames.Count ; i++ ) {
-				string valueName = valueNames[i];
+				string valueName = valueNames[i].Replace("_", "");
 				ISettingsController controller = pControllerMap.Get(valueName);
+				//TODO: Debug.Log (" - "+valueName+" / "+controller+" / "+pSelf);
+				string contName = (controller == pSelf ? 
+					"self (locked)" : GetSettingsControllerName(controller));
 
-				text += BulletText+valueName+": "+GetSettingsControllerName(controller);
+				text += BulletText+valueName+": "+contName;
 			}
 
 			return string.Format(ControlledSettingsText, text);

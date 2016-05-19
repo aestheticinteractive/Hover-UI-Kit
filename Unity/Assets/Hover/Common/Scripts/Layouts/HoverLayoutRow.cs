@@ -10,6 +10,8 @@ namespace Hover.Common.Items {
 
 		public const string SizeXName = "SizeX";
 		public const string SizeYName = "SizeY";
+		public const string RelativeLayoutSizeXName = "_RelativeLayoutSizeX";
+		public const string RelativeLayoutSizeYName = "_RelativeLayoutSizeY";
 
 		public enum ArrangementType {
 			LeftToRight,
@@ -26,7 +28,15 @@ namespace Hover.Common.Items {
 		
 		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
 		public float SizeY = 8;
-
+		
+		[SerializeField]
+		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
+		private float _RelativeLayoutSizeX = 1;
+		
+		[SerializeField]
+		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
+		private float _RelativeLayoutSizeY = 1;
+		
 		[DisableWhenControlled(RangeMin=0, RangeMax=10)]
 		public float OuterPadding = 0;
 
@@ -42,10 +52,24 @@ namespace Hover.Common.Items {
 		public override void TreeUpdate() {
 			base.TreeUpdate();
 			UpdateLayoutWithFixedSize();
+			UpdateLayoutControl();
 		}
 		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
+		//TODO: this layout-related code could get redundant; move to a reusable script?
+		/*--------------------------------------------------------------------------------------------*/
+		public float RelativeLayoutSizeX {
+			get { return _RelativeLayoutSizeX; }
+			set { _RelativeLayoutSizeX = value; }
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public float RelativeLayoutSizeY {
+			get { return _RelativeLayoutSizeY; }
+			set { _RelativeLayoutSizeY = value; }
+		}
+		
 		/*--------------------------------------------------------------------------------------------*/
 		public void SetLayoutSize(float pSizeX, float pSizeY, ISettingsController pController) {
 			Controllers.Set(SizeXName, pController);
@@ -59,6 +83,18 @@ namespace Hover.Common.Items {
 		public void UnsetLayoutSize(ISettingsController pController) {
 			Controllers.Unset(SizeXName, pController);
 			Controllers.Unset(SizeYName, pController);
+		}
+			
+		/*--------------------------------------------------------------------------------------------*/
+		public void UpdateLayoutControl() {
+			if ( Controllers.IsControlled(SizeXName) ) { //TODO: is this acceptable logic?
+				Controllers.Unset(RelativeLayoutSizeXName, this);
+				Controllers.Unset(RelativeLayoutSizeYName, this);
+			}
+			else {
+				Controllers.Set(RelativeLayoutSizeXName, this);
+				Controllers.Set(RelativeLayoutSizeYName, this);
+			}
 		}
 
 
@@ -95,48 +131,60 @@ namespace Hover.Common.Items {
 			float cellSumPad = OuterPadding*2 - InnerPadding;
 			float itemsSumPad = InnerPadding*(itemCount-1) + OuterPadding*2;
 			float outerSumPad = OuterPadding*2;
-			float itemSizeX;
-			float itemSizeY;
-			float cellRowSize;
+			float relSumX = 0;
+			float relSumY = 0;
+			float elemAvailSizeX;
+			float elemAvailSizeY;
+			float cellAvailSizeX;
+			float cellAvailSizeY;
 
 			if ( isHoriz ) {
-				itemSizeX = (SizeX-itemsSumPad)/itemCount;
-				itemSizeY = SizeY-outerSumPad;
-				cellRowSize = (SizeX-cellSumPad)/itemCount;
+				elemAvailSizeX = SizeX-itemsSumPad;
+				elemAvailSizeY = SizeY-outerSumPad;
+				cellAvailSizeX = SizeX-cellSumPad;
+				cellAvailSizeY = elemAvailSizeY;
 			}
 			else {
-				itemSizeX = SizeX-outerSumPad;
-				itemSizeY = (SizeY-itemsSumPad)/itemCount;
-				cellRowSize = (SizeY-cellSumPad)/itemCount;
+				elemAvailSizeX = SizeX-outerSumPad;
+				elemAvailSizeY = SizeY-itemsSumPad;
+				cellAvailSizeX = elemAvailSizeX;
+				cellAvailSizeY = SizeY-cellSumPad;
 			}
+			
+			for ( int i = 0 ; i < itemCount ; i++ ) {
+				IRectangleLayoutElement elem = vChildElements[i];
+				relSumX += elem.RelativeLayoutSizeX;
+				relSumY += elem.RelativeLayoutSizeY;
+			}
+			
+			float posX = anchorStartX - (isHoriz ? cellAvailSizeX/2 : 0);
+			float posY = anchorStartY - (isHoriz ? 0 : cellAvailSizeY/2);
 
 			for ( int i = 0 ; i < itemCount ; i++ ) {
 				int childI = (isRev ? itemCount-i-1 : i);
-				IRectangleLayoutElement childElem = vChildElements[childI];
+				IRectangleLayoutElement elem = vChildElements[childI];
 
-				if ( childElem == null ) {
-					Debug.LogWarning("Item '"+childElem.transform.name+"' does not have a renderer "+
+				if ( elem == null ) {
+					Debug.LogWarning("Item '"+elem.transform.name+"' does not have a renderer "+
 						"that implements '"+typeof(IRectangleLayoutElement).Name+"'.");
 					continue;
 				}
 
-				float cellPos = cellRowSize*(i-itemCount/2f+0.5f);
-				Vector3 localPos = childElem.transform.localPosition;
-
-				if ( isHoriz ) {
-					localPos.x = anchorStartX+cellPos;
-					localPos.y = anchorStartY;
-				}
-				else {
-					localPos.x = anchorStartX;
-					localPos.y = anchorStartY-cellPos;
-				}
+				Vector3 localPos = elem.transform.localPosition;
+				float elemRelSizeX = elemAvailSizeX*elem.RelativeLayoutSizeX/(isHoriz ? relSumX : 1);
+				float elemRelSizeY = elemAvailSizeY*elem.RelativeLayoutSizeY/(isHoriz ? 1 : relSumY);
 				
-				childElem.Controllers.Set("Transform.localPosition.x", this);
-				childElem.Controllers.Set("Transform.localPosition.y", this);
+				localPos.x = posX+(isHoriz ? (elemRelSizeX+InnerPadding)/2 : 0);
+				localPos.y = posY+(isHoriz ? 0 : (elemRelSizeY+InnerPadding)/2);
+				
+				posX += (isHoriz ? elemRelSizeX+InnerPadding : 0);
+				posY += (isHoriz ? 0 : elemRelSizeY+InnerPadding);
+				
+				elem.Controllers.Set("Transform.localPosition.x", this);
+				elem.Controllers.Set("Transform.localPosition.y", this);
 
-				childElem.SetLayoutSize(itemSizeX, itemSizeY, this);
-				childElem.transform.localPosition = localPos;
+				elem.SetLayoutSize(elemRelSizeX, elemRelSizeY, this);
+				elem.transform.localPosition = localPos;
 			}
 		}
 

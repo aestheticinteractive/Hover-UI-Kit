@@ -21,7 +21,8 @@ namespace Hover.Common.Editor.Utils {
 			float messageH = 0;
 
 			if ( map != null && attrib.DisplayMessage && map.AreAnyControlled() ) {
-				string message = RendererHelper.GetControlledSettingsText(map);
+				Object targetObj = pProp.serializedObject.targetObject; 
+				string message = RendererHelper.GetControlledSettingsText(targetObj, map);
 				Rect helpRect = pPosition;
 
 				messageH = GetMessageHeight(map);
