@@ -137,7 +137,7 @@ namespace Hover.Common.Items {
 					continue;
 				}
 
-				float cellPos = cellRowSize*(i-itemCount/2);
+				float cellPos = cellRowSize*(i-itemCount/2f+0.5f);
 				Vector3 localPos = childItem.transform.localPosition;
 
 				if ( isHoriz ) {
