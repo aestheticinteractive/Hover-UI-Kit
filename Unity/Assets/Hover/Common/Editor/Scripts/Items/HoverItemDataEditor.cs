@@ -84,27 +84,28 @@ namespace Hover.Common.Editor.Items {
 			}
 
 			if ( sliderData != null ) {
+				EditorGUILayout.PropertyField(serializedObject.FindProperty("_LabelFormat"),
+					new GUIContent("Slider Label Format"));
+				EditorGUILayout.PropertyField(serializedObject.FindProperty("_RangeMin"),
+					new GUIContent("Slider Range Min"));
+				EditorGUILayout.PropertyField(serializedObject.FindProperty("_RangeMax"),
+					new GUIContent("Slider Range Max"));
+
 				float rangeValue = Mathf.Lerp(
 					sliderData.RangeMin, sliderData.RangeMax, sliderData.Value);
-
-				sliderData.LabelFormat = EditorGUILayout.TextField(
-					"Slider Label Format", sliderData.LabelFormat);
-				sliderData.RangeMin = EditorGUILayout.FloatField(
-					"Slider Range Min", sliderData.RangeMin);
-				sliderData.RangeMax = EditorGUILayout.FloatField(
-					"Slider Range Max", sliderData.RangeMax);
 				rangeValue = EditorGUILayout.Slider(
 					"Slider Range Value", rangeValue, sliderData.RangeMin, sliderData.RangeMax);
-				sliderData.Value = Mathf.InverseLerp(
-					sliderData.RangeMin, sliderData.RangeMax, rangeValue);
-				sliderData.Ticks = EditorGUILayout.IntField(
-					"Slider Ticks", sliderData.Ticks);
-				sliderData.Snaps = EditorGUILayout.IntField(
-					"Slider Snaps", sliderData.Snaps);
-				sliderData.AllowJump = EditorGUILayout.Toggle(
-					"Slider Allow Jump", sliderData.AllowJump);
-				sliderData.FillStartingPoint = (SliderItem.FillType)EditorGUILayout.EnumPopup(
-					"Slider Fill Starting-Point", sliderData.FillStartingPoint);
+				serializedObject.FindProperty("_Value").floatValue = 
+					Mathf.InverseLerp(sliderData.RangeMin, sliderData.RangeMax, rangeValue);
+
+				EditorGUILayout.PropertyField(serializedObject.FindProperty("_Ticks"),
+					new GUIContent("Slider Ticks"));
+				EditorGUILayout.PropertyField(serializedObject.FindProperty("_Snaps"),
+					new GUIContent("Slider Snaps"));
+				EditorGUILayout.PropertyField(serializedObject.FindProperty("_AllowJump"),
+					new GUIContent("Slider Allow Jump"));
+				EditorGUILayout.PropertyField(serializedObject.FindProperty("_FillStartingPoint"),
+					new GUIContent("Slider Fill Starting-Point"));
 			}
 		}
 
