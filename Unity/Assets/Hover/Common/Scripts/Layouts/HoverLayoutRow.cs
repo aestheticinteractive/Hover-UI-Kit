@@ -21,9 +21,6 @@ namespace Hover.Common.Items {
 		[DisableWhenControlled(DisplayMessage=true)]
 		public ArrangementType Arrangement = ArrangementType.LeftToRight;
 
-		[DisableWhenControlled]
-		public bool UsedFixedSize = true;
-		
 		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
 		public float SizeX = 40;
 		
@@ -44,26 +41,13 @@ namespace Hover.Common.Items {
 		/*--------------------------------------------------------------------------------------------*/
 		public override void TreeUpdate() {
 			base.TreeUpdate();
-
-			if ( UsedFixedSize ) {
-				Controllers.Unset(SizeXName, this);
-				Controllers.Unset(SizeYName, this);
-				UpdateLayoutWithFixedSize();
-			}
-			else {
-				Controllers.Set(SizeXName, this);
-				Controllers.Set(SizeYName, this);
-			}
+			UpdateLayoutWithFixedSize();
 		}
 		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void SetLayoutSize(float pSizeX, float pSizeY, ISettingsController pController) {
-			if ( UsedFixedSize ) {
-				return;
-			}
-
 			Controllers.Set(SizeXName, pController);
 			Controllers.Set(SizeYName, pController);
 
@@ -97,7 +81,7 @@ namespace Hover.Common.Items {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateLayoutWithFixedSize() {
-			int itemCount = vChildItems.Count;
+			int itemCount = vChildElements.Count;
 
 			if ( itemCount == 0 ) {
 				return;
@@ -128,32 +112,31 @@ namespace Hover.Common.Items {
 
 			for ( int i = 0 ; i < itemCount ; i++ ) {
 				int childI = (isRev ? itemCount-i-1 : i);
-				HoverItem childItem = vChildItems[childI];
-				IRectangleLayoutElement elem = childItem.GetComponent<IRectangleLayoutElement>();
+				IRectangleLayoutElement childElem = vChildElements[childI];
 
-				if ( elem == null ) {
-					Debug.LogWarning("Item '"+childItem.gameObject.name+"' does not have a renderer "+
+				if ( childElem == null ) {
+					Debug.LogWarning("Item '"+childElem.transform.name+"' does not have a renderer "+
 						"that implements '"+typeof(IRectangleLayoutElement).Name+"'.");
 					continue;
 				}
 
 				float cellPos = cellRowSize*(i-itemCount/2f+0.5f);
-				Vector3 localPos = childItem.transform.localPosition;
+				Vector3 localPos = childElem.transform.localPosition;
 
 				if ( isHoriz ) {
-					localPos.x = anchorStartX + (cellPos+OuterPadding);
-					localPos.y = anchorStartY - OuterPadding;
+					localPos.x = anchorStartX+cellPos;
+					localPos.y = anchorStartY;
 				}
 				else {
-					localPos.x = anchorStartX + OuterPadding;
-					localPos.y = anchorStartY - (cellPos+OuterPadding);
+					localPos.x = anchorStartX;
+					localPos.y = anchorStartY-cellPos;
 				}
 				
-				elem.Controllers.Set("Transform.localPosition.x", this);
-				elem.Controllers.Set("Transform.localPosition.y", this);
+				childElem.Controllers.Set("Transform.localPosition.x", this);
+				childElem.Controllers.Set("Transform.localPosition.y", this);
 
-				elem.SetLayoutSize(itemSizeX, itemSizeY, this);
-				childItem.transform.localPosition = localPos;
+				childElem.SetLayoutSize(itemSizeX, itemSizeY, this);
+				childElem.transform.localPosition = localPos;
 			}
 		}
 

@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using Hover.Common.Layouts;
 using Hover.Common.Utils;
 using UnityEngine;
+using System.Linq;
 
 namespace Hover.Common.Items {
 
@@ -11,18 +13,23 @@ namespace Hover.Common.Items {
 
 		public ISettingsControllerMap Controllers { get; private set; }
 		
-		protected readonly List<HoverItem> vChildItems;
+		protected readonly List<IRectangleLayoutElement> vChildElements;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected HoverLayoutGroup() {
 			Controllers = new SettingsControllerMap();
-			vChildItems = new List<HoverItem>();
+			vChildElements = new List<IRectangleLayoutElement>();
 		}
 
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public void Update() {
+			//do nothing: Unity shows the enabled checkbox when Update() is present.
+		}
+		
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void TreeUpdate() {
 			FillChildItemsList();
@@ -32,16 +39,16 @@ namespace Hover.Common.Items {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected virtual void FillChildItemsList() {
-			vChildItems.Clear();
+			vChildElements.Clear();
 
 			foreach ( Transform childTx in gameObject.transform ) {
-				HoverItem item = childTx.GetComponent<HoverItem>();
+				IRectangleLayoutElement childElem = childTx.GetComponent<IRectangleLayoutElement>();
 
-				if ( item == null ) {
+				if ( childElem == null ) {
 					continue;
 				}
 
-				vChildItems.Add(item);
+				vChildElements.Add(childElem);
 			}
 		}
 

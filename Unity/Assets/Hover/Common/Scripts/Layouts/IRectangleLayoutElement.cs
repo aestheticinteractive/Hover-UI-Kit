@@ -1,10 +1,13 @@
 ﻿using Hover.Common.Utils;
+using UnityEngine;
 
 namespace Hover.Common.Layouts {
 
 	/*================================================================================================*/
 	public interface IRectangleLayoutElement {
 
+		Transform transform { get; }
+		
 		ISettingsControllerMap Controllers { get; }
 
 

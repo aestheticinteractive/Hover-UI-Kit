@@ -33,7 +33,7 @@ namespace Hover.Common.Utils {
 			Transform parTx = transform.parent;
 			TreeUpdater parTreeUp = (parTx == null ? null : parTx.GetComponent<TreeUpdater>());
 			
-			if ( parTreeUp == null ) {
+			if ( parTreeUp == null || !parTreeUp.isActiveAndEnabled ) {
 				BeginAtThisLevel();
 				return;
 			}
@@ -50,6 +50,10 @@ namespace Hover.Common.Utils {
 		/*--------------------------------------------------------------------------------------------*/
 		private void SendAndDescend(int pDepth) {
 			//Debug.Log(new string('-', pDepth)+"SendAndDescend: "+gameObject.name, gameObject);
+			
+			//TODO: SendMessage() also sends to inactive components, which is not desired
+			//TODO: use an ITreeUpdateable interface for this?
+			//TODO: optionally provide an update-order of components within each GameObject
 			SendMessage("TreeUpdate", SendMessageOptions.DontRequireReceiver);
 			DidTreeUpdateThisFrame = true;
 			
@@ -58,7 +62,7 @@ namespace Hover.Common.Utils {
 			foreach ( Transform childTx in transform ) {
 				TreeUpdater childTreeUp = childTx.GetComponent<TreeUpdater>();
 				
-				if ( childTreeUp == null ) {
+				if ( childTreeUp == null || !childTreeUp.isActiveAndEnabled ) {
 					continue;
 				}
 				
