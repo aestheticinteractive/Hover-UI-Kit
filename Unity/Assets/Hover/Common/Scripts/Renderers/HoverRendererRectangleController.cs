@@ -26,22 +26,43 @@ namespace Hover.Common.Renderers {
 		public bool IsButtonRendererType { get; private set; }
 
 		[DisableWhenControlled(DisplayMessage=true)]
+		public GameObject ButtonRendererPrefab;
+
+		[DisableWhenControlled]
+		public GameObject SliderRendererPrefab;
+
+		[DisableWhenControlled]
 		public HoverRendererRectangleButton ButtonRenderer;
 
 		[DisableWhenControlled]
 		public HoverRendererRectangleSlider SliderRenderer;
-		
+
 		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
 		public float SizeX = 10;
-		
+
 		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
 		public float SizeY = 10;
-		
+
 		[DisableWhenControlled(RangeMin=0.05f, RangeMax=0.9f)]
 		public float DisabledAlpha = 0.35f;
 
+		[HideInInspector]
+		[SerializeField]
+		private bool _IsBuilt;
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public void Awake() {
+			if ( !_IsBuilt ) {
+				ButtonRendererPrefab = Resources.Load<GameObject>(
+					"Prefabs/HoverRendererRectangleButtonStandard");
+				SliderRendererPrefab = Resources.Load<GameObject>(
+					"Prefabs/HoverRendererRectangleSliderStandard");
+				_IsBuilt = true;
+			}
+		}
+
 		/*--------------------------------------------------------------------------------------------*/
 		public override void TreeUpdate() {
 			base.TreeUpdate();
@@ -53,12 +74,14 @@ namespace Hover.Common.Renderers {
 			TryRebuildWithItemType(hoverItem.ItemType);
 
 			if ( ButtonRenderer != null ) {
+				UpdateButtonControl();
 				UpdateButtonSettings(hoverItem);
 				UpdateButtonSettings(highState);
 				UpdateButtonSettings(selState);
 			}
 
 			if ( SliderRenderer != null ) {
+				UpdateSliderControl();
 				UpdateSliderSettings(hoverItem);
 				UpdateSliderSettings(hoverItem, highState);
 				UpdateSliderSettings(selState);
@@ -125,16 +148,8 @@ namespace Hover.Common.Renderers {
 				return ButtonRenderer;
 			}
 
-			HoverRendererRectangleButton existingButton = RendererHelper
-				.FindInImmediateChildren<HoverRendererRectangleButton>(gameObject.transform);
-
-			if ( existingButton != null ) {
-				return existingButton;
-			}
-
-			var buttonGo = new GameObject("ButtonRenderer");
-			buttonGo.transform.SetParent(gameObject.transform, false);
-			return buttonGo.AddComponent<HoverRendererRectangleButton>();
+			return RendererHelper.FindOrBuildRenderer<HoverRendererRectangleButton>(
+				gameObject.transform, ButtonRendererPrefab, "Button");
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
@@ -142,17 +157,57 @@ namespace Hover.Common.Renderers {
 			if ( SliderRenderer != null ) {
 				return SliderRenderer;
 			}
+			
+			return RendererHelper.FindOrBuildRenderer<HoverRendererRectangleSlider>(
+				gameObject.transform, SliderRendererPrefab, "Slider");
+		}
 
-			HoverRendererRectangleSlider existingSlider = RendererHelper
-				.FindInImmediateChildren<HoverRendererRectangleSlider>(gameObject.transform);
 
-			if ( existingSlider != null ) {
-				return existingSlider;
-			}
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateButtonControl() {
+			ButtonRenderer.Controllers.Set(HoverRendererRectangleButton.SizeXName, this);
+			ButtonRenderer.Controllers.Set(HoverRendererRectangleButton.SizeYName, this);
+			ButtonRenderer.Controllers.Set(HoverRendererRectangleButton.AlphaName, this);
 
-			var sliderGo = new GameObject("SliderRenderer");
-			sliderGo.transform.SetParent(gameObject.transform, false);
-			return sliderGo.AddComponent<HoverRendererRectangleSlider>();
+			ButtonRenderer.Fill.Controllers.Set(
+				HoverRendererFillRectangleFromCenter.HighlightProgressName, this);
+			ButtonRenderer.Fill.Controllers.Set(
+				HoverRendererFillRectangleFromCenter.SelectionProgressName, this);
+			ButtonRenderer.Fill.Edge.Controllers.Set("GameObject.activeSelf", this);
+
+			ButtonRenderer.Canvas.Label.Controllers.Set("Text.text", this);
+			ButtonRenderer.Canvas.IconOuter.Controllers.Set(HoverRendererIcon.IconTypeName, this);
+			ButtonRenderer.Canvas.IconInner.Controllers.Set(HoverRendererIcon.IconTypeName, this);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateSliderControl() {
+			SliderRenderer.Controllers.Set(HoverRendererRectangleSlider.SizeXName, this);
+			SliderRenderer.Controllers.Set(HoverRendererRectangleSlider.SizeYName, this);
+			SliderRenderer.Controllers.Set(HoverRendererRectangleSlider.AlphaName, this);
+			SliderRenderer.Controllers.Set(HoverRendererRectangleSlider.ZeroValueName, this);
+			SliderRenderer.Controllers.Set(HoverRendererRectangleSlider.HandleValueName, this);
+			SliderRenderer.Controllers.Set(HoverRendererRectangleSlider.JumpValueName, this);
+			SliderRenderer.Controllers.Set(HoverRendererRectangleSlider.AllowJumpName, this);
+			SliderRenderer.Controllers.Set(HoverRendererRectangleSlider.FillStartingPointName, this);
+
+			SliderRenderer.HandleButton.Fill.Controllers.Set(
+				HoverRendererFillRectangleFromCenter.HighlightProgressName, this);
+			SliderRenderer.HandleButton.Fill.Controllers.Set(
+				HoverRendererFillRectangleFromCenter.SelectionProgressName, this);
+			SliderRenderer.HandleButton.Fill.Edge.Controllers.Set("GameObject.activeSelf", this);
+			SliderRenderer.JumpButton.Fill.Controllers.Set(
+				HoverRendererFillRectangleFromCenter.HighlightProgressName, this);
+			SliderRenderer.JumpButton.Fill.Controllers.Set(
+				HoverRendererFillRectangleFromCenter.SelectionProgressName, this);
+			SliderRenderer.JumpButton.Fill.Edge.Controllers.Set("GameObject.activeSelf", this);
+
+			SliderRenderer.HandleButton.Canvas.Label.Controllers.Set("Text.text", this);
+			SliderRenderer.HandleButton.Canvas.IconOuter.Controllers.Set(
+				HoverRendererIcon.IconTypeName, this);
+			SliderRenderer.HandleButton.Canvas.IconInner.Controllers.Set(
+				HoverRendererIcon.IconTypeName, this);
 		}
 
 
@@ -167,18 +222,6 @@ namespace Hover.Common.Renderers {
 			
 			HoverRendererIcon iconOuter = ButtonRenderer.Canvas.IconOuter;
 			HoverRendererIcon iconInner = ButtonRenderer.Canvas.IconInner;
-
-			ButtonRenderer.Controllers.Set(HoverRendererRectangleButton.SizeXName, this);
-			ButtonRenderer.Controllers.Set(HoverRendererRectangleButton.SizeYName, this);
-			ButtonRenderer.Controllers.Set(HoverRendererRectangleButton.AlphaName, this);
-			ButtonRenderer.Fill.Controllers
-				.Set(HoverRendererFillRectangleFromCenter.HighlightProgressName, this);
-			ButtonRenderer.Fill.Controllers
-				.Set(HoverRendererFillRectangleFromCenter.SelectionProgressName, this);
-			ButtonRenderer.Fill.Edge.Controllers.Set("GameObject.activeSelf", this);
-			ButtonRenderer.Canvas.Label.Controllers.Set("Text.text", this);
-			iconOuter.Controllers.Set(HoverRendererIcon.IconTypeName, this);
-			iconInner.Controllers.Set(HoverRendererIcon.IconTypeName, this);
 
 			ButtonRenderer.SizeX = SizeX;
 			ButtonRenderer.SizeY = SizeY;
@@ -218,28 +261,6 @@ namespace Hover.Common.Renderers {
 			HoverRendererIcon handleIconInner = handleCanvas.IconInner;
 
 			SizeY = Mathf.Max(SizeY, SliderRenderer.HandleButton.SizeY);
-
-			SliderRenderer.Controllers.Set(HoverRendererRectangleSlider.SizeXName, this);
-			SliderRenderer.Controllers.Set(HoverRendererRectangleSlider.SizeYName, this);
-			SliderRenderer.Controllers.Set(HoverRendererRectangleSlider.AlphaName, this);
-			SliderRenderer.Controllers.Set(HoverRendererRectangleSlider.ZeroValueName, this);
-			SliderRenderer.Controllers.Set(HoverRendererRectangleSlider.HandleValueName, this);
-			SliderRenderer.Controllers.Set(HoverRendererRectangleSlider.JumpValueName, this);
-			SliderRenderer.Controllers.Set(HoverRendererRectangleSlider.AllowJumpName, this);
-			SliderRenderer.Controllers.Set(HoverRendererRectangleSlider.FillStartingPointName, this);
-			SliderRenderer.HandleButton.Fill.Controllers
-				.Set(HoverRendererFillRectangleFromCenter.HighlightProgressName, this);
-			SliderRenderer.HandleButton.Fill.Controllers
-				.Set(HoverRendererFillRectangleFromCenter.SelectionProgressName, this);
-			SliderRenderer.HandleButton.Fill.Edge.Controllers.Set("GameObject.activeSelf", this);
-			SliderRenderer.JumpButton.Fill.Controllers
-				.Set(HoverRendererFillRectangleFromCenter.HighlightProgressName, this);
-			SliderRenderer.JumpButton.Fill.Controllers
-				.Set(HoverRendererFillRectangleFromCenter.SelectionProgressName, this);
-			SliderRenderer.JumpButton.Fill.Edge.Controllers.Set("GameObject.activeSelf", this);
-			handleCanvas.Label.Controllers.Set("Text.text", this);
-			handleIconOuter.Controllers.Set(HoverRendererIcon.IconTypeName, this);
-			handleIconInner.Controllers.Set(HoverRendererIcon.IconTypeName, this);
 
 			SliderRenderer.SizeX = SizeX;
 			SliderRenderer.SizeY = SizeY;
