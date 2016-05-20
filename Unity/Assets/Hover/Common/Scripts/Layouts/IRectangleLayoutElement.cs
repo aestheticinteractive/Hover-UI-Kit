@@ -9,8 +9,6 @@ namespace Hover.Common.Layouts {
 		Transform transform { get; }
 		
 		ISettingsControllerMap Controllers { get; }
-		float RelativeLayoutSizeX { get; }
-		float RelativeLayoutSizeY { get; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

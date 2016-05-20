@@ -1,17 +1,14 @@
-﻿using Hover.Common.Layouts;
-using Hover.Common.Renderers.Helpers;
+﻿using Hover.Common.Renderers.Helpers;
 using Hover.Common.Utils;
 using UnityEngine;
 
-namespace Hover.Common.Items {
+namespace Hover.Common.Layouts {
 
 	/*================================================================================================*/
 	public class HoverLayoutRow : HoverLayoutGroup, IRectangleLayoutElement {
 
 		public const string SizeXName = "SizeX";
 		public const string SizeYName = "SizeY";
-		public const string RelativeLayoutSizeXName = "_RelativeLayoutSizeX";
-		public const string RelativeLayoutSizeYName = "_RelativeLayoutSizeY";
 
 		public enum ArrangementType {
 			LeftToRight,
@@ -29,14 +26,6 @@ namespace Hover.Common.Items {
 		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
 		public float SizeY = 8;
 		
-		[SerializeField]
-		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		private float _RelativeLayoutSizeX = 1;
-		
-		[SerializeField]
-		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		private float _RelativeLayoutSizeY = 1;
-		
 		[DisableWhenControlled(RangeMin=0, RangeMax=10)]
 		public float OuterPadding = 0;
 
@@ -52,24 +41,10 @@ namespace Hover.Common.Items {
 		public override void TreeUpdate() {
 			base.TreeUpdate();
 			UpdateLayoutWithFixedSize();
-			UpdateLayoutControl();
 		}
 		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		//TODO: this layout-related code could get redundant; move to a reusable script?
-		/*--------------------------------------------------------------------------------------------*/
-		public float RelativeLayoutSizeX {
-			get { return _RelativeLayoutSizeX; }
-			set { _RelativeLayoutSizeX = value; }
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		public float RelativeLayoutSizeY {
-			get { return _RelativeLayoutSizeY; }
-			set { _RelativeLayoutSizeY = value; }
-		}
-		
 		/*--------------------------------------------------------------------------------------------*/
 		public void SetLayoutSize(float pSizeX, float pSizeY, ISettingsController pController) {
 			Controllers.Set(SizeXName, pController);
@@ -83,18 +58,6 @@ namespace Hover.Common.Items {
 		public void UnsetLayoutSize(ISettingsController pController) {
 			Controllers.Unset(SizeXName, pController);
 			Controllers.Unset(SizeYName, pController);
-		}
-			
-		/*--------------------------------------------------------------------------------------------*/
-		public void UpdateLayoutControl() {
-			if ( Controllers.IsControlled(SizeXName) ) { //TODO: is this acceptable logic?
-				Controllers.Unset(RelativeLayoutSizeXName, this);
-				Controllers.Unset(RelativeLayoutSizeYName, this);
-			}
-			else {
-				Controllers.Set(RelativeLayoutSizeXName, this);
-				Controllers.Set(RelativeLayoutSizeYName, this);
-			}
 		}
 
 
@@ -117,7 +80,7 @@ namespace Hover.Common.Items {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateLayoutWithFixedSize() {
-			int itemCount = vChildElements.Count;
+			int itemCount = vChildItems.Count;
 
 			if ( itemCount == 0 ) {
 				return;
@@ -152,9 +115,9 @@ namespace Hover.Common.Items {
 			}
 			
 			for ( int i = 0 ; i < itemCount ; i++ ) {
-				IRectangleLayoutElement elem = vChildElements[i];
-				relSumX += elem.RelativeLayoutSizeX;
-				relSumY += elem.RelativeLayoutSizeY;
+				ChildItem item = vChildItems[i];
+				relSumX += item.RelSizeX;
+				relSumY += item.RelSizeY;
 			}
 			
 			float posX = anchorStartX - (isHoriz ? cellAvailSizeX/2 : 0);
@@ -162,17 +125,12 @@ namespace Hover.Common.Items {
 
 			for ( int i = 0 ; i < itemCount ; i++ ) {
 				int childI = (isRev ? itemCount-i-1 : i);
-				IRectangleLayoutElement elem = vChildElements[childI];
-
-				if ( elem == null ) {
-					Debug.LogWarning("Item '"+elem.transform.name+"' does not have a renderer "+
-						"that implements '"+typeof(IRectangleLayoutElement).Name+"'.");
-					continue;
-				}
+				ChildItem item = vChildItems[childI];
+				IRectangleLayoutElement elem = item.Elem;
 
 				Vector3 localPos = elem.transform.localPosition;
-				float elemRelSizeX = elemAvailSizeX*elem.RelativeLayoutSizeX/(isHoriz ? relSumX : 1);
-				float elemRelSizeY = elemAvailSizeY*elem.RelativeLayoutSizeY/(isHoriz ? 1 : relSumY);
+				float elemRelSizeX = elemAvailSizeX*item.RelSizeX/(isHoriz ? relSumX : 1);
+				float elemRelSizeY = elemAvailSizeY*item.RelSizeY/(isHoriz ? 1 : relSumY);
 				
 				localPos.x = posX+(isHoriz ? (elemRelSizeX+InnerPadding)/2 : 0);
 				localPos.y = posY+(isHoriz ? 0 : (elemRelSizeY+InnerPadding)/2);

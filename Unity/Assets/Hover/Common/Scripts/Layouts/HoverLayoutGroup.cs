@@ -1,26 +1,37 @@
 ﻿using System.Collections.Generic;
-using Hover.Common.Layouts;
 using Hover.Common.Utils;
 using UnityEngine;
-using System.Linq;
 
-namespace Hover.Common.Items {
+namespace Hover.Common.Layouts {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
 	public class HoverLayoutGroup : MonoBehaviour, ISettingsController, ITreeUpdateable {
 
+		protected struct ChildItem {
+			public float RelSizeX {
+				get { return (RelSizer == null ? 1 : RelSizer.RelativeSizeX); }
+			}
+
+			public float RelSizeY {
+				get { return (RelSizer == null ? 1 : RelSizer.RelativeSizeY); }
+			}
+
+			public IRectangleLayoutElement Elem;
+			public HoverLayoutRelativeSizer RelSizer;
+		}
+
 		public ISettingsControllerMap Controllers { get; private set; }
 		
-		protected readonly List<IRectangleLayoutElement> vChildElements;
+		protected readonly List<ChildItem> vChildItems;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected HoverLayoutGroup() {
 			Controllers = new SettingsControllerMap();
-			vChildElements = new List<IRectangleLayoutElement>();
+			vChildItems = new List<ChildItem>();
 		}
 
 		
@@ -39,16 +50,23 @@ namespace Hover.Common.Items {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected virtual void FillChildItemsList() {
-			vChildElements.Clear();
+			vChildItems.Clear();
 
 			foreach ( Transform childTx in gameObject.transform ) {
-				IRectangleLayoutElement childElem = childTx.GetComponent<IRectangleLayoutElement>();
+				IRectangleLayoutElement elem = childTx.GetComponent<IRectangleLayoutElement>();
 
-				if ( childElem == null ) {
+				if ( elem == null ) {
+					//Debug.LogWarning("Item '"+childTx.name+"' does not have a renderer "+
+					//	"that implements '"+typeof(IRectangleLayoutElement).Name+"'.");
 					continue;
 				}
 
-				vChildElements.Add(childElem);
+				var item = new ChildItem {
+					Elem = elem,
+					RelSizer = childTx.GetComponent<HoverLayoutRelativeSizer>()
+				};
+
+				vChildItems.Add(item);
 			}
 		}
 
