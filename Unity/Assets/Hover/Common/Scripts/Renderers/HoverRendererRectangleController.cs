@@ -31,8 +31,9 @@ namespace Hover.Common.Renderers {
 		[DisableWhenControlled]
 		public GameObject SliderRendererPrefab;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public HoverRendererRectangleButton ButtonRenderer;
+		private Component _ButtonRenderer;
 
 		[DisableWhenControlled]
 		public HoverRendererRectangleSlider SliderRenderer;
@@ -49,6 +50,14 @@ namespace Hover.Common.Renderers {
 		[HideInInspector]
 		[SerializeField]
 		private bool _IsBuilt;
+		
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public IHoverRendererRectangleButton ButtonRenderer {
+			get { return ((IHoverRendererRectangleButton)_ButtonRenderer); }
+			set { _ButtonRenderer = (Component)value; }
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -136,20 +145,21 @@ namespace Hover.Common.Renderers {
 				Controllers.Set(SliderRendererName, this);
 				Controllers.Unset(ButtonRendererName, this);
 
-				SliderRenderer = RendererHelper.DestroyRenderer(SliderRenderer);
+				//TODO: SliderRenderer = RendererHelper.DestroyRenderer(SliderRenderer);
 				ButtonRenderer = UseOrFindOrBuildButton();
 				IsButtonRendererType = true;
 			}
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		private HoverRendererRectangleButton UseOrFindOrBuildButton() {
+		private IHoverRendererRectangleButton UseOrFindOrBuildButton() {
 			if ( ButtonRenderer != null ) {
 				return ButtonRenderer;
 			}
 
-			return RendererHelper.FindOrBuildRenderer<HoverRendererRectangleButton>(
-				gameObject.transform, ButtonRendererPrefab, "Button");
+			return RendererHelper.FindOrBuildRenderer<IHoverRendererRectangleButton>(
+				gameObject.transform, ButtonRendererPrefab, "Button", 
+				typeof(HoverRendererRectangleButton));
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
@@ -157,28 +167,20 @@ namespace Hover.Common.Renderers {
 			if ( SliderRenderer != null ) {
 				return SliderRenderer;
 			}
-			
-			return RendererHelper.FindOrBuildRenderer<HoverRendererRectangleSlider>(
-				gameObject.transform, SliderRendererPrefab, "Slider");
+
+			return  null;
+
+			//TODO: 
+			/*return RendererHelper.FindOrBuildRenderer<HoverRendererRectangleSlider>(
+				gameObject.transform, SliderRendererPrefab, "Slider", 
+				typeof(HoverRendererRectangleSlider));*/
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateButtonControl() {
-			ButtonRenderer.Controllers.Set(HoverRendererRectangleButton.SizeXName, this);
-			ButtonRenderer.Controllers.Set(HoverRendererRectangleButton.SizeYName, this);
-			ButtonRenderer.Controllers.Set(HoverRendererRectangleButton.AlphaName, this);
-
-			ButtonRenderer.Fill.Controllers.Set(
-				HoverRendererFillRectangleFromCenter.HighlightProgressName, this);
-			ButtonRenderer.Fill.Controllers.Set(
-				HoverRendererFillRectangleFromCenter.SelectionProgressName, this);
-			ButtonRenderer.Fill.Edge.Controllers.Set("GameObject.activeSelf", this);
-
-			ButtonRenderer.Canvas.Label.Controllers.Set("Text.text", this);
-			ButtonRenderer.Canvas.IconOuter.Controllers.Set(HoverRendererIcon.IconTypeName, this);
-			ButtonRenderer.Canvas.IconInner.Controllers.Set(HoverRendererIcon.IconTypeName, this);
+			ButtonRenderer.RendererController = this;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -220,36 +222,33 @@ namespace Hover.Common.Renderers {
 			IParentItem parentData = (data as IParentItem);
 			IStickyItem stickyData = (data as IStickyItem);
 			
-			HoverRendererIcon iconOuter = ButtonRenderer.Canvas.IconOuter;
-			HoverRendererIcon iconInner = ButtonRenderer.Canvas.IconInner;
-
 			ButtonRenderer.SizeX = SizeX;
 			ButtonRenderer.SizeY = SizeY;
 			ButtonRenderer.Alpha = (data.IsEnabled ? 1 : DisabledAlpha);
 
-			ButtonRenderer.Canvas.Label.TextComponent.text = data.Label;
+			ButtonRenderer.LabelText = data.Label;
 
 			if ( checkboxData != null ) {
-				iconOuter.IconType = HoverRendererIcon.IconOffset.CheckOuter;
-				iconInner.IconType = (checkboxData.Value ?
+				ButtonRenderer.IconOuterType = HoverRendererIcon.IconOffset.CheckOuter;
+				ButtonRenderer.IconInnerType = (checkboxData.Value ?
 					HoverRendererIcon.IconOffset.CheckInner : HoverRendererIcon.IconOffset.None);
 			}
 			else if ( radioData != null ) {
-				iconOuter.IconType = HoverRendererIcon.IconOffset.RadioOuter;
-				iconInner.IconType = (radioData.Value ?
+				ButtonRenderer.IconOuterType = HoverRendererIcon.IconOffset.RadioOuter;
+				ButtonRenderer.IconInnerType = (radioData.Value ?
 					HoverRendererIcon.IconOffset.RadioInner : HoverRendererIcon.IconOffset.None);
 			}
 			else if ( parentData != null ) {
-				iconOuter.IconType = HoverRendererIcon.IconOffset.Parent;
-				iconInner.IconType = HoverRendererIcon.IconOffset.None;
+				ButtonRenderer.IconOuterType = HoverRendererIcon.IconOffset.Parent;
+				ButtonRenderer.IconInnerType = HoverRendererIcon.IconOffset.None;
 			}
 			else if ( stickyData != null ) {
-				iconOuter.IconType = HoverRendererIcon.IconOffset.Sticky;
-				iconInner.IconType = HoverRendererIcon.IconOffset.None;
+				ButtonRenderer.IconOuterType = HoverRendererIcon.IconOffset.Sticky;
+				ButtonRenderer.IconInnerType = HoverRendererIcon.IconOffset.None;
 			}
 			else {
-				iconOuter.IconType = HoverRendererIcon.IconOffset.None;
-				iconInner.IconType = HoverRendererIcon.IconOffset.None;
+				ButtonRenderer.IconOuterType = HoverRendererIcon.IconOffset.None;
+				ButtonRenderer.IconInnerType = HoverRendererIcon.IconOffset.None;
 			}
 		}
 
@@ -280,10 +279,8 @@ namespace Hover.Common.Renderers {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateButtonSettings(HoverItemHighlightState pHighState) {
-			ButtonRenderer.Fill.HighlightProgress = pHighState.MaxHighlightProgress;
-
-			RendererHelper.SetActiveWithUpdate(ButtonRenderer.Fill.Edge,
-				pHighState.IsNearestAcrossAllItemsForAnyCursor);
+			ButtonRenderer.HighlightProgress = pHighState.MaxHighlightProgress;
+			ButtonRenderer.ShowEdge = pHighState.IsNearestAcrossAllItemsForAnyCursor;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -327,7 +324,7 @@ namespace Hover.Common.Renderers {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateButtonSettings(HoverItemSelectionState pSelState) {
-			ButtonRenderer.Fill.SelectionProgress = pSelState.SelectionProgress;
+			ButtonRenderer.SelectionProgress = pSelState.SelectionProgress;
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/

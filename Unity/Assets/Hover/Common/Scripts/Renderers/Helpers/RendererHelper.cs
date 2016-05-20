@@ -47,24 +47,24 @@ namespace Hover.Common.Renderers.Helpers {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public static T FindOrBuildRenderer<T>(Transform pParentTx, GameObject pPrefab,
-														string pDisplayName) where T : Component {
+							string pDisplayName, Type pDefaultType) where T : class, IHoverRenderer {
 			T existing = FindInImmediateChildren<T>(pParentTx);
 
 			if ( existing != null ) {
 				return existing;
 			}
 
-			return BuildRenderer<T>(pParentTx, pPrefab, pDisplayName);
+			return BuildRenderer<T>(pParentTx, pPrefab, pDisplayName, pDefaultType);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		private static T BuildRenderer<T>(Transform pParentTx, GameObject pPrefab,
-														string pDisplayTypeName) where T : Component {
+						string pDisplayTypeName, Type pDefaultType) where T : class, IHoverRenderer {
 			if ( pPrefab != null ) {
 				T prefabRend = TryBuildPrefabRenderer<T>(pPrefab);
 
 				if ( prefabRend != null ) {
-					prefabRend.transform.SetParent(pParentTx, false);
+					prefabRend.gameObject.transform.SetParent(pParentTx, false);
 					return prefabRend;
 				}
 
@@ -76,11 +76,11 @@ namespace Hover.Common.Renderers.Helpers {
 
 			var buttonGo = new GameObject(pDisplayTypeName+"Renderer");
 			buttonGo.transform.SetParent(pParentTx, false);
-			return buttonGo.AddComponent<T>();
+			return (buttonGo.AddComponent(pDefaultType) as T);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private static T TryBuildPrefabRenderer<T>(GameObject pPrefab) where T : Component {
+		private static T TryBuildPrefabRenderer<T>(GameObject pPrefab) where T : IHoverRenderer {
 			if ( pPrefab.GetComponent<T>() == null ) {
 				return default(T);
 			}
@@ -94,7 +94,7 @@ namespace Hover.Common.Renderers.Helpers {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public static T DestroyRenderer<T>(T pRenderer) where T : Component {
+		public static T DestroyRenderer<T>(T pRenderer) where T : IHoverRenderer {
 			if ( pRenderer == null ) {
 				return default(T);
 			}
@@ -114,7 +114,7 @@ namespace Hover.Common.Renderers.Helpers {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private static T FindInImmediateChildren<T>(Transform pParentTx) where T : Component {
+		private static T FindInImmediateChildren<T>(Transform pParentTx) where T : IHoverRenderer {
 			foreach ( Transform childTx in pParentTx ) {
 				T renderer = childTx.GetComponent<T>();
 				
