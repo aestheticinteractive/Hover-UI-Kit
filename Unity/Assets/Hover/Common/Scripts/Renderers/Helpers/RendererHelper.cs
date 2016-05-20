@@ -12,15 +12,12 @@ namespace Hover.Common.Renderers.Helpers {
 		private const string BulletText = "\n - ";
 		private const string ControlledSettingsText =
 			"The following settings are controlled externally.{0}";
+		private const string ValueControlledBySelfText = "self (locked)";
 
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public static string GetSettingsControllerName(ISettingsController pController) {
-			if ( pController == null ) {
-				return "NULL"; //TODO: why does this happen?
-			}
-			
 			return pController.name+" ("+pController.GetType().Name+")";
 		}
 
@@ -35,13 +32,13 @@ namespace Hover.Common.Renderers.Helpers {
 			string text = "";
 
 			for ( int i = 0 ; i < valueNames.Count ; i++ ) {
-				string valueName = valueNames[i].Replace("_", "");
+				string valueName = valueNames[i];
+				string valueNameDisplay = valueName.Replace("_", "");
 				ISettingsController controller = pControllerMap.Get(valueName);
-				//TODO: Debug.Log (" - "+valueName+" / "+controller+" / "+pSelf);
-				string contName = (controller == pSelf ? 
-					"self (locked)" : GetSettingsControllerName(controller));
+				string contName = ((controller as Object) == pSelf ? 
+					ValueControlledBySelfText : GetSettingsControllerName(controller));
 
-				text += BulletText+valueName+": "+contName;
+				text += BulletText+valueNameDisplay+": "+contName;
 			}
 
 			return string.Format(ControlledSettingsText, text);
