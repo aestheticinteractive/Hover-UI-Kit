@@ -4,13 +4,14 @@ using Hover.Common.Renderers.Fills;
 using Hover.Common.Renderers.Helpers;
 using Hover.Common.Utils;
 using UnityEngine;
+using Hover.Common.Renderers.Contents;
 
 namespace Hover.Common.Renderers {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
-	public class HoverRendererRectangleSlider : MonoBehaviour, 
+	public class HoverRendererRectangleSlider : MonoBehaviour, IHoverRendererRectangleSlider,
 											IProximityProvider, ISettingsController, ITreeUpdateable {
 
 		//TODO: tick marks (use canvas RQ + hide when obscured by buttons)
@@ -24,7 +25,12 @@ namespace Hover.Common.Renderers {
 		public const string AllowJumpName = "AllowJump";
 		public const string FillStartingPointName = "FillStartingPoint";
 
+		public ISettingsController RendererController { get; set; }
 		public ISettingsControllerMap Controllers { get; private set; }
+		public string LabelText { get; set; }
+		public float HighlightProgress { get; set; }
+		public float SelectionProgress { get; set; }
+		public bool ShowEdge { get; set; }
 	
 		[DisableWhenControlled(DisplayMessage=true)]
 		public GameObject Container;
@@ -38,29 +44,37 @@ namespace Hover.Common.Renderers {
 		[DisableWhenControlled]
 		public HoverRendererRectangleButton JumpButton;
 		
+		[SerializeField]
 		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		public float SizeX = 10;
+		private float _SizeX = 10;
 		
+		[SerializeField]
 		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		public float SizeY = 10;
+		private float _SizeY = 10;
 		
+		[SerializeField]
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
-		public float Alpha = 1;
+		private float _Alpha = 1;
 		
+		[SerializeField]
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
-		public float ZeroValue = 0.5f;
+		private float _ZeroValue = 0.5f;
 				
+		[SerializeField]
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
-		public float HandleValue = 0.5f;
+		private float _HandleValue = 0.5f;
 		
+		[SerializeField]
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
-		public float JumpValue = 0;
+		private float _JumpValue = 0;
 		
+		[SerializeField]
 		[DisableWhenControlled]
-		public bool AllowJump = false;
+		private bool _AllowJump = false;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public SliderItem.FillType FillStartingPoint = SliderItem.FillType.Zero;
+		private SliderItem.FillType _FillStartingPoint = SliderItem.FillType.Zero;
 		
 		[DisableWhenControlled]
 		public AnchorType Anchor = AnchorType.MiddleCenter;
@@ -77,6 +91,56 @@ namespace Hover.Common.Renderers {
 		public HoverRendererRectangleSlider() {
 			Controllers = new SettingsControllerMap();
 			vSegmentInfoList = new List<SliderUtil.Segment>();
+		}
+		
+		
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public float SizeX {
+			get { return _SizeX; }
+			set { _SizeX = value; }
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public float SizeY {
+			get { return _SizeY; }
+			set { _SizeY = value; }
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public float Alpha {
+			get { return _Alpha; }
+			set { _Alpha = value; }
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public float ZeroValue {
+			get { return _ZeroValue; }
+			set { _ZeroValue = value; }
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public float HandleValue {
+			get { return _HandleValue; }
+			set { _HandleValue = value; }
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public float JumpValue {
+			get { return _JumpValue; }
+			set { _JumpValue = value; }
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public bool AllowJump {
+			get { return _AllowJump; }
+			set { _AllowJump = value; }
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public SliderItem.FillType FillStartingPoint {
+			get { return _FillStartingPoint; }
+			set { _FillStartingPoint = value; }
 		}
 		
 
@@ -98,6 +162,7 @@ namespace Hover.Common.Renderers {
 		public void TreeUpdate() {
 			SizeY = Mathf.Max(SizeY, HandleButton.SizeY);
 
+			UpdateControl();
 			UpdateSliderSegments();
 			UpdateGeneralSettings();
 			UpdateAnchorSettings();
@@ -159,6 +224,53 @@ namespace Hover.Common.Renderers {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateControl() {
+			Track.Controllers.Set(HoverRendererFillSliderTrack.SizeXName, this);
+			Track.Controllers.Set(HoverRendererFillSliderTrack.AlphaName, this);
+			
+			HandleButton.Controllers.Set("Transform.localPosition", this);
+			HandleButton.Controllers.Set(HoverRendererRectangleButton.SizeXName, this);
+			HandleButton.Controllers.Set(HoverRendererRectangleButton.AlphaName, this);
+			
+			JumpButton.Controllers.Set("GameObject.activeSelf", this);
+			JumpButton.Controllers.Set("Transform.localPosition", this);
+			JumpButton.Controllers.Set(HoverRendererRectangleButton.SizeXName, this);
+			JumpButton.Controllers.Set(HoverRendererRectangleButton.AlphaName, this);
+			
+			HandleButton.Canvas.IconOuter.Controllers.Set(HoverRendererIcon.IconTypeName, this);
+			HandleButton.Canvas.IconInner.Controllers.Set(HoverRendererIcon.IconTypeName, this);
+			
+			ISettingsController cont = RendererController;
+			
+			if ( cont == null ) {
+				return;
+			}
+			
+			Controllers.Set(HoverRendererRectangleSlider.SizeXName, cont);
+			Controllers.Set(HoverRendererRectangleSlider.SizeYName, cont);
+			Controllers.Set(HoverRendererRectangleSlider.AlphaName, cont);
+			Controllers.Set(HoverRendererRectangleSlider.ZeroValueName, cont);
+			Controllers.Set(HoverRendererRectangleSlider.HandleValueName, cont);
+			Controllers.Set(HoverRendererRectangleSlider.JumpValueName, cont);
+			Controllers.Set(HoverRendererRectangleSlider.AllowJumpName, cont);
+			Controllers.Set(HoverRendererRectangleSlider.FillStartingPointName, cont);
+			
+			HandleButton.Fill.Controllers.Set(
+				HoverRendererFillRectangleFromCenter.HighlightProgressName, cont);
+			HandleButton.Fill.Controllers.Set(
+				HoverRendererFillRectangleFromCenter.SelectionProgressName, cont);
+			JumpButton.Fill.Controllers.Set(
+				HoverRendererFillRectangleFromCenter.HighlightProgressName, cont);
+			JumpButton.Fill.Controllers.Set(
+				HoverRendererFillRectangleFromCenter.SelectionProgressName, cont);
+			
+			HandleButton.Fill.Edge.Controllers.Set("GameObject.activeSelf", cont);
+			JumpButton.Fill.Edge.Controllers.Set("GameObject.activeSelf", cont);
+			
+			HandleButton.Canvas.Label.Controllers.Set("Text.text", cont);
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateSliderSegments() {
 			var info = new SliderUtil.SliderInfo {
 				FillType = FillStartingPoint,
@@ -183,18 +295,6 @@ namespace Hover.Common.Renderers {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateGeneralSettings() {
-			Track.Controllers.Set(HoverRendererFillSliderTrack.SizeXName, this);
-			Track.Controllers.Set(HoverRendererFillSliderTrack.AlphaName, this);
-
-			HandleButton.Controllers.Set("Transform.localPosition", this);
-			HandleButton.Controllers.Set(HoverRendererRectangleButton.SizeXName, this);
-			HandleButton.Controllers.Set(HoverRendererRectangleButton.AlphaName, this);
-			
-			JumpButton.Controllers.Set("GameObject.activeSelf", this);
-			JumpButton.Controllers.Set("Transform.localPosition", this);
-			JumpButton.Controllers.Set(HoverRendererRectangleButton.SizeXName, this);
-			JumpButton.Controllers.Set(HoverRendererRectangleButton.AlphaName, this);
-			
 			bool isJumpSegmentVisible = false;
 			
 			foreach ( SliderUtil.Segment segInfo in vSegmentInfoList ) {
@@ -221,8 +321,19 @@ namespace Hover.Common.Renderers {
 			HandleButton.Alpha = Alpha;
 			JumpButton.Alpha = Alpha;
 			Track.Alpha = Alpha;
-
+			
+			HandleButton.HighlightProgress = HighlightProgress;
+			JumpButton.HighlightProgress = HighlightProgress;
+			HandleButton.SelectionProgress = SelectionProgress;
+			JumpButton.SelectionProgress = SelectionProgress;
+			
+			HandleButton.LabelText = LabelText;
+			HandleButton.IconOuterType = HoverRendererIcon.IconOffset.None;
+			HandleButton.IconInnerType = HoverRendererIcon.IconOffset.Slider;
+			
 			RendererHelper.SetActiveWithUpdate(JumpButton, (AllowJump && isJumpSegmentVisible));
+			RendererHelper.SetActiveWithUpdate(HandleButton.Fill.Edge, ShowEdge);
+			RendererHelper.SetActiveWithUpdate(JumpButton.Fill.Edge, ShowEdge);
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/

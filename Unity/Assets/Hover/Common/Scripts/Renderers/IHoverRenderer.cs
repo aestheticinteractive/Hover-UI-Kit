@@ -13,8 +13,6 @@ namespace Hover.Common.Renderers {
 
 		float Alpha { get; set; }
 		string LabelText { get; set; }
-		HoverRendererIcon.IconOffset IconOuterType { get; set; }
-		HoverRendererIcon.IconOffset IconInnerType { get; set; }
 		float HighlightProgress { get; set; }
 		float SelectionProgress { get; set; }
 		bool ShowEdge { get; set; }

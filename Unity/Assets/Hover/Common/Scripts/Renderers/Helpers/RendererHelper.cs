@@ -94,9 +94,9 @@ namespace Hover.Common.Renderers.Helpers {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public static T DestroyRenderer<T>(T pRenderer) where T : IHoverRenderer {
-			if ( pRenderer == null ) {
-				return default(T);
+		public static void DestroyRenderer<T>(T pRenderer) where T : IHoverRenderer {
+			if ( pRenderer == null || pRenderer.gameObject == null ) {
+				return;
 			}
 
 #if UNITY_EDITOR
@@ -109,8 +109,6 @@ namespace Hover.Common.Renderers.Helpers {
 			else {
 				UnityEngine.Object.DestroyImmediate(pRenderer.gameObject, false);
 			}
-
-			return default(T);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

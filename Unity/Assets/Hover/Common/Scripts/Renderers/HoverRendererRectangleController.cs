@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Hover.Common.Items;
 using Hover.Common.Items.Managers;
 using Hover.Common.Items.Types;
@@ -35,8 +35,9 @@ namespace Hover.Common.Renderers {
 		[DisableWhenControlled]
 		private Component _ButtonRenderer;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public HoverRendererRectangleSlider SliderRenderer;
+		private Component _SliderRenderer;
 
 		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
 		public float SizeX = 10;
@@ -55,8 +56,14 @@ namespace Hover.Common.Renderers {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public IHoverRendererRectangleButton ButtonRenderer {
-			get { return ((IHoverRendererRectangleButton)_ButtonRenderer); }
+			get { return (_ButtonRenderer as IHoverRendererRectangleButton); }
 			set { _ButtonRenderer = (Component)value; }
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public IHoverRendererRectangleSlider SliderRenderer {
+			get { return (_SliderRenderer as IHoverRendererRectangleSlider); }
+			set { _SliderRenderer = (Component)value; }
 		}
 
 
@@ -83,14 +90,14 @@ namespace Hover.Common.Renderers {
 			TryRebuildWithItemType(hoverItem.ItemType);
 
 			if ( ButtonRenderer != null ) {
-				UpdateButtonControl();
+				ButtonRenderer.RendererController = this;
 				UpdateButtonSettings(hoverItem);
 				UpdateButtonSettings(highState);
 				UpdateButtonSettings(selState);
 			}
 
 			if ( SliderRenderer != null ) {
-				UpdateSliderControl();
+				SliderRenderer.RendererController = this;
 				UpdateSliderSettings(hoverItem);
 				UpdateSliderSettings(hoverItem, highState);
 				UpdateSliderSettings(selState);
@@ -137,7 +144,8 @@ namespace Hover.Common.Renderers {
 				Controllers.Set(ButtonRendererName, this);
 				Controllers.Unset(SliderRendererName, this);
 
-				ButtonRenderer = RendererHelper.DestroyRenderer(ButtonRenderer);
+				RendererHelper.DestroyRenderer(ButtonRenderer);
+				ButtonRenderer = null;
 				SliderRenderer = UseOrFindOrBuildSlider();
 				IsButtonRendererType = false;
 			}
@@ -145,7 +153,8 @@ namespace Hover.Common.Renderers {
 				Controllers.Set(SliderRendererName, this);
 				Controllers.Unset(ButtonRendererName, this);
 
-				//TODO: SliderRenderer = RendererHelper.DestroyRenderer(SliderRenderer);
+				RendererHelper.DestroyRenderer(SliderRenderer);
+				SliderRenderer = null;
 				ButtonRenderer = UseOrFindOrBuildButton();
 				IsButtonRendererType = true;
 			}
@@ -163,53 +172,14 @@ namespace Hover.Common.Renderers {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		private HoverRendererRectangleSlider UseOrFindOrBuildSlider() {
+		private IHoverRendererRectangleSlider UseOrFindOrBuildSlider() {
 			if ( SliderRenderer != null ) {
 				return SliderRenderer;
 			}
 
-			return  null;
-
-			//TODO: 
-			/*return RendererHelper.FindOrBuildRenderer<HoverRendererRectangleSlider>(
+			return RendererHelper.FindOrBuildRenderer<HoverRendererRectangleSlider>(
 				gameObject.transform, SliderRendererPrefab, "Slider", 
-				typeof(HoverRendererRectangleSlider));*/
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateButtonControl() {
-			ButtonRenderer.RendererController = this;
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateSliderControl() {
-			SliderRenderer.Controllers.Set(HoverRendererRectangleSlider.SizeXName, this);
-			SliderRenderer.Controllers.Set(HoverRendererRectangleSlider.SizeYName, this);
-			SliderRenderer.Controllers.Set(HoverRendererRectangleSlider.AlphaName, this);
-			SliderRenderer.Controllers.Set(HoverRendererRectangleSlider.ZeroValueName, this);
-			SliderRenderer.Controllers.Set(HoverRendererRectangleSlider.HandleValueName, this);
-			SliderRenderer.Controllers.Set(HoverRendererRectangleSlider.JumpValueName, this);
-			SliderRenderer.Controllers.Set(HoverRendererRectangleSlider.AllowJumpName, this);
-			SliderRenderer.Controllers.Set(HoverRendererRectangleSlider.FillStartingPointName, this);
-
-			SliderRenderer.HandleButton.Fill.Controllers.Set(
-				HoverRendererFillRectangleFromCenter.HighlightProgressName, this);
-			SliderRenderer.HandleButton.Fill.Controllers.Set(
-				HoverRendererFillRectangleFromCenter.SelectionProgressName, this);
-			SliderRenderer.HandleButton.Fill.Edge.Controllers.Set("GameObject.activeSelf", this);
-			SliderRenderer.JumpButton.Fill.Controllers.Set(
-				HoverRendererFillRectangleFromCenter.HighlightProgressName, this);
-			SliderRenderer.JumpButton.Fill.Controllers.Set(
-				HoverRendererFillRectangleFromCenter.SelectionProgressName, this);
-			SliderRenderer.JumpButton.Fill.Edge.Controllers.Set("GameObject.activeSelf", this);
-
-			SliderRenderer.HandleButton.Canvas.Label.Controllers.Set("Text.text", this);
-			SliderRenderer.HandleButton.Canvas.IconOuter.Controllers.Set(
-				HoverRendererIcon.IconTypeName, this);
-			SliderRenderer.HandleButton.Canvas.IconInner.Controllers.Set(
-				HoverRendererIcon.IconTypeName, this);
+				typeof(HoverRendererRectangleSlider));
 		}
 
 
@@ -255,20 +225,11 @@ namespace Hover.Common.Renderers {
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateSliderSettings(HoverItem pHoverItem) {
 			ISliderItem data = (ISliderItem)pHoverItem.Data;
-			HoverRendererCanvas handleCanvas = SliderRenderer.HandleButton.Canvas;
-			HoverRendererIcon handleIconOuter = handleCanvas.IconOuter;
-			HoverRendererIcon handleIconInner = handleCanvas.IconInner;
-
-			SizeY = Mathf.Max(SizeY, SliderRenderer.HandleButton.SizeY);
 
 			SliderRenderer.SizeX = SizeX;
 			SliderRenderer.SizeY = SizeY;
 			SliderRenderer.Alpha = (data.IsEnabled ? 1 : DisabledAlpha);
-
-			handleCanvas.Label.TextComponent.text = data.GetFormattedLabel(data);
-			handleIconOuter.IconType = HoverRendererIcon.IconOffset.Slider;
-			handleIconInner.IconType = HoverRendererIcon.IconOffset.None;
-
+			SliderRenderer.LabelText = data.GetFormattedLabel(data);
 			SliderRenderer.HandleValue = data.SnappedValue;
 			SliderRenderer.FillStartingPoint = data.FillStartingPoint;
 			SliderRenderer.ZeroValue = Mathf.InverseLerp(data.RangeMin, data.RangeMax, 0);
@@ -290,13 +251,9 @@ namespace Hover.Common.Renderers {
 			HoverItemHighlightState.Highlight? high = pHighState.NearestHighlight;
 			float highProg = pHighState.MaxHighlightProgress;
 
-			SliderRenderer.HandleButton.Fill.HighlightProgress = highProg;
-			SliderRenderer.JumpButton.Fill.HighlightProgress = highProg;
+			SliderRenderer.HighlightProgress = highProg;
 			
-			RendererHelper.SetActiveWithUpdate(SliderRenderer.HandleButton.Fill.Edge,
-				pHighState.IsNearestAcrossAllItemsForAnyCursor);
-			RendererHelper.SetActiveWithUpdate(SliderRenderer.JumpButton.Fill.Edge,
-				pHighState.IsNearestAcrossAllItemsForAnyCursor);
+			
 
 			if ( high == null ) {
 				data.HoverValue = null;
@@ -331,8 +288,8 @@ namespace Hover.Common.Renderers {
 		private void UpdateSliderSettings(HoverItemSelectionState pSelState) {
 			float selProg = pSelState.SelectionProgress;
 			
-			SliderRenderer.HandleButton.Fill.SelectionProgress = selProg;
-			SliderRenderer.JumpButton.Fill.SelectionProgress = selProg;
+			SliderRenderer.SelectionProgress = selProg;
+			SliderRenderer.SelectionProgress = selProg;
 		}
 		
 	}

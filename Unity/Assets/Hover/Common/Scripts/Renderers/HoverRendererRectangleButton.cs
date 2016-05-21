@@ -131,8 +131,21 @@ namespace Hover.Common.Renderers {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateControl() {
+			Fill.Controllers.Set(HoverRendererFillRectangleFromCenter.SizeXName, this);
+			Fill.Controllers.Set(HoverRendererFillRectangleFromCenter.SizeYName, this);
+			Fill.Controllers.Set(HoverRendererFillRectangleFromCenter.AlphaName, this);
+			
+			Canvas.Controllers.Set(HoverRendererCanvas.SizeXName, this);
+			Canvas.Controllers.Set(HoverRendererCanvas.SizeYName, this);
+			Canvas.Controllers.Set(HoverRendererCanvas.AlphaName, this);
+			Canvas.Controllers.Set(HoverRendererCanvas.RenderQueueName, this);
+			
 			ISettingsController cont = RendererController;
 
+			if ( cont == null ) {
+				return;
+			}
+			
 			Controllers.Set(SizeXName, cont);
 			Controllers.Set(SizeYName, cont);
 			Controllers.Set(AlphaName, cont);
@@ -144,28 +157,17 @@ namespace Hover.Common.Renderers {
 			Canvas.Label.Controllers.Set("Text.text", cont);
 			Canvas.IconOuter.Controllers.Set(HoverRendererIcon.IconTypeName, cont);
 			Canvas.IconInner.Controllers.Set(HoverRendererIcon.IconTypeName, cont);
-			
-			////
-
-			Fill.Controllers.Set(HoverRendererFillRectangleFromCenter.SizeXName, this);
-			Fill.Controllers.Set(HoverRendererFillRectangleFromCenter.SizeYName, this);
-			Fill.Controllers.Set(HoverRendererFillRectangleFromCenter.AlphaName, this);
-
-			Canvas.Controllers.Set(HoverRendererCanvas.SizeXName, this);
-			Canvas.Controllers.Set(HoverRendererCanvas.SizeYName, this);
-			Canvas.Controllers.Set(HoverRendererCanvas.AlphaName, this);
-			Canvas.Controllers.Set(HoverRendererCanvas.RenderQueueName, this);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateGeneralSettings() {
-			Fill.SizeX = _SizeX;
-			Fill.SizeY = _SizeY;
-			Canvas.SizeX = _SizeX-Fill.EdgeThickness*2;
-			Canvas.SizeY = _SizeY-Fill.EdgeThickness*2;
+			Fill.SizeX = SizeX;
+			Fill.SizeY = SizeY;
+			Canvas.SizeX = SizeX-Fill.EdgeThickness*2;
+			Canvas.SizeY = SizeY-Fill.EdgeThickness*2;
 			
-			Fill.Alpha = _Alpha;
-			Canvas.Alpha = _Alpha;
+			Fill.Alpha = Alpha;
+			Canvas.Alpha = Alpha;
 
 			Canvas.RenderQueue = Fill.MaterialRenderQueue+1;
 
@@ -187,7 +189,7 @@ namespace Hover.Common.Renderers {
 			}
 			
 			Vector2 anchorPos = RendererHelper.GetRelativeAnchorPosition(Anchor);
-			var localPos = new Vector3(_SizeX*anchorPos.x, _SizeY*anchorPos.y, 0);
+			var localPos = new Vector3(SizeX*anchorPos.x, SizeY*anchorPos.y, 0);
 			
 			Fill.transform.localPosition = localPos;
 			Canvas.transform.localPosition = localPos;
