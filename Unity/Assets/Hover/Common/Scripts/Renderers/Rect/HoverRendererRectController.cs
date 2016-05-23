@@ -49,6 +49,9 @@ namespace Hover.Common.Renderers.Rect {
 
 		[DisableWhenControlled(RangeMin=0.05f, RangeMax=0.9f)]
 		public float DisabledAlpha = 0.35f;
+		
+		[DisableWhenControlled]
+		public string SortingLayer = "Default";
 
 		[HideInInspector]
 		[SerializeField]
@@ -197,7 +200,7 @@ namespace Hover.Common.Renderers.Rect {
 			ButtonRenderer.SizeX = SizeX;
 			ButtonRenderer.SizeY = SizeY;
 			ButtonRenderer.Alpha = (data.IsEnabled ? 1 : DisabledAlpha);
-
+			ButtonRenderer.SortingLayer = SortingLayer;
 			ButtonRenderer.LabelText = data.Label;
 
 			if ( checkboxData != null ) {
@@ -236,6 +239,7 @@ namespace Hover.Common.Renderers.Rect {
 			SliderRenderer.FillStartingPoint = data.FillStartingPoint;
 			SliderRenderer.ZeroValue = Mathf.InverseLerp(data.RangeMin, data.RangeMax, 0);
 			SliderRenderer.AllowJump = data.AllowJump;
+			SliderRenderer.SortingLayer = SortingLayer;
 		}
 		
 

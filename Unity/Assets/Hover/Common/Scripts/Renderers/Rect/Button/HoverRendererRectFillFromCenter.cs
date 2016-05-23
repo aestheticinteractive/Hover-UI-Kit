@@ -16,7 +16,7 @@ namespace Hover.Common.Renderers.Rect.Button {
 		public const string HighlightProgressName = "HighlightProgress";
 		public const string SelectionProgressName = "SelectionProgress";
 
-		[DisableWhenControlled(DisplayMessage=true)]
+		[DisableWhenControlled]
 		public HoverRendererRectMeshHollow Background;
 
 		[DisableWhenControlled]
@@ -51,13 +51,6 @@ namespace Hover.Common.Renderers.Rect.Button {
 		
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public override int MaterialRenderQueue {
-			get {
-				return Background.MaterialRenderQueue;
-			}
-		}
-		
 		/*--------------------------------------------------------------------------------------------*/
 		public override void TreeUpdate() {
 			UpdateGeneralSettings();
@@ -94,10 +87,10 @@ namespace Hover.Common.Renderers.Rect.Button {
 			
 			Highlight.Controllers.Set("GameObject.activeSelf", this);
 			Selection.Controllers.Set("GameObject.activeSelf", this);
-			SetControllers(Background);
-			SetControllers(Highlight);
-			SetControllers(Selection);
-			SetControllers(Edge);
+			UpdateMeshControl(Background);
+			UpdateMeshControl(Highlight);
+			UpdateMeshControl(Selection);
+			UpdateMeshControl(Edge);
 			
 			float insetSizeX = Math.Max(0, SizeX-EdgeThickness);
 			float insetSizeY = Math.Max(0, SizeY-EdgeThickness);
@@ -129,16 +122,22 @@ namespace Hover.Common.Renderers.Rect.Button {
 			Highlight.UseUvRelativeToSize = UseUvRelativeToSize;
 			Selection.UseUvRelativeToSize = UseUvRelativeToSize;
 			Edge.UseUvRelativeToSize = UseUvRelativeToSize;
+
+			Background.SortingLayer = SortingLayer;
+			Highlight.SortingLayer = SortingLayer;
+			Selection.SortingLayer = SortingLayer;
+			Edge.SortingLayer = SortingLayer;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void SetControllers(HoverRendererRectMeshHollow pMesh) {
+		private void UpdateMeshControl(HoverRendererRectMeshHollow pMesh) {
 			pMesh.Controllers.Set(HoverRendererRectMeshHollow.SizeXName, this);
 			pMesh.Controllers.Set(HoverRendererRectMeshHollow.SizeYName, this);
 			pMesh.Controllers.Set(HoverRendererRectMeshHollow.AlphaName, this);
 			pMesh.Controllers.Set(HoverRendererRectMeshHollow.OuterAmountName, this);
 			pMesh.Controllers.Set(HoverRendererRectMeshHollow.InnerAmountName, this);
 			pMesh.Controllers.Set(HoverRendererRectMeshHollow.UseUvRelativeToSizeName, this);
+			pMesh.Controllers.Set(HoverRendererMesh.SortingLayerName, this);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

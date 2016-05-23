@@ -14,7 +14,7 @@ namespace Hover.Common.Renderers.Rect.Button {
 		public const string InnerAmountName = "InnerAmount";
 		public const string UseUvRelativeToSizeName = "UseUvRelativeToSize";
 
-		[DisableWhenControlled(RangeMin=0, RangeMax=100, DisplayMessage=true)]
+		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
 		public float SizeX = 10;
 		
 		[DisableWhenControlled(RangeMin=0, RangeMax=100)]

@@ -15,6 +15,7 @@ namespace Hover.Common.Renderers.Shared.Bases {
 		float HighlightProgress { get; set; }
 		float SelectionProgress { get; set; }
 		bool ShowEdge { get; set; }
+		string SortingLayer { get; set; }
 		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

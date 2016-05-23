@@ -7,9 +7,14 @@ namespace Hover.Common.Renderers.Shared.Bases {
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
 	public abstract class HoverRendererFill : MonoBehaviour, ITreeUpdateable {
-	
+
+		public const string SortingLayerName = "SortingLayer";
+
 		public ISettingsControllerMap Controllers { get; private set; }
 		
+		[DisableWhenControlled(DisplayMessage=true)]
+		public string SortingLayer = "Default";
+
 		[HideInInspector]
 		[SerializeField]
 		private bool _IsBuilt;
@@ -20,11 +25,6 @@ namespace Hover.Common.Renderers.Shared.Bases {
 		public HoverRendererFill() {
 			Controllers = new SettingsControllerMap();
 		}
-
-		
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public abstract int MaterialRenderQueue { get; }
 		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

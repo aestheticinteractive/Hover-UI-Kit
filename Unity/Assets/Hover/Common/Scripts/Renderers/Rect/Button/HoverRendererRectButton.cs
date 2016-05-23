@@ -15,6 +15,7 @@ namespace Hover.Common.Renderers.Rect.Button {
 		public const string SizeXName = "SizeX";
 		public const string SizeYName = "SizeY";
 		public const string AlphaName = "Alpha";
+		public const string SortingLayerName = "SortingLayer";
 
 		public ISettingsController RendererController { get; set; }
 		public ISettingsControllerMap Controllers { get; private set; }
@@ -46,6 +47,10 @@ namespace Hover.Common.Renderers.Rect.Button {
 		[DisableWhenControlled]
 		public AnchorType Anchor = AnchorType.MiddleCenter;
 		
+		[SerializeField]
+		[DisableWhenControlled]
+		private string _SortingLayer = "Default";
+		
 		[HideInInspector]
 		[SerializeField]
 		private bool _IsBuilt;
@@ -75,6 +80,12 @@ namespace Hover.Common.Renderers.Rect.Button {
 		public float Alpha {
 			get { return _Alpha; }
 			set { _Alpha = value; }
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public string SortingLayer {
+			get { return _SortingLayer; }
+			set { _SortingLayer = value; }
 		}
 
 
@@ -134,11 +145,13 @@ namespace Hover.Common.Renderers.Rect.Button {
 			Fill.Controllers.Set(HoverRendererRectFillFromCenter.SizeXName, this);
 			Fill.Controllers.Set(HoverRendererRectFillFromCenter.SizeYName, this);
 			Fill.Controllers.Set(HoverRendererRectFillFromCenter.AlphaName, this);
+			Fill.Controllers.Set(HoverRendererFill.SortingLayerName, this);
 			
 			Canvas.Controllers.Set(HoverRendererCanvas.SizeXName, this);
 			Canvas.Controllers.Set(HoverRendererCanvas.SizeYName, this);
 			Canvas.Controllers.Set(HoverRendererCanvas.AlphaName, this);
 			Canvas.Controllers.Set(HoverRendererCanvas.RenderQueueName, this);
+			Canvas.Controllers.Set("Canvas.sortingLayer", this);
 			
 			ISettingsController cont = RendererController;
 
@@ -149,6 +162,7 @@ namespace Hover.Common.Renderers.Rect.Button {
 			Controllers.Set(SizeXName, cont);
 			Controllers.Set(SizeYName, cont);
 			Controllers.Set(AlphaName, cont);
+			Controllers.Set(SortingLayerName, cont);
 
 			Fill.Controllers.Set(HoverRendererRectFillFromCenter.HighlightProgressName, cont);
 			Fill.Controllers.Set(HoverRendererRectFillFromCenter.SelectionProgressName, cont);
@@ -169,7 +183,8 @@ namespace Hover.Common.Renderers.Rect.Button {
 			Fill.Alpha = Alpha;
 			Canvas.Alpha = Alpha;
 
-			Canvas.RenderQueue = Fill.MaterialRenderQueue+1;
+			Fill.SortingLayer = SortingLayer;
+			Canvas.CanvasComponent.sortingLayerName = SortingLayer;
 
 			Canvas.Label.TextComponent.text = LabelText;
 

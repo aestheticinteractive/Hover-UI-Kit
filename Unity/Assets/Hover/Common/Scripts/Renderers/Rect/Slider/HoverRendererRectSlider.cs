@@ -25,6 +25,7 @@ namespace Hover.Common.Renderers.Rect.Slider {
 		public const string JumpValueName = "JumpValue";
 		public const string AllowJumpName = "AllowJump";
 		public const string FillStartingPointName = "FillStartingPoint";
+		public const string SortingLayerName = "SortingLayer";
 
 		public ISettingsController RendererController { get; set; }
 		public ISettingsControllerMap Controllers { get; private set; }
@@ -79,6 +80,10 @@ namespace Hover.Common.Renderers.Rect.Slider {
 		
 		[DisableWhenControlled]
 		public AnchorType Anchor = AnchorType.MiddleCenter;
+		
+		[SerializeField]
+		[DisableWhenControlled]
+		private string _SortingLayer = "Default";
 		
 		[HideInInspector]
 		[SerializeField]
@@ -142,6 +147,12 @@ namespace Hover.Common.Renderers.Rect.Slider {
 		public SliderItem.FillType FillStartingPoint {
 			get { return _FillStartingPoint; }
 			set { _FillStartingPoint = value; }
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public string SortingLayer {
+			get { return _SortingLayer; }
+			set { _SortingLayer = value; }
 		}
 		
 
@@ -228,15 +239,18 @@ namespace Hover.Common.Renderers.Rect.Slider {
 		private void UpdateControl() {
 			Track.Controllers.Set(HoverRendererRectFillSliderTrack.SizeXName, this);
 			Track.Controllers.Set(HoverRendererRectFillSliderTrack.AlphaName, this);
+			Track.Controllers.Set(HoverRendererFill.SortingLayerName, this);
 			
 			HandleButton.Controllers.Set("Transform.localPosition", this);
 			HandleButton.Controllers.Set(HoverRendererRectButton.SizeXName, this);
 			HandleButton.Controllers.Set(HoverRendererRectButton.AlphaName, this);
+			HandleButton.Controllers.Set(HoverRendererRectButton.SortingLayerName, this);
 			
 			JumpButton.Controllers.Set("GameObject.activeSelf", this);
 			JumpButton.Controllers.Set("Transform.localPosition", this);
 			JumpButton.Controllers.Set(HoverRendererRectButton.SizeXName, this);
 			JumpButton.Controllers.Set(HoverRendererRectButton.AlphaName, this);
+			JumpButton.Controllers.Set(HoverRendererRectButton.SortingLayerName, this);
 			
 			HandleButton.Canvas.IconOuter.Controllers.Set(HoverRendererIcon.IconTypeName, this);
 			HandleButton.Canvas.IconInner.Controllers.Set(HoverRendererIcon.IconTypeName, this);
@@ -247,14 +261,15 @@ namespace Hover.Common.Renderers.Rect.Slider {
 				return;
 			}
 			
-			Controllers.Set(HoverRendererRectSlider.SizeXName, cont);
-			Controllers.Set(HoverRendererRectSlider.SizeYName, cont);
-			Controllers.Set(HoverRendererRectSlider.AlphaName, cont);
-			Controllers.Set(HoverRendererRectSlider.ZeroValueName, cont);
-			Controllers.Set(HoverRendererRectSlider.HandleValueName, cont);
-			Controllers.Set(HoverRendererRectSlider.JumpValueName, cont);
-			Controllers.Set(HoverRendererRectSlider.AllowJumpName, cont);
-			Controllers.Set(HoverRendererRectSlider.FillStartingPointName, cont);
+			Controllers.Set(SizeXName, cont);
+			Controllers.Set(SizeYName, cont);
+			Controllers.Set(AlphaName, cont);
+			Controllers.Set(ZeroValueName, cont);
+			Controllers.Set(HandleValueName, cont);
+			Controllers.Set(JumpValueName, cont);
+			Controllers.Set(AllowJumpName, cont);
+			Controllers.Set(FillStartingPointName, cont);
+			Controllers.Set(SortingLayerName, cont);
 			
 			HandleButton.Fill.Controllers.Set(
 				HoverRendererRectFillFromCenter.HighlightProgressName, cont);
@@ -328,6 +343,10 @@ namespace Hover.Common.Renderers.Rect.Slider {
 			HandleButton.SelectionProgress = SelectionProgress;
 			JumpButton.SelectionProgress = SelectionProgress;
 			
+			HandleButton.SortingLayer = SortingLayer;
+			JumpButton.SortingLayer = SortingLayer;
+			Track.SortingLayer = SortingLayer;
+
 			HandleButton.LabelText = LabelText;
 			HandleButton.IconOuterType = HoverRendererIcon.IconOffset.None;
 			HandleButton.IconInnerType = HoverRendererIcon.IconOffset.Slider;

@@ -17,7 +17,7 @@ namespace Hover.Common.Renderers.Rect.Slider {
 	
 		public HoverRendererRectMeshForSliderTrack[] Segments;
 		
-		[DisableWhenControlled(RangeMin=0, RangeMax=100, DisplayMessage=true)]
+		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
 		public float SizeX = 10;
 
 		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
@@ -34,13 +34,6 @@ namespace Hover.Common.Renderers.Rect.Slider {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public override int MaterialRenderQueue {
-			get {
-				return Segments[0].MaterialRenderQueue;
-			}
-		}
-		
 		/*--------------------------------------------------------------------------------------------*/
 		public override void TreeUpdate() {
 			if ( SegmentInfoList != null ) {
@@ -87,9 +80,11 @@ namespace Hover.Common.Renderers.Rect.Slider {
 				seg.Controllers.Set(HoverRendererRectMeshForSliderTrack.UvStartYName, this);
 				seg.Controllers.Set(HoverRendererRectMeshForSliderTrack.UvEndYName, this);
 				seg.Controllers.Set(HoverRendererRectMeshForSliderTrack.IsFillName, this);
+				seg.Controllers.Set(HoverRendererMesh.SortingLayerName, this);
 
 				seg.SizeY = 0;
 				seg.Alpha = Alpha;
+				seg.SortingLayer = SortingLayer;
 			}
 			
 			foreach ( SliderUtil.Segment segInfo in SegmentInfoList ) {

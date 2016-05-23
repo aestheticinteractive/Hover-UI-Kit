@@ -63,9 +63,6 @@ namespace Hover.Common.Renderers.Shared.Contents {
 		[DisableWhenControlled]
 		public IconSizeType IconSize = IconSizeType.FontSize;
 
-		[DisableWhenControlled]
-		public int RenderQueue = 3001;
-		
 		[HideInInspector]
 		[SerializeField]
 		private bool _IsBuilt;
@@ -128,6 +125,7 @@ namespace Hover.Common.Renderers.Shared.Contents {
 		/*--------------------------------------------------------------------------------------------*/
 		private void BuildElements() {
 			CanvasComponent.renderMode = RenderMode.WorldSpace;
+			CanvasComponent.sortingOrder = 1;
 			
 			Label = BuildLabel();
 			IconOuter = BuildIcon("IconOuter");
@@ -190,10 +188,6 @@ namespace Hover.Common.Renderers.Shared.Contents {
 			IconInner.CanvasScale = Scale;
 			
 			CanvasGroupComponent.alpha = Alpha;
-
-			Label.TextComponent.material.renderQueue = RenderQueue;
-			IconOuter.ImageComponent.material.renderQueue = RenderQueue;
-			IconInner.ImageComponent.material.renderQueue = RenderQueue;
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/

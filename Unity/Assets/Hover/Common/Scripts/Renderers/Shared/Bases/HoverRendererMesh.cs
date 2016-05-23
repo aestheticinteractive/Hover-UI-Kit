@@ -9,10 +9,16 @@ namespace Hover.Common.Renderers.Shared.Bases {
 	[RequireComponent(typeof(MeshRenderer))]
 	[RequireComponent(typeof(MeshFilter))]
 	public abstract class HoverRendererMesh : MonoBehaviour, ITreeUpdateable {
-	
+
+		public const string SortingLayerName = "SortingLayer";
+
 		public ISettingsControllerMap Controllers { get; private set; }
+		
+		[DisableWhenControlled(DisplayMessage=true)]
+		public string SortingLayer = "Default";
 
 		protected MeshBuilder vMeshBuild;
+		private string vPrevSortLayer;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -50,6 +56,7 @@ namespace Hover.Common.Renderers.Shared.Bases {
 			}
 
 			UpdateMesh();
+			UpdateSortingLayer();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -67,6 +74,7 @@ namespace Hover.Common.Renderers.Shared.Bases {
 			if ( meshRend.sharedMaterial == null ) {
 				meshRend.sharedMaterial = Resources.Load<Material>(
 					"Materials/HoverRendererVertexColorMaterial");
+				meshRend.sortingOrder = 0;
 			}
 
 			Mesh mesh = new Mesh();
@@ -84,6 +92,16 @@ namespace Hover.Common.Renderers.Shared.Bases {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		protected abstract void UpdateMesh();
+		
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateSortingLayer() {
+			if ( SortingLayer == vPrevSortLayer ) {
+				return;
+			}
+
+			gameObject.GetComponent<MeshRenderer>().sortingLayerName = SortingLayer;
+			vPrevSortLayer = SortingLayer;
+		}
 		
 	}
 
