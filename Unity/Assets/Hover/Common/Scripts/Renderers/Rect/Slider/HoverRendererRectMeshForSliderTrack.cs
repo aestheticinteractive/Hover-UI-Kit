@@ -57,6 +57,7 @@ namespace Hover.Common.Renderers.Rect.Slider {
 		/*--------------------------------------------------------------------------------------------*/
 		protected override void UpdateMesh() {
 			bool settingsAreUnchanged = (
+				!vForceUpdates &&
 				SizeX == vPrevSizeX &&
 				SizeY == vPrevSizeY && 
 				UvStartY == vPrevUvStartY &&
@@ -87,7 +88,7 @@ namespace Hover.Common.Renderers.Rect.Slider {
 		private void UpdateColor() {
 			Color color = DisplayUtil.FadeColor((IsFill ? FillColor : TrackColor), Alpha);
 
-			if ( color == vPrevColor ) {
+			if ( !vForceUpdates && color == vPrevColor ) {
 				return;
 			}
 

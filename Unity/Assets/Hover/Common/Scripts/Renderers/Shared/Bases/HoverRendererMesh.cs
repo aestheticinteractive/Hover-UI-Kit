@@ -18,6 +18,7 @@ namespace Hover.Common.Renderers.Shared.Bases {
 		public string SortingLayer = "Default";
 
 		protected MeshBuilder vMeshBuild;
+		protected bool vForceUpdates;
 		private string vPrevSortLayer;
 
 
@@ -40,6 +41,7 @@ namespace Hover.Common.Renderers.Shared.Bases {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void Awake() {
+			CreateMaterial();
 			CreateMesh();
 			CreateMeshBuilder();
 		}
@@ -51,12 +53,7 @@ namespace Hover.Common.Renderers.Shared.Bases {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void TreeUpdate() {
-			if ( vMeshBuild == null ) { //this can occur when recompiled DLLs cause a scene "refresh"
-				CreateMeshBuilder();
-			}
-
-			//TODO: sometimes the mesh is deleted in editor upon "undo" action, check for null here
-
+			vForceUpdates = UpdateNullScenarios();
 			UpdateMesh();
 			UpdateSortingLayer();
 		}
@@ -69,27 +66,53 @@ namespace Hover.Common.Renderers.Shared.Bases {
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected virtual void CreateMesh() {
+		protected virtual void CreateMaterial() {
 			MeshRenderer meshRend = gameObject.GetComponent<MeshRenderer>();
-			MeshFilter meshFilt = gameObject.GetComponent<MeshFilter>();
 			
 			if ( meshRend.sharedMaterial == null ) {
 				meshRend.sharedMaterial = Resources.Load<Material>(
 					"Materials/HoverRendererVertexColorMaterial");
 				meshRend.sortingOrder = 0;
 			}
-
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		protected virtual void CreateMesh() {
 			Mesh mesh = new Mesh();
 			mesh.name = gameObject.name+"Mesh:"+GetInstanceID();
 			mesh.hideFlags = HideFlags.HideAndDontSave;
 			mesh.MarkDynamic();
 			
-			meshFilt.sharedMesh = mesh;
+			gameObject.GetComponent<MeshFilter>().sharedMesh = mesh;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		protected virtual void CreateMeshBuilder() {
 			vMeshBuild = new MeshBuilder(gameObject.GetComponent<MeshFilter>().sharedMesh);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		protected virtual bool UpdateNullScenarios() {
+			MeshFilter meshFilt = gameObject.GetComponent<MeshFilter>();
+
+			if ( meshFilt.sharedMesh == null ) { //can occur upon "undo" action in the editor
+				if ( vMeshBuild == null ) { //just in case; not sure if this scenario can occur
+					CreateMesh();
+					CreateMeshBuilder();
+				}
+				else {
+					meshFilt.sharedMesh = vMeshBuild.Mesh;
+				}
+
+				return true;
+			}
+
+			if ( vMeshBuild == null ) { //can occur when recompiled DLLs cause a scene "refresh"
+				CreateMeshBuilder();
+				return true;
+			}
+
+			return false;
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
@@ -97,7 +120,7 @@ namespace Hover.Common.Renderers.Shared.Bases {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateSortingLayer() {
-			if ( SortingLayer == vPrevSortLayer ) {
+			if ( !vForceUpdates && SortingLayer == vPrevSortLayer ) {
 				return;
 			}
 

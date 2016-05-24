@@ -54,15 +54,16 @@ namespace Hover.Common.Renderers.Rect.Button {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected override void UpdateMesh() {
-			bool hasSizeOrAmountChanged = (
-				SizeX != vPrevSizeX || 
-				SizeY != vPrevSizeY || 
-				InnerAmount != vPrevInner || 
-				OuterAmount != vPrevOuter ||
-				UseUvRelativeToSize != vPrevUseUv
+			bool settingsAreUnchanged = (
+				!vForceUpdates &&
+				SizeX == vPrevSizeX &&
+				SizeY == vPrevSizeY &&
+				InnerAmount == vPrevInner &&
+				OuterAmount == vPrevOuter &&
+				UseUvRelativeToSize == vPrevUseUv
 			);
 
-			if ( !hasSizeOrAmountChanged ) {
+			if ( settingsAreUnchanged ) {
 				return;
 			}
 			
@@ -109,7 +110,7 @@ namespace Hover.Common.Renderers.Rect.Button {
 		private void UpdateColor() {
 			Color color = DisplayUtil.FadeColor(FillColor, Alpha);
 
-			if ( color == vPrevColor ) {
+			if ( !vForceUpdates && color == vPrevColor ) {
 				return;
 			}
 
