@@ -12,10 +12,10 @@ namespace Hover.Common.Renderers.Rect.Button {
 	public class HoverRendererRectButton : MonoBehaviour, IHoverRendererRectButton,
 											IProximityProvider, ISettingsController, ITreeUpdateable {
 	
-		public const string SizeXName = "SizeX";
-		public const string SizeYName = "SizeY";
-		public const string AlphaName = "Alpha";
-		public const string SortingLayerName = "SortingLayer";
+		public const string SizeXName = "_SizeX";
+		public const string SizeYName = "_SizeY";
+		public const string AlphaName = "_Alpha";
+		public const string SortingLayerName = "_SortingLayer";
 
 		public ISettingsController RendererController { get; set; }
 		public ISettingsControllerMap Controllers { get; private set; }

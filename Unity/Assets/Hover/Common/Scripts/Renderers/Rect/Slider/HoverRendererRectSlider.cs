@@ -15,17 +15,16 @@ namespace Hover.Common.Renderers.Rect.Slider {
 	public class HoverRendererRectSlider : MonoBehaviour, IHoverRendererRectSlider,
 											IProximityProvider, ISettingsController, ITreeUpdateable {
 
-		//TODO: fix names that now use an underscore (all renderer classes)
-		public const string SizeXName = "SizeX";
-		public const string SizeYName = "SizeY";
-		public const string AlphaName = "Alpha";
-		public const string ZeroValueName = "ZeroValue";
-		public const string HandleValueName = "HandleValue";
-		public const string JumpValueName = "JumpValue";
-		public const string AllowJumpName = "AllowJump";
+		public const string SizeXName = "_SizeX";
+		public const string SizeYName = "_SizeY";
+		public const string AlphaName = "_Alpha";
+		public const string ZeroValueName = "_ZeroValue";
+		public const string HandleValueName = "_HandleValue";
+		public const string JumpValueName = "_JumpValue";
+		public const string AllowJumpName = "_AllowJump";
 		public const string TickCountName = "_TickCount";
-		public const string FillStartingPointName = "FillStartingPoint";
-		public const string SortingLayerName = "SortingLayer";
+		public const string FillStartingPointName = "_FillStartingPoint";
+		public const string SortingLayerName = "_SortingLayer";
 
 		public ISettingsController RendererController { get; set; }
 		public ISettingsControllerMap Controllers { get; private set; }

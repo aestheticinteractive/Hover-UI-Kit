@@ -20,15 +20,15 @@ namespace Hover.Common.Renderers.Rect {
 	public class HoverRendererRectController : HoverRendererController, 
 															IRectangleLayoutElement, ITreeUpdateable {
 	
-		public const string ButtonRendererName = "ButtonRenderer";
-		public const string SliderRendererName = "SliderRenderer";
+		public const string ButtonRendererName = "_ButtonRenderer";
+		public const string SliderRendererName = "_SliderRenderer";
 		public const string SizeXName = "SizeX";
 		public const string SizeYName = "SizeY";
 
 		public bool IsButtonRendererType { get; private set; }
 
 		[DisableWhenControlled(DisplayMessage=true)]
-		public GameObject ButtonRendererPrefab;
+		public GameObject ButtonRendererPrefab; //TODO: check for prefab changes, then rebuild
 
 		[DisableWhenControlled]
 		public GameObject SliderRendererPrefab;
