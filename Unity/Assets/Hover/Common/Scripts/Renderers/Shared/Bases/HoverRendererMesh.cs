@@ -55,6 +55,8 @@ namespace Hover.Common.Renderers.Shared.Bases {
 				CreateMeshBuilder();
 			}
 
+			//TODO: sometimes the mesh is deleted in editor upon "undo" action, check for null here
+
 			UpdateMesh();
 			UpdateSortingLayer();
 		}

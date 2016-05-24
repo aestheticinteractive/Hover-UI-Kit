@@ -15,8 +15,7 @@ namespace Hover.Common.Renderers.Rect.Slider {
 	public class HoverRendererRectSlider : MonoBehaviour, IHoverRendererRectSlider,
 											IProximityProvider, ISettingsController, ITreeUpdateable {
 
-		//TODO: tick marks (use canvas RQ + hide when obscured by buttons)
-		
+		//TODO: fix names that now use an underscore (all renderer classes)
 		public const string SizeXName = "SizeX";
 		public const string SizeYName = "SizeY";
 		public const string AlphaName = "Alpha";
@@ -24,6 +23,7 @@ namespace Hover.Common.Renderers.Rect.Slider {
 		public const string HandleValueName = "HandleValue";
 		public const string JumpValueName = "JumpValue";
 		public const string AllowJumpName = "AllowJump";
+		public const string TickCountName = "_TickCount";
 		public const string FillStartingPointName = "FillStartingPoint";
 		public const string SortingLayerName = "SortingLayer";
 
@@ -73,6 +73,10 @@ namespace Hover.Common.Renderers.Rect.Slider {
 		[SerializeField]
 		[DisableWhenControlled]
 		private bool _AllowJump = false;
+		
+		[SerializeField]
+		[DisableWhenControlled]
+		private int _TickCount = 0;
 
 		[SerializeField]
 		[DisableWhenControlled]
@@ -89,14 +93,16 @@ namespace Hover.Common.Renderers.Rect.Slider {
 		[SerializeField]
 		private bool _IsBuilt;
 		
-		private readonly List<SliderUtil.Segment> vSegmentInfoList;
+		private readonly List<SliderUtil.SegmentInfo> vSegmentInfoList;
+		private readonly List<SliderUtil.SegmentInfo> vTickInfoList;
 		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public HoverRendererRectSlider() {
 			Controllers = new SettingsControllerMap();
-			vSegmentInfoList = new List<SliderUtil.Segment>();
+			vSegmentInfoList = new List<SliderUtil.SegmentInfo>();
+			vTickInfoList = new List<SliderUtil.SegmentInfo>();
 		}
 		
 		
@@ -141,6 +147,12 @@ namespace Hover.Common.Renderers.Rect.Slider {
 		public bool AllowJump {
 			get { return _AllowJump; }
 			set { _AllowJump = value; }
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public int TickCount {
+			get { return _TickCount; }
+			set { _TickCount = value; }
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
@@ -268,6 +280,7 @@ namespace Hover.Common.Renderers.Rect.Slider {
 			Controllers.Set(HandleValueName, cont);
 			Controllers.Set(JumpValueName, cont);
 			Controllers.Set(AllowJumpName, cont);
+			Controllers.Set(TickCountName, cont);
 			Controllers.Set(FillStartingPointName, cont);
 			Controllers.Set(SortingLayerName, cont);
 			
@@ -297,10 +310,14 @@ namespace Hover.Common.Renderers.Rect.Slider {
 				JumpSize = (AllowJump ? JumpButton.SizeY : 0),
 				JumpValue = JumpValue,
 				ZeroValue = ZeroValue,
+				TickCount = TickCount,
+				TickSize = Track.TickSizeY
 			};
 			
 			SliderUtil.CalculateSegments(info, vSegmentInfoList);
+			SliderUtil.CalculateTicks(info, vSegmentInfoList, vTickInfoList);
 			Track.SegmentInfoList = vSegmentInfoList;
+			Track.TickInfoList = vTickInfoList;
 			
 			/*Debug.Log("INFO: "+info.TrackStartPosition+" / "+info.TrackEndPosition);
 			
@@ -313,7 +330,7 @@ namespace Hover.Common.Renderers.Rect.Slider {
 		private void UpdateGeneralSettings() {
 			bool isJumpSegmentVisible = false;
 			
-			foreach ( SliderUtil.Segment segInfo in vSegmentInfoList ) {
+			foreach ( SliderUtil.SegmentInfo segInfo in vSegmentInfoList ) {
 				bool isHandle = (segInfo.Type == SliderUtil.SegmentType.Handle);
 				bool isJump = (segInfo.Type == SliderUtil.SegmentType.Jump);
 				

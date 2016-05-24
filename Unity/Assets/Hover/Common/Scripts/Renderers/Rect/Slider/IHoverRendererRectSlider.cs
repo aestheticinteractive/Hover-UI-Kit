@@ -10,6 +10,7 @@ namespace Hover.Common.Renderers.Rect.Slider {
 		float HandleValue { get; set; }
 		float JumpValue { get; set; }
 		bool AllowJump { get; set; }
+		int TickCount { get; set; }
 		SliderItem.FillType FillStartingPoint { get; set; }
 		
 		

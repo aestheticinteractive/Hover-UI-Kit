@@ -239,6 +239,7 @@ namespace Hover.Common.Renderers.Rect {
 			SliderRenderer.FillStartingPoint = data.FillStartingPoint;
 			SliderRenderer.ZeroValue = Mathf.InverseLerp(data.RangeMin, data.RangeMax, 0);
 			SliderRenderer.AllowJump = data.AllowJump;
+			SliderRenderer.TickCount = data.Ticks;
 			SliderRenderer.SortingLayer = SortingLayer;
 		}
 		

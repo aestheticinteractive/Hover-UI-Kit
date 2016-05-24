@@ -14,7 +14,8 @@ namespace Hover.Common.Renderers.Shared.Utils {
 			Jump,
 			Start,
 			Zero,
-			End
+			End,
+			Tick
 		}
 		
 		public enum PositionType {
@@ -24,10 +25,12 @@ namespace Hover.Common.Renderers.Shared.Utils {
 			HandleEnd,
 			JumpStart,
 			JumpEnd,
-			Zero
+			Zero,
+			TickStart,
+			TickEnd
 		}
 	
-		public struct Segment {
+		public struct SegmentInfo {
 			public SegmentType Type;
 			public PositionType StartPositionType;
 			public PositionType EndPositionType;
@@ -45,12 +48,14 @@ namespace Hover.Common.Renderers.Shared.Utils {
 			public float JumpSize;
 			public float JumpValue;
 			public float ZeroValue;
+			public int TickCount;
+			public float TickSize;
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public static void CalculateSegments(SliderInfo pInfo, List<Segment> pSegments) {
+		public static void CalculateSegments(SliderInfo pInfo, List<SegmentInfo> pSegments) {
 			pSegments.Clear();
 
 			int mult = (pInfo.TrackStartPosition < pInfo.TrackEndPosition ? 1 : -1);
@@ -64,7 +69,7 @@ namespace Hover.Common.Renderers.Shared.Utils {
 			bool isJumpTooNear = (Mathf.Abs(handlePos-jumpPos) < 
 				(pInfo.HandleSize+pInfo.JumpSize)*0.6f);
 			
-			var handleSeg = new Segment {
+			var handleSeg = new SegmentInfo {
 				Type = SegmentType.Handle,
 				StartPositionType = PositionType.HandleStart,
 				EndPositionType = PositionType.HandleEnd,
@@ -75,7 +80,7 @@ namespace Hover.Common.Renderers.Shared.Utils {
 			pSegments.Add(handleSeg);
 			
 			if ( hasJump && !isJumpTooNear && pInfo.JumpValue >= 0 ) {
-				var jumpSeg = new Segment {
+				var jumpSeg = new SegmentInfo {
 					Type = SegmentType.Jump,
 					StartPositionType = PositionType.JumpStart,
 					EndPositionType = PositionType.JumpEnd,
@@ -89,7 +94,7 @@ namespace Hover.Common.Renderers.Shared.Utils {
 			////
 
 			if ( pInfo.FillType == SliderItem.FillType.Zero ) {
-				var zeroSeg = new Segment {
+				var zeroSeg = new SegmentInfo {
 					Type = SegmentType.Zero,
 					StartPositionType = PositionType.Zero,
 					EndPositionType = PositionType.Zero,
@@ -113,7 +118,7 @@ namespace Hover.Common.Renderers.Shared.Utils {
 				}
 								
 				if ( zeroI > 0 ) {
-					Segment beforeZeroSeg = pSegments[zeroI-1];
+					SegmentInfo beforeZeroSeg = pSegments[zeroI-1];
 					
 					if ( zeroSeg.StartPosition*mult < beforeZeroSeg.EndPosition*mult ) {
 						zeroSeg.StartPosition = beforeZeroSeg.EndPosition;
@@ -127,7 +132,7 @@ namespace Hover.Common.Renderers.Shared.Utils {
 			
 			////
 
-			var startSeg = new Segment {
+			var startSeg = new SegmentInfo {
 				Type = SegmentType.Start,
 				StartPositionType = PositionType.TrackStart,
 				EndPositionType = PositionType.TrackStart,
@@ -135,7 +140,7 @@ namespace Hover.Common.Renderers.Shared.Utils {
 				EndPosition = pInfo.TrackStartPosition
 			};
 			
-			var endSeg = new Segment {
+			var endSeg = new SegmentInfo {
 				Type = SegmentType.End,
 				StartPositionType = PositionType.TrackEnd,
 				EndPositionType = PositionType.TrackEnd,
@@ -171,14 +176,14 @@ namespace Hover.Common.Renderers.Shared.Utils {
 			////
 
 			for ( int i = 1 ; i < pSegments.Count ; i++ ) {
-				Segment prevSeg = pSegments[i-1];
-				Segment nextSeg = pSegments[i];
+				SegmentInfo prevSeg = pSegments[i-1];
+				SegmentInfo nextSeg = pSegments[i];
 
 				if ( prevSeg.Type == SegmentType.Handle || prevSeg.Type == fillToSegType ) {
 					isFilling = !isFilling;
 				}
 
-				var trackSeg = new Segment {
+				var trackSeg = new SegmentInfo {
 					Type = SegmentType.Track,
 					StartPositionType = prevSeg.EndPositionType,
 					EndPositionType = nextSeg.StartPositionType,
@@ -189,6 +194,90 @@ namespace Hover.Common.Renderers.Shared.Utils {
 
 				pSegments.Insert(i, trackSeg);
 				i++;
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public static void CalculateTicks(SliderInfo pInfo, List<SegmentInfo> pSliderSegments,
+																			List<SegmentInfo> pTicks) {
+			pTicks.Clear();
+
+			if ( pInfo.TickCount <= 1 ) {
+				return;
+			}
+			
+			////
+
+			float handStart = -1;
+			float handEnd = -1;
+			float jumpStart = -1;
+			float jumpEnd = -1;
+
+			for ( int i = 0 ; i < pSliderSegments.Count ; i++ ) {
+				SegmentInfo seg = pSliderSegments[i];
+
+				if ( seg.Type == SegmentType.Handle ) {
+					handStart = seg.StartPosition;
+					handEnd = seg.EndPosition;
+				}
+
+				if ( seg.Type == SegmentType.Jump ) {
+					jumpStart = seg.StartPosition;
+					jumpEnd = seg.EndPosition;
+				}
+			}
+
+			////
+
+			int mult = (pInfo.TrackStartPosition < pInfo.TrackEndPosition ? 1 : -1);
+			float half = 0.5f*mult;
+			float handleMinPos = pInfo.TrackStartPosition + pInfo.HandleSize*half;
+			float handleMaxPos = pInfo.TrackEndPosition - pInfo.HandleSize*half;
+			
+			for ( int i = 0 ; i < pInfo.TickCount ; i++ ) {
+				float prog = i/(pInfo.TickCount-1f);
+				float tickCenterPos = Mathf.Lerp(handleMinPos, handleMaxPos, prog);
+
+				var tick = new SegmentInfo {
+					Type = SegmentType.Tick,
+					StartPositionType = PositionType.TickStart,
+					EndPositionType = PositionType.TickEnd,
+					StartPosition = tickCenterPos-pInfo.TickSize*half,
+					EndPosition = tickCenterPos+pInfo.TickSize*half
+				};
+
+				float startMult = tick.StartPosition*mult;
+				float endMult = tick.EndPosition*mult;
+				bool startsInHand = (startMult >= handStart*mult && startMult <= handEnd*mult);
+				bool endsInHand   = (endMult   >= handStart*mult && endMult   <= handEnd*mult);
+				bool startsInJump = (startMult >= jumpStart*mult && startMult <= jumpEnd*mult);
+				bool endsInJump   = (endMult   >= jumpStart*mult && endMult   <= jumpEnd*mult);
+
+				if ( startsInHand && endsInHand ) {
+					continue;
+				}
+				
+				if ( startsInJump && endsInJump ) {
+					continue;
+				}
+
+				if ( startsInHand ) {
+					tick.StartPosition = handEnd;
+				}
+
+				if ( endsInHand ) {
+					tick.EndPosition = handStart;
+				}
+
+				if ( startsInJump ) {
+					tick.StartPosition = jumpEnd;
+				}
+
+				if ( endsInJump ) {
+					tick.EndPosition = jumpStart;
+				}
+
+				pTicks.Add(tick);
 			}
 		}
 
