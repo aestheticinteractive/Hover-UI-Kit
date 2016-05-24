@@ -259,10 +259,8 @@ namespace Hover.Common.Renderers.Rect {
 			float highProg = pHighState.MaxHighlightProgress;
 
 			SliderRenderer.HighlightProgress = highProg;
-			
-			
 
-			if ( high == null ) {
+			if ( high == null || highProg <= 0 ) {
 				data.HoverValue = null;
 				SliderRenderer.JumpValue = -1;
 				return;
