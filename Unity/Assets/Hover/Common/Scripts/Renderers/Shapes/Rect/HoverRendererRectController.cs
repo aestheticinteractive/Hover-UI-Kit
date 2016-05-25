@@ -3,15 +3,13 @@ using Hover.Common.Items;
 using Hover.Common.Items.Managers;
 using Hover.Common.Items.Types;
 using Hover.Common.Layouts;
-using Hover.Common.Renderers.Rect.Button;
-using Hover.Common.Renderers.Rect.Slider;
-using Hover.Common.Renderers.Shared.Bases;
-using Hover.Common.Renderers.Shared.Contents;
-using Hover.Common.Renderers.Shared.Utils;
+using Hover.Common.Renderers.Contents;
+using Hover.Common.Renderers.Packs.Alpha;
+using Hover.Common.Renderers.Utils;
 using Hover.Common.Utils;
 using UnityEngine;
 
-namespace Hover.Common.Renderers.Rect {
+namespace Hover.Common.Renderers.Shapes.Rect {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
@@ -60,14 +58,14 @@ namespace Hover.Common.Renderers.Rect {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public IHoverRendererRectButton ButtonRenderer {
-			get { return (_ButtonRenderer as IHoverRendererRectButton); }
+		public IRendererRectButton ButtonRenderer {
+			get { return (_ButtonRenderer as IRendererRectButton); }
 			set { _ButtonRenderer = (Component)value; }
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		public IHoverRendererRectSlider SliderRenderer {
-			get { return (_SliderRenderer as IHoverRendererRectSlider); }
+		public IRendererRectSlider SliderRenderer {
+			get { return (_SliderRenderer as IRendererRectSlider); }
 			set { _SliderRenderer = (Component)value; }
 		}
 
@@ -166,25 +164,25 @@ namespace Hover.Common.Renderers.Rect {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		private IHoverRendererRectButton UseOrFindOrBuildButton() {
+		private IRendererRectButton UseOrFindOrBuildButton() {
 			if ( ButtonRenderer != null ) {
 				return ButtonRenderer;
 			}
 
-			return RendererHelper.FindOrBuildRenderer<IHoverRendererRectButton>(
+			return RendererHelper.FindOrBuildRenderer<IRendererRectButton>(
 				gameObject.transform, ButtonRendererPrefab, "Button", 
-				typeof(HoverRendererRectButton));
+				typeof(HoverAlphaRendererRectButton));
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		private IHoverRendererRectSlider UseOrFindOrBuildSlider() {
+		private IRendererRectSlider UseOrFindOrBuildSlider() {
 			if ( SliderRenderer != null ) {
 				return SliderRenderer;
 			}
 
-			return RendererHelper.FindOrBuildRenderer<HoverRendererRectSlider>(
+			return RendererHelper.FindOrBuildRenderer<HoverAlphaRendererRectSlider>(
 				gameObject.transform, SliderRendererPrefab, "Slider", 
-				typeof(HoverRendererRectSlider));
+				typeof(HoverAlphaRendererRectSlider));
 		}
 
 
@@ -204,26 +202,26 @@ namespace Hover.Common.Renderers.Rect {
 			ButtonRenderer.LabelText = data.Label;
 
 			if ( checkboxData != null ) {
-				ButtonRenderer.IconOuterType = HoverRendererIcon.IconOffset.CheckOuter;
+				ButtonRenderer.IconOuterType = HoverIcon.IconOffset.CheckOuter;
 				ButtonRenderer.IconInnerType = (checkboxData.Value ?
-					HoverRendererIcon.IconOffset.CheckInner : HoverRendererIcon.IconOffset.None);
+					HoverIcon.IconOffset.CheckInner : HoverIcon.IconOffset.None);
 			}
 			else if ( radioData != null ) {
-				ButtonRenderer.IconOuterType = HoverRendererIcon.IconOffset.RadioOuter;
+				ButtonRenderer.IconOuterType = HoverIcon.IconOffset.RadioOuter;
 				ButtonRenderer.IconInnerType = (radioData.Value ?
-					HoverRendererIcon.IconOffset.RadioInner : HoverRendererIcon.IconOffset.None);
+					HoverIcon.IconOffset.RadioInner : HoverIcon.IconOffset.None);
 			}
 			else if ( parentData != null ) {
-				ButtonRenderer.IconOuterType = HoverRendererIcon.IconOffset.Parent;
-				ButtonRenderer.IconInnerType = HoverRendererIcon.IconOffset.None;
+				ButtonRenderer.IconOuterType = HoverIcon.IconOffset.Parent;
+				ButtonRenderer.IconInnerType = HoverIcon.IconOffset.None;
 			}
 			else if ( stickyData != null ) {
-				ButtonRenderer.IconOuterType = HoverRendererIcon.IconOffset.Sticky;
-				ButtonRenderer.IconInnerType = HoverRendererIcon.IconOffset.None;
+				ButtonRenderer.IconOuterType = HoverIcon.IconOffset.Sticky;
+				ButtonRenderer.IconInnerType = HoverIcon.IconOffset.None;
 			}
 			else {
-				ButtonRenderer.IconOuterType = HoverRendererIcon.IconOffset.None;
-				ButtonRenderer.IconInnerType = HoverRendererIcon.IconOffset.None;
+				ButtonRenderer.IconOuterType = HoverIcon.IconOffset.None;
+				ButtonRenderer.IconInnerType = HoverIcon.IconOffset.None;
 			}
 		}
 

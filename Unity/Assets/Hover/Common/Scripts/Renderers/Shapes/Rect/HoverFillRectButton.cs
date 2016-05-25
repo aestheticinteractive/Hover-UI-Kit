@@ -1,14 +1,13 @@
 using System;
-using Hover.Common.Renderers.Shared.Bases;
-using Hover.Common.Renderers.Shared.Utils;
+using Hover.Common.Renderers.Utils;
 using Hover.Common.Utils;
 using UnityEngine;
 
-namespace Hover.Common.Renderers.Rect.Button {
+namespace Hover.Common.Renderers.Shapes.Rect {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
-	public class HoverRendererRectFillFromCenter : HoverRendererFill, ISettingsController {
+	public class HoverFillRectButton : HoverFill, ISettingsController {
 	
 		public const string SizeXName = "SizeX";
 		public const string SizeYName = "SizeY";
@@ -17,16 +16,16 @@ namespace Hover.Common.Renderers.Rect.Button {
 		public const string SelectionProgressName = "SelectionProgress";
 
 		[DisableWhenControlled]
-		public HoverRendererRectMeshHollow Background;
+		public HoverMeshRectCentral Background;
 
 		[DisableWhenControlled]
-		public HoverRendererRectMeshHollow Highlight;
+		public HoverMeshRectCentral Highlight;
 
 		[DisableWhenControlled]
-		public HoverRendererRectMeshHollow Selection;
+		public HoverMeshRectCentral Selection;
 
 		[DisableWhenControlled]
-		public HoverRendererRectMeshHollow Edge;
+		public HoverMeshRectCentral Edge;
 		
 		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
 		public float SizeX = 10;
@@ -73,10 +72,10 @@ namespace Hover.Common.Renderers.Rect.Button {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private HoverRendererRectMeshHollow BuildHollowRect(string pName) {
+		private HoverMeshRectCentral BuildHollowRect(string pName) {
 			var rectGo = new GameObject(pName);
 			rectGo.transform.SetParent(gameObject.transform, false);
-			return rectGo.AddComponent<HoverRendererRectMeshHollow>();
+			return rectGo.AddComponent<HoverMeshRectCentral>();
 		}
 		
 
@@ -130,14 +129,14 @@ namespace Hover.Common.Renderers.Rect.Button {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateMeshControl(HoverRendererRectMeshHollow pMesh) {
-			pMesh.Controllers.Set(HoverRendererRectMeshHollow.SizeXName, this);
-			pMesh.Controllers.Set(HoverRendererRectMeshHollow.SizeYName, this);
-			pMesh.Controllers.Set(HoverRendererRectMeshHollow.AlphaName, this);
-			pMesh.Controllers.Set(HoverRendererRectMeshHollow.OuterAmountName, this);
-			pMesh.Controllers.Set(HoverRendererRectMeshHollow.InnerAmountName, this);
-			pMesh.Controllers.Set(HoverRendererRectMeshHollow.UseUvRelativeToSizeName, this);
-			pMesh.Controllers.Set(HoverRendererMesh.SortingLayerName, this);
+		private void UpdateMeshControl(HoverMeshRectCentral pMesh) {
+			pMesh.Controllers.Set(HoverMeshRectCentral.SizeXName, this);
+			pMesh.Controllers.Set(HoverMeshRectCentral.SizeYName, this);
+			pMesh.Controllers.Set(HoverMeshRectCentral.AlphaName, this);
+			pMesh.Controllers.Set(HoverMeshRectCentral.OuterAmountName, this);
+			pMesh.Controllers.Set(HoverMeshRectCentral.InnerAmountName, this);
+			pMesh.Controllers.Set(HoverMeshRectCentral.UseUvRelativeToSizeName, this);
+			pMesh.Controllers.Set(HoverMesh.SortingLayerName, this);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

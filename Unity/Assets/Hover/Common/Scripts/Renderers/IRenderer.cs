@@ -1,10 +1,10 @@
 ﻿using Hover.Common.Utils;
 using UnityEngine;
 
-namespace Hover.Common.Renderers.Shared.Bases {
+namespace Hover.Common.Renderers {
 
 	/*================================================================================================*/
-	public interface IHoverRenderer {
+	public interface IRenderer {
 
 		GameObject gameObject { get; }
 		

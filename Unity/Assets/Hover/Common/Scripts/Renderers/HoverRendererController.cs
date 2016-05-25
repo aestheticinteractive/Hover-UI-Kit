@@ -3,7 +3,7 @@ using Hover.Common.Items.Managers;
 using Hover.Common.Utils;
 using UnityEngine;
 
-namespace Hover.Common.Renderers.Shared.Bases {
+namespace Hover.Common.Renderers {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]

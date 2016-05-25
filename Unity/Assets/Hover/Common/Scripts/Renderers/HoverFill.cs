@@ -1,12 +1,12 @@
 ﻿using Hover.Common.Utils;
 using UnityEngine;
 
-namespace Hover.Common.Renderers.Shared.Bases {
+namespace Hover.Common.Renderers {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
-	public abstract class HoverRendererFill : MonoBehaviour, ITreeUpdateable {
+	public abstract class HoverFill : MonoBehaviour, ITreeUpdateable {
 
 		public const string SortingLayerName = "SortingLayer";
 
@@ -22,7 +22,7 @@ namespace Hover.Common.Renderers.Shared.Bases {
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public HoverRendererFill() {
+		public HoverFill() {
 			Controllers = new SettingsControllerMap();
 		}
 		

@@ -1,18 +1,17 @@
 using System.Collections.Generic;
 using Hover.Common.Items.Types;
-using Hover.Common.Renderers.Rect.Button;
-using Hover.Common.Renderers.Shared.Bases;
-using Hover.Common.Renderers.Shared.Contents;
-using Hover.Common.Renderers.Shared.Utils;
+using Hover.Common.Renderers.Contents;
+using Hover.Common.Renderers.Shapes.Rect;
+using Hover.Common.Renderers.Utils;
 using Hover.Common.Utils;
 using UnityEngine;
 
-namespace Hover.Common.Renderers.Rect.Slider {
+namespace Hover.Common.Renderers.Packs.Alpha {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
-	public class HoverRendererRectSlider : MonoBehaviour, IHoverRendererRectSlider,
+	public class HoverAlphaRendererRectSlider : MonoBehaviour, IRendererRectSlider,
 											IProximityProvider, ISettingsController, ITreeUpdateable {
 
 		public const string SizeXName = "_SizeX";
@@ -37,13 +36,13 @@ namespace Hover.Common.Renderers.Rect.Slider {
 		public GameObject Container;
 
 		[DisableWhenControlled]
-		public HoverRendererRectFillSliderTrack Track;
+		public HoverFillRectSlider Track;
 
 		[DisableWhenControlled]
-		public HoverRendererRectButton HandleButton;
+		public HoverAlphaRendererRectButton HandleButton;
 
 		[DisableWhenControlled]
-		public HoverRendererRectButton JumpButton;
+		public HoverAlphaRendererRectButton JumpButton;
 		
 		[SerializeField]
 		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
@@ -98,7 +97,7 @@ namespace Hover.Common.Renderers.Rect.Slider {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public HoverRendererRectSlider() {
+		public HoverAlphaRendererRectSlider() {
 			Controllers = new SettingsControllerMap();
 			vSegmentInfoList = new List<SliderUtil.SegmentInfo>();
 			vTickInfoList = new List<SliderUtil.SegmentInfo>();
@@ -231,40 +230,40 @@ namespace Hover.Common.Renderers.Rect.Slider {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		private HoverRendererRectFillSliderTrack BuildTrack() {
+		private HoverFillRectSlider BuildTrack() {
 			var trackGo = new GameObject("Track");
 			trackGo.transform.SetParent(Container.transform, false);
-			return trackGo.AddComponent<HoverRendererRectFillSliderTrack>();
+			return trackGo.AddComponent<HoverFillRectSlider>();
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		private HoverRendererRectButton BuildButton(string pName) {
+		private HoverAlphaRendererRectButton BuildButton(string pName) {
 			var rectGo = new GameObject(pName);
 			rectGo.transform.SetParent(Container.transform, false);
-			return rectGo.AddComponent<HoverRendererRectButton>();
+			return rectGo.AddComponent<HoverAlphaRendererRectButton>();
 		}
 		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateControl() {
-			Track.Controllers.Set(HoverRendererRectFillSliderTrack.SizeXName, this);
-			Track.Controllers.Set(HoverRendererRectFillSliderTrack.AlphaName, this);
-			Track.Controllers.Set(HoverRendererFill.SortingLayerName, this);
+			Track.Controllers.Set(HoverFillRectSlider.SizeXName, this);
+			Track.Controllers.Set(HoverFillRectSlider.AlphaName, this);
+			Track.Controllers.Set(HoverFill.SortingLayerName, this);
 			
 			HandleButton.Controllers.Set("Transform.localPosition", this);
-			HandleButton.Controllers.Set(HoverRendererRectButton.SizeXName, this);
-			HandleButton.Controllers.Set(HoverRendererRectButton.AlphaName, this);
-			HandleButton.Controllers.Set(HoverRendererRectButton.SortingLayerName, this);
+			HandleButton.Controllers.Set(HoverAlphaRendererRectButton.SizeXName, this);
+			HandleButton.Controllers.Set(HoverAlphaRendererRectButton.AlphaName, this);
+			HandleButton.Controllers.Set(HoverAlphaRendererRectButton.SortingLayerName, this);
 			
 			JumpButton.Controllers.Set("GameObject.activeSelf", this);
 			JumpButton.Controllers.Set("Transform.localPosition", this);
-			JumpButton.Controllers.Set(HoverRendererRectButton.SizeXName, this);
-			JumpButton.Controllers.Set(HoverRendererRectButton.AlphaName, this);
-			JumpButton.Controllers.Set(HoverRendererRectButton.SortingLayerName, this);
+			JumpButton.Controllers.Set(HoverAlphaRendererRectButton.SizeXName, this);
+			JumpButton.Controllers.Set(HoverAlphaRendererRectButton.AlphaName, this);
+			JumpButton.Controllers.Set(HoverAlphaRendererRectButton.SortingLayerName, this);
 			
-			HandleButton.Canvas.IconOuter.Controllers.Set(HoverRendererIcon.IconTypeName, this);
-			HandleButton.Canvas.IconInner.Controllers.Set(HoverRendererIcon.IconTypeName, this);
+			HandleButton.Canvas.IconOuter.Controllers.Set(HoverIcon.IconTypeName, this);
+			HandleButton.Canvas.IconInner.Controllers.Set(HoverIcon.IconTypeName, this);
 			
 			ISettingsController cont = RendererController;
 			
@@ -284,13 +283,13 @@ namespace Hover.Common.Renderers.Rect.Slider {
 			Controllers.Set(SortingLayerName, cont);
 			
 			HandleButton.Fill.Controllers.Set(
-				HoverRendererRectFillFromCenter.HighlightProgressName, cont);
+				HoverFillRectButton.HighlightProgressName, cont);
 			HandleButton.Fill.Controllers.Set(
-				HoverRendererRectFillFromCenter.SelectionProgressName, cont);
+				HoverFillRectButton.SelectionProgressName, cont);
 			JumpButton.Fill.Controllers.Set(
-				HoverRendererRectFillFromCenter.HighlightProgressName, cont);
+				HoverFillRectButton.HighlightProgressName, cont);
 			JumpButton.Fill.Controllers.Set(
-				HoverRendererRectFillFromCenter.SelectionProgressName, cont);
+				HoverFillRectButton.SelectionProgressName, cont);
 			
 			HandleButton.Fill.Edge.Controllers.Set("GameObject.activeSelf", cont);
 			JumpButton.Fill.Edge.Controllers.Set("GameObject.activeSelf", cont);
@@ -337,7 +336,7 @@ namespace Hover.Common.Renderers.Rect.Slider {
 					continue;
 				}
 				
-				HoverRendererRectButton button = (isHandle ? HandleButton : JumpButton);
+				HoverAlphaRendererRectButton button = (isHandle ? HandleButton : JumpButton);
 				button.transform.localPosition = 
 					new Vector3(0, (segInfo.StartPosition+segInfo.EndPosition)/2, 0);
 				
@@ -364,8 +363,8 @@ namespace Hover.Common.Renderers.Rect.Slider {
 			Track.SortingLayer = SortingLayer;
 
 			HandleButton.LabelText = LabelText;
-			HandleButton.IconOuterType = HoverRendererIcon.IconOffset.None;
-			HandleButton.IconInnerType = HoverRendererIcon.IconOffset.Slider;
+			HandleButton.IconOuterType = HoverIcon.IconOffset.None;
+			HandleButton.IconInnerType = HoverIcon.IconOffset.Slider;
 			
 			RendererHelper.SetActiveWithUpdate(JumpButton, (AllowJump && isJumpSegmentVisible));
 			RendererHelper.SetActiveWithUpdate(HandleButton.Fill.Edge, ShowEdge);

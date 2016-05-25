@@ -1,11 +1,10 @@
-﻿using Hover.Common.Renderers.Shared.Bases;
-using Hover.Common.Utils;
+﻿using Hover.Common.Utils;
 using UnityEngine;
 
-namespace Hover.Common.Renderers.Rect.Button {
+namespace Hover.Common.Renderers.Shapes.Rect {
 
 	/*================================================================================================*/
-	public class HoverRendererRectMeshHollow : HoverRendererMesh {
+	public class HoverMeshRectCentral : HoverMesh {
 	
 		public const string SizeXName = "SizeX";
 		public const string SizeYName = "SizeY";

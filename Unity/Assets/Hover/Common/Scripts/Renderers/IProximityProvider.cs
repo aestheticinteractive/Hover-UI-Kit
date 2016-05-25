@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Hover.Common.Renderers.Shared.Bases {
+namespace Hover.Common.Renderers {
 
 	/*================================================================================================*/
 	public interface IProximityProvider {

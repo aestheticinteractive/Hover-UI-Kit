@@ -1,9 +1,7 @@
-﻿using Hover.Common.Renderers.Shared.Bases;
-
-namespace Hover.Common.Renderers.Rect {
+﻿namespace Hover.Common.Renderers.Shapes.Rect {
 
 	/*================================================================================================*/
-	public interface IHoverRendererRect : IHoverRenderer {
+	public interface IRendererRect : IRenderer {
 		
 		float SizeX { get; set; }
 		float SizeY { get; set; }

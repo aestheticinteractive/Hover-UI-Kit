@@ -1,15 +1,15 @@
-﻿using Hover.Common.Renderers.Shared.Bases;
-using Hover.Common.Renderers.Shared.Contents;
-using Hover.Common.Renderers.Shared.Utils;
+﻿using Hover.Common.Renderers.Contents;
+using Hover.Common.Renderers.Shapes.Rect;
+using Hover.Common.Renderers.Utils;
 using Hover.Common.Utils;
 using UnityEngine;
 
-namespace Hover.Common.Renderers.Rect.Button {
+namespace Hover.Common.Renderers.Packs.Alpha {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
-	public class HoverRendererRectButton : MonoBehaviour, IHoverRendererRectButton,
+	public class HoverAlphaRendererRectButton : MonoBehaviour, IRendererRectButton,
 											IProximityProvider, ISettingsController, ITreeUpdateable {
 	
 		public const string SizeXName = "_SizeX";
@@ -20,18 +20,18 @@ namespace Hover.Common.Renderers.Rect.Button {
 		public ISettingsController RendererController { get; set; }
 		public ISettingsControllerMap Controllers { get; private set; }
 		public string LabelText { get; set; }
-		public HoverRendererIcon.IconOffset IconOuterType { get; set; }
-		public HoverRendererIcon.IconOffset IconInnerType { get; set; }
+		public HoverIcon.IconOffset IconOuterType { get; set; }
+		public HoverIcon.IconOffset IconInnerType { get; set; }
 		public float HighlightProgress { get; set; }
 		public float SelectionProgress { get; set; }
 		public bool ShowEdge { get; set; }
 
 		[DisableWhenControlled(DisplayMessage=true)]
-		public HoverRendererRectFillFromCenter Fill;
+		public HoverFillRectButton Fill;
 
 		[SerializeField]
 		[DisableWhenControlled]
-		public HoverRendererCanvas Canvas;
+		public HoverCanvas Canvas;
 		
 		[SerializeField]
 		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
@@ -58,7 +58,7 @@ namespace Hover.Common.Renderers.Rect.Button {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public HoverRendererRectButton() {
+		public HoverAlphaRendererRectButton() {
 			Controllers = new SettingsControllerMap();
 		}
 		
@@ -125,32 +125,32 @@ namespace Hover.Common.Renderers.Rect.Button {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private HoverRendererRectFillFromCenter BuildFill() {
+		private HoverFillRectButton BuildFill() {
 			var rectGo = new GameObject("Fill");
 			rectGo.transform.SetParent(gameObject.transform, false);
-			return rectGo.AddComponent<HoverRendererRectFillFromCenter>();
+			return rectGo.AddComponent<HoverFillRectButton>();
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		private HoverRendererCanvas BuildCanvas() {
+		private HoverCanvas BuildCanvas() {
 			var canvasGo = new GameObject("Canvas");
 			canvasGo.transform.SetParent(gameObject.transform, false);
-			return canvasGo.AddComponent<HoverRendererCanvas>();
+			return canvasGo.AddComponent<HoverCanvas>();
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateControl() {
-			Fill.Controllers.Set(HoverRendererRectFillFromCenter.SizeXName, this);
-			Fill.Controllers.Set(HoverRendererRectFillFromCenter.SizeYName, this);
-			Fill.Controllers.Set(HoverRendererRectFillFromCenter.AlphaName, this);
-			Fill.Controllers.Set(HoverRendererFill.SortingLayerName, this);
+			Fill.Controllers.Set(HoverFillRectButton.SizeXName, this);
+			Fill.Controllers.Set(HoverFillRectButton.SizeYName, this);
+			Fill.Controllers.Set(HoverFillRectButton.AlphaName, this);
+			Fill.Controllers.Set(HoverFill.SortingLayerName, this);
 			
-			Canvas.Controllers.Set(HoverRendererCanvas.SizeXName, this);
-			Canvas.Controllers.Set(HoverRendererCanvas.SizeYName, this);
-			Canvas.Controllers.Set(HoverRendererCanvas.AlphaName, this);
-			Canvas.Controllers.Set(HoverRendererCanvas.RenderQueueName, this);
+			Canvas.Controllers.Set(HoverCanvas.SizeXName, this);
+			Canvas.Controllers.Set(HoverCanvas.SizeYName, this);
+			Canvas.Controllers.Set(HoverCanvas.AlphaName, this);
+			Canvas.Controllers.Set(HoverCanvas.RenderQueueName, this);
 			Canvas.Controllers.Set("Canvas.sortingLayer", this);
 			
 			ISettingsController cont = RendererController;
@@ -164,13 +164,13 @@ namespace Hover.Common.Renderers.Rect.Button {
 			Controllers.Set(AlphaName, cont);
 			Controllers.Set(SortingLayerName, cont);
 
-			Fill.Controllers.Set(HoverRendererRectFillFromCenter.HighlightProgressName, cont);
-			Fill.Controllers.Set(HoverRendererRectFillFromCenter.SelectionProgressName, cont);
+			Fill.Controllers.Set(HoverFillRectButton.HighlightProgressName, cont);
+			Fill.Controllers.Set(HoverFillRectButton.SelectionProgressName, cont);
 			Fill.Edge.Controllers.Set("GameObject.activeSelf", cont);
 
 			Canvas.Label.Controllers.Set("Text.text", cont);
-			Canvas.IconOuter.Controllers.Set(HoverRendererIcon.IconTypeName, cont);
-			Canvas.IconInner.Controllers.Set(HoverRendererIcon.IconTypeName, cont);
+			Canvas.IconOuter.Controllers.Set(HoverIcon.IconTypeName, cont);
+			Canvas.IconInner.Controllers.Set(HoverIcon.IconTypeName, cont);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

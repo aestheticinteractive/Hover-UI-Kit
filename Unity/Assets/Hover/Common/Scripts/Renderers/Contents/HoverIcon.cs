@@ -2,13 +2,13 @@ using Hover.Common.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Hover.Common.Renderers.Shared.Contents {
+namespace Hover.Common.Renderers.Contents {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
 	[RequireComponent(typeof(RawImage))]
-	public class HoverRendererIcon : MonoBehaviour, ITreeUpdateable {
+	public class HoverIcon : MonoBehaviour, ITreeUpdateable {
 		
 		public const string IconTypeName = "IconType";
 		public const string CanvasScaleName = "CanvasScale";
@@ -50,7 +50,7 @@ namespace Hover.Common.Renderers.Shared.Contents {
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public HoverRendererIcon() {
+		public HoverIcon() {
 			Controllers = new SettingsControllerMap();
 		}
 

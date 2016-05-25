@@ -1,10 +1,10 @@
 ﻿using Hover.Common.Items.Types;
 using UnityEngine;
 
-namespace Hover.Common.Renderers.Rect.Slider {
+namespace Hover.Common.Renderers.Shapes.Rect {
 
 	/*================================================================================================*/
-	public interface IHoverRendererRectSlider : IHoverRendererRect {
+	public interface IRendererRectSlider : IRendererRect {
 
 		float ZeroValue { get; set; }
 		float HandleValue { get; set; }

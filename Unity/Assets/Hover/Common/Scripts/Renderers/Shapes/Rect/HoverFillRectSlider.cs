@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
-using Hover.Common.Renderers.Shared.Bases;
-using Hover.Common.Renderers.Shared.Utils;
+using Hover.Common.Renderers.Utils;
 using Hover.Common.Utils;
 using UnityEngine;
 
-namespace Hover.Common.Renderers.Rect.Slider {
+namespace Hover.Common.Renderers.Shapes.Rect {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
-	public class HoverRendererRectFillSliderTrack : HoverRendererFill, ISettingsController {
+	public class HoverFillRectSlider : HoverFill, ISettingsController {
 	
 		public const string SizeXName = "SizeX";
 		public const string AlphaName = "Alpha";
@@ -16,8 +15,8 @@ namespace Hover.Common.Renderers.Rect.Slider {
 		public List<SliderUtil.SegmentInfo> SegmentInfoList { get; set; }
 		public List<SliderUtil.SegmentInfo> TickInfoList { get; set; }
 	
-		public HoverRendererRectMeshForSliderTrack[] Segments;
-		public List<HoverRendererRectMeshForSliderTrack> Ticks;
+		public HoverMeshRectTrack[] Segments;
+		public List<HoverMeshRectTrack> Ticks;
 		
 		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
 		public float SizeX = 10;
@@ -58,8 +57,8 @@ namespace Hover.Common.Renderers.Rect.Slider {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected override void BuildElements() {
-			Segments = new HoverRendererRectMeshForSliderTrack[4];
-			Ticks = new List<HoverRendererRectMeshForSliderTrack>();
+			Segments = new HoverMeshRectTrack[4];
+			Ticks = new List<HoverMeshRectTrack>();
 
 			for ( int i = 0 ; i < Segments.Length ; i++ ) {
 				Segments[i] = BuildTrack("Segment"+i);
@@ -67,12 +66,12 @@ namespace Hover.Common.Renderers.Rect.Slider {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		private HoverRendererRectMeshForSliderTrack BuildTrack(string pName) {
+		private HoverMeshRectTrack BuildTrack(string pName) {
 			var trackGo = new GameObject(pName);
 			trackGo.transform.SetParent(gameObject.transform, false);
 
-			HoverRendererRectMeshForSliderTrack track = 
-				trackGo.AddComponent<HoverRendererRectMeshForSliderTrack>();
+			HoverMeshRectTrack track = 
+				trackGo.AddComponent<HoverMeshRectTrack>();
 			track.TrackColor = new Color(0.1f, 0.1f, 0.1f, 0.666f);
 			track.FillColor = new Color(0.1f, 0.9f, 0.2f);
 			return track;
@@ -85,7 +84,7 @@ namespace Hover.Common.Renderers.Rect.Slider {
 			}
 
 			while ( Ticks.Count > TickInfoList.Count ) {
-				HoverRendererRectMeshForSliderTrack tick = Ticks[Ticks.Count-1];
+				HoverMeshRectTrack tick = Ticks[Ticks.Count-1];
 				Ticks.RemoveAt(Ticks.Count-1);
 
 				if ( Application.isPlaying ) {
@@ -98,12 +97,12 @@ namespace Hover.Common.Renderers.Rect.Slider {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		private HoverRendererRectMeshForSliderTrack BuildTick(string pName) {
+		private HoverMeshRectTrack BuildTick(string pName) {
 			var tickGo = new GameObject(pName);
 			tickGo.transform.SetParent(gameObject.transform, false);
 
-			HoverRendererRectMeshForSliderTrack track = 
-				tickGo.AddComponent<HoverRendererRectMeshForSliderTrack>();
+			HoverMeshRectTrack track = 
+				tickGo.AddComponent<HoverMeshRectTrack>();
 			track.TrackColor = new Color(1, 1, 1, 0.5f);
 			track.GetComponent<MeshRenderer>().sortingOrder = 1;
 			return track;
@@ -119,18 +118,18 @@ namespace Hover.Common.Renderers.Rect.Slider {
 			float trackEndY = SegmentInfoList[SegmentInfoList.Count-1].EndPosition;
 
 			for ( int i = 0 ; i < Segments.Length ; i++ ) {
-				HoverRendererRectMeshForSliderTrack seg = Segments[i];
+				HoverMeshRectTrack seg = Segments[i];
 				
 				seg.Controllers.Set("GameObject.activeSelf", this);
 				seg.Controllers.Set("Transform.localPosition.x", this);
 				seg.Controllers.Set("Transform.localPosition.y", this);
-				seg.Controllers.Set(HoverRendererRectMeshForSliderTrack.SizeXName, this);
-				seg.Controllers.Set(HoverRendererRectMeshForSliderTrack.SizeYName, this);
-				seg.Controllers.Set(HoverRendererRectMeshForSliderTrack.AlphaName, this);
-				seg.Controllers.Set(HoverRendererRectMeshForSliderTrack.UvStartYName, this);
-				seg.Controllers.Set(HoverRendererRectMeshForSliderTrack.UvEndYName, this);
-				seg.Controllers.Set(HoverRendererRectMeshForSliderTrack.IsFillName, this);
-				seg.Controllers.Set(HoverRendererMesh.SortingLayerName, this);
+				seg.Controllers.Set(HoverMeshRectTrack.SizeXName, this);
+				seg.Controllers.Set(HoverMeshRectTrack.SizeYName, this);
+				seg.Controllers.Set(HoverMeshRectTrack.AlphaName, this);
+				seg.Controllers.Set(HoverMeshRectTrack.UvStartYName, this);
+				seg.Controllers.Set(HoverMeshRectTrack.UvEndYName, this);
+				seg.Controllers.Set(HoverMeshRectTrack.IsFillName, this);
+				seg.Controllers.Set(HoverMesh.SortingLayerName, this);
 
 				seg.SizeY = 0;
 				seg.SizeX = insetSizeX;
@@ -145,7 +144,7 @@ namespace Hover.Common.Renderers.Rect.Slider {
 					continue;
 				}
 
-				HoverRendererRectMeshForSliderTrack seg = Segments[segIndex++];
+				HoverMeshRectTrack seg = Segments[segIndex++];
 				seg.SizeY = segInfo.EndPosition-segInfo.StartPosition;
 				seg.IsFill = segInfo.IsFill;
 				seg.UvStartY = (UseTrackUv ?
@@ -160,7 +159,7 @@ namespace Hover.Common.Renderers.Rect.Slider {
 			}
 
 			for ( int i = 0 ; i < Segments.Length ; i++ ) {
-				HoverRendererRectMeshForSliderTrack seg = Segments[i];
+				HoverMeshRectTrack seg = Segments[i];
 				RendererHelper.SetActiveWithUpdate(seg, (seg.SizeY != 0));
 			}
 		}
@@ -171,14 +170,14 @@ namespace Hover.Common.Renderers.Rect.Slider {
 
 			for ( int i = 0 ; i < TickInfoList.Count ; i++ ) {
 				SliderUtil.SegmentInfo tickInfo = TickInfoList[i];
-				HoverRendererRectMeshForSliderTrack tick = Ticks[i];
+				HoverMeshRectTrack tick = Ticks[i];
 
 				tick.Controllers.Set("Transform.localPosition.x", this);
 				tick.Controllers.Set("Transform.localPosition.y", this);
-				tick.Controllers.Set(HoverRendererRectMeshForSliderTrack.SizeXName, this);
-				tick.Controllers.Set(HoverRendererRectMeshForSliderTrack.SizeYName, this);
-				tick.Controllers.Set(HoverRendererRectMeshForSliderTrack.AlphaName, this);
-				tick.Controllers.Set(HoverRendererMesh.SortingLayerName, this);
+				tick.Controllers.Set(HoverMeshRectTrack.SizeXName, this);
+				tick.Controllers.Set(HoverMeshRectTrack.SizeYName, this);
+				tick.Controllers.Set(HoverMeshRectTrack.AlphaName, this);
+				tick.Controllers.Set(HoverMesh.SortingLayerName, this);
 
 				tick.SizeX = insetSizeX*TickRelativeSizeX;
 				tick.SizeY = tickInfo.EndPosition-tickInfo.StartPosition;

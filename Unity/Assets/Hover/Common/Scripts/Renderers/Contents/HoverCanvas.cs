@@ -1,16 +1,16 @@
 ﻿using System;
-using Hover.Common.Renderers.Shared.Utils;
+using Hover.Common.Renderers.Utils;
 using Hover.Common.Utils;
 using UnityEngine;
 
-namespace Hover.Common.Renderers.Shared.Contents {
+namespace Hover.Common.Renderers.Contents {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
 	[RequireComponent(typeof(Canvas))]
 	[RequireComponent(typeof(CanvasGroup))]
-	public class HoverRendererCanvas : MonoBehaviour, ISettingsController, ITreeUpdateable {
+	public class HoverCanvas : MonoBehaviour, ISettingsController, ITreeUpdateable {
 		
 		public const string SizeXName = "SizeX";
 		public const string SizeYName = "SizeY";
@@ -35,9 +35,9 @@ namespace Hover.Common.Renderers.Shared.Contents {
 		public ISettingsControllerMap Controllers { get; private set; }
 		
 		[DisableWhenControlled(DisplayMessage=true)]
-		public HoverRendererLabel Label;
-		public HoverRendererIcon IconOuter;
-		public HoverRendererIcon IconInner;
+		public HoverLabel Label;
+		public HoverIcon IconOuter;
+		public HoverIcon IconInner;
 		
 		[DisableWhenControlled(RangeMin=0.01f, RangeMax=1)]
 		public float Scale = 0.02f;
@@ -70,7 +70,7 @@ namespace Hover.Common.Renderers.Shared.Contents {
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public HoverRendererCanvas() {
+		public HoverCanvas() {
 			Controllers = new SettingsControllerMap();
 		}
 
@@ -131,24 +131,24 @@ namespace Hover.Common.Renderers.Shared.Contents {
 			IconOuter = BuildIcon("IconOuter");
 			IconInner = BuildIcon("IconInner");
 			
-			IconOuter.IconType = HoverRendererIcon.IconOffset.RadioOuter;
-			IconInner.IconType = HoverRendererIcon.IconOffset.RadioInner;
+			IconOuter.IconType = HoverIcon.IconOffset.RadioOuter;
+			IconInner.IconType = HoverIcon.IconOffset.RadioInner;
 
 			IconInner.ImageComponent.color = new Color(1, 1, 1, 0.7f);
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		private HoverRendererLabel BuildLabel() {
+		private HoverLabel BuildLabel() {
 			var labelGo = new GameObject("Label");
 			labelGo.transform.SetParent(gameObject.transform, false);
-			return labelGo.AddComponent<HoverRendererLabel>();
+			return labelGo.AddComponent<HoverLabel>();
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		private HoverRendererIcon BuildIcon(string pName) {
+		private HoverIcon BuildIcon(string pName) {
 			var iconGo = new GameObject(pName);
 			iconGo.transform.SetParent(gameObject.transform, false);
-			return iconGo.AddComponent<HoverRendererIcon>();
+			return iconGo.AddComponent<HoverIcon>();
 		}
 		
 
@@ -167,21 +167,21 @@ namespace Hover.Common.Renderers.Shared.Contents {
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateGeneralSettings() {
 			Label.Controllers.Set("GameObject.activeSelf", this);
-			Label.Controllers.Set(HoverRendererLabel.CanvasScaleName, this);
-			Label.Controllers.Set(HoverRendererLabel.SizeXName, this);
-			Label.Controllers.Set(HoverRendererLabel.SizeYName, this);
+			Label.Controllers.Set(HoverLabel.CanvasScaleName, this);
+			Label.Controllers.Set(HoverLabel.SizeXName, this);
+			Label.Controllers.Set(HoverLabel.SizeYName, this);
 			Label.Controllers.Set("Text.alignment", this);
 			Label.Controllers.Set("Text.material.renderQueue", this);
 			
 			IconOuter.Controllers.Set("GameObject.activeSelf", this);
-			IconOuter.Controllers.Set(HoverRendererIcon.CanvasScaleName, this);
-			IconOuter.Controllers.Set(HoverRendererIcon.SizeXName, this);
-			IconOuter.Controllers.Set(HoverRendererIcon.SizeYName, this);
+			IconOuter.Controllers.Set(HoverIcon.CanvasScaleName, this);
+			IconOuter.Controllers.Set(HoverIcon.SizeXName, this);
+			IconOuter.Controllers.Set(HoverIcon.SizeYName, this);
 			
 			IconInner.Controllers.Set("GameObject.activeSelf", this);
-			IconInner.Controllers.Set(HoverRendererIcon.CanvasScaleName, this);
-			IconInner.Controllers.Set(HoverRendererIcon.SizeXName, this);
-			IconInner.Controllers.Set(HoverRendererIcon.SizeYName, this);
+			IconInner.Controllers.Set(HoverIcon.CanvasScaleName, this);
+			IconInner.Controllers.Set(HoverIcon.SizeXName, this);
+			IconInner.Controllers.Set(HoverIcon.SizeYName, this);
 			
 			Label.CanvasScale = Scale;
 			IconOuter.CanvasScale = Scale;
@@ -193,8 +193,8 @@ namespace Hover.Common.Renderers.Shared.Contents {
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateActiveStates() {
 			bool isLabelActive = (!string.IsNullOrEmpty(Label.TextComponent.text));
-			bool isIconOuterActive = (IconOuter.IconType != HoverRendererIcon.IconOffset.None);
-			bool isIconInnerActive = (IconInner.IconType != HoverRendererIcon.IconOffset.None);
+			bool isIconOuterActive = (IconOuter.IconType != HoverIcon.IconOffset.None);
+			bool isIconInnerActive = (IconInner.IconType != HoverIcon.IconOffset.None);
 
 			RendererHelper.SetActiveWithUpdate(Label, isLabelActive);
 			RendererHelper.SetActiveWithUpdate(IconOuter, isIconOuterActive);

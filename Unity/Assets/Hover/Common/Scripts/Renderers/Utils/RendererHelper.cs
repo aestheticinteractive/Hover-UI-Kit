@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Hover.Common.Renderers.Shared.Bases;
+using Hover.Common.Renderers.Shapes.Rect;
 using Hover.Common.Utils;
 using UnityEngine;
 
-namespace Hover.Common.Renderers.Shared.Utils {
+namespace Hover.Common.Renderers.Utils {
 
 	/*================================================================================================*/
 	public static class RendererHelper {
@@ -48,7 +48,7 @@ namespace Hover.Common.Renderers.Shared.Utils {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public static T FindOrBuildRenderer<T>(Transform pParentTx, GameObject pPrefab,
-							string pDisplayName, Type pDefaultType) where T : class, IHoverRenderer {
+							string pDisplayName, Type pDefaultType) where T : class, IRenderer {
 			T existing = FindInImmediateChildren<T>(pParentTx);
 
 			if ( existing != null ) {
@@ -60,7 +60,7 @@ namespace Hover.Common.Renderers.Shared.Utils {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private static T BuildRenderer<T>(Transform pParentTx, GameObject pPrefab,
-						string pDisplayTypeName, Type pDefaultType) where T : class, IHoverRenderer {
+						string pDisplayTypeName, Type pDefaultType) where T : class, IRenderer {
 			if ( pPrefab != null ) {
 				T prefabRend = TryBuildPrefabRenderer<T>(pPrefab);
 
@@ -81,7 +81,7 @@ namespace Hover.Common.Renderers.Shared.Utils {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private static T TryBuildPrefabRenderer<T>(GameObject pPrefab) where T : IHoverRenderer {
+		private static T TryBuildPrefabRenderer<T>(GameObject pPrefab) where T : IRenderer {
 			if ( pPrefab.GetComponent<T>() == null ) {
 				return default(T);
 			}
@@ -95,7 +95,7 @@ namespace Hover.Common.Renderers.Shared.Utils {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public static void DestroyRenderer<T>(T pRenderer) where T : IHoverRenderer {
+		public static void DestroyRenderer<T>(T pRenderer) where T : IRenderer {
 			if ( pRenderer == null || pRenderer.gameObject == null ) {
 				return;
 			}
@@ -113,7 +113,7 @@ namespace Hover.Common.Renderers.Shared.Utils {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private static T FindInImmediateChildren<T>(Transform pParentTx) where T : IHoverRenderer {
+		private static T FindInImmediateChildren<T>(Transform pParentTx) where T : IRenderer {
 			foreach ( Transform childTx in pParentTx ) {
 				T renderer = childTx.GetComponent<T>();
 				

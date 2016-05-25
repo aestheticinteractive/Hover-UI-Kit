@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Hover.Common.Input;
-using Hover.Common.Renderers.Shared.Bases;
+using Hover.Common.Renderers;
 using UnityEngine;
 
 namespace Hover.Common.Items.Managers {
