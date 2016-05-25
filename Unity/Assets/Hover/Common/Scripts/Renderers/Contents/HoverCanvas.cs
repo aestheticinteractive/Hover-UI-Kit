@@ -196,9 +196,9 @@ namespace Hover.Common.Renderers.Contents {
 			bool isIconOuterActive = (IconOuter.IconType != HoverIcon.IconOffset.None);
 			bool isIconInnerActive = (IconInner.IconType != HoverIcon.IconOffset.None);
 
-			RendererHelper.SetActiveWithUpdate(Label, isLabelActive);
-			RendererHelper.SetActiveWithUpdate(IconOuter, isIconOuterActive);
-			RendererHelper.SetActiveWithUpdate(IconInner, isIconInnerActive);
+			RendererUtil.SetActiveWithUpdate(Label, isLabelActive);
+			RendererUtil.SetActiveWithUpdate(IconOuter, isIconOuterActive);
+			RendererUtil.SetActiveWithUpdate(IconInner, isIconInnerActive);
 		}
 				
 		/*--------------------------------------------------------------------------------------------*/

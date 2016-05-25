@@ -107,7 +107,7 @@ namespace Hover.Common.Renderers.Shapes.Rect {
 
 			for ( int i = 0 ; i < SegmentCount ; i++ ) {
 				HoverMeshRectTrack seg = GetSegment(i);
-				RendererHelper.SetActiveWithUpdate(seg, (seg.SizeY != 0));
+				RendererUtil.SetActiveWithUpdate(seg, (seg.SizeY != 0));
 			}
 		}
 

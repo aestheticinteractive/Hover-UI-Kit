@@ -22,7 +22,7 @@ namespace Hover.Common.Editor.Utils {
 
 			if ( map != null && attrib.DisplayMessage && map.AreAnyControlled() ) {
 				Object targetObj = pProp.serializedObject.targetObject; 
-				string message = RendererHelper.GetControlledSettingsText(targetObj, map);
+				string message = RendererUtil.GetControlledSettingsText(targetObj, map);
 				Rect helpRect = pPosition;
 
 				messageH = GetMessageHeight(map);

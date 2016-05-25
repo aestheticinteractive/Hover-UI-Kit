@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using Hover.Common.Renderers.Shapes.Rect;
 using Hover.Common.Utils;
 using UnityEngine;
 
 namespace Hover.Common.Renderers.Utils {
 
 	/*================================================================================================*/
-	public static class RendererHelper {
+	public static class RendererUtil {
 
 		private const string BulletText = "\n - ";
 		private const string ControlledSettingsText =

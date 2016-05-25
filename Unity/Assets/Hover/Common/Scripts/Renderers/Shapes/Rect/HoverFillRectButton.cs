@@ -101,8 +101,8 @@ namespace Hover.Common.Renderers.Shapes.Rect {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateActiveStates() {
-			RendererHelper.SetActiveWithUpdate(Highlight, (Highlight.OuterAmount > 0));
-			RendererHelper.SetActiveWithUpdate(Selection, (Selection.OuterAmount > 0));
+			RendererUtil.SetActiveWithUpdate(Highlight, (Highlight.OuterAmount > 0));
+			RendererUtil.SetActiveWithUpdate(Selection, (Selection.OuterAmount > 0));
 		}
 				
 	}

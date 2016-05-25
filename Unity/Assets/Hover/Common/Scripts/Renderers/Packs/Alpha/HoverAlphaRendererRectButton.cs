@@ -122,7 +122,7 @@ namespace Hover.Common.Renderers.Packs.Alpha {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public Vector3 GetNearestWorldPosition(Vector3 pFromWorldPosition) {
-			return RendererHelper.GetNearestWorldPositionOnRectangle(
+			return RendererUtil.GetNearestWorldPositionOnRectangle(
 				pFromWorldPosition, Fill.transform, _SizeX, _SizeY);
 		}
 		
@@ -210,7 +210,7 @@ namespace Hover.Common.Renderers.Packs.Alpha {
 			Fill.HighlightProgress = HighlightProgress;
 			Fill.SelectionProgress = SelectionProgress;
 
-			RendererHelper.SetActiveWithUpdate(Fill.Edge, ShowEdge);
+			RendererUtil.SetActiveWithUpdate(Fill.Edge, ShowEdge);
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
@@ -219,7 +219,7 @@ namespace Hover.Common.Renderers.Packs.Alpha {
 				return;
 			}
 			
-			Vector2 anchorPos = RendererHelper.GetRelativeAnchorPosition(Anchor);
+			Vector2 anchorPos = RendererUtil.GetRelativeAnchorPosition(Anchor);
 			var localPos = new Vector3(SizeX*anchorPos.x, SizeY*anchorPos.y, 0);
 			
 			Fill.transform.localPosition = localPos;

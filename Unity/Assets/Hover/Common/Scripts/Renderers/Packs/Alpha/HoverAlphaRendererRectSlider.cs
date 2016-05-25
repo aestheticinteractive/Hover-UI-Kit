@@ -199,11 +199,11 @@ namespace Hover.Common.Renderers.Packs.Alpha {
 		/*--------------------------------------------------------------------------------------------*/
 		public Vector3 GetNearestWorldPosition(Vector3 pFromWorldPosition) {
 			if ( AllowJump ) {
-				return RendererHelper.GetNearestWorldPositionOnRectangle(
+				return RendererUtil.GetNearestWorldPositionOnRectangle(
 					pFromWorldPosition, Container.transform, SizeX, SizeY);
 			}
 			
-			return RendererHelper.GetNearestWorldPositionOnRectangle(
+			return RendererUtil.GetNearestWorldPositionOnRectangle(
 				pFromWorldPosition, HandleButton.transform, HandleButton.SizeX, HandleButton.SizeY);
 		}
 
@@ -232,7 +232,7 @@ namespace Hover.Common.Renderers.Packs.Alpha {
 			Track.InsetL = 1;
 			Track.InsetR = 1;
 			
-			RendererHelper.SetActiveWithUpdate(JumpButton.Canvas, false);
+			RendererUtil.SetActiveWithUpdate(JumpButton.Canvas, false);
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
@@ -375,7 +375,7 @@ namespace Hover.Common.Renderers.Packs.Alpha {
 			HandleButton.IconOuterType = HoverIcon.IconOffset.None;
 			HandleButton.IconInnerType = HoverIcon.IconOffset.Slider;
 			
-			RendererHelper.SetActiveWithUpdate(JumpButton, (AllowJump && isJumpSegmentVisible));
+			RendererUtil.SetActiveWithUpdate(JumpButton, (AllowJump && isJumpSegmentVisible));
 
 			if ( RendererController == null ) {
 				return;
@@ -388,8 +388,8 @@ namespace Hover.Common.Renderers.Packs.Alpha {
 
 			HandleButton.LabelText = LabelText;
 			
-			RendererHelper.SetActiveWithUpdate(HandleButton.Fill.Edge, ShowEdge);
-			RendererHelper.SetActiveWithUpdate(JumpButton.Fill.Edge, ShowEdge);
+			RendererUtil.SetActiveWithUpdate(HandleButton.Fill.Edge, ShowEdge);
+			RendererUtil.SetActiveWithUpdate(JumpButton.Fill.Edge, ShowEdge);
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
@@ -398,7 +398,7 @@ namespace Hover.Common.Renderers.Packs.Alpha {
 				return;
 			}
 			
-			Vector2 anchorPos = RendererHelper.GetRelativeAnchorPosition(Anchor);
+			Vector2 anchorPos = RendererUtil.GetRelativeAnchorPosition(Anchor);
 			var localPos = new Vector3(SizeX*anchorPos.x, SizeY*anchorPos.y, 0);
 			
 			Container.transform.localPosition = localPos;

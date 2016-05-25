@@ -1,5 +1,4 @@
-﻿using Hover.Common.Renderers.Shapes.Rect;
-using Hover.Common.Renderers.Utils;
+﻿using Hover.Common.Renderers.Utils;
 using Hover.Common.Utils;
 using UnityEngine;
 
@@ -89,7 +88,7 @@ namespace Hover.Common.Layouts {
 
 			bool isHoriz = IsHorizontal;
 			bool isRev = IsReversed;
-			Vector2 anchorPos = RendererHelper.GetRelativeAnchorPosition(Anchor);
+			Vector2 anchorPos = RendererUtil.GetRelativeAnchorPosition(Anchor);
 			float anchorStartX = anchorPos.x*SizeX;
 			float anchorStartY = anchorPos.y*SizeY;
 			float cellSumPad = OuterPadding*2 - InnerPadding;

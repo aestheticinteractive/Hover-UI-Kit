@@ -143,7 +143,7 @@ namespace Hover.Common.Renderers.Shapes.Rect {
 				Controllers.Set(ButtonRendererName, this);
 				Controllers.Unset(SliderRendererName, this);
 
-				RendererHelper.DestroyRenderer(ButtonRenderer);
+				RendererUtil.DestroyRenderer(ButtonRenderer);
 				ButtonRenderer = null;
 				SliderRenderer = UseOrFindOrBuildSlider();
 				IsButtonRendererType = false;
@@ -152,7 +152,7 @@ namespace Hover.Common.Renderers.Shapes.Rect {
 				Controllers.Set(SliderRendererName, this);
 				Controllers.Unset(ButtonRendererName, this);
 
-				RendererHelper.DestroyRenderer(SliderRenderer);
+				RendererUtil.DestroyRenderer(SliderRenderer);
 				SliderRenderer = null;
 				ButtonRenderer = UseOrFindOrBuildButton();
 				IsButtonRendererType = true;
@@ -165,7 +165,7 @@ namespace Hover.Common.Renderers.Shapes.Rect {
 				return ButtonRenderer;
 			}
 
-			return RendererHelper.FindOrBuildRenderer<IRendererRectButton>(
+			return RendererUtil.FindOrBuildRenderer<IRendererRectButton>(
 				gameObject.transform, ButtonRendererPrefab, "Button", 
 				typeof(HoverAlphaRendererRectButton));
 		}
@@ -176,7 +176,7 @@ namespace Hover.Common.Renderers.Shapes.Rect {
 				return SliderRenderer;
 			}
 
-			return RendererHelper.FindOrBuildRenderer<HoverAlphaRendererRectSlider>(
+			return RendererUtil.FindOrBuildRenderer<HoverAlphaRendererRectSlider>(
 				gameObject.transform, SliderRendererPrefab, "Slider", 
 				typeof(HoverAlphaRendererRectSlider));
 		}

@@ -1,4 +1,4 @@
-﻿namespace Hover.Common.Renderers.Shapes.Rect {
+﻿namespace Hover.Common.Utils {
 
 	/*================================================================================================*/
 	public enum AnchorType {
