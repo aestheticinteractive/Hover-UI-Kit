@@ -6,7 +6,7 @@ namespace Hover.Common.Renderers {
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
-	public abstract class HoverFill : MonoBehaviour, ITreeUpdateable {
+	public abstract class HoverFill : MonoBehaviour, ITreeUpdateable, ISettingsController {
 
 		public const string SortingLayerName = "SortingLayer";
 

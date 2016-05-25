@@ -36,7 +36,7 @@ namespace Hover.Common.Renderers.Packs.Alpha {
 		public GameObject Container;
 
 		[DisableWhenControlled]
-		public HoverFillRectSlider Track;
+		public HoverAlphaFillRectSlider Track;
 
 		[DisableWhenControlled]
 		public HoverAlphaRendererRectButton HandleButton;
@@ -225,7 +225,7 @@ namespace Hover.Common.Renderers.Packs.Alpha {
 			Track = BuildTrack();
 			HandleButton = BuildButton("Handle");
 			JumpButton = BuildButton("Jump");
-			
+
 			HandleButton.SizeY = 2;
 			JumpButton.SizeY = 1;
 
@@ -236,10 +236,10 @@ namespace Hover.Common.Renderers.Packs.Alpha {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		private HoverFillRectSlider BuildTrack() {
+		private HoverAlphaFillRectSlider BuildTrack() {
 			var trackGo = new GameObject("Track");
 			trackGo.transform.SetParent(Container.transform, false);
-			return trackGo.AddComponent<HoverFillRectSlider>();
+			return trackGo.AddComponent<HoverAlphaFillRectSlider>();
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
@@ -254,7 +254,7 @@ namespace Hover.Common.Renderers.Packs.Alpha {
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateControl() {
 			Track.Controllers.Set(HoverFillRectSlider.SizeXName, this);
-			Track.Controllers.Set(HoverFillRectSlider.AlphaName, this);
+			Track.Controllers.Set(HoverAlphaFillRectSlider.AlphaName, this);
 			Track.Controllers.Set(HoverFill.SortingLayerName, this);
 			
 			HandleButton.Controllers.Set("Transform.localPosition", this);
@@ -274,12 +274,17 @@ namespace Hover.Common.Renderers.Packs.Alpha {
 			
 			HandleButton.Canvas.IconOuter.Controllers.Set(HoverIcon.IconTypeName, this);
 			HandleButton.Canvas.IconInner.Controllers.Set(HoverIcon.IconTypeName, this);
-			
+
 			ISettingsController cont = RendererController;
-			
+
 			if ( cont == null ) {
+				HandleButton.SliderController = null;
+				JumpButton.SliderController = null;
 				return;
 			}
+			
+			HandleButton.SliderController = this;
+			JumpButton.SliderController = this;
 			
 			Controllers.Set(SizeXName, cont);
 			Controllers.Set(SizeYName, cont);
@@ -292,14 +297,10 @@ namespace Hover.Common.Renderers.Packs.Alpha {
 			Controllers.Set(FillStartingPointName, cont);
 			Controllers.Set(SortingLayerName, cont);
 			
-			HandleButton.Fill.Controllers.Set(
-				HoverFillRectButton.HighlightProgressName, cont);
-			HandleButton.Fill.Controllers.Set(
-				HoverFillRectButton.SelectionProgressName, cont);
-			JumpButton.Fill.Controllers.Set(
-				HoverFillRectButton.HighlightProgressName, cont);
-			JumpButton.Fill.Controllers.Set(
-				HoverFillRectButton.SelectionProgressName, cont);
+			HandleButton.Fill.Controllers.Set(HoverFillRectButton.HighlightProgressName, cont);
+			HandleButton.Fill.Controllers.Set(HoverFillRectButton.SelectionProgressName, cont);
+			JumpButton.Fill.Controllers.Set(HoverFillRectButton.HighlightProgressName, cont);
+			JumpButton.Fill.Controllers.Set(HoverFillRectButton.SelectionProgressName, cont);
 			
 			HandleButton.Fill.Edge.Controllers.Set("GameObject.activeSelf", cont);
 			JumpButton.Fill.Edge.Controllers.Set("GameObject.activeSelf", cont);
@@ -367,20 +368,26 @@ namespace Hover.Common.Renderers.Packs.Alpha {
 			JumpButton.DisabledAlpha = DisabledAlpha;
 			Track.Alpha = (IsEnabled ? EnabledAlpha : DisabledAlpha);
 			
-			HandleButton.HighlightProgress = HighlightProgress;
-			JumpButton.HighlightProgress = HighlightProgress;
-			HandleButton.SelectionProgress = SelectionProgress;
-			JumpButton.SelectionProgress = SelectionProgress;
-			
 			HandleButton.SortingLayer = SortingLayer;
 			JumpButton.SortingLayer = SortingLayer;
 			Track.SortingLayer = SortingLayer;
 
-			HandleButton.LabelText = LabelText;
 			HandleButton.IconOuterType = HoverIcon.IconOffset.None;
 			HandleButton.IconInnerType = HoverIcon.IconOffset.Slider;
 			
 			RendererHelper.SetActiveWithUpdate(JumpButton, (AllowJump && isJumpSegmentVisible));
+
+			if ( RendererController == null ) {
+				return;
+			}
+
+			HandleButton.HighlightProgress = HighlightProgress;
+			JumpButton.HighlightProgress = HighlightProgress;
+			HandleButton.SelectionProgress = SelectionProgress;
+			JumpButton.SelectionProgress = SelectionProgress;
+
+			HandleButton.LabelText = LabelText;
+			
 			RendererHelper.SetActiveWithUpdate(HandleButton.Fill.Edge, ShowEdge);
 			RendererHelper.SetActiveWithUpdate(JumpButton.Fill.Edge, ShowEdge);
 		}

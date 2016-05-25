@@ -3,13 +3,13 @@
 namespace Hover.Common.Renderers.Shapes.Rect {
 
 	/*================================================================================================*/
-	public abstract class HoverMeshRectTrack : HoverMesh {
+	public abstract class HoverMeshRectButton : HoverMesh {
 	
 		public const string SizeXName = "SizeX";
 		public const string SizeYName = "SizeY";
-		public const string UvStartYName = "UvStartY";
-		public const string UvEndYName = "UvEndY";
-		public const string IsFillName = "IsFill";
+		public const string OuterAmountName = "OuterAmount";
+		public const string InnerAmountName = "InnerAmount";
+		public const string UseUvRelativeToSizeName = "UseUvRelativeToSize";
 
 		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
 		public float SizeX = 10;
@@ -18,20 +18,21 @@ namespace Hover.Common.Renderers.Shapes.Rect {
 		public float SizeY = 10;
 		
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
-		public float UvStartY = 0;
-
-		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
-		public float UvEndY = 1;
-
-		[DisableWhenControlled]
-		public bool IsFill = false;
+		public float OuterAmount = 1;
 		
+		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
+		public float InnerAmount = 0.5f;
+		
+		[DisableWhenControlled]
+		public bool UseUvRelativeToSize = false;
+
 		private float vPrevSizeX;
 		private float vPrevSizeY;
-		private float vPrevUvStartY;
-		private float vPrevUvEndY;
+		private float vPrevInner;
+		private float vPrevOuter;
+		private bool vPrevUseUv;
 
-		
+
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected override bool ShouldUpdateMesh() {
@@ -39,14 +40,16 @@ namespace Hover.Common.Renderers.Shapes.Rect {
 				base.ShouldUpdateMesh() ||
 				SizeX != vPrevSizeX ||
 				SizeY != vPrevSizeY ||
-				UvStartY != vPrevUvStartY ||
-				UvEndY != vPrevUvEndY
+				InnerAmount != vPrevInner ||
+				OuterAmount != vPrevOuter ||
+				UseUvRelativeToSize != vPrevUseUv
 			);
 
 			vPrevSizeX = SizeX;
 			vPrevSizeY = SizeY;
-			vPrevUvStartY = UvStartY;
-			vPrevUvEndY = UvEndY;
+			vPrevInner = InnerAmount;
+			vPrevOuter = OuterAmount;
+			vPrevUseUv = UseUvRelativeToSize;
 
 			return shouldUpdate;
 		}

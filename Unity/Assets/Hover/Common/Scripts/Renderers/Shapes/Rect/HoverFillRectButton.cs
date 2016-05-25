@@ -6,35 +6,23 @@ using UnityEngine;
 namespace Hover.Common.Renderers.Shapes.Rect {
 
 	/*================================================================================================*/
-	[ExecuteInEditMode]
-	public class HoverFillRectButton : HoverFill, ISettingsController {
+	public abstract class HoverFillRectButton : HoverFill {
 	
 		public const string SizeXName = "SizeX";
 		public const string SizeYName = "SizeY";
-		public const string AlphaName = "Alpha";
 		public const string HighlightProgressName = "HighlightProgress";
 		public const string SelectionProgressName = "SelectionProgress";
-
-		[DisableWhenControlled]
-		public HoverMeshRectCentral Background;
-
-		[DisableWhenControlled]
-		public HoverMeshRectCentral Highlight;
-
-		[DisableWhenControlled]
-		public HoverMeshRectCentral Selection;
-
-		[DisableWhenControlled]
-		public HoverMeshRectCentral Edge;
 		
+		public abstract HoverMeshRectButton Background { get; }
+		public abstract HoverMeshRectButton Highlight { get; }
+		public abstract HoverMeshRectButton Selection { get; }
+		public abstract HoverMeshRectButton Edge { get; }
+
 		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
 		public float SizeX = 10;
 		
 		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
 		public float SizeY = 10;
-		
-		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
-		public float Alpha = 1;
 		
 		[DisableWhenControlled(RangeMin=0.001f, RangeMax=0.5f)]
 		public float EdgeThickness = 0.02f;
@@ -47,8 +35,8 @@ namespace Hover.Common.Renderers.Shapes.Rect {
 		
 		[DisableWhenControlled]
 		public bool UseUvRelativeToSize = false;
-		
-		
+
+
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public override void TreeUpdate() {
@@ -59,29 +47,7 @@ namespace Hover.Common.Renderers.Shapes.Rect {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected override void BuildElements() {
-			Background = BuildHollowRect("Background");
-			Highlight = BuildHollowRect("Highlight");
-			Selection = BuildHollowRect("Selection");
-			Edge = BuildHollowRect("Edge");
-
-			Background.FillColor = new Color(0.1f, 0.1f, 0.1f, 0.666f);
-			Highlight.FillColor = new Color(0.1f, 0.5f, 0.9f);
-			Selection.FillColor = new Color(0.1f, 0.9f, 0.2f);
-			Edge.FillColor = new Color(1, 1, 1, 1);
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		private HoverMeshRectCentral BuildHollowRect(string pName) {
-			var rectGo = new GameObject(pName);
-			rectGo.transform.SetParent(gameObject.transform, false);
-			return rectGo.AddComponent<HoverMeshRectCentral>();
-		}
-		
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateGeneralSettings() {
+		protected virtual void UpdateGeneralSettings() {
 			SelectionProgress = Mathf.Min(HighlightProgress, SelectionProgress);
 			
 			Highlight.Controllers.Set("GameObject.activeSelf", this);
@@ -102,11 +68,6 @@ namespace Hover.Common.Renderers.Shapes.Rect {
 			Selection.SizeY = insetSizeY;
 			Edge.SizeX = SizeX;
 			Edge.SizeY = SizeY;
-
-			Background.Alpha = Alpha;
-			Highlight.Alpha = Alpha;
-			Selection.Alpha = Alpha;
-			Edge.Alpha = Alpha;
 			
 			Background.OuterAmount = 1;
 			Background.InnerAmount = HighlightProgress;
@@ -129,13 +90,12 @@ namespace Hover.Common.Renderers.Shapes.Rect {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateMeshControl(HoverMeshRectCentral pMesh) {
-			pMesh.Controllers.Set(HoverMeshRectCentral.SizeXName, this);
-			pMesh.Controllers.Set(HoverMeshRectCentral.SizeYName, this);
-			pMesh.Controllers.Set(HoverMeshRectCentral.AlphaName, this);
-			pMesh.Controllers.Set(HoverMeshRectCentral.OuterAmountName, this);
-			pMesh.Controllers.Set(HoverMeshRectCentral.InnerAmountName, this);
-			pMesh.Controllers.Set(HoverMeshRectCentral.UseUvRelativeToSizeName, this);
+		protected virtual void UpdateMeshControl(HoverMeshRectButton pMesh) {
+			pMesh.Controllers.Set(HoverMeshRectButton.SizeXName, this);
+			pMesh.Controllers.Set(HoverMeshRectButton.SizeYName, this);
+			pMesh.Controllers.Set(HoverMeshRectButton.OuterAmountName, this);
+			pMesh.Controllers.Set(HoverMeshRectButton.InnerAmountName, this);
+			pMesh.Controllers.Set(HoverMeshRectButton.UseUvRelativeToSizeName, this);
 			pMesh.Controllers.Set(HoverMesh.SortingLayerName, this);
 		}
 

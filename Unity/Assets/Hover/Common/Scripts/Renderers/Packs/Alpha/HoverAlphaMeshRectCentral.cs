@@ -1,44 +1,20 @@
-﻿using Hover.Common.Utils;
+﻿using Hover.Common.Renderers.Shapes.Rect;
+using Hover.Common.Utils;
 using UnityEngine;
 
-namespace Hover.Common.Renderers.Shapes.Rect {
+namespace Hover.Common.Renderers.Packs.Alpha {
 
 	/*================================================================================================*/
-	public class HoverMeshRectCentral : HoverMesh {
+	public class HoverAlphaMeshRectCentral : HoverMeshRectButton {
 	
-		public const string SizeXName = "SizeX";
-		public const string SizeYName = "SizeY";
 		public const string AlphaName = "Alpha";
-		public const string OuterAmountName = "OuterAmount";
-		public const string InnerAmountName = "InnerAmount";
-		public const string UseUvRelativeToSizeName = "UseUvRelativeToSize";
 
-		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		public float SizeX = 10;
-		
-		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		public float SizeY = 10;
-		
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
 		public float Alpha = 1;
-
-		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
-		public float OuterAmount = 1;
-		
-		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
-		public float InnerAmount = 0.5f;
-		
-		[DisableWhenControlled]
-		public bool UseUvRelativeToSize = false;
 
 		[DisableWhenControlled]
 		public Color FillColor = Color.gray;
 		
-		private float vPrevSizeX;
-		private float vPrevSizeY;
-		private float vPrevInner;
-		private float vPrevOuter;
-		private bool vPrevUseUv;
 		private Color vPrevColor;
 
 
@@ -53,19 +29,6 @@ namespace Hover.Common.Renderers.Shapes.Rect {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected override void UpdateMesh() {
-			bool settingsAreUnchanged = (
-				!vForceUpdates &&
-				SizeX == vPrevSizeX &&
-				SizeY == vPrevSizeY &&
-				InnerAmount == vPrevInner &&
-				OuterAmount == vPrevOuter &&
-				UseUvRelativeToSize == vPrevUseUv
-			);
-
-			if ( settingsAreUnchanged ) {
-				return;
-			}
-			
 			float outerW;
 			float outerH;
 			float innerW;
@@ -97,12 +60,6 @@ namespace Hover.Common.Renderers.Shapes.Rect {
 			}
 			
 			vMeshBuild.Commit();
-
-			vPrevSizeX = SizeX;
-			vPrevSizeY = SizeY;
-			vPrevInner = InnerAmount;
-			vPrevOuter = OuterAmount;
-			vPrevUseUv = UseUvRelativeToSize;
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/

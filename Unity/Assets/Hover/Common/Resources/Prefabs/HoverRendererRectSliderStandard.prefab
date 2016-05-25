@@ -1156,10 +1156,10 @@ MonoBehaviour:
   SortingLayer: Default
   SizeX: 9.98
   SizeY: 1.98
-  Alpha: 1
   OuterAmount: 0.2
   InnerAmount: 0
   UseUvRelativeToSize: 0
+  Alpha: 1
   FillColor: {r: 0.1, g: 0.9, b: 0.2, a: 1}
 --- !u!114 &11403512
 MonoBehaviour:
@@ -1267,10 +1267,10 @@ MonoBehaviour:
   SortingLayer: Default
   SizeX: 8
   SizeY: 0
-  Alpha: 1
   UvStartY: 0
   UvEndY: 1
   IsFill: 1
+  Alpha: 1
   TrackColor: {r: 0.1, g: 0.1, b: 0.1, a: 0.666}
   FillColor: {r: 0.1, g: 0.9, b: 0.2, a: 1}
 --- !u!114 &11417576
@@ -1406,10 +1406,10 @@ MonoBehaviour:
   SortingLayer: Default
   SizeX: 8
   SizeY: 4
-  Alpha: 1
   UvStartY: 0
   UvEndY: 1
   IsFill: 0
+  Alpha: 1
   TrackColor: {r: 0.1, g: 0.1, b: 0.1, a: 0.666}
   FillColor: {r: 0.1, g: 0.9, b: 0.2, a: 1}
 --- !u!114 &11430672
@@ -1452,10 +1452,10 @@ MonoBehaviour:
   SortingLayer: Default
   SizeX: 10
   SizeY: 10
-  Alpha: 1
   OuterAmount: 1
   InnerAmount: 0.5
   UseUvRelativeToSize: 0
+  Alpha: 1
   FillColor: {r: 0.1, g: 0.5, b: 0.9, a: 1}
 --- !u!114 &11432206
 MonoBehaviour:
@@ -1493,10 +1493,10 @@ MonoBehaviour:
   SortingLayer: Default
   SizeX: 9.98
   SizeY: 1.98
-  Alpha: 1
   OuterAmount: 0.7
   InnerAmount: 0.2
   UseUvRelativeToSize: 0
+  Alpha: 1
   FillColor: {r: 0.1, g: 0.5, b: 0.9, a: 1}
 --- !u!114 &11435330
 MonoBehaviour:
@@ -1538,10 +1538,10 @@ MonoBehaviour:
   SortingLayer: Default
   SizeX: 10
   SizeY: 10
-  Alpha: 1
   OuterAmount: 1
   InnerAmount: 0.5
   UseUvRelativeToSize: 0
+  Alpha: 1
   FillColor: {r: 0.1, g: 0.9, b: 0.2, a: 1}
 --- !u!114 &11439672
 MonoBehaviour:
@@ -1662,10 +1662,10 @@ MonoBehaviour:
   SortingLayer: Default
   SizeX: 10
   SizeY: 10
-  Alpha: 1
   OuterAmount: 1
   InnerAmount: 0.5
   UseUvRelativeToSize: 0
+  Alpha: 1
   FillColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &11455748
 MonoBehaviour:
@@ -1776,10 +1776,10 @@ MonoBehaviour:
   SortingLayer: Default
   SizeX: 10
   SizeY: 2
-  Alpha: 1
   OuterAmount: 1
   InnerAmount: 0.99
   UseUvRelativeToSize: 0
+  Alpha: 1
   FillColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &11474654
 MonoBehaviour:
@@ -1795,10 +1795,10 @@ MonoBehaviour:
   SortingLayer: Default
   SizeX: 8
   SizeY: 0
-  Alpha: 1
   UvStartY: 0
   UvEndY: 1
   IsFill: 0
+  Alpha: 1
   TrackColor: {r: 0.1, g: 0.1, b: 0.1, a: 0.666}
   FillColor: {r: 0.1, g: 0.9, b: 0.2, a: 1}
 --- !u!114 &11476150
@@ -1830,10 +1830,10 @@ MonoBehaviour:
   SortingLayer: Default
   SizeX: 9.98
   SizeY: 1.98
-  Alpha: 1
   OuterAmount: 1
   InnerAmount: 0.7
   UseUvRelativeToSize: 0
+  Alpha: 1
   FillColor: {r: 0.1, g: 0.1, b: 0.1, a: 0.666}
 --- !u!114 &11477448
 MonoBehaviour:
@@ -1919,17 +1919,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SortingLayer: Default
   _IsBuilt: 1
-  Background: {fileID: 11477114}
-  Highlight: {fileID: 11435204}
-  Selection: {fileID: 11400188}
-  Edge: {fileID: 11473352}
   SizeX: 10
   SizeY: 2
-  Alpha: 1
   EdgeThickness: 0.02
   HighlightProgress: 0.7
   SelectionProgress: 0.2
   UseUvRelativeToSize: 0
+  _Background: {fileID: 11477114}
+  _Highlight: {fileID: 11435204}
+  _Selection: {fileID: 11400188}
+  _Edge: {fileID: 11473352}
+  Alpha: 1
 --- !u!114 &11486926
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2001,10 +2001,10 @@ MonoBehaviour:
   SortingLayer: Default
   SizeX: 8
   SizeY: 4
-  Alpha: 1
   UvStartY: 0
   UvEndY: 1
   IsFill: 0
+  Alpha: 1
   TrackColor: {r: 0.1, g: 0.1, b: 0.1, a: 0.666}
   FillColor: {r: 0.1, g: 0.9, b: 0.2, a: 1}
 --- !u!114 &11491728
@@ -2053,19 +2053,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SortingLayer: Default
   _IsBuilt: 1
+  SizeX: 10
+  InsetL: 1
+  InsetR: 1
+  TickSizeY: 0.06
+  TickRelativeSizeX: 0.5
+  UseTrackUv: 0
   Segments:
   - {fileID: 11430488}
   - {fileID: 11415496}
   - {fileID: 11490438}
   - {fileID: 11474654}
   Ticks: []
-  SizeX: 10
-  InsetL: 1
-  InsetR: 1
   Alpha: 1
-  TickSizeY: 0.06
-  TickRelativeSizeX: 0.5
-  UseTrackUv: 0
 --- !u!114 &11494792
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2080,10 +2080,10 @@ MonoBehaviour:
   SortingLayer: Default
   SizeX: 10
   SizeY: 10
-  Alpha: 1
   OuterAmount: 1
   InnerAmount: 0.5
   UseUvRelativeToSize: 0
+  Alpha: 1
   FillColor: {r: 0.1, g: 0.1, b: 0.1, a: 0.666}
 --- !u!114 &11496054
 MonoBehaviour:
@@ -2119,17 +2119,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SortingLayer: Default
   _IsBuilt: 1
-  Background: {fileID: 11494792}
-  Highlight: {fileID: 11432204}
-  Selection: {fileID: 11438132}
-  Edge: {fileID: 11455182}
   SizeX: 10
   SizeY: 10
-  Alpha: 1
   EdgeThickness: 0.02
   HighlightProgress: 0.7
   SelectionProgress: 0.2
   UseUvRelativeToSize: 0
+  _Background: {fileID: 11494792}
+  _Highlight: {fileID: 11432204}
+  _Selection: {fileID: 11438132}
+  _Edge: {fileID: 11455182}
+  Alpha: 1
 --- !u!222 &22245842
 CanvasRenderer:
   m_ObjectHideFlags: 1

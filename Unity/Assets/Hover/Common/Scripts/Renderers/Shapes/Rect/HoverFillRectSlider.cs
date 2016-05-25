@@ -6,17 +6,13 @@ using UnityEngine;
 namespace Hover.Common.Renderers.Shapes.Rect {
 
 	/*================================================================================================*/
-	[ExecuteInEditMode]
-	public class HoverFillRectSlider : HoverFill, ISettingsController {
+	public abstract class HoverFillRectSlider : HoverFill {
 	
 		public const string SizeXName = "SizeX";
-		public const string AlphaName = "Alpha";
+		public const int SegmentCount = 4;
 
 		public List<SliderUtil.SegmentInfo> SegmentInfoList { get; set; }
 		public List<SliderUtil.SegmentInfo> TickInfoList { get; set; }
-	
-		public HoverMeshRectTrack[] Segments;
-		public List<HoverMeshRectTrack> Ticks;
 		
 		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
 		public float SizeX = 10;
@@ -26,9 +22,6 @@ namespace Hover.Common.Renderers.Shapes.Rect {
 
 		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
 		public float InsetR = 1;
-		
-		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
-		public float Alpha = 1;
 		
 		[DisableWhenControlled(RangeMin=0.01f, RangeMax=1)]
 		public float TickSizeY = 0.06f;
@@ -48,7 +41,7 @@ namespace Hover.Common.Renderers.Shapes.Rect {
 			}
 
 			if ( TickInfoList != null ) {
-				BuildOrRemoveTicks();
+				UpdateTickCount(TickInfoList.Count);
 				UpdateTicksWithInfo();
 			}
 		}
@@ -56,76 +49,31 @@ namespace Hover.Common.Renderers.Shapes.Rect {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected override void BuildElements() {
-			Segments = new HoverMeshRectTrack[4];
-			Ticks = new List<HoverMeshRectTrack>();
+		protected abstract HoverMeshRectTrack GetSegment(int pIndex);
 
-			for ( int i = 0 ; i < Segments.Length ; i++ ) {
-				Segments[i] = BuildTrack("Segment"+i);
-			}
-		}
+		/*--------------------------------------------------------------------------------------------*/
+		protected abstract HoverMeshRectTrack GetTick(int pIndex);
 		
 		/*--------------------------------------------------------------------------------------------*/
-		private HoverMeshRectTrack BuildTrack(string pName) {
-			var trackGo = new GameObject(pName);
-			trackGo.transform.SetParent(gameObject.transform, false);
-
-			HoverMeshRectTrack track = 
-				trackGo.AddComponent<HoverMeshRectTrack>();
-			track.TrackColor = new Color(0.1f, 0.1f, 0.1f, 0.666f);
-			track.FillColor = new Color(0.1f, 0.9f, 0.2f);
-			return track;
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		private void BuildOrRemoveTicks() {
-			while ( Ticks.Count < TickInfoList.Count ) {
-				Ticks.Add(BuildTick("Tick"+Ticks.Count));
-			}
-
-			while ( Ticks.Count > TickInfoList.Count ) {
-				HoverMeshRectTrack tick = Ticks[Ticks.Count-1];
-				Ticks.RemoveAt(Ticks.Count-1);
-
-				if ( Application.isPlaying ) {
-					Destroy(tick.gameObject);
-				}
-				else {
-					DestroyImmediate(tick.gameObject);
-				}
-			}
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		private HoverMeshRectTrack BuildTick(string pName) {
-			var tickGo = new GameObject(pName);
-			tickGo.transform.SetParent(gameObject.transform, false);
-
-			HoverMeshRectTrack track = 
-				tickGo.AddComponent<HoverMeshRectTrack>();
-			track.TrackColor = new Color(1, 1, 1, 0.5f);
-			track.GetComponent<MeshRenderer>().sortingOrder = 1;
-			return track;
-		}
+		protected abstract void UpdateTickCount(int pCount);
 		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateSegmentsWithInfo() {
+		protected virtual void UpdateSegmentsWithInfo() {
 			int segIndex = 0;
 			float insetSizeX = Mathf.Max(0, SizeX-InsetL-InsetR);
 			float trackStartY = SegmentInfoList[0].StartPosition;
 			float trackEndY = SegmentInfoList[SegmentInfoList.Count-1].EndPosition;
 
-			for ( int i = 0 ; i < Segments.Length ; i++ ) {
-				HoverMeshRectTrack seg = Segments[i];
+			for ( int i = 0 ; i < SegmentCount ; i++ ) {
+				HoverMeshRectTrack seg = GetSegment(i);
 				
 				seg.Controllers.Set("GameObject.activeSelf", this);
 				seg.Controllers.Set("Transform.localPosition.x", this);
 				seg.Controllers.Set("Transform.localPosition.y", this);
 				seg.Controllers.Set(HoverMeshRectTrack.SizeXName, this);
 				seg.Controllers.Set(HoverMeshRectTrack.SizeYName, this);
-				seg.Controllers.Set(HoverMeshRectTrack.AlphaName, this);
 				seg.Controllers.Set(HoverMeshRectTrack.UvStartYName, this);
 				seg.Controllers.Set(HoverMeshRectTrack.UvEndYName, this);
 				seg.Controllers.Set(HoverMeshRectTrack.IsFillName, this);
@@ -133,7 +81,6 @@ namespace Hover.Common.Renderers.Shapes.Rect {
 
 				seg.SizeY = 0;
 				seg.SizeX = insetSizeX;
-				seg.Alpha = Alpha;
 				seg.SortingLayer = SortingLayer;
 			}
 
@@ -144,7 +91,7 @@ namespace Hover.Common.Renderers.Shapes.Rect {
 					continue;
 				}
 
-				HoverMeshRectTrack seg = Segments[segIndex++];
+				HoverMeshRectTrack seg = GetSegment(segIndex++);
 				seg.SizeY = segInfo.EndPosition-segInfo.StartPosition;
 				seg.IsFill = segInfo.IsFill;
 				seg.UvStartY = (UseTrackUv ?
@@ -158,30 +105,28 @@ namespace Hover.Common.Renderers.Shapes.Rect {
 				seg.transform.localPosition = localPos;
 			}
 
-			for ( int i = 0 ; i < Segments.Length ; i++ ) {
-				HoverMeshRectTrack seg = Segments[i];
+			for ( int i = 0 ; i < SegmentCount ; i++ ) {
+				HoverMeshRectTrack seg = GetSegment(i);
 				RendererHelper.SetActiveWithUpdate(seg, (seg.SizeY != 0));
 			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateTicksWithInfo() {
+		protected virtual void UpdateTicksWithInfo() {
 			float insetSizeX = Mathf.Max(0, SizeX-InsetL-InsetR);
 
 			for ( int i = 0 ; i < TickInfoList.Count ; i++ ) {
 				SliderUtil.SegmentInfo tickInfo = TickInfoList[i];
-				HoverMeshRectTrack tick = Ticks[i];
+				HoverMeshRectTrack tick = GetTick(i);
 
 				tick.Controllers.Set("Transform.localPosition.x", this);
 				tick.Controllers.Set("Transform.localPosition.y", this);
 				tick.Controllers.Set(HoverMeshRectTrack.SizeXName, this);
 				tick.Controllers.Set(HoverMeshRectTrack.SizeYName, this);
-				tick.Controllers.Set(HoverMeshRectTrack.AlphaName, this);
 				tick.Controllers.Set(HoverMesh.SortingLayerName, this);
 
 				tick.SizeX = insetSizeX*TickRelativeSizeX;
 				tick.SizeY = tickInfo.EndPosition-tickInfo.StartPosition;
-				tick.Alpha = Alpha;
 				tick.SortingLayer = SortingLayer;
 
 				Vector3 localPos = tick.transform.localPosition;

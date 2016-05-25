@@ -54,7 +54,11 @@ namespace Hover.Common.Renderers {
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void TreeUpdate() {
 			vForceUpdates = UpdateNullScenarios();
-			UpdateMesh();
+
+			if ( ShouldUpdateMesh() ) {
+				UpdateMesh();
+			}
+
 			UpdateSortingLayer();
 		}
 
@@ -91,6 +95,8 @@ namespace Hover.Common.Renderers {
 			vMeshBuild = new MeshBuilder(gameObject.GetComponent<MeshFilter>().sharedMesh);
 		}
 
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected virtual bool UpdateNullScenarios() {
 			MeshFilter meshFilt = gameObject.GetComponent<MeshFilter>();
@@ -113,6 +119,11 @@ namespace Hover.Common.Renderers {
 			}
 
 			return false;
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		protected virtual bool ShouldUpdateMesh() {
+			return vForceUpdates;
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/

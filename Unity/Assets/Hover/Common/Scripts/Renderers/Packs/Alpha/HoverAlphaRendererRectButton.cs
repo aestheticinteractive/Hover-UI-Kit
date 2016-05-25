@@ -20,6 +20,7 @@ namespace Hover.Common.Renderers.Packs.Alpha {
 		public const string SortingLayerName = "_SortingLayer";
 
 		public ISettingsController RendererController { get; set; }
+		public ISettingsController SliderController { get; set; }
 		public ISettingsControllerMap Controllers { get; private set; }
 		public string LabelText { get; set; }
 		public HoverIcon.IconOffset IconOuterType { get; set; }
@@ -29,7 +30,7 @@ namespace Hover.Common.Renderers.Packs.Alpha {
 		public bool ShowEdge { get; set; }
 
 		[DisableWhenControlled(DisplayMessage=true)]
-		public HoverFillRectButton Fill;
+		public HoverAlphaFillRectButton Fill;
 
 		[SerializeField]
 		[DisableWhenControlled]
@@ -134,10 +135,10 @@ namespace Hover.Common.Renderers.Packs.Alpha {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private HoverFillRectButton BuildFill() {
+		private HoverAlphaFillRectButton BuildFill() {
 			var rectGo = new GameObject("Fill");
 			rectGo.transform.SetParent(gameObject.transform, false);
-			return rectGo.AddComponent<HoverFillRectButton>();
+			return rectGo.AddComponent<HoverAlphaFillRectButton>();
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
@@ -153,7 +154,7 @@ namespace Hover.Common.Renderers.Packs.Alpha {
 		private void UpdateControl() {
 			Fill.Controllers.Set(HoverFillRectButton.SizeXName, this);
 			Fill.Controllers.Set(HoverFillRectButton.SizeYName, this);
-			Fill.Controllers.Set(HoverFillRectButton.AlphaName, this);
+			Fill.Controllers.Set(HoverAlphaFillRectButton.AlphaName, this);
 			Fill.Controllers.Set(HoverFill.SortingLayerName, this);
 			
 			Canvas.Controllers.Set(HoverCanvas.SizeXName, this);
@@ -197,8 +198,12 @@ namespace Hover.Common.Renderers.Packs.Alpha {
 			Fill.SortingLayer = SortingLayer;
 			Canvas.CanvasComponent.sortingLayerName = SortingLayer;
 
-			Canvas.Label.TextComponent.text = LabelText;
+			if ( RendererController == null && SliderController == null ) {
+				return;
+			}
 
+			Canvas.Label.TextComponent.text = LabelText;
+			
 			Canvas.IconOuter.IconType = IconOuterType;
 			Canvas.IconInner.IconType = IconInnerType;
 
