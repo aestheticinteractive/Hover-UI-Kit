@@ -44,9 +44,6 @@ namespace Hover.Common.Renderers.Shapes.Rect {
 
 		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
 		public float SizeY = 10;
-
-		[DisableWhenControlled(RangeMin=0.05f, RangeMax=0.9f)]
-		public float DisabledAlpha = 0.35f;
 		
 		[DisableWhenControlled]
 		public string SortingLayer = "Default";
@@ -197,7 +194,7 @@ namespace Hover.Common.Renderers.Shapes.Rect {
 			
 			ButtonRenderer.SizeX = SizeX;
 			ButtonRenderer.SizeY = SizeY;
-			ButtonRenderer.Alpha = (data.IsEnabled ? 1 : DisabledAlpha);
+			ButtonRenderer.IsEnabled = data.IsEnabled;
 			ButtonRenderer.SortingLayer = SortingLayer;
 			ButtonRenderer.LabelText = data.Label;
 
@@ -231,7 +228,7 @@ namespace Hover.Common.Renderers.Shapes.Rect {
 
 			SliderRenderer.SizeX = SizeX;
 			SliderRenderer.SizeY = SizeY;
-			SliderRenderer.Alpha = (data.IsEnabled ? 1 : DisabledAlpha);
+			SliderRenderer.IsEnabled = data.IsEnabled;
 			SliderRenderer.LabelText = data.GetFormattedLabel(data);
 			SliderRenderer.HandleValue = data.SnappedValue;
 			SliderRenderer.FillStartingPoint = data.FillStartingPoint;

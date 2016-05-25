@@ -10,7 +10,7 @@ namespace Hover.Common.Renderers {
 		
 		ISettingsController RendererController { get; set; }
 
-		float Alpha { get; set; }
+		bool IsEnabled { get; set; }
 		string LabelText { get; set; }
 		float HighlightProgress { get; set; }
 		float SelectionProgress { get; set; }

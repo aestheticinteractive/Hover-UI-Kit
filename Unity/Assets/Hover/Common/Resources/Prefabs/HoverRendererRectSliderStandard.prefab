@@ -1288,8 +1288,11 @@ MonoBehaviour:
   Canvas: {fileID: 11477448}
   _SizeX: 10
   _SizeY: 2
+  _IsEnabled: 1
+  EnabledAlpha: 1
+  DisabledAlpha: 0.35
   Anchor: 4
-  SortingLayer: Default
+  _SortingLayer: Default
   _IsBuilt: 1
 --- !u!114 &11418794
 MonoBehaviour:
@@ -1961,14 +1964,17 @@ MonoBehaviour:
   JumpButton: {fileID: 11496054}
   _SizeX: 10
   _SizeY: 10
-  _Alpha: 1
+  _IsEnabled: 1
+  EnabledAlpha: 1
+  DisabledAlpha: 0.35
   _ZeroValue: 0.5
   _HandleValue: 0.5
   _JumpValue: 0
   _AllowJump: 0
+  _TickCount: 0
   _FillStartingPoint: 1
   Anchor: 4
-  SortingLayer: Default
+  _SortingLayer: Default
   _IsBuilt: 1
 --- !u!114 &11487670
 MonoBehaviour:
@@ -2052,10 +2058,13 @@ MonoBehaviour:
   - {fileID: 11415496}
   - {fileID: 11490438}
   - {fileID: 11474654}
+  Ticks: []
   SizeX: 10
   InsetL: 1
   InsetR: 1
   Alpha: 1
+  TickSizeY: 0.06
+  TickRelativeSizeX: 0.5
   UseTrackUv: 0
 --- !u!114 &11494792
 MonoBehaviour:
@@ -2091,8 +2100,11 @@ MonoBehaviour:
   Canvas: {fileID: 11466842}
   _SizeX: 10
   _SizeY: 1
+  _IsEnabled: 1
+  EnabledAlpha: 1
+  DisabledAlpha: 0.35
   Anchor: 4
-  SortingLayer: Default
+  _SortingLayer: Default
   _IsBuilt: 1
 --- !u!114 &11498732
 MonoBehaviour:

@@ -14,7 +14,9 @@ namespace Hover.Common.Renderers.Packs.Alpha {
 	
 		public const string SizeXName = "_SizeX";
 		public const string SizeYName = "_SizeY";
-		public const string AlphaName = "_Alpha";
+		public const string IsEnabledName = "_IsEnabled";
+		public const string EnabledAlphaName = "EnabledAlpha";
+		public const string DisabledAlphaName = "DisabledAlpha";
 		public const string SortingLayerName = "_SortingLayer";
 
 		public ISettingsController RendererController { get; set; }
@@ -40,9 +42,16 @@ namespace Hover.Common.Renderers.Packs.Alpha {
 		[SerializeField]
 		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
 		private float _SizeY = 10;
+		
+		[SerializeField]
+		[DisableWhenControlled]
+		private bool _IsEnabled = true;
 
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
-		private float _Alpha = 1;
+		public float EnabledAlpha = 1;
+
+		[DisableWhenControlled(RangeMin=0.05f, RangeMax=0.9f)]
+		public float DisabledAlpha = 0.35f;
 		
 		[DisableWhenControlled]
 		public AnchorType Anchor = AnchorType.MiddleCenter;
@@ -77,9 +86,9 @@ namespace Hover.Common.Renderers.Packs.Alpha {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		public float Alpha {
-			get { return _Alpha; }
-			set { _Alpha = value; }
+		public bool IsEnabled {
+			get { return _IsEnabled; }
+			set { _IsEnabled = value; }
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
@@ -161,7 +170,7 @@ namespace Hover.Common.Renderers.Packs.Alpha {
 			
 			Controllers.Set(SizeXName, cont);
 			Controllers.Set(SizeYName, cont);
-			Controllers.Set(AlphaName, cont);
+			Controllers.Set(IsEnabledName, cont);
 			Controllers.Set(SortingLayerName, cont);
 
 			Fill.Controllers.Set(HoverFillRectButton.HighlightProgressName, cont);
@@ -175,13 +184,15 @@ namespace Hover.Common.Renderers.Packs.Alpha {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateGeneralSettings() {
+			float currAlpha = (IsEnabled ? EnabledAlpha : DisabledAlpha);
+
 			Fill.SizeX = SizeX;
 			Fill.SizeY = SizeY;
 			Canvas.SizeX = SizeX-Fill.EdgeThickness*2;
 			Canvas.SizeY = SizeY-Fill.EdgeThickness*2;
 			
-			Fill.Alpha = Alpha;
-			Canvas.Alpha = Alpha;
+			Fill.Alpha = currAlpha;
+			Canvas.Alpha = currAlpha;
 
 			Fill.SortingLayer = SortingLayer;
 			Canvas.CanvasComponent.sortingLayerName = SortingLayer;

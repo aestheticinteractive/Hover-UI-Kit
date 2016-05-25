@@ -16,7 +16,7 @@ namespace Hover.Common.Renderers.Packs.Alpha {
 
 		public const string SizeXName = "_SizeX";
 		public const string SizeYName = "_SizeY";
-		public const string AlphaName = "_Alpha";
+		public const string AlphaName = "Alpha";
 		public const string ZeroValueName = "_ZeroValue";
 		public const string HandleValueName = "_HandleValue";
 		public const string JumpValueName = "_JumpValue";
@@ -53,8 +53,14 @@ namespace Hover.Common.Renderers.Packs.Alpha {
 		private float _SizeY = 10;
 		
 		[SerializeField]
+		[DisableWhenControlled]
+		private bool _IsEnabled = true;
+
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
-		private float _Alpha = 1;
+		public float EnabledAlpha = 1;
+
+		[DisableWhenControlled(RangeMin=0.05f, RangeMax=0.9f)]
+		public float DisabledAlpha = 0.35f;
 		
 		[SerializeField]
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
@@ -118,9 +124,9 @@ namespace Hover.Common.Renderers.Packs.Alpha {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		public float Alpha {
-			get { return _Alpha; }
-			set { _Alpha = value; }
+		public bool IsEnabled {
+			get { return _IsEnabled; }
+			set { _IsEnabled = value; }
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
@@ -253,13 +259,17 @@ namespace Hover.Common.Renderers.Packs.Alpha {
 			
 			HandleButton.Controllers.Set("Transform.localPosition", this);
 			HandleButton.Controllers.Set(HoverAlphaRendererRectButton.SizeXName, this);
-			HandleButton.Controllers.Set(HoverAlphaRendererRectButton.AlphaName, this);
+			HandleButton.Controllers.Set(HoverAlphaRendererRectButton.IsEnabledName, this);
+			HandleButton.Controllers.Set(HoverAlphaRendererRectButton.EnabledAlphaName, this);
+			HandleButton.Controllers.Set(HoverAlphaRendererRectButton.DisabledAlphaName, this);
 			HandleButton.Controllers.Set(HoverAlphaRendererRectButton.SortingLayerName, this);
 			
 			JumpButton.Controllers.Set("GameObject.activeSelf", this);
 			JumpButton.Controllers.Set("Transform.localPosition", this);
 			JumpButton.Controllers.Set(HoverAlphaRendererRectButton.SizeXName, this);
-			JumpButton.Controllers.Set(HoverAlphaRendererRectButton.AlphaName, this);
+			JumpButton.Controllers.Set(HoverAlphaRendererRectButton.IsEnabledName, this);
+			JumpButton.Controllers.Set(HoverAlphaRendererRectButton.EnabledAlphaName, this);
+			JumpButton.Controllers.Set(HoverAlphaRendererRectButton.DisabledAlphaName, this);
 			JumpButton.Controllers.Set(HoverAlphaRendererRectButton.SortingLayerName, this);
 			
 			HandleButton.Canvas.IconOuter.Controllers.Set(HoverIcon.IconTypeName, this);
@@ -349,9 +359,13 @@ namespace Hover.Common.Renderers.Packs.Alpha {
 			JumpButton.SizeX = SizeX;
 			Track.SizeX = SizeX;
 
-			HandleButton.Alpha = Alpha;
-			JumpButton.Alpha = Alpha;
-			Track.Alpha = Alpha;
+			HandleButton.IsEnabled = IsEnabled;
+			HandleButton.EnabledAlpha = EnabledAlpha;
+			HandleButton.DisabledAlpha = DisabledAlpha;
+			JumpButton.IsEnabled = IsEnabled;
+			JumpButton.EnabledAlpha = EnabledAlpha;
+			JumpButton.DisabledAlpha = DisabledAlpha;
+			Track.Alpha = (IsEnabled ? EnabledAlpha : DisabledAlpha);
 			
 			HandleButton.HighlightProgress = HighlightProgress;
 			JumpButton.HighlightProgress = HighlightProgress;
