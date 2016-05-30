@@ -14,7 +14,8 @@ namespace Hover.Common.Renderers.Packs.Alpha {
 
 		[DisableWhenControlled]
 		public Color FillColor = Color.gray;
-		
+
+		private int vPrevSteps;
 		private Color vPrevColor;
 
 
@@ -29,23 +30,29 @@ namespace Hover.Common.Renderers.Packs.Alpha {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected override void UpdateMesh() {
-			//float uvToCenterX = (UseUvRelativeToSize ? 1-outerW/SizeX : 0);
-			//float uvToCenterY = (UseUvRelativeToSize ? 1-outerH/SizeY : 0);
 			float innerRad = Mathf.Lerp(InnerRadius, OuterRadius, InnerAmount);
 			float outerRad = Mathf.Lerp(InnerRadius, OuterRadius, OuterAmount);
+			float innerUv = (UseUvRelativeToSize ? InnerAmount : 0);
+			float outerUv = (UseUvRelativeToSize ? OuterAmount : 1);
 			float halfRadians = ArcAngle/180*Mathf.PI/2;
-			int steps = (int)Mathf.Max(2, ArcAngle/2);
+			int steps = GetArcMeshSteps();
 
 			MeshUtil.BuildRingMesh(vMeshBuild, innerRad, outerRad, -halfRadians, halfRadians, steps);
-			
-			/*for ( int i = 0 ; i < vMeshBuild.Uvs.Length ; i++ ) {
+
+			for ( int i = 0 ; i < vMeshBuild.Uvs.Length ; i++ ) {
+				bool isInner = (i%2 == 0);
 				Vector2 uv = vMeshBuild.Uvs[i];
-				uv.x = Mathf.Lerp(uv.x, 0.5f, uvToCenterX);
-				uv.y = Mathf.Lerp(uv.y, 0.5f, uvToCenterY);
+				uv.y = (isInner ? innerUv : outerUv);
 				vMeshBuild.Uvs[i] = uv;
-			}*/
-			
+			}
+
 			vMeshBuild.Commit();
+
+			if ( steps != vPrevSteps ) {
+				vPrevColor = new Color(-1, -1, -1);
+				UpdateColor(); //because mesh vertex count has changed
+				vPrevSteps = steps;
+			}
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/

@@ -1,4 +1,5 @@
 ﻿using Hover.Common.Utils;
+using UnityEngine;
 
 namespace Hover.Common.Renderers.Shapes.Arc {
 
@@ -20,6 +21,9 @@ namespace Hover.Common.Renderers.Shapes.Arc {
 
 		[DisableWhenControlled(RangeMin=0, RangeMax=360)]
 		public float ArcAngle = 60;
+
+		[DisableWhenControlled(RangeMin=0.1f, RangeMax=10)]
+		public float ArcSegmentsPerDegree = 0.5f;
 		
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
 		public float OuterAmount = 1;
@@ -33,6 +37,7 @@ namespace Hover.Common.Renderers.Shapes.Arc {
 		private float vPrevOuterRadius;
 		private float vPrevInnerRadius;
 		private float vPrevArcAngle;
+		private float vPrevArcSegs;
 		private float vPrevInner;
 		private float vPrevOuter;
 		private bool vPrevUseUv;
@@ -46,6 +51,7 @@ namespace Hover.Common.Renderers.Shapes.Arc {
 				OuterRadius != vPrevOuterRadius ||
 				InnerRadius != vPrevInnerRadius ||
 				ArcAngle != vPrevArcAngle ||
+				ArcSegmentsPerDegree != vPrevArcSegs ||
 				InnerAmount != vPrevInner ||
 				OuterAmount != vPrevOuter ||
 				UseUvRelativeToSize != vPrevUseUv
@@ -54,11 +60,17 @@ namespace Hover.Common.Renderers.Shapes.Arc {
 			vPrevOuterRadius = OuterRadius;
 			vPrevInnerRadius = InnerRadius;
 			vPrevArcAngle = ArcAngle;
+			vPrevArcSegs = ArcSegmentsPerDegree;
 			vPrevInner = InnerAmount;
 			vPrevOuter = OuterAmount;
 			vPrevUseUv = UseUvRelativeToSize;
 
 			return shouldUpdate;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		protected int GetArcMeshSteps() {
+			return (int)Mathf.Max(2, ArcAngle*ArcSegmentsPerDegree);
 		}
 		
 	}
