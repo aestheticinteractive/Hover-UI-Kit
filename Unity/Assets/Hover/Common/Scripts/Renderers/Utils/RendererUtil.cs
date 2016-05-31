@@ -154,8 +154,8 @@ namespace Hover.Common.Renderers.Utils {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public static Vector3 GetNearestWorldPositionOnRectangle(Vector3 pFromWorldPosition, 
-												Transform pRectangleTx, float pSizeX, float pSizeY) {
-			Vector3 fromLocalPos = pRectangleTx.InverseTransformPoint(pFromWorldPosition);
+													Transform pRectTx, float pSizeX, float pSizeY) {
+			Vector3 fromLocalPos = pRectTx.InverseTransformPoint(pFromWorldPosition);
 
 			var nearLocalPos = new Vector3(
 				Mathf.Clamp(fromLocalPos.x, -pSizeX/2, pSizeX/2),
@@ -163,13 +163,28 @@ namespace Hover.Common.Renderers.Utils {
 				0
 			);
 
-			return pRectangleTx.TransformPoint(nearLocalPos);
+			return pRectTx.TransformPoint(nearLocalPos);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public static Vector3 GetNearestWorldPositionOnArc(Vector3 pFromWorldPosition, 
-						Transform pTransform, float pOuterRadius, float pInnerRadius, float pArcAngle) {
-			return Vector3.zero; //TODO: implement method
+						Transform pArcTx, float pOuterRadius, float pInnerRadius, float pArcAngle) {
+			Vector3 fromLocalPos = pArcTx.InverseTransformPoint(pFromWorldPosition);
+			fromLocalPos.z = 0;
+
+			float fromRadius = Mathf.Clamp(fromLocalPos.magnitude, pInnerRadius, pOuterRadius);
+			float fromAngle;
+			Vector3 fromAxis;
+			Quaternion fromLocalRot = Quaternion.FromToRotation(Vector3.right, fromLocalPos.normalized);
+
+			fromLocalRot.ToAngleAxis(out fromAngle, out fromAxis);
+			fromAngle = Mathf.Clamp(fromAngle, -pArcAngle/2, pArcAngle/2);
+			//TODO: handle scenarios where "from" position is distant, but on the opposite side
+
+			Quaternion nearLocalRot = Quaternion.AngleAxis(fromAngle, fromAxis);
+			Vector3 nearLocalPos = nearLocalRot*new Vector3(fromRadius, 0, 0);
+
+			return pArcTx.TransformPoint(nearLocalPos);
 		}
 
 	}
