@@ -2,7 +2,7 @@
 using Hover.Common.Utils;
 using UnityEngine;
 
-namespace Hover.Common.Renderers.Packs.Alpha {
+namespace Hover.Common.Renderers.Packs.Alpha.Rect {
 
 	/*================================================================================================*/
 	public class HoverAlphaMeshRectTrack : HoverMeshRectTrack {

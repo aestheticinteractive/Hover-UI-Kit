@@ -2,7 +2,7 @@ using Hover.Common.Renderers.Shapes.Rect;
 using Hover.Common.Utils;
 using UnityEngine;
 
-namespace Hover.Common.Renderers.Packs.Alpha {
+namespace Hover.Common.Renderers.Packs.Alpha.Rect {
 
 	/*================================================================================================*/
 	public class HoverAlphaFillRectButton : HoverFillRectButton {
