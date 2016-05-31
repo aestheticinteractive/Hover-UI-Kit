@@ -3,26 +3,30 @@ using Hover.Common.Renderers.Utils;
 using Hover.Common.Utils;
 using UnityEngine;
 
-namespace Hover.Common.Renderers.Shapes.Rect {
+namespace Hover.Common.Renderers.Shapes.Arc {
 
 	/*================================================================================================*/
-	public abstract class HoverFillRectButton : HoverFill {
+	public abstract class HoverFillArcButton : HoverFill {
 	
-		public const string SizeXName = "SizeX";
-		public const string SizeYName = "SizeY";
+		public const string OuterRadiusName = "OuterRadius";
+		public const string InnerRadiusName = "InnerRadius";
+		public const string ArcAngleName = "ArcAngle";
 		public const string HighlightProgressName = "HighlightProgress";
 		public const string SelectionProgressName = "SelectionProgress";
 		
-		public abstract HoverMeshRectButton Background { get; }
-		public abstract HoverMeshRectButton Highlight { get; }
-		public abstract HoverMeshRectButton Selection { get; }
-		public abstract HoverMeshRectButton Edge { get; }
-
-		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		public float SizeX = 10;
+		public abstract HoverMeshArcButton Background { get; }
+		public abstract HoverMeshArcButton Highlight { get; }
+		public abstract HoverMeshArcButton Selection { get; }
+		public abstract HoverMeshArcButton Edge { get; }
 		
 		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		public float SizeY = 10;
+		public float OuterRadius = 10;
+		
+		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
+		public float InnerRadius = 3;
+
+		[DisableWhenControlled(RangeMin=0, RangeMax=360)]
+		public float ArcAngle = 60;
 		
 		[DisableWhenControlled(RangeMin=0.01f, RangeMax=0.5f)]
 		public float EdgeThickness = 0.05f;
@@ -54,17 +58,22 @@ namespace Hover.Common.Renderers.Shapes.Rect {
 			UpdateMeshControl(Selection);
 			UpdateMeshControl(Edge);
 			
-			float insetSizeX = Math.Max(0, SizeX-EdgeThickness);
-			float insetSizeY = Math.Max(0, SizeY-EdgeThickness);
+			float insetInnerRadius = InnerRadius + EdgeThickness*Mathf.Sign(OuterRadius-InnerRadius);
 
-			Background.SizeX = insetSizeX;
-			Background.SizeY = insetSizeY;
-			Highlight.SizeX = insetSizeX;
-			Highlight.SizeY = insetSizeY;
-			Selection.SizeX = insetSizeX;
-			Selection.SizeY = insetSizeY;
-			Edge.SizeX = SizeX;
-			Edge.SizeY = SizeY;
+			Background.OuterRadius = OuterRadius;
+			Highlight.OuterRadius = OuterRadius;
+			Selection.OuterRadius = OuterRadius;
+			Edge.OuterRadius = insetInnerRadius;
+
+			Background.InnerRadius = insetInnerRadius;
+			Highlight.InnerRadius = insetInnerRadius;
+			Selection.InnerRadius = insetInnerRadius;
+			Edge.InnerRadius = InnerRadius;
+
+			Background.ArcAngle = ArcAngle;
+			Highlight.ArcAngle = ArcAngle;
+			Selection.ArcAngle = ArcAngle;
+			Edge.ArcAngle = ArcAngle;
 			
 			Background.OuterAmount = 1;
 			Background.InnerAmount = HighlightProgress;
@@ -72,8 +81,8 @@ namespace Hover.Common.Renderers.Shapes.Rect {
 			Highlight.InnerAmount = SelectionProgress;
 			Selection.OuterAmount = SelectionProgress;
 			Selection.InnerAmount = 0;
-			Edge.OuterAmount = 1;
-			Edge.InnerAmount = 1-EdgeThickness/Mathf.Min(SizeX, SizeY);
+			Edge.OuterAmount = Mathf.Abs(OuterRadius-InnerRadius)/EdgeThickness;
+			Edge.InnerAmount = 0;
 
 			Background.SortingLayer = SortingLayer;
 			Highlight.SortingLayer = SortingLayer;
@@ -82,11 +91,12 @@ namespace Hover.Common.Renderers.Shapes.Rect {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		protected virtual void UpdateMeshControl(HoverMeshRectButton pMesh) {
-			pMesh.Controllers.Set(HoverMeshRectButton.SizeXName, this);
-			pMesh.Controllers.Set(HoverMeshRectButton.SizeYName, this);
-			pMesh.Controllers.Set(HoverMeshRectButton.OuterAmountName, this);
-			pMesh.Controllers.Set(HoverMeshRectButton.InnerAmountName, this);
+		protected virtual void UpdateMeshControl(HoverMeshArcButton pMesh) {
+			pMesh.Controllers.Set(HoverMeshArcButton.OuterRadiusName, this);
+			pMesh.Controllers.Set(HoverMeshArcButton.InnerRadiusName, this);
+			pMesh.Controllers.Set(HoverMeshArcButton.ArcAngleName, this);
+			pMesh.Controllers.Set(HoverMeshArcButton.OuterAmountName, this);
+			pMesh.Controllers.Set(HoverMeshArcButton.InnerAmountName, this);
 			pMesh.Controllers.Set(HoverMesh.SortingLayerName, this);
 		}
 

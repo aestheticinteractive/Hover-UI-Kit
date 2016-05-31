@@ -9,7 +9,6 @@ namespace Hover.Common.Renderers.Shapes.Rect {
 		public const string SizeYName = "SizeY";
 		public const string OuterAmountName = "OuterAmount";
 		public const string InnerAmountName = "InnerAmount";
-		public const string UseUvRelativeToSizeName = "UseUvRelativeToSize";
 
 		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
 		public float SizeX = 10;

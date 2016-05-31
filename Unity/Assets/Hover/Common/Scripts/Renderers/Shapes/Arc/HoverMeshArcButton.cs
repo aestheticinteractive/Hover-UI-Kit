@@ -11,7 +11,6 @@ namespace Hover.Common.Renderers.Shapes.Arc {
 		public const string ArcAngleName = "ArcAngle";
 		public const string OuterAmountName = "OuterAmount";
 		public const string InnerAmountName = "InnerAmount";
-		public const string UseUvRelativeToSizeName = "UseUvRelativeToSize";
 
 		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
 		public float OuterRadius = 10;
