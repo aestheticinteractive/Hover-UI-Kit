@@ -166,6 +166,12 @@ namespace Hover.Common.Renderers.Utils {
 			return pRectangleTx.TransformPoint(nearLocalPos);
 		}
 
+		/*--------------------------------------------------------------------------------------------*/
+		public static Vector3 GetNearestWorldPositionOnArc(Vector3 pFromWorldPosition, 
+						Transform pTransform, float pOuterRadius, float pInnerRadius, float pArcAngle) {
+			return Vector3.zero; //TODO: implement method
+		}
+
 	}
 
 }

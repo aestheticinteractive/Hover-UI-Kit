@@ -4,7 +4,6 @@ using Hover.Common.Items.Managers;
 using Hover.Common.Items.Types;
 using Hover.Common.Layouts;
 using Hover.Common.Renderers.Contents;
-using Hover.Common.Renderers.Packs.Alpha;
 using Hover.Common.Renderers.Packs.Alpha.Rect;
 using Hover.Common.Renderers.Utils;
 using Hover.Common.Utils;
