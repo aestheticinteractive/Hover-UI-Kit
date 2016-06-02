@@ -172,19 +172,30 @@ namespace Hover.Common.Renderers.Utils {
 			Vector3 fromLocalPos = pArcTx.InverseTransformPoint(pFromWorldPosition);
 			fromLocalPos.z = 0;
 
+			Vector3 fromLocalDir = fromLocalPos.normalized;
+			float halfAngle = pArcAngle/2;
 			float fromRadius = Mathf.Clamp(fromLocalPos.magnitude, pInnerRadius, pOuterRadius);
 			float fromAngle;
 			Vector3 fromAxis;
-			Quaternion fromLocalRot = Quaternion.FromToRotation(Vector3.right, fromLocalPos.normalized);
 
+			Quaternion fromLocalRot = Quaternion.FromToRotation(Vector3.right, fromLocalDir);
 			fromLocalRot.ToAngleAxis(out fromAngle, out fromAxis);
-			fromAngle = Mathf.Clamp(fromAngle, -pArcAngle/2, pArcAngle/2);
-			//TODO: handle scenarios where "from" position is distant, but on the opposite side
 
-			Quaternion nearLocalRot = Quaternion.AngleAxis(fromAngle, fromAxis);
-			Vector3 nearLocalPos = nearLocalRot*new Vector3(fromRadius, 0, 0);
+			if ( fromLocalPos.x > 0 && fromAngle >= -halfAngle && fromAngle <= halfAngle ) {
+				Quaternion nearLocalRot = Quaternion.AngleAxis(fromAngle, fromAxis);
+				Vector3 nearLocalPos = nearLocalRot*new Vector3(fromRadius, 0, 0);
+				return pArcTx.TransformPoint(nearLocalPos);
+			}
 
-			return pArcTx.TransformPoint(nearLocalPos);
+			float rotatedAngle = -halfAngle*Mathf.Sign(fromLocalPos.y);
+			Quaternion rotatedRot = Quaternion.AngleAxis(rotatedAngle, Vector3.forward);
+
+			Vector3 fromRotatedPos = rotatedRot*fromLocalPos;
+			fromRotatedPos.x = Mathf.Clamp(fromRotatedPos.x, pInnerRadius, pOuterRadius);
+			fromRotatedPos.y = 0;
+
+			Vector3 fromClampedRotatedPos = Quaternion.Inverse(rotatedRot)*fromRotatedPos;
+			return pArcTx.TransformPoint(fromClampedRotatedPos);
 		}
 
 	}
