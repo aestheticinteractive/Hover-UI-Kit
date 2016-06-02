@@ -81,6 +81,9 @@ namespace Hover.Common.Renderers.Packs.Alpha.Rect {
 		[SerializeField]
 		[DisableWhenControlled]
 		private int _TickCount = 0;
+		
+		[DisableWhenControlled(RangeMin=0.01f, RangeMax=1)]
+		public float TickSizeY = 0.06f;
 
 		[SerializeField]
 		[DisableWhenControlled]
@@ -253,6 +256,8 @@ namespace Hover.Common.Renderers.Packs.Alpha.Rect {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateControl() {
+			Track.Controllers.Set(HoverFillRectSlider.SegmentInfoListName, this);
+			Track.Controllers.Set(HoverFillRectSlider.TickInfoListName, this);
 			Track.Controllers.Set(HoverFillRectSlider.SizeXName, this);
 			Track.Controllers.Set(HoverAlphaFillRectSlider.AlphaName, this);
 			Track.Controllers.Set(HoverFill.SortingLayerName, this);
@@ -320,7 +325,7 @@ namespace Hover.Common.Renderers.Packs.Alpha.Rect {
 				JumpValue = JumpValue,
 				ZeroValue = ZeroValue,
 				TickCount = TickCount,
-				TickSize = Track.TickSizeY
+				TickSize = TickSizeY
 			};
 			
 			SliderUtil.CalculateSegments(info, vSegmentInfoList);

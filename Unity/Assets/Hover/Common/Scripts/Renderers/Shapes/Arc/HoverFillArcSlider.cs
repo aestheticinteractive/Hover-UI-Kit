@@ -3,28 +3,35 @@ using Hover.Common.Renderers.Utils;
 using Hover.Common.Utils;
 using UnityEngine;
 
-namespace Hover.Common.Renderers.Shapes.Rect {
+namespace Hover.Common.Renderers.Shapes.Arc {
 
 	/*================================================================================================*/
-	public abstract class HoverFillRectSlider : HoverFill {
+	public abstract class HoverFillArcSlider : HoverFill {
 	
 		public const string SegmentInfoListName = "SegmentInfoList";
 		public const string TickInfoListName = "TickInfoList";
-		public const string SizeXName = "SizeX";
+		public const string OuterRadiusName = "OuterRadius";
+		public const string InnerRadiusName = "InnerRadius";
+		public const string ArcAngleName = "ArcAngle";
 		public const int SegmentCount = 4;
+
+		private static readonly Quaternion TrackMeshLocalRot = Quaternion.Euler(0, 90, 90);
 
 		//TODO: DisableWhenControlled
 		public List<SliderUtil.SegmentInfo> SegmentInfoList;
 		public List<SliderUtil.SegmentInfo> TickInfoList;
 		
 		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		public float SizeX = 10;
+		public float OuterRadius = 10;
+		
+		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
+		public float InnerRadius = 3;
 
 		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		public float InsetL = 1;
+		public float InsetOuter = 1;
 
 		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		public float InsetR = 1;
+		public float InsetInner = 1;
 
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
 		public float TickRelativeSizeX = 0.5f;
@@ -49,10 +56,10 @@ namespace Hover.Common.Renderers.Shapes.Rect {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected abstract HoverMeshRectTrack GetSegment(int pIndex);
+		protected abstract HoverMeshArcTrack GetSegment(int pIndex);
 
 		/*--------------------------------------------------------------------------------------------*/
-		protected abstract HoverMeshRectTrack GetTick(int pIndex);
+		protected abstract HoverMeshArcTrack GetTick(int pIndex);
 		
 		/*--------------------------------------------------------------------------------------------*/
 		protected abstract void UpdateTickCount(int pCount);
@@ -62,25 +69,25 @@ namespace Hover.Common.Renderers.Shapes.Rect {
 		/*--------------------------------------------------------------------------------------------*/
 		protected virtual void UpdateSegmentsWithInfo() {
 			int segIndex = 0;
-			float insetSizeX = Mathf.Max(0, SizeX-InsetL-InsetR);
 			float trackStartY = SegmentInfoList[0].StartPosition;
 			float trackEndY = SegmentInfoList[SegmentInfoList.Count-1].EndPosition;
 
 			for ( int i = 0 ; i < SegmentCount ; i++ ) {
-				HoverMeshRectTrack seg = GetSegment(i);
+				HoverMeshArcTrack seg = GetSegment(i);
 				
 				seg.Controllers.Set("GameObject.activeSelf", this);
-				seg.Controllers.Set("Transform.localPosition.x", this);
-				seg.Controllers.Set("Transform.localPosition.y", this);
-				seg.Controllers.Set(HoverMeshRectTrack.SizeXName, this);
-				seg.Controllers.Set(HoverMeshRectTrack.SizeYName, this);
-				seg.Controllers.Set(HoverMeshRectTrack.UvStartYName, this);
-				seg.Controllers.Set(HoverMeshRectTrack.UvEndYName, this);
-				seg.Controllers.Set(HoverMeshRectTrack.IsFillName, this);
+				seg.Controllers.Set("Transform.localRotation", this);
+				seg.Controllers.Set(HoverMeshArc.OuterRadiusName, this);
+				seg.Controllers.Set(HoverMeshArc.InnerRadiusName, this);
+				seg.Controllers.Set(HoverMeshArc.ArcAngleName, this);
+				seg.Controllers.Set(HoverMeshArcTrack.UvStartYName, this);
+				seg.Controllers.Set(HoverMeshArcTrack.UvEndYName, this);
+				seg.Controllers.Set(HoverMeshArcTrack.IsFillName, this);
 				seg.Controllers.Set(HoverMesh.SortingLayerName, this);
 
-				seg.SizeY = 0;
-				seg.SizeX = insetSizeX;
+				seg.ArcAngle = 0;
+				seg.OuterRadius = OuterRadius-InsetOuter;
+				seg.InnerRadius = InnerRadius+InsetInner;
 				seg.SortingLayer = SortingLayer;
 			}
 
@@ -91,48 +98,45 @@ namespace Hover.Common.Renderers.Shapes.Rect {
 					continue;
 				}
 
-				HoverMeshRectTrack seg = GetSegment(segIndex++);
-				seg.SizeY = segInfo.EndPosition-segInfo.StartPosition;
+				HoverMeshArcTrack seg = GetSegment(segIndex++);
+				seg.ArcAngle = segInfo.EndPosition-segInfo.StartPosition;
 				seg.IsFill = segInfo.IsFill;
 				seg.UvStartY = (UseTrackUv ?
 					Mathf.InverseLerp(trackStartY, trackEndY, segInfo.StartPosition) : 0);
 				seg.UvEndY = (UseTrackUv ?
 					Mathf.InverseLerp(trackStartY, trackEndY, segInfo.EndPosition) : 1);
 
-				Vector3 localPos = seg.transform.localPosition;
-				localPos.x = (InsetL-InsetR)/2;
-				localPos.y = (segInfo.StartPosition+segInfo.EndPosition)/2;
-				seg.transform.localPosition = localPos;
+				seg.transform.localRotation = TrackMeshLocalRot*
+					Quaternion.AngleAxis((segInfo.StartPosition+segInfo.EndPosition)/2, Vector3.up);
 			}
 
 			for ( int i = 0 ; i < SegmentCount ; i++ ) {
-				HoverMeshRectTrack seg = GetSegment(i);
-				RendererUtil.SetActiveWithUpdate(seg, (seg.SizeY != 0));
+				HoverMeshArcTrack seg = GetSegment(i);
+				RendererUtil.SetActiveWithUpdate(seg, (seg.ArcAngle != 0));
 			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		protected virtual void UpdateTicksWithInfo() {
-			float insetSizeX = Mathf.Max(0, SizeX-InsetL-InsetR);
+			float tickInset = (OuterRadius-InnerRadius-InsetOuter-InsetInner)*(1-TickRelativeSizeX)/2;
 
 			for ( int i = 0 ; i < TickInfoList.Count ; i++ ) {
 				SliderUtil.SegmentInfo tickInfo = TickInfoList[i];
-				HoverMeshRectTrack tick = GetTick(i);
+				HoverMeshArcTrack tick = GetTick(i);
 
-				tick.Controllers.Set("Transform.localPosition.x", this);
-				tick.Controllers.Set("Transform.localPosition.y", this);
-				tick.Controllers.Set(HoverMeshRectTrack.SizeXName, this);
-				tick.Controllers.Set(HoverMeshRectTrack.SizeYName, this);
+				tick.Controllers.Set("Transform.localRotation", this);
+				tick.Controllers.Set(HoverMeshArc.OuterRadiusName, this);
+				tick.Controllers.Set(HoverMeshArc.InnerRadiusName, this);
+				tick.Controllers.Set(HoverMeshArc.ArcAngleName, this);
 				tick.Controllers.Set(HoverMesh.SortingLayerName, this);
 
-				tick.SizeX = insetSizeX*TickRelativeSizeX;
-				tick.SizeY = tickInfo.EndPosition-tickInfo.StartPosition;
+				tick.OuterRadius = OuterRadius-InsetOuter-tickInset;
+				tick.InnerRadius = InnerRadius+InsetInner+tickInset;
+				tick.ArcAngle = tickInfo.EndPosition-tickInfo.StartPosition;
 				tick.SortingLayer = SortingLayer;
 
-				Vector3 localPos = tick.transform.localPosition;
-				localPos.x = (InsetL-InsetR)/2;
-				localPos.y = (tickInfo.StartPosition+tickInfo.EndPosition)/2;
-				tick.transform.localPosition = localPos;
+				tick.transform.localRotation = TrackMeshLocalRot*
+					Quaternion.AngleAxis((tickInfo.StartPosition+tickInfo.EndPosition)/2, Vector3.up);
 			}
 		}
 		

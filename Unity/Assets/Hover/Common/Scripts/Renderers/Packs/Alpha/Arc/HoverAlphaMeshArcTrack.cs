@@ -41,7 +41,8 @@ namespace Hover.Common.Renderers.Packs.Alpha.Arc {
 
 			for ( int i = 0 ; i < vMeshBuild.Uvs.Length ; i++ ) {
 				Vector2 uv = vMeshBuild.Uvs[i];
-				uv.x = Mathf.Lerp(UvStartY, UvEndY, (float)(i/2)/steps);
+				int stepI = i/2;
+				uv.x = Mathf.Lerp(UvStartY, UvEndY, (float)stepI/steps);
 				vMeshBuild.Uvs[i] = uv;
 			}
 

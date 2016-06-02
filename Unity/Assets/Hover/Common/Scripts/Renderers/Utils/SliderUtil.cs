@@ -29,7 +29,8 @@ namespace Hover.Common.Renderers.Utils {
 			TickStart,
 			TickEnd
 		}
-	
+
+		[Serializable]
 		public struct SegmentInfo {
 			public SegmentType Type;
 			public PositionType StartPositionType;
@@ -38,7 +39,8 @@ namespace Hover.Common.Renderers.Utils {
 			public float EndPosition;
 			public bool IsFill;
 		}
-		
+
+		[Serializable]
 		public struct SliderInfo {
 			public SliderItem.FillType FillType;
 			public float TrackStartPosition;
