@@ -1,7 +1,7 @@
 ﻿namespace Hover.Common.Renderers.Shapes.Arc {
 
 	/*================================================================================================*/
-	public interface IRendererArcButton : IRendererArc, IRendererButton {
+	public interface IRendererArcSlider : IRendererArc, IRendererSlider {
 		
 	}
 

@@ -1,13 +1,8 @@
-﻿using Hover.Common.Renderers.Contents;
-
-namespace Hover.Common.Renderers.Shapes.Rect {
+﻿namespace Hover.Common.Renderers.Shapes.Rect {
 
 	/*================================================================================================*/
-	public interface IRendererRectButton : IRendererRect {
+	public interface IRendererRectButton : IRendererRect, IRendererButton {
 
-		HoverIcon.IconOffset IconOuterType { get; set; }
-		HoverIcon.IconOffset IconInnerType { get; set; }
-		
 	}
 
 }

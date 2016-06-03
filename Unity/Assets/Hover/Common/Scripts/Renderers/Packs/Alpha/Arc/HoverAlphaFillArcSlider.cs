@@ -46,7 +46,6 @@ namespace Hover.Common.Renderers.Packs.Alpha.Arc {
 		private HoverAlphaMeshArcTrack BuildTrack(string pName) {
 			var trackGo = new GameObject(pName);
 			trackGo.transform.SetParent(gameObject.transform, false);
-			trackGo.transform.localRotation = Quaternion.Euler(0, 90, 90);
 
 			HoverAlphaMeshArcTrack track = trackGo.AddComponent<HoverAlphaMeshArcTrack>();
 			track.TrackColor = new Color(0.1f, 0.1f, 0.1f, 0.666f);
@@ -58,7 +57,6 @@ namespace Hover.Common.Renderers.Packs.Alpha.Arc {
 		private HoverAlphaMeshArcTrack BuildTick(string pName) {
 			var tickGo = new GameObject(pName);
 			tickGo.transform.SetParent(gameObject.transform, false);
-			tickGo.transform.localRotation = Quaternion.Euler(0, 90, 90);
 
 			HoverAlphaMeshArcTrack track = tickGo.AddComponent<HoverAlphaMeshArcTrack>();
 			track.TrackColor = new Color(1, 1, 1, 0.5f);

@@ -14,7 +14,7 @@ namespace Hover.Common.Renderers.Shapes.Arc {
 		public float OuterRadius = 10;
 		
 		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		public float InnerRadius = 3;
+		public float InnerRadius = 4;
 
 		[DisableWhenControlled(RangeMin=0, RangeMax=360)]
 		public float ArcAngle = 60;

@@ -172,9 +172,10 @@ namespace Hover.Common.Renderers.Utils {
 			Vector3 fromLocalPos = pArcTx.InverseTransformPoint(pFromWorldPosition);
 			fromLocalPos.z = 0;
 
-			Vector3 fromLocalDir = fromLocalPos.normalized;
+			float fromLocalPosMag = fromLocalPos.magnitude;
+			Vector3 fromLocalDir = fromLocalPos/fromLocalPosMag;
 			float halfAngle = pArcAngle/2;
-			float fromRadius = Mathf.Clamp(fromLocalPos.magnitude, pInnerRadius, pOuterRadius);
+			float fromRadius = Mathf.Clamp(fromLocalPosMag, pInnerRadius, pOuterRadius);
 			float fromAngle;
 			Vector3 fromAxis;
 

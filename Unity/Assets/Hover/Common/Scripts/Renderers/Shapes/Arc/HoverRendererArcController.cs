@@ -1,76 +1,62 @@
 using Hover.Common.Items;
-using Hover.Common.Layouts;
-using Hover.Common.Renderers.Packs.Alpha.Rect;
+using Hover.Common.Renderers.Packs.Alpha.Arc;
 using Hover.Common.Renderers.Utils;
 using Hover.Common.Utils;
 
-namespace Hover.Common.Renderers.Shapes.Rect {
+namespace Hover.Common.Renderers.Shapes.Arc {
 
 	/*================================================================================================*/
-	public class HoverRendererRectController : HoverRendererController, IRectangleLayoutElement {
+	public class HoverRendererArcController : HoverRendererController {
 	
-		public const string SizeXName = "SizeX";
-		public const string SizeYName = "SizeY";
-
+		public const string OuterRadiusName = "OuterRadius";
+		public const string InnerRadiusName = "InnerRadius";
+		public const string ArcAngleName = "ArcAngle";
+		
 		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		public float SizeX = 10;
-
+		public float OuterRadius = 10;
+		
 		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		public float SizeY = 10;
+		public float InnerRadius = 4;
 
+		[DisableWhenControlled(RangeMin=0, RangeMax=360)]
+		public float ArcAngle = 60;
+		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public IRendererRectButton ButtonRectRenderer {
-			get { return (_ButtonRenderer as IRendererRectButton); }
+		public IRendererArcButton ButtonArcRenderer {
+			get { return (_ButtonRenderer as IRendererArcButton); }
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		public IRendererRectSlider SliderRectRenderer {
-			get { return (_SliderRenderer as IRendererRectSlider); }
+		public IRendererArcSlider SliderArcRenderer {
+			get { return (_SliderRenderer as IRendererArcSlider); }
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public override string DefaultButtonPrefabResourcePath {
-			get { return "Prefabs/HoverAlphaRendererRectButton-Default"; }
+			get { return "Prefabs/HoverAlphaRendererArcButton-Default"; }
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public override string DefaultSliderPrefabResourcePath {
-			get { return "Prefabs/HoverAlphaRendererRectSlider-Default"; }
-		}
-		
-		
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public void SetLayoutSize(float pSizeX, float pSizeY, ISettingsController pController) {
-			Controllers.Set(SizeXName, pController);
-			Controllers.Set(SizeYName, pController);
-
-			SizeX = pSizeX;
-			SizeY = pSizeY;
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public void UnsetLayoutSize(ISettingsController pController) {
-			Controllers.Unset(SizeXName, pController);
-			Controllers.Unset(SizeYName, pController);
+			get { return "Prefabs/HoverAlphaRendererArcSlider-Default"; }
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected override IRendererButton FindOrBuildButton() {
-			return RendererUtil.FindOrBuildRenderer<IRendererRectButton>(
+			return RendererUtil.FindOrBuildRenderer<IRendererArcButton>(
 				gameObject.transform, ButtonRendererPrefab, "Button", 
-				typeof(HoverAlphaRendererRectButton));
+				typeof(HoverAlphaRendererArcButton));
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
 		protected override IRendererSlider FindOrBuildSlider() {
-			return RendererUtil.FindOrBuildRenderer<HoverAlphaRendererRectSlider>(
+			return RendererUtil.FindOrBuildRenderer<HoverAlphaRendererArcSlider>(
 				gameObject.transform, SliderRendererPrefab, "Slider", 
-				typeof(HoverAlphaRendererRectSlider));
+				typeof(HoverAlphaRendererArcSlider));
 		}
 
 
@@ -79,16 +65,18 @@ namespace Hover.Common.Renderers.Shapes.Rect {
 		protected override void UpdateButtonSettings(HoverItem pHoverItem) {
 			base.UpdateButtonSettings(pHoverItem);
 			
-			ButtonRectRenderer.SizeX = SizeX;
-			ButtonRectRenderer.SizeY = SizeY;
+			ButtonArcRenderer.OuterRadius = OuterRadius;
+			ButtonArcRenderer.InnerRadius = InnerRadius;
+			ButtonArcRenderer.ArcAngle = ArcAngle;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		protected override void UpdateSliderSettings(HoverItem pHoverItem) {
 			base.UpdateSliderSettings(pHoverItem);
 			
-			SliderRectRenderer.SizeX = SizeX;
-			SliderRectRenderer.SizeY = SizeY;
+			SliderArcRenderer.OuterRadius = OuterRadius;
+			SliderArcRenderer.InnerRadius = InnerRadius;
+			SliderArcRenderer.ArcAngle = ArcAngle;
 		}
 		
 	}

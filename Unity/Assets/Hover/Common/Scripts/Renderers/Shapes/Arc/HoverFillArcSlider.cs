@@ -12,7 +12,6 @@ namespace Hover.Common.Renderers.Shapes.Arc {
 		public const string TickInfoListName = "TickInfoList";
 		public const string OuterRadiusName = "OuterRadius";
 		public const string InnerRadiusName = "InnerRadius";
-		public const string ArcAngleName = "ArcAngle";
 		public const int SegmentCount = 4;
 
 		private static readonly Quaternion TrackMeshLocalRot = Quaternion.Euler(0, 90, 90);
@@ -25,7 +24,7 @@ namespace Hover.Common.Renderers.Shapes.Arc {
 		public float OuterRadius = 10;
 		
 		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		public float InnerRadius = 3;
+		public float InnerRadius = 4;
 
 		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
 		public float InsetOuter = 1;
