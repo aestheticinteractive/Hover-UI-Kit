@@ -222,9 +222,10 @@ namespace Hover.Common.Renderers.Packs.Alpha.Arc {
 			Vector3 nearLocalPos = Container.transform.InverseTransformPoint(pNearestWorldPosition);
 			float fromAngle;
 			Vector3 fromAxis;
-
 			Quaternion fromLocalRot = Quaternion.FromToRotation(Vector3.right, nearLocalPos.normalized);
+
 			fromLocalRot.ToAngleAxis(out fromAngle, out fromAxis);
+			fromAngle *= Mathf.Sign(nearLocalPos.y);
 
 			float halfTrackAngle = (ArcAngle-HandleButton.ArcAngle)/2;
 			return Mathf.InverseLerp(-halfTrackAngle, halfTrackAngle, fromAngle);
