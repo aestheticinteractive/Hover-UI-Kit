@@ -48,7 +48,7 @@ namespace Hover.Common.Renderers.Packs.Alpha.Rect {
 			trackGo.transform.SetParent(gameObject.transform, false);
 
 			HoverAlphaMeshRectTrack track = trackGo.AddComponent<HoverAlphaMeshRectTrack>();
-			track.TrackColor = new Color(0.1f, 0.1f, 0.1f, 0.666f);
+			track.TrackColor = new Color(0.1f, 0.1f, 0.1f, 0.333f);
 			track.FillColor = new Color(0.1f, 0.9f, 0.2f);
 			return track;
 		}
