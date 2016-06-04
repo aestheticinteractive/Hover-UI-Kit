@@ -28,7 +28,7 @@ namespace Hover.Common.Renderers {
 		public bool IsButtonRendererType { get; protected set; }
 
 		[DisableWhenControlled(DisplayMessage=true)]
-		public GameObject ButtonRendererPrefab; //TODO: check for prefab changes, then rebuild
+		public GameObject ButtonRendererPrefab;
 
 		[DisableWhenControlled]
 		public GameObject SliderRendererPrefab;
@@ -46,10 +46,16 @@ namespace Hover.Common.Renderers {
 
 		[DisableWhenControlled]
 		public bool ShowProximityDebugLines = true;
+		
+		[DisableWhenControlled]
+		public bool ClickToRebuildRenderer = false;
 
 		[HideInInspector]
 		[SerializeField]
 		protected bool _IsBuilt;
+
+		private GameObject vPrevButtonPrefab;
+		private GameObject vPrevSliderPrefab;
 		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -79,6 +85,9 @@ namespace Hover.Common.Renderers {
 				SliderRendererPrefab = Resources.Load<GameObject>(DefaultSliderPrefabResourcePath);
 				_IsBuilt = true;
 			}
+
+			vPrevButtonPrefab = ButtonRendererPrefab;
+			vPrevSliderPrefab = SliderRendererPrefab;
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
@@ -92,6 +101,7 @@ namespace Hover.Common.Renderers {
 			HoverItemHighlightState highState = GetComponent<HoverItemHighlightState>();
 			HoverItemSelectionState selState = GetComponent<HoverItemSelectionState>();
 
+			DestroyRenderersIfNecessary();
 			TryRebuildWithItemType(hoverItem.ItemType);
 
 			if ( ButtonRenderer != null ) {
@@ -115,6 +125,23 @@ namespace Hover.Common.Renderers {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private void DestroyRenderersIfNecessary() {
+			if ( ClickToRebuildRenderer || ButtonRendererPrefab != vPrevButtonPrefab ) {
+				vPrevButtonPrefab = ButtonRendererPrefab;
+				RendererUtil.DestroyRenderer(ButtonRenderer);
+				ButtonRenderer = null;
+			}
+			
+			if ( ClickToRebuildRenderer || SliderRendererPrefab != vPrevSliderPrefab ) {
+				vPrevSliderPrefab = SliderRendererPrefab;
+				RendererUtil.DestroyRenderer(SliderRenderer);
+				SliderRenderer = null;
+			}
+
+			ClickToRebuildRenderer = false;
+		}
+
 		/*--------------------------------------------------------------------------------------------*/
 		private void TryRebuildWithItemType(HoverItem.HoverItemType pType) {
 			if ( pType == HoverItem.HoverItemType.Slider ) {
