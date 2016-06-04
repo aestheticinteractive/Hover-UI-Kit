@@ -1,4 +1,5 @@
 using Hover.Common.Items;
+using Hover.Common.Layouts.Arc;
 using Hover.Common.Renderers.Packs.Alpha.Arc;
 using Hover.Common.Renderers.Utils;
 using Hover.Common.Utils;
@@ -6,7 +7,7 @@ using Hover.Common.Utils;
 namespace Hover.Common.Renderers.Shapes.Arc {
 
 	/*================================================================================================*/
-	public class HoverRendererArcController : HoverRendererController {
+	public class HoverRendererArcController : HoverRendererController, IArcLayoutable {
 	
 		public const string OuterRadiusName = "OuterRadius";
 		public const string InnerRadiusName = "InnerRadius";
@@ -41,6 +42,27 @@ namespace Hover.Common.Renderers.Shapes.Arc {
 		/*--------------------------------------------------------------------------------------------*/
 		public override string DefaultSliderPrefabResourcePath {
 			get { return "Prefabs/HoverAlphaRendererArcSlider-Default"; }
+		}
+		
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public void SetArcLayout(float pOuterRadius, float pInnerRadius, 
+													float pArcAngle, ISettingsController pController) {
+			Controllers.Set(OuterRadiusName, pController);
+			Controllers.Set(InnerRadiusName, pController);
+			Controllers.Set(ArcAngleName, pController);
+
+			OuterRadius = pOuterRadius;
+			InnerRadius = pInnerRadius;
+			ArcAngle = pArcAngle;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void UnsetLayoutSize(ISettingsController pController) {
+			Controllers.Unset(OuterRadiusName, pController);
+			Controllers.Unset(InnerRadiusName, pController);
+			Controllers.Unset(ArcAngleName, pController);
 		}
 
 
