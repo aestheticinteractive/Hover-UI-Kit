@@ -14,8 +14,6 @@ namespace Hover.Common.Renderers.Shapes.Arc {
 		public const string InnerRadiusName = "InnerRadius";
 		public const int SegmentCount = 4;
 
-		private static readonly Quaternion TrackMeshLocalRot = Quaternion.Euler(0, 90, 90);
-
 		//TODO: DisableWhenControlled
 		public List<SliderUtil.SegmentInfo> SegmentInfoList;
 		public List<SliderUtil.SegmentInfo> TickInfoList;
@@ -105,8 +103,8 @@ namespace Hover.Common.Renderers.Shapes.Arc {
 				seg.UvEndY = (UseTrackUv ?
 					Mathf.InverseLerp(trackStartY, trackEndY, segInfo.EndPosition) : 1);
 
-				seg.transform.localRotation = TrackMeshLocalRot*
-					Quaternion.AngleAxis((segInfo.StartPosition+segInfo.EndPosition)/2, Vector3.up);
+				seg.transform.localRotation = Quaternion.AngleAxis(
+					(segInfo.StartPosition+segInfo.EndPosition)/2, Vector3.forward);
 			}
 
 			for ( int i = 0 ; i < SegmentCount ; i++ ) {
@@ -134,8 +132,8 @@ namespace Hover.Common.Renderers.Shapes.Arc {
 				tick.ArcAngle = tickInfo.EndPosition-tickInfo.StartPosition;
 				tick.SortingLayer = SortingLayer;
 
-				tick.transform.localRotation = TrackMeshLocalRot*
-					Quaternion.AngleAxis((tickInfo.StartPosition+tickInfo.EndPosition)/2, Vector3.up);
+				tick.transform.localRotation = Quaternion.AngleAxis(
+					(tickInfo.StartPosition+tickInfo.EndPosition)/2, Vector3.forward);
 			}
 		}
 		

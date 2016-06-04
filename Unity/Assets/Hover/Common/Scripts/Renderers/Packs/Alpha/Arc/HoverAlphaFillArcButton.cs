@@ -66,7 +66,6 @@ namespace Hover.Common.Renderers.Packs.Alpha.Arc {
 		private HoverAlphaMeshArcLateral BuildArcMesh(string pName) {
 			var rectGo = new GameObject(pName);
 			rectGo.transform.SetParent(gameObject.transform, false);
-			rectGo.transform.localRotation = Quaternion.Euler(0, 90, 90);
 			return rectGo.AddComponent<HoverAlphaMeshArcLateral>();
 		}
 		

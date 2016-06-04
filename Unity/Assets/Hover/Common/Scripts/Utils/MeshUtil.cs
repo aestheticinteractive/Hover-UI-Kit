@@ -34,9 +34,11 @@ namespace Hover.Common.Utils {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public static Vector3 GetRingPoint(float pRadius, float pAngle) {
-			float x = (float)Math.Sin(pAngle);
-			float y = (float)Math.Cos(pAngle);
-			return new Vector3(x*pRadius, 0, y*pRadius);
+			return new Vector3(
+				Mathf.Cos(pAngle)*pRadius, 
+				Mathf.Sin(pAngle)*pRadius,
+				0
+			);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
