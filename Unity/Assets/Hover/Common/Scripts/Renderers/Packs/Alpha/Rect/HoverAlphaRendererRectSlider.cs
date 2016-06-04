@@ -17,6 +17,7 @@ namespace Hover.Common.Renderers.Packs.Alpha.Rect {
 		public const string SizeXName = "_SizeX";
 		public const string SizeYName = "_SizeY";
 		public const string AlphaName = "Alpha";
+		public const string IsEnabledName = "_IsEnabled";
 		public const string ZeroValueName = "_ZeroValue";
 		public const string HandleValueName = "_HandleValue";
 		public const string JumpValueName = "_JumpValue";
@@ -294,6 +295,7 @@ namespace Hover.Common.Renderers.Packs.Alpha.Rect {
 			Controllers.Set(SizeXName, cont);
 			Controllers.Set(SizeYName, cont);
 			Controllers.Set(AlphaName, cont);
+			Controllers.Set(IsEnabledName, cont);
 			Controllers.Set(ZeroValueName, cont);
 			Controllers.Set(HandleValueName, cont);
 			Controllers.Set(JumpValueName, cont);

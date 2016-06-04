@@ -18,6 +18,7 @@ namespace Hover.Common.Renderers.Packs.Alpha.Arc {
 		public const string InnerRadiusName = "_InnerRadius";
 		public const string ArcAngleName = "_ArcAngle";
 		public const string AlphaName = "Alpha";
+		public const string IsEnabledName = "_IsEnabled";
 		public const string ZeroValueName = "_ZeroValue";
 		public const string HandleValueName = "_HandleValue";
 		public const string JumpValueName = "_JumpValue";
@@ -312,6 +313,7 @@ namespace Hover.Common.Renderers.Packs.Alpha.Arc {
 			Controllers.Set(InnerRadiusName, cont);
 			Controllers.Set(ArcAngleName, cont);
 			Controllers.Set(AlphaName, cont);
+			Controllers.Set(IsEnabledName, cont);
 			Controllers.Set(ZeroValueName, cont);
 			Controllers.Set(HandleValueName, cont);
 			Controllers.Set(JumpValueName, cont);
