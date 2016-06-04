@@ -55,13 +55,28 @@ namespace Hover.Common.Renderers.Packs.Alpha.Rect {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private HoverAlphaMeshRectTrack BuildTick(string pName) {
+			//TODO: should NOT have to do this find... why is Unity clearing "Ticks" upon play??
+			// ... without this, that empty "Ticks" list causes new ones to be created
+
+			Transform tickTx = gameObject.transform.FindChild(pName);
+
+			if ( tickTx != null ) {
+				HoverAlphaMeshRectTrack existingTick = tickTx.GetComponent<HoverAlphaMeshRectTrack>();
+
+				if ( existingTick != null ) {
+					return existingTick;
+				}
+			}
+
+			////
+
 			var tickGo = new GameObject(pName);
 			tickGo.transform.SetParent(gameObject.transform, false);
 
-			HoverAlphaMeshRectTrack track = tickGo.AddComponent<HoverAlphaMeshRectTrack>();
-			track.TrackColor = new Color(1, 1, 1, 0.5f);
-			track.GetComponent<MeshRenderer>().sortingOrder = 1;
-			return track;
+			HoverAlphaMeshRectTrack tick = tickGo.AddComponent<HoverAlphaMeshRectTrack>();
+			tick.TrackColor = new Color(1, 1, 1, 0.5f);
+			tick.GetComponent<MeshRenderer>().sortingOrder = 1;
+			return tick;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
