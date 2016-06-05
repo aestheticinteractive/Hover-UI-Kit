@@ -1,5 +1,6 @@
 using Hover.Common.Items;
 using Hover.Common.Layouts;
+using Hover.Common.Layouts.Rect;
 using Hover.Common.Renderers.Packs.Alpha.Rect;
 using Hover.Common.Renderers.Utils;
 using Hover.Common.Utils;
@@ -7,7 +8,7 @@ using Hover.Common.Utils;
 namespace Hover.Common.Renderers.Shapes.Rect {
 
 	/*================================================================================================*/
-	public class HoverRendererRectController : HoverRendererController, IRectangleLayoutElement {
+	public class HoverRendererRectController : HoverRendererController, IRectLayoutable {
 	
 		public const string SizeXName = "SizeX";
 		public const string SizeYName = "SizeY";

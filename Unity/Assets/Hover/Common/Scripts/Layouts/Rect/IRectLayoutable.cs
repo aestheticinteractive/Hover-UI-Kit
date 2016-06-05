@@ -1,10 +1,10 @@
 ﻿using Hover.Common.Utils;
 using UnityEngine;
 
-namespace Hover.Common.Layouts {
+namespace Hover.Common.Layouts.Rect {
 
 	/*================================================================================================*/
-	public interface IRectangleLayoutElement {
+	public interface IRectLayoutable {
 
 		Transform transform { get; }
 		

@@ -2,36 +2,23 @@
 using Hover.Common.Utils;
 using UnityEngine;
 
-namespace Hover.Common.Layouts {
+namespace Hover.Common.Layouts.Rect {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
-	public class HoverLayoutGroup : MonoBehaviour, ISettingsController, ITreeUpdateable {
-
-		protected struct ChildItem {
-			public float RelSizeX {
-				get { return (RelSizer == null ? 1 : RelSizer.RelativeSizeX); }
-			}
-
-			public float RelSizeY {
-				get { return (RelSizer == null ? 1 : RelSizer.RelativeSizeY); }
-			}
-
-			public IRectangleLayoutElement Elem;
-			public HoverLayoutRelativeSizer RelSizer;
-		}
+	public class HoverLayoutRectGroup : MonoBehaviour, ISettingsController, ITreeUpdateable {
 
 		public ISettingsControllerMap Controllers { get; private set; }
 		
-		protected readonly List<ChildItem> vChildItems;
+		protected readonly List<HoverLayoutRectGroupChild> vChildItems;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected HoverLayoutGroup() {
+		protected HoverLayoutRectGroup() {
 			Controllers = new SettingsControllerMap();
-			vChildItems = new List<ChildItem>();
+			vChildItems = new List<HoverLayoutRectGroupChild>();
 		}
 
 		
@@ -53,7 +40,7 @@ namespace Hover.Common.Layouts {
 			vChildItems.Clear();
 
 			foreach ( Transform childTx in gameObject.transform ) {
-				IRectangleLayoutElement elem = childTx.GetComponent<IRectangleLayoutElement>();
+				IRectLayoutable elem = childTx.GetComponent<IRectLayoutable>();
 
 				if ( elem == null ) {
 					//Debug.LogWarning("Item '"+childTx.name+"' does not have a renderer "+
@@ -61,10 +48,8 @@ namespace Hover.Common.Layouts {
 					continue;
 				}
 
-				var item = new ChildItem {
-					Elem = elem,
-					RelSizer = childTx.GetComponent<HoverLayoutRelativeSizer>()
-				};
+				var item = new HoverLayoutRectGroupChild(elem,
+					childTx.GetComponent<HoverLayoutRectRelativeSizer>());
 
 				vChildItems.Add(item);
 			}

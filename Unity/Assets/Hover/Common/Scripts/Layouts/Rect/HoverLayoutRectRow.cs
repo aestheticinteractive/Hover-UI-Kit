@@ -2,10 +2,10 @@
 using Hover.Common.Utils;
 using UnityEngine;
 
-namespace Hover.Common.Layouts {
+namespace Hover.Common.Layouts.Rect {
 
 	/*================================================================================================*/
-	public class HoverLayoutRow : HoverLayoutGroup, IRectangleLayoutElement {
+	public class HoverLayoutRectRow : HoverLayoutRectGroup, IRectLayoutable {
 
 		public const string SizeXName = "SizeX";
 		public const string SizeYName = "SizeY";
@@ -115,9 +115,9 @@ namespace Hover.Common.Layouts {
 			}
 			
 			for ( int i = 0 ; i < itemCount ; i++ ) {
-				ChildItem item = vChildItems[i];
-				relSumX += item.RelSizeX;
-				relSumY += item.RelSizeY;
+				HoverLayoutRectGroupChild item = vChildItems[i];
+				relSumX += item.RelativeSizeX;
+				relSumY += item.RelativeSizeY;
 			}
 			
 			float posX = anchorStartX - (isHoriz ? cellAvailSizeX/2 : 0);
@@ -125,12 +125,12 @@ namespace Hover.Common.Layouts {
 
 			for ( int i = 0 ; i < itemCount ; i++ ) {
 				int childI = (isRev ? itemCount-i-1 : i);
-				ChildItem item = vChildItems[childI];
-				IRectangleLayoutElement elem = item.Elem;
+				HoverLayoutRectGroupChild item = vChildItems[childI];
+				IRectLayoutable elem = item.Elem;
 
 				Vector3 localPos = elem.transform.localPosition;
-				float elemRelSizeX = elemAvailSizeX*item.RelSizeX/(isHoriz ? relSumX : 1);
-				float elemRelSizeY = elemAvailSizeY*item.RelSizeY/(isHoriz ? 1 : relSumY);
+				float elemRelSizeX = elemAvailSizeX*item.RelativeSizeX/(isHoriz ? relSumX : 1);
+				float elemRelSizeY = elemAvailSizeY*item.RelativeSizeY/(isHoriz ? 1 : relSumY);
 				
 				localPos.x = posX+(isHoriz ? (elemRelSizeX+InnerPadding)/2 : 0);
 				localPos.y = posY+(isHoriz ? 0 : (elemRelSizeY+InnerPadding)/2);

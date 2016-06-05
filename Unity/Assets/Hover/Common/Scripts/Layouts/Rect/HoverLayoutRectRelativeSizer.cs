@@ -1,26 +1,26 @@
 ﻿using Hover.Common.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-namespace Hover.Common.Layouts.Arc {
+namespace Hover.Common.Layouts.Rect {
 
 	/*================================================================================================*/
-	public class HoverLayoutArcRelativeSizer : MonoBehaviour, ISettingsController {
+	public class HoverLayoutRectRelativeSizer : MonoBehaviour, ISettingsController {
 
 		public ISettingsControllerMap Controllers { get; private set; }
 
+		[FormerlySerializedAs("_RelativeSizeX")]
 		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		public float RelativeOuterRadius = 1;
+		public float RelativeSizeX = 1;
 
+		[FormerlySerializedAs("_RelativeSizeY")]
 		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		public float RelativeInnerRadius = 1;
-
-		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		public float RelativeArcAngle = 1;
-
+		public float RelativeSizeY = 1;
+		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected HoverLayoutArcRelativeSizer() {
+		protected HoverLayoutRectRelativeSizer() {
 			Controllers = new SettingsControllerMap();
 		}
 

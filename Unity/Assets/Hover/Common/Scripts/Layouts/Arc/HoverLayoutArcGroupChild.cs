@@ -5,13 +5,13 @@
 
 		public IArcLayoutable Elem { get; private set; }
 		public HoverLayoutArcRelativeSizer RelSizer { get; private set; }
-		
-		
+
+
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public HoverLayoutArcGroupChild(IArcLayoutable pElem, HoverLayoutArcRelativeSizer pRelSizer) {
+		public HoverLayoutArcGroupChild(IArcLayoutable pElem, HoverLayoutArcRelativeSizer pSizer) {
 			Elem = pElem;
-			RelSizer = pRelSizer;
+			RelSizer = pSizer;
 		}
 
 
