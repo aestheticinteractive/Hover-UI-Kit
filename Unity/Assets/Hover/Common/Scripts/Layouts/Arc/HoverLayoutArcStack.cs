@@ -5,19 +5,19 @@ using UnityEngine;
 namespace Hover.Common.Layouts.Arc {
 
 	/*================================================================================================*/
-	public class HoverLayoutArcRow : HoverLayoutArcGroup, IArcLayoutable, IRectLayoutable {
+	public class HoverLayoutArcStack : HoverLayoutArcGroup, IArcLayoutable, IRectLayoutable {
 		
 		public const string OuterRadiusName = "OuterRadius";
 		public const string InnerRadiusName = "InnerRadius";
 		public const string ArcAngleName = "ArcAngle";
 
 		public enum ArrangementType {
-			Forward,
-			Reverse
+			InnerToOuter,
+			OuterToInner
 		}
 		
 		[DisableWhenControlled(DisplayMessage=true)]
-		public ArrangementType Arrangement = ArrangementType.Forward;
+		public ArrangementType Arrangement = ArrangementType.InnerToOuter;
 		
 		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
 		public float OuterRadius = 10;
@@ -87,36 +87,33 @@ namespace Hover.Common.Layouts.Arc {
 				return;
 			}
 
-			bool isRev = (Arrangement == ArrangementType.Reverse);
-			float angleSumPad = AnglePadding*(itemCount-1);// + RadiusPadding*2;
-			float relSumArcAngle = 0;
+			bool isRev = (Arrangement == ArrangementType.OuterToInner);
+			float relSumThickness = 0;
 			float paddedOuterRadius = OuterRadius-RadiusPadding;
 			float paddedInnerRadius = InnerRadius+RadiusPadding;
-			float availAngle = ArcAngle-angleSumPad;
-			float angle = -ArcAngle/2;
+			float availAngle = ArcAngle-AnglePadding*(itemCount-1);
+			float availThick = paddedOuterRadius-paddedInnerRadius;
+			float innerRadius = paddedInnerRadius;
 			
 			for ( int i = 0 ; i < itemCount ; i++ ) {
 				HoverLayoutArcGroupChild item = vChildItems[i];
-				relSumArcAngle += item.RelativeArcAngle;
+				relSumThickness += item.RelativeThickness;
 			}
 
 			for ( int i = 0 ; i < itemCount ; i++ ) {
 				int childI = (isRev ? itemCount-i-1 : i);
 				HoverLayoutArcGroupChild item = vChildItems[childI];
 				IArcLayoutable elem = item.Elem;
-				float elemRelAngle = availAngle*item.RelativeArcAngle/relSumArcAngle;
-				float relativeInset = (paddedOuterRadius-paddedInnerRadius)*(1-item.RelativeThickness)/2;
-
+				float elemRelThick = availThick*item.RelativeThickness/relSumThickness;
+				
 				elem.SetArcLayout(
-					paddedOuterRadius-relativeInset,
-					paddedInnerRadius+relativeInset,
-					elemRelAngle,
+					innerRadius+elemRelThick,
+					innerRadius,
+					availAngle*item.RelativeArcAngle,
 					this
 				);
 
-				elem.Controllers.Set("Transform.localRotation", this);
-				elem.transform.localRotation = Quaternion.AngleAxis(angle+elemRelAngle/2, Vector3.back);
-				angle += elemRelAngle+AnglePadding;
+				innerRadius += elemRelThick;
 			}
 		}
 

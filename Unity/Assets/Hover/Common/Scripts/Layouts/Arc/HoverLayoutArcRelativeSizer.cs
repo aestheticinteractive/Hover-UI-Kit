@@ -9,10 +9,7 @@ namespace Hover.Common.Layouts.Arc {
 		public ISettingsControllerMap Controllers { get; private set; }
 
 		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		public float RelativeOuterRadius = 1;
-
-		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		public float RelativeInnerRadius = 1;
+		public float RelativeThickness = 1;
 
 		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
 		public float RelativeArcAngle = 1;

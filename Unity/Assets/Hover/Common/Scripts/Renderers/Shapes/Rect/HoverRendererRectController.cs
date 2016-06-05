@@ -44,7 +44,7 @@ namespace Hover.Common.Renderers.Shapes.Rect {
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void SetLayoutSize(float pSizeX, float pSizeY, ISettingsController pController) {
+		public void SetRectLayout(float pSizeX, float pSizeY, ISettingsController pController) {
 			Controllers.Set(SizeXName, pController);
 			Controllers.Set(SizeYName, pController);
 
@@ -53,7 +53,7 @@ namespace Hover.Common.Renderers.Shapes.Rect {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void UnsetLayoutSize(ISettingsController pController) {
+		public void UnsetRectLayout(ISettingsController pController) {
 			Controllers.Unset(SizeXName, pController);
 			Controllers.Unset(SizeYName, pController);
 		}

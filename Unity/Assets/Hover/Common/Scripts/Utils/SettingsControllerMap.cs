@@ -41,6 +41,12 @@ namespace Hover.Common.Utils {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
+		public void UnsetAll() {
+			vMap.Clear();
+			vKeys.Clear();
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
 		public ISettingsController Get(string pValueName) {
 			return (vMap.ContainsKey(pValueName) ? vMap[pValueName] : null);
 		}

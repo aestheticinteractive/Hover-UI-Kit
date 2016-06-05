@@ -46,7 +46,7 @@ namespace Hover.Common.Layouts.Rect {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void SetLayoutSize(float pSizeX, float pSizeY, ISettingsController pController) {
+		public void SetRectLayout(float pSizeX, float pSizeY, ISettingsController pController) {
 			Controllers.Set(SizeXName, pController);
 			Controllers.Set(SizeYName, pController);
 
@@ -55,7 +55,7 @@ namespace Hover.Common.Layouts.Rect {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void UnsetLayoutSize(ISettingsController pController) {
+		public void UnsetRectLayout(ISettingsController pController) {
 			Controllers.Unset(SizeXName, pController);
 			Controllers.Unset(SizeYName, pController);
 		}
@@ -141,7 +141,7 @@ namespace Hover.Common.Layouts.Rect {
 				elem.Controllers.Set("Transform.localPosition.x", this);
 				elem.Controllers.Set("Transform.localPosition.y", this);
 
-				elem.SetLayoutSize(elemRelSizeX, elemRelSizeY, this);
+				elem.SetRectLayout(elemRelSizeX, elemRelSizeY, this);
 				elem.transform.localPosition = localPos;
 			}
 		}

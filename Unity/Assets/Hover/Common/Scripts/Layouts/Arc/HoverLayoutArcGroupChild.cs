@@ -17,13 +17,8 @@
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public float RelativeOuterRadius {
-			get { return (RelSizer == null ? 1 : RelSizer.RelativeOuterRadius); }
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public float RelativeInnerRadius {
-			get { return (RelSizer == null ? 1 : RelSizer.RelativeInnerRadius); }
+		public float RelativeThickness {
+			get { return (RelSizer == null ? 1 : RelSizer.RelativeThickness); }
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
