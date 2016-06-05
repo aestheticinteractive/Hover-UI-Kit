@@ -8,14 +8,17 @@ namespace Hover.Common.Utils {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		void Set(string pValueName, ISettingsController pController);
+		void Set(string pValueName, ISettingsController pController, int pExpirationCount=1);
 
 		/*--------------------------------------------------------------------------------------------*/
 		bool Unset(string pValueName, ISettingsController pController);
 		
 		/*--------------------------------------------------------------------------------------------*/
-		void UnsetAll();
+		void TryExpireControllers();
 
+
+#if UNITY_EDITOR
+		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		ISettingsController Get(string pValueName);
 
@@ -35,6 +38,7 @@ namespace Hover.Common.Utils {
 
 		/*--------------------------------------------------------------------------------------------*/
 		void FillListWithControlledValueNames(List<string> pList);
+#endif
 
 	}
 

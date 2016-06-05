@@ -121,6 +121,8 @@ namespace Hover.Common.Renderers {
 			if ( ShowProximityDebugLines && Application.isPlaying ) {
 				DrawProximityDebugLines();
 			}
+
+			Controllers.TryExpireControllers();
 		}
 
 

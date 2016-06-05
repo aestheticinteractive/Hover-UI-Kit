@@ -87,6 +87,7 @@ namespace Hover.Common.Renderers.Contents {
 
 			rectTx.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, SizeX/CanvasScale);
 			rectTx.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, SizeY/CanvasScale);
+			Controllers.TryExpireControllers();
 		}
 		
 

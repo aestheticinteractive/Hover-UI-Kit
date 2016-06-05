@@ -198,6 +198,9 @@ namespace Hover.Common.Renderers.Packs.Alpha.Rect {
 			UpdateSliderSegments();
 			UpdateGeneralSettings();
 			UpdateAnchorSettings();
+
+			RendererController = null;
+			Controllers.TryExpireControllers();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

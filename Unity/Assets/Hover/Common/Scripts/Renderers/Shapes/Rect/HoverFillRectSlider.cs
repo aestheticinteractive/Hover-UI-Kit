@@ -36,6 +36,8 @@ namespace Hover.Common.Renderers.Shapes.Rect {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public override void TreeUpdate() {
+			base.TreeUpdate();
+
 			if ( SegmentInfoList != null ) {
 				UpdateSegmentsWithInfo();
 			}

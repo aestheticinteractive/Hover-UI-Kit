@@ -31,6 +31,7 @@ namespace Hover.Common.Layouts.Rect {
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void TreeUpdate() {
 			FillChildItemsList();
+			Controllers.TryExpireControllers();
 		}
 
 		

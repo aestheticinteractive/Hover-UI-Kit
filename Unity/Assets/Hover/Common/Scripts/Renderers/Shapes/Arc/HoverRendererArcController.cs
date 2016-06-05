@@ -58,13 +58,6 @@ namespace Hover.Common.Renderers.Shapes.Arc {
 			ArcAngle = pArcAngle;
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
-		public void UnsetArcLayout(ISettingsController pController) {
-			Controllers.Unset(OuterRadiusName, pController);
-			Controllers.Unset(InnerRadiusName, pController);
-			Controllers.Unset(ArcAngleName, pController);
-		}
-
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/

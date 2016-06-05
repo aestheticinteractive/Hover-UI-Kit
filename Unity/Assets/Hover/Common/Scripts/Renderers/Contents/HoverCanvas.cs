@@ -118,6 +118,7 @@ namespace Hover.Common.Renderers.Contents {
 			UpdateActiveStates();
 			UpdateIconSizeSettings();
 			UpdateCanvasAlignmentSettings();
+			Controllers.TryExpireControllers();
 		}
 		
 		

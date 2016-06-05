@@ -42,7 +42,9 @@ namespace Hover.Common.Renderers {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		public abstract void TreeUpdate();
+		public virtual void TreeUpdate() {
+			Controllers.TryExpireControllers();
+		}
 		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

@@ -41,6 +41,7 @@ namespace Hover.Common.Renderers.Shapes.Arc {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public override void TreeUpdate() {
+			base.TreeUpdate();
 			UpdateGeneralSettings();
 			UpdateActiveStates();
 		}

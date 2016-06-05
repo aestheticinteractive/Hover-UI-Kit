@@ -125,6 +125,10 @@ namespace Hover.Common.Renderers.Packs.Alpha.Arc {
 		public void TreeUpdate() {
 			UpdateControl();
 			UpdateGeneralSettings();
+
+			RendererController = null;
+			SliderController = null;
+			Controllers.TryExpireControllers();
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/

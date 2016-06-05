@@ -15,9 +15,6 @@ namespace Hover.Common.Layouts.Rect {
 		/*--------------------------------------------------------------------------------------------*/
 		void SetRectLayout(float pSizeX, float pSizeY, ISettingsController pController);
 
-		/*--------------------------------------------------------------------------------------------*/
-		void UnsetRectLayout(ISettingsController pController);
-
 	}
 
 }

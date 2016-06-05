@@ -54,12 +54,6 @@ namespace Hover.Common.Layouts.Rect {
 			SizeY = pSizeY;
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
-		public void UnsetRectLayout(ISettingsController pController) {
-			Controllers.Unset(SizeXName, pController);
-			Controllers.Unset(SizeYName, pController);
-		}
-
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/

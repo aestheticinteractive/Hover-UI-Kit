@@ -16,9 +16,6 @@ namespace Hover.Common.Layouts.Arc {
 		void SetArcLayout(float pOuterRadius, float pInnerRadius, 
 			float pArcAngle, ISettingsController pController);
 
-		/*--------------------------------------------------------------------------------------------*/
-		void UnsetArcLayout(ISettingsController pController);
-
 	}
 
 }

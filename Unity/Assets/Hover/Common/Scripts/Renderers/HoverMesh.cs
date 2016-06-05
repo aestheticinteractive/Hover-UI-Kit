@@ -60,6 +60,7 @@ namespace Hover.Common.Renderers {
 			}
 
 			UpdateSortingLayer();
+			Controllers.TryExpireControllers();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

@@ -55,13 +55,6 @@ namespace Hover.Common.Layouts.Arc {
 			InnerRadius = pInnerRadius;
 			ArcAngle = pArcAngle;
 		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public void UnsetArcLayout(ISettingsController pController) {
-			Controllers.Unset(OuterRadiusName, pController);
-			Controllers.Unset(InnerRadiusName, pController);
-			Controllers.Unset(ArcAngleName, pController);
-		}
 		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -70,11 +63,6 @@ namespace Hover.Common.Layouts.Arc {
 			Controllers.Set(OuterRadiusName, pController);
 
 			OuterRadius = Mathf.Min(pSizeX, pSizeY)/2;
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public void UnsetRectLayout(ISettingsController pController) {
-			Controllers.Unset(OuterRadiusName, pController);
 		}
 
 

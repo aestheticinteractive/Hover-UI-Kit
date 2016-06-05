@@ -8,6 +8,7 @@ namespace Hover.Common.Renderers.Utils {
 	/*================================================================================================*/
 	public static class RendererUtil {
 
+#if UNITY_EDITOR
 		private const string BulletText = "\n - ";
 		private const string ControlledSettingsText =
 			"The following settings are controlled externally.{0}";
@@ -42,6 +43,7 @@ namespace Hover.Common.Renderers.Utils {
 
 			return string.Format(ControlledSettingsText, text);
 		}
+#endif
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

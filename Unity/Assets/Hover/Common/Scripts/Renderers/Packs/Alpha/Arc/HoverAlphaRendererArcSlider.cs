@@ -205,6 +205,9 @@ namespace Hover.Common.Renderers.Packs.Alpha.Arc {
 			UpdateControl();
 			UpdateSliderSegments();
 			UpdateGeneralSettings();
+
+			RendererController = null;
+			Controllers.TryExpireControllers();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

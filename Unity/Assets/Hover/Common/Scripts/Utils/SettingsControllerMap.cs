@@ -1,37 +1,55 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Hover.Common.Utils {
 
 	/*================================================================================================*/
 	public class SettingsControllerMap : ISettingsControllerMap {
 
-		private readonly Dictionary<string, ISettingsController> vMap;
+		private class ExpirableController {
+			public ISettingsController Controller;
+			public int ExpireCount;
+		}
+
+		private readonly Dictionary<string, ExpirableController> vMap;
 		private readonly List<string> vKeys;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public SettingsControllerMap() {
-			vMap = new Dictionary<string, ISettingsController>();
+			vMap = new Dictionary<string, ExpirableController>();
 			vKeys = new List<string>();
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Set(string pValueName, ISettingsController pController) {
+		public void Set(string pValueName, ISettingsController pController, int pExpirationCount=1) {
+			if ( !Application.isEditor ) {
+				return;
+			}
+
+			var expCont = new ExpirableController();
+			expCont.Controller = pController;
+			expCont.ExpireCount = pExpirationCount;
+
 			if ( vMap.ContainsKey(pValueName) ) {
-				vMap[pValueName] = pController;
+				vMap[pValueName] = expCont;
 			}
 			else {
-				vMap.Add(pValueName, pController);
+				vMap.Add(pValueName, expCont);
 				vKeys.Add(pValueName);
 			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public bool Unset(string pValueName, ISettingsController pController) {
-			if ( vMap.ContainsKey(pValueName) && vMap[pValueName] == pController ) {
+			if ( !Application.isEditor ) {
+				return false;
+			}
+
+			if ( vMap.ContainsKey(pValueName) && vMap[pValueName].Controller == pController ) {
 				vMap.Remove(pValueName);
 				vKeys.Remove(pValueName);
 				return true;
@@ -41,14 +59,30 @@ namespace Hover.Common.Utils {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void UnsetAll() {
-			vMap.Clear();
-			vKeys.Clear();
+		public void TryExpireControllers() {
+			if ( !Application.isEditor ) {
+				return;
+			}
+
+			for ( int i = 0 ; i < vKeys.Count ; i++ ) {
+				ExpirableController expCont = vMap[vKeys[i]];
+
+				if ( --expCont.ExpireCount >= 0 ) {
+					continue;
+				}
+
+				vMap.Remove(vKeys[i]);
+				vKeys.RemoveAt(i);
+				i--;
+			}
 		}
 
+
+#if UNITY_EDITOR
+		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public ISettingsController Get(string pValueName) {
-			return (vMap.ContainsKey(pValueName) ? vMap[pValueName] : null);
+			return (vMap.ContainsKey(pValueName) ? vMap[pValueName].Controller : null);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -106,6 +140,7 @@ namespace Hover.Common.Utils {
 				pList.Add(valueName);
 			}
 		}
+#endif
 
 	}
 

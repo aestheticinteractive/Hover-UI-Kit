@@ -118,6 +118,10 @@ namespace Hover.Common.Renderers.Packs.Alpha.Rect {
 			UpdateControl();
 			UpdateGeneralSettings();
 			UpdateAnchorSettings();
+
+			RendererController = null;
+			SliderController = null;
+			Controllers.TryExpireControllers();
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
