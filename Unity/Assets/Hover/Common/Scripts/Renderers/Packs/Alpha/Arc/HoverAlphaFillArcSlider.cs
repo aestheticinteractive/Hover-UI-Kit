@@ -55,21 +55,6 @@ namespace Hover.Common.Renderers.Packs.Alpha.Arc {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private HoverAlphaMeshArcTrack BuildTick(string pName) {
-			//TODO: should NOT have to do this find... why is Unity clearing "Ticks" upon play??
-			// ... without this, that empty "Ticks" list causes new ones to be created
-
-			Transform tickTx = gameObject.transform.FindChild(pName);
-
-			if ( tickTx != null ) {
-				HoverAlphaMeshArcTrack existingTick = tickTx.GetComponent<HoverAlphaMeshArcTrack>();
-
-				if ( existingTick != null ) {
-					return existingTick;
-				}
-			}
-
-			////
-
 			var tickGo = new GameObject(pName);
 			tickGo.transform.SetParent(gameObject.transform, false);
 
@@ -81,6 +66,13 @@ namespace Hover.Common.Renderers.Packs.Alpha.Arc {
 
 		/*--------------------------------------------------------------------------------------------*/
 		protected override void UpdateTickCount(int pCount) {
+#if UNITY_EDITOR
+			//ticks are often added within a prefab; this forces serialization of the "Ticks" list
+			if ( Ticks.Count != pCount ) {
+				UnityEditor.EditorUtility.SetDirty(this);
+			}
+#endif
+
 			while ( Ticks.Count < pCount ) {
 				HoverAlphaMeshArcTrack tick = BuildTick("Tick"+Ticks.Count);
 				Ticks.Add(tick);
