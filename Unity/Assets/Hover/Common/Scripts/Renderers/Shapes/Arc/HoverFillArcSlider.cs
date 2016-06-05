@@ -121,11 +121,14 @@ namespace Hover.Common.Renderers.Shapes.Arc {
 				SliderUtil.SegmentInfo tickInfo = TickInfoList[i];
 				HoverMeshArcTrack tick = GetTick(i);
 
+				tick.Controllers.Set("GameObject.activeSelf", this);
 				tick.Controllers.Set("Transform.localRotation", this);
 				tick.Controllers.Set(HoverMeshArc.OuterRadiusName, this);
 				tick.Controllers.Set(HoverMeshArc.InnerRadiusName, this);
 				tick.Controllers.Set(HoverMeshArc.ArcAngleName, this);
 				tick.Controllers.Set(HoverMesh.SortingLayerName, this);
+
+				RendererUtil.SetActiveWithUpdate(tick, !tickInfo.IsHidden);
 
 				tick.OuterRadius = OuterRadius-InsetOuter-tickInset;
 				tick.InnerRadius = InnerRadius+InsetInner+tickInset;

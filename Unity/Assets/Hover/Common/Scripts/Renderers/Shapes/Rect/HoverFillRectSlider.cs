@@ -72,8 +72,8 @@ namespace Hover.Common.Renderers.Shapes.Rect {
 				seg.Controllers.Set("GameObject.activeSelf", this);
 				seg.Controllers.Set("Transform.localPosition.x", this);
 				seg.Controllers.Set("Transform.localPosition.y", this);
-				seg.Controllers.Set(HoverMeshRectTrack.SizeXName, this);
-				seg.Controllers.Set(HoverMeshRectTrack.SizeYName, this);
+				seg.Controllers.Set(HoverMeshRect.SizeXName, this);
+				seg.Controllers.Set(HoverMeshRect.SizeYName, this);
 				seg.Controllers.Set(HoverMeshRectTrack.UvStartYName, this);
 				seg.Controllers.Set(HoverMeshRectTrack.UvEndYName, this);
 				seg.Controllers.Set(HoverMeshRectTrack.IsFillName, this);
@@ -119,11 +119,14 @@ namespace Hover.Common.Renderers.Shapes.Rect {
 				SliderUtil.SegmentInfo tickInfo = TickInfoList[i];
 				HoverMeshRectTrack tick = GetTick(i);
 
+				tick.Controllers.Set("GameObject.activeSelf", this);
 				tick.Controllers.Set("Transform.localPosition.x", this);
 				tick.Controllers.Set("Transform.localPosition.y", this);
-				tick.Controllers.Set(HoverMeshRectTrack.SizeXName, this);
-				tick.Controllers.Set(HoverMeshRectTrack.SizeYName, this);
+				tick.Controllers.Set(HoverMeshRect.SizeXName, this);
+				tick.Controllers.Set(HoverMeshRect.SizeYName, this);
 				tick.Controllers.Set(HoverMesh.SortingLayerName, this);
+
+				RendererUtil.SetActiveWithUpdate(tick, !tickInfo.IsHidden);
 
 				tick.SizeX = insetSizeX*TickRelativeSizeX;
 				tick.SizeY = tickInfo.EndPosition-tickInfo.StartPosition;

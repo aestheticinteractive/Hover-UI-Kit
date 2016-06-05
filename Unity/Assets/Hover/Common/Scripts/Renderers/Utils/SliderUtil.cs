@@ -38,6 +38,7 @@ namespace Hover.Common.Renderers.Utils {
 			public float StartPosition;
 			public float EndPosition;
 			public bool IsFill;
+			public bool IsHidden;
 		}
 
 		[Serializable]
@@ -255,13 +256,7 @@ namespace Hover.Common.Renderers.Utils {
 				bool startsInJump = (startMult >= jumpStart*mult && startMult <= jumpEnd*mult);
 				bool endsInJump   = (endMult   >= jumpStart*mult && endMult   <= jumpEnd*mult);
 
-				if ( startsInHand && endsInHand ) {
-					continue;
-				}
-				
-				if ( startsInJump && endsInJump ) {
-					continue;
-				}
+				tick.IsHidden = ((startsInHand && endsInHand) || (startsInJump && endsInJump));
 
 				if ( startsInHand ) {
 					tick.StartPosition = handEnd;
