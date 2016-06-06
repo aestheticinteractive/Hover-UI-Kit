@@ -55,7 +55,7 @@ namespace Hover.Common.Renderers.Packs.Alpha.Rect {
 		public float DisabledAlpha = 0.35f;
 		
 		[DisableWhenControlled]
-		public AnchorType Anchor = AnchorType.MiddleCenter;
+		public AnchorTypeWithCustom Anchor = AnchorTypeWithCustom.MiddleCenter;
 		
 		[SerializeField]
 		[DisableWhenControlled]
@@ -219,7 +219,7 @@ namespace Hover.Common.Renderers.Packs.Alpha.Rect {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateAnchorSettings() {
-			if ( Anchor == AnchorType.Custom ) {
+			if ( Anchor == AnchorTypeWithCustom.Custom ) {
 				return;
 			}
 			

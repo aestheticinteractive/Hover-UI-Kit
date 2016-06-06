@@ -1,4 +1,5 @@
 ﻿using Hover.Common.Layouts.Rect;
+using Hover.Common.Renderers.Utils;
 using Hover.Common.Utils;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ namespace Hover.Common.Layouts.Arc {
 		public const string OuterRadiusName = "OuterRadius";
 		public const string InnerRadiusName = "InnerRadius";
 		public const string ArcAngleName = "ArcAngle";
+		public const string RectAnchorName = "RectAnchor";
 
 		public enum ArrangementType {
 			InnerToOuter,
@@ -34,12 +36,27 @@ namespace Hover.Common.Layouts.Arc {
 		[DisableWhenControlled(RangeMin=0, RangeMax=90)]
 		public float AnglePadding = 0;
 
+		[DisableWhenControlled(RangeMin=-180, RangeMax=180)]
+		public float StartingAngle = 0;
+
+		[DisableWhenControlled]
+		public AnchorType RectAnchor = AnchorType.MiddleCenter;
+
+		private Vector2? vRectSize;
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public override void TreeUpdate() {
 			base.TreeUpdate();
 			UpdateLayoutWithFixedSize();
+
+			if ( vRectSize == null ) {
+				Controllers.Set(RectAnchorName, this);
+				RectAnchor = AnchorType.MiddleCenter;
+			}
+
+			vRectSize = null;
 		}
 		
 
@@ -56,13 +73,12 @@ namespace Hover.Common.Layouts.Arc {
 			ArcAngle = pArcAngle;
 		}
 		
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void SetRectLayout(float pSizeX, float pSizeY, ISettingsController pController) {
 			Controllers.Set(OuterRadiusName, pController);
 
 			OuterRadius = Mathf.Min(pSizeX, pSizeY)/2;
+			vRectSize = new Vector2(pSizeX, pSizeY);
 		}
 
 
@@ -82,7 +98,11 @@ namespace Hover.Common.Layouts.Arc {
 			float availAngle = ArcAngle-AnglePadding*(itemCount-1);
 			float availThick = paddedOuterRadius-paddedInnerRadius;
 			float innerRadius = paddedInnerRadius;
-			
+
+			Vector2 anchorPos = RendererUtil.GetRelativeAnchorPosition(RectAnchor);
+			anchorPos.x *= (vRectSize == null ? OuterRadius*2 : ((Vector2)vRectSize).x);
+			anchorPos.y *= (vRectSize == null ? OuterRadius*2 : ((Vector2)vRectSize).y);
+
 			for ( int i = 0 ; i < itemCount ; i++ ) {
 				HoverLayoutArcGroupChild item = vChildItems[i];
 				relSumThickness += item.RelativeThickness;
@@ -100,6 +120,17 @@ namespace Hover.Common.Layouts.Arc {
 					availAngle*item.RelativeArcAngle,
 					this
 				);
+				
+				elem.Controllers.Set("Transform.localPosition.x", this);
+				elem.Controllers.Set("Transform.localPosition.y", this);
+				elem.Controllers.Set("Transform.localRotation", this);
+
+				Vector3 localPos = elem.transform.localPosition;
+				localPos.x = anchorPos.x;
+				localPos.y = anchorPos.y;
+
+				elem.transform.localPosition = localPos;
+				elem.transform.localRotation = Quaternion.AngleAxis(StartingAngle, Vector3.back);
 
 				innerRadius += elemRelThick;
 			}

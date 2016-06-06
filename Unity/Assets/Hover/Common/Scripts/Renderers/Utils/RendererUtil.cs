@@ -130,7 +130,12 @@ namespace Hover.Common.Renderers.Utils {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public static Vector2 GetRelativeAnchorPosition(AnchorType pAnchor) {
-			if ( pAnchor == AnchorType.Custom ) {
+			return GetRelativeAnchorPosition((AnchorTypeWithCustom)pAnchor);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public static Vector2 GetRelativeAnchorPosition(AnchorTypeWithCustom pAnchor) {
+			if ( pAnchor == AnchorTypeWithCustom.Custom ) {
 				throw new Exception("There is no pre-set position for the '"+pAnchor+"' type.");
 			}
 			
