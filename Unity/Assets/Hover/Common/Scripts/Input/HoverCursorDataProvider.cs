@@ -49,8 +49,13 @@ namespace Hover.Common.Input {
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
+		public bool HasCursorData(CursorType pType) {
+			return vCursorMap.ContainsKey(pType);
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
 		public HoverCursorData GetCursorData(CursorType pType) {
-			if ( !vCursorMap.ContainsKey(pType) ) {
+			if ( !HasCursorData(pType) ) {
 				throw new Exception("No '"+pType+"' cursor was found.");
 			}
 			
