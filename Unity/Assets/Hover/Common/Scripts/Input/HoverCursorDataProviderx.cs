@@ -6,34 +6,34 @@ namespace Hover.Common.Input {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
-	public class HovercursorDataProvider : MonoBehaviour {
+	public class HoverCursorDataProviderx : MonoBehaviour {
 
-		public List<HovercursorData> Cursors { get; private set; }
-		public List<HovercursorData> ExcludedCursors { get; private set; }
+		public List<HoverCursorDatax> Cursors { get; private set; }
+		public List<HoverCursorDatax> ExcludedCursors { get; private set; }
 		
-		private readonly Dictionary<CursorType, HovercursorData> vCursorMap;
+		private readonly Dictionary<CursorType, HoverCursorDatax> vCursorMap;
 
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public HovercursorDataProvider() {
-			Cursors = new List<HovercursorData>();
-			ExcludedCursors = new List<HovercursorData>();
+		public HoverCursorDataProviderx() {
+			Cursors = new List<HoverCursorDatax>();
+			ExcludedCursors = new List<HoverCursorDatax>();
 			
-			vCursorMap = new Dictionary<CursorType, HovercursorData>();
+			vCursorMap = new Dictionary<CursorType, HoverCursorDatax>();
 		}
 		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			gameObject.GetComponentsInChildren<HovercursorData>(Cursors);
+			gameObject.GetComponentsInChildren(Cursors);
 			
 			ExcludedCursors.Clear();
 			vCursorMap.Clear();
 			
 			for ( int i = 0 ; i < Cursors.Count ; i++ ) {
-				HovercursorData cursor = Cursors[i];
+				HoverCursorDatax cursor = Cursors[i];
 				
 				if ( vCursorMap.ContainsKey(cursor.Type) ) {
 					ExcludedCursors.Add(cursor);
@@ -49,7 +49,7 @@ namespace Hover.Common.Input {
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public HovercursorData GetCursorData(CursorType pType) {
+		public HoverCursorDatax GetCursorData(CursorType pType) {
 			if ( !vCursorMap.ContainsKey(pType) ) {
 				throw new Exception("No '"+pType+"' cursor was found.");
 			}

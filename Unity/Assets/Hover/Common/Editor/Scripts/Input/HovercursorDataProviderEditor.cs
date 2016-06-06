@@ -7,16 +7,16 @@ namespace Hover.Common.Editor.Input {
 
 	/*================================================================================================*/
 	[CanEditMultipleObjects]
-	[CustomEditor(typeof(HovercursorDataProvider))]
+	[CustomEditor(typeof(HoverCursorDataProviderx))]
 	public class HovercursorDataProviderEditor : UnityEditor.Editor {
 
-		private HovercursorDataProvider vTarget;
+		private HoverCursorDataProviderx vTarget;
 		
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public override void OnInspectorGUI() {
-			vTarget = (HovercursorDataProvider)target;
+			vTarget = (HoverCursorDataProviderx)target;
 			
 			DrawDefaultInspector();
 			EditorGUILayout.Separator();
@@ -35,12 +35,12 @@ namespace Hover.Common.Editor.Input {
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void DrawCursorList(string pLabel, List<HovercursorData> pCursors) {
+		private void DrawCursorList(string pLabel, List<HoverCursorDatax> pCursors) {
 			EditorGUILayout.LabelField(pLabel, EditorStyles.boldLabel);
 			GUI.enabled = false;
 			
 			for ( int i = 0 ; i < pCursors.Count ; i++ ) {
-				HovercursorData cursor = pCursors[i];
+				HoverCursorDatax cursor = pCursors[i];
 				EditorGUILayout.ObjectField(cursor.Type+"", cursor, cursor.GetType(), true);
 			}
 			

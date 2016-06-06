@@ -13,7 +13,7 @@ namespace Hover.Common.Items.Managers {
 		[Serializable]
 		public struct Highlight {
 			public bool IsNearestAcrossAllItems;
-			public HovercursorData Data;
+			public HoverCursorDatax Data;
 			public Vector3 NearestWorldPos;
 			public float Distance;
 			public float Progress;
@@ -24,7 +24,7 @@ namespace Hover.Common.Items.Managers {
 		public List<Highlight> Highlights { get; private set; }
 		public bool IsNearestAcrossAllItemsForAnyCursor { get; private set; }
 		
-		public HovercursorDataProvider CursorDataProvider;
+		public HoverCursorDataProviderx CursorDataProvider;
 		public HoverRendererController ProximityProvider;
 		public HoverInteractionSettings InteractionSettings;
 
@@ -43,7 +43,7 @@ namespace Hover.Common.Items.Managers {
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
 			if ( CursorDataProvider == null ) {
-				CursorDataProvider = FindObjectOfType<HovercursorDataProvider>();
+				CursorDataProvider = FindObjectOfType<HoverCursorDataProviderx>();
 			}
 
 			if ( ProximityProvider == null ) {
@@ -194,7 +194,7 @@ namespace Hover.Common.Items.Managers {
 		private void AddLatestHighlightsAndFindNearest() {
 			float minDist = float.MaxValue;
 			
-			foreach ( HovercursorData data in CursorDataProvider.Cursors ) {
+			foreach ( HoverCursorDatax data in CursorDataProvider.Cursors ) {
 				Highlight high = CalculateHighlight(data);
 				Highlights.Add(high);
 				
@@ -208,7 +208,7 @@ namespace Hover.Common.Items.Managers {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		private Highlight CalculateHighlight(HovercursorData pData) {
+		private Highlight CalculateHighlight(HoverCursorDatax pData) {
 			var high = new Highlight();
 			high.Data = pData;
 			
