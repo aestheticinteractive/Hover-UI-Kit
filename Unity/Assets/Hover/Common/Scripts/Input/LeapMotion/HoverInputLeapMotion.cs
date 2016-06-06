@@ -12,6 +12,7 @@ namespace Hover.Common.Input.LeapMotion {
 
 		public HoverCursorDataProvider CursorDataProvider;
 		public LeapServiceProvider LeapServiceProvider;
+		public bool UseStabilizedPositions = false;
 		
 		[HideInInspector]
 		[SerializeField]
@@ -63,9 +64,12 @@ namespace Hover.Common.Input.LeapMotion {
 				return;
 			}
 
+			Vector palmPos = (UseStabilizedPositions ? 
+				pLeapHand.StabilizedPalmPosition : pLeapHand.PalmPosition);
+
 			HoverCursorData data = CursorDataProvider.GetCursorData(cursorType);
 			data.Size = pLeapHand.PalmWidth;
-			data.transform.position = pLeapHand.PalmPosition.ToVector3();
+			data.transform.position = palmPos.ToVector3();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -76,9 +80,12 @@ namespace Hover.Common.Input.LeapMotion {
 				return;
 			}
 
+			Vector tipPos = (UseStabilizedPositions ? 
+				pLeapFinger.StabilizedTipPosition: pLeapFinger.TipPosition);
+
 			HoverCursorData data = CursorDataProvider.GetCursorData(cursorType);
 			data.Size = pLeapFinger.Width;
-			data.transform.position = pLeapFinger.TipPosition.ToVector3();
+			data.transform.position = tipPos.ToVector3();
 		}
 
 
