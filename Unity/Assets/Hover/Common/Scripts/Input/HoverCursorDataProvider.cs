@@ -6,21 +6,21 @@ namespace Hover.Common.Input {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
-	public class HoverCursorDataProviderx : MonoBehaviour {
+	public class HoverCursorDataProvider : MonoBehaviour {
 
-		public List<HoverCursorDatax> Cursors { get; private set; }
-		public List<HoverCursorDatax> ExcludedCursors { get; private set; }
+		public List<HoverCursorData> Cursors { get; private set; }
+		public List<HoverCursorData> ExcludedCursors { get; private set; }
 		
-		private readonly Dictionary<CursorType, HoverCursorDatax> vCursorMap;
+		private readonly Dictionary<CursorType, HoverCursorData> vCursorMap;
 
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public HoverCursorDataProviderx() {
-			Cursors = new List<HoverCursorDatax>();
-			ExcludedCursors = new List<HoverCursorDatax>();
+		public HoverCursorDataProvider() {
+			Cursors = new List<HoverCursorData>();
+			ExcludedCursors = new List<HoverCursorData>();
 			
-			vCursorMap = new Dictionary<CursorType, HoverCursorDatax>();
+			vCursorMap = new Dictionary<CursorType, HoverCursorData>();
 		}
 		
 
@@ -33,7 +33,7 @@ namespace Hover.Common.Input {
 			vCursorMap.Clear();
 			
 			for ( int i = 0 ; i < Cursors.Count ; i++ ) {
-				HoverCursorDatax cursor = Cursors[i];
+				HoverCursorData cursor = Cursors[i];
 				
 				if ( vCursorMap.ContainsKey(cursor.Type) ) {
 					ExcludedCursors.Add(cursor);
@@ -49,7 +49,7 @@ namespace Hover.Common.Input {
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public HoverCursorDatax GetCursorData(CursorType pType) {
+		public HoverCursorData GetCursorData(CursorType pType) {
 			if ( !vCursorMap.ContainsKey(pType) ) {
 				throw new Exception("No '"+pType+"' cursor was found.");
 			}

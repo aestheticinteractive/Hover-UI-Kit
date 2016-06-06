@@ -4,7 +4,7 @@ namespace Hover.Common.Input {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
-	public class HoverCursorDatax : MonoBehaviour {
+	public class HoverCursorData : MonoBehaviour {
 
 		public CursorType Type;
 		public float Size;

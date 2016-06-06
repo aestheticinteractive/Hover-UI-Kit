@@ -9,7 +9,7 @@ namespace Hover.Common.Items.Managers {
 	[RequireComponent(typeof(HoverItemsManager))]
 	public class HoverItemsHighlightManager : MonoBehaviour {
 
-		public HoverCursorDataProviderx CursorDataProvider;
+		public HoverCursorDataProvider CursorDataProvider;
 
 		private List<HoverItemHighlightState> vHighStates;
 		
@@ -18,7 +18,7 @@ namespace Hover.Common.Items.Managers {
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
 			if ( CursorDataProvider == null ) {
-				CursorDataProvider = FindObjectOfType<HoverCursorDataProviderx>();
+				CursorDataProvider = FindObjectOfType<HoverCursorDataProvider>();
 			}
 
 			if ( CursorDataProvider == null ) {
@@ -57,11 +57,11 @@ namespace Hover.Common.Items.Managers {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateItems() {
-			List<HoverCursorDatax> cursors = CursorDataProvider.Cursors;
+			List<HoverCursorData> cursors = CursorDataProvider.Cursors;
 			int cursorCount = cursors.Count;
 			
 			for ( int i = 0 ; i < cursorCount ; i++ ) {
-				HoverCursorDatax cursor = cursors[i];
+				HoverCursorData cursor = cursors[i];
 				HoverItemHighlightState item = FindNearestItemToCursor(cursor.Type);
 
 				if ( item == null ) {
