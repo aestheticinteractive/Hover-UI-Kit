@@ -35,7 +35,15 @@ namespace Hover.Common.Input.LeapMotion {
 				return;
 			}
 
+			if ( CursorDataProvider == null || LeapServiceProvider == null ) {
+				Debug.LogError("References to "+typeof(HoverCursorDataProvider).Name+" and "+
+					typeof(LeapServiceProvider).Name+" must be set.", this);
+				return;
+			}
+
+			CursorDataProvider.MarkAllCursorsUnused();
 			UpdateCursorsWithHands(LeapServiceProvider.CurrentFrame.Hands);
+			CursorDataProvider.ActivateAllCursorsBasedOnUsage();
 		}
 
 
@@ -70,6 +78,7 @@ namespace Hover.Common.Input.LeapMotion {
 			HoverCursorData data = CursorDataProvider.GetCursorData(cursorType);
 			data.Size = pLeapHand.PalmWidth;
 			data.transform.position = palmPos.ToVector3();
+			data.SetUsage(true);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -86,6 +95,7 @@ namespace Hover.Common.Input.LeapMotion {
 			HoverCursorData data = CursorDataProvider.GetCursorData(cursorType);
 			data.Size = pLeapFinger.Width;
 			data.transform.position = tipPos.ToVector3();
+			data.SetUsage(true);
 		}
 
 

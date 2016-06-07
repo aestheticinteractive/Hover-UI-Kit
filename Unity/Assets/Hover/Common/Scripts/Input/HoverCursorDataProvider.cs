@@ -27,7 +27,7 @@ namespace Hover.Common.Input {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			gameObject.GetComponentsInChildren(Cursors);
+			gameObject.GetComponentsInChildren(true, Cursors);
 			
 			ExcludedCursors.Clear();
 			vCursorMap.Clear();
@@ -60,6 +60,22 @@ namespace Hover.Common.Input {
 			}
 			
 			return vCursorMap[pType];
+		}
+		
+		
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public void MarkAllCursorsUnused() {
+			for ( int i = 0 ; i < Cursors.Count ; i++ ) {
+				Cursors[i].SetUsage(false);
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void ActivateAllCursorsBasedOnUsage() {
+			for ( int i = 0 ; i < Cursors.Count ; i++ ) {
+				Cursors[i].ActivateBasedOnUsage();
+			}
 		}
 
 	}
