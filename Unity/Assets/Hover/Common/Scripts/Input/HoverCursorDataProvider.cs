@@ -8,40 +8,42 @@ namespace Hover.Common.Input {
 	[ExecuteInEditMode]
 	public class HoverCursorDataProvider : MonoBehaviour {
 
-		public List<HoverCursorData> Cursors { get; private set; }
-		public List<HoverCursorData> ExcludedCursors { get; private set; }
+		public List<IHoverCursorData> Cursors { get; private set; }
+		public List<IHoverCursorData> ExcludedCursors { get; private set; }
 		
-		private readonly Dictionary<CursorType, HoverCursorData> vCursorMap;
+		private readonly List<IHoverCursorDataForInput> vCursorsForInput;
+		private readonly Dictionary<CursorType, IHoverCursorDataForInput> vCursorMap;
 
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public HoverCursorDataProvider() {
-			Cursors = new List<HoverCursorData>();
-			ExcludedCursors = new List<HoverCursorData>();
+			Cursors = new List<IHoverCursorData>();
+			ExcludedCursors = new List<IHoverCursorData>();
 			
-			vCursorMap = new Dictionary<CursorType, HoverCursorData>();
+			vCursorsForInput = new List<IHoverCursorDataForInput>();
+			vCursorMap = new Dictionary<CursorType, IHoverCursorDataForInput>();
 		}
 		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			gameObject.GetComponentsInChildren(true, Cursors);
+			gameObject.GetComponentsInChildren(true, vCursorsForInput);
 			
+			Cursors.Clear();
 			ExcludedCursors.Clear();
 			vCursorMap.Clear();
 			
-			for ( int i = 0 ; i < Cursors.Count ; i++ ) {
-				HoverCursorData cursor = Cursors[i];
+			for ( int i = 0 ; i < vCursorsForInput.Count ; i++ ) {
+				IHoverCursorDataForInput cursor = vCursorsForInput[i];
 				
 				if ( vCursorMap.ContainsKey(cursor.Type) ) {
 					ExcludedCursors.Add(cursor);
-					Cursors.RemoveAt(i);
-					i--;
 					continue;
 				}
 				
+				Cursors.Add(cursor);
 				vCursorMap.Add(cursor.Type, cursor);
 			}
 		}
@@ -54,7 +56,12 @@ namespace Hover.Common.Input {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		public HoverCursorData GetCursorData(CursorType pType) {
+		public IHoverCursorData GetCursorData(CursorType pType) {
+			return GetCursorDataForInput(pType);
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public IHoverCursorDataForInput GetCursorDataForInput(CursorType pType) {
 			if ( !HasCursorData(pType) ) {
 				throw new Exception("No '"+pType+"' cursor was found.");
 			}
@@ -66,15 +73,15 @@ namespace Hover.Common.Input {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void MarkAllCursorsUnused() {
-			for ( int i = 0 ; i < Cursors.Count ; i++ ) {
-				Cursors[i].SetUsage(false);
+			for ( int i = 0 ; i < vCursorsForInput.Count ; i++ ) {
+				vCursorsForInput[i].SetUsage(false);
 			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void ActivateAllCursorsBasedOnUsage() {
 			for ( int i = 0 ; i < Cursors.Count ; i++ ) {
-				Cursors[i].ActivateBasedOnUsage();
+				vCursorsForInput[i].ActivateBasedOnUsage();
 			}
 		}
 

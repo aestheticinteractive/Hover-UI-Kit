@@ -75,9 +75,10 @@ namespace Hover.Common.Input.LeapMotion {
 			Vector palmPos = (UseStabilizedPositions ? 
 				pLeapHand.StabilizedPalmPosition : pLeapHand.PalmPosition);
 
-			HoverCursorData data = CursorDataProvider.GetCursorData(cursorType);
-			data.Size = pLeapHand.PalmWidth;
-			data.transform.position = palmPos.ToVector3();
+			IHoverCursorDataForInput data = CursorDataProvider.GetCursorDataForInput(cursorType);
+			data.SetWorldPosition(palmPos.ToVector3());
+			data.SetWorldRotation(pLeapHand.Basis.CalculateRotation());
+			data.SetSize(pLeapHand.PalmWidth);
 			data.SetUsage(true);
 		}
 
@@ -91,10 +92,12 @@ namespace Hover.Common.Input.LeapMotion {
 
 			Vector tipPos = (UseStabilizedPositions ? 
 				pLeapFinger.StabilizedTipPosition: pLeapFinger.TipPosition);
+			Bone distalBone = pLeapFinger.Bone(Bone.BoneType.TYPE_DISTAL);
 
-			HoverCursorData data = CursorDataProvider.GetCursorData(cursorType);
-			data.Size = pLeapFinger.Width;
-			data.transform.position = tipPos.ToVector3();
+			IHoverCursorDataForInput data = CursorDataProvider.GetCursorDataForInput(cursorType);
+			data.SetWorldPosition(tipPos.ToVector3());
+			data.SetWorldRotation(distalBone.Basis.CalculateRotation());
+			data.SetSize(pLeapFinger.Width);
 			data.SetUsage(true);
 		}
 
