@@ -126,8 +126,10 @@ namespace Hover.Common.Layouts.Rect {
 				float elemRelSizeX = elemAvailSizeX*item.RelativeSizeX/(isHoriz ? relSumX : 1);
 				float elemRelSizeY = elemAvailSizeY*item.RelativeSizeY/(isHoriz ? 1 : relSumY);
 				
-				localPos.x = posX+(isHoriz ? (elemRelSizeX+InnerPadding)/2 : 0);
-				localPos.y = posY+(isHoriz ? 0 : (elemRelSizeY+InnerPadding)/2);
+				localPos.x = posX+(isHoriz ? (elemRelSizeX+InnerPadding)/2 : 0)+
+					elemRelSizeX*item.RelativePositionOffsetX;
+				localPos.y = posY+(isHoriz ? 0 : (elemRelSizeY+InnerPadding)/2)+
+					elemRelSizeY*item.RelativePositionOffsetY;
 				
 				posX += (isHoriz ? elemRelSizeX+InnerPadding : 0);
 				posY += (isHoriz ? 0 : elemRelSizeY+InnerPadding);

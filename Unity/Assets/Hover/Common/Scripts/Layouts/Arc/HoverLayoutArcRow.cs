@@ -113,11 +113,16 @@ namespace Hover.Common.Layouts.Arc {
 				HoverLayoutArcGroupChild item = vChildItems[childI];
 				IArcLayoutable elem = item.Elem;
 				float elemRelAngle = availAngle*item.RelativeArcAngle/relSumArcAngle;
-				float relativeInset = (paddedOuterRadius-paddedInnerRadius)*(1-item.RelativeThickness)/2;
+				float relInset = (paddedOuterRadius-paddedInnerRadius)*(1-item.RelativeThickness)/2;
+				float elemThick = paddedOuterRadius-paddedInnerRadius-relInset*2;
+				float elemRelArcAngle = availAngle*item.RelativeArcAngle;
+				float radiusOffset = elemThick*item.RelativeRadiusOffset;
+				float elemStartAngle = angle + elemRelAngle/2 +
+					elemRelArcAngle*item.RelativeStartAngleOffset;
 
 				elem.SetArcLayout(
-					paddedOuterRadius-relativeInset,
-					paddedInnerRadius+relativeInset,
+					paddedOuterRadius-relInset+radiusOffset,
+					paddedInnerRadius+relInset+radiusOffset,
 					elemRelAngle,
 					this
 				);
@@ -131,7 +136,7 @@ namespace Hover.Common.Layouts.Arc {
 				localPos.y = anchorPos.y;
 
 				elem.transform.localPosition = localPos;
-				elem.transform.localRotation = Quaternion.AngleAxis(angle+elemRelAngle/2, Vector3.back);
+				elem.transform.localRotation = Quaternion.AngleAxis(elemStartAngle, Vector3.back);
 
 				angle += elemRelAngle+AnglePadding;
 			}

@@ -26,6 +26,16 @@
 			get { return (RelSizer == null ? 1 : RelSizer.RelativeArcAngle); }
 		}
 
+		/*--------------------------------------------------------------------------------------------*/
+		public float RelativeRadiusOffset {
+			get { return (RelSizer == null ? 0 : RelSizer.RelativeRadiusOffset); }
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float RelativeStartAngleOffset {
+			get { return (RelSizer == null ? 0 : RelSizer.RelativeStartAngleOffset); }
+		}
+
 	}
 
 }

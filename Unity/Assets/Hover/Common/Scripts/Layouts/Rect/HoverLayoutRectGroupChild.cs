@@ -25,6 +25,16 @@
 		public float RelativeSizeY {
 			get { return (RelSizer == null ? 1 : RelSizer.RelativeSizeY); }
 		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public float RelativePositionOffsetX {
+			get { return (RelSizer == null ? 0 : RelSizer.RelativePositionOffsetX); }
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float RelativePositionOffsetY {
+			get { return (RelSizer == null ? 0 : RelSizer.RelativePositionOffsetY); }
+		}
 
 	}
 
