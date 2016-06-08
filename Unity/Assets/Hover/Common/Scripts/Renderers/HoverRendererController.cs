@@ -304,7 +304,7 @@ namespace Hover.Common.Renderers {
 				return;
 			}
 
-			Vector3 cursorPos = nearHigh.Value.Data.transform.position;
+			Vector3 cursorPos = nearHigh.Value.Cursor.WorldPosition;
 			Vector3 nearPos = nearHigh.Value.NearestWorldPos;
 			float prog = nearHigh.Value.Progress;
 			Color color = (prog >= 1 ? new Color(0.3f, 1, 0.4f, 1) : 

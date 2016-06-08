@@ -62,6 +62,11 @@ namespace Hover.Common.Items.Managers {
 			
 			for ( int i = 0 ; i < cursorCount ; i++ ) {
 				IHoverCursorData cursor = cursors[i];
+
+				if ( !cursor.IsActive ) {
+					continue;
+				}
+
 				HoverItemHighlightState item = FindNearestItemToCursor(cursor.Type);
 
 				if ( item == null ) {

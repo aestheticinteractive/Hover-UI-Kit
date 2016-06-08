@@ -13,7 +13,7 @@ namespace Hover.Common.Items.Managers {
 		[Serializable]
 		public struct Highlight {
 			public bool IsNearestAcrossAllItems;
-			public HoverCursorData Data;
+			public IHoverCursorData Cursor;
 			public Vector3 NearestWorldPos;
 			public float Distance;
 			public float Progress;
@@ -90,7 +90,7 @@ namespace Hover.Common.Items.Managers {
 			for ( int i = 0 ; i < Highlights.Count ; i++ ) {
 				Highlight high = Highlights[i];
 				
-				if ( high.Data.Type == pType ) {
+				if ( high.Cursor.Type == pType ) {
 					return high;
 				}
 			}
@@ -132,7 +132,7 @@ namespace Hover.Common.Items.Managers {
 			for ( int i = 0 ; i < Highlights.Count ; i++ ) {
 				Highlight high = Highlights[i];
 				
-				if ( high.Data.Type == pType ) {
+				if ( high.Cursor.Type == pType ) {
 					highForCursorI = i;
 					break;
 				}
@@ -193,11 +193,19 @@ namespace Hover.Common.Items.Managers {
 		/*--------------------------------------------------------------------------------------------*/
 		private void AddLatestHighlightsAndFindNearest() {
 			float minDist = float.MaxValue;
+			List<IHoverCursorData> cursors = CursorDataProvider.Cursors;
+			int cursorCount = cursors.Count;
 			
-			foreach ( HoverCursorData data in CursorDataProvider.Cursors ) {
-				Highlight high = CalculateHighlight(data);
+			for ( int i = 0 ; i < cursorCount ; i++ ) {
+				IHoverCursorData cursor = cursors[i];
+
+				if ( !cursor.IsActive ) {
+					continue;
+				}
+
+				Highlight high = CalculateHighlight(cursor);
 				Highlights.Add(high);
-				
+
 				if ( high.Distance >= minDist ) {
 					continue;
 				}
@@ -206,20 +214,18 @@ namespace Hover.Common.Items.Managers {
 				NearestHighlight = high;
 			}
 		}
-		
+
 		/*--------------------------------------------------------------------------------------------*/
-		private Highlight CalculateHighlight(HoverCursorData pData) {
+		private Highlight CalculateHighlight(IHoverCursorData pCursor) {
 			var high = new Highlight();
-			high.Data = pData;
+			high.Cursor = pCursor;
 			
 			if ( !Application.isPlaying ) {
 				return high;
 			}
 			
-			Vector3 cursorWorldPos = pData.transform.position;
-			
-			high.NearestWorldPos = ProximityProvider.GetNearestWorldPosition(cursorWorldPos);
-			high.Distance = (cursorWorldPos-high.NearestWorldPos).magnitude;
+			high.NearestWorldPos = ProximityProvider.GetNearestWorldPosition(pCursor.WorldPosition);
+			high.Distance = (pCursor.WorldPosition-high.NearestWorldPos).magnitude;
 			high.Progress = Mathf.InverseLerp(InteractionSettings.HighlightDistanceMax,
 				InteractionSettings.HighlightDistanceMin, high.Distance);
 			

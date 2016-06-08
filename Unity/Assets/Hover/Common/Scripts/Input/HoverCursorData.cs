@@ -10,18 +10,31 @@ namespace Hover.Common.Input {
 		[SerializeField]
 		[FormerlySerializedAs("Type")]
 		public CursorType _Type;
+		
+		[SerializeField]
+		public bool _AllowUsage = true;
 
 		[SerializeField]
-		public float _Size;
+		public float _Size = 1;
 
 		[SerializeField]
-		public float _DisplayStrength; //read-only
+		public float _DisplayStrength = 1; //read-only
 		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public CursorType Type {
 			get { return _Type; }
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool IsActive {
+			get { return (enabled && AllowUsage); }
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool AllowUsage {
+			get { return _AllowUsage; }
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -47,6 +60,11 @@ namespace Hover.Common.Input {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
+		public void SetAllowUsage(bool pAllowUsage) {
+			_AllowUsage = pAllowUsage;
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
 		public void SetSize(float pSize) {
 			_Size = pSize;
 		}
@@ -68,7 +86,7 @@ namespace Hover.Common.Input {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void ActivateBasedOnUsage() {
-			gameObject.SetActive(enabled);
+			gameObject.SetActive(IsActive);
 		}
 	}
 

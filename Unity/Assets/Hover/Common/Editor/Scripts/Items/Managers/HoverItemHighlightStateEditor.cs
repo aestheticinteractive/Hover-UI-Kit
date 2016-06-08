@@ -69,9 +69,9 @@ namespace Hover.Common.Editor.Items.Managers {
 			for ( int i = 0 ; i < vTarget.Highlights.Count ; i++ ) {
 				HoverItemHighlightState.Highlight high = vTarget.Highlights[i];
 				EditorGUILayout.Separator();
-				EditorGUILayout.LabelField(high.Data.Type+" Cursor", EditorStyles.boldLabel);
+				EditorGUILayout.LabelField(high.Cursor.Type+" Cursor", EditorStyles.boldLabel);
 				GUI.enabled = false;
-				EditorGUILayout.ObjectField("Data", high.Data, high.Data.GetType(), true);
+				EditorGUILayout.ObjectField("Data", (Object)high.Cursor, high.Cursor.GetType(), true);
 				EditorGUILayout.Vector3Field("Nearest Position", high.NearestWorldPos);
 				EditorGUILayout.FloatField("Distance", high.Distance);
 				EditorGUILayout.Slider("Progress", high.Progress, 0, 1);
