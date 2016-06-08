@@ -17,14 +17,14 @@ namespace Hover.Common.Renderers.Shapes.Rect {
 		public List<SliderUtil.SegmentInfo> SegmentInfoList;
 		public List<SliderUtil.SegmentInfo> TickInfoList;
 		
-		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		public float SizeX = 10;
+		[DisableWhenControlled(RangeMin=0)]
+		public float SizeX = 0.1f;
 
-		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		public float InsetL = 1;
+		[DisableWhenControlled(RangeMin=0)]
+		public float InsetL = 0.01f;
 
-		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		public float InsetR = 1;
+		[DisableWhenControlled(RangeMin=0)]
+		public float InsetR = 0.01f;
 
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
 		public float TickRelativeSizeX = 0.5f;

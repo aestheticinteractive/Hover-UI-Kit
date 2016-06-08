@@ -38,12 +38,12 @@ namespace Hover.Common.Renderers.Packs.Alpha.Arc {
 		public HoverCanvas Canvas;
 		
 		[SerializeField]
-		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		private float _OuterRadius = 10;
+		[DisableWhenControlled(RangeMin=0)]
+		private float _OuterRadius = 0.1f;
 		
 		[SerializeField]
-		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		private float _InnerRadius = 4;
+		[DisableWhenControlled(RangeMin=0)]
+		private float _InnerRadius = 0.04f;
 
 		[SerializeField]
 		[DisableWhenControlled(RangeMin=0, RangeMax=360)]

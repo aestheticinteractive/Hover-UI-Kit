@@ -31,17 +31,17 @@ namespace Hover.Common.Renderers.Contents {
 		[DisableWhenControlled(DisplayMessage=true)]
 		public IconOffset IconType = IconOffset.CheckOuter;
 
-		[DisableWhenControlled(RangeMin=0.01f, RangeMax=1)]
-		public float CanvasScale = 0.02f;
+		[DisableWhenControlled(RangeMin=0.0001f, RangeMax=1)]
+		public float CanvasScale = 0.0002f;
 		
-		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		public float SizeX = 10;
+		[DisableWhenControlled(RangeMin=0)]
+		public float SizeX = 0.1f;
 
-		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		public float SizeY = 10;
+		[DisableWhenControlled(RangeMin=0)]
+		public float SizeY = 0.1f;
 		
 		[DisableWhenControlled(RangeMin=0, RangeMax=0.01f)]
-		public float Inset = 0.002f;
+		public float UvInset = 0.002f;
 
 		[HideInInspector]
 		[SerializeField]
@@ -83,7 +83,7 @@ namespace Hover.Common.Renderers.Contents {
 			const float w = 1/8f;
 			const float h = 1;
 
-			icon.uvRect = new UnityEngine.Rect((int)IconType*w+Inset, Inset, w-Inset*2, h-Inset*2);
+			icon.uvRect = new UnityEngine.Rect((int)IconType*w+UvInset, UvInset, w-UvInset*2, h-UvInset*2);
 
 			rectTx.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, SizeX/CanvasScale);
 			rectTx.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, SizeY/CanvasScale);

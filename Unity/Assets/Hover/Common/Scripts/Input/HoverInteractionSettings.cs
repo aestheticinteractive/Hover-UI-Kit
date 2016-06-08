@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Hover.Common.Utils;
+using UnityEngine;
 
 namespace Hover.Common.Input {
 
@@ -6,30 +7,29 @@ namespace Hover.Common.Input {
 	[ExecuteInEditMode]
 	public class HoverInteractionSettings : MonoBehaviour, IInteractionSettings {
 
-		[SerializeField]
-		[Range(0.001f, 100)]
-		private float _HighlightDistanceMin;
+		public ISettingsControllerMap Controllers { get; private set; }
 
 		[SerializeField]
-		[Range(0.001f, 100)]
-		private float _HighlightDistanceMax;
+		[DisableWhenControlled(RangeMin=0.0001f)]
+		private float _HighlightDistanceMin = 0.03f;
 
 		[SerializeField]
-		[Range(0.001f, 100)]
-		private float _StickyReleaseDistance;
+		[DisableWhenControlled(RangeMin=0.0001f)]
+		private float _HighlightDistanceMax = 0.07f;
 
 		[SerializeField]
-		[Range(1, 2000)]
-		private float _SelectionMilliseconds;
+		[DisableWhenControlled(RangeMin=0.0001f)]
+		private float _StickyReleaseDistance = 0.05f;
+
+		[SerializeField]
+		[Range(1, 10000)]
+		private float _SelectionMilliseconds = 400;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public HoverInteractionSettings() {
-			HighlightDistanceMin = 3;
-			HighlightDistanceMax = 7;
-			StickyReleaseDistance = 5;
-			SelectionMilliseconds = 400;
+			Controllers = new SettingsControllerMap();
 		}
 
 
@@ -62,7 +62,7 @@ namespace Hover.Common.Input {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			HighlightDistanceMax = Mathf.Max(HighlightDistanceMax, HighlightDistanceMin+0.1f);
+			HighlightDistanceMax = Mathf.Max(HighlightDistanceMax, HighlightDistanceMin*1.01f);
 		}
 
 	}

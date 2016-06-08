@@ -18,14 +18,14 @@ namespace Hover.Common.Renderers.Shapes.Rect {
 		public abstract HoverMeshRectButton Selection { get; }
 		public abstract HoverMeshRectButton Edge { get; }
 
-		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		public float SizeX = 10;
+		[DisableWhenControlled(RangeMin=0)]
+		public float SizeX = 0.1f;
 		
-		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		public float SizeY = 10;
+		[DisableWhenControlled(RangeMin=0)]
+		public float SizeY = 0.1f;
 		
-		[DisableWhenControlled(RangeMin=0.01f, RangeMax=0.5f)]
-		public float EdgeThickness = 0.05f;
+		[DisableWhenControlled(RangeMin=0.0001f)]
+		public float EdgeThickness = 0.0005f;
 		
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
 		public float HighlightProgress = 0.7f;

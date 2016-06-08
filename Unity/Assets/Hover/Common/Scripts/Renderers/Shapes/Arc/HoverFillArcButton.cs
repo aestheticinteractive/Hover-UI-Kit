@@ -1,4 +1,3 @@
-using System;
 using Hover.Common.Renderers.Utils;
 using Hover.Common.Utils;
 using UnityEngine;
@@ -19,17 +18,17 @@ namespace Hover.Common.Renderers.Shapes.Arc {
 		public abstract HoverMeshArcButton Selection { get; }
 		public abstract HoverMeshArcButton Edge { get; }
 		
-		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		public float OuterRadius = 10;
+		[DisableWhenControlled(RangeMin=0)]
+		public float OuterRadius = 0.1f;
 		
-		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		public float InnerRadius = 4;
+		[DisableWhenControlled(RangeMin=0)]
+		public float InnerRadius = 0.04f;
 
 		[DisableWhenControlled(RangeMin=0, RangeMax=360)]
 		public float ArcAngle = 60;
 		
-		[DisableWhenControlled(RangeMin=0.01f, RangeMax=0.5f)]
-		public float EdgeThickness = 0.05f;
+		[DisableWhenControlled(RangeMin=0.0001f)]
+		public float EdgeThickness = 0.0005f;
 		
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
 		public float HighlightProgress = 0.7f;

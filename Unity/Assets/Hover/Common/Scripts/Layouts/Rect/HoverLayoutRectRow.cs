@@ -20,16 +20,16 @@ namespace Hover.Common.Layouts.Rect {
 		[DisableWhenControlled(DisplayMessage=true)]
 		public ArrangementType Arrangement = ArrangementType.LeftToRight;
 
-		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		public float SizeX = 40;
+		[DisableWhenControlled(RangeMin=0)]
+		public float SizeX = 0.4f;
 		
-		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		public float SizeY = 8;
+		[DisableWhenControlled(RangeMin=0)]
+		public float SizeY = 0.08f;
 		
-		[DisableWhenControlled(RangeMin=0, RangeMax=10)]
+		[DisableWhenControlled(RangeMin=0)]
 		public float OuterPadding = 0;
 
-		[DisableWhenControlled(RangeMin=0, RangeMax=10)]
+		[DisableWhenControlled(RangeMin=0)]
 		public float InnerPadding = 0;
 
 		[DisableWhenControlled]

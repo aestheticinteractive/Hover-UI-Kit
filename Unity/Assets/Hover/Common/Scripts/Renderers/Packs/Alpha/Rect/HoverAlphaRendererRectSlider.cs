@@ -46,12 +46,12 @@ namespace Hover.Common.Renderers.Packs.Alpha.Rect {
 		public HoverAlphaRendererRectButton JumpButton;
 		
 		[SerializeField]
-		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		private float _SizeX = 10;
+		[DisableWhenControlled(RangeMin=0)]
+		private float _SizeX = 0.1f;
 		
 		[SerializeField]
-		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		private float _SizeY = 10;
+		[DisableWhenControlled(RangeMin=0)]
+		private float _SizeY = 0.1f;
 		
 		[SerializeField]
 		[DisableWhenControlled]
@@ -83,8 +83,8 @@ namespace Hover.Common.Renderers.Packs.Alpha.Rect {
 		[DisableWhenControlled]
 		private int _TickCount = 0;
 		
-		[DisableWhenControlled(RangeMin=0.01f, RangeMax=1)]
-		public float TickSizeY = 0.06f;
+		[DisableWhenControlled(RangeMin=0.0001f)]
+		public float TickSizeY = 0.0006f;
 
 		[SerializeField]
 		[DisableWhenControlled]
@@ -273,7 +273,6 @@ namespace Hover.Common.Renderers.Packs.Alpha.Rect {
 			HandleButton.Controllers.Set(HoverAlphaRendererRectButton.DisabledAlphaName, this);
 			HandleButton.Controllers.Set(HoverAlphaRendererRectButton.SortingLayerName, this);
 			
-			JumpButton.Controllers.Set("GameObject.activeSelf", this);
 			JumpButton.Controllers.Set("Transform.localPosition", this);
 			JumpButton.Controllers.Set(HoverAlphaRendererRectButton.SizeXName, this);
 			JumpButton.Controllers.Set(HoverAlphaRendererRectButton.IsEnabledName, this);

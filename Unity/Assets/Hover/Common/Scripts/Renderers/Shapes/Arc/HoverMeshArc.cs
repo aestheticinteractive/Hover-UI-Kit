@@ -10,11 +10,11 @@ namespace Hover.Common.Renderers.Shapes.Arc {
 		public const string InnerRadiusName = "InnerRadius";
 		public const string ArcAngleName = "ArcAngle";
 		
-		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		public float OuterRadius = 10;
+		[DisableWhenControlled(RangeMin=0)]
+		public float OuterRadius = 0.1f;
 		
-		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		public float InnerRadius = 4;
+		[DisableWhenControlled(RangeMin=0)]
+		public float InnerRadius = 0.04f;
 
 		[DisableWhenControlled(RangeMin=0, RangeMax=360)]
 		public float ArcAngle = 60;

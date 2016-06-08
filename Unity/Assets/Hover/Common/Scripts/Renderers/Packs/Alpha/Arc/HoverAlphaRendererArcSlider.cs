@@ -47,12 +47,12 @@ namespace Hover.Common.Renderers.Packs.Alpha.Arc {
 		public HoverAlphaRendererArcButton JumpButton;
 		
 		[SerializeField]
-		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		private float _OuterRadius = 10;
+		[DisableWhenControlled(RangeMin=0)]
+		private float _OuterRadius = 0.1f;
 		
 		[SerializeField]
-		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		private float _InnerRadius = 4;
+		[DisableWhenControlled(RangeMin=0)]
+		private float _InnerRadius = 0.04f;
 
 		[SerializeField]
 		[DisableWhenControlled(RangeMin=0, RangeMax=360)]
@@ -88,7 +88,7 @@ namespace Hover.Common.Renderers.Packs.Alpha.Arc {
 		[DisableWhenControlled]
 		private int _TickCount = 0;
 		
-		[DisableWhenControlled(RangeMin=0.06f, RangeMax=6)]
+		[DisableWhenControlled(RangeMin=0.01f)]
 		public float TickSizeY = 0.34f;
 
 		[SerializeField]

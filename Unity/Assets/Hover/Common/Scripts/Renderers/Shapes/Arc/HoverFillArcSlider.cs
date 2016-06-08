@@ -18,17 +18,17 @@ namespace Hover.Common.Renderers.Shapes.Arc {
 		public List<SliderUtil.SegmentInfo> SegmentInfoList;
 		public List<SliderUtil.SegmentInfo> TickInfoList;
 		
-		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		public float OuterRadius = 10;
+		[DisableWhenControlled(RangeMin=0)]
+		public float OuterRadius = 0.1f;
 		
-		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		public float InnerRadius = 4;
+		[DisableWhenControlled(RangeMin=0)]
+		public float InnerRadius = 0.04f;
 
-		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		public float InsetOuter = 1;
+		[DisableWhenControlled(RangeMin=0)]
+		public float InsetOuter = 0.01f;
 
-		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		public float InsetInner = 1;
+		[DisableWhenControlled(RangeMin=0)]
+		public float InsetInner = 0.01f;
 
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
 		public float TickRelativeSizeX = 0.5f;

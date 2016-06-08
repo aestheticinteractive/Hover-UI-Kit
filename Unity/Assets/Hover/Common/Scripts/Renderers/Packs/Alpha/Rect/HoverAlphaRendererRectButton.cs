@@ -37,12 +37,12 @@ namespace Hover.Common.Renderers.Packs.Alpha.Rect {
 		public HoverCanvas Canvas;
 		
 		[SerializeField]
-		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		private float _SizeX = 10;
+		[DisableWhenControlled(RangeMin=0)]
+		private float _SizeX = 0.1f;
 		
 		[SerializeField]
-		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		private float _SizeY = 10;
+		[DisableWhenControlled(RangeMin=0)]
+		private float _SizeY = 0.1f;
 		
 		[SerializeField]
 		[DisableWhenControlled]

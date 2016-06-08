@@ -21,16 +21,16 @@ namespace Hover.Common.Layouts.Arc {
 		[DisableWhenControlled(DisplayMessage=true)]
 		public ArrangementType Arrangement = ArrangementType.Forward;
 		
-		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		public float OuterRadius = 10;
+		[DisableWhenControlled(RangeMin=0)]
+		public float OuterRadius = 0.1f;
 		
-		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		public float InnerRadius = 4;
+		[DisableWhenControlled(RangeMin=0)]
+		public float InnerRadius = 0.04f;
 
 		[DisableWhenControlled(RangeMin=0, RangeMax=360)]
 		public float ArcAngle = 135;
 		
-		[DisableWhenControlled(RangeMin=0, RangeMax=10)]
+		[DisableWhenControlled(RangeMin=0)]
 		public float RadiusPadding = 0;
 
 		[DisableWhenControlled(RangeMin=0, RangeMax=90)]

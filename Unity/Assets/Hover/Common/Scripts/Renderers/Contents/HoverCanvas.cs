@@ -39,20 +39,20 @@ namespace Hover.Common.Renderers.Contents {
 		public HoverIcon IconOuter;
 		public HoverIcon IconInner;
 		
-		[DisableWhenControlled(RangeMin=0.01f, RangeMax=1)]
-		public float Scale = 0.02f;
+		[DisableWhenControlled(RangeMin=0.0001f, RangeMax=1)]
+		public float Scale = 0.0002f;
 		
-		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		public float SizeX = 10;
+		[DisableWhenControlled(RangeMin=0)]
+		public float SizeX = 0.1f;
 
-		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		public float SizeY = 10;
+		[DisableWhenControlled(RangeMin=0)]
+		public float SizeY = 0.1f;
 		
-		[DisableWhenControlled(RangeMin=0, RangeMax=50)]
-		public float PaddingX = 0.5f;
+		[DisableWhenControlled(RangeMin=0)]
+		public float PaddingX = 0.005f;
 		
-		[DisableWhenControlled(RangeMin=0, RangeMax=50)]
-		public float PaddingY = 0.5f;
+		[DisableWhenControlled(RangeMin=0)]
+		public float PaddingY = 0.005f;
 
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
 		public float Alpha = 1;

@@ -7,6 +7,9 @@ namespace Hover.Common.Utils {
 	[AttributeUsage(AttributeTargets.Field)]
 	public class DisableWhenControlledAttribute : PropertyAttribute {
 
+		public const float NullRangeMin = float.MaxValue;
+		public const float NullRangeMax = float.MinValue;
+
 		public string ControllerMapName { get; private set; }
 		public bool DisplayMessage { get; set; }
 		public float RangeMin { get; set; }
@@ -17,6 +20,8 @@ namespace Hover.Common.Utils {
 		/*--------------------------------------------------------------------------------------------*/
 		public DisableWhenControlledAttribute(string pControllerMapName="Controllers") {
 			ControllerMapName = pControllerMapName;
+			RangeMin = NullRangeMin;
+			RangeMax = NullRangeMax;
 		}
 
 	}

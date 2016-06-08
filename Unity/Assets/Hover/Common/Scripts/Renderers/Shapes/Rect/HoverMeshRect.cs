@@ -8,11 +8,11 @@ namespace Hover.Common.Renderers.Shapes.Rect {
 		public const string SizeXName = "SizeX";
 		public const string SizeYName = "SizeY";
 
-		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		public float SizeX = 10;
+		[DisableWhenControlled(RangeMin=0)]
+		public float SizeX = 0.1f;
 		
-		[DisableWhenControlled(RangeMin=0, RangeMax=100)]
-		public float SizeY = 10;
+		[DisableWhenControlled(RangeMin=0)]
+		public float SizeY = 0.1f;
 
 		private float vPrevSizeX;
 		private float vPrevSizeY;

@@ -19,6 +19,8 @@ namespace Hover.Common.Editor.Utils {
 			bool wasEnabled = GUI.enabled;
 			Rect propRect = pPosition;
 			float messageH = 0;
+			bool hasRangeMin = (attrib.RangeMin != DisableWhenControlledAttribute.NullRangeMin);
+			bool hasRangeMax = (attrib.RangeMax != DisableWhenControlledAttribute.NullRangeMax);
 
 			if ( map != null && attrib.DisplayMessage && map.AreAnyControlled() ) {
 				Object targetObj = pProp.serializedObject.targetObject; 
@@ -36,11 +38,18 @@ namespace Hover.Common.Editor.Utils {
 
 			GUI.enabled = (map == null || !map.IsControlled(pProp.name));
 			
-			if ( attrib.RangeMin != 0 || attrib.RangeMax != 0 ) {
+			if ( hasRangeMin && hasRangeMax ) {
 				EditorGUI.Slider(propRect, pProp, attrib.RangeMin, attrib.RangeMax);
 			}
 			else {
 				EditorGUI.PropertyField(propRect, pProp, pLabel, true);
+
+				if ( hasRangeMin ) {
+					pProp.floatValue = Mathf.Max(pProp.floatValue, attrib.RangeMin);
+				}
+				else if ( hasRangeMax ) {
+					pProp.floatValue = Mathf.Min(pProp.floatValue, attrib.RangeMax);
+				}
 			}
 
 			GUI.enabled = wasEnabled;
