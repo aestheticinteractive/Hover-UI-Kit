@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Hover.Input {
+namespace Hover.Cursors {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]

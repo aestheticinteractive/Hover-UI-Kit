@@ -1,4 +1,4 @@
-﻿namespace Hover.Input {
+﻿namespace Hover.Cursors {
 
 	/*================================================================================================*/
 	public enum CursorType {

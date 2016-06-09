@@ -1,7 +1,7 @@
 ﻿using Hover.Utils;
 using UnityEngine;
 
-namespace Hover.Input {
+namespace Hover.Cursors {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
