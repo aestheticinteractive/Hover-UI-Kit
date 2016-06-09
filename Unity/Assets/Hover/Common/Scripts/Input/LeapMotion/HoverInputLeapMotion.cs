@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if !HOVER_IGNORE_LEAP
+
+using System;
 using System.Collections.Generic;
 using Leap;
 using Leap.Unity;
@@ -128,3 +130,5 @@ namespace Hover.Common.Input.LeapMotion {
 	}
 
 }
+
+#endif //!HOVER_IGNORE_LEAP
