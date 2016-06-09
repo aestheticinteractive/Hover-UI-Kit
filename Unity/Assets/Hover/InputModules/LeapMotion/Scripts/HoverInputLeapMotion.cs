@@ -2,11 +2,12 @@
 
 using System;
 using System.Collections.Generic;
+using Hover.Cursors;
 using Leap;
 using Leap.Unity;
 using UnityEngine;
 
-namespace Hover.Common.Input.LeapMotion {
+namespace Hover.InputModules.LeapMotion {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
