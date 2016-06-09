@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEditor;
 
-namespace Hover.Common.Editor {
+namespace Hover.Editor {
 
 	/*================================================================================================*/
 	public class AutomatedBuilds {

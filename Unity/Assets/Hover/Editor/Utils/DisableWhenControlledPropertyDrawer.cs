@@ -3,7 +3,7 @@ using Hover.Common.Utils;
 using UnityEditor;
 using UnityEngine;
 
-namespace Hover.Common.Editor.Utils {
+namespace Hover.Editor.Utils {
 
 	/*================================================================================================*/
 	[CustomPropertyDrawer(typeof(DisableWhenControlledAttribute))]

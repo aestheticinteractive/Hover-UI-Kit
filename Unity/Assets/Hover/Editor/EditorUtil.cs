@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Hover.Common.Editor {
+namespace Hover.Editor {
 
 	/*================================================================================================*/
 	public static class EditorUtil {

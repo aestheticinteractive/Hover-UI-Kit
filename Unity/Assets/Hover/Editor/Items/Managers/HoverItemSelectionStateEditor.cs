@@ -2,7 +2,7 @@ using Hover.Common.Items.Managers;
 using UnityEditor;
 using UnityEngine;
 
-namespace Hover.Common.Editor.Items.Managers {
+namespace Hover.Editor.Items.Managers {
 
 	/*================================================================================================*/
 	[CanEditMultipleObjects]

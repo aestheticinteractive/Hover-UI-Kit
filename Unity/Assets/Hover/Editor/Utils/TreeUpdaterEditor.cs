@@ -1,9 +1,8 @@
-using System.Collections.Generic;
 using Hover.Common.Utils;
 using UnityEditor;
 using UnityEngine;
 
-namespace Hover.Common.Editor.Input {
+namespace Hover.Editor.Utils {
 
 	/*================================================================================================*/
 	[CanEditMultipleObjects]

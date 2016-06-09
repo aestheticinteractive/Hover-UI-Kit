@@ -3,7 +3,7 @@ using Hover.Common.Items.Types;
 using UnityEditor;
 using UnityEngine;
 
-namespace Hover.Common.Editor.Items {
+namespace Hover.Editor.Items {
 
 	/*================================================================================================*/
 	[CustomEditor(typeof(HoverItemData), true)]

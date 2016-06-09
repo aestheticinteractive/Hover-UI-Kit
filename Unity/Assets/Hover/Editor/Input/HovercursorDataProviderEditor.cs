@@ -3,7 +3,7 @@ using Hover.Common.Input;
 using UnityEditor;
 using UnityEngine;
 
-namespace Hover.Common.Editor.Input {
+namespace Hover.Editor.Input {
 
 	/*================================================================================================*/
 	[CanEditMultipleObjects]
