@@ -16,19 +16,17 @@ namespace Hover.InputModules.LeapMotion {
 		public HoverCursorDataProvider CursorDataProvider;
 		public LeapServiceProvider LeapServiceProvider;
 		public bool UseStabilizedPositions = false;
-		
-		[HideInInspector]
-		[SerializeField]
-		protected bool _IsBuilt;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
-			if ( !_IsBuilt ) {
+			if ( CursorDataProvider == null ) {
 				CursorDataProvider = FindObjectOfType<HoverCursorDataProvider>();
+			}
+
+			if ( LeapServiceProvider == null ) {
 				LeapServiceProvider = FindObjectOfType<LeapServiceProvider>();
-				_IsBuilt = true;
 			}
 		}
 
