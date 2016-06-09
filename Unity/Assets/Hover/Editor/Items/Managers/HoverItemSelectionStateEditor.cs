@@ -1,4 +1,4 @@
-using Hover.Common.Items.Managers;
+using Hover.Items.Managers;
 using UnityEditor;
 using UnityEngine;
 

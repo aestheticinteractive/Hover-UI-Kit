@@ -1,7 +1,7 @@
-﻿using Hover.Common.Utils;
+﻿using Hover.Utils;
 using UnityEngine;
 
-namespace Hover.Common.Layouts.Rect {
+namespace Hover.Layouts.Rect {
 
 	/*================================================================================================*/
 	public interface IRectLayoutable {

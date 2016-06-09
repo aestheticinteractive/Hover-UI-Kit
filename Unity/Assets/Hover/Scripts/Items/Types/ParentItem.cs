@@ -1,7 +1,7 @@
 ﻿using System;
-using Hover.Common.Items.Groups;
+using Hover.Items.Groups;
 
-namespace Hover.Common.Items.Types {
+namespace Hover.Items.Types {
 
 	/*================================================================================================*/
 	[Serializable]

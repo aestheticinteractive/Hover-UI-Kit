@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Hover.Common.Input {
+namespace Hover.Input {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]

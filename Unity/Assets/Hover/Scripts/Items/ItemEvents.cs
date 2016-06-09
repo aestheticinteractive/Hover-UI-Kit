@@ -1,6 +1,6 @@
-﻿using Hover.Common.Items.Groups;
+﻿using Hover.Items.Groups;
 
-namespace Hover.Common.Items {
+namespace Hover.Items {
 
 	/*================================================================================================*/
 	public static class ItemEvents {

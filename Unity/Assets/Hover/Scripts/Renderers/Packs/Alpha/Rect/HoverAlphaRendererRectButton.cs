@@ -1,10 +1,10 @@
-﻿using Hover.Common.Renderers.Contents;
-using Hover.Common.Renderers.Shapes.Rect;
-using Hover.Common.Renderers.Utils;
-using Hover.Common.Utils;
+﻿using Hover.Renderers.Contents;
+using Hover.Renderers.Shapes.Rect;
+using Hover.Renderers.Utils;
+using Hover.Utils;
 using UnityEngine;
 
-namespace Hover.Common.Renderers.Packs.Alpha.Rect {
+namespace Hover.Renderers.Packs.Alpha.Rect {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]

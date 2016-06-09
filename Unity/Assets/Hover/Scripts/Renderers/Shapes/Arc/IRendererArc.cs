@@ -1,4 +1,4 @@
-﻿namespace Hover.Common.Renderers.Shapes.Arc {
+﻿namespace Hover.Renderers.Shapes.Arc {
 
 	/*================================================================================================*/
 	public interface IRendererArc : IRenderer {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Hover.Common.Utils {
+namespace Hover.Utils {
 
 	/*================================================================================================*/
 	public interface ISettingsControllerMap {

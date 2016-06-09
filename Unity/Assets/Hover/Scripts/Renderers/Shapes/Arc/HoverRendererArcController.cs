@@ -1,10 +1,10 @@
-using Hover.Common.Items;
-using Hover.Common.Layouts.Arc;
-using Hover.Common.Renderers.Packs.Alpha.Arc;
-using Hover.Common.Renderers.Utils;
-using Hover.Common.Utils;
+using Hover.Items;
+using Hover.Layouts.Arc;
+using Hover.Renderers.Packs.Alpha.Arc;
+using Hover.Renderers.Utils;
+using Hover.Utils;
 
-namespace Hover.Common.Renderers.Shapes.Arc {
+namespace Hover.Renderers.Shapes.Arc {
 
 	/*================================================================================================*/
 	public class HoverRendererArcController : HoverRendererController, IArcLayoutable {

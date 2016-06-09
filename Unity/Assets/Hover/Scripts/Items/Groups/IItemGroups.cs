@@ -1,4 +1,4 @@
-﻿namespace Hover.Common.Items.Groups {
+﻿namespace Hover.Items.Groups {
 
 	/*================================================================================================*/
 	public interface IItemGroups { 

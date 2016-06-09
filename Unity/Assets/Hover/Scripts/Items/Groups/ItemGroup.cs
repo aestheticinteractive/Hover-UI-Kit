@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Hover.Common.Items.Types;
+using Hover.Items.Types;
 
-namespace Hover.Common.Items.Groups {
+namespace Hover.Items.Groups {
 
 	/*================================================================================================*/
 	public class ItemGroup : IItemGroup {

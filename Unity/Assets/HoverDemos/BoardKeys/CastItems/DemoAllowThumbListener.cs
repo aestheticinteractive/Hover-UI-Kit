@@ -1,8 +1,4 @@
-﻿using Hover.Common.Input;
-using Hover.Common.Items;
-using Hover.Common.Items.Types;
-
-namespace Hover.Demo.BoardKeys.CastItems {
+﻿namespace Hover.Demo.BoardKeys.CastItems {
 
 	/*================================================================================================* /
 	public class DemoAllowThumbListener : DemoBaseListener<ICheckboxItem> {

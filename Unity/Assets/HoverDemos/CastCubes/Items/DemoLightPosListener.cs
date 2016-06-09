@@ -1,6 +1,4 @@
 ﻿using System;
-using Hover.Common.Items;
-using Hover.Common.Items.Types;
 
 namespace Hover.Demo.CastCubes.Items {
 

@@ -1,6 +1,6 @@
-﻿using Hover.Common.Renderers.Contents;
+﻿using Hover.Renderers.Contents;
 
-namespace Hover.Common.Renderers {
+namespace Hover.Renderers {
 
 	/*================================================================================================*/
 	public interface IRendererButton : IRenderer {

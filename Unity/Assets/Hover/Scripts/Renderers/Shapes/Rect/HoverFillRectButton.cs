@@ -1,9 +1,9 @@
 using System;
-using Hover.Common.Renderers.Utils;
-using Hover.Common.Utils;
+using Hover.Renderers.Utils;
+using Hover.Utils;
 using UnityEngine;
 
-namespace Hover.Common.Renderers.Shapes.Rect {
+namespace Hover.Renderers.Shapes.Rect {
 
 	/*================================================================================================*/
 	public abstract class HoverFillRectButton : HoverFill {

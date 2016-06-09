@@ -1,8 +1,8 @@
-﻿using Hover.Common.Renderers.Shapes.Rect;
-using Hover.Common.Utils;
+﻿using Hover.Renderers.Shapes.Rect;
+using Hover.Utils;
 using UnityEngine;
 
-namespace Hover.Common.Renderers.Packs.Alpha.Rect {
+namespace Hover.Renderers.Packs.Alpha.Rect {
 
 	/*================================================================================================*/
 	public class HoverAlphaMeshRectTrack : HoverMeshRectTrack {

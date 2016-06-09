@@ -1,5 +1,4 @@
-﻿using Hover.Common.Items;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Hover.Demo.CastCubes.Items {
 

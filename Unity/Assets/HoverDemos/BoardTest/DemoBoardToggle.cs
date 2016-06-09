@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Hover.Common.Input;
 using UnityEngine;
 
 namespace Hover.Demo.BoardTest {

@@ -1,6 +1,6 @@
 using System;
 
-namespace Hover.Common.Utils {
+namespace Hover.Utils {
 
 	/*================================================================================================*/
 	public interface ISettingsController {

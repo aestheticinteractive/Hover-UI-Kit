@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Hover.Common.Utils {
+namespace Hover.Utils {
 
 	/*================================================================================================*/
 	public class MeshBuilder {

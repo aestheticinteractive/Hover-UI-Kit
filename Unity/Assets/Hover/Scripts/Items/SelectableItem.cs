@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine.Events;
 
-namespace Hover.Common.Items {
+namespace Hover.Items {
 
 	/*================================================================================================*/
 	[Serializable]

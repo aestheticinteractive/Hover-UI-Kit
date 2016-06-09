@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Hover.Common.Items.Managers {
+namespace Hover.Items.Managers {
 
 	/*================================================================================================*/
 	public class HoverItemsManager : MonoBehaviour {

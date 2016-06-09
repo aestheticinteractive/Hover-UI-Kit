@@ -1,6 +1,6 @@
-﻿using Hover.Common.Utils;
+﻿using Hover.Utils;
 
-namespace Hover.Common.Renderers.Shapes.Rect {
+namespace Hover.Renderers.Shapes.Rect {
 
 	/*================================================================================================*/
 	public abstract class HoverMeshRectButton : HoverMeshRect {

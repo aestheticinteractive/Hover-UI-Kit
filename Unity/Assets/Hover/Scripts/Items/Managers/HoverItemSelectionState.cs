@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Hover.Common.Items.Managers {
+namespace Hover.Items.Managers {
 
 	/*================================================================================================*/
 	[RequireComponent(typeof(HoverItem))]

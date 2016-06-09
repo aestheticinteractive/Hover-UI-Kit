@@ -1,7 +1,4 @@
-﻿using Hover.Common.Items;
-using Hover.Common.Items.Types;
-
-namespace Hover.Demo.CastCubes.Items {
+﻿namespace Hover.Demo.CastCubes.Items {
 
 	/*================================================================================================* /
 	public class DemoNestedHideListener : DemoBaseListener<ICheckboxItem> {

@@ -1,4 +1,4 @@
-﻿namespace Hover.Common.Utils {
+﻿namespace Hover.Utils {
 
 	/*================================================================================================*/
 	public enum AnchorType {

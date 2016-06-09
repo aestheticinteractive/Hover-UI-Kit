@@ -1,4 +1,4 @@
-﻿namespace Hover.Common.Renderers.Shapes.Rect {
+﻿namespace Hover.Renderers.Shapes.Rect {
 
 	/*================================================================================================*/
 	public interface IRendererRect : IRenderer {

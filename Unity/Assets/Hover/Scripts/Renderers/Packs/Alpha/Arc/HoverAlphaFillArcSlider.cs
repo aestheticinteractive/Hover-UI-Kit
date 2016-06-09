@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Hover.Common.Renderers.Shapes.Arc;
-using Hover.Common.Utils;
+using Hover.Renderers.Shapes.Arc;
+using Hover.Utils;
 using UnityEngine;
 
-namespace Hover.Common.Renderers.Packs.Alpha.Arc {
+namespace Hover.Renderers.Packs.Alpha.Arc {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]

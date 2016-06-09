@@ -1,7 +1,7 @@
-﻿using Hover.Common.Utils;
+﻿using Hover.Utils;
 using UnityEngine;
 
-namespace Hover.Common.Renderers.Shapes.Arc {
+namespace Hover.Renderers.Shapes.Arc {
 
 	/*================================================================================================*/
 	public abstract class HoverMeshArc : HoverMesh {

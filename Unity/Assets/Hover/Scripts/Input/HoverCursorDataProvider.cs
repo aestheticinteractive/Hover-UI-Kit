@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Hover.Common.Input {
+namespace Hover.Input {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]

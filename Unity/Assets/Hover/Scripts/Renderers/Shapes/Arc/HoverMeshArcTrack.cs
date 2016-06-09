@@ -1,6 +1,6 @@
-﻿using Hover.Common.Utils;
+﻿using Hover.Utils;
 
-namespace Hover.Common.Renderers.Shapes.Arc {
+namespace Hover.Renderers.Shapes.Arc {
 
 	/*================================================================================================*/
 	public abstract class HoverMeshArcTrack : HoverMeshArc {

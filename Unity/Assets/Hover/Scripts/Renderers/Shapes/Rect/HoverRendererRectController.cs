@@ -1,10 +1,10 @@
-using Hover.Common.Items;
-using Hover.Common.Layouts.Rect;
-using Hover.Common.Renderers.Packs.Alpha.Rect;
-using Hover.Common.Renderers.Utils;
-using Hover.Common.Utils;
+using Hover.Items;
+using Hover.Layouts.Rect;
+using Hover.Renderers.Packs.Alpha.Rect;
+using Hover.Renderers.Utils;
+using Hover.Utils;
 
-namespace Hover.Common.Renderers.Shapes.Rect {
+namespace Hover.Renderers.Shapes.Rect {
 
 	/*================================================================================================*/
 	public class HoverRendererRectController : HoverRendererController, IRectLayoutable {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace Hover.Common.Items.Groups {
+namespace Hover.Items.Groups {
 
 	/*================================================================================================*/
 	public class ItemGroups : IItemGroups {

@@ -1,7 +1,7 @@
-﻿using Hover.Common.Items.Types;
+﻿using Hover.Items.Types;
 using UnityEngine;
 
-namespace Hover.Common.Renderers {
+namespace Hover.Renderers {
 
 	/*================================================================================================*/
 	public interface IRendererSlider : IRenderer {

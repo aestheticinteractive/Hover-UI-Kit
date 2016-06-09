@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Hover.Common.Utils;
+using Hover.Utils;
 using UnityEngine;
 
-namespace Hover.Common.Renderers.Utils {
+namespace Hover.Renderers.Utils {
 
 	/*================================================================================================*/
 	public static class RendererUtil {

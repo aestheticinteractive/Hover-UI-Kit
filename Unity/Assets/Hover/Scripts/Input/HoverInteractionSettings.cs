@@ -1,7 +1,7 @@
-﻿using Hover.Common.Utils;
+﻿using Hover.Utils;
 using UnityEngine;
 
-namespace Hover.Common.Input {
+namespace Hover.Input {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]

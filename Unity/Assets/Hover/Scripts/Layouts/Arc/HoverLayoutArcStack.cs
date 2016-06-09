@@ -1,9 +1,9 @@
-﻿using Hover.Common.Layouts.Rect;
-using Hover.Common.Renderers.Utils;
-using Hover.Common.Utils;
+﻿using Hover.Layouts.Rect;
+using Hover.Renderers.Utils;
+using Hover.Utils;
 using UnityEngine;
 
-namespace Hover.Common.Layouts.Arc {
+namespace Hover.Layouts.Arc {
 
 	/*================================================================================================*/
 	public class HoverLayoutArcStack : HoverLayoutArcGroup, IArcLayoutable, IRectLayoutable {

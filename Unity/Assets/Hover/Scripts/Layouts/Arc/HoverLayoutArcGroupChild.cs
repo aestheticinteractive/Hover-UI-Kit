@@ -1,4 +1,4 @@
-﻿namespace Hover.Common.Layouts.Arc {
+﻿namespace Hover.Layouts.Arc {
 
 	/*================================================================================================*/
 	public struct HoverLayoutArcGroupChild {

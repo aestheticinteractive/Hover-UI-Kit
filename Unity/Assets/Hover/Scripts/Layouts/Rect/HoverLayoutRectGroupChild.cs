@@ -1,4 +1,4 @@
-﻿namespace Hover.Common.Layouts.Rect {
+﻿namespace Hover.Layouts.Rect {
 
 	/*================================================================================================*/
 	public struct HoverLayoutRectGroupChild {

@@ -1,6 +1,6 @@
-﻿using Hover.Common.Items.Types;
+﻿using Hover.Items.Types;
 
-namespace Hover.Common.Items.Groups {
+namespace Hover.Items.Groups {
 
 	/*================================================================================================*/
 	public interface IItemHierarchy { 

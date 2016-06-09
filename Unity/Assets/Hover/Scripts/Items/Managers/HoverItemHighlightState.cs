@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Hover.Common.Input;
-using Hover.Common.Renderers;
+using Hover.Input;
+using Hover.Renderers;
 using UnityEngine;
 
-namespace Hover.Common.Items.Managers {
+namespace Hover.Items.Managers {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]

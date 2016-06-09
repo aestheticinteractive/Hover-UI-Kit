@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Hover.Common.Utils {
+namespace Hover.Utils {
 
 	/*================================================================================================*/
 	public static class DisplayUtil {

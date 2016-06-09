@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Hover.Common.Items.Types {
+namespace Hover.Items.Types {
 
 	/*================================================================================================*/
 	public interface ISliderItem : ISelectableItem<float> {

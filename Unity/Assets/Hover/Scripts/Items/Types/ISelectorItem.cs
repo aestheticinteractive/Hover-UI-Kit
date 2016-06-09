@@ -1,4 +1,4 @@
-﻿namespace Hover.Common.Items.Types {
+﻿namespace Hover.Items.Types {
 
 	/*================================================================================================*/
 	public interface ISelectorItem : ISelectableItem {

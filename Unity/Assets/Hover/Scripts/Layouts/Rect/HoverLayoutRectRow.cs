@@ -1,8 +1,8 @@
-﻿using Hover.Common.Renderers.Utils;
-using Hover.Common.Utils;
+﻿using Hover.Renderers.Utils;
+using Hover.Utils;
 using UnityEngine;
 
-namespace Hover.Common.Layouts.Rect {
+namespace Hover.Layouts.Rect {
 
 	/*================================================================================================*/
 	public class HoverLayoutRectRow : HoverLayoutRectGroup, IRectLayoutable {

@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Hover.Common.Items.Types;
+using Hover.Items.Types;
 using UnityEngine;
 
-namespace Hover.Common.Renderers.Utils {
+namespace Hover.Renderers.Utils {
 
 	/*================================================================================================*/
 	public static class SliderUtil {

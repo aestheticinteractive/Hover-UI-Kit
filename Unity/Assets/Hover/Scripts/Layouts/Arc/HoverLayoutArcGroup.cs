@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Hover.Common.Utils;
+using Hover.Utils;
 using UnityEngine;
 
-namespace Hover.Common.Layouts.Arc {
+namespace Hover.Layouts.Arc {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]

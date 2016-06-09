@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Hover.Common.Input {
+namespace Hover.Input {
 
 	/*================================================================================================*/
 	public interface IHoverCursorData {

@@ -1,8 +1,8 @@
-using Hover.Common.Renderers.Utils;
-using Hover.Common.Utils;
+using Hover.Renderers.Utils;
+using Hover.Utils;
 using UnityEngine;
 
-namespace Hover.Common.Renderers.Shapes.Arc {
+namespace Hover.Renderers.Shapes.Arc {
 
 	/*================================================================================================*/
 	public abstract class HoverFillArcButton : HoverFill {

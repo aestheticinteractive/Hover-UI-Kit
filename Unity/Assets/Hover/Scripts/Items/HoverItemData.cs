@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Hover.Common.Items {
+namespace Hover.Items {
 
 	/*================================================================================================*/
 	public abstract class HoverItemData : MonoBehaviour, IBaseItem {

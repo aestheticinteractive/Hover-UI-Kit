@@ -1,5 +1,5 @@
-﻿using Hover.Common.Renderers.Utils;
-using Hover.Common.Utils;
+﻿using Hover.Renderers.Utils;
+using Hover.Utils;
 using UnityEditor;
 using UnityEngine;
 

@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Hover.Common.Input;
+using Hover.Input;
 using UnityEditor;
 using UnityEngine;
 

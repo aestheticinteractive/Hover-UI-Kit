@@ -1,7 +1,7 @@
-﻿using Hover.Common.Utils;
+﻿using Hover.Utils;
 using UnityEngine;
 
-namespace Hover.Common.Layouts.Arc {
+namespace Hover.Layouts.Arc {
 
 	/*================================================================================================*/
 	public class HoverLayoutArcRelativeSizer : MonoBehaviour, ISettingsController {

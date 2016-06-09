@@ -1,8 +1,8 @@
-﻿using Hover.Common.Utils;
+﻿using Hover.Utils;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Hover.Common.Layouts.Rect {
+namespace Hover.Layouts.Rect {
 
 	/*================================================================================================*/
 	public class HoverLayoutRectRelativeSizer : MonoBehaviour, ISettingsController {

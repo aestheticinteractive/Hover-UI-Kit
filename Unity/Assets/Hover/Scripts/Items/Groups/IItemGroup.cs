@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Hover.Common.Items.Types;
+using Hover.Items.Types;
 
-namespace Hover.Common.Items.Groups {
+namespace Hover.Items.Groups {
 
 	/*================================================================================================*/
 	public interface IItemGroup {

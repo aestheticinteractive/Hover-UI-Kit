@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
-using Hover.Common.Items.Managers;
-using Hover.Common.Items.Types;
-using Hover.Common.Utils;
+using Hover.Items.Managers;
+using Hover.Items.Types;
+using Hover.Utils;
 using UnityEngine;
 
-namespace Hover.Common.Items {
+namespace Hover.Items {
 	
 	/*================================================================================================*/
 	[ExecuteInEditMode]
