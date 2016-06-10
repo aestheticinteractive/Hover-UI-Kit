@@ -144,6 +144,36 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &163594
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 464876}
+  m_Layer: 0
+  m_Name: LeftHand
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &169026
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 499384}
+  m_Layer: 0
+  m_Name: RightHand
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &183872
 GameObject:
   m_ObjectHideFlags: 1
@@ -276,11 +306,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 111316}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.05, y: 0.04, z: 0.1}
+  m_LocalPosition: {x: 0, y: 0.04, z: 0}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children: []
-  m_Father: {fileID: 451406}
-  m_RootOrder: 9
+  m_Father: {fileID: 499384}
+  m_RootOrder: 3
 --- !u!4 &416584
 Transform:
   m_ObjectHideFlags: 1
@@ -292,7 +322,7 @@ Transform:
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children: []
   m_Father: {fileID: 451406}
-  m_RootOrder: 12
+  m_RootOrder: 2
 --- !u!4 &419474
 Transform:
   m_ObjectHideFlags: 1
@@ -300,10 +330,10 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 198590}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.075, y: 0.025, z: 0.1}
+  m_LocalPosition: {x: -0.025000002, y: 0.025, z: 0}
   m_LocalScale: {x: 0.008, y: 0.008, z: 0.008}
   m_Children: []
-  m_Father: {fileID: 451406}
+  m_Father: {fileID: 464876}
   m_RootOrder: 5
 --- !u!4 &422846
 Transform:
@@ -312,11 +342,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 112786}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.05, y: 0, z: 0.1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.025, y: 0.025, z: 0.025}
   m_Children: []
-  m_Father: {fileID: 451406}
-  m_RootOrder: 6
+  m_Father: {fileID: 499384}
+  m_RootOrder: 0
 --- !u!4 &426980
 Transform:
   m_ObjectHideFlags: 1
@@ -324,11 +354,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 197548}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.025, y: 0.0075, z: 0.1}
+  m_LocalPosition: {x: -0.025, y: 0.0075, z: 0}
   m_LocalScale: {x: 0.012, y: 0.012, z: 0.012}
   m_Children: []
-  m_Father: {fileID: 451406}
-  m_RootOrder: 7
+  m_Father: {fileID: 499384}
+  m_RootOrder: 1
 --- !u!4 &442414
 Transform:
   m_ObjectHideFlags: 1
@@ -336,10 +366,10 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 144476}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.05, y: 0, z: 0.1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.025, y: 0.025, z: 0.025}
   m_Children: []
-  m_Father: {fileID: 451406}
+  m_Father: {fileID: 464876}
   m_RootOrder: 0
 --- !u!4 &448896
 Transform:
@@ -348,11 +378,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 183872}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.075, y: 0.025, z: 0.1}
+  m_LocalPosition: {x: 0.025000002, y: 0.025, z: 0}
   m_LocalScale: {x: 0.008, y: 0.008, z: 0.008}
   m_Children: []
-  m_Father: {fileID: 451406}
-  m_RootOrder: 11
+  m_Father: {fileID: 499384}
+  m_RootOrder: 5
 --- !u!4 &451406
 Transform:
   m_ObjectHideFlags: 1
@@ -363,18 +393,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 442414}
-  - {fileID: 486342}
-  - {fileID: 462630}
-  - {fileID: 468020}
-  - {fileID: 464330}
-  - {fileID: 419474}
-  - {fileID: 422846}
-  - {fileID: 426980}
-  - {fileID: 479924}
-  - {fileID: 400356}
-  - {fileID: 497898}
-  - {fileID: 448896}
+  - {fileID: 464876}
+  - {fileID: 499384}
   - {fileID: 416584}
   m_Father: {fileID: 493240}
   m_RootOrder: 0
@@ -385,10 +405,10 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 135608}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.035, y: 0.035, z: 0.1}
+  m_LocalPosition: {x: 0.015000001, y: 0.035, z: 0}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children: []
-  m_Father: {fileID: 451406}
+  m_Father: {fileID: 464876}
   m_RootOrder: 2
 --- !u!4 &464330
 Transform:
@@ -397,11 +417,29 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 148344}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.065, y: 0.035, z: 0.1}
+  m_LocalPosition: {x: -0.014999997, y: 0.035, z: 0}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children: []
-  m_Father: {fileID: 451406}
+  m_Father: {fileID: 464876}
   m_RootOrder: 4
+--- !u!4 &464876
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 163594}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.05, y: 0, z: 0.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 442414}
+  - {fileID: 486342}
+  - {fileID: 462630}
+  - {fileID: 468020}
+  - {fileID: 464330}
+  - {fileID: 419474}
+  m_Father: {fileID: 451406}
+  m_RootOrder: 0
 --- !u!4 &468020
 Transform:
   m_ObjectHideFlags: 1
@@ -409,10 +447,10 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 149610}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.05, y: 0.04, z: 0.1}
+  m_LocalPosition: {x: 0, y: 0.04, z: 0}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children: []
-  m_Father: {fileID: 451406}
+  m_Father: {fileID: 464876}
   m_RootOrder: 3
 --- !u!4 &479924
 Transform:
@@ -421,11 +459,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 199442}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.035, y: 0.035, z: 0.1}
+  m_LocalPosition: {x: -0.015000001, y: 0.035, z: 0}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children: []
-  m_Father: {fileID: 451406}
-  m_RootOrder: 8
+  m_Father: {fileID: 499384}
+  m_RootOrder: 2
 --- !u!4 &486342
 Transform:
   m_ObjectHideFlags: 1
@@ -433,10 +471,10 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 193372}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.025, y: 0.0075, z: 0.1}
+  m_LocalPosition: {x: 0.025, y: 0.0075, z: 0}
   m_LocalScale: {x: 0.012, y: 0.012, z: 0.012}
   m_Children: []
-  m_Father: {fileID: 451406}
+  m_Father: {fileID: 464876}
   m_RootOrder: 1
 --- !u!4 &493240
 Transform:
@@ -458,11 +496,29 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 144398}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.065, y: 0.035, z: 0.1}
+  m_LocalPosition: {x: 0.014999997, y: 0.035, z: 0}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children: []
+  m_Father: {fileID: 499384}
+  m_RootOrder: 4
+--- !u!4 &499384
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 169026}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.05, y: 0, z: 0.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 422846}
+  - {fileID: 426980}
+  - {fileID: 479924}
+  - {fileID: 400356}
+  - {fileID: 497898}
+  - {fileID: 448896}
   m_Father: {fileID: 451406}
-  m_RootOrder: 10
+  m_RootOrder: 1
 --- !u!23 &2307252
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -1125,12 +1181,12 @@ MonoBehaviour:
   OnItemAdded:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Common.Items.Managers.HoverItemsManager+ItemEvent, Assembly-CSharp,
+    m_TypeName: Hover.Items.Managers.HoverItemsManager+ItemEvent, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnItemRemoved:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Common.Items.Managers.HoverItemsManager+ItemEvent, Assembly-CSharp,
+    m_TypeName: Hover.Items.Managers.HoverItemsManager+ItemEvent, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!114 &11495836
 MonoBehaviour:
