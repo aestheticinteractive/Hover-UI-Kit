@@ -1,5 +1,8 @@
-﻿using Hover.Layouts.Arc;
+﻿using System;
+using Hover.Layouts.Arc;
 using UnityEngine;
+using UnityEngine.Events;
+using Debug = UnityEngine.Debug;
 
 namespace Hover.Interfaces.Cast {
 
@@ -7,9 +10,14 @@ namespace Hover.Interfaces.Cast {
 	[ExecuteInEditMode]
 	public class HovercastInterface : MonoBehaviour {
 
+		[Serializable]
+		public class HovercastRowEvent : UnityEvent<HovercastRowSwitcher.RowEntryType> {}
+
 		public HoverLayoutArcStack ArcStack;
 		public HoverLayoutArcRow ActiveRow;
 		public HoverLayoutArcRow PreviousRow;
+
+		public HovercastRowEvent OnRowTransitionEvent;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -40,13 +48,10 @@ namespace Hover.Interfaces.Cast {
 				return;
 			}
 
-			//TODO: build transitions based on "pSwitcher.RowEntryTransition"
-
-			ActiveRow.gameObject.SetActive(false);
 			PreviousRow = ActiveRow;
-
 			ActiveRow = targetRow;
-			ActiveRow.gameObject.SetActive(true);
+
+			OnRowTransitionEvent.Invoke(pSwitcher.RowEntryTransition);
 		}
 
 	}

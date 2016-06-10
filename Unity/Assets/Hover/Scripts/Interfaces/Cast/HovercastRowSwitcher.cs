@@ -8,7 +8,7 @@ namespace Hover.Interfaces.Cast {
 	[RequireComponent(typeof(SelectableItem))]
 	public class HovercastRowSwitcher : MonoBehaviour {
 		
-		public enum RowEntryTransitionType {
+		public enum RowEntryType {
 			Immediate,
 			FromOutside,
 			FromInside
@@ -16,7 +16,7 @@ namespace Hover.Interfaces.Cast {
 
 		public HoverLayoutArcRow TargetRow;
 		public bool UsePreviousActiveRow = false;
-		public RowEntryTransitionType RowEntryTransition = RowEntryTransitionType.Immediate;
+		public RowEntryType RowEntryTransition = RowEntryType.Immediate;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

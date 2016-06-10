@@ -33,6 +33,32 @@ namespace Hover.Layouts.Arc {
 			FillChildItemsList();
 			Controllers.TryExpireControllers();
 		}
+		
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public int GetChildOrder(IArcLayoutable pFirst, IArcLayoutable pSecond) {
+			int firstIndex = -1;
+			int secondIndex = -1;
+
+			for ( int i = 0 ; i < vChildItems.Count ; i++ ) {
+				HoverLayoutArcGroupChild group = vChildItems[i];
+
+				if ( group.Elem == pFirst ) {
+					firstIndex = i;
+				}
+
+				if ( group.Elem == pSecond ) {
+					secondIndex = i;
+				}
+
+				if ( firstIndex != -1 && secondIndex != -1 ) {
+					return firstIndex.CompareTo(secondIndex);
+				}
+			}
+
+			return 0;
+		}
 
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
