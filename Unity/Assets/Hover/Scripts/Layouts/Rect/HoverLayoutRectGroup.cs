@@ -7,7 +7,7 @@ namespace Hover.Layouts.Rect {
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
-	public class HoverLayoutRectGroup : MonoBehaviour, ISettingsController, ITreeUpdateable {
+	public abstract class HoverLayoutRectGroup : MonoBehaviour, ISettingsController, ITreeUpdateable {
 
 		public ISettingsControllerMap Controllers { get; private set; }
 		
@@ -46,6 +46,10 @@ namespace Hover.Layouts.Rect {
 				if ( elem == null ) {
 					//Debug.LogWarning("Item '"+childTx.name+"' does not have a renderer "+
 					//	"that implements '"+typeof(IRectangleLayoutElement).Name+"'.");
+					continue;
+				}
+
+				if ( !elem.isActiveAndEnabled ) {
 					continue;
 				}
 

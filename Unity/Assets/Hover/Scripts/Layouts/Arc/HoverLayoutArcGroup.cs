@@ -7,7 +7,7 @@ namespace Hover.Layouts.Arc {
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
-	public class HoverLayoutArcGroup : MonoBehaviour, ISettingsController, ITreeUpdateable {
+	public abstract class HoverLayoutArcGroup : MonoBehaviour, ISettingsController, ITreeUpdateable {
 		
 		public ISettingsControllerMap Controllers { get; private set; }
 		
@@ -46,6 +46,10 @@ namespace Hover.Layouts.Arc {
 				if ( elem == null ) {
 					//Debug.LogWarning("Item '"+childTx.name+"' does not have a renderer "+
 					//	"that implements '"+typeof(IArcLayoutable).Name+"'.");
+					continue;
+				}
+
+				if ( !elem.isActiveAndEnabled ) {
 					continue;
 				}
 

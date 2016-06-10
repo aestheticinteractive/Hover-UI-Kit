@@ -6,6 +6,7 @@ namespace Hover.Layouts.Arc {
 	/*================================================================================================*/
 	public interface IArcLayoutable {
 
+		bool isActiveAndEnabled { get; }
 		Transform transform { get; }
 		
 		ISettingsControllerMap Controllers { get; }

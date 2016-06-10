@@ -6,6 +6,7 @@ namespace Hover.Layouts.Rect {
 	/*================================================================================================*/
 	public interface IRectLayoutable {
 
+		bool isActiveAndEnabled { get; }
 		Transform transform { get; }
 		
 		ISettingsControllerMap Controllers { get; }
