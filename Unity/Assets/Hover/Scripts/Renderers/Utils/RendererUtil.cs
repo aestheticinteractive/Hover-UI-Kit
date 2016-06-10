@@ -186,8 +186,14 @@ namespace Hover.Renderers.Utils {
 			float fromAngle;
 			Vector3 fromAxis;
 
-			Quaternion fromLocalRot = Quaternion.FromToRotation(Vector3.right, fromLocalDir);
-			fromLocalRot.ToAngleAxis(out fromAngle, out fromAxis);
+			if ( Mathf.Abs(Vector3.Dot(Vector3.right, fromLocalDir)) < 0.999f ) {
+				Quaternion fromLocalRot = Quaternion.FromToRotation(Vector3.right, fromLocalDir);
+				fromLocalRot.ToAngleAxis(out fromAngle, out fromAxis);
+			}
+			else {
+				fromAxis = Vector3.forward;
+				fromAngle = 0;
+			}
 
 			if ( fromLocalPos.x > 0 && fromAngle >= -halfAngle && fromAngle <= halfAngle ) {
 				Quaternion nearLocalRot = Quaternion.AngleAxis(fromAngle, fromAxis);
