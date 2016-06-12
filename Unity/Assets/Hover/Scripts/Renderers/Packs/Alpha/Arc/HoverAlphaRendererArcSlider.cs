@@ -11,29 +11,15 @@ namespace Hover.Renderers.Packs.Alpha.Arc {
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
-	public class HoverAlphaRendererArcSlider : MonoBehaviour, IRendererArcSlider,
-											IProximityProvider, ISettingsController, ITreeUpdateable {
+	public class HoverAlphaRendererArcSlider : HoverAlphaRendererArc, IRendererArcSlider {
 		
-		public const string OuterRadiusName = "_OuterRadius";
-		public const string InnerRadiusName = "_InnerRadius";
-		public const string ArcAngleName = "_ArcAngle";
-		public const string AlphaName = "Alpha";
-		public const string IsEnabledName = "_IsEnabled";
 		public const string ZeroValueName = "_ZeroValue";
 		public const string HandleValueName = "_HandleValue";
 		public const string JumpValueName = "_JumpValue";
 		public const string AllowJumpName = "_AllowJump";
 		public const string TickCountName = "_TickCount";
 		public const string FillStartingPointName = "_FillStartingPoint";
-		public const string SortingLayerName = "_SortingLayer";
 
-		public ISettingsController RendererController { get; set; }
-		public ISettingsControllerMap Controllers { get; private set; }
-		public string LabelText { get; set; }
-		public float HighlightProgress { get; set; }
-		public float SelectionProgress { get; set; }
-		public bool ShowEdge { get; set; }
-	
 		[DisableWhenControlled(DisplayMessage=true)]
 		public GameObject Container;
 
@@ -45,29 +31,7 @@ namespace Hover.Renderers.Packs.Alpha.Arc {
 
 		[DisableWhenControlled]
 		public HoverAlphaRendererArcButton JumpButton;
-		
-		[SerializeField]
-		[DisableWhenControlled(RangeMin=0)]
-		private float _OuterRadius = 0.1f;
-		
-		[SerializeField]
-		[DisableWhenControlled(RangeMin=0)]
-		private float _InnerRadius = 0.04f;
 
-		[SerializeField]
-		[DisableWhenControlled(RangeMin=0, RangeMax=360)]
-		private float _ArcAngle = 60;
-		
-		[SerializeField]
-		[DisableWhenControlled]
-		private bool _IsEnabled = true;
-
-		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
-		public float EnabledAlpha = 1;
-
-		[DisableWhenControlled(RangeMin=0.05f, RangeMax=0.9f)]
-		public float DisabledAlpha = 0.35f;
-		
 		[SerializeField]
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
 		private float _ZeroValue = 0.5f;
@@ -94,15 +58,7 @@ namespace Hover.Renderers.Packs.Alpha.Arc {
 		[SerializeField]
 		[DisableWhenControlled]
 		private SliderItem.FillType _FillStartingPoint = SliderItem.FillType.Zero;
-		
-		[SerializeField]
-		[DisableWhenControlled]
-		private string _SortingLayer = "Default";
-		
-		[HideInInspector]
-		[SerializeField]
-		private bool _IsBuilt;
-		
+
 		private readonly List<SliderUtil.SegmentInfo> vSegmentInfoList;
 		private readonly List<SliderUtil.SegmentInfo> vTickInfoList;
 		
@@ -110,37 +66,12 @@ namespace Hover.Renderers.Packs.Alpha.Arc {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public HoverAlphaRendererArcSlider() {
-			Controllers = new SettingsControllerMap();
 			vSegmentInfoList = new List<SliderUtil.SegmentInfo>();
 			vTickInfoList = new List<SliderUtil.SegmentInfo>();
 		}
 		
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public float OuterRadius {
-			get { return _OuterRadius; }
-			set { _OuterRadius = value; }
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public float InnerRadius {
-			get { return _InnerRadius; }
-			set { _InnerRadius = value; }
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public float ArcAngle {
-			get { return _ArcAngle; }
-			set { _ArcAngle = value; }
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public bool IsEnabled {
-			get { return _IsEnabled; }
-			set { _IsEnabled = value; }
-		}
-		
 		/*--------------------------------------------------------------------------------------------*/
 		public float ZeroValue {
 			get { return _ZeroValue; }
@@ -177,29 +108,10 @@ namespace Hover.Renderers.Packs.Alpha.Arc {
 			set { _FillStartingPoint = value; }
 		}
 		
-		/*--------------------------------------------------------------------------------------------*/
-		public string SortingLayer {
-			get { return _SortingLayer; }
-			set { _SortingLayer = value; }
-		}
-		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Awake() {
-			if ( !_IsBuilt ) {
-				BuildElements();
-				_IsBuilt = true;
-			}
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Start() {
-			//do nothing...
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		public void TreeUpdate() {
+		public override void TreeUpdate() {
 			ArcAngle = Mathf.Max(ArcAngle, HandleButton.ArcAngle);
 
 			UpdateControl();
@@ -211,7 +123,7 @@ namespace Hover.Renderers.Packs.Alpha.Arc {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public Vector3 GetNearestWorldPosition(Vector3 pFromWorldPosition) {
+		public override Vector3 GetNearestWorldPosition(Vector3 pFromWorldPosition) {
 			if ( AllowJump ) {
 				return RendererUtil.GetNearestWorldPositionOnArc(
 					pFromWorldPosition, Container.transform, OuterRadius, InnerRadius, ArcAngle);
@@ -238,7 +150,7 @@ namespace Hover.Renderers.Packs.Alpha.Arc {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void BuildElements() {
+		protected override void BuildElements() {
 			Container = new GameObject("Container");
 			Container.transform.SetParent(gameObject.transform, false);
 			Container.AddComponent<TreeUpdater>();
@@ -315,7 +227,6 @@ namespace Hover.Renderers.Packs.Alpha.Arc {
 			Controllers.Set(OuterRadiusName, cont);
 			Controllers.Set(InnerRadiusName, cont);
 			Controllers.Set(ArcAngleName, cont);
-			Controllers.Set(AlphaName, cont);
 			Controllers.Set(IsEnabledName, cont);
 			Controllers.Set(ZeroValueName, cont);
 			Controllers.Set(HandleValueName, cont);

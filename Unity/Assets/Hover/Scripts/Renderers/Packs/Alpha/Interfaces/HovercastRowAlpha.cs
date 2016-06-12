@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using Hover.Interfaces.Cast;
 using Hover.Items;
 using Hover.Layouts.Arc;
-using Hover.Renderers.Packs.Alpha.Arc;
-using Hover.Renderers.Packs.Alpha.Rect;
 using Hover.Utils;
 using UnityEngine;
 
@@ -14,7 +12,7 @@ namespace Hover.Renderers.Packs.Alpha.Interfaces {
 	[RequireComponent(typeof(TreeUpdater))]
 	[RequireComponent(typeof(HovercastInterface))]
 	[RequireComponent(typeof(HovercastRowTransitioner))]
-	public class HovercastRowAlpha : MonoBehaviour, ITreeUpdateable {
+	public class HovercastRowAlpha : MonoBehaviour, ITreeUpdateable, ISettingsController {
 
 		private List<HoverItemData> vItemDataResults;
 		
@@ -22,7 +20,7 @@ namespace Hover.Renderers.Packs.Alpha.Interfaces {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Start() {
-			//do nothing...
+			vItemDataResults = new List<HoverItemData>();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -47,14 +45,13 @@ namespace Hover.Renderers.Packs.Alpha.Interfaces {
 
 			for ( int i = 0 ; i < vItemDataResults.Count ; i++ ) {
 				HoverItemData itemData = vItemDataResults[i];
-				HoverAlphaRendererArcSlider slider = itemData.gameObject
-					.GetComponentInChildren<HoverAlphaRendererArcSlider>();
-				HoverAlphaRendererArcButton button = itemData.gameObject
-					.GetComponentInChildren<HoverAlphaRendererArcButton>();
+				HoverAlphaRenderer rend = itemData.gameObject
+					.GetComponentInChildren<HoverAlphaRenderer>();
 
 				itemData.IsEnabled = (pAlpha >= 1);
-				if ( slider != null ) { slider.DisabledAlpha = pAlpha; }
-				if ( button != null ) { button.DisabledAlpha = pAlpha; }
+
+				rend.Controllers.Set(HoverAlphaRenderer.DisabledAlphaName, this);
+				rend.DisabledAlpha = Mathf.Lerp(0, rend.EnabledAlpha, pAlpha);
 			}
 		}
 	}

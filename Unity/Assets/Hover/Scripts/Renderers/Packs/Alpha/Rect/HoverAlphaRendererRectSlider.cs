@@ -9,30 +9,15 @@ using UnityEngine;
 namespace Hover.Renderers.Packs.Alpha.Rect {
 
 	/*================================================================================================*/
-	[ExecuteInEditMode]
-	[RequireComponent(typeof(TreeUpdater))]
-	public class HoverAlphaRendererRectSlider : MonoBehaviour, IRendererRectSlider,
-											IProximityProvider, ISettingsController, ITreeUpdateable {
+	public class HoverAlphaRendererRectSlider : HoverAlphaRendererRect, IRendererRectSlider {
 
-		public const string SizeXName = "_SizeX";
-		public const string SizeYName = "_SizeY";
-		public const string AlphaName = "Alpha";
-		public const string IsEnabledName = "_IsEnabled";
 		public const string ZeroValueName = "_ZeroValue";
 		public const string HandleValueName = "_HandleValue";
 		public const string JumpValueName = "_JumpValue";
 		public const string AllowJumpName = "_AllowJump";
 		public const string TickCountName = "_TickCount";
 		public const string FillStartingPointName = "_FillStartingPoint";
-		public const string SortingLayerName = "_SortingLayer";
 
-		public ISettingsController RendererController { get; set; }
-		public ISettingsControllerMap Controllers { get; private set; }
-		public string LabelText { get; set; }
-		public float HighlightProgress { get; set; }
-		public float SelectionProgress { get; set; }
-		public bool ShowEdge { get; set; }
-	
 		[DisableWhenControlled(DisplayMessage=true)]
 		public GameObject Container;
 
@@ -44,24 +29,6 @@ namespace Hover.Renderers.Packs.Alpha.Rect {
 
 		[DisableWhenControlled]
 		public HoverAlphaRendererRectButton JumpButton;
-		
-		[SerializeField]
-		[DisableWhenControlled(RangeMin=0)]
-		private float _SizeX = 0.1f;
-		
-		[SerializeField]
-		[DisableWhenControlled(RangeMin=0)]
-		private float _SizeY = 0.1f;
-		
-		[SerializeField]
-		[DisableWhenControlled]
-		private bool _IsEnabled = true;
-
-		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
-		public float EnabledAlpha = 1;
-
-		[DisableWhenControlled(RangeMin=0.05f, RangeMax=0.9f)]
-		public float DisabledAlpha = 0.35f;
 		
 		[SerializeField]
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
@@ -89,18 +56,7 @@ namespace Hover.Renderers.Packs.Alpha.Rect {
 		[SerializeField]
 		[DisableWhenControlled]
 		private SliderItem.FillType _FillStartingPoint = SliderItem.FillType.Zero;
-		
-		[DisableWhenControlled]
-		public AnchorTypeWithCustom Anchor = AnchorTypeWithCustom.MiddleCenter;
-		
-		[SerializeField]
-		[DisableWhenControlled]
-		private string _SortingLayer = "Default";
-		
-		[HideInInspector]
-		[SerializeField]
-		private bool _IsBuilt;
-		
+
 		private readonly List<SliderUtil.SegmentInfo> vSegmentInfoList;
 		private readonly List<SliderUtil.SegmentInfo> vTickInfoList;
 		
@@ -108,31 +64,12 @@ namespace Hover.Renderers.Packs.Alpha.Rect {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public HoverAlphaRendererRectSlider() {
-			Controllers = new SettingsControllerMap();
 			vSegmentInfoList = new List<SliderUtil.SegmentInfo>();
 			vTickInfoList = new List<SliderUtil.SegmentInfo>();
 		}
 		
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public float SizeX {
-			get { return _SizeX; }
-			set { _SizeX = value; }
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		public float SizeY {
-			get { return _SizeY; }
-			set { _SizeY = value; }
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		public bool IsEnabled {
-			get { return _IsEnabled; }
-			set { _IsEnabled = value; }
-		}
-		
 		/*--------------------------------------------------------------------------------------------*/
 		public float ZeroValue {
 			get { return _ZeroValue; }
@@ -169,29 +106,10 @@ namespace Hover.Renderers.Packs.Alpha.Rect {
 			set { _FillStartingPoint = value; }
 		}
 		
-		/*--------------------------------------------------------------------------------------------*/
-		public string SortingLayer {
-			get { return _SortingLayer; }
-			set { _SortingLayer = value; }
-		}
-		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Awake() {
-			if ( !_IsBuilt ) {
-				BuildElements();
-				_IsBuilt = true;
-			}
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Start() {
-			//do nothing...
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		public void TreeUpdate() {
+		public override void TreeUpdate() {
 			SizeY = Mathf.Max(SizeY, HandleButton.SizeY);
 
 			UpdateControl();
@@ -204,7 +122,7 @@ namespace Hover.Renderers.Packs.Alpha.Rect {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public Vector3 GetNearestWorldPosition(Vector3 pFromWorldPosition) {
+		public override Vector3 GetNearestWorldPosition(Vector3 pFromWorldPosition) {
 			if ( AllowJump ) {
 				return RendererUtil.GetNearestWorldPositionOnRectangle(
 					pFromWorldPosition, Container.transform, SizeX, SizeY);
@@ -224,7 +142,7 @@ namespace Hover.Renderers.Packs.Alpha.Rect {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void BuildElements() {
+		protected override void BuildElements() {
 			Container = new GameObject("Container");
 			Container.transform.SetParent(gameObject.transform, false);
 			Container.AddComponent<TreeUpdater>();
@@ -296,7 +214,6 @@ namespace Hover.Renderers.Packs.Alpha.Rect {
 			
 			Controllers.Set(SizeXName, cont);
 			Controllers.Set(SizeYName, cont);
-			Controllers.Set(AlphaName, cont);
 			Controllers.Set(IsEnabledName, cont);
 			Controllers.Set(ZeroValueName, cont);
 			Controllers.Set(HandleValueName, cont);
