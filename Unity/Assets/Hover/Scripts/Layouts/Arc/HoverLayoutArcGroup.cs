@@ -40,21 +40,24 @@ namespace Hover.Layouts.Arc {
 		public int GetChildOrder(IArcLayoutable pFirst, IArcLayoutable pSecond) {
 			int firstIndex = -1;
 			int secondIndex = -1;
+			int i = 0;
 
-			for ( int i = 0 ; i < vChildItems.Count ; i++ ) {
-				HoverLayoutArcGroupChild group = vChildItems[i];
+			foreach ( Transform childTx in gameObject.transform ) {
+				IArcLayoutable elem = childTx.GetComponent<IArcLayoutable>();
 
-				if ( group.Elem == pFirst ) {
+				if ( elem == pFirst ) {
 					firstIndex = i;
 				}
 
-				if ( group.Elem == pSecond ) {
+				if ( elem == pSecond ) {
 					secondIndex = i;
 				}
 
 				if ( firstIndex != -1 && secondIndex != -1 ) {
 					return firstIndex.CompareTo(secondIndex);
 				}
+
+				i++;
 			}
 
 			return 0;

@@ -164,8 +164,8 @@ MonoBehaviour:
   ShowProximityDebugLines: 1
   ClickToRebuildRenderer: 0
   _IsBuilt: 1
-  OuterRadius: 0.12539999
-  InnerRadius: 0.0654
+  OuterRadius: 0.17999999
+  InnerRadius: 0.12
   ArcAngle: 12.685715
 --- !u!114 &3650575
 MonoBehaviour:
@@ -313,8 +313,8 @@ MonoBehaviour:
   ShowProximityDebugLines: 1
   ClickToRebuildRenderer: 0
   _IsBuilt: 1
-  OuterRadius: 0.12539999
-  InnerRadius: 0.0654
+  OuterRadius: 0.17999999
+  InnerRadius: 0.12
   ArcAngle: 12.685715
 --- !u!114 &25621393
 MonoBehaviour:
@@ -560,6 +560,14 @@ Prefab:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: _OuterRadius
+      value: 0.17999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: _InnerRadius
+      value: 0.12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
   m_IsPrefabParent: 0
@@ -616,7 +624,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0.09540087
+      value: 0.14999902
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_SizeDelta.x
@@ -672,11 +680,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: _InnerRadius
-      value: 0.07
+      value: 0.12
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: _ArcAngle
-      value: 33.6
+      value: 12.685715
       objectReference: {fileID: 0}
     - target: {fileID: 11435520, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_UVRect.x
@@ -762,6 +770,22 @@ Prefab:
       propertyPath: m_AnchoredPosition.y
       value: -5.6000004
       objectReference: {fileID: 0}
+    - target: {fileID: 22561748, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: m_Alpha
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: _OuterRadius
+      value: 0.17999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: EnabledAlpha
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: DisabledAlpha
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
   m_IsPrefabParent: 0
@@ -824,7 +848,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0.15000135
+      value: 0.15000165
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_SizeDelta.x
@@ -880,11 +904,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: _OuterRadius
-      value: 0.07
+      value: 0.17999999
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: _ArcAngle
-      value: 33.6
+      value: 22.35
       objectReference: {fileID: 0}
     - target: {fileID: 11435520, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_UVRect.x
@@ -970,6 +994,22 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 22561748, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: m_Alpha
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: _InnerRadius
+      value: 0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: _IsEnabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: DisabledAlpha
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
   m_IsPrefabParent: 0
@@ -1032,7 +1072,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0.09540087
+      value: 0.14999902
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_SizeDelta.x
@@ -1088,11 +1128,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: _InnerRadius
-      value: 0.07
+      value: 0.12
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: _ArcAngle
-      value: 33.6
+      value: 12.685715
       objectReference: {fileID: 0}
     - target: {fileID: 11435520, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_UVRect.x
@@ -1177,6 +1217,22 @@ Prefab:
     - target: {fileID: 22401858, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.y
       value: -5.6000004
+      objectReference: {fileID: 0}
+    - target: {fileID: 22561748, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: m_Alpha
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: _OuterRadius
+      value: 0.17999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: EnabledAlpha
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: DisabledAlpha
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
@@ -1470,7 +1526,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0.15000135
+      value: 0.15000165
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_SizeDelta.x
@@ -1526,11 +1582,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: _OuterRadius
-      value: 0.07
+      value: 0.17999999
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: _ArcAngle
-      value: 33.6
+      value: 22.35
       objectReference: {fileID: 0}
     - target: {fileID: 11435520, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_UVRect.x
@@ -1616,6 +1672,22 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 22561748, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: m_Alpha
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: _InnerRadius
+      value: 0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: _IsEnabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: DisabledAlpha
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
   m_IsPrefabParent: 0
@@ -1678,7 +1750,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0.09540087
+      value: 0.14999902
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_SizeDelta.x
@@ -1734,11 +1806,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: _InnerRadius
-      value: 0.07
+      value: 0.12
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: _ArcAngle
-      value: 33.6
+      value: 12.685715
       objectReference: {fileID: 0}
     - target: {fileID: 11435520, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_UVRect.x
@@ -1828,6 +1900,22 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 22561748, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: m_Alpha
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: _OuterRadius
+      value: 0.17999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: EnabledAlpha
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: DisabledAlpha
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
   m_IsPrefabParent: 0
@@ -1890,7 +1978,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0.15000135
+      value: 0.15000165
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_SizeDelta.x
@@ -1946,11 +2034,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: _OuterRadius
-      value: 0.07
+      value: 0.17999999
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: _ArcAngle
-      value: 33.6
+      value: 22.35
       objectReference: {fileID: 0}
     - target: {fileID: 11435520, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_UVRect.x
@@ -2034,6 +2122,22 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 192066, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22561748, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: m_Alpha
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: _InnerRadius
+      value: 0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: _IsEnabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: DisabledAlpha
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2132,8 +2236,8 @@ MonoBehaviour:
   ShowProximityDebugLines: 1
   ClickToRebuildRenderer: 0
   _IsBuilt: 1
-  OuterRadius: 0.12539999
-  InnerRadius: 0.0654
+  OuterRadius: 0.17999999
+  InnerRadius: 0.12
   ArcAngle: 12.685715
 --- !u!114 &783704066
 MonoBehaviour:
@@ -2518,7 +2622,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0.15000135
+      value: 0.15000165
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_SizeDelta.x
@@ -2574,11 +2678,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: _OuterRadius
-      value: 0.07
+      value: 0.17999999
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: _ArcAngle
-      value: 33.6
+      value: 22.35
       objectReference: {fileID: 0}
     - target: {fileID: 11435520, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_UVRect.x
@@ -2656,6 +2760,22 @@ Prefab:
       propertyPath: m_AnchoredPosition.y
       value: -5.6000004
       objectReference: {fileID: 0}
+    - target: {fileID: 22561748, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: m_Alpha
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: _InnerRadius
+      value: 0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: _IsEnabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: DisabledAlpha
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
   m_IsPrefabParent: 0
@@ -2677,9 +2797,11 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 966968833}
+  - 114: {fileID: 966968837}
   - 114: {fileID: 966968832}
   - 114: {fileID: 966968835}
   - 114: {fileID: 966968834}
+  - 114: {fileID: 966968836}
   m_Layer: 0
   m_Name: Hovercast
   m_TagString: Untagged
@@ -2702,7 +2824,7 @@ MonoBehaviour:
   CursorType: 0
   FollowCursorActive: 1
   FollowCursorPosition: 1
-  FollowCursorRotation: 1
+  FollowCursorRotation: 0
   ScaleUsingCursorSize: 0
   CursorSizeMultiplier: 1
   ObjectsToActivate:
@@ -2755,6 +2877,28 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: Hover.Interfaces.Cast.HovercastInterface+HovercastRowEvent, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+--- !u!114 &966968836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 966968831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30f8e8853fb3a44108bc84130535950b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &966968837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 966968831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1babd2bcabac74a3c8ee5dcc8f7e6b96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &971089810
 GameObject:
   m_ObjectHideFlags: 0
@@ -2997,8 +3141,8 @@ MonoBehaviour:
   ShowProximityDebugLines: 1
   ClickToRebuildRenderer: 0
   _IsBuilt: 1
-  OuterRadius: 0.12539999
-  InnerRadius: 0.0654
+  OuterRadius: 0.17999999
+  InnerRadius: 0.12
   ArcAngle: 12.685715
 --- !u!114 &1033958698
 MonoBehaviour:
@@ -3098,7 +3242,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0.09540087
+      value: 0.14999902
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_SizeDelta.x
@@ -3154,11 +3298,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: _InnerRadius
-      value: 0.15
+      value: 0.12
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: _ArcAngle
-      value: 17.84
+      value: 12.685715
       objectReference: {fileID: 0}
     - target: {fileID: 11435520, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_UVRect.x
@@ -3254,7 +3398,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: _OuterRadius
-      value: 0.18
+      value: 0.17999999
       objectReference: {fileID: 0}
     - target: {fileID: 11438058, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: OuterRadius
@@ -3263,6 +3407,18 @@ Prefab:
     - target: {fileID: 11491050, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: OuterRadius
       value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 22561748, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: m_Alpha
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: EnabledAlpha
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: DisabledAlpha
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
@@ -3343,6 +3499,22 @@ Prefab:
     - target: {fileID: 147886, guid: f925f042bfff56244ba8d73f11d2aa91, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11403972, guid: f925f042bfff56244ba8d73f11d2aa91, type: 2}
+      propertyPath: _OuterRadius
+      value: 0.17999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 11403972, guid: f925f042bfff56244ba8d73f11d2aa91, type: 2}
+      propertyPath: _InnerRadius
+      value: 0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 11420746, guid: f925f042bfff56244ba8d73f11d2aa91, type: 2}
+      propertyPath: _OuterRadius
+      value: 0.17999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 11420746, guid: f925f042bfff56244ba8d73f11d2aa91, type: 2}
+      propertyPath: _InnerRadius
+      value: 0.12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f925f042bfff56244ba8d73f11d2aa91, type: 2}
@@ -3434,8 +3606,8 @@ MonoBehaviour:
   ShowProximityDebugLines: 1
   ClickToRebuildRenderer: 0
   _IsBuilt: 1
-  OuterRadius: 0.12539999
-  InnerRadius: 0.0654
+  OuterRadius: 0.17999999
+  InnerRadius: 0.12
   ArcAngle: 12.685715
 --- !u!114 &1601764839
 MonoBehaviour:
@@ -3535,7 +3707,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0.09540087
+      value: 0.14999902
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_SizeDelta.x
@@ -3591,11 +3763,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: _InnerRadius
-      value: 0.15
+      value: 0.12
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: _ArcAngle
-      value: 17.84
+      value: 12.685715
       objectReference: {fileID: 0}
     - target: {fileID: 11435520, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_UVRect.x
@@ -3691,7 +3863,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: _OuterRadius
-      value: 0.18
+      value: 0.17999999
       objectReference: {fileID: 0}
     - target: {fileID: 11438058, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: OuterRadius
@@ -3708,6 +3880,18 @@ Prefab:
     - target: {fileID: 22455212, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22561748, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: m_Alpha
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: EnabledAlpha
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: DisabledAlpha
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
@@ -3771,7 +3955,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0.09540087
+      value: 0.14999902
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_SizeDelta.x
@@ -3827,11 +4011,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: _InnerRadius
-      value: 0.15
+      value: 0.12
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: _ArcAngle
-      value: 22.35
+      value: 12.685715
       objectReference: {fileID: 0}
     - target: {fileID: 11435520, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_UVRect.x
@@ -3927,7 +4111,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: _OuterRadius
-      value: 0.18
+      value: 0.17999999
       objectReference: {fileID: 0}
     - target: {fileID: 11438058, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: OuterRadius
@@ -3936,6 +4120,18 @@ Prefab:
     - target: {fileID: 11491050, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: OuterRadius
       value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 22561748, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: m_Alpha
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: EnabledAlpha
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: DisabledAlpha
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
@@ -4033,8 +4229,8 @@ MonoBehaviour:
   ShowProximityDebugLines: 1
   ClickToRebuildRenderer: 0
   _IsBuilt: 1
-  OuterRadius: 0.12539999
-  InnerRadius: 0.0654
+  OuterRadius: 0.17999999
+  InnerRadius: 0.12
   ArcAngle: 12.685715
 --- !u!114 &1695261412
 MonoBehaviour:
@@ -4442,7 +4638,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0.09540087
+      value: 0.14999902
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_SizeDelta.x
@@ -4498,11 +4694,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: _InnerRadius
-      value: 0.07
+      value: 0.12
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: _ArcAngle
-      value: 33.6
+      value: 12.685715
       objectReference: {fileID: 0}
     - target: {fileID: 11435520, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_UVRect.x
@@ -4587,6 +4783,22 @@ Prefab:
     - target: {fileID: 22401858, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.y
       value: -5.6000004
+      objectReference: {fileID: 0}
+    - target: {fileID: 22561748, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: m_Alpha
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: _OuterRadius
+      value: 0.17999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: EnabledAlpha
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: DisabledAlpha
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
@@ -4684,8 +4896,8 @@ MonoBehaviour:
   ShowProximityDebugLines: 1
   ClickToRebuildRenderer: 0
   _IsBuilt: 1
-  OuterRadius: 0.12539999
-  InnerRadius: 0.0654
+  OuterRadius: 0.17999999
+  InnerRadius: 0.12
   ArcAngle: 12.685715
 --- !u!114 &2091804079
 MonoBehaviour:

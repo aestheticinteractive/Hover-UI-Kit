@@ -1,13 +1,15 @@
 ﻿using System.Diagnostics;
 using Hover.Layouts.Arc;
+using Hover.Utils;
 using UnityEngine;
 
 namespace Hover.Interfaces.Cast {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
+	[RequireComponent(typeof(TreeUpdater))]
 	[RequireComponent(typeof(HovercastInterface))]
-	public class HovercastRowTransitioner : MonoBehaviour {
+	public class HovercastRowTransitioner : MonoBehaviour, ITreeUpdateable {
 
 		public float RowThickness = 0.06f;
 		public float InnerRadius = 0.12f;
@@ -30,7 +32,7 @@ namespace Hover.Interfaces.Cast {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		public void Update() {
+		public void TreeUpdate() {
 			UpdateTimedProgress();
 			UpdateRows();
 		}
@@ -50,7 +52,7 @@ namespace Hover.Interfaces.Cast {
 				vTimer = Stopwatch.StartNew();
 			}
 
-			Update();
+			TreeUpdate();
 		}
 
 		
@@ -79,6 +81,11 @@ namespace Hover.Interfaces.Cast {
 
 			cast.ArcStack.InnerRadius = InnerRadius;
 			cast.ArcStack.OuterRadius = InnerRadius + RowThickness*(isTransitionDone ? 1 : 2);
+			cast.ActiveRow.gameObject.SetActive(true);
+
+			if ( hasPrevRow ) {
+				cast.PreviousRow.gameObject.SetActive(!isTransitionDone); //before "childOrder"
+			}
 
 			if ( !isTransitionDone ) {
 				childOrder = cast.ArcStack.GetChildOrder(cast.PreviousRow, cast.ActiveRow);
@@ -107,13 +114,11 @@ namespace Hover.Interfaces.Cast {
 				HoverLayoutArcRelativeSizer prevSizer = GetRelativeSizer(cast.PreviousRow);
 				prevSizer.RelativeRadiusOffset = radOffset;
 				//prevSizer.RelativeArcAngle = Mathf.Lerp(1, 0, TransitionProgress);
-				cast.PreviousRow.gameObject.SetActive(!isTransitionDone);
 			}
 
 			HoverLayoutArcRelativeSizer activeSizer = GetRelativeSizer(cast.ActiveRow);
 			activeSizer.RelativeRadiusOffset = radOffset;
 			//activeSizer.RelativeArcAngle = Mathf.Lerp(0, 1, TransitionProgress);
-			cast.ActiveRow.gameObject.SetActive(true);
 		}
 		
 

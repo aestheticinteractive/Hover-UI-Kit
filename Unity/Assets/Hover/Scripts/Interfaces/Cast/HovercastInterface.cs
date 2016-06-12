@@ -1,5 +1,6 @@
 ﻿using System;
 using Hover.Layouts.Arc;
+using Hover.Utils;
 using UnityEngine;
 using UnityEngine.Events;
 using Debug = UnityEngine.Debug;
@@ -8,7 +9,8 @@ namespace Hover.Interfaces.Cast {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
-	public class HovercastInterface : MonoBehaviour {
+	[RequireComponent(typeof(TreeUpdater))]
+	public class HovercastInterface : MonoBehaviour, ITreeUpdateable {
 
 		[Serializable]
 		public class HovercastRowEvent : UnityEvent<HovercastRowSwitcher.RowEntryType> {}
@@ -30,6 +32,16 @@ namespace Hover.Interfaces.Cast {
 			if ( ActiveRow == null ) {
 				ActiveRow = GetComponentInChildren<HoverLayoutArcRow>();
 			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void Start() {
+			//do nothing...
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void TreeUpdate() {
+			//do nothing...
 		}
 
 
