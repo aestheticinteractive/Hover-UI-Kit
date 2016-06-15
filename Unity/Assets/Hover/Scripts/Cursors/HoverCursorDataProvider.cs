@@ -79,14 +79,14 @@ namespace Hover.Cursors {
 		/*--------------------------------------------------------------------------------------------*/
 		public void MarkAllCursorsUnused() {
 			for ( int i = 0 ; i < vCursorsForInput.Count ; i++ ) {
-				vCursorsForInput[i].SetUsage(false);
+				vCursorsForInput[i].SetUsedByInput(false);
 			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void ActivateAllCursorsBasedOnUsage() {
 			for ( int i = 0 ; i < Cursors.Count ; i++ ) {
-				vCursorsForInput[i].ActivateBasedOnUsage();
+				vCursorsForInput[i].ActivateIfUsedByInput();
 			}
 		}
 

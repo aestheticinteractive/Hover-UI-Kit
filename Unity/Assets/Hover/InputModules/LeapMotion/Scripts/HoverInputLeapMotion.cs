@@ -80,7 +80,7 @@ namespace Hover.InputModules.LeapMotion {
 			data.SetWorldPosition(palmPos.ToVector3());
 			data.SetWorldRotation(pLeapHand.Basis.CalculateRotation());
 			data.SetSize(pLeapHand.PalmWidth);
-			data.SetUsage(true);
+			data.SetUsedByInput(true);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -99,7 +99,7 @@ namespace Hover.InputModules.LeapMotion {
 			data.SetWorldPosition(tipPos.ToVector3());
 			data.SetWorldRotation(distalBone.Basis.CalculateRotation());
 			data.SetSize(pLeapFinger.Width);
-			data.SetUsage(true);
+			data.SetUsedByInput(true);
 		}
 
 

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Hover.Cursors {
 
@@ -8,11 +7,10 @@ namespace Hover.Cursors {
 	public class HoverCursorData : MonoBehaviour, IHoverCursorDataForInput {
 
 		[SerializeField]
-		[FormerlySerializedAs("Type")]
 		public CursorType _Type;
 		
 		[SerializeField]
-		public bool _AllowUsage = true;
+		public CursorCapabilityType _Capability = CursorCapabilityType.Full;
 
 		[SerializeField]
 		public float _Size = 1;
@@ -26,15 +24,20 @@ namespace Hover.Cursors {
 		public CursorType Type {
 			get { return _Type; }
 		}
-
+		
 		/*--------------------------------------------------------------------------------------------*/
 		public bool IsActive {
-			get { return (enabled && AllowUsage); }
+			get { return (isActiveAndEnabled && Capability != CursorCapabilityType.None); }
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public bool CanCauseSelections {
+			get { return (isActiveAndEnabled && Capability == CursorCapabilityType.Full); }
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public bool AllowUsage {
-			get { return _AllowUsage; }
+		public CursorCapabilityType Capability {
+			get { return _Capability; }
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -60,8 +63,8 @@ namespace Hover.Cursors {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void SetAllowUsage(bool pAllowUsage) {
-			_AllowUsage = pAllowUsage;
+		public void SetCapability(CursorCapabilityType pCapability) {
+			_Capability = pCapability;
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
@@ -79,13 +82,15 @@ namespace Hover.Cursors {
 			transform.rotation = pWorldRotation;
 		}
 		
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void SetUsage(bool pIsUsed) {
+		public void SetUsedByInput(bool pIsUsed) {
 			enabled = pIsUsed;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void ActivateBasedOnUsage() {
+		public void ActivateIfUsedByInput() {
 			gameObject.SetActive(IsActive);
 		}
 	}

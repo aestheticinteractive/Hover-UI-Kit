@@ -7,7 +7,8 @@ namespace Hover.Cursors {
 
 		CursorType Type { get; }
 		bool IsActive { get; }
-		bool AllowUsage { get; }
+		bool CanCauseSelections { get; }
+		CursorCapabilityType Capability { get; }
 		float Size { get; }
 		float DisplayStrength { get; }
 		Vector3 WorldPosition { get; }
