@@ -11,14 +11,19 @@ namespace Hover.Interfaces.Cast {
 	[RequireComponent(typeof(HovercastInterface))]
 	public class HovercastRowTransitioner : MonoBehaviour, ITreeUpdateable {
 
+		public float TransitionProgressCurved { get; private set; }
+
 		public float RowThickness = 0.06f;
 		public float InnerRadius = 0.12f;
 
 		[Range(0, 1)]
 		public float TransitionProgress = 1;
+		
+		[Range(0.1f, 10)]
+		public float TransitionExponent = 3;
 
 		[Range(1, 10000)]
-		public float TransitionMilliseconds = 400;
+		public float TransitionMilliseconds = 1000;
 
 		public HovercastRowSwitcher.RowEntryType RowEntryTransition;
 
@@ -79,6 +84,8 @@ namespace Hover.Interfaces.Cast {
 			float radOffset = 0;
 			int childOrder = 0;
 
+			TransitionProgressCurved = 1-Mathf.Pow(1-TransitionProgress, TransitionExponent);
+
 			cast.ArcStack.InnerRadius = InnerRadius;
 			cast.ArcStack.OuterRadius = InnerRadius + RowThickness*(isTransitionDone ? 1 : 2);
 			cast.ActiveRow.gameObject.SetActive(true);
@@ -98,14 +105,14 @@ namespace Hover.Interfaces.Cast {
 					break;
 
 				case HovercastRowSwitcher.RowEntryType.FromInside:
-					radOffset = (isTransitionDone ? 0 : TransitionProgress-1);
+					radOffset = (isTransitionDone ? 0 : TransitionProgressCurved-1);
 					cast.ArcStack.Arrangement = (childOrder > 0 ?
 						HoverLayoutArcStack.ArrangementType.InnerToOuter :
 						HoverLayoutArcStack.ArrangementType.OuterToInner);
 					break;
 					
 				case HovercastRowSwitcher.RowEntryType.FromOutside:
-					radOffset = (isTransitionDone ? 0 : -TransitionProgress);
+					radOffset = (isTransitionDone ? 0 : -TransitionProgressCurved);
 					cast.ArcStack.Arrangement = (childOrder > 0 ?
 						HoverLayoutArcStack.ArrangementType.OuterToInner :
 						HoverLayoutArcStack.ArrangementType.InnerToOuter);
@@ -115,12 +122,12 @@ namespace Hover.Interfaces.Cast {
 			if ( hasPrevRow ) {
 				HoverLayoutArcRelativeSizer prevSizer = GetRelativeSizer(cast.PreviousRow);
 				prevSizer.RelativeRadiusOffset = radOffset;
-				//prevSizer.RelativeArcAngle = Mathf.Lerp(1, 0, TransitionProgress);
+				//prevSizer.RelativeArcAngle = Mathf.Lerp(1, 0, TransitionProgressCurved);
 			}
 
 			HoverLayoutArcRelativeSizer activeSizer = GetRelativeSizer(cast.ActiveRow);
 			activeSizer.RelativeRadiusOffset = radOffset;
-			//activeSizer.RelativeArcAngle = Mathf.Lerp(0, 1, TransitionProgress);
+			//activeSizer.RelativeArcAngle = Mathf.Lerp(0, 1, TransitionProgressCurved);
 		}
 		
 

@@ -29,11 +29,11 @@ namespace Hover.Renderers.Packs.Alpha.Interfaces {
 			HovercastRowTransitioner trans = gameObject.GetComponent<HovercastRowTransitioner>();
 
 			if ( cast.PreviousRow != null && cast.PreviousRow.gameObject.activeSelf ) {
-				FadeRow(cast.PreviousRow, 1-trans.TransitionProgress);
+				FadeRow(cast.PreviousRow, 1-trans.TransitionProgressCurved);
 			}
 
 			if ( cast.ActiveRow.gameObject.activeSelf ) {
-				FadeRow(cast.ActiveRow, trans.TransitionProgress);
+				FadeRow(cast.ActiveRow, trans.TransitionProgressCurved);
 			}
 		}
 
