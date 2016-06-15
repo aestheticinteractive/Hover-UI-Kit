@@ -87,6 +87,8 @@ namespace Hover.Interfaces.Cast {
 				cast.PreviousRow.gameObject.SetActive(!isTransitionDone); //before "childOrder"
 			}
 
+			cast.ArcStack.DisableAllChildrenExcept(cast.ActiveRow, cast.PreviousRow);
+
 			if ( !isTransitionDone ) {
 				childOrder = cast.ArcStack.GetChildOrder(cast.PreviousRow, cast.ActiveRow);
 			}
