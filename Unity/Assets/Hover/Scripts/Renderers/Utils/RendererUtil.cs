@@ -177,23 +177,22 @@ namespace Hover.Renderers.Utils {
 		public static Vector3 GetNearestWorldPositionOnArc(Vector3 pFromWorldPosition, 
 						Transform pArcTx, float pOuterRadius, float pInnerRadius, float pArcAngle) {
 			Vector3 fromLocalPos = pArcTx.InverseTransformPoint(pFromWorldPosition);
+
+			if ( fromLocalPos.x == 0 && fromLocalPos.y == 0 ) {
+				return pArcTx.TransformPoint(new Vector3(pInnerRadius, 0, 0));
+			}
+
 			fromLocalPos.z = 0;
 
 			float fromLocalPosMag = fromLocalPos.magnitude;
 			Vector3 fromLocalDir = fromLocalPos/fromLocalPosMag;
+			Quaternion fromLocalRot = Quaternion.FromToRotation(Vector3.right, fromLocalDir);
 			float halfAngle = pArcAngle/2;
 			float fromRadius = Mathf.Clamp(fromLocalPosMag, pInnerRadius, pOuterRadius);
 			float fromAngle;
 			Vector3 fromAxis;
 
-			if ( Mathf.Abs(Vector3.Dot(Vector3.right, fromLocalDir)) < 0.999f ) {
-				Quaternion fromLocalRot = Quaternion.FromToRotation(Vector3.right, fromLocalDir);
-				fromLocalRot.ToAngleAxis(out fromAngle, out fromAxis);
-			}
-			else {
-				fromAxis = Vector3.forward;
-				fromAngle = 0;
-			}
+			fromLocalRot.ToAngleAxis(out fromAngle, out fromAxis);
 
 			if ( fromLocalPos.x > 0 && fromAngle >= -halfAngle && fromAngle <= halfAngle ) {
 				Quaternion nearLocalRot = Quaternion.AngleAxis(fromAngle, fromAxis);
