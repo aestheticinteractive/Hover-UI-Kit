@@ -250,7 +250,7 @@ namespace Hover.Renderers {
 		/*--------------------------------------------------------------------------------------------*/
 		protected virtual void UpdateSliderSettings(
 									HoverItem pHoverItem, HoverItemHighlightState pHighState) {
-			SliderItem data = (SliderItem)pHoverItem.Data;
+			HoverItemDataSlider data = (HoverItemDataSlider)pHoverItem.Data;
 			HoverItemHighlightState.Highlight? high = pHighState.NearestHighlight;
 			float highProg = pHighState.MaxHighlightProgress;
 

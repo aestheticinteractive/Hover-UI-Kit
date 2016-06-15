@@ -1,19 +1,17 @@
 ﻿using System;
-using Hover.Items.Groups;
 
 namespace Hover.Items.Types {
 
 	/*================================================================================================*/
 	[Serializable]
-	public class ParentItem : SelectableItem, IParentItem {
-
-		public IItemGroup ChildGroup { get; private set; }
+	public class HoverItemDataCheckbox : SelectableItemBool, ICheckboxItem {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void InitChildGroup(Func<IBaseItem[]> pGetItems) {
-			ChildGroup = new ItemGroup(pGetItems);
+		public override void Select() {
+			Value = !Value;
+			base.Select();
 		}
 
 	}

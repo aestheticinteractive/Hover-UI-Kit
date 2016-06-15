@@ -12,7 +12,7 @@ namespace Hover.Items.Groups {
 		public event ItemEvents.GroupItemSelectedHandler OnItemSelection;
 
 		public string Title { get; set; }
-		public SelectorItem NavigateBackItem { get; private set; }
+		public HoverItemDataSelector NavigateBackItem { get; private set; }
 
 		private IItemGroup vCurrLevel;
 		private readonly Stack<IItemGroup> vHistory;
@@ -23,7 +23,7 @@ namespace Hover.Items.Groups {
 		public ItemHierarchy() {
 			vHistory = new Stack<IItemGroup>();
 
-			NavigateBackItem = new SelectorItem();
+			NavigateBackItem = new HoverItemDataSelector();
 			NavigateBackItem.Id = NavigateBackItemId;
 			NavigateBackItem.IsEnabled = true;
 			NavigateBackItem.IsVisible = true;

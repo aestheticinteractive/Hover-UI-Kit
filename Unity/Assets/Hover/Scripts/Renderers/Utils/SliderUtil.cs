@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Hover.Items.Types;
+using Hover.Items;
 using UnityEngine;
 
 namespace Hover.Renderers.Utils {
@@ -43,7 +43,7 @@ namespace Hover.Renderers.Utils {
 
 		[Serializable]
 		public struct SliderInfo {
-			public SliderItem.FillType FillType;
+			public SliderFillType FillType;
 			public float TrackStartPosition;
 			public float TrackEndPosition;
 			public float HandleSize;
@@ -96,7 +96,7 @@ namespace Hover.Renderers.Utils {
 
 			////
 
-			if ( pInfo.FillType == SliderItem.FillType.Zero ) {
+			if ( pInfo.FillType == SliderFillType.Zero ) {
 				var zeroSeg = new SegmentInfo {
 					Type = SegmentType.Zero,
 					StartPositionType = PositionType.Zero,
@@ -160,15 +160,15 @@ namespace Hover.Renderers.Utils {
 			SegmentType fillToSegType;
 
 			switch ( pInfo.FillType ) {
-				case SliderItem.FillType.Zero:
+				case SliderFillType.Zero:
 					fillToSegType = SegmentType.Zero;
 					break;
 
-				case SliderItem.FillType.MinimumValue:
+				case SliderFillType.MinimumValue:
 					fillToSegType = SegmentType.Start;
 					break;
 			
-				case SliderItem.FillType.MaximumValue:
+				case SliderFillType.MaximumValue:
 					fillToSegType = SegmentType.End;
 					break;
 

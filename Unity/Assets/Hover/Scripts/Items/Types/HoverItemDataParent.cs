@@ -1,21 +1,19 @@
 ﻿using System;
-using UnityEngine;
+using Hover.Items.Groups;
 
 namespace Hover.Items.Types {
 
 	/*================================================================================================*/
 	[Serializable]
-	public class SelectorItem : SelectableItem, ISelectorItem {
-		
-		[SerializeField]
-		private bool _NavigateBackUponSelect;
+	public class HoverItemDataParent : SelectableItem, IParentItem {
 
-		
+		public IItemGroup ChildGroup { get; private set; }
+
+
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public bool NavigateBackUponSelect {
-			get { return _NavigateBackUponSelect; }
-			set { _NavigateBackUponSelect = value; }
+		public void InitChildGroup(Func<IBaseItem[]> pGetItems) {
+			ChildGroup = new ItemGroup(pGetItems);
 		}
 
 	}

@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Hover.Items.Types;
+using Hover.Items;
 using Hover.Renderers.Contents;
 using Hover.Renderers.Shapes.Rect;
 using Hover.Renderers.Utils;
@@ -55,7 +55,7 @@ namespace Hover.Renderers.Packs.Alpha.Rect {
 
 		[SerializeField]
 		[DisableWhenControlled]
-		private SliderItem.FillType _FillStartingPoint = SliderItem.FillType.Zero;
+		private SliderFillType _FillStartingPoint = SliderFillType.Zero;
 
 		private readonly List<SliderUtil.SegmentInfo> vSegmentInfoList;
 		private readonly List<SliderUtil.SegmentInfo> vTickInfoList;
@@ -101,7 +101,7 @@ namespace Hover.Renderers.Packs.Alpha.Rect {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		public SliderItem.FillType FillStartingPoint {
+		public SliderFillType FillStartingPoint {
 			get { return _FillStartingPoint; }
 			set { _FillStartingPoint = value; }
 		}

@@ -4,14 +4,13 @@ namespace Hover.Items.Types {
 
 	/*================================================================================================*/
 	[Serializable]
-	public class CheckboxItem : SelectableItemBool, ICheckboxItem {
+	public class HoverItemDataSticky : SelectableItem, IStickyItem {
 
-
+		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public override void Select() {
-			Value = !Value;
-			base.Select();
+		protected override bool UsesStickySelection() {
+			return true;
 		}
 
 	}

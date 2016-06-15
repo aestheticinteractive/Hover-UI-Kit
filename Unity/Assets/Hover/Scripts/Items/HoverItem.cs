@@ -199,29 +199,29 @@ namespace Hover.Items {
 		private HoverItemData BuildData(HoverItemType pType) {
 			switch ( pType ) {
 				case HoverItemType.Parent:
-					ParentItem parent = gameObject.AddComponent<ParentItem>();
-					parent.InitChildGroup(GetChildItems);
-					return parent;
+					HoverItemDataParent parentData = gameObject.AddComponent<HoverItemDataParent>();
+					parentData.InitChildGroup(GetChildItems);
+					return parentData;
 
 				case HoverItemType.Selector:
-					return gameObject.AddComponent<SelectorItem>();
+					return gameObject.AddComponent<HoverItemDataSelector>();
 
 				case HoverItemType.Sticky:
-					return gameObject.AddComponent<StickyItem>();
+					return gameObject.AddComponent<HoverItemDataSticky>();
 
 				case HoverItemType.Checkbox:
-					return gameObject.AddComponent<CheckboxItem>();
+					return gameObject.AddComponent<HoverItemDataCheckbox>();
 
 				case HoverItemType.Radio:
-					RadioItem radio = gameObject.AddComponent<RadioItem>();
-					radio.InitDefaultGroupId(gameObject.transform.parent);
-					return radio;
+					HoverItemDataRadio radioData = gameObject.AddComponent<HoverItemDataRadio>();
+					radioData.InitDefaultGroupId(gameObject.transform.parent);
+					return radioData;
 
 				case HoverItemType.Slider:
-					return gameObject.AddComponent<SliderItem>();
+					return gameObject.AddComponent<HoverItemDataSlider>();
 
 				case HoverItemType.Text:
-					return gameObject.AddComponent<TextItem>();
+					return gameObject.AddComponent<HoverItemDataText>();
 
 				default:
 					throw new InvalidEnumArgumentException("Unhandled type: "+pType);

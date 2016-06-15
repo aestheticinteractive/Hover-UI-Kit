@@ -1,4 +1,4 @@
-﻿using Hover.Items.Types;
+﻿using Hover.Items;
 using UnityEngine;
 
 namespace Hover.Renderers {
@@ -11,7 +11,7 @@ namespace Hover.Renderers {
 		float JumpValue { get; set; }
 		bool AllowJump { get; set; }
 		int TickCount { get; set; }
-		SliderItem.FillType FillStartingPoint { get; set; }
+		SliderFillType FillStartingPoint { get; set; }
 		
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////

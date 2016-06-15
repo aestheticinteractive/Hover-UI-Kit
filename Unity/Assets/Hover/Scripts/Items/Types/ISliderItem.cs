@@ -12,7 +12,7 @@ namespace Hover.Items.Types {
 		float RangeMax { get; }
 		Func<ISliderItem, string> GetFormattedLabel { get; }
 		bool AllowJump { get; }
-		SliderItem.FillType FillStartingPoint { get; }
+		SliderFillType FillStartingPoint { get; }
 		
 		float RangeValue { get; }
 		float SnappedValue { get; }

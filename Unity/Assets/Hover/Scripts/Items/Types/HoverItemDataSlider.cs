@@ -5,13 +5,7 @@ namespace Hover.Items.Types {
 
 	/*================================================================================================*/
 	[Serializable]
-	public class SliderItem : SelectableItemFloat, ISliderItem {
-
-		public enum FillType {
-			MinimumValue,
-			Zero,
-			MaximumValue
-		}
+	public class HoverItemDataSlider : SelectableItemFloat, ISliderItem {
 
 		public Func<ISliderItem, string> GetFormattedLabel { get; set; }
 
@@ -34,7 +28,7 @@ namespace Hover.Items.Types {
 		private bool _AllowJump = false;
 
 		[SerializeField]
-		private FillType _FillStartingPoint = FillType.Zero;
+		private SliderFillType _FillStartingPoint = SliderFillType.Zero;
 		
 		private float? vHoverValue;
 		private string vPrevLabel;
@@ -45,7 +39,7 @@ namespace Hover.Items.Types {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public SliderItem() {
+		public HoverItemDataSlider() {
 			_Value = 0.5f;
 
 			GetFormattedLabel = (s => {
@@ -102,7 +96,7 @@ namespace Hover.Items.Types {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public FillType FillStartingPoint {
+		public SliderFillType FillStartingPoint {
 			get { return _FillStartingPoint; }
 			set { _FillStartingPoint = value; }
 		}

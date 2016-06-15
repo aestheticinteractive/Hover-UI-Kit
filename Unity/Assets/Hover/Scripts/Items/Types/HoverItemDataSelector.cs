@@ -1,16 +1,21 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Hover.Items.Types {
 
 	/*================================================================================================*/
 	[Serializable]
-	public class StickyItem : SelectableItem, IStickyItem {
+	public class HoverItemDataSelector : SelectableItem, ISelectorItem {
+		
+		[SerializeField]
+		private bool _NavigateBackUponSelect;
 
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected override bool UsesStickySelection() {
-			return true;
+		public bool NavigateBackUponSelect {
+			get { return _NavigateBackUponSelect; }
+			set { _NavigateBackUponSelect = value; }
 		}
 
 	}

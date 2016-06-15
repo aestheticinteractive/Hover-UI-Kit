@@ -60,10 +60,10 @@ namespace Hover.Editor.Items {
 			
 			////
 
-			SelectorItem selectorData = (vData as SelectorItem);
-			CheckboxItem checkboxData = (vData as CheckboxItem);
-			RadioItem radioData = (vData as RadioItem);
-			SliderItem sliderData = (vData as SliderItem);
+			HoverItemDataSelector selectorData = (vData as HoverItemDataSelector);
+			HoverItemDataCheckbox checkboxData = (vData as HoverItemDataCheckbox);
+			HoverItemDataRadio radioData = (vData as HoverItemDataRadio);
+			HoverItemDataSlider sliderData = (vData as HoverItemDataSlider);
 
 			if ( selectorData != null ) {
 				EditorGUILayout.PropertyField(serializedObject.FindProperty("_NavigateBackUponSelect"));
