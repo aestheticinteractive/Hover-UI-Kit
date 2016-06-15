@@ -177,9 +177,9 @@ namespace Hover.Renderers.Packs.Alpha.Arc {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		private HoverAlphaRendererArcButton BuildButton(string pName) {
-			var ArcGo = new GameObject(pName);
-			ArcGo.transform.SetParent(Container.transform, false);
-			return ArcGo.AddComponent<HoverAlphaRendererArcButton>();
+			var arcGo = new GameObject(pName);
+			arcGo.transform.SetParent(Container.transform, false);
+			return arcGo.AddComponent<HoverAlphaRendererArcButton>();
 		}
 		
 
@@ -240,9 +240,6 @@ namespace Hover.Renderers.Packs.Alpha.Arc {
 			HandleButton.Fill.Controllers.Set(HoverFillArcButton.SelectionProgressName, cont);
 			JumpButton.Fill.Controllers.Set(HoverFillArcButton.HighlightProgressName, cont);
 			JumpButton.Fill.Controllers.Set(HoverFillArcButton.SelectionProgressName, cont);
-			
-			HandleButton.Fill.Edge.Controllers.Set("GameObject.activeSelf", cont);
-			JumpButton.Fill.Edge.Controllers.Set("GameObject.activeSelf", cont);
 			
 			HandleButton.Canvas.Label.Controllers.Set("Text.text", cont);
 		}
@@ -330,8 +327,8 @@ namespace Hover.Renderers.Packs.Alpha.Arc {
 
 			HandleButton.LabelText = LabelText;
 			
-			RendererUtil.SetActiveWithUpdate(HandleButton.Fill.Edge, ShowEdge);
-			RendererUtil.SetActiveWithUpdate(JumpButton.Fill.Edge, ShowEdge);
+			HandleButton.ShowEdge = ShowEdge;
+			JumpButton.ShowEdge = ShowEdge;
 		}
 		
 	}

@@ -253,10 +253,12 @@ namespace Hover.Renderers {
 			HoverItemDataSlider data = (HoverItemDataSlider)pHoverItem.Data;
 			HoverItemHighlightState.Highlight? high = pHighState.NearestHighlight;
 			float highProg = pHighState.MaxHighlightProgress;
-
+			bool isNearest = pHighState.IsNearestAcrossAllItemsForAnyCursor;
+			
 			SliderRenderer.HighlightProgress = highProg;
+			SliderRenderer.ShowEdge = isNearest;
 
-			if ( high == null || highProg <= 0 ) {
+			if ( high == null || highProg <= 0 || !isNearest ) {
 				data.HoverValue = null;
 				SliderRenderer.JumpValue = -1;
 				return;

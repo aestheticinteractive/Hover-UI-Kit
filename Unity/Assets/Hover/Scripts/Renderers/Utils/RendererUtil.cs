@@ -153,7 +153,7 @@ namespace Hover.Renderers.Utils {
 			go.SetActive(pIsActive);
 
 			if ( pIsActive && !wasActive ) {
-				go.SendMessage("Update", SendMessageOptions.DontRequireReceiver);
+				go.SendMessage("TreeUpdate", SendMessageOptions.DontRequireReceiver);
 			}
 		}
 

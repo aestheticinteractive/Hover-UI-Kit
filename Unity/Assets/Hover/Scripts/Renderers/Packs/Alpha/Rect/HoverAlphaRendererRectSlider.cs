@@ -228,9 +228,6 @@ namespace Hover.Renderers.Packs.Alpha.Rect {
 			JumpButton.Fill.Controllers.Set(HoverFillRectButton.HighlightProgressName, cont);
 			JumpButton.Fill.Controllers.Set(HoverFillRectButton.SelectionProgressName, cont);
 			
-			HandleButton.Fill.Edge.Controllers.Set("GameObject.activeSelf", cont);
-			JumpButton.Fill.Edge.Controllers.Set("GameObject.activeSelf", cont);
-			
 			HandleButton.Canvas.Label.Controllers.Set("Text.text", cont);
 		}
 		
@@ -314,8 +311,8 @@ namespace Hover.Renderers.Packs.Alpha.Rect {
 
 			HandleButton.LabelText = LabelText;
 			
-			RendererUtil.SetActiveWithUpdate(HandleButton.Fill.Edge, ShowEdge);
-			RendererUtil.SetActiveWithUpdate(JumpButton.Fill.Edge, ShowEdge);
+			HandleButton.ShowEdge = ShowEdge;
+			JumpButton.ShowEdge = ShowEdge;
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
