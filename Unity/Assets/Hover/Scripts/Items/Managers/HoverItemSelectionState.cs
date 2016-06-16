@@ -1,4 +1,5 @@
 using System;
+using Hover.Cursors;
 using UnityEngine;
 
 namespace Hover.Items.Managers {
@@ -32,6 +33,12 @@ namespace Hover.Items.Managers {
 					float minHighDist = (nearestHigh == null ? 
 						float.MaxValue : nearestHigh.Value.Distance);
 
+					/*if ( nearestHigh != null ) {
+						IHoverCursorData cursor = nearestHigh.Value.Cursor;
+						cursor.MaxItemSelectionProgress = Mathf.Max(
+							cursor.MaxItemSelectionProgress, prog);
+					}*/
+
 					return Mathf.InverseLerp(highState.InteractionSettings.StickyReleaseDistance,
 						vDistanceUponSelection, minHighDist);
 				}
@@ -46,7 +53,7 @@ namespace Hover.Items.Managers {
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
 			TryResetSelection();
-			UpdateSelectionProgress();
+			UpdateState();
 		}
 		
 
@@ -68,7 +75,7 @@ namespace Hover.Items.Managers {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private bool UpdateSelectionProgress() {
+		private bool UpdateState() {
 			HoverItemData itemData = GetComponent<HoverItem>().Data;
 			ISelectableItem selData = (itemData as ISelectableItem);
 
@@ -78,7 +85,7 @@ namespace Hover.Items.Managers {
 
 			////
 
-			float selectProg = SelectionProgress;
+			float selectProg = SelectionProgress; //TODO: separate getter from progress calculation
 			HoverItemHighlightState highState = GetComponent<HoverItemHighlightState>();
 			
 			bool canSelect = (

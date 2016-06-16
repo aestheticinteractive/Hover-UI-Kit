@@ -62,18 +62,23 @@ namespace Hover.Items.Managers {
 			
 			for ( int i = 0 ; i < cursorCount ; i++ ) {
 				IHoverCursorData cursor = cursors[i];
+				cursor.MaxItemHighlightProgress = 0;
+				//cursor.MaxItemSelectionProgress = 0;
 
 				if ( !cursor.CanCauseSelections ) {
 					continue;
 				}
 
-				HoverItemHighlightState item = FindNearestItemToCursor(cursor.Type);
+				HoverItemHighlightState highState = FindNearestItemToCursor(cursor.Type);
 
-				if ( item == null ) {
+				if ( highState == null ) {
 					continue;
 				}
 
-				item.SetNearestAcrossAllItemsForCursor(cursor.Type);
+				highState.SetNearestAcrossAllItemsForCursor(cursor.Type);
+
+				cursor.MaxItemHighlightProgress = Mathf.Max(
+					cursor.MaxItemHighlightProgress, highState.MaxHighlightProgress);
 			}
 		}
 		
