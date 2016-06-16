@@ -17,6 +17,8 @@ namespace Hover.Cursors {
 
 		[DisableWhenControlled]
 		public bool FollowCursorActive = true;
+		
+		public GameObject[] ObjectsToActivate; //should not include self or parent
 
 		[DisableWhenControlled]
 		public bool FollowCursorPosition = true;
@@ -29,8 +31,6 @@ namespace Hover.Cursors {
 
 		[DisableWhenControlled]
 		public float CursorSizeMultiplier = 1;
-
-		public GameObject[] ObjectsToActivate; //should not include self or parent
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

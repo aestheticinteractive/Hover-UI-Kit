@@ -19,7 +19,7 @@ namespace Hover.Renderers.Shapes.Arc {
 		[DisableWhenControlled(RangeMin=0, RangeMax=360)]
 		public float ArcAngle = 60;
 
-		[DisableWhenControlled(RangeMin=0.1f, RangeMax=10)]
+		[DisableWhenControlled(RangeMin=0.05f, RangeMax=10)]
 		public float ArcSegmentsPerDegree = 0.5f;
 		
 		private float vPrevOuterRadius;
