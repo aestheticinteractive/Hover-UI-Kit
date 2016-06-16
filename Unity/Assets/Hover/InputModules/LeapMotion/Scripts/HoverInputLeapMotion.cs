@@ -13,6 +13,8 @@ namespace Hover.InputModules.LeapMotion {
 	[ExecuteInEditMode]
 	public class HoverInputLeapMotion : MonoBehaviour {
 
+		private static readonly Quaternion RotationFix = Quaternion.Euler(90, 90, -90);
+
 		public HoverCursorDataProvider CursorDataProvider;
 		public LeapServiceProvider LeapServiceProvider;
 		public bool UseStabilizedPositions = false;
@@ -78,7 +80,7 @@ namespace Hover.InputModules.LeapMotion {
 
 			IHoverCursorDataForInput data = CursorDataProvider.GetCursorDataForInput(cursorType);
 			data.SetWorldPosition(palmPos.ToVector3());
-			data.SetWorldRotation(pLeapHand.Basis.CalculateRotation());
+			data.SetWorldRotation(pLeapHand.Basis.CalculateRotation()*RotationFix);
 			data.SetSize(pLeapHand.PalmWidth);
 			data.SetUsedByInput(true);
 		}
@@ -97,7 +99,7 @@ namespace Hover.InputModules.LeapMotion {
 
 			IHoverCursorDataForInput data = CursorDataProvider.GetCursorDataForInput(cursorType);
 			data.SetWorldPosition(tipPos.ToVector3());
-			data.SetWorldRotation(distalBone.Basis.CalculateRotation());
+			data.SetWorldRotation(distalBone.Basis.CalculateRotation()*RotationFix);
 			data.SetSize(pLeapFinger.Width);
 			data.SetUsedByInput(true);
 		}

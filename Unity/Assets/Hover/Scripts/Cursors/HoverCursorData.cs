@@ -27,12 +27,12 @@ namespace Hover.Cursors {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public bool IsActive {
-			get { return (isActiveAndEnabled && Capability != CursorCapabilityType.None); }
+			get { return isActiveAndEnabled; }
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public bool CanCauseSelections {
-			get { return (isActiveAndEnabled && Capability == CursorCapabilityType.Full); }
+			get { return (IsActive && Capability == CursorCapabilityType.Full); }
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -91,7 +91,7 @@ namespace Hover.Cursors {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void ActivateIfUsedByInput() {
-			gameObject.SetActive(IsActive);
+			gameObject.SetActive(enabled && Capability != CursorCapabilityType.None);
 		}
 	}
 
