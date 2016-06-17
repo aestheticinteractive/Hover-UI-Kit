@@ -63,7 +63,7 @@ namespace Hover.Items.Managers {
 			for ( int i = 0 ; i < cursorCount ; i++ ) {
 				IHoverCursorData cursor = cursors[i];
 				cursor.MaxItemHighlightProgress = 0;
-				//cursor.MaxItemSelectionProgress = 0;
+				cursor.MaxItemSelectionProgress = 0;
 
 				if ( !cursor.CanCauseSelections ) {
 					continue;

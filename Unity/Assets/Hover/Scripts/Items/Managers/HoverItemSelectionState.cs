@@ -9,6 +9,7 @@ namespace Hover.Items.Managers {
 	[RequireComponent(typeof(HoverItemHighlightState))]
 	public class HoverItemSelectionState : MonoBehaviour {
 
+		public float SelectionProgress { get; private set; }
 		public bool IsSelectionPrevented { get; private set; }
 		
 		private DateTime? vSelectionStart;
@@ -17,43 +18,11 @@ namespace Hover.Items.Managers {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public float SelectionProgress {
-			get {
-				HoverItemHighlightState highState = GetComponent<HoverItemHighlightState>();
-
-				if ( vSelectionStart == null ) {
-					HoverItemData itemData = GetComponent<HoverItem>().Data;
-					ISelectableItem selData = (itemData as ISelectableItem);
-
-					if ( selData == null || !selData.IsStickySelected ) {
-						return 0;
-					}
-					
-					HoverItemHighlightState.Highlight? nearestHigh = highState.NearestHighlight;
-					float minHighDist = (nearestHigh == null ? 
-						float.MaxValue : nearestHigh.Value.Distance);
-
-					/*if ( nearestHigh != null ) {
-						IHoverCursorData cursor = nearestHigh.Value.Cursor;
-						cursor.MaxItemSelectionProgress = Mathf.Max(
-							cursor.MaxItemSelectionProgress, prog);
-					}*/
-
-					return Mathf.InverseLerp(highState.InteractionSettings.StickyReleaseDistance,
-						vDistanceUponSelection, minHighDist);
-				}
-				
-				float ms = (float)(DateTime.UtcNow-(DateTime)vSelectionStart).TotalMilliseconds;
-				return Math.Min(1, ms/highState.InteractionSettings.SelectionMilliseconds);
-			}
-		}
-
-		
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
 			TryResetSelection();
+			UpdateSelectionProgress();
 			UpdateState();
+			UpdateNearestCursor();
 		}
 		
 
@@ -75,6 +44,31 @@ namespace Hover.Items.Managers {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateSelectionProgress() {
+			HoverItemHighlightState highState = GetComponent<HoverItemHighlightState>();
+
+			if ( vSelectionStart == null ) {
+				HoverItemData itemData = GetComponent<HoverItem>().Data;
+				ISelectableItem selData = (itemData as ISelectableItem);
+
+				if ( selData == null || !selData.IsStickySelected ) {
+					SelectionProgress = 0;
+					return;
+				}
+					
+				HoverItemHighlightState.Highlight? nearestHigh = highState.NearestHighlight;
+				float nearDist = highState.InteractionSettings.StickyReleaseDistance;
+				float minHighDist = (nearestHigh == null ? float.MaxValue : nearestHigh.Value.Distance);
+
+				SelectionProgress = Mathf.InverseLerp(nearDist, vDistanceUponSelection, minHighDist);
+				return;
+			}
+				
+			float ms = (float)(DateTime.UtcNow-(DateTime)vSelectionStart).TotalMilliseconds;
+			SelectionProgress = Math.Min(1, ms/highState.InteractionSettings.SelectionMilliseconds);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
 		private bool UpdateState() {
 			HoverItemData itemData = GetComponent<HoverItem>().Data;
 			ISelectableItem selData = (itemData as ISelectableItem);
@@ -85,7 +79,6 @@ namespace Hover.Items.Managers {
 
 			////
 
-			float selectProg = SelectionProgress; //TODO: separate getter from progress calculation
 			HoverItemHighlightState highState = GetComponent<HoverItemHighlightState>();
 			
 			bool canSelect = (
@@ -94,7 +87,7 @@ namespace Hover.Items.Managers {
 				selData.AllowSelection
 			);
 			
-			if ( selectProg <= 0 || !canSelect ) {
+			if ( SelectionProgress <= 0 || !canSelect ) {
 				selData.DeselectStickySelections();
 			}
 
@@ -127,7 +120,7 @@ namespace Hover.Items.Managers {
 				return false;
 			}
 
-			if ( selectProg < 1 ) {
+			if ( SelectionProgress < 1 ) {
 				return false;
 			}
 
@@ -136,6 +129,21 @@ namespace Hover.Items.Managers {
 			vDistanceUponSelection = nearestHigh.Value.Distance;
 			selData.Select();
 			return true;
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateNearestCursor() {
+			HoverItemHighlightState highState = GetComponent<HoverItemHighlightState>();
+			HoverItemHighlightState.Highlight? nearestHigh = highState.NearestHighlight;
+
+			if ( nearestHigh == null ) {
+				return;
+			}
+
+			IHoverCursorData cursor = nearestHigh.Value.Cursor;
+
+			cursor.MaxItemSelectionProgress = Mathf.Max(
+				cursor.MaxItemSelectionProgress, SelectionProgress);
 		}
 
 	}

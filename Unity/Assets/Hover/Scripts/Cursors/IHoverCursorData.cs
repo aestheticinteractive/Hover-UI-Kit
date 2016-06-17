@@ -15,7 +15,7 @@ namespace Hover.Cursors {
 		Quaternion WorldRotation { get; }
 
 		float MaxItemHighlightProgress { get; set; }
-		//float MaxItemSelectionProgress { get; set; }
+		float MaxItemSelectionProgress { get; set; }
 
 	}
 

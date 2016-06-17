@@ -289,10 +289,8 @@ namespace Hover.Renderers {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		protected virtual void UpdateSliderSettings(HoverItemSelectionState pSelState) {
-			float selProg = pSelState.SelectionProgress;
-			
-			SliderRenderer.SelectionProgress = selProg;
-			SliderRenderer.SelectionProgress = selProg;
+			SliderRenderer.SelectionProgress = pSelState.SelectionProgress;
+			SliderRenderer.SelectionProgress = pSelState.SelectionProgress;
 		}
 		
 

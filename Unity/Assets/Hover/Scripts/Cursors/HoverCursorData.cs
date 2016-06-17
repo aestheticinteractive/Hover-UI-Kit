@@ -7,7 +7,7 @@ namespace Hover.Cursors {
 	public class HoverCursorData : MonoBehaviour, IHoverCursorDataForInput {
 		
 		public float MaxItemHighlightProgress { get; set; }
-		//public float MaxItemSelectionProgress { get; set; }
+		public float MaxItemSelectionProgress { get; set; }
 
 		[SerializeField]
 		public CursorType _Type;
