@@ -4,10 +4,8 @@ using UnityEngine;
 namespace Hover.Renderers {
 
 	/*================================================================================================*/
-	public interface IRenderer {
+	public interface IRenderer : IGameObjectProvider {
 
-		GameObject gameObject { get; }
-		
 		ISettingsController RendererController { get; set; }
 
 		bool IsEnabled { get; set; }

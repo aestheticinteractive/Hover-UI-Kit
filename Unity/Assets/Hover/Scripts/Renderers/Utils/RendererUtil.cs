@@ -49,7 +49,7 @@ namespace Hover.Renderers.Utils {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public static T FindOrBuildRenderer<T>(Transform pParentTx, GameObject pPrefab,
-							string pDisplayName, Type pDefaultType) where T : class, IRenderer {
+						string pDisplayName, Type pDefaultType) where T : class, IGameObjectProvider {
 			T existing = FindInImmediateChildren<T>(pParentTx);
 
 			if ( existing != null ) {
@@ -61,7 +61,7 @@ namespace Hover.Renderers.Utils {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private static T BuildRenderer<T>(Transform pParentTx, GameObject pPrefab,
-						string pDisplayTypeName, Type pDefaultType) where T : class, IRenderer {
+					string pDisplayTypeName, Type pDefaultType) where T : class, IGameObjectProvider {
 			if ( pPrefab != null ) {
 				T prefabRend = TryBuildPrefabRenderer<T>(pPrefab);
 
@@ -82,7 +82,7 @@ namespace Hover.Renderers.Utils {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private static T TryBuildPrefabRenderer<T>(GameObject pPrefab) where T : IRenderer {
+		private static T TryBuildPrefabRenderer<T>(GameObject pPrefab) where T : IGameObjectProvider {
 			if ( pPrefab.GetComponent<T>() == null ) {
 				return default(T);
 			}
@@ -96,7 +96,7 @@ namespace Hover.Renderers.Utils {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public static void DestroyRenderer<T>(T pRenderer) where T : IRenderer {
+		public static void DestroyRenderer<T>(T pRenderer) where T : IGameObjectProvider {
 			if ( pRenderer == null || pRenderer.gameObject == null ) {
 				return;
 			}
@@ -114,7 +114,7 @@ namespace Hover.Renderers.Utils {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private static T FindInImmediateChildren<T>(Transform pParentTx) where T : IRenderer {
+		private static T FindInImmediateChildren<T>(Transform pParentTx) where T : IGameObjectProvider {
 			foreach ( Transform childTx in pParentTx ) {
 				T renderer = childTx.GetComponent<T>();
 				

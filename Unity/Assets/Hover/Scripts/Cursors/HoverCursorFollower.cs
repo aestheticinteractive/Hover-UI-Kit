@@ -38,6 +38,13 @@ namespace Hover.Cursors {
 		public HoverCursorFollower() {
 			Controllers = new SettingsControllerMap();
 		}
+		
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public IHoverCursorData GetCursorData() {
+			return CursorDataProvider.GetCursorData(CursorType);
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -58,7 +65,7 @@ namespace Hover.Cursors {
 				return;
 			}
 
-			IHoverCursorData cursor = CursorDataProvider.GetCursorData(CursorType);
+			IHoverCursorData cursor = GetCursorData();
 
 			if ( FollowCursorActive ) {
 				foreach ( GameObject go in ObjectsToActivate ) {
