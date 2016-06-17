@@ -57,6 +57,11 @@ namespace Hover.Cursors {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public bool HasCursorData(CursorType pType) {
+			if ( vCursorMap.Count == 0 ) {
+				Update();
+				//Debug.Log("Early cursor request. Found "+vCursorMap.Count+" cursor(s).");
+			}
+
 			return vCursorMap.ContainsKey(pType);
 		}
 		
