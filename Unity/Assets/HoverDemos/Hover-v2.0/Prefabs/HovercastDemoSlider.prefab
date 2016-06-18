@@ -1164,16 +1164,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c2059e16f4b45740b8b4ed08a248364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _IsEnabled: 1
+  _EnabledAlpha: 1
+  _DisabledAlpha: 0.35
+  _SortingLayer: Default
+  _IsBuilt: 1
+  _OuterRadius: 0.18
+  _InnerRadius: 0.12
+  _ArcAngle: 60
   Container: {fileID: 173992}
   Track: {fileID: 11483836}
   HandleButton: {fileID: 11403972}
   JumpButton: {fileID: 11420746}
-  _OuterRadius: 0.1
-  _InnerRadius: 0.04
-  _ArcAngle: 60
-  _IsEnabled: 1
-  EnabledAlpha: 1
-  DisabledAlpha: 0.35
   _ZeroValue: 0.5
   _HandleValue: 0.8
   _JumpValue: 0
@@ -1181,8 +1183,6 @@ MonoBehaviour:
   _TickCount: 0
   TickSizeY: 0.34
   _FillStartingPoint: 1
-  _SortingLayer: Default
-  _IsBuilt: 1
 --- !u!114 &11402210
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1212,11 +1212,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SortingLayer: Default
-  OuterRadius: 0.040999997
-  InnerRadius: 0.04
+  OuterRadius: 0.121
+  InnerRadius: 0.12
   ArcAngle: 14
   ArcSegmentsPerDegree: 0.5
-  OuterAmount: 60
+  OuterAmount: 60.000008
   InnerAmount: 0
   UseUvRelativeToSize: 0
   Alpha: 1
@@ -1232,16 +1232,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad273731f90fad14abaa42dec14547ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Fill: {fileID: 11440666}
-  Canvas: {fileID: 11441872}
-  _OuterRadius: 0.1
-  _InnerRadius: 0.04
-  _ArcAngle: 14
   _IsEnabled: 1
-  EnabledAlpha: 1
-  DisabledAlpha: 0.35
+  _EnabledAlpha: 1
+  _DisabledAlpha: 0.35
   _SortingLayer: Default
   _IsBuilt: 1
+  _OuterRadius: 0.18
+  _InnerRadius: 0.12
+  _ArcAngle: 14
+  Fill: {fileID: 11440666}
+  Canvas: {fileID: 11441872}
 --- !u!114 &11404278
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1312,7 +1312,7 @@ MonoBehaviour:
   InnerAmount: 0
   UseUvRelativeToSize: 0
   Alpha: 1
-  FillColor: {r: 0.1, g: 0.9, b: 0.2, a: 1}
+  FillColor: {r: 0.4588132, g: 0.8455882, b: 0.33574829, a: 0.803}
 --- !u!114 &11410132
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1383,7 +1383,7 @@ MonoBehaviour:
   InnerAmount: 0.2
   UseUvRelativeToSize: 0
   Alpha: 1
-  FillColor: {r: 0.1, g: 0.5, b: 0.9, a: 1}
+  FillColor: {r: 0.19117647, g: 0.19117647, b: 0.19117647, a: 0.666}
 --- !u!114 &11416356
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1460,16 +1460,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad273731f90fad14abaa42dec14547ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Fill: {fileID: 11405544}
-  Canvas: {fileID: 11420754}
-  _OuterRadius: 0.1
-  _InnerRadius: 0.04
-  _ArcAngle: 7
   _IsEnabled: 1
-  EnabledAlpha: 1
-  DisabledAlpha: 0.35
+  _EnabledAlpha: 1
+  _DisabledAlpha: 0.35
   _SortingLayer: Default
   _IsBuilt: 1
+  _OuterRadius: 0.18
+  _InnerRadius: 0.12
+  _ArcAngle: 7
+  Fill: {fileID: 11405544}
+  Canvas: {fileID: 11420754}
 --- !u!114 &11420754
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1646,8 +1646,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SortingLayer: Default
   _IsBuilt: 1
-  OuterRadius: 0.1
-  InnerRadius: 0.04
+  OuterRadius: 0.18
+  InnerRadius: 0.12
   ArcAngle: 14
   EdgeThickness: 0.001
   HighlightProgress: 0.7
@@ -1672,7 +1672,7 @@ MonoBehaviour:
   IconOuter: {fileID: 11402210}
   IconInner: {fileID: 11414558}
   Scale: 0.0002
-  SizeX: 0.058000002
+  SizeX: 0.05800001
   SizeY: 0.03
   PaddingX: 0.005
   PaddingY: 0.005
@@ -1718,15 +1718,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SortingLayer: Default
-  OuterRadius: 0.1
-  InnerRadius: 0.040999997
+  OuterRadius: 0.18
+  InnerRadius: 0.121
   ArcAngle: 14
   ArcSegmentsPerDegree: 0.5
   OuterAmount: 0.7
   InnerAmount: 0.2
   UseUvRelativeToSize: 0
   Alpha: 1
-  FillColor: {r: 0.1, g: 0.5, b: 0.9, a: 1}
+  FillColor: {r: 0.19117647, g: 0.19117647, b: 0.19117647, a: 0.666}
 --- !u!114 &11444398
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1844,8 +1844,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SortingLayer: Default
-  OuterRadius: 0.09
-  InnerRadius: 0.049999997
+  OuterRadius: 0.17
+  InnerRadius: 0.13
   ArcAngle: 6.8
   ArcSegmentsPerDegree: 0.5
   UvStartY: 0
@@ -1853,7 +1853,7 @@ MonoBehaviour:
   IsFill: 1
   Alpha: 1
   TrackColor: {r: 0.1, g: 0.1, b: 0.1, a: 0.33333334}
-  FillColor: {r: 0.1, g: 0.9, b: 0.2, a: 1}
+  FillColor: {r: 0.4588132, g: 0.8455882, b: 0.33574829, a: 0.5019608}
 --- !u!114 &11471086
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1866,8 +1866,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SortingLayer: Default
-  OuterRadius: 0.09
-  InnerRadius: 0.049999997
+  OuterRadius: 0.17
+  InnerRadius: 0.13
   ArcAngle: 0
   ArcSegmentsPerDegree: 0.5
   UvStartY: 0
@@ -1875,7 +1875,7 @@ MonoBehaviour:
   IsFill: 0
   Alpha: 1
   TrackColor: {r: 0.1, g: 0.1, b: 0.1, a: 0.33333334}
-  FillColor: {r: 0.1, g: 0.9, b: 0.2, a: 1}
+  FillColor: {r: 0.4588132, g: 0.8455882, b: 0.33574829, a: 0.5019608}
 --- !u!114 &11472448
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1888,7 +1888,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CanvasScale: 0.0002
-  SizeX: 0.0384
+  SizeX: 0.03840001
   SizeY: 0.02
   _IsBuilt: 1
 --- !u!114 &11474048
@@ -2010,8 +2010,8 @@ MonoBehaviour:
     IsFill: 0
     IsHidden: 0
   TickInfoList: []
-  OuterRadius: 0.1
-  InnerRadius: 0.04
+  OuterRadius: 0.18
+  InnerRadius: 0.12
   InsetOuter: 0.01
   InsetInner: 0.01
   TickRelativeSizeX: 0.5
@@ -2078,8 +2078,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SortingLayer: Default
-  OuterRadius: 0.1
-  InnerRadius: 0.040999997
+  OuterRadius: 0.18
+  InnerRadius: 0.121
   ArcAngle: 14
   ArcSegmentsPerDegree: 0.5
   OuterAmount: 1
@@ -2136,8 +2136,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SortingLayer: Default
-  OuterRadius: 0.09
-  InnerRadius: 0.049999997
+  OuterRadius: 0.17
+  InnerRadius: 0.13
   ArcAngle: 30
   ArcSegmentsPerDegree: 0.5
   UvStartY: 0
@@ -2145,7 +2145,7 @@ MonoBehaviour:
   IsFill: 0
   Alpha: 1
   TrackColor: {r: 0.1, g: 0.1, b: 0.1, a: 0.33333334}
-  FillColor: {r: 0.1, g: 0.9, b: 0.2, a: 1}
+  FillColor: {r: 0.4588132, g: 0.8455882, b: 0.33574829, a: 0.5019608}
 --- !u!114 &11494478
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2158,15 +2158,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SortingLayer: Default
-  OuterRadius: 0.1
-  InnerRadius: 0.040999997
+  OuterRadius: 0.18
+  InnerRadius: 0.121
   ArcAngle: 14
   ArcSegmentsPerDegree: 0.5
   OuterAmount: 0.2
   InnerAmount: 0
   UseUvRelativeToSize: 0
   Alpha: 1
-  FillColor: {r: 0.1, g: 0.9, b: 0.2, a: 1}
+  FillColor: {r: 0.4588132, g: 0.8455882, b: 0.33574829, a: 0.803}
 --- !u!114 &11495708
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2179,8 +2179,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SortingLayer: Default
-  OuterRadius: 0.09
-  InnerRadius: 0.049999997
+  OuterRadius: 0.17
+  InnerRadius: 0.13
   ArcAngle: 9.200001
   ArcSegmentsPerDegree: 0.5
   UvStartY: 0
@@ -2188,7 +2188,7 @@ MonoBehaviour:
   IsFill: 0
   Alpha: 1
   TrackColor: {r: 0.1, g: 0.1, b: 0.1, a: 0.33333334}
-  FillColor: {r: 0.1, g: 0.9, b: 0.2, a: 1}
+  FillColor: {r: 0.4588132, g: 0.8455882, b: 0.33574829, a: 0.5019608}
 --- !u!114 &11496804
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2297,8 +2297,8 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.06999595, y: 0}
-  m_SizeDelta: {x: 240.00002, y: 100}
+  m_AnchoredPosition: {x: 0.14999992, y: 0}
+  m_SizeDelta: {x: 240.00005, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22411900
 RectTransform:
@@ -2314,7 +2314,7 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -100, y: -6.999998}
+  m_AnchoredPosition: {x: -100.000015, y: -6.999998}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22445414
@@ -2369,7 +2369,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 23.999998, y: 0}
-  m_SizeDelta: {x: 192.00002, y: 100}
+  m_SizeDelta: {x: 192.00005, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22475450
 RectTransform:
@@ -2385,7 +2385,7 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -100, y: -7}
+  m_AnchoredPosition: {x: -100.000015, y: -7}
   m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22491206
