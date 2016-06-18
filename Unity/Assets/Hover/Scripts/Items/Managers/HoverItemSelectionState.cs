@@ -91,18 +91,7 @@ namespace Hover.Items.Managers {
 				selData.DeselectStickySelections();
 			}
 
-			if ( !canSelect ) {
-				IsSelectionPrevented = false;
-				vSelectionStart = null;
-				return false;
-			}
-
-			////
-
-			HoverItemHighlightState.Highlight? nearestHigh = 
-				GetComponent<HoverItemHighlightState>().NearestHighlight;
-			
-			if ( nearestHigh == null || nearestHigh.Value.Progress < 1 ) {
+			if ( !canSelect || highState.MaxHighlightProgress < 1 ) {
 				IsSelectionPrevented = false;
 				vSelectionStart = null;
 				return false;
@@ -126,7 +115,7 @@ namespace Hover.Items.Managers {
 
 			vSelectionStart = null;
 			IsSelectionPrevented = true;
-			vDistanceUponSelection = nearestHigh.Value.Distance;
+			vDistanceUponSelection = highState.NearestHighlight.Value.Distance;
 			selData.Select();
 			return true;
 		}

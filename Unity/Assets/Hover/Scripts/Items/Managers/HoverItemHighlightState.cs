@@ -101,13 +101,11 @@ namespace Hover.Items.Managers {
 		/*--------------------------------------------------------------------------------------------*/
 		public float MaxHighlightProgress {
 			get {
-				//TODO: how did this (highlight during/after a sticky selection) used to work?
-				/*BaseItem itemData = GetComponent<HoverItemData>().Data;
-				ISelectableItem selData = (itemData as ISelectableItem);
+				ISelectableItem selData = (GetComponent<HoverItemData>() as ISelectableItem);
 				
 				if ( selData != null && selData.IsStickySelected ) {
 					return 1;
-				}*/
+				}
 				
 				Highlight? nearestHigh = GetComponent<HoverItemHighlightState>().NearestHighlight;
 				return (nearestHigh == null ? 0 : nearestHigh.Value.Progress);
