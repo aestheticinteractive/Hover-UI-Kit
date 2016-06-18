@@ -101,6 +101,12 @@ namespace Hover.Items {
 			TransferData(newData);
 
 			DestroyImmediate(_Data);
+
+			if ( gameObject.GetComponent<HoverItemData>() != null ) { //TODO: how did this occur?
+				Debug.LogWarning("Unexpected "+typeof(HoverItemData).Name+" component found on this "+
+					"GameObject: "+gameObject.GetComponent<HoverItemData>(), this);
+			}
+
 			_Data = newData;
 
 			if ( OnTypeChanged != null ) {

@@ -1,5 +1,6 @@
 ﻿using System;
 using Hover.Layouts.Arc;
+using Hover.Items;
 using Hover.Utils;
 using UnityEngine;
 using UnityEngine.Events;
@@ -16,8 +17,11 @@ namespace Hover.Interfaces.Cast {
 		public class HovercastRowEvent : UnityEvent<HovercastRowSwitcher.RowEntryType> {}
 
 		public HoverLayoutArcStack ArcStack;
+		public HoverLayoutArcRow RootRow;
 		public HoverLayoutArcRow ActiveRow;
 		public HoverLayoutArcRow PreviousRow;
+		public HoverItemData TitleItem;
+		public HoverItemData BackItem;
 
 		public HovercastRowEvent OnRowTransitionEvent;
 
@@ -41,7 +45,10 @@ namespace Hover.Interfaces.Cast {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void TreeUpdate() {
-			//do nothing...
+			HovercastRowTitle rowTitle = ActiveRow.GetComponent<HovercastRowTitle>();
+
+			TitleItem.Label = (rowTitle == null ? "" : rowTitle.RowTitle);
+			BackItem.IsEnabled = (ActiveRow != RootRow);
 		}
 
 
