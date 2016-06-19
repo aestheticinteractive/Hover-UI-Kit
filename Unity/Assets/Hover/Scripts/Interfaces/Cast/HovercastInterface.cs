@@ -16,7 +16,7 @@ namespace Hover.Interfaces.Cast {
 		[Serializable]
 		public class HovercastRowEvent : UnityEvent<HovercastRowSwitcher.RowEntryType> {}
 
-		public HoverLayoutArcStack ArcStack;
+		public Transform RowContainer;
 		public HoverLayoutArcRow RootRow;
 		public HoverLayoutArcRow ActiveRow;
 		public HoverLayoutArcRow PreviousRow;
@@ -29,8 +29,8 @@ namespace Hover.Interfaces.Cast {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
-			if ( ArcStack == null ) {
-				ArcStack = GetComponentInChildren<HoverLayoutArcStack>();
+			if ( RowContainer == null ) {
+				RowContainer = gameObject.transform.FindChild("Rows");
 			}
 
 			if ( ActiveRow == null ) {

@@ -80,20 +80,6 @@ namespace Hover.Layouts.Arc {
 			OuterRadius = Mathf.Min(pSizeX, pSizeY)/2;
 			vRectSize = new Vector2(pSizeX, pSizeY);
 		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		public void DisableAllChildrenExcept(
-								IArcLayoutable pIgnoreChildA=null, IArcLayoutable pIgnoreChildB=null) {
-			for ( int i = 0 ; i < vChildItems.Count ; i++ ) {
-				HoverLayoutArcGroupChild item = vChildItems[i];
-
-				if ( item.Elem == pIgnoreChildA || item.Elem == pIgnoreChildB ) {
-					continue;
-				}
-
-				item.Elem.transform.gameObject.SetActive(false);
-			}
-		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

@@ -9,7 +9,7 @@ namespace Hover.Interfaces.Cast {
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
 	[RequireComponent(typeof(HovercastInterface))]
-	public class HovercastRowTransitioner : MonoBehaviour, ITreeUpdateable {
+	public class HovercastRowTransitioner : MonoBehaviour, ITreeUpdateable, ISettingsController {
 
 		public float TransitionProgressCurved { get; private set; }
 
@@ -20,7 +20,7 @@ namespace Hover.Interfaces.Cast {
 		public float TransitionProgress = 1;
 		
 		[Range(0.1f, 10)]
-		public float TransitionExponent = 3;
+		public float TransitionExponent = 2;
 
 		[Range(1, 10000)]
 		public float TransitionMilliseconds = 1000;
@@ -32,12 +32,29 @@ namespace Hover.Interfaces.Cast {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
+		public void Awake() {
+			HovercastInterface cast = GetComponent<HovercastInterface>();
+
+			foreach ( Transform childTx in cast.RowContainer ) {
+				HoverLayoutArcRow row = childTx.GetComponent<HoverLayoutArcRow>();
+
+				if ( row != null && row != cast.ActiveRow ) {
+					childTx.gameObject.SetActive(false);
+				}
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
 		public void Start() {
-			GetComponent<HovercastInterface>().OnRowTransitionEvent.AddListener(HandleTransitionEvent);
+			gameObject.GetComponent<HovercastInterface>()
+				.OnRowTransitionEvent.AddListener(HandleTransitionEvent);
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void TreeUpdate() {
+			RowThickness = Mathf.Max(0, RowThickness);
+			InnerRadius = Mathf.Max(0, InnerRadius);
+
 			UpdateTimedProgress();
 			UpdateRows();
 		}
@@ -81,62 +98,52 @@ namespace Hover.Interfaces.Cast {
 			HovercastInterface cast = GetComponent<HovercastInterface>();
 			bool hasPrevRow = (cast.PreviousRow != null);
 			bool isTransitionDone = (TransitionProgress >= 1 || !hasPrevRow);
-			float radOffset = 0;
-			int childOrder = 0;
+			float outerRadius = InnerRadius+RowThickness;
+			float scaleFactor = outerRadius/InnerRadius;
+			float activeScale = 1;
+			float prevScale = 1;
 
 			TransitionProgressCurved = 1-Mathf.Pow(1-TransitionProgress, TransitionExponent);
 
-			cast.ArcStack.InnerRadius = InnerRadius;
-			cast.ArcStack.OuterRadius = InnerRadius + RowThickness*(isTransitionDone ? 1 : 2);
+			cast.ActiveRow.Controllers.Set("gameObject.activeSelf", this);
+			cast.ActiveRow.Controllers.Set("transform.localScale", this);
+			cast.ActiveRow.Controllers.Set(HoverLayoutArcRow.OuterRadiusName, this);
+			cast.ActiveRow.Controllers.Set(HoverLayoutArcRow.InnerRadiusName, this);
+
+			cast.ActiveRow.InnerRadius = InnerRadius;
+			cast.ActiveRow.OuterRadius = outerRadius;
 			cast.ActiveRow.gameObject.SetActive(true);
 
 			if ( hasPrevRow ) {
-				cast.PreviousRow.gameObject.SetActive(!isTransitionDone); //before "childOrder"
-			}
+				cast.PreviousRow.Controllers.Set("gameObject.activeSelf", this);
+				cast.PreviousRow.Controllers.Set("transform.localScale", this);
+				cast.PreviousRow.Controllers.Set(HoverLayoutArcRow.OuterRadiusName, this);
+				cast.PreviousRow.Controllers.Set(HoverLayoutArcRow.InnerRadiusName, this);
 
-			cast.ArcStack.DisableAllChildrenExcept(cast.ActiveRow, cast.PreviousRow);
+				cast.PreviousRow.InnerRadius = InnerRadius;
+				cast.PreviousRow.OuterRadius = outerRadius;
+				cast.PreviousRow.gameObject.SetActive(!isTransitionDone);
+			}
 
 			if ( !isTransitionDone ) {
-				childOrder = cast.ArcStack.GetChildOrder(cast.PreviousRow, cast.ActiveRow);
-			}
-
-			switch ( RowEntryTransition ) {
-				case HovercastRowSwitcher.RowEntryType.Immediate:
-					break;
-
-				case HovercastRowSwitcher.RowEntryType.FromInside:
-					radOffset = (isTransitionDone ? 0 : TransitionProgressCurved-1);
-					cast.ArcStack.Arrangement = (childOrder > 0 ?
-						HoverLayoutArcStack.ArrangementType.InnerToOuter :
-						HoverLayoutArcStack.ArrangementType.OuterToInner);
-					break;
-					
+				switch ( RowEntryTransition ) {
+					case HovercastRowSwitcher.RowEntryType.FromInside:
+						activeScale = Mathf.Lerp(1/scaleFactor, 1, TransitionProgressCurved);
+						prevScale = Mathf.Lerp(1, scaleFactor, TransitionProgressCurved);
+						break;
+						
 				case HovercastRowSwitcher.RowEntryType.FromOutside:
-					radOffset = (isTransitionDone ? 0 : -TransitionProgressCurved);
-					cast.ArcStack.Arrangement = (childOrder > 0 ?
-						HoverLayoutArcStack.ArrangementType.OuterToInner :
-						HoverLayoutArcStack.ArrangementType.InnerToOuter);
-					break;
+						activeScale = Mathf.Lerp(scaleFactor, 1, TransitionProgressCurved);
+						prevScale = Mathf.Lerp(1, 1/scaleFactor, TransitionProgressCurved);
+						break;
+				}
 			}
+
+			cast.ActiveRow.transform.localScale = Vector3.one*activeScale;
 
 			if ( hasPrevRow ) {
-				HoverLayoutArcRelativeSizer prevSizer = GetRelativeSizer(cast.PreviousRow);
-				prevSizer.RelativeRadiusOffset = radOffset;
-				//prevSizer.RelativeArcAngle = Mathf.Lerp(1, 0, TransitionProgressCurved);
+				cast.PreviousRow.transform.localScale = Vector3.one*prevScale;
 			}
-
-			HoverLayoutArcRelativeSizer activeSizer = GetRelativeSizer(cast.ActiveRow);
-			activeSizer.RelativeRadiusOffset = radOffset;
-			//activeSizer.RelativeArcAngle = Mathf.Lerp(0, 1, TransitionProgressCurved);
-		}
-		
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		private HoverLayoutArcRelativeSizer GetRelativeSizer(HoverLayoutArcRow pRow) {
-			HoverLayoutArcRelativeSizer sizer = 				
-				pRow.gameObject.GetComponent<HoverLayoutArcRelativeSizer>();
-			return (sizer ? sizer : pRow.gameObject.AddComponent<HoverLayoutArcRelativeSizer>());
 		}
 
 	}

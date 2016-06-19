@@ -164,8 +164,8 @@ MonoBehaviour:
   ShowProximityDebugLines: 1
   ClickToRebuildRenderer: 0
   _IsBuilt: 1
-  OuterRadius: 0.161
-  InnerRadius: 0.12099999
+  OuterRadius: 0.17999999
+  InnerRadius: 0.12
   ArcAngle: 12.685715
 --- !u!114 &3650575
 MonoBehaviour:
@@ -313,8 +313,8 @@ MonoBehaviour:
   ShowProximityDebugLines: 1
   ClickToRebuildRenderer: 0
   _IsBuilt: 1
-  OuterRadius: 0.161
-  InnerRadius: 0.12099999
+  OuterRadius: 0.17999999
+  InnerRadius: 0.12
   ArcAngle: 12.685715
 --- !u!114 &25621393
 MonoBehaviour:
@@ -603,10 +603,9 @@ GameObject:
   - 4: {fileID: 166591465}
   - 114: {fileID: 166591467}
   - 114: {fileID: 166591466}
-  - 114: {fileID: 166591468}
   - 114: {fileID: 166591469}
   m_Layer: 0
-  m_Name: ArcRow
+  m_Name: RowRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -618,7 +617,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 166591464}
-  m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0.6427877, y: 0.7660444, z: -0.0000001047234, w: -0.00000012480447}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -626,7 +625,7 @@ Transform:
   - {fileID: 927321520}
   - {fileID: 1013279433}
   - {fileID: 2006765802}
-  m_Father: {fileID: 168354836}
+  m_Father: {fileID: 572082607}
   m_RootOrder: 0
 --- !u!114 &166591466
 MonoBehaviour:
@@ -658,21 +657,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1babd2bcabac74a3c8ee5dcc8f7e6b96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &166591468
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 166591464}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 392317c1b05018047b04d610814ca6ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RelativeThickness: 1
-  RelativeArcAngle: 1
-  RelativeRadiusOffset: 0
-  RelativeStartAngleOffset: 0
 --- !u!114 &166591469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -685,68 +669,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RowTitle: Hovercast
---- !u!1 &168354835
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 168354836}
-  - 114: {fileID: 168354838}
-  - 114: {fileID: 168354837}
-  m_Layer: 0
-  m_Name: ArcStack
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &168354836
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 168354835}
-  m_LocalRotation: {x: 0.6427877, y: 0.7660444, z: -0.00000010472341, w: -0.00000012480447}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 166591465}
-  - {fileID: 850156549}
-  - {fileID: 1475921996}
-  m_Father: {fileID: 966968833}
-  m_RootOrder: 0
---- !u!114 &168354837
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 168354835}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d61fa4162d31d284fb0faa372c2163ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Arrangement: 0
-  OuterRadius: 0.17999999
-  InnerRadius: 0.12
-  ArcAngle: 90
-  RadiusPadding: 0
-  AnglePadding: 0
-  StartingAngle: 0
-  RectAnchor: 4
---- !u!114 &168354838
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 168354835}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1babd2bcabac74a3c8ee5dcc8f7e6b96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &179040184
 Prefab:
   m_ObjectHideFlags: 0
@@ -862,23 +784,23 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22494668, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -59.99997
+      value: -109.999985
       objectReference: {fileID: 0}
     - target: {fileID: 22455212, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 113.59995
+      value: 213.59998
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0.14100212
+      value: 0.1500004
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 151.99995
+      value: 251.99997
       objectReference: {fileID: 0}
     - target: {fileID: 22401858, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -59.99997
+      value: -109.999985
       objectReference: {fileID: 0}
     - target: {fileID: 11494686, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: SizeX
@@ -1018,7 +940,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22561748, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_Alpha
-      value: 0.024999976
+      value: 0.00004285574
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: _OuterRadius
@@ -1123,7 +1045,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0.15000182
+      value: 0.15000087
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_SizeDelta.x
@@ -1259,7 +1181,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22401858, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -5.6
+      value: -5.6000004
       objectReference: {fileID: 0}
     - target: {fileID: 22455212, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
@@ -1339,23 +1261,23 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22494668, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -59.99997
+      value: -109.999985
       objectReference: {fileID: 0}
     - target: {fileID: 22455212, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 113.59995
+      value: 213.59998
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0.14100212
+      value: 0.1500004
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 151.99995
+      value: 251.99997
       objectReference: {fileID: 0}
     - target: {fileID: 22401858, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -59.99997
+      value: -109.999985
       objectReference: {fileID: 0}
     - target: {fileID: 11494686, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: SizeX
@@ -1495,7 +1417,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22561748, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_Alpha
-      value: 0.024999976
+      value: 0.00004285574
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: _OuterRadius
@@ -2033,7 +1955,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0.15000182
+      value: 0.15000087
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_SizeDelta.x
@@ -2208,6 +2130,48 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 431092456}
   m_Script: {fileID: 11500000, guid: ad273731f90fad14abaa42dec14547ac, type: 3}
+--- !u!1 &572082606
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 572082607}
+  - 114: {fileID: 572082608}
+  m_Layer: 0
+  m_Name: Rows
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &572082607
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 572082606}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 166591465}
+  - {fileID: 850156549}
+  - {fileID: 1475921996}
+  m_Father: {fileID: 966968833}
+  m_RootOrder: 2
+--- !u!114 &572082608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 572082606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1babd2bcabac74a3c8ee5dcc8f7e6b96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &595115489
 GameObject:
   m_ObjectHideFlags: 0
@@ -2394,23 +2358,23 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22494668, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -59.99997
+      value: -109.999985
       objectReference: {fileID: 0}
     - target: {fileID: 22455212, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 113.59995
+      value: 213.59998
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0.14100212
+      value: 0.1500004
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 151.99995
+      value: 251.99997
       objectReference: {fileID: 0}
     - target: {fileID: 22401858, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -59.99997
+      value: -109.999985
       objectReference: {fileID: 0}
     - target: {fileID: 11494686, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: SizeX
@@ -2554,7 +2518,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22561748, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_Alpha
-      value: 0.024999976
+      value: 0.00004285574
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: _OuterRadius
@@ -2630,7 +2594,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0.15000182
+      value: 0.15000087
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_SizeDelta.x
@@ -2888,8 +2852,8 @@ MonoBehaviour:
   ShowProximityDebugLines: 1
   ClickToRebuildRenderer: 0
   _IsBuilt: 1
-  OuterRadius: 0.161
-  InnerRadius: 0.12099999
+  OuterRadius: 0.17999999
+  InnerRadius: 0.12
   ArcAngle: 12.685715
 --- !u!114 &783704066
 MonoBehaviour:
@@ -2950,10 +2914,9 @@ GameObject:
   - 4: {fileID: 850156549}
   - 114: {fileID: 850156551}
   - 114: {fileID: 850156550}
-  - 114: {fileID: 850156552}
   - 114: {fileID: 850156553}
   m_Layer: 0
-  m_Name: ArcRowA
+  m_Name: RowA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2965,7 +2928,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 850156548}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.6427877, y: 0.7660444, z: -0.0000001047234, w: -0.00000012480447}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2976,7 +2939,7 @@ Transform:
   - {fileID: 25621390}
   - {fileID: 783704063}
   - {fileID: 3650572}
-  m_Father: {fileID: 168354836}
+  m_Father: {fileID: 572082607}
   m_RootOrder: 1
 --- !u!114 &850156550
 MonoBehaviour:
@@ -3008,21 +2971,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1babd2bcabac74a3c8ee5dcc8f7e6b96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &850156552
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 850156548}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 392317c1b05018047b04d610814ca6ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RelativeThickness: 1
-  RelativeArcAngle: 1
-  RelativeRadiusOffset: 0
-  RelativeStartAngleOffset: 0
 --- !u!114 &850156553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3293,7 +3241,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22494668, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -109.99998
+      value: -109.999985
       objectReference: {fileID: 0}
     - target: {fileID: 22455212, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_SizeDelta.x
@@ -3301,7 +3249,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0.15000182
+      value: 0.15000087
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_SizeDelta.x
@@ -3309,7 +3257,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22401858, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -109.99998
+      value: -109.999985
       objectReference: {fileID: 0}
     - target: {fileID: 11494686, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: SizeX
@@ -3503,7 +3451,9 @@ MonoBehaviour:
   CursorType: 0
   FollowCursorActive: 1
   ObjectsToActivate:
-  - {fileID: 168354835}
+  - {fileID: 1437448019}
+  - {fileID: 1292246283}
+  - {fileID: 572082606}
   FollowCursorPosition: 1
   FollowCursorRotation: 1
   ScaleUsingCursorSize: 0
@@ -3518,9 +3468,9 @@ Transform:
   m_LocalPosition: {x: -0.2, y: 0, z: 0.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 168354836}
   - {fileID: 1437448020}
   - {fileID: 1292246284}
+  - {fileID: 572082607}
   m_Father: {fileID: 0}
   m_RootOrder: 4
 --- !u!114 &966968834
@@ -3537,9 +3487,9 @@ MonoBehaviour:
   RowThickness: 0.06
   InnerRadius: 0.12
   TransitionProgress: 1
-  TransitionExponent: 3
+  TransitionExponent: 2
   TransitionMilliseconds: 1000
-  RowEntryTransition: 1
+  RowEntryTransition: 2
 --- !u!114 &966968835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3551,7 +3501,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac773c2662abad74ab71b79a0fbcb734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ArcStack: {fileID: 168354837}
+  RowContainer: {fileID: 572082607}
   RootRow: {fileID: 166591466}
   ActiveRow: {fileID: 166591466}
   PreviousRow: {fileID: 850156550}
@@ -3924,8 +3874,8 @@ MonoBehaviour:
   ShowProximityDebugLines: 1
   ClickToRebuildRenderer: 0
   _IsBuilt: 1
-  OuterRadius: 0.161
-  InnerRadius: 0.12099999
+  OuterRadius: 0.17999999
+  InnerRadius: 0.12
   ArcAngle: 12.685715
 --- !u!114 &1033958698
 MonoBehaviour:
@@ -4331,7 +4281,7 @@ Transform:
   m_Children:
   - {fileID: 2062391691}
   m_Father: {fileID: 966968833}
-  m_RootOrder: 2
+  m_RootOrder: 1
 --- !u!114 &1292246285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4482,23 +4432,23 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22494668, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -59.99997
+      value: -109.999985
       objectReference: {fileID: 0}
     - target: {fileID: 22455212, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 113.59995
+      value: 213.59998
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0.14100212
+      value: 0.1500004
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 151.99995
+      value: 251.99997
       objectReference: {fileID: 0}
     - target: {fileID: 22401858, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -59.99997
+      value: -109.999985
       objectReference: {fileID: 0}
     - target: {fileID: 11494686, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: SizeX
@@ -4658,7 +4608,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22561748, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_Alpha
-      value: 0.024999976
+      value: 0.00004285574
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: EnabledAlpha
@@ -5354,7 +5304,7 @@ Transform:
   m_Children:
   - {fileID: 377706404}
   m_Father: {fileID: 966968833}
-  m_RootOrder: 1
+  m_RootOrder: 0
 --- !u!114 &1437448021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5697,10 +5647,9 @@ GameObject:
   - 4: {fileID: 1475921996}
   - 114: {fileID: 1475921998}
   - 114: {fileID: 1475921999}
-  - 114: {fileID: 1475921997}
   - 114: {fileID: 1475922000}
   m_Layer: 0
-  m_Name: ArcRowB
+  m_Name: RowB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5712,7 +5661,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1475921995}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.6427877, y: 0.7660444, z: -0.0000001047234, w: -0.00000012480447}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -5720,23 +5669,8 @@ Transform:
   - {fileID: 1830001757}
   - {fileID: 1755684316}
   - {fileID: 595115490}
-  m_Father: {fileID: 168354836}
+  m_Father: {fileID: 572082607}
   m_RootOrder: 2
---- !u!114 &1475921997
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1475921995}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 392317c1b05018047b04d610814ca6ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RelativeThickness: 1
-  RelativeArcAngle: 1
-  RelativeRadiusOffset: 0
-  RelativeStartAngleOffset: 0
 --- !u!114 &1475921998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5959,8 +5893,8 @@ MonoBehaviour:
   ShowProximityDebugLines: 1
   ClickToRebuildRenderer: 0
   _IsBuilt: 1
-  OuterRadius: 0.161
-  InnerRadius: 0.12099999
+  OuterRadius: 0.17999999
+  InnerRadius: 0.12
   ArcAngle: 12.685715
 --- !u!114 &1601764839
 MonoBehaviour:
@@ -6056,15 +5990,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22455212, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 151.99995
+      value: 251.99997
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0.14100212
+      value: 0.1500004
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 151.99995
+      value: 251.99997
       objectReference: {fileID: 0}
     - target: {fileID: 22401858, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
@@ -6236,7 +6170,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22561748, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_Alpha
-      value: 0.024999976
+      value: 0.00004285574
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: EnabledAlpha
@@ -6397,23 +6331,23 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22494668, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -59.99997
+      value: -109.999985
       objectReference: {fileID: 0}
     - target: {fileID: 22455212, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 113.59995
+      value: 213.59998
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0.14100212
+      value: 0.1500004
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 151.99995
+      value: 251.99997
       objectReference: {fileID: 0}
     - target: {fileID: 22401858, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -59.99997
+      value: -109.999985
       objectReference: {fileID: 0}
     - target: {fileID: 11494686, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: SizeX
@@ -6573,7 +6507,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22561748, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_Alpha
-      value: 0.024999976
+      value: 0.00004285574
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: EnabledAlpha
@@ -6679,8 +6613,8 @@ MonoBehaviour:
   ShowProximityDebugLines: 1
   ClickToRebuildRenderer: 0
   _IsBuilt: 1
-  OuterRadius: 0.161
-  InnerRadius: 0.12099999
+  OuterRadius: 0.17999999
+  InnerRadius: 0.12
   ArcAngle: 12.685715
 --- !u!114 &1695261412
 MonoBehaviour:
@@ -7926,23 +7860,23 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22494668, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -59.99997
+      value: -109.999985
       objectReference: {fileID: 0}
     - target: {fileID: 22455212, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 113.59995
+      value: 213.59998
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0.14100212
+      value: 0.1500004
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 151.99995
+      value: 251.99997
       objectReference: {fileID: 0}
     - target: {fileID: 22401858, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -59.99997
+      value: -109.999985
       objectReference: {fileID: 0}
     - target: {fileID: 11494686, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: SizeX
@@ -8082,7 +8016,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22561748, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_Alpha
-      value: 0.024999976
+      value: 0.00004285574
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: _OuterRadius
@@ -8440,8 +8374,8 @@ MonoBehaviour:
   ShowProximityDebugLines: 1
   ClickToRebuildRenderer: 0
   _IsBuilt: 1
-  OuterRadius: 0.161
-  InnerRadius: 0.12099999
+  OuterRadius: 0.17999999
+  InnerRadius: 0.12
   ArcAngle: 12.685715
 --- !u!114 &2091804079
 MonoBehaviour:
