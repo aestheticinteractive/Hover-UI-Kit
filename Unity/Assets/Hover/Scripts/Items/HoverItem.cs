@@ -205,9 +205,7 @@ namespace Hover.Items {
 		private HoverItemData BuildData(HoverItemType pType) {
 			switch ( pType ) {
 				case HoverItemType.Parent:
-					HoverItemDataParent parentData = gameObject.AddComponent<HoverItemDataParent>();
-					parentData.InitChildGroup(GetChildItems);
-					return parentData;
+					return gameObject.AddComponent<HoverItemDataParent>();
 
 				case HoverItemType.Selector:
 					return gameObject.AddComponent<HoverItemDataSelector>();

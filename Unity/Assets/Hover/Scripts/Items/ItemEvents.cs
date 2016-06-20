@@ -1,6 +1,4 @@
-﻿using Hover.Items.Groups;
-
-namespace Hover.Items {
+﻿namespace Hover.Items {
 
 	/*================================================================================================*/
 	public static class ItemEvents {
@@ -12,9 +10,6 @@ namespace Hover.Items {
 		public delegate void DeselectedHandler(ISelectableItem pItem);
 
 		public delegate void ValueChangedHandler<T>(ISelectableItem<T> pItem);
-
-		public delegate void GroupItemSelectedHandler(IItemGroup pGroup, ISelectableItem pItem);
-		public delegate void HierarchyLevelChangedHandler(int pDirection);
 
 	}
 
