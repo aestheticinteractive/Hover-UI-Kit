@@ -21,6 +21,8 @@ namespace Hover.Renderers.Contents {
 			Left,
 			Center,
 			Right,
+			TextLeftAndIconRight,
+			TextRightAndIconLeft,
 			Custom
 		}
 		
@@ -251,24 +253,42 @@ namespace Hover.Renderers.Contents {
 			float labelInsetT = 0;
 			TextAnchor labelAlign;
 			
-			switch ( Alignment ) {
+			switch ( Alignment ) { //icon
 				case CanvasAlignmentType.Left:
+				case CanvasAlignmentType.TextRightAndIconLeft:
 					iconShiftX = -0.5f*iconAvailW;
 					iconShiftY = iconVertShiftMult*fontSize;
 					labelInsetL = IconOuter.SizeX+iconPad;
-					labelAlign = TextAnchor.MiddleLeft;
 					break;
 					
 				case CanvasAlignmentType.Center:
 					iconShiftY = (fontSize+iconPad)/2;
 					labelInsetT = (IconOuter.SizeY+iconPad)/2;
+					break;
+					
+				case CanvasAlignmentType.Right:
+				case CanvasAlignmentType.TextLeftAndIconRight:
+					iconShiftX = 0.5f*iconAvailW;
+					iconShiftY = iconVertShiftMult*fontSize;
+					labelInsetR = IconOuter.SizeX+iconPad;
+					break;
+					
+				default:
+					throw new Exception("Unhandled alignment: "+Alignment);
+			}
+			
+			switch ( Alignment ) { //label
+				case CanvasAlignmentType.Left:
+				case CanvasAlignmentType.TextLeftAndIconRight:
+					labelAlign = TextAnchor.MiddleLeft;
+					break;
+					
+				case CanvasAlignmentType.Center:
 					labelAlign = TextAnchor.MiddleCenter;
 					break;
 					
 				case CanvasAlignmentType.Right:
-					iconShiftX = 0.5f*iconAvailW;
-					iconShiftY = iconVertShiftMult*fontSize;
-					labelInsetR = IconOuter.SizeX+iconPad;
+				case CanvasAlignmentType.TextRightAndIconLeft:
 					labelAlign = TextAnchor.MiddleRight;
 					break;
 					
