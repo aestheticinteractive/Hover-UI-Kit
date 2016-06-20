@@ -30,6 +30,9 @@ namespace Hover.Renderers.Shapes.Arc {
 		[DisableWhenControlled(RangeMin=0.0001f)]
 		public float EdgeThickness = 0.0005f;
 		
+		[DisableWhenControlled]
+		public bool UseOuterEdge = false;
+		
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
 		public float HighlightProgress = 0.7f;
 		
@@ -58,17 +61,19 @@ namespace Hover.Renderers.Shapes.Arc {
 			UpdateMeshControl(Selection);
 			UpdateMeshControl(Edge);
 			
-			float insetInnerRadius = InnerRadius + EdgeThickness*Mathf.Sign(OuterRadius-InnerRadius);
+			float edgeInset = EdgeThickness*Mathf.Sign(OuterRadius-InnerRadius);
+			float insetOuterRadius = OuterRadius - (UseOuterEdge ? edgeInset : 0);
+			float insetInnerRadius = InnerRadius + (UseOuterEdge ? 0 : edgeInset);
 
-			Background.OuterRadius = OuterRadius;
-			Highlight.OuterRadius = OuterRadius;
-			Selection.OuterRadius = OuterRadius;
-			Edge.OuterRadius = insetInnerRadius;
+			Background.OuterRadius = insetOuterRadius;
+			Highlight.OuterRadius = insetOuterRadius;
+			Selection.OuterRadius = insetOuterRadius;
+			Edge.OuterRadius = (UseOuterEdge ? OuterRadius : insetInnerRadius);
 
 			Background.InnerRadius = insetInnerRadius;
 			Highlight.InnerRadius = insetInnerRadius;
 			Selection.InnerRadius = insetInnerRadius;
-			Edge.InnerRadius = InnerRadius;
+			Edge.InnerRadius = (UseOuterEdge ? insetOuterRadius : InnerRadius);
 
 			Background.ArcAngle = ArcAngle;
 			Highlight.ArcAngle = ArcAngle;
@@ -81,7 +86,7 @@ namespace Hover.Renderers.Shapes.Arc {
 			Highlight.InnerAmount = SelectionProgress;
 			Selection.OuterAmount = SelectionProgress;
 			Selection.InnerAmount = 0;
-			Edge.OuterAmount = Mathf.Abs(OuterRadius-InnerRadius)/EdgeThickness;
+			Edge.OuterAmount = 1;
 			Edge.InnerAmount = 0;
 
 			Background.SortingLayer = SortingLayer;

@@ -1631,7 +1631,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11431980, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: OuterRadius
-      value: 0
+      value: 0.07
       objectReference: {fileID: 0}
     - target: {fileID: 11431980, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: InnerRadius
@@ -1723,7 +1723,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0.039997555
+      value: 0.039999384
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_SizeDelta.x
@@ -4301,8 +4301,8 @@ MonoBehaviour:
   ShowProximityDebugLines: 1
   ClickToRebuildRenderer: 0
   _IsBuilt: 1
-  OuterRadius: 0
-  InnerRadius: 0.01
+  OuterRadius: 0.01
+  InnerRadius: 0
   ArcAngle: 360
 --- !u!114 &1292246286
 MonoBehaviour:
@@ -7638,41 +7638,17 @@ Prefab:
       propertyPath: Alpha
       value: 0.35
       objectReference: {fileID: 0}
-    - target: {fileID: 11431980, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
-      propertyPath: OuterRadius
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11431980, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
-      propertyPath: InnerRadius
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 11431980, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
-      propertyPath: ArcAngle
-      value: 360
-      objectReference: {fileID: 0}
-    - target: {fileID: 11431980, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
-      propertyPath: HighlightProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11431980, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
-      propertyPath: SelectionProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11431980, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
-      propertyPath: Alpha
-      value: 0.35
-      objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: _IsEnabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: _OuterRadius
-      value: 0
+      value: 0.015
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: _InnerRadius
-      value: 0.01
+      value: 0.005
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: _ArcAngle
@@ -7752,11 +7728,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0.0050000697
+      value: 0.005000009
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_SizeDelta.x
-      value: -58
+      value: 42
       objectReference: {fileID: 0}
     - target: {fileID: 22455212, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
@@ -7805,6 +7781,42 @@ Prefab:
     - target: {fileID: 22401858, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_LocalPosition.z
       value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 174964, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3371744, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11431980, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: OuterRadius
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 11431980, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: InnerRadius
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11431980, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: ArcAngle
+      value: 360
+      objectReference: {fileID: 0}
+    - target: {fileID: 11431980, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: UseOuterEdge
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11431980, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: HighlightProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11431980, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: SelectionProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11431980, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: Alpha
+      value: 0.35
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
