@@ -97,9 +97,9 @@ namespace Hover.Renderers.Shapes.Arc {
 
 		/*--------------------------------------------------------------------------------------------*/
 		protected virtual void UpdateMeshControl(HoverMeshArcButton pMesh) {
-			pMesh.Controllers.Set(HoverMeshArcButton.OuterRadiusName, this);
-			pMesh.Controllers.Set(HoverMeshArcButton.InnerRadiusName, this);
-			pMesh.Controllers.Set(HoverMeshArcButton.ArcAngleName, this);
+			pMesh.Controllers.Set(HoverMeshArc.OuterRadiusName, this);
+			pMesh.Controllers.Set(HoverMeshArc.InnerRadiusName, this);
+			pMesh.Controllers.Set(HoverMeshArc.ArcAngleName, this);
 			pMesh.Controllers.Set(HoverMeshArcButton.OuterAmountName, this);
 			pMesh.Controllers.Set(HoverMeshArcButton.InnerAmountName, this);
 			pMesh.Controllers.Set(HoverMesh.SortingLayerName, this);

@@ -1,4 +1,3 @@
-using Hover.Renderers.Packs.Alpha.Rect;
 using Hover.Renderers.Shapes.Arc;
 using Hover.Utils;
 using UnityEngine;
@@ -75,10 +74,10 @@ namespace Hover.Renderers.Packs.Alpha.Arc {
 		protected override void UpdateGeneralSettings() {
 			base.UpdateGeneralSettings();
 
-			_Background.Controllers.Set(HoverAlphaMeshRectCentral.AlphaName, this);
-			_Highlight.Controllers.Set(HoverAlphaMeshRectCentral.AlphaName, this);
-			_Selection.Controllers.Set(HoverAlphaMeshRectCentral.AlphaName, this);
-			_Edge.Controllers.Set(HoverAlphaMeshRectCentral.AlphaName, this);
+			_Background.Controllers.Set(HoverAlphaMeshArcLateral.AlphaName, this);
+			_Highlight.Controllers.Set(HoverAlphaMeshArcLateral.AlphaName, this);
+			_Selection.Controllers.Set(HoverAlphaMeshArcLateral.AlphaName, this);
+			_Edge.Controllers.Set(HoverAlphaMeshArcLateral.AlphaName, this);
 
 			_Background.Alpha = Alpha;
 			_Highlight.Alpha = Alpha;

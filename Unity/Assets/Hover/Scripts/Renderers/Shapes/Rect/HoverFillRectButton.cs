@@ -84,8 +84,8 @@ namespace Hover.Renderers.Shapes.Rect {
 
 		/*--------------------------------------------------------------------------------------------*/
 		protected virtual void UpdateMeshControl(HoverMeshRectButton pMesh) {
-			pMesh.Controllers.Set(HoverMeshRectButton.SizeXName, this);
-			pMesh.Controllers.Set(HoverMeshRectButton.SizeYName, this);
+			pMesh.Controllers.Set(HoverMeshRect.SizeXName, this);
+			pMesh.Controllers.Set(HoverMeshRect.SizeYName, this);
 			pMesh.Controllers.Set(HoverMeshRectButton.OuterAmountName, this);
 			pMesh.Controllers.Set(HoverMeshRectButton.InnerAmountName, this);
 			pMesh.Controllers.Set(HoverMesh.SortingLayerName, this);
