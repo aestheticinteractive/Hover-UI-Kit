@@ -52,9 +52,7 @@ namespace Hover.Interfaces.Cast {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void TreeUpdate() {
-			RowThickness = Mathf.Max(0, RowThickness);
-			InnerRadius = Mathf.Max(0, InnerRadius);
-
+			UpdateSettings();
 			UpdateTimedProgress();
 			UpdateRows();
 		}
@@ -80,6 +78,12 @@ namespace Hover.Interfaces.Cast {
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateSettings() {
+			RowThickness = Mathf.Max(0, RowThickness);
+			InnerRadius = Mathf.Max(0, InnerRadius);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateTimedProgress() {
 			if ( vTimer == null ) {
 				return;
@@ -104,6 +108,8 @@ namespace Hover.Interfaces.Cast {
 			float prevScale = 1;
 
 			TransitionProgressCurved = 1-Mathf.Pow(1-TransitionProgress, TransitionExponent);
+
+			cast.BackItem.IsEnabled = (cast.BackItem.IsEnabled && isTransitionDone);
 
 			cast.ActiveRow.Controllers.Set("gameObject.activeSelf", this);
 			cast.ActiveRow.Controllers.Set("transform.localScale", this);
