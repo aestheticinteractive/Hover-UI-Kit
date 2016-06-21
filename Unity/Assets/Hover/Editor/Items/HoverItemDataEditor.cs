@@ -60,23 +60,25 @@ namespace Hover.Editor.Items {
 			
 			////
 
+			HoverItemDataSelector selectorData = (vData as HoverItemDataSelector);
 			HoverItemDataCheckbox checkboxData = (vData as HoverItemDataCheckbox);
 			HoverItemDataRadio radioData = (vData as HoverItemDataRadio);
 			HoverItemDataSlider sliderData = (vData as HoverItemDataSlider);
-
-			if ( checkboxData != null ) {
+			
+			if ( selectorData != null ) {
+				EditorGUILayout.PropertyField(serializedObject.FindProperty("_Action"));
+			}
+			else if ( checkboxData != null ) {
 				EditorGUILayout.PropertyField(serializedObject.FindProperty("_Value"),
 					new GUIContent("Checkbox Value"));
 			}
-
-			if ( radioData != null ) {
+			else if ( radioData != null ) {
 				EditorGUILayout.PropertyField(serializedObject.FindProperty("_GroupId"),
 					new GUIContent("Radio Group ID"));
 				EditorGUILayout.PropertyField(serializedObject.FindProperty("_Value"),
 					new GUIContent("Radio Value"));
 			}
-
-			if ( sliderData != null ) {
+			else if ( sliderData != null ) {
 				EditorGUILayout.PropertyField(serializedObject.FindProperty("_LabelFormat"),
 					new GUIContent("Slider Label Format"));
 				EditorGUILayout.PropertyField(serializedObject.FindProperty("_RangeMin"),

@@ -194,7 +194,7 @@ namespace Hover.Renderers {
 			HoverItemData data = pHoverItem.Data;
 			ICheckboxItem checkboxData = (data as ICheckboxItem);
 			IRadioItem radioData = (data as IRadioItem);
-			IParentItem parentData = (data as IParentItem);
+			ISelectorItem selectorData = (data as ISelectorItem);
 			IStickyItem stickyData = (data as IStickyItem);
 			
 			ButtonRenderer.IsEnabled = data.IsEnabled;
@@ -211,8 +211,15 @@ namespace Hover.Renderers {
 				ButtonRenderer.IconInnerType = (radioData.Value ?
 					HoverIcon.IconOffset.RadioInner : HoverIcon.IconOffset.None);
 			}
-			else if ( parentData != null ) {
-				ButtonRenderer.IconOuterType = HoverIcon.IconOffset.Parent;
+			else if ( selectorData != null ) {
+				HoverIcon.IconOffset oit = HoverIcon.IconOffset.None;
+
+				switch ( selectorData.Action ) {
+					case SelectorActionType.NavigateIn: oit = HoverIcon.IconOffset.NavigateIn; break;
+					case SelectorActionType.NavigateOut: oit = HoverIcon.IconOffset.NavigateOut; break;
+				}
+
+				ButtonRenderer.IconOuterType = oit;
 				ButtonRenderer.IconInnerType = HoverIcon.IconOffset.None;
 			}
 			else if ( stickyData != null ) {

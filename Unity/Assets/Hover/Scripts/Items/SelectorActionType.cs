@@ -1,8 +1,10 @@
-﻿namespace Hover.Items.Types {
+﻿namespace Hover.Items {
 
 	/*================================================================================================*/
-	public interface IParentItem : ISelectableItem {
-
+	public enum SelectorActionType {
+		Default,
+		NavigateIn,
+		NavigateOut
 	}
 
 }

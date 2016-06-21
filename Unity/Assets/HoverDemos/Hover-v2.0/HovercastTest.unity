@@ -144,7 +144,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: Hover.Items.SelectableItem+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  _NavigateBackUponSelect: 1
+  _Action: 2
 --- !u!114 &3650574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1181,11 +1181,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22401858, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -5.6000004
+      value: -5.6
       objectReference: {fileID: 0}
     - target: {fileID: 22455212, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -19.200005
+      value: -19.2
       objectReference: {fileID: 0}
     - target: {fileID: 192066, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_IsActive
@@ -1833,7 +1833,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 417819525}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 477976ce6ebfe334dadebf709a7bfa87, type: 3}
+  m_Script: {fileID: 11500000, guid: b6aef538aa024b043ae8182f3aeee109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _Id: 0A
@@ -1849,6 +1849,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: Hover.Items.SelectableItem+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  _Action: 1
 --- !u!114 &417819528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1893,7 +1894,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bb5d850a569d084fae287729b652247, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ItemType: 0
+  _ItemType: 1
   _Data: {fileID: 417819527}
 --- !u!114 &417819531
 MonoBehaviour:
@@ -2273,7 +2274,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: Hover.Items.SelectableItem+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  _NavigateBackUponSelect: 1
+  _Action: 2
 --- !u!114 &595115493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3085,8 +3086,8 @@ GameObject:
   - 114: {fileID: 927321524}
   - 114: {fileID: 927321523}
   - 114: {fileID: 927321522}
-  - 114: {fileID: 927321521}
   - 114: {fileID: 927321527}
+  - 114: {fileID: 927321521}
   m_Layer: 0
   m_Name: ItemB
   m_TagString: Untagged
@@ -3115,7 +3116,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 927321519}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 477976ce6ebfe334dadebf709a7bfa87, type: 3}
+  m_Script: {fileID: 11500000, guid: b6aef538aa024b043ae8182f3aeee109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _Id: 0B
@@ -3131,6 +3132,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: Hover.Items.SelectableItem+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  _Action: 1
 --- !u!114 &927321522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3175,7 +3177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bb5d850a569d084fae287729b652247, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ItemType: 0
+  _ItemType: 1
   _Data: {fileID: 927321521}
 --- !u!114 &927321525
 MonoBehaviour:
@@ -3409,11 +3411,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22494668, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -5.6000004
+      value: -5.5999985
       objectReference: {fileID: 0}
     - target: {fileID: 22401858, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -5.6000004
+      value: -5.5999994
       objectReference: {fileID: 0}
     - target: {fileID: 22561748, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_Alpha
@@ -3438,6 +3440,14 @@ Prefab:
     - target: {fileID: 22455212, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
       value: -19.200003
+      objectReference: {fileID: 0}
+    - target: {fileID: 185522, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 192066, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
@@ -3755,7 +3765,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: Hover.Items.SelectableItem+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  _NavigateBackUponSelect: 0
+  _Action: 0
 --- !u!114 &1013279435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4298,6 +4308,7 @@ GameObject:
   - 114: {fileID: 1292246285}
   - 114: {fileID: 1292246291}
   - 114: {fileID: 1292246288}
+  - 114: {fileID: 1292246292}
   m_Layer: 0
   m_Name: BackItem
   m_TagString: Untagged
@@ -4373,10 +4384,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1292246283}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 477976ce6ebfe334dadebf709a7bfa87, type: 3}
+  m_Script: {fileID: 11500000, guid: b6aef538aa024b043ae8182f3aeee109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Id: Item-46
+  _Id: Item-15
   _Label: 
   _IsEnabled: 0
   OnSelectedEvent:
@@ -4389,6 +4400,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: Hover.Items.SelectableItem+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  _Action: 0
 --- !u!114 &1292246289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4400,8 +4412,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bb5d850a569d084fae287729b652247, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ItemType: 0
-  _Data: {fileID: 1292246288}
+  _ItemType: 1
+  _Data: {fileID: 1292246292}
 --- !u!114 &1292246290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4427,6 +4439,31 @@ MonoBehaviour:
   TargetRow: {fileID: 0}
   UsePreviousActiveRow: 1
   RowEntryTransition: 2
+--- !u!114 &1292246292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1292246283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6aef538aa024b043ae8182f3aeee109, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Id: Item-16
+  _Label: 
+  _IsEnabled: 1
+  OnSelectedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Items.SelectableItem+SelectedEventHandler, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  OnDeselectedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Items.SelectableItem+SelectedEventHandler, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  _Action: 2
 --- !u!1001 &1414989382
 Prefab:
   m_ObjectHideFlags: 0
@@ -7329,7 +7366,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: Hover.Items.SelectableItem+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  _NavigateBackUponSelect: 0
+  _Action: 0
 --- !u!114 &2006765804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7604,7 +7641,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22561748, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_Alpha
-      value: 0.35
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 185522, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_IsActive
@@ -7812,7 +7849,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22401858, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_LocalScale.x
-      value: -1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22401858, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_LocalPosition.z

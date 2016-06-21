@@ -3,6 +3,8 @@
 	/*================================================================================================*/
 	public interface ISelectorItem : ISelectableItem {
 
+		SelectorActionType Action { get; set; }
+
 	}
 
 }

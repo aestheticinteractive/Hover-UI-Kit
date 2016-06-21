@@ -13,8 +13,7 @@ namespace Hover.Items {
 	public class HoverItem : MonoBehaviour, ITreeUpdateable {
 
 		public enum HoverItemType {
-			Parent,
-			Selector,
+			Selector = 1,
 			Sticky,
 			Checkbox,
 			Radio,
@@ -204,9 +203,6 @@ namespace Hover.Items {
 		/*--------------------------------------------------------------------------------------------*/
 		private HoverItemData BuildData(HoverItemType pType) {
 			switch ( pType ) {
-				case HoverItemType.Parent:
-					return gameObject.AddComponent<HoverItemDataParent>();
-
 				case HoverItemType.Selector:
 					return gameObject.AddComponent<HoverItemDataSelector>();
 

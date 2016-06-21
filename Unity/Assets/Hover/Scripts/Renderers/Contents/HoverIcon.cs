@@ -21,7 +21,8 @@ namespace Hover.Renderers.Contents {
 			CheckInner,
 			RadioOuter,
 			RadioInner,
-			Parent,
+			NavigateIn,
+			NavigateOut,
 			Slider,
 			Sticky
 		}
@@ -80,10 +81,10 @@ namespace Hover.Renderers.Contents {
 		public void TreeUpdate() {
 			RawImage icon = ImageComponent;
 			RectTransform rectTx = icon.rectTransform;
-			const float w = 1/8f;
+			const float w = 1f/9;
 			const float h = 1;
 
-			icon.uvRect = new UnityEngine.Rect((int)IconType*w+UvInset, UvInset, w-UvInset*2, h-UvInset*2);
+			icon.uvRect = new Rect((int)IconType*w+UvInset, UvInset, w-UvInset*2, h-UvInset*2);
 
 			rectTx.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, SizeX/CanvasScale);
 			rectTx.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, SizeY/CanvasScale);
