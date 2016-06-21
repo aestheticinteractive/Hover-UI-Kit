@@ -11,6 +11,7 @@ namespace Hover.Interfaces.Cast {
 	[RequireComponent(typeof(HovercastInterface))]
 	public class HovercastRowTransitioner : MonoBehaviour, ITreeUpdateable, ISettingsController {
 
+		public bool IsTransitionActive { get; private set; }
 		public float TransitionProgressCurved { get; private set; }
 
 		public float RowThickness = 0.06f;
@@ -25,7 +26,7 @@ namespace Hover.Interfaces.Cast {
 		[Range(1, 10000)]
 		public float TransitionMilliseconds = 1000;
 
-		public HovercastRowSwitcher.RowEntryType RowEntryTransition;
+		public HovercastRowSwitchingInfo.RowEntryType RowEntryTransition;
 
 		private Stopwatch vTimer;
 
@@ -46,10 +47,9 @@ namespace Hover.Interfaces.Cast {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Start() {
-			gameObject.GetComponent<HovercastInterface>()
-				.OnRowTransitionEvent.AddListener(HandleTransitionEvent);
+			//do nothing...
 		}
-		
+
 		/*--------------------------------------------------------------------------------------------*/
 		public void TreeUpdate() {
 			UpdateSettings();
@@ -60,10 +60,11 @@ namespace Hover.Interfaces.Cast {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void HandleTransitionEvent(HovercastRowSwitcher.RowEntryType pEntryType) {
+		public void OnRowSwitched(HovercastRowSwitchingInfo.RowEntryType pEntryType) {
+			IsTransitionActive = true;
 			RowEntryTransition = pEntryType;
 
-			if ( pEntryType == HovercastRowSwitcher.RowEntryType.Immediate ) {
+			if ( pEntryType == HovercastRowSwitchingInfo.RowEntryType.Immediate ) {
 				TransitionProgress = 1;
 				vTimer = null;
 			}
@@ -86,6 +87,7 @@ namespace Hover.Interfaces.Cast {
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateTimedProgress() {
 			if ( vTimer == null ) {
+				IsTransitionActive = false;
 				return;
 			}
 
@@ -133,12 +135,12 @@ namespace Hover.Interfaces.Cast {
 
 			if ( !isTransitionDone ) {
 				switch ( RowEntryTransition ) {
-					case HovercastRowSwitcher.RowEntryType.FromInside:
+					case HovercastRowSwitchingInfo.RowEntryType.FromInside:
 						activeScale = Mathf.Lerp(1/scaleFactor, 1, TransitionProgressCurved);
 						prevScale = Mathf.Lerp(1, scaleFactor, TransitionProgressCurved);
 						break;
 						
-				case HovercastRowSwitcher.RowEntryType.FromOutside:
+					case HovercastRowSwitchingInfo.RowEntryType.FromOutside:
 						activeScale = Mathf.Lerp(scaleFactor, 1, TransitionProgressCurved);
 						prevScale = Mathf.Lerp(1, 1/scaleFactor, TransitionProgressCurved);
 						break;

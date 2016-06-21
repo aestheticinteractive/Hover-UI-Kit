@@ -11,6 +11,7 @@ namespace Hover.Renderers.Packs.Alpha.Interfaces {
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
 	[RequireComponent(typeof(HovercastInterface))]
+	[RequireComponent(typeof(HovercastOpenTransitioner))]
 	[RequireComponent(typeof(HovercastRowTransitioner))]
 	public class HovercastRowAlpha : MonoBehaviour, ITreeUpdateable, ISettingsController {
 
@@ -25,35 +26,51 @@ namespace Hover.Renderers.Packs.Alpha.Interfaces {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void TreeUpdate() {
-			HovercastInterface cast = gameObject.GetComponent<HovercastInterface>();
-			HovercastRowTransitioner trans = gameObject.GetComponent<HovercastRowTransitioner>();
-
-			if ( cast.PreviousRow != null && cast.PreviousRow.gameObject.activeSelf ) {
-				FadeRow(cast.PreviousRow, 1-trans.TransitionProgressCurved);
-			}
-
-			if ( cast.ActiveRow.gameObject.activeSelf ) {
-				FadeRow(cast.ActiveRow, trans.TransitionProgressCurved);
-			}
+			UpdateWithTransitions();
 		}
 
 
-		///////////////////////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateWithTransitions() {
+			HovercastOpenTransitioner open = gameObject.GetComponent<HovercastOpenTransitioner>();
+			HovercastRowTransitioner row = gameObject.GetComponent<HovercastRowTransitioner>();
+			HovercastInterface cast = gameObject.GetComponent<HovercastInterface>();
+
+			float openProg = open.TransitionProgressCurved;
+			float openAlpha = (cast.IsOpen ? openProg : 1-openProg);
+			float prevAlpha = openAlpha*(1-row.TransitionProgressCurved);
+			float activeAlpha = openAlpha*row.TransitionProgressCurved;
+			
+			FadeItem(cast.BackItem, openAlpha);
+			FadeItem(cast.TitleItem, openAlpha);
+			FadeRow(cast.PreviousRow, prevAlpha);
+			FadeRow(cast.ActiveRow, activeAlpha);
+		}
+
 		/*--------------------------------------------------------------------------------------------*/
 		private void FadeRow(HoverLayoutArcRow pRow, float pAlpha) {
+			if ( pRow == null || !pRow.gameObject.activeSelf ) {
+				return;
+			}
+
 			pRow.GetComponentsInChildren(true, vItemDataResults);
 
 			for ( int i = 0 ; i < vItemDataResults.Count ; i++ ) {
-				HoverItemData itemData = vItemDataResults[i];
-				HoverAlphaRenderer rend = itemData.gameObject
-					.GetComponentInChildren<HoverAlphaRenderer>();
-
-				itemData.IsEnabled = (pAlpha >= 1);
-
-				rend.Controllers.Set(HoverAlphaRenderer.DisabledAlphaName, this);
-				rend.DisabledAlpha = Mathf.Lerp(0, rend.EnabledAlpha, pAlpha);
+				FadeItem(vItemDataResults[i], pAlpha);
 			}
 		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void FadeItem(HoverItemData pItemData, float pAlpha) {
+			HoverAlphaRenderer rend = pItemData.gameObject.GetComponentInChildren<HoverAlphaRenderer>();
+
+			pItemData.IsEnabled = (pAlpha >= 1); //TODO: move to HovercastRowTransitioner
+
+			rend.Controllers.Set(HoverAlphaRenderer.DisabledAlphaName, this);
+			rend.DisabledAlpha = Mathf.Lerp(0, rend.EnabledAlpha, pAlpha);
+		}
+
 	}
 
 }

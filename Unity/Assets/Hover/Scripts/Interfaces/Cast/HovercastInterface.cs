@@ -12,18 +12,21 @@ namespace Hover.Interfaces.Cast {
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
 	public class HovercastInterface : MonoBehaviour, ITreeUpdateable {
-
+		
 		[Serializable]
-		public class HovercastRowEvent : UnityEvent<HovercastRowSwitcher.RowEntryType> {}
+		public class HovercastRowEvent : UnityEvent<HovercastRowSwitchingInfo.RowEntryType> {}
 
 		public Transform RowContainer;
 		public HoverLayoutArcRow RootRow;
 		public HoverLayoutArcRow ActiveRow;
 		public HoverLayoutArcRow PreviousRow;
+		public HoverItemData OpenItem;
 		public HoverItemData TitleItem;
 		public HoverItemData BackItem;
+		public bool IsOpen = true;
 
-		public HovercastRowEvent OnRowTransitionEvent;
+		public UnityEvent OnOpenToggledEvent;
+		public HovercastRowEvent OnRowSwitchedEvent;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -54,13 +57,28 @@ namespace Hover.Interfaces.Cast {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void OnRowSwitched(HovercastRowSwitcher pSwitcher) { //via SendMessageUpwards()
+		public void OnOpenToggled(ISelectableItem pItem) {
+			IsOpen = !IsOpen;
+			OnOpenToggledEvent.Invoke();
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void OnRowSwitched(ISelectableItem pItem) {
+			HovercastRowSwitchingInfo switchInfo = 
+				pItem.gameObject.GetComponent<HovercastRowSwitchingInfo>();
+
+			if ( switchInfo == null ) {
+				Debug.LogError("Selected item requires a '"+
+					typeof(HovercastRowSwitchingInfo).Name+"' component.", pItem.gameObject);
+				return;
+			}
+
 			if ( PreviousRow != null ) {
 				PreviousRow.gameObject.SetActive(false);
 			}
 
 			HoverLayoutArcRow targetRow =
-				(pSwitcher.UsePreviousActiveRow ? PreviousRow : pSwitcher.TargetRow);
+				(switchInfo.UsePreviousActiveRow ? PreviousRow : switchInfo.TargetRow);
 
 			if ( targetRow == null ) {
 				Debug.LogError("Could not transition to null/missing row.", this);
@@ -70,7 +88,7 @@ namespace Hover.Interfaces.Cast {
 			PreviousRow = ActiveRow;
 			ActiveRow = targetRow;
 
-			OnRowTransitionEvent.Invoke(pSwitcher.RowEntryTransition);
+			OnRowSwitchedEvent.Invoke(switchInfo.RowEntryTransition);
 		}
 
 	}

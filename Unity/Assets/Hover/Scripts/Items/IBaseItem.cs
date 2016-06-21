@@ -1,7 +1,11 @@
-﻿namespace Hover.Items {
+﻿using UnityEngine;
+
+namespace Hover.Items {
 
 	/*================================================================================================*/
 	public interface IBaseItem {
+
+		GameObject gameObject { get; }
 
 		int AutoId { get; }
 		string Id { get; }
