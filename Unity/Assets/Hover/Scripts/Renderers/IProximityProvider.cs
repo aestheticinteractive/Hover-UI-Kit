@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Hover.Cursors;
+using Hover.Items;
+using UnityEngine;
 
 namespace Hover.Renderers {
 
@@ -11,7 +13,7 @@ namespace Hover.Renderers {
 		Vector3 GetNearestWorldPosition(Vector3 pFromWorldPosition);
 
 		/*--------------------------------------------------------------------------------------------*/
-		Vector3 GetNearestWorldPosition(Ray pFromWorldRay, out Vector3 pPlaneWorldPos);
+		Vector3 GetNearestWorldPosition(Ray pFromWorldRay, out RaycastResult pRaycast);
 
 	}
 

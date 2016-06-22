@@ -15,7 +15,7 @@ namespace Hover.Items.Managers {
 			public bool IsNearestAcrossAllItems;
 			public IHoverCursorData Cursor;
 			public Vector3 NearestWorldPos;
-			public Vector3? RaycastWorldPos;
+			public RaycastResult? RaycastResult;
 			public float Distance;
 			public float Progress;
 		}
@@ -226,14 +226,16 @@ namespace Hover.Items.Managers {
 			
 			if ( pCursor.Type == CursorType.Look ) {
 				var worldRay = new Ray(pCursor.WorldPosition, pCursor.WorldRotation*Vector3.forward);
+				RaycastResult raycast;
 
-				high.NearestWorldPos = ProximityProvider.GetNearestWorldPosition(
-					worldRay, out useCursorPos);
-				high.RaycastWorldPos = useCursorPos;
+				high.NearestWorldPos = ProximityProvider.GetNearestWorldPosition(worldRay, out raycast);
+				high.RaycastResult = raycast;
+				useCursorPos = raycast.WorldPosition;
+				Debug.DrawLine(worldRay.origin, useCursorPos, Color.cyan);
 			}
 			else {
 				high.NearestWorldPos = ProximityProvider.GetNearestWorldPosition(pCursor.WorldPosition);
-				high.RaycastWorldPos = null;
+				high.RaycastResult = null;
 			}
 
 			high.Distance = (useCursorPos-high.NearestWorldPos).magnitude;

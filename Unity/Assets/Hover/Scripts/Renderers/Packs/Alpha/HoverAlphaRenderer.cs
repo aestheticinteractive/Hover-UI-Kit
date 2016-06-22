@@ -1,4 +1,5 @@
-﻿using Hover.Renderers.Contents;
+﻿using Hover.Items;
+using Hover.Renderers.Contents;
 using Hover.Utils;
 using UnityEngine;
 
@@ -99,7 +100,7 @@ namespace Hover.Renderers.Packs.Alpha {
 		public abstract Vector3 GetNearestWorldPosition(Vector3 pFromWorldPosition);
 
 		/*--------------------------------------------------------------------------------------------*/
-		public abstract Vector3 GetNearestWorldPosition(Ray pFromWorldRay, out Vector3 pPlaneWorldPos);
+		public abstract Vector3 GetNearestWorldPosition(Ray pFromWorldRay, out RaycastResult pRaycast);
 		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

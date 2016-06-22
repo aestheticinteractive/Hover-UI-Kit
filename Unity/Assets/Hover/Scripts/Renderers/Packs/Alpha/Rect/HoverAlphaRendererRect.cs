@@ -1,4 +1,5 @@
-﻿using Hover.Renderers.Utils;
+﻿using Hover.Items;
+using Hover.Renderers.Utils;
 using Hover.Utils;
 using UnityEngine;
 
@@ -45,10 +46,12 @@ namespace Hover.Renderers.Packs.Alpha.Rect {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public override Vector3 GetNearestWorldPosition(Ray pFromWorldRay, out Vector3 pPlaneWorldPos) {
-			pPlaneWorldPos = RendererUtil.GetNearestWorldPositionOnPlane(pFromWorldRay, vWorldPlane);
-			Debug.DrawLine(pFromWorldRay.origin, pPlaneWorldPos, Color.cyan);
-			return GetNearestWorldPosition(pPlaneWorldPos);
+		public override Vector3 GetNearestWorldPosition(Ray pFromWorldRay, out RaycastResult pRaycast) {
+			pRaycast.WorldPosition = 
+				RendererUtil.GetNearestWorldPositionOnPlane(pFromWorldRay, vWorldPlane);
+			pRaycast.WorldRotation = transform.rotation;
+			pRaycast.WorldPlane = vWorldPlane;
+			return GetNearestWorldPosition(pRaycast.WorldPosition);
 		}
 
 	}

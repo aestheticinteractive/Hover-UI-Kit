@@ -62,7 +62,7 @@ namespace Hover.Items.Managers {
 			
 			for ( int i = 0 ; i < cursorCount ; i++ ) {
 				IHoverCursorData cursor = cursors[i];
-				cursor.BestRaycastWorldPosition = null;
+				cursor.BestRaycastResult = null;
 				cursor.MaxItemHighlightProgress = 0;
 				cursor.MaxItemSelectionProgress = 0;
 
@@ -79,7 +79,7 @@ namespace Hover.Items.Managers {
 
 				highState.SetNearestAcrossAllItemsForCursor(cursor.Type);
 
-				cursor.BestRaycastWorldPosition = high.Value.RaycastWorldPos;
+				cursor.BestRaycastResult = high.Value.RaycastResult;
 				cursor.MaxItemHighlightProgress = high.Value.Progress;
 			}
 		}

@@ -1,4 +1,5 @@
-﻿using Hover.Utils;
+﻿using Hover.Items;
+using Hover.Utils;
 using UnityEngine;
 
 namespace Hover.Cursors {
@@ -66,6 +67,7 @@ namespace Hover.Cursors {
 			}
 
 			IHoverCursorData cursor = GetCursorData();
+			RaycastResult? raycast = cursor.BestRaycastResult;
 
 			if ( FollowCursorActive ) {
 				foreach ( GameObject go in ObjectsToActivate ) {
@@ -75,13 +77,15 @@ namespace Hover.Cursors {
 
 			if ( FollowCursorPosition ) {
 				Controllers.Set("transform.position", this, 0);
-				gameObject.transform.position = 
-					(cursor.BestRaycastWorldPosition ?? cursor.WorldPosition);
+				gameObject.transform.position = (raycast == null ? 
+					cursor.WorldPosition : raycast.Value.WorldPosition);
 			}
 
 			if ( FollowCursorRotation ) {
 				Controllers.Set("transform.rotation", this, 0);
-				gameObject.transform.rotation = cursor.WorldRotation;
+				gameObject.transform.rotation = (raycast == null ? 
+					cursor.WorldRotation : raycast.Value.WorldRotation);
+				//TODO: "flatten" the cursor's rotation onto the raycast.WorldPlane
 			}
 
 			if ( ScaleUsingCursorSize ) {
