@@ -6,6 +6,7 @@ namespace Hover.Cursors {
 	[ExecuteInEditMode]
 	public class HoverCursorData : MonoBehaviour, IHoverCursorDataForInput {
 		
+		public Vector3? BestRaycastWorldPosition { get; set; }
 		public float MaxItemHighlightProgress { get; set; }
 		public float MaxItemSelectionProgress { get; set; }
 

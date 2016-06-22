@@ -160,6 +160,18 @@ namespace Hover.Renderers.Utils {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
+		public static Plane GetWorldPlane(Transform pTx) {
+			return new Plane(pTx.rotation*Vector3.back, pTx.position);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public static Vector3 GetNearestWorldPositionOnPlane(Ray pFromWorldRay, Plane pWorldPlane) {
+			float enter;
+			pWorldPlane.Raycast(pFromWorldRay, out enter);
+			return pFromWorldRay.GetPoint(enter);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
 		public static Vector3 GetNearestWorldPositionOnRectangle(Vector3 pFromWorldPosition, 
 													Transform pRectTx, float pSizeX, float pSizeY) {
 			Vector3 fromLocalPos = pRectTx.InverseTransformPoint(pFromWorldPosition);

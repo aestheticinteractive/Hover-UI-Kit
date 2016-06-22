@@ -14,6 +14,7 @@ namespace Hover.Cursors {
 		Vector3 WorldPosition { get; }
 		Quaternion WorldRotation { get; }
 
+		Vector3? BestRaycastWorldPosition { get; set; }
 		float MaxItemHighlightProgress { get; set; }
 		float MaxItemSelectionProgress { get; set; }
 

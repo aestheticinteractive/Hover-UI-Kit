@@ -110,6 +110,8 @@ namespace Hover.Renderers.Packs.Alpha.Rect {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public override void TreeUpdate() {
+			base.TreeUpdate();
+
 			SizeY = Mathf.Max(SizeY, HandleButton.SizeY);
 
 			UpdateControl();

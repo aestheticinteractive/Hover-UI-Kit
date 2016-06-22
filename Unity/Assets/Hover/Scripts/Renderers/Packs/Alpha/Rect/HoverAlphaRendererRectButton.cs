@@ -23,6 +23,8 @@ namespace Hover.Renderers.Packs.Alpha.Rect {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public override void TreeUpdate() {
+			base.TreeUpdate();
+
 			UpdateControl();
 			UpdateGeneralSettings();
 			UpdateAnchorSettings();

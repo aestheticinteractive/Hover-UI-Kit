@@ -1,4 +1,5 @@
-﻿using Hover.Utils;
+﻿using Hover.Renderers.Utils;
+using Hover.Utils;
 using UnityEngine;
 
 namespace Hover.Renderers.Packs.Alpha.Rect {
@@ -20,6 +21,8 @@ namespace Hover.Renderers.Packs.Alpha.Rect {
 		[DisableWhenControlled]
 		public AnchorTypeWithCustom Anchor = AnchorTypeWithCustom.MiddleCenter;
 
+		private Plane vWorldPlane;
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -32,6 +35,20 @@ namespace Hover.Renderers.Packs.Alpha.Rect {
 		public float SizeY {
 			get { return _SizeY; }
 			set { _SizeY = value; }
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public override void TreeUpdate() {
+			vWorldPlane = RendererUtil.GetWorldPlane(gameObject.transform);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public override Vector3 GetNearestWorldPosition(Ray pFromWorldRay, out Vector3 pPlaneWorldPos) {
+			pPlaneWorldPos = RendererUtil.GetNearestWorldPositionOnPlane(pFromWorldRay, vWorldPlane);
+			Debug.DrawLine(pFromWorldRay.origin, pPlaneWorldPos, Color.cyan);
+			return GetNearestWorldPosition(pPlaneWorldPos);
 		}
 
 	}

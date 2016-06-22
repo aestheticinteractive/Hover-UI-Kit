@@ -75,7 +75,8 @@ namespace Hover.Cursors {
 
 			if ( FollowCursorPosition ) {
 				Controllers.Set("transform.position", this, 0);
-				gameObject.transform.position = cursor.WorldPosition;
+				gameObject.transform.position = 
+					(cursor.BestRaycastWorldPosition ?? cursor.WorldPosition);
 			}
 
 			if ( FollowCursorRotation ) {

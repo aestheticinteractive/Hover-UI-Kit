@@ -62,6 +62,7 @@ namespace Hover.Items.Managers {
 			
 			for ( int i = 0 ; i < cursorCount ; i++ ) {
 				IHoverCursorData cursor = cursors[i];
+				cursor.BestRaycastWorldPosition = null;
 				cursor.MaxItemHighlightProgress = 0;
 				cursor.MaxItemSelectionProgress = 0;
 
@@ -69,23 +70,27 @@ namespace Hover.Items.Managers {
 					continue;
 				}
 
-				HoverItemHighlightState highState = FindNearestItemToCursor(cursor.Type);
+				HoverItemHighlightState.Highlight? high;
+				HoverItemHighlightState highState = FindNearestItemToCursor(cursor.Type, out high);
 
-				if ( highState == null ) {
+				if ( highState == null || high == null ) {
 					continue;
 				}
 
 				highState.SetNearestAcrossAllItemsForCursor(cursor.Type);
 
-				cursor.MaxItemHighlightProgress = Mathf.Max(
-					cursor.MaxItemHighlightProgress, highState.MaxHighlightProgress);
+				cursor.BestRaycastWorldPosition = high.Value.RaycastWorldPos;
+				cursor.MaxItemHighlightProgress = high.Value.Progress;
 			}
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		private HoverItemHighlightState FindNearestItemToCursor(CursorType pCursorType) {
+		private HoverItemHighlightState FindNearestItemToCursor(CursorType pCursorType, 
+												out HoverItemHighlightState.Highlight? pNearestHigh) {
 			float minDist = float.MaxValue;
 			HoverItemHighlightState nearestItem = null;
+
+			pNearestHigh = null;
 			
 			for ( int i = 0 ; i < vHighStates.Count ; i++ ) {
 				HoverItemHighlightState item = vHighStates[i];
@@ -102,6 +107,7 @@ namespace Hover.Items.Managers {
 				
 				minDist = high.Value.Distance;
 				nearestItem = item;
+				pNearestHigh = high;
 			}
 			
 			return nearestItem;

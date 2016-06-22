@@ -1,4 +1,5 @@
-﻿using Hover.Utils;
+﻿using Hover.Renderers.Utils;
+using Hover.Utils;
 using UnityEngine;
 
 namespace Hover.Renderers.Packs.Alpha.Arc {
@@ -22,6 +23,8 @@ namespace Hover.Renderers.Packs.Alpha.Arc {
 		[DisableWhenControlled(RangeMin=0, RangeMax=360)]
 		private float _ArcAngle = 60;
 
+		private Plane vWorldPlane;
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -40,6 +43,20 @@ namespace Hover.Renderers.Packs.Alpha.Arc {
 		public float ArcAngle {
 			get { return _ArcAngle; }
 			set { _ArcAngle = value; }
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public override void TreeUpdate() {
+			vWorldPlane = RendererUtil.GetWorldPlane(gameObject.transform);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public override Vector3 GetNearestWorldPosition(Ray pFromWorldRay, out Vector3 pPlaneWorldPos) {
+			pPlaneWorldPos = RendererUtil.GetNearestWorldPositionOnPlane(pFromWorldRay, vWorldPlane);
+			Debug.DrawLine(pFromWorldRay.origin, pPlaneWorldPos, Color.cyan);
+			return GetNearestWorldPosition(pPlaneWorldPos);
 		}
 
 	}

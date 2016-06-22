@@ -15,6 +15,7 @@ namespace Hover.Items.Managers {
 			public bool IsNearestAcrossAllItems;
 			public IHoverCursorData Cursor;
 			public Vector3 NearestWorldPos;
+			public Vector3? RaycastWorldPos;
 			public float Distance;
 			public float Progress;
 		}
@@ -107,8 +108,7 @@ namespace Hover.Items.Managers {
 					return 1;
 				}
 				
-				Highlight? nearestHigh = GetComponent<HoverItemHighlightState>().NearestHighlight;
-				return (nearestHigh == null ? 0 : nearestHigh.Value.Progress);
+				return (NearestHighlight == null ? 0 : NearestHighlight.Value.Progress);
 			}
 		}
 		
@@ -221,9 +221,22 @@ namespace Hover.Items.Managers {
 			if ( !Application.isPlaying ) {
 				return high;
 			}
+
+			Vector3 useCursorPos = pCursor.WorldPosition;
 			
-			high.NearestWorldPos = ProximityProvider.GetNearestWorldPosition(pCursor.WorldPosition);
-			high.Distance = (pCursor.WorldPosition-high.NearestWorldPos).magnitude;
+			if ( pCursor.Type == CursorType.Look ) {
+				var worldRay = new Ray(pCursor.WorldPosition, pCursor.WorldRotation*Vector3.forward);
+
+				high.NearestWorldPos = ProximityProvider.GetNearestWorldPosition(
+					worldRay, out useCursorPos);
+				high.RaycastWorldPos = useCursorPos;
+			}
+			else {
+				high.NearestWorldPos = ProximityProvider.GetNearestWorldPosition(pCursor.WorldPosition);
+				high.RaycastWorldPos = null;
+			}
+
+			high.Distance = (useCursorPos-high.NearestWorldPos).magnitude;
 			high.Progress = Mathf.InverseLerp(InteractionSettings.HighlightDistanceMax,
 				InteractionSettings.HighlightDistanceMin, high.Distance);
 			

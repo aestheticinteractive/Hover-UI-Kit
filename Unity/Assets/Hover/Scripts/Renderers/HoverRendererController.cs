@@ -186,6 +186,19 @@ namespace Hover.Renderers {
 
 			throw new Exception("No button or slider renderer.");
 		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public virtual Vector3 GetNearestWorldPosition(Ray pFromWorldRay, out Vector3 pPlaneWorldPos) {
+			if ( ButtonRenderer != null ) {
+				return ButtonRenderer.GetNearestWorldPosition(pFromWorldRay, out pPlaneWorldPos);
+			}
+
+			if ( SliderRenderer != null ) {
+				return SliderRenderer.GetNearestWorldPosition(pFromWorldRay, out pPlaneWorldPos);
+			}
+
+			throw new Exception("No button or slider renderer.");
+		}
 		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

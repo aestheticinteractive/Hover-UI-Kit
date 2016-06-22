@@ -22,6 +22,8 @@ namespace Hover.Renderers.Packs.Alpha.Arc {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public override void TreeUpdate() {
+			base.TreeUpdate();
+
 			UpdateControl();
 			UpdateGeneralSettings();
 

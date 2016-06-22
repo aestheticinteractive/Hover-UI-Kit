@@ -1,10 +1,9 @@
 ﻿using Hover.Utils;
-using UnityEngine;
 
 namespace Hover.Renderers {
 
 	/*================================================================================================*/
-	public interface IRenderer : IGameObjectProvider {
+	public interface IRenderer : IGameObjectProvider, IProximityProvider {
 
 		ISettingsController RendererController { get; set; }
 
@@ -14,11 +13,6 @@ namespace Hover.Renderers {
 		float SelectionProgress { get; set; }
 		bool ShowEdge { get; set; }
 		string SortingLayer { get; set; }
-		
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		Vector3 GetNearestWorldPosition(Vector3 pFromWorldPosition);
 
 	}
 

@@ -10,6 +10,9 @@ namespace Hover.Renderers {
 		/*--------------------------------------------------------------------------------------------*/
 		Vector3 GetNearestWorldPosition(Vector3 pFromWorldPosition);
 
+		/*--------------------------------------------------------------------------------------------*/
+		Vector3 GetNearestWorldPosition(Ray pFromWorldRay, out Vector3 pPlaneWorldPos);
+
 	}
 
 }

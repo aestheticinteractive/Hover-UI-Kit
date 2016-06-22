@@ -97,6 +97,9 @@ namespace Hover.Renderers.Packs.Alpha {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public abstract Vector3 GetNearestWorldPosition(Vector3 pFromWorldPosition);
+
+		/*--------------------------------------------------------------------------------------------*/
+		public abstract Vector3 GetNearestWorldPosition(Ray pFromWorldRay, out Vector3 pPlaneWorldPos);
 		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

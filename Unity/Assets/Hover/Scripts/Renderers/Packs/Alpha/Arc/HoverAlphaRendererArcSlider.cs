@@ -112,6 +112,8 @@ namespace Hover.Renderers.Packs.Alpha.Arc {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public override void TreeUpdate() {
+			base.TreeUpdate();
+
 			ArcAngle = Mathf.Max(ArcAngle, HandleButton.ArcAngle);
 
 			UpdateControl();
