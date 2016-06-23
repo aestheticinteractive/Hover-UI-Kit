@@ -224,7 +224,7 @@ namespace Hover.Items.Managers {
 
 			Vector3 useCursorPos = pCursor.WorldPosition;
 			
-			if ( pCursor.Type == CursorType.Look ) {
+			if ( pCursor.IsRaycast ) {
 				var worldRay = new Ray(pCursor.WorldPosition, pCursor.WorldRotation*Vector3.forward);
 				RaycastResult raycast;
 

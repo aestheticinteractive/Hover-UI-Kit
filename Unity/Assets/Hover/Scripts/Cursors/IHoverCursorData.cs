@@ -10,6 +10,7 @@ namespace Hover.Cursors {
 		bool IsActive { get; }
 		bool CanCauseSelections { get; }
 		CursorCapabilityType Capability { get; }
+		bool IsRaycast { get; }
 		float Size { get; }
 		float DisplayStrength { get; }
 		Vector3 WorldPosition { get; }

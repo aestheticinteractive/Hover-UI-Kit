@@ -16,6 +16,9 @@ namespace Hover.Cursors {
 		
 		[SerializeField]
 		public CursorCapabilityType _Capability = CursorCapabilityType.Full;
+		
+		[SerializeField]
+		public bool _IsRaycast = false;
 
 		[SerializeField]
 		public float _Size = 1;
@@ -46,6 +49,11 @@ namespace Hover.Cursors {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
+		public bool IsRaycast {
+			get { return _IsRaycast; }
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
 		public float Size {
 			get { return _Size; }
 		}
@@ -67,6 +75,11 @@ namespace Hover.Cursors {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public void SetIsRaycast(bool pIsRaycast) {
+			_IsRaycast = pIsRaycast;
+		}
+		
 		/*--------------------------------------------------------------------------------------------*/
 		public void SetCapability(CursorCapabilityType pCapability) {
 			_Capability = pCapability;
