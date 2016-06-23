@@ -68,6 +68,7 @@ namespace Hover.Cursors {
 
 			IHoverCursorData cursor = GetCursorData();
 			RaycastResult? raycast = cursor.BestRaycastResult;
+			Transform tx = gameObject.transform;
 
 			if ( FollowCursorActive ) {
 				foreach ( GameObject go in ObjectsToActivate ) {
@@ -77,20 +78,33 @@ namespace Hover.Cursors {
 
 			if ( FollowCursorPosition ) {
 				Controllers.Set("transform.position", this, 0);
-				gameObject.transform.position = (raycast == null ? 
-					cursor.WorldPosition : raycast.Value.WorldPosition);
+				tx.position = (raycast == null ? cursor.WorldPosition : raycast.Value.WorldPosition);
 			}
 
 			if ( FollowCursorRotation ) {
 				Controllers.Set("transform.rotation", this, 0);
-				gameObject.transform.rotation = (raycast == null ? 
-					cursor.WorldRotation : raycast.Value.WorldRotation);
-				//TODO: "flatten" the cursor's rotation onto the raycast.WorldPlane
+
+				if ( raycast == null ) {
+					tx.rotation = cursor.WorldRotation;
+				}
+				else {
+					RaycastResult rc = raycast.Value;
+					Vector3 castUpPos = rc.WorldPosition + rc.WorldRotation*Vector3.up;
+					Vector3 cursorUpPos = rc.WorldPosition + cursor.WorldRotation*Vector3.up;
+					float upToPlaneDist = rc.WorldPlane.GetDistanceToPoint(cursorUpPos);
+					Vector3 cursorUpOnPlanePos = cursorUpPos - rc.WorldPlane.normal*upToPlaneDist;
+					Quaternion applyRot = Quaternion.FromToRotation(
+						castUpPos-rc.WorldPosition, cursorUpOnPlanePos-rc.WorldPosition);
+					//Debug.DrawLine(rc.WorldPosition, castUpPos, Color.red);
+					//Debug.DrawLine(rc.WorldPosition, cursorUpOnPlanePos, Color.blue);
+
+					tx.rotation = rc.WorldRotation*applyRot;
+				}
 			}
 
 			if ( ScaleUsingCursorSize ) {
 				Controllers.Set("transform.localScale", this, 0);
-				gameObject.transform.localScale = Vector3.one*(cursor.Size*CursorSizeMultiplier);
+				tx.localScale = Vector3.one*(cursor.Size*CursorSizeMultiplier);
 			}
 		}
 
