@@ -89,12 +89,16 @@ namespace Hover.Cursors {
 				}
 				else {
 					RaycastResult rc = raycast.Value;
-					Vector3 castUpPos = rc.WorldPosition + rc.WorldRotation*Vector3.up;
-					Vector3 cursorUpPos = rc.WorldPosition + cursor.WorldRotation*Vector3.up;
+					Vector3 perpDir = (cursor.RaycastLocalDirection == Vector3.up ? 
+						Vector3.right : Vector3.up); //TODO: does this work in all cases?
+					Vector3 castUpPos = rc.WorldPosition + rc.WorldRotation*perpDir;
+					Vector3 cursorUpPos = rc.WorldPosition + cursor.WorldRotation*perpDir;
 					float upToPlaneDist = rc.WorldPlane.GetDistanceToPoint(cursorUpPos);
 					Vector3 cursorUpOnPlanePos = cursorUpPos - rc.WorldPlane.normal*upToPlaneDist;
-					Quaternion applyRot = Quaternion.FromToRotation(
-						castUpPos-rc.WorldPosition, cursorUpOnPlanePos-rc.WorldPosition);
+					Quaternion invCastRot = Quaternion.Inverse(rc.WorldRotation);
+					Vector3 fromLocalVec = invCastRot*(castUpPos-rc.WorldPosition);
+					Vector3 toLocalVec = invCastRot*(cursorUpOnPlanePos-rc.WorldPosition);
+					Quaternion applyRot = Quaternion.FromToRotation(fromLocalVec, toLocalVec);
 					//Debug.DrawLine(rc.WorldPosition, castUpPos, Color.red);
 					//Debug.DrawLine(rc.WorldPosition, cursorUpOnPlanePos, Color.blue);
 
