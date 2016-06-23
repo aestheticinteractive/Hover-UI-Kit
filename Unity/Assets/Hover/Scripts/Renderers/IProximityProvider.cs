@@ -1,5 +1,4 @@
-﻿using Hover.Cursors;
-using Hover.Items;
+﻿using Hover.Items;
 using UnityEngine;
 
 namespace Hover.Renderers {

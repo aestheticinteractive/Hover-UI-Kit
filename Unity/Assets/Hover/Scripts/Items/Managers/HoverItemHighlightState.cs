@@ -225,7 +225,8 @@ namespace Hover.Items.Managers {
 			Vector3 useCursorPos = pCursor.WorldPosition;
 			
 			if ( pCursor.IsRaycast ) {
-				var worldRay = new Ray(pCursor.WorldPosition, pCursor.WorldRotation*Vector3.forward);
+				var worldRay = new Ray(pCursor.WorldPosition, 
+					pCursor.WorldRotation*pCursor.RaycastLocalDirection);
 				RaycastResult raycast;
 
 				high.NearestWorldPos = ProximityProvider.GetNearestWorldPosition(worldRay, out raycast);

@@ -21,6 +21,9 @@ namespace Hover.Cursors {
 		public bool _IsRaycast = false;
 
 		[SerializeField]
+		public Vector3 _RaycastLocalDirection = Vector3.up;
+
+		[SerializeField]
 		public float _Size = 1;
 
 		[SerializeField]
@@ -54,6 +57,11 @@ namespace Hover.Cursors {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
+		public Vector3 RaycastLocalDirection {
+			get { return _RaycastLocalDirection; }
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
 		public float Size {
 			get { return _Size; }
 		}
@@ -78,6 +86,11 @@ namespace Hover.Cursors {
 		/*--------------------------------------------------------------------------------------------*/
 		public void SetIsRaycast(bool pIsRaycast) {
 			_IsRaycast = pIsRaycast;
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public void SetRaycastLocalDirection(Vector3 pRaycastLocalDirection) {
+			_RaycastLocalDirection = pRaycastLocalDirection;
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/

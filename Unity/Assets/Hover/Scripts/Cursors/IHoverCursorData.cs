@@ -11,6 +11,7 @@ namespace Hover.Cursors {
 		bool CanCauseSelections { get; }
 		CursorCapabilityType Capability { get; }
 		bool IsRaycast { get; }
+		Vector3 RaycastLocalDirection { get; }
 		float Size { get; }
 		float DisplayStrength { get; }
 		Vector3 WorldPosition { get; }

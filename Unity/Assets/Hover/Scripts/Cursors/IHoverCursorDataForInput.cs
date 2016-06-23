@@ -11,6 +11,9 @@ namespace Hover.Cursors {
 		void SetIsRaycast(bool pIsRaycast);
 
 		/*--------------------------------------------------------------------------------------------*/
+		void SetRaycastLocalDirection(Vector3 pRaycastLocalDirection);
+
+		/*--------------------------------------------------------------------------------------------*/
 		void SetCapability(CursorCapabilityType pCapability);
 		
 		/*--------------------------------------------------------------------------------------------*/
