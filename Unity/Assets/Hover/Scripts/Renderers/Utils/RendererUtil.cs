@@ -168,6 +168,11 @@ namespace Hover.Renderers.Utils {
 		public static Vector3 GetNearestWorldPositionOnPlane(Ray pFromWorldRay, Plane pWorldPlane) {
 			float enter;
 			pWorldPlane.Raycast(pFromWorldRay, out enter);
+
+			if ( enter <= 0 ) {
+				return pFromWorldRay.origin;
+			}
+
 			return pFromWorldRay.GetPoint(enter);
 		}
 
