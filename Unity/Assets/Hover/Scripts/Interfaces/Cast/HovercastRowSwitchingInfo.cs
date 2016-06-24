@@ -5,17 +5,18 @@ using UnityEngine;
 namespace Hover.Interfaces.Cast {
 
 	/*================================================================================================*/
+	[ExecuteInEditMode]
 	[RequireComponent(typeof(SelectableItem))]
 	public class HovercastRowSwitchingInfo : MonoBehaviour {
-		
+
 		public enum RowEntryType {
 			Immediate,
 			FromOutside,
 			FromInside
 		}
 
-		public HoverLayoutArcRow TargetRow;
-		public bool UsePreviousActiveRow = false;
+		public bool NavigateBack = false;
+		public HoverLayoutArcRow NavigateToRow = null;
 		public RowEntryType RowEntryTransition = RowEntryType.Immediate;
 
 	}

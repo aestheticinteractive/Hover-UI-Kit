@@ -103,15 +103,13 @@ namespace Hover.Interfaces.Cast {
 		private void UpdateRows() {
 			HovercastInterface cast = GetComponent<HovercastInterface>();
 			bool hasPrevRow = (cast.PreviousRow != null);
-			bool isTransitionDone = (TransitionProgress >= 1 || !hasPrevRow);
+			bool isTransitionDone = (TransitionProgress >= 1);
 			float outerRadius = InnerRadius+RowThickness;
 			float scaleFactor = outerRadius/InnerRadius;
 			float activeScale = 1;
 			float prevScale = 1;
 
 			TransitionProgressCurved = 1-Mathf.Pow(1-TransitionProgress, TransitionExponent);
-
-			cast.BackItem.IsEnabled = (cast.BackItem.IsEnabled && isTransitionDone);
 
 			cast.ActiveRow.Controllers.Set("gameObject.activeSelf", this);
 			cast.ActiveRow.Controllers.Set("transform.localScale", this);

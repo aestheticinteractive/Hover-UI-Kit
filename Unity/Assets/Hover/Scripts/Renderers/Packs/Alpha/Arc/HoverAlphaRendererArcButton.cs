@@ -11,7 +11,7 @@ namespace Hover.Renderers.Packs.Alpha.Arc {
 	
 		public ISettingsController SliderController { get; set; }
 
-		[DisableWhenControlled(DisplayMessage=true)]
+		[DisableWhenControlled]
 		public HoverAlphaFillArcButton Fill;
 
 		[SerializeField]
@@ -101,7 +101,7 @@ namespace Hover.Renderers.Packs.Alpha.Arc {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateGeneralSettings() {
-			float currAlpha = (IsEnabled ? EnabledAlpha : DisabledAlpha);
+			float currAlpha = MasterAlpha*(IsEnabled ? EnabledAlpha : DisabledAlpha);
 
 			Fill.OuterRadius = OuterRadius;
 			Fill.InnerRadius = InnerRadius;

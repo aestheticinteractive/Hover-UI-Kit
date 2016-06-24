@@ -20,7 +20,7 @@ namespace Hover.Renderers.Packs.Alpha.Arc {
 		public const string TickCountName = "_TickCount";
 		public const string FillStartingPointName = "_FillStartingPoint";
 
-		[DisableWhenControlled(DisplayMessage=true)]
+		[DisableWhenControlled]
 		public GameObject Container;
 
 		[DisableWhenControlled]
@@ -302,12 +302,12 @@ namespace Hover.Renderers.Packs.Alpha.Arc {
 			Track.InnerRadius = InnerRadius;
 
 			HandleButton.IsEnabled = IsEnabled;
-			HandleButton.EnabledAlpha = EnabledAlpha;
-			HandleButton.DisabledAlpha = DisabledAlpha;
+			HandleButton.EnabledAlpha = MasterAlpha*EnabledAlpha;
+			HandleButton.DisabledAlpha = MasterAlpha*DisabledAlpha;
 			JumpButton.IsEnabled = IsEnabled;
-			JumpButton.EnabledAlpha = EnabledAlpha;
-			JumpButton.DisabledAlpha = DisabledAlpha;
-			Track.Alpha = (IsEnabled ? EnabledAlpha : DisabledAlpha);
+			JumpButton.EnabledAlpha = MasterAlpha*EnabledAlpha;
+			JumpButton.DisabledAlpha = MasterAlpha*DisabledAlpha;
+			Track.Alpha = MasterAlpha*(IsEnabled ? EnabledAlpha : DisabledAlpha);
 			
 			HandleButton.SortingLayer = SortingLayer;
 			JumpButton.SortingLayer = SortingLayer;

@@ -99,7 +99,7 @@ namespace Hover.Renderers.Packs.Alpha.Rect {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateGeneralSettings() {
-			float currAlpha = (IsEnabled ? EnabledAlpha : DisabledAlpha);
+			float currAlpha = MasterAlpha*(IsEnabled ? EnabledAlpha : DisabledAlpha);
 
 			Fill.SizeX = SizeX;
 			Fill.SizeY = SizeY;

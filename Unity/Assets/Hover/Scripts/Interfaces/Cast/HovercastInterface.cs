@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Hover.Layouts.Arc;
 using Hover.Items;
 using Hover.Utils;
@@ -17,7 +18,6 @@ namespace Hover.Interfaces.Cast {
 		public class HovercastRowEvent : UnityEvent<HovercastRowSwitchingInfo.RowEntryType> {}
 
 		public Transform RowContainer;
-		public HoverLayoutArcRow RootRow;
 		public HoverLayoutArcRow ActiveRow;
 		public HoverLayoutArcRow PreviousRow;
 		public HoverItemData OpenItem;
@@ -27,6 +27,15 @@ namespace Hover.Interfaces.Cast {
 
 		public UnityEvent OnOpenToggledEvent;
 		public HovercastRowEvent OnRowSwitchedEvent;
+
+		public readonly Stack<HoverLayoutArcRow> vRowHistory;
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public HovercastInterface() {
+			vRowHistory = new Stack<HoverLayoutArcRow>();
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -43,7 +52,7 @@ namespace Hover.Interfaces.Cast {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Start() {
-			//do nothing...
+			PreviousRow = null;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -51,7 +60,7 @@ namespace Hover.Interfaces.Cast {
 			HovercastRowTitle rowTitle = ActiveRow.GetComponent<HovercastRowTitle>();
 
 			TitleItem.Label = (rowTitle == null ? "" : rowTitle.RowTitle);
-			BackItem.IsEnabled = (ActiveRow != RootRow);
+			BackItem.IsEnabled = (vRowHistory.Count > 0);
 		}
 
 
@@ -77,12 +86,24 @@ namespace Hover.Interfaces.Cast {
 				PreviousRow.gameObject.SetActive(false);
 			}
 
-			HoverLayoutArcRow targetRow =
-				(switchInfo.UsePreviousActiveRow ? PreviousRow : switchInfo.TargetRow);
+			HoverLayoutArcRow targetRow;
 
-			if ( targetRow == null ) {
-				Debug.LogError("Could not transition to null/missing row.", this);
+			if ( switchInfo.NavigateBack ) {
+				if ( vRowHistory.Count == 0 ) {
+					Debug.LogWarning("Can't navigate back. No rows left in history.");
+					return;
+				}
+
+				targetRow = vRowHistory.Pop();
+			}
+			else if ( switchInfo.NavigateToRow == null ) {
+				Debug.LogError("Could not navigate to null/missing row.", switchInfo);
 				return;
+			}
+			else {
+				targetRow = switchInfo.NavigateToRow;
+				vRowHistory.Push(ActiveRow);
+				//Debug.Log("Added row to history ("+vRowHistory.Count+"): "+ActiveRow, ActiveRow);
 			}
 
 			PreviousRow = ActiveRow;

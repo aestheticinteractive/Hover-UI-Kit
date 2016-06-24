@@ -12,8 +12,9 @@ namespace Hover.Renderers.Packs.Alpha {
 											IProximityProvider, ISettingsController, ITreeUpdateable {
 	
 		public const string IsEnabledName = "_IsEnabled";
-		public const string EnabledAlphaName = "EnabledAlpha";
-		public const string DisabledAlphaName = "DisabledAlpha";
+		public const string MasterAlphaName = "_MasterAlpha";
+		public const string EnabledAlphaName = "_EnabledAlpha";
+		public const string DisabledAlphaName = "_DisabledAlpha";
 		public const string SortingLayerName = "_SortingLayer";
 
 		public ISettingsController RendererController { get; set; }
@@ -26,8 +27,12 @@ namespace Hover.Renderers.Packs.Alpha {
 		public bool ShowEdge { get; set; }
 		
 		[SerializeField]
-		[DisableWhenControlled]
+		[DisableWhenControlled(DisplayMessage=true)]
 		private bool _IsEnabled = true;
+
+		[SerializeField]
+		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
+		private float _MasterAlpha = 1;
 
 		[SerializeField]
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
@@ -58,6 +63,12 @@ namespace Hover.Renderers.Packs.Alpha {
 		public bool IsEnabled {
 			get { return _IsEnabled; }
 			set { _IsEnabled = value; }
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float MasterAlpha {
+			get { return _MasterAlpha; }
+			set { _MasterAlpha = value; }
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

@@ -15,15 +15,22 @@ namespace Hover.Renderers.Packs.Alpha.Interfaces {
 	[RequireComponent(typeof(HovercastRowTransitioner))]
 	public class HovercastRowAlpha : MonoBehaviour, ITreeUpdateable, ISettingsController {
 
-		private List<HoverItemData> vItemDataResults;
+		private readonly List<HoverItemData> vItemDataResults;
 		
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
+		public HovercastRowAlpha() {
 			vItemDataResults = new List<HoverItemData>();
 		}
 
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public void Start() {
+			//do nothing...
+		}
+		
 		/*--------------------------------------------------------------------------------------------*/
 		public void TreeUpdate() {
 			UpdateWithTransitions();
@@ -64,11 +71,10 @@ namespace Hover.Renderers.Packs.Alpha.Interfaces {
 		/*--------------------------------------------------------------------------------------------*/
 		private void FadeItem(HoverItemData pItemData, float pAlpha) {
 			HoverAlphaRenderer rend = pItemData.gameObject.GetComponentInChildren<HoverAlphaRenderer>();
+			float currAlpha = (rend.IsEnabled ? rend.EnabledAlpha : rend.DisabledAlpha);
 
-			pItemData.IsEnabled = (pAlpha >= 1); //TODO: move to HovercastRowTransitioner
-
-			rend.Controllers.Set(HoverAlphaRenderer.DisabledAlphaName, this);
-			rend.DisabledAlpha = Mathf.Lerp(0, rend.EnabledAlpha, pAlpha);
+			rend.Controllers.Set(HoverAlphaRenderer.MasterAlphaName, this);
+			rend.MasterAlpha = Mathf.Lerp(0, currAlpha, pAlpha);
 		}
 
 	}

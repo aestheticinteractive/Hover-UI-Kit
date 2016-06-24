@@ -286,12 +286,12 @@ namespace Hover.Renderers.Packs.Alpha.Rect {
 			Track.SizeX = SizeX;
 
 			HandleButton.IsEnabled = IsEnabled;
-			HandleButton.EnabledAlpha = EnabledAlpha;
-			HandleButton.DisabledAlpha = DisabledAlpha;
+			HandleButton.EnabledAlpha = MasterAlpha*EnabledAlpha;
+			HandleButton.DisabledAlpha = MasterAlpha*DisabledAlpha;
 			JumpButton.IsEnabled = IsEnabled;
-			JumpButton.EnabledAlpha = EnabledAlpha;
-			JumpButton.DisabledAlpha = DisabledAlpha;
-			Track.Alpha = (IsEnabled ? EnabledAlpha : DisabledAlpha);
+			JumpButton.EnabledAlpha = MasterAlpha*EnabledAlpha;
+			JumpButton.DisabledAlpha = MasterAlpha*DisabledAlpha;
+			Track.Alpha = MasterAlpha*(IsEnabled ? EnabledAlpha : DisabledAlpha);
 			
 			HandleButton.SortingLayer = SortingLayer;
 			JumpButton.SortingLayer = SortingLayer;

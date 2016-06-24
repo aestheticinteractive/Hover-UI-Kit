@@ -133,7 +133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Id: 1ABack
   _Label: Back
-  _IsEnabled: 0
+  _IsEnabled: 1
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls:
@@ -238,8 +238,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c07a69cd4ce501428dd91de3bb8b1b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetRow: {fileID: 0}
-  UsePreviousActiveRow: 1
+  NavigateBack: 1
+  NavigateToRow: {fileID: 0}
   RowEntryTransition: 2
 --- !u!1 &25621389
 GameObject:
@@ -288,7 +288,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Id: 1AE
   _Label: AE
-  _IsEnabled: 0
+  _IsEnabled: 1
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -951,7 +951,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22561748, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_Alpha
-      value: 0.00006401539
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: _OuterRadius
@@ -1457,7 +1457,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22561748, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_Alpha
-      value: 0.00006401539
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: _OuterRadius
@@ -1955,8 +1955,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c07a69cd4ce501428dd91de3bb8b1b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetRow: {fileID: 850156550}
-  UsePreviousActiveRow: 0
+  NavigateBack: 0
+  NavigateToRow: {fileID: 850156550}
   RowEntryTransition: 1
 --- !u!1001 &431092456
 Prefab:
@@ -2389,8 +2389,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c07a69cd4ce501428dd91de3bb8b1b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetRow: {fileID: 0}
-  UsePreviousActiveRow: 1
+  NavigateBack: 1
+  NavigateToRow: {fileID: 0}
   RowEntryTransition: 2
 --- !u!114 &595115492
 MonoBehaviour:
@@ -2700,7 +2700,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22561748, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_Alpha
-      value: 0.00006401539
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: _OuterRadius
@@ -3326,7 +3326,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Id: 1AF
   _Label: AF
-  _IsEnabled: 0
+  _IsEnabled: 1
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -3707,8 +3707,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c07a69cd4ce501428dd91de3bb8b1b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetRow: {fileID: 1475921999}
-  UsePreviousActiveRow: 0
+  NavigateBack: 0
+  NavigateToRow: {fileID: 1475921999}
   RowEntryTransition: 1
 --- !u!114 &955989442 stripped
 MonoBehaviour:
@@ -3967,6 +3967,7 @@ GameObject:
   - 114: {fileID: 966968835}
   - 114: {fileID: 966968838}
   - 114: {fileID: 966968834}
+  - 114: {fileID: 966968839}
   - 114: {fileID: 966968836}
   m_Layer: 0
   m_Name: Hovercast
@@ -4039,9 +4040,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RowContainer: {fileID: 572082607}
-  RootRow: {fileID: 166591466}
   ActiveRow: {fileID: 166591466}
-  PreviousRow: {fileID: 850156550}
+  PreviousRow: {fileID: 0}
   OpenItem: {fileID: 1641242517}
   TitleItem: {fileID: 1437448024}
   BackItem: {fileID: 1292246292}
@@ -4114,6 +4114,17 @@ MonoBehaviour:
   TransitionProgress: 1
   TransitionExponent: 4
   TransitionMilliseconds: 500
+--- !u!114 &966968839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 966968831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c72ac2fec5643dd428f52ba0f3c0f042, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &971089810
 GameObject:
   m_ObjectHideFlags: 0
@@ -4418,7 +4429,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Id: 1AA
   _Label: AA
-  _IsEnabled: 0
+  _IsEnabled: 1
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -5052,8 +5063,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c07a69cd4ce501428dd91de3bb8b1b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetRow: {fileID: 0}
-  UsePreviousActiveRow: 1
+  NavigateBack: 1
+  NavigateToRow: {fileID: 0}
   RowEntryTransition: 2
 --- !u!114 &1292246292
 MonoBehaviour:
@@ -5068,7 +5079,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Id: HovercastBackItem
   _Label: 
-  _IsEnabled: 1
+  _IsEnabled: 0
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls:
@@ -5308,7 +5319,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22561748, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_Alpha
-      value: 0.00006401539
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: EnabledAlpha
@@ -6557,7 +6568,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Id: 1AB
   _Label: AB
-  _IsEnabled: 0
+  _IsEnabled: 1
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -6870,7 +6881,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22561748, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_Alpha
-      value: 0.00006401539
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: EnabledAlpha
@@ -7348,7 +7359,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22561748, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_Alpha
-      value: 0.00006401539
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: EnabledAlpha
@@ -7418,7 +7429,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Id: 1AC
   _Label: AC
-  _IsEnabled: 0
+  _IsEnabled: 1
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -8311,7 +8322,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11444988, guid: 542aa9a35c2a0b141bac2f7452dfe3ae, type: 2}
       propertyPath: _Capability
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 198590, guid: 542aa9a35c2a0b141bac2f7452dfe3ae, type: 2}
       propertyPath: m_IsActive
@@ -8417,7 +8428,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22561748, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_Alpha
-      value: 1
+      value: 0.122499995
       objectReference: {fileID: 0}
     - target: {fileID: 185522, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_IsActive
@@ -8885,7 +8896,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22561748, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_Alpha
-      value: 0.00006401539
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: _OuterRadius
@@ -8953,11 +8964,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22494668, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: -109.999985
       objectReference: {fileID: 0}
     - target: {fileID: 22455212, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 251.99997
+      value: 213.59998
       objectReference: {fileID: 0}
     - target: {fileID: 22402030, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
@@ -8969,7 +8980,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22401858, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: -109.999985
       objectReference: {fileID: 0}
     - target: {fileID: 11494686, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: SizeX
@@ -9101,11 +9112,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22494668, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -5.6000004
       objectReference: {fileID: 0}
     - target: {fileID: 22401858, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -5.6
       objectReference: {fileID: 0}
     - target: {fileID: 11421786, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: OuterRadius
@@ -9129,11 +9140,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 192066, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22455212, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 19.2
       objectReference: {fileID: 0}
     - target: {fileID: 22561748, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_Alpha
@@ -9250,7 +9261,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Id: 1AD
   _Label: AD
-  _IsEnabled: 0
+  _IsEnabled: 1
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
