@@ -1205,7 +1205,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22561748, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_Alpha
-      value: 1
+      value: 0.85239655
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: _InnerRadius
@@ -1789,6 +1789,10 @@ Prefab:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 22561748, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
+      propertyPath: m_Alpha
+      value: 0.85239655
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
   m_IsPrefabParent: 0
@@ -2155,7 +2159,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22561748, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_Alpha
-      value: 1
+      value: 0.85239655
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: _InnerRadius
@@ -3006,7 +3010,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22561748, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_Alpha
-      value: 1
+      value: 0.85239655
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: _InnerRadius
@@ -4098,7 +4102,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22561748, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_Alpha
-      value: 1
+      value: 0.85239655
       objectReference: {fileID: 0}
     - target: {fileID: 11436038, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: _InnerRadius
@@ -4156,6 +4160,7 @@ GameObject:
   - 114: {fileID: 966968834}
   - 114: {fileID: 966968839}
   - 114: {fileID: 966968840}
+  - 114: {fileID: 966968841}
   - 114: {fileID: 966968836}
   m_Layer: 0
   m_Name: Hovercast
@@ -4326,6 +4331,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BackTriggerCursor: {fileID: 2050297227}
   TriggerAgainThreshold: 0.5
+--- !u!114 &966968841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 966968831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 401e0de0d7cdf6e42a4405830bcd7992, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActiveWhenFacing: {fileID: 260486308}
+  ChildForActivation: {fileID: 2083447262}
+  FullyActiveWithinDegree: 30
+  InactiveOutsideDegree: 55
 --- !u!1 &971089810
 GameObject:
   m_ObjectHideFlags: 0
@@ -8635,7 +8655,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22561748, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_Alpha
-      value: 0.122499995
+      value: 0.104418576
       objectReference: {fileID: 0}
     - target: {fileID: 185522, guid: 7c0a493526bc1564dab4b860443712f5, type: 2}
       propertyPath: m_IsActive

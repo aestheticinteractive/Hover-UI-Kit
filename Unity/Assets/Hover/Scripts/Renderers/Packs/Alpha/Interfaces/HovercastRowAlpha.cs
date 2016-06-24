@@ -13,9 +13,11 @@ namespace Hover.Renderers.Packs.Alpha.Interfaces {
 	[RequireComponent(typeof(HovercastInterface))]
 	[RequireComponent(typeof(HovercastOpenTransitioner))]
 	[RequireComponent(typeof(HovercastRowTransitioner))]
+	[RequireComponent(typeof(HovercastActiveDirection))]
 	public class HovercastRowAlpha : MonoBehaviour, ITreeUpdateable, ISettingsController {
 
 		private readonly List<HoverItemData> vItemDataResults;
+		private float vDirectionAlpha;
 		
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -33,11 +35,20 @@ namespace Hover.Renderers.Packs.Alpha.Interfaces {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void TreeUpdate() {
+			UpdateDirectionAlpha();
 			UpdateWithTransitions();
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateDirectionAlpha() {
+			HovercastActiveDirection activeDir = gameObject.GetComponent<HovercastActiveDirection>();
+
+			vDirectionAlpha = Mathf.InverseLerp(activeDir.InactiveOutsideDegree,
+				activeDir.FullyActiveWithinDegree, activeDir.CurrentDegree);
+		}
+
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateWithTransitions() {
 			HovercastOpenTransitioner open = gameObject.GetComponent<HovercastOpenTransitioner>();
@@ -49,6 +60,7 @@ namespace Hover.Renderers.Packs.Alpha.Interfaces {
 			float prevAlpha = openAlpha*(1-row.TransitionProgressCurved);
 			float activeAlpha = openAlpha*row.TransitionProgressCurved;
 			
+			FadeItem(cast.OpenItem, 1);
 			FadeItem(cast.BackItem, openAlpha);
 			FadeItem(cast.TitleItem, openAlpha);
 			FadeRow(cast.PreviousRow, prevAlpha);
@@ -74,7 +86,7 @@ namespace Hover.Renderers.Packs.Alpha.Interfaces {
 			float currAlpha = (rend.IsEnabled ? rend.EnabledAlpha : rend.DisabledAlpha);
 
 			rend.Controllers.Set(HoverAlphaRenderer.MasterAlphaName, this);
-			rend.MasterAlpha = Mathf.Lerp(0, currAlpha, pAlpha);
+			rend.MasterAlpha = vDirectionAlpha*Mathf.Lerp(0, currAlpha, pAlpha);
 		}
 
 	}
