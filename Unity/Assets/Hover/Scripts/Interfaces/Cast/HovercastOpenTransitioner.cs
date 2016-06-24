@@ -71,7 +71,6 @@ namespace Hover.Interfaces.Cast {
 		private void UpdateTransition() {
 			HovercastInterface cast = GetComponent<HovercastInterface>();
 
-			cast.OpenItem.IsEnabled = !IsTransitionActive;
 			TransitionProgressCurved = 1-Mathf.Pow(1-TransitionProgress, TransitionExponent);
 			SetScale(cast.IsOpen ? TransitionProgressCurved : 1-TransitionProgressCurved);
 		}

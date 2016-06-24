@@ -38,6 +38,7 @@ namespace Hover.Interfaces.Cast {
 			HovercastInterface cast = gameObject.GetComponent<HovercastInterface>();
 			bool preventHigh = (open.IsTransitionActive || row.IsTransitionActive);
 			
+			UpdateItem(cast.OpenItem, row.IsTransitionActive);
 			UpdateItem(cast.BackItem, preventHigh);
 			UpdateItem(cast.TitleItem, preventHigh);
 			UpdateRow(cast.PreviousRow, preventHigh);
