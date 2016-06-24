@@ -3968,6 +3968,7 @@ GameObject:
   - 114: {fileID: 966968838}
   - 114: {fileID: 966968834}
   - 114: {fileID: 966968839}
+  - 114: {fileID: 966968840}
   - 114: {fileID: 966968836}
   m_Layer: 0
   m_Name: Hovercast
@@ -4026,7 +4027,7 @@ MonoBehaviour:
   InnerRadius: 0.12
   TransitionProgress: 1
   TransitionExponent: 2
-  TransitionMilliseconds: 1000
+  TransitionMilliseconds: 500
   RowEntryTransition: 2
 --- !u!114 &966968835
 MonoBehaviour:
@@ -4125,6 +4126,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c72ac2fec5643dd428f52ba0f3c0f042, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &966968840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 966968831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ac88c06ba026b84cb0ae1c03c972f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BackTriggerCursor: {fileID: 2050297227}
+  TriggerAgainThreshold: 0.5
 --- !u!1 &971089810
 GameObject:
   m_ObjectHideFlags: 0
@@ -6932,7 +6946,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1641242515}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.030000001, y: -0, z: -0}
+  m_LocalPosition: {x: -0, y: -0.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 715959527}
@@ -8383,6 +8397,12 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 542aa9a35c2a0b141bac2f7452dfe3ae, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &2050297227 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11450708, guid: 542aa9a35c2a0b141bac2f7452dfe3ae,
+    type: 2}
+  m_PrefabInternal: {fileID: 2050297226}
+  m_Script: {fileID: 11500000, guid: e301966260d08e447af6e6ac7589f6fa, type: 3}
 --- !u!1001 &2062391689
 Prefab:
   m_ObjectHideFlags: 0
@@ -9181,7 +9201,7 @@ GameObject:
   - 4: {fileID: 2083447263}
   - 114: {fileID: 2083447264}
   m_Layer: 0
-  m_Name: RotationFixer
+  m_Name: TransformAdjuster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9194,7 +9214,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2083447262}
   m_LocalRotation: {x: 0.6427877, y: 0.7660444, z: -0.00000010472341, w: -0.00000012480447}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1641242516}

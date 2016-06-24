@@ -13,7 +13,7 @@ namespace Hover.Cursors {
 		bool IsRaycast { get; }
 		Vector3 RaycastLocalDirection { get; }
 		float Size { get; }
-		float DisplayStrength { get; }
+		float TriggerStrength { get; }
 		Vector3 WorldPosition { get; }
 		Quaternion WorldRotation { get; }
 

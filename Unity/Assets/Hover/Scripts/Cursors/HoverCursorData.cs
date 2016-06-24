@@ -27,7 +27,8 @@ namespace Hover.Cursors {
 		public float _Size = 1;
 
 		[SerializeField]
-		public float _DisplayStrength = 1; //read-only
+		[Range(0, 1)]
+		public float _TriggerStrength = 0;
 		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -67,8 +68,8 @@ namespace Hover.Cursors {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public float DisplayStrength {
-			get { return _DisplayStrength; }
+		public float TriggerStrength {
+			get { return _TriggerStrength; }
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -101,6 +102,11 @@ namespace Hover.Cursors {
 		/*--------------------------------------------------------------------------------------------*/
 		public void SetSize(float pSize) {
 			_Size = pSize;
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public void SetTriggerStrength(float pTriggerStrength) {
+			_TriggerStrength = pTriggerStrength;
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/

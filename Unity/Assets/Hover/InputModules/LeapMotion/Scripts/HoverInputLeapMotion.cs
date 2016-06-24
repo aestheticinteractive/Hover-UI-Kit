@@ -82,6 +82,7 @@ namespace Hover.InputModules.LeapMotion {
 			data.SetWorldPosition(palmPos.ToVector3());
 			data.SetWorldRotation(pLeapHand.Basis.CalculateRotation()*RotationFix);
 			data.SetSize(pLeapHand.PalmWidth);
+			data.SetTriggerStrength(pLeapHand.GrabStrength);
 			data.SetUsedByInput(true);
 		}
 

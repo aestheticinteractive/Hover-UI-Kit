@@ -86,30 +86,45 @@ namespace Hover.Interfaces.Cast {
 				PreviousRow.gameObject.SetActive(false);
 			}
 
-			HoverLayoutArcRow targetRow;
-
 			if ( switchInfo.NavigateBack ) {
-				if ( vRowHistory.Count == 0 ) {
-					Debug.LogWarning("Can't navigate back. No rows left in history.");
-					return;
-				}
-
-				targetRow = vRowHistory.Pop();
-			}
-			else if ( switchInfo.NavigateToRow == null ) {
-				Debug.LogError("Could not navigate to null/missing row.", switchInfo);
-				return;
+				NavigateBack(switchInfo.RowEntryTransition);
 			}
 			else {
-				targetRow = switchInfo.NavigateToRow;
-				vRowHistory.Push(ActiveRow);
-				//Debug.Log("Added row to history ("+vRowHistory.Count+"): "+ActiveRow, ActiveRow);
+				NavigateToRow(switchInfo.NavigateToRow, switchInfo.RowEntryTransition);
+			}
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public void NavigateBack(HovercastRowSwitchingInfo.RowEntryType pRowEntry=
+													HovercastRowSwitchingInfo.RowEntryType.FromInside) {
+			if ( vRowHistory.Count == 0 ) {
+				Debug.LogWarning("Can't navigate back. No rows left in history.");
+				return;
 			}
 
 			PreviousRow = ActiveRow;
-			ActiveRow = targetRow;
+			ActiveRow = vRowHistory.Pop();
 
-			OnRowSwitchedEvent.Invoke(switchInfo.RowEntryTransition);
+			OnRowSwitchedEvent.Invoke(pRowEntry);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void NavigateToRow(HoverLayoutArcRow pRow, 
+													HovercastRowSwitchingInfo.RowEntryType pRowEntry) {
+			if ( pRow == null ) {
+				Debug.LogError("Could not navigate to null/missing row.");
+				return;
+			}
+
+			vRowHistory.Push(ActiveRow);
+			//Debug.Log("Added row to history ("+vRowHistory.Count+"): "+ActiveRow, ActiveRow);
+
+			PreviousRow = ActiveRow;
+			ActiveRow = pRow;
+
+			OnRowSwitchedEvent.Invoke(pRowEntry);
 		}
 
 	}
