@@ -1,7 +1,7 @@
 ﻿using Hover.Utils;
 using UnityEngine;
 
-namespace Hover.Renderers.Packs.Alpha {
+namespace Hover.Renderers.CursorPacks.Alpha {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]

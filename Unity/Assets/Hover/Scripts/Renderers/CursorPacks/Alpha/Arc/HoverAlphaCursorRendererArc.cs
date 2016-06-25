@@ -1,8 +1,9 @@
-﻿using Hover.Renderers.Shapes.Arc;
+﻿using Hover.Renderers.Packs.Alpha.Arc;
+using Hover.Renderers.Shapes.Arc;
 using Hover.Utils;
 using UnityEngine;
 
-namespace Hover.Renderers.Packs.Alpha.Arc {
+namespace Hover.Renderers.CursorPacks.Alpha.Arc {
 
 	/*================================================================================================*/
 	public class HoverAlphaCursorRendererArc : HoverAlphaCursorRenderer, ICursorRendererArc {
