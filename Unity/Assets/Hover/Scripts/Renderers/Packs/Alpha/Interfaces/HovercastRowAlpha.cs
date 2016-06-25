@@ -83,7 +83,7 @@ namespace Hover.Renderers.Packs.Alpha.Interfaces {
 		/*--------------------------------------------------------------------------------------------*/
 		private void FadeItem(HoverItemData pItemData, float pAlpha) {
 			HoverAlphaRenderer rend = pItemData.gameObject.GetComponentInChildren<HoverAlphaRenderer>();
-			float currAlpha = (rend.IsEnabled ? rend.EnabledAlpha : rend.DisabledAlpha);
+			float currAlpha = (pItemData.IsEnabled ? rend.EnabledAlpha : rend.DisabledAlpha);
 
 			rend.Controllers.Set(HoverAlphaRenderer.MasterAlphaName, this);
 			rend.MasterAlpha = vDirectionAlpha*Mathf.Lerp(0, currAlpha, pAlpha);
