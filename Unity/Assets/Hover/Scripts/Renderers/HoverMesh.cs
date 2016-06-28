@@ -13,9 +13,11 @@ namespace Hover.Renderers {
 		public const string SortingLayerName = "SortingLayer";
 
 		public ISettingsControllerMap Controllers { get; private set; }
+		public MeshBuilder Builder { get { return vMeshBuild; } }
+		public bool DidRebuildMesh { get; private set; }
 		
 		[DisableWhenControlled(DisplayMessage=true)]
-		public string SortingLayer = "Default";
+		public string SortingLayer = "Default"; //TODO: move to "Alpha"
 
 		protected MeshBuilder vMeshBuild;
 		protected bool vForceUpdates;
@@ -45,8 +47,10 @@ namespace Hover.Renderers {
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void TreeUpdate() {
 			vForceUpdates = UpdateNullScenarios();
+			DidRebuildMesh = false;
 
 			if ( ShouldUpdateMesh() ) {
+				DidRebuildMesh = true;
 				UpdateMesh();
 			}
 

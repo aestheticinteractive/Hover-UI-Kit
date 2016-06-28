@@ -106,6 +106,11 @@ namespace Hover.Utils {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
+		public void CommitColors() {
+			Mesh.colors32 = Colors;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
 		public void CommitColors(Color32 pColor) {
 			for ( int i = 0 ; i < Colors.Length ; i++ ) {
 				Colors[i] = pColor;
