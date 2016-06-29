@@ -26,6 +26,13 @@ namespace Hover.RendererModules.Alpha {
 		private string vPrevLayer;
 		private float vPrevAlpha;
 		private Color vPrevColor;
+		
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		protected HoverAlphaMeshColorer() {
+			Controllers = new SettingsControllerMap();
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

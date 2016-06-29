@@ -26,7 +26,7 @@ namespace Hover.Renderers.Elements {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public HoverIndicator() {
+		protected HoverIndicator() {
 			Controllers = new SettingsControllerMap();
 		}
 
