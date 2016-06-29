@@ -1,4 +1,5 @@
 using System;
+using Hover.Items;
 using Hover.Renderers.Utils;
 using Hover.Utils;
 using UnityEngine;
@@ -9,6 +10,8 @@ namespace Hover.Renderers.Elements {
 	[RequireComponent(typeof(HoverIndicator))]
 	[RequireComponent(typeof(HoverShapeArc))]
 	public class HoverFillArcButton : HoverFill {
+
+		//TODO: refactor to just HoverFillButton, and handle shapes elsewhere?
 
 		public enum EdgePositionType {
 			Inner,
@@ -62,12 +65,11 @@ namespace Hover.Renderers.Elements {
 			base.TreeUpdate();
 			UpdateMeshes();
 		}
-		
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected virtual void UpdateMeshes() {
-			HoverIndicator indicator = gameObject.GetComponent<HoverIndicator>();
 			HoverShapeArc shape = gameObject.GetComponent<HoverShapeArc>();
 
 			bool isOuterEdge = (EdgePosition == EdgePositionType.Outer);
@@ -78,59 +80,42 @@ namespace Hover.Renderers.Elements {
 			float edgeInnerRadius = (isOuterEdge ? insetOuterRadius : shape.InnerRadius);
 
 			if ( Background != null ) {
-				UpdateMeshIndicator(Background, indicator);
-				UpdateMeshShape(Background, shape, insetOuterRadius, insetInnerRadius);
+				UpdateMeshShape(Background, insetOuterRadius, insetInnerRadius);
 				UpdateMesh(Background, true);
 			}
 			
 			if ( Highlight != null ) {
-				UpdateMeshIndicator(Highlight, indicator);
-				UpdateMeshShape(Highlight, shape, insetOuterRadius, insetInnerRadius);
+				UpdateMeshShape(Highlight, insetOuterRadius, insetInnerRadius);
 				UpdateMesh(Highlight, true);
 			}
 			
 			if ( Selection != null ) {
-				UpdateMeshIndicator(Selection, indicator);
-				UpdateMeshShape(Selection, shape, insetOuterRadius, insetInnerRadius);
+				UpdateMeshShape(Selection, insetOuterRadius, insetInnerRadius);
 				UpdateMesh(Selection, true);
 			}
 			
 			if ( Edge != null ) {
-				UpdateMeshIndicator(Edge, indicator);
-				UpdateMeshShape(Edge, shape, edgeOuterRadius, edgeInnerRadius);
+				UpdateMeshShape(Edge, edgeOuterRadius, edgeInnerRadius);
 				UpdateMesh(Edge, ShowEdge);
 			}
 		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		protected virtual void UpdateMeshIndicator(HoverMeshArc pMesh, HoverIndicator pFillIndicator) {
-			HoverIndicator meshInd = pMesh.GetComponent<HoverIndicator>();
-
-			meshInd.Controllers.Set(HoverIndicator.HighlightProgressName, this);
-			meshInd.Controllers.Set(HoverIndicator.SelectionProgressName, this);
-			
-			meshInd.HighlightProgress = pFillIndicator.HighlightProgress;
-			meshInd.SelectionProgress = pFillIndicator.SelectionProgress;
-		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		protected virtual void UpdateMeshShape(HoverMeshArc pMesh, HoverShapeArc pFillShape, 
-															float pOuterRadius, float pInnerRadius) {
+		protected virtual void UpdateMeshShape(HoverMeshArc pMesh, float pOuterRad, float pInnerRad) {
 			HoverShapeArc meshShape = pMesh.GetComponent<HoverShapeArc>();
 
 			meshShape.Controllers.Set(HoverShapeArc.OuterRadiusName, this);
 			meshShape.Controllers.Set(HoverShapeArc.InnerRadiusName, this);
-			meshShape.Controllers.Set(HoverShapeArc.ArcDegreesName, this);
 			
-			meshShape.OuterRadius = pOuterRadius;
-			meshShape.InnerRadius = pInnerRadius;
-			meshShape.ArcDegrees = pFillShape.ArcDegrees;
+			meshShape.OuterRadius = pOuterRad;
+			meshShape.InnerRadius = pInnerRad;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		protected virtual void UpdateMesh(HoverMeshArc pMesh, bool pShowMesh) {
 			pMesh.Controllers.Set("GameObject.activeSelf", this);
 
+			//TODO: determine when mesh can be disabled (without needing a mesh update to occur first)
 			RendererUtil.SetActiveWithUpdate(pMesh, (pShowMesh /*&& pMesh.IsMeshVisible*/));
 		}
 

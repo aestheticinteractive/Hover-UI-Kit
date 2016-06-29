@@ -16,7 +16,7 @@ namespace Hover.Renderers {
 		public MeshBuilder Builder { get { return vMeshBuild; } }
 		public bool DidRebuildMesh { get; private set; }
 		
-		[DisableWhenControlled(DisplayMessage=true)]
+		[DisableWhenControlled]
 		public string SortingLayer = "Default"; //TODO: move to "Alpha"
 
 		protected MeshBuilder vMeshBuild;

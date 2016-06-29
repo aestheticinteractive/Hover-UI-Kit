@@ -6,12 +6,12 @@ namespace Hover.RendererModules.Alpha {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
-	[RequireComponent(typeof(HoverMesh))]
-	public class HoverAlphaMeshColorer : MonoBehaviour, ITreeUpdateable {
-	
+	[RequireComponent(typeof(HoverFill))]
+	public class HoverAlphaFillUpdater : MonoBehaviour, ITreeUpdateable, ISettingsController {
+
 		public const string SortingLayerName = "SortingLayer";
 		public const string AlphaName = "Alpha";
-		
+
 		public ISettingsControllerMap Controllers { get; private set; }
 
 		[DisableWhenControlled(DisplayMessage=true)]
@@ -19,18 +19,11 @@ namespace Hover.RendererModules.Alpha {
 
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
 		public float Alpha = 1;
-
-		[DisableWhenControlled]
-		public Color FillColor = Color.gray;
-
-		private string vPrevLayer;
-		private float vPrevAlpha;
-		private Color vPrevColor;
 		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected HoverAlphaMeshColorer() {
+		protected HoverAlphaFillUpdater() {
 			Controllers = new SettingsControllerMap();
 		}
 
@@ -43,37 +36,31 @@ namespace Hover.RendererModules.Alpha {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void TreeUpdate() {
-			HoverMesh hoverMesh = GetComponent<HoverMesh>();
+			HoverFill hoverFill = GetComponent<HoverFill>();
+			int meshCount = hoverFill.GetChildMeshCount();
 
-			TryUpdateLayer(hoverMesh);
-			TryUpdateColor(hoverMesh);
-
-			vPrevLayer = SortingLayer;
-			vPrevAlpha = Alpha;
-			vPrevColor = FillColor;
+			for ( int i = 0 ; i < meshCount ; i++ ) {
+				UpdateChildMesh(hoverFill.GetChildMesh(i));
+			}
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void TryUpdateLayer(HoverMesh pHoverMesh) {
-			if ( !pHoverMesh.DidRebuildMesh && SortingLayer == vPrevLayer ) {
+		private void UpdateChildMesh(HoverMesh pChildMesh) {
+			HoverAlphaMeshUpdater meshUp = pChildMesh.GetComponent<HoverAlphaMeshUpdater>();
+
+			if ( meshUp == null ) {
 				return;
 			}
 
-			gameObject.GetComponent<MeshRenderer>().sortingLayerName = SortingLayer;
+			meshUp.Controllers.Set(HoverAlphaMeshUpdater.SortingLayerName, this);
+			meshUp.Controllers.Set(HoverAlphaMeshUpdater.AlphaName, this);
+
+			meshUp.SortingLayer = SortingLayer;
+			meshUp.Alpha = Alpha;
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
-		private void TryUpdateColor(HoverMesh pHoverMesh) {
-			if ( !pHoverMesh.DidRebuildMesh && Alpha == vPrevAlpha && FillColor == vPrevColor ) {
-				return;
-			}
-
-			Color colorForAllVertices = DisplayUtil.FadeColor(FillColor, Alpha);
-			pHoverMesh.Builder.CommitColors(colorForAllVertices);
-		}
-		
 	}
 
 }

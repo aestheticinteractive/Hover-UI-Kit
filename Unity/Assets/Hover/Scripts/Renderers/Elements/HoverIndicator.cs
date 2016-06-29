@@ -6,7 +6,7 @@ namespace Hover.Renderers.Elements {
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
-	public class HoverIndicator : MonoBehaviour, ITreeUpdateable {
+	public class HoverIndicator : MonoBehaviour, ITreeUpdateable, ISettingsController {
 		
 		public const string HighlightProgressName = "HighlightProgress";
 		public const string SelectionProgressName = "SelectionProgress";
@@ -44,8 +44,32 @@ namespace Hover.Renderers.Elements {
 				SelectionProgress != vPrevSel
 			);
 
+			UpdateIndicatorChildren();
+
 			vPrevHigh = HighlightProgress;
 			vPrevSel = SelectionProgress;
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateIndicatorChildren() {
+			TreeUpdater tree = GetComponent<TreeUpdater>();
+
+			for ( int i = 0 ; i < tree.TreeChildrenThisFrame.Count ; i++ ) {
+				TreeUpdater child = tree.TreeChildrenThisFrame[i];
+				HoverIndicator childInd = child.GetComponent<HoverIndicator>();
+
+				if ( childInd == null ) {
+					continue;
+				}
+
+				childInd.Controllers.Set(HighlightProgressName, this);
+				childInd.Controllers.Set(SelectionProgressName, this);
+
+				childInd.HighlightProgress = HighlightProgress;
+				childInd.SelectionProgress = SelectionProgress;
+			}
 		}
 
 	}
