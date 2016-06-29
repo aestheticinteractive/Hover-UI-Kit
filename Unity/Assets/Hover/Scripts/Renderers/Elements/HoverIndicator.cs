@@ -39,6 +39,8 @@ namespace Hover.Renderers.Elements {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void TreeUpdate() {
+			SelectionProgress = Mathf.Min(SelectionProgress, HighlightProgress);
+
 			DidSettingsChange = (
 				HighlightProgress != vPrevHigh ||
 				SelectionProgress != vPrevSel

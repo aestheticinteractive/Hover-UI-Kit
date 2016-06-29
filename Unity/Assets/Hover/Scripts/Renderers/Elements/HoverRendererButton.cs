@@ -1,5 +1,6 @@
 using System;
 using Hover.Items;
+using Hover.Renderers.Contents;
 using Hover.Utils;
 using UnityEngine;
 
@@ -9,12 +10,12 @@ namespace Hover.Renderers.Elements {
 	[RequireComponent(typeof(HoverIndicator))]
 	[RequireComponent(typeof(HoverShape))]
 	public class HoverRendererButton : HoverRenderer {
-		
+
 		[DisableWhenControlled]
 		public HoverFill Fill;
 
-		//[DisableWhenControlled]
-		//public HoverCanvas Canvas;
+		[DisableWhenControlled]
+		public HoverCanvas Canvas;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -32,8 +33,6 @@ namespace Hover.Renderers.Elements {
 			throw new ArgumentOutOfRangeException();
 		}
 
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public override Vector3 GetNearestWorldPosition(Vector3 pFromWorldPosition) {
 			return GetComponent<HoverShape>().GetNearestWorldPosition(pFromWorldPosition);

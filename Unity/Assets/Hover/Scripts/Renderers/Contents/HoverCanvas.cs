@@ -12,6 +12,9 @@ namespace Hover.Renderers.Contents {
 	[RequireComponent(typeof(CanvasGroup))]
 	public class HoverCanvas : MonoBehaviour, ISettingsController, ITreeUpdateable {
 		
+		//TODO: handle alpha-related settings elsewhere
+		//TODO: use "shape" reference here? (instead of "HoverCanvasSizeUpdater")
+
 		public const string SizeXName = "SizeX";
 		public const string SizeYName = "SizeY";
 		public const string AlphaName = "Alpha";
@@ -41,7 +44,7 @@ namespace Hover.Renderers.Contents {
 		public HoverIcon IconOuter;
 		public HoverIcon IconInner;
 		
-		[DisableWhenControlled(RangeMin=0.0001f, RangeMax=1)]
+		[DisableWhenControlled(RangeMin=0.0001f)]
 		public float Scale = 0.0002f;
 		
 		[DisableWhenControlled(RangeMin=0)]
