@@ -45,11 +45,14 @@ namespace Hover.Renderers.Packs.Alpha.Arc {
 		public override HoverMeshArcButton Edge {
 			get { return _Edge; }
 		}
+		
+		public override int GetChildMeshCount() { return 0; }
+		public override HoverMesh GetChildMesh(int pIndex) { return null; }
 
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected override void BuildElements() {
+		protected void BuildElements() {
 			_Background = BuildArcMesh("Background");
 			_Highlight = BuildArcMesh("Highlight");
 			_Selection = BuildArcMesh("Selection");
@@ -84,7 +87,7 @@ namespace Hover.Renderers.Packs.Alpha.Arc {
 			_Selection.Alpha = Alpha;
 			_Edge.Alpha = Alpha;
 		}
-				
+
 	}
 
 }

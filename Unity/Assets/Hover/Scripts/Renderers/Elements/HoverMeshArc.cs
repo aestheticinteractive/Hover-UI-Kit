@@ -25,6 +25,8 @@ namespace Hover.Renderers.Elements {
 		[DisableWhenControlled]
 		public RadiusType OuterRadiusType = RadiusType.Max;
 
+		//TODO: add settings/script for automatic/dynamic control of UV values
+
 		[DisableWhenControlled]
 		public float UvInnerRadius = 0;
 

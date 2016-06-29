@@ -29,11 +29,14 @@ namespace Hover.Renderers.Packs.Alpha.Rect {
 		protected override HoverMeshRectTrack GetTick(int pIndex) {
 			return Ticks[pIndex];
 		}
+		
+		public override int GetChildMeshCount() { return 0; }
+		public override HoverMesh GetChildMesh(int pIndex) { return null; }
 
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected override void BuildElements() {
+		protected void BuildElements() {
 			Segments = new HoverAlphaMeshRectTrack[SegmentCount];
 			Ticks = new List<HoverAlphaMeshRectTrack>();
 

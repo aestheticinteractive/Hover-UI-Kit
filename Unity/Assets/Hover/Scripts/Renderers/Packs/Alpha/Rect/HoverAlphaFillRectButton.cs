@@ -45,11 +45,14 @@ namespace Hover.Renderers.Packs.Alpha.Rect {
 		public override HoverMeshRectButton Edge {
 			get { return _Edge; }
 		}
+		
+		public override int GetChildMeshCount() { return 0; }
+		public override HoverMesh GetChildMesh(int pIndex) { return null; }
 
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected override void BuildElements() {
+		protected void BuildElements() {
 			_Background = BuildHollowRect("Background");
 			_Highlight = BuildHollowRect("Highlight");
 			_Selection = BuildHollowRect("Selection");

@@ -13,29 +13,25 @@ namespace Hover.Renderers {
 		public ISettingsControllerMap Controllers { get; private set; }
 		
 		[DisableWhenControlled(DisplayMessage=true)]
-		public string SortingLayer = "Default";
-
-		[HideInInspector]
-		[SerializeField]
-		private bool _IsBuilt;
+		public string SortingLayer = "Default"; //TODO: move to "Alpha"
 		
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public HoverFill() {
+		protected HoverFill() {
 			Controllers = new SettingsControllerMap();
 		}
 		
-
+		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Awake() {
-			if ( !_IsBuilt ) {
-				BuildElements();
-				_IsBuilt = true;
-			}
-		}
+		public abstract int GetChildMeshCount();
+
+		/*--------------------------------------------------------------------------------------------*/
+		public abstract HoverMesh GetChildMesh(int pIndex);
 		
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void Start() {
 			//do nothing...
@@ -45,11 +41,6 @@ namespace Hover.Renderers {
 		public virtual void TreeUpdate() {
 			Controllers.TryExpireControllers();
 		}
-		
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		protected abstract void BuildElements();
 				
 	}
 

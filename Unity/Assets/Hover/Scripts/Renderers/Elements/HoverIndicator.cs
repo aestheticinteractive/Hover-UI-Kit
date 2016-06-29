@@ -7,18 +7,28 @@ namespace Hover.Renderers.Elements {
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
 	public class HoverIndicator : MonoBehaviour, ITreeUpdateable {
+		
+		public const string HighlightProgressName = "HighlightProgress";
+		public const string SelectionProgressName = "SelectionProgress";
 
 		public ISettingsControllerMap Controllers { get; private set; }
 		public bool DidSettingsChange { get; protected set; }
 
 		[DisableWhenControlled(RangeMin=0, RangeMax=1, DisplayMessage=true)]
-		public float HighlightProgress = 0.1f;
+		public float HighlightProgress = 0.7f;
 
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
-		public float SelectionProgress = 0.04f;
+		public float SelectionProgress = 0.2f;
 
 		private float vPrevHigh;
 		private float vPrevSel;
+		
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverIndicator() {
+			Controllers = new SettingsControllerMap();
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

@@ -4,6 +4,10 @@ namespace Hover.Renderers.Elements {
 
 	/*================================================================================================*/
 	public class HoverShapeArc : HoverShape {
+		
+		public const string OuterRadiusName = "OuterRadius";
+		public const string InnerRadiusName = "InnerRadius";
+		public const string ArcDegreesName = "ArcDegrees";
 
 		[DisableWhenControlled(RangeMin=0, DisplayMessage=true)]
 		public float OuterRadius = 0.1f;
