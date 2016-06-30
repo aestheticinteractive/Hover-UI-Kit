@@ -1,5 +1,4 @@
 using System;
-using Hover.Items;
 using Hover.Renderers.Utils;
 using Hover.Utils;
 using UnityEngine;

@@ -60,7 +60,7 @@ namespace Hover.Renderers.Contents {
 		public float PaddingY = 0.005f;
 
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
-		public float Alpha = 1;
+		public float Alpha = 1; //TODO: remove this
 		
 		[DisableWhenControlled]
 		public CanvasAlignmentType Alignment = CanvasAlignmentType.Left;
@@ -192,8 +192,6 @@ namespace Hover.Renderers.Contents {
 			Label.CanvasScale = Scale;
 			IconOuter.CanvasScale = Scale;
 			IconInner.CanvasScale = Scale;
-			
-			CanvasGroupComponent.alpha = Alpha;
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/

@@ -7,8 +7,6 @@ using UnityEngine;
 namespace Hover.Renderers.Elements {
 
 	/*================================================================================================*/
-	[RequireComponent(typeof(HoverIndicator))]
-	[RequireComponent(typeof(HoverShape))]
 	public class HoverRendererButton : HoverRenderer {
 
 		[DisableWhenControlled]
@@ -31,6 +29,16 @@ namespace Hover.Renderers.Elements {
 			}
 
 			throw new ArgumentOutOfRangeException();
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public override HoverCanvas GetCanvas() {
+			return Canvas;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public override HoverCanvasDataUpdater GetCanvasDataUpdater() {
+			return Canvas.GetComponent<HoverCanvasDataUpdater>();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

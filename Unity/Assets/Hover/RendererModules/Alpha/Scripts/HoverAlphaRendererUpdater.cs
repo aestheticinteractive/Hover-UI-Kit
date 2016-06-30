@@ -1,4 +1,5 @@
 ﻿using Hover.Renderers;
+using Hover.Renderers.Contents;
 using Hover.Renderers.Elements;
 using Hover.Utils;
 using UnityEngine;
@@ -22,10 +23,10 @@ namespace Hover.RendererModules.Alpha {
 
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
 		public float MasterAlpha = 1;
-		
+
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
 		public float EnabledAlpha = 1;
-		
+
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
 		public float DisabledAlpha = 0.35f;
 
@@ -45,6 +46,8 @@ namespace Hover.RendererModules.Alpha {
 			for ( int i = 0 ; i < fillCount ; i++ ) {
 				UpdateChildFill(hoverRend.GetChildFill(i), currAlpha);
 			}
+
+			UpdateChildCanvas(hoverRend.GetCanvas(), currAlpha);
 		}
 
 
@@ -62,6 +65,19 @@ namespace Hover.RendererModules.Alpha {
 
 			fillUp.SortingLayer = SortingLayer;
 			fillUp.Alpha = pAlpha;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateChildCanvas(HoverCanvas pChildCanvas, float pAlpha) {
+			if ( pChildCanvas == null ) {
+				return;
+			}
+
+			pChildCanvas.Controllers.Set("canvas.sortingLayer", this);
+			pChildCanvas.Controllers.Set("canvasGroup.alpha", this);
+
+			pChildCanvas.CanvasComponent.sortingLayerName = SortingLayer;
+			pChildCanvas.CanvasGroupComponent.alpha = pAlpha;
 		}
 
 	}
