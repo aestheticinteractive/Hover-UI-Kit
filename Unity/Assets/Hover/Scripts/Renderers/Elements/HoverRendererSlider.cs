@@ -22,7 +22,7 @@ namespace Hover.Renderers.Elements {
 		public GameObject Container;
 
 		[DisableWhenControlled]
-		public HoverFill Track;
+		public HoverFillSlider Track;
 
 		[DisableWhenControlled]
 		public HoverRendererButton HandleButton;
@@ -55,7 +55,7 @@ namespace Hover.Renderers.Elements {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public override int GetChildFillCount() {
-			return 0; //TODO: temporary
+			return 1;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -130,13 +130,8 @@ namespace Hover.Renderers.Elements {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateTrack() {
-			/*Track.Controllers.Set(HoverFillTrack.SegmentsName, this);
-			Track.Segments = gameObject.GetComponent<HoverRendererSliderSegments>();
-
-			Track.OuterRadius = OuterRadius;
-			Track.InnerRadius = InnerRadius;
-			Track.Alpha = MasterAlpha*(IsEnabled ? EnabledAlpha : DisabledAlpha);
-			Track.SortingLayer = SortingLayer;*/
+			Track.Controllers.Set(HoverFillSlider.SegmentInfoName, this);
+			Track.SegmentInfo = gameObject.GetComponent<HoverRendererSliderSegments>();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

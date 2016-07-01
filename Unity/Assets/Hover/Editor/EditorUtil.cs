@@ -31,9 +31,8 @@ namespace Hover.Editor {
 			if ( propInfo == null ) {
 				Debug.LogWarning(
 					"The '"+typeof(DisableWhenControlledAttribute).Name+"' could not find "+
-						"a '"+pName+"' property of type '"+mapType.Name+"'.",
-					behaviour
-				);
+					"a '"+pName+"' property of type '"+mapType.Name+
+					"' on the '"+behaviour+"' object.", behaviour);
 
 				return null;
 			}

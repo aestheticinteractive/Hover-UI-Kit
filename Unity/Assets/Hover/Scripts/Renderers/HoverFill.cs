@@ -1,4 +1,5 @@
-﻿using Hover.Utils;
+﻿using Hover.Renderers.Elements;
+using Hover.Utils;
 using UnityEngine;
 
 namespace Hover.Renderers {
@@ -6,6 +7,7 @@ namespace Hover.Renderers {
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
+	[RequireComponent(typeof(HoverShape))]
 	public abstract class HoverFill : MonoBehaviour, ITreeUpdateable, ISettingsController {
 
 		public const string SortingLayerName = "SortingLayer";
@@ -29,7 +31,12 @@ namespace Hover.Renderers {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public abstract HoverMesh GetChildMesh(int pIndex);
-		
+
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverShape GetShape() {
+			return gameObject.GetComponent<HoverShape>();
+		}
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/

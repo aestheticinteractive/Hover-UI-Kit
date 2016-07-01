@@ -57,7 +57,7 @@ namespace Hover.Renderers.Elements {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected virtual void UpdateMeshes() {
+		private void UpdateMeshes() {
 			if ( Background != null ) {
 				UpdateMesh(Background, true);
 			}
@@ -76,7 +76,7 @@ namespace Hover.Renderers.Elements {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		protected virtual void UpdateMesh(HoverMesh pMesh, bool pShowMesh) {
+		private void UpdateMesh(HoverMesh pMesh, bool pShowMesh) {
 			pMesh.Controllers.Set("GameObject.activeSelf", this);
 
 			//TODO: determine when mesh can be disabled (without needing a mesh update to occur first)

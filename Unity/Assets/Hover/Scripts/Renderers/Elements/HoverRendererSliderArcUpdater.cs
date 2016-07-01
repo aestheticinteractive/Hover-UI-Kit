@@ -19,6 +19,7 @@ namespace Hover.Renderers.Elements {
 
 			shapeArc.ArcDegrees = Mathf.Max(shapeArc.ArcDegrees, handleShapeArc.ArcDegrees);
 
+			UpdateTrackShape(shapeArc, rendSlider);
 			UpdateButtonRadii(shapeArc, handleShapeArc);
 			UpdateButtonRadii(shapeArc, jumpShapeArc);
 			UpdateButtonRotations(rendSlider);
@@ -26,6 +27,19 @@ namespace Hover.Renderers.Elements {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateTrackShape(HoverShapeArc pShapeArc, HoverRendererSlider pRendSlider) {
+			HoverShapeArc trackShapeArc = (HoverShapeArc)pRendSlider.Track.GetShape();
+
+			trackShapeArc.Controllers.Set(HoverShapeArc.OuterRadiusName, this);
+			trackShapeArc.Controllers.Set(HoverShapeArc.InnerRadiusName, this);
+			trackShapeArc.Controllers.Set(HoverShapeArc.ArcDegreesName, this);
+
+			trackShapeArc.OuterRadius = pShapeArc.OuterRadius;
+			trackShapeArc.InnerRadius = pShapeArc.InnerRadius;
+			trackShapeArc.ArcDegrees = pShapeArc.ArcDegrees;
+		}
+
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateButtonRadii(HoverShapeArc pShapeArc, HoverShapeArc pButtonShapeArc) {
 			pButtonShapeArc.Controllers.Set(HoverShapeArc.OuterRadiusName, this);
