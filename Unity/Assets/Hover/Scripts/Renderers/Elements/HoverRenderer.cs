@@ -48,6 +48,12 @@ namespace Hover.Renderers.Elements {
 		public abstract HoverFill GetChildFill(int pIndex);
 		
 		/*--------------------------------------------------------------------------------------------*/
+		public abstract int GetChildRendererCount();
+
+		/*--------------------------------------------------------------------------------------------*/
+		public abstract HoverRenderer GetChildRenderer(int pIndex);
+		
+		/*--------------------------------------------------------------------------------------------*/
 		public abstract HoverCanvas GetCanvas();
 
 		/*--------------------------------------------------------------------------------------------*/

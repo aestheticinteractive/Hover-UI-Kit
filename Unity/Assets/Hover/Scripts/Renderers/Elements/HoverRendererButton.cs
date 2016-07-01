@@ -30,6 +30,16 @@ namespace Hover.Renderers.Elements {
 
 			throw new ArgumentOutOfRangeException();
 		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public override int GetChildRendererCount() {
+			return 0;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public override HoverRenderer GetChildRenderer(int pIndex) {
+			throw new ArgumentOutOfRangeException();
+		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public override HoverCanvas GetCanvas() {

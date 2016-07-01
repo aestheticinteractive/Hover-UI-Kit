@@ -33,6 +33,13 @@ namespace Hover.RendererModules.Alpha {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
+		public HoverAlphaRendererUpdater() {
+			Controllers = new SettingsControllerMap();
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
 		public void Start() {
 			//do nothing...
 		}
@@ -40,10 +47,15 @@ namespace Hover.RendererModules.Alpha {
 		/*--------------------------------------------------------------------------------------------*/
 		public void TreeUpdate() {
 			HoverRenderer hoverRend = GetComponent<HoverRenderer>();
-			int fillCount = hoverRend.GetChildFillCount();
+			int childRendCount = hoverRend.GetChildRendererCount();
+			int childFillCount = hoverRend.GetChildFillCount();
 			float currAlpha = MasterAlpha*(hoverRend.IsEnabled ? EnabledAlpha : DisabledAlpha);
 
-			for ( int i = 0 ; i < fillCount ; i++ ) {
+			for ( int i = 0 ; i < childRendCount ; i++ ) {
+				UpdateChildRenderer(hoverRend.GetChildRenderer(i));
+			}
+
+			for ( int i = 0 ; i < childFillCount ; i++ ) {
 				UpdateChildFill(hoverRend.GetChildFill(i), currAlpha);
 			}
 
@@ -52,6 +64,25 @@ namespace Hover.RendererModules.Alpha {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateChildRenderer(HoverRenderer pChildRend) {
+			HoverAlphaRendererUpdater rendUp = pChildRend.GetComponent<HoverAlphaRendererUpdater>();
+
+			if ( rendUp == null ) {
+				return;
+			}
+
+			rendUp.Controllers.Set(SortingLayerName, this);
+			rendUp.Controllers.Set(MasterAlphaName, this);
+			rendUp.Controllers.Set(EnabledAlphaName, this);
+			rendUp.Controllers.Set(DisabledAlphaName, this);
+
+			rendUp.SortingLayer = SortingLayer;
+			rendUp.MasterAlpha = MasterAlpha;
+			rendUp.EnabledAlpha = EnabledAlpha;
+			rendUp.DisabledAlpha = DisabledAlpha;
+		}
+		
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateChildFill(HoverFill pChildFill, float pAlpha) {
 			HoverAlphaFillUpdater fillUp = pChildFill.GetComponent<HoverAlphaFillUpdater>();

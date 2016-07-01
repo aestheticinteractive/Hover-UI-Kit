@@ -67,13 +67,28 @@ namespace Hover.Renderers.Elements {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public override int GetChildFillCount() {
-			return 1;
+			return 0; //TODO: temporary
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public override HoverFill GetChildFill(int pIndex) {
 			switch ( pIndex ) {
 				case 0: return Track;
+			}
+
+			throw new ArgumentOutOfRangeException();
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		public override int GetChildRendererCount() {
+			return 2;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public override HoverRenderer GetChildRenderer(int pIndex) {
+			switch ( pIndex ) {
+				case 0: return HandleButton;
+				case 1: return JumpButton;
 			}
 
 			throw new ArgumentOutOfRangeException();
@@ -170,27 +185,19 @@ namespace Hover.Renderers.Elements {
 
 			RendererUtil.SetActiveWithUpdate(JumpButton, (AllowJump && isJumpSegmentVisible));
 
-			/*Track.OuterRadius = OuterRadius;
-			Track.InnerRadius = InnerRadius;
+			HandleButton.Controllers.Set(IsEnabledName, this);
+			JumpButton.Controllers.Set(IsEnabledName, this);
 
 			HandleButton.IsEnabled = IsEnabled;
-			HandleButton.EnabledAlpha = MasterAlpha*EnabledAlpha;
-			HandleButton.DisabledAlpha = MasterAlpha*DisabledAlpha;
 			JumpButton.IsEnabled = IsEnabled;
-			JumpButton.EnabledAlpha = MasterAlpha*EnabledAlpha;
-			JumpButton.DisabledAlpha = MasterAlpha*DisabledAlpha;
+
+			/*Track.OuterRadius = OuterRadius;
+			Track.InnerRadius = InnerRadius;
 			Track.Alpha = MasterAlpha*(IsEnabled ? EnabledAlpha : DisabledAlpha);
-			
-			HandleButton.SortingLayer = SortingLayer;
-			JumpButton.SortingLayer = SortingLayer;
 			Track.SortingLayer = SortingLayer;
 
 			HandleButton.IconOuterType = HoverIcon.IconOffset.None;
 			HandleButton.IconInnerType = HoverIcon.IconOffset.Slider;
-
-			if ( RendererController == null ) {
-				return;
-			}
 
 			HandleButton.ShowEdge = ShowEdge;
 			JumpButton.ShowEdge = ShowEdge;*/
