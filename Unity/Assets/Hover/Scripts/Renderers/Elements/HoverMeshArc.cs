@@ -16,7 +16,12 @@ namespace Hover.Renderers.Elements {
 			Max
 		}
 
-		[DisableWhenControlled(RangeMin=0.05f, RangeMax=10, DisplayMessage=true)]
+		public const string UvInnerRadiusName = "UvInnerRadius";
+		public const string UvOuterRadiusName = "UvOuterRadius";
+		public const string UvMinArcDegreeName = "UvMinArcDegree";
+		public const string UvMaxArcDegreeName = "UvMaxArcDegree";
+
+		[DisableWhenControlled(RangeMin=0.05f, RangeMax=10)]
 		public float ArcSegmentsPerDegree = 0.5f;
 
 		[DisableWhenControlled]

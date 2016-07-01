@@ -1,4 +1,5 @@
-﻿using Hover.Renderers;
+﻿using System;
+using Hover.Renderers;
 using Hover.Utils;
 using UnityEngine;
 
@@ -21,7 +22,10 @@ namespace Hover.RendererModules.Alpha {
 		public float Alpha = 1;
 
 		[DisableWhenControlled]
-		public Color FillColor = Color.gray;
+		public Color StandardColor = Color.gray;
+		
+		[DisableWhenControlled]
+		public Color SliderFillColor = Color.white;
 
 		private string vPrevLayer;
 		private float vPrevAlpha;
@@ -50,7 +54,7 @@ namespace Hover.RendererModules.Alpha {
 
 			vPrevLayer = SortingLayer;
 			vPrevAlpha = Alpha;
-			vPrevColor = FillColor;
+			vPrevColor = StandardColor;
 		}
 
 
@@ -66,11 +70,26 @@ namespace Hover.RendererModules.Alpha {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void TryUpdateColor(HoverMesh pHoverMesh) {
-			if ( !pHoverMesh.DidRebuildMesh && Alpha == vPrevAlpha && FillColor == vPrevColor ) {
+			Color useColor;
+
+			switch ( pHoverMesh.DisplayMode ) {
+				case HoverMesh.DisplayModeType.Standard:
+					useColor = StandardColor;
+					break;
+
+				case HoverMesh.DisplayModeType.SliderFill:
+					useColor = SliderFillColor;
+					break;
+
+				default:
+					throw new Exception("Unhandled display mode: "+pHoverMesh.DisplayMode);
+			}
+
+			if ( !pHoverMesh.DidRebuildMesh && Alpha == vPrevAlpha && useColor == vPrevColor ) {
 				return;
 			}
 
-			Color colorForAllVertices = DisplayUtil.FadeColor(FillColor, Alpha);
+			Color colorForAllVertices = DisplayUtil.FadeColor(useColor, Alpha);
 			pHoverMesh.Builder.CommitColors(colorForAllVertices);
 		}
 		

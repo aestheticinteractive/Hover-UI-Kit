@@ -10,12 +10,21 @@ namespace Hover.Renderers {
 	[RequireComponent(typeof(MeshFilter))]
 	public abstract class HoverMesh : MonoBehaviour, ITreeUpdateable {
 
+		public enum DisplayModeType {
+			Standard,
+			SliderFill
+		}
+
+		public const string DisplayModeName = "DisplayMode";
 		public const string SortingLayerName = "SortingLayer";
 
 		public ISettingsControllerMap Controllers { get; private set; }
 		public MeshBuilder Builder { get { return vMeshBuild; } }
 		public bool DidRebuildMesh { get; private set; }
 		
+		[DisableWhenControlled(DisplayMessage=true)]
+		public DisplayModeType DisplayMode = DisplayModeType.Standard;
+
 		[DisableWhenControlled]
 		public string SortingLayer = "Default"; //TODO: move to "Alpha"
 
