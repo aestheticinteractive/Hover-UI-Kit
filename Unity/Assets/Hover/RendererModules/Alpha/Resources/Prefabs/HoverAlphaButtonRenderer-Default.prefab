@@ -53,9 +53,10 @@ GameObject:
   - 114: {fileID: 11465004}
   - 114: {fileID: 11465620}
   - 114: {fileID: 11420878}
+  - 114: {fileID: 11417964}
   - 114: {fileID: 11412054}
   m_Layer: 0
-  m_Name: FillArc
+  m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -573,7 +574,7 @@ MonoBehaviour:
   SortingLayer: Default
   Alpha: 1
   FillColor: {r: 0.2179931, g: 0.5729627, b: 0.8235294, a: 1}
---- !u!114 &11420878
+--- !u!114 &11417964
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -584,14 +585,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88668f11eb40d2f4482db6fd2bad0480, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EdgeThickness: 0.001
+  EdgePosition: 0
+--- !u!114 &11420878
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 135952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc1f290ceb462c54280a0e6481656402, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   SortingLayer: Default
   Background: {fileID: 11491936}
   Highlight: {fileID: 11426036}
   Selection: {fileID: 11408842}
   Edge: {fileID: 11474116}
   ShowEdge: 1
-  EdgeThickness: 0.001
-  EdgePosition: 0
 --- !u!114 &11421058
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1151,7 +1163,7 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0705, y: 0}
+  m_AnchoredPosition: {x: 0.07050261, y: 0}
   m_SizeDelta: {x: 245.00002, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22465374
@@ -1168,7 +1180,7 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -102.50001, y: -6.9999995}
+  m_AnchoredPosition: {x: -102.50001, y: -7}
   m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &22518708
