@@ -12,7 +12,7 @@ namespace Hover.Renderers.Elements {
 		public const string InnerRadiusName = "InnerRadius";
 		public const string ArcDegreesName = "ArcDegrees";
 
-		[DisableWhenControlled(RangeMin=0, DisplayMessage=true)]
+		[DisableWhenControlled(RangeMin=0)]
 		public float OuterRadius = 0.1f;
 
 		[DisableWhenControlled(RangeMin=0)]
@@ -43,6 +43,29 @@ namespace Hover.Renderers.Elements {
 			return GetNearestWorldPosition(pRaycast.WorldPosition);
 		}
 
+		/*--------------------------------------------------------------------------------------------*/
+		public override float GetSliderValueViaNearestWorldPosition(Vector3 pNearestWorldPosition, 
+										Transform pSliderContainerTx, HoverShape pHandleButtonShape) {
+			HoverShapeArc buttonShapeArc = (pHandleButtonShape as HoverShapeArc);
+
+			if ( buttonShapeArc == null ) {
+				Debug.LogError("Expected slider handle to have a '"+typeof(HoverShapeArc).Name+
+					"' component attached to it.", this);
+				return 0;
+			}
+
+			Vector3 nearLocalPos = pSliderContainerTx.InverseTransformPoint(pNearestWorldPosition);
+			float fromAngle;
+			Vector3 fromAxis;
+			Quaternion fromLocalRot = Quaternion.FromToRotation(Vector3.right, nearLocalPos.normalized);
+
+			fromLocalRot.ToAngleAxis(out fromAngle, out fromAxis);
+			fromAngle *= Mathf.Sign(nearLocalPos.y);
+
+			float halfTrackAngle = (ArcDegrees-buttonShapeArc.ArcDegrees)/2;
+			return Mathf.InverseLerp(-halfTrackAngle, halfTrackAngle, fromAngle);
+		}
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -69,6 +92,10 @@ namespace Hover.Renderers.Elements {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateShapeArcChildren() {
+			if ( !ControlChildShapes ) {
+				return;
+			}
+
 			TreeUpdater tree = GetComponent<TreeUpdater>();
 
 			for ( int i = 0 ; i < tree.TreeChildrenThisFrame.Count ; i++ ) {

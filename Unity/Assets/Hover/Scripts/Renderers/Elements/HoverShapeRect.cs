@@ -11,7 +11,7 @@ namespace Hover.Renderers.Elements {
 		public const string SizeXName = "SizeX";
 		public const string SizeYName = "SizeY";
 
-		[DisableWhenControlled(RangeMin=0, DisplayMessage=true)]
+		[DisableWhenControlled(RangeMin=0)]
 		public float SizeX = 0.1f;
 		
 		[DisableWhenControlled(RangeMin=0)]
@@ -38,6 +38,22 @@ namespace Hover.Renderers.Elements {
 			return GetNearestWorldPosition(pRaycast.WorldPosition);
 		}
 
+		/*--------------------------------------------------------------------------------------------*/
+		public override float GetSliderValueViaNearestWorldPosition(Vector3 pNearestWorldPosition, 
+										Transform pSliderContainerTx, HoverShape pHandleButtonShape) {
+			HoverShapeRect buttonShapeRect = (pHandleButtonShape as HoverShapeRect);
+
+			if ( buttonShapeRect == null ) {
+				Debug.LogError("Expected slider handle to have a '"+typeof(HoverShapeRect).Name+
+					"' component attached to it.", this);
+				return 0;
+			}
+			
+			Vector3 nearLocalPos = pSliderContainerTx.InverseTransformPoint(pNearestWorldPosition);
+			float halfTrackSizeY = (SizeY-buttonShapeRect.SizeY)/2;
+			return Mathf.InverseLerp(-halfTrackSizeY, halfTrackSizeY, nearLocalPos.y);
+		}
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -62,6 +78,10 @@ namespace Hover.Renderers.Elements {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateShapeRectChildren() {
+			if ( !ControlChildShapes ) {
+				return;
+			}
+
 			TreeUpdater tree = GetComponent<TreeUpdater>();
 
 			for ( int i = 0 ; i < tree.TreeChildrenThisFrame.Count ; i++ ) {

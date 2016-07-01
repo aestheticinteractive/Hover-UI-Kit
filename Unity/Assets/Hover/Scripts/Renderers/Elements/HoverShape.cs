@@ -11,6 +11,9 @@ namespace Hover.Renderers.Elements {
 
 		public ISettingsControllerMap Controllers { get; private set; }
 		public bool DidSettingsChange { get; protected set; }
+		
+		[DisableWhenControlled(DisplayMessage=true)]
+		public bool ControlChildShapes = true;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -26,8 +29,12 @@ namespace Hover.Renderers.Elements {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public abstract Vector3 GetNearestWorldPosition(Ray pFromWorldRay, out RaycastResult pRaycast);
-
 		
+		/*--------------------------------------------------------------------------------------------*/
+		public abstract float GetSliderValueViaNearestWorldPosition(Vector3 pNearestWorldPosition, 
+			Transform pSliderContainerTx, HoverShape pHandleButtonShape);
+
+
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void Start() {
