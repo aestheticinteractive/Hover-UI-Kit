@@ -1,4 +1,3 @@
-using Hover.Renderers.Utils;
 using Hover.Utils;
 using UnityEngine;
 
@@ -9,11 +8,6 @@ namespace Hover.Renderers.Elements {
 	[RequireComponent(typeof(HoverRendererSlider))]
 	public abstract class HoverRendererSliderUpdater : MonoBehaviour, 
 																ITreeUpdateable, ISettingsController {
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public abstract SliderUtil.SliderInfo FillShapeRelatedSliderInfo();
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

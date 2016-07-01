@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Hover.Items;
 using Hover.Renderers.Contents;
 using Hover.Renderers.Utils;
@@ -9,7 +8,7 @@ using UnityEngine;
 namespace Hover.Renderers.Elements {
 
 	/*================================================================================================*/
-	[RequireComponent(typeof(HoverRendererSliderUpdater))]
+	[RequireComponent(typeof(HoverRendererSliderSegments))]
 	public class HoverRendererSlider : HoverRenderer {
 
 		public const string ZeroValueName = "ZeroValue";
@@ -51,17 +50,6 @@ namespace Hover.Renderers.Elements {
 
 		[DisableWhenControlled]
 		public SliderFillType FillStartingPoint = SliderFillType.Zero;
-
-		private readonly List<SliderUtil.SegmentInfo> vSegmentInfoList;
-		private readonly List<SliderUtil.SegmentInfo> vTickInfoList;
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public HoverRendererSlider() {
-			vSegmentInfoList = new List<SliderUtil.SegmentInfo>();
-			vTickInfoList = new List<SliderUtil.SegmentInfo>();
-		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -128,62 +116,34 @@ namespace Hover.Renderers.Elements {
 				pNearestWorldPosition, Container.transform, HandleButton.GetShape());
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
-		public List<SliderUtil.SegmentInfo> GetSegmentInfoList() {
-			return vSegmentInfoList;
-		}
-
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public override void TreeUpdate() {
 			base.TreeUpdate();
 
-			UpdateSliderSegments();
-			UpdateGeneralSettings();
+			UpdateTrack();
+			UpdateButtons();
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateSliderSegments() {
-			SliderUtil.SliderInfo info = gameObject
-				.GetComponent<HoverRendererSliderUpdater>()
-				.FillShapeRelatedSliderInfo();
+		private void UpdateTrack() {
+			/*Track.Controllers.Set(HoverFillTrack.SegmentsName, this);
+			Track.Segments = gameObject.GetComponent<HoverRendererSliderSegments>();
 
-			info.FillType = FillStartingPoint;
-			info.HandleValue = HandleValue;
-			info.JumpValue = JumpValue;
-			info.ZeroValue = ZeroValue;
-			info.TickCount = TickCount;
-			info.TickSize = TickSizeY;
-
-			SliderUtil.CalculateSegments(info, vSegmentInfoList);
-			SliderUtil.CalculateTicks(info, vSegmentInfoList, vTickInfoList);
-			//TODO: Track.SegmentInfoList = vSegmentInfoList;
-			//TODO: Track.TickInfoList = vTickInfoList;
-
-			/*Debug.Log("INFO: "+info.TrackStartPosition+" / "+info.TrackEndPosition);
-
-			foreach ( SliderUtil.Segment seg in vSegmentInfoList ) {
-				Debug.Log(" - "+seg.Type+": "+seg.StartPosition+" / "+seg.EndPosition);
-			}*/
+			Track.OuterRadius = OuterRadius;
+			Track.InnerRadius = InnerRadius;
+			Track.Alpha = MasterAlpha*(IsEnabled ? EnabledAlpha : DisabledAlpha);
+			Track.SortingLayer = SortingLayer;*/
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateGeneralSettings() {
-			bool isJumpSegmentVisible = false;
+		private void UpdateButtons() {
+			HoverRendererSliderSegments segs = gameObject.GetComponent<HoverRendererSliderSegments>();
 
-			for ( int i = 0 ; i < vSegmentInfoList.Count ; i++ ) {
-				SliderUtil.SegmentInfo segInfo = vSegmentInfoList[i];
-
-				if ( segInfo.Type == SliderUtil.SegmentType.Jump ) {
-					isJumpSegmentVisible = true;
-					break;
-				}
-			}
-
-			RendererUtil.SetActiveWithUpdate(JumpButton, (AllowJump && isJumpSegmentVisible));
+			RendererUtil.SetActiveWithUpdate(JumpButton, (AllowJump && segs.IsJumpVisible));
 
 			HandleButton.Controllers.Set(IsEnabledName, this);
 			JumpButton.Controllers.Set(IsEnabledName, this);
@@ -191,12 +151,7 @@ namespace Hover.Renderers.Elements {
 			HandleButton.IsEnabled = IsEnabled;
 			JumpButton.IsEnabled = IsEnabled;
 
-			/*Track.OuterRadius = OuterRadius;
-			Track.InnerRadius = InnerRadius;
-			Track.Alpha = MasterAlpha*(IsEnabled ? EnabledAlpha : DisabledAlpha);
-			Track.SortingLayer = SortingLayer;
-
-			HandleButton.IconOuterType = HoverIcon.IconOffset.None;
+			/*HandleButton.IconOuterType = HoverIcon.IconOffset.None;
 			HandleButton.IconInnerType = HoverIcon.IconOffset.Slider;
 
 			HandleButton.ShowEdge = ShowEdge;

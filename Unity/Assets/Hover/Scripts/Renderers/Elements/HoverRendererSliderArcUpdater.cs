@@ -1,29 +1,12 @@
-using System.Collections.Generic;
 using Hover.Renderers.Utils;
 using UnityEngine;
 
 namespace Hover.Renderers.Elements {
 
 	/*================================================================================================*/
+	[RequireComponent(typeof(HoverRendererSliderSegments))]
 	[RequireComponent(typeof(HoverShapeArc))]
 	public class HoverRendererSliderArcUpdater : HoverRendererSliderUpdater {
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public override SliderUtil.SliderInfo FillShapeRelatedSliderInfo() {
-			HoverRendererSlider rendSlider = gameObject.GetComponent<HoverRendererSlider>();
-			HoverShapeArc shapeArc = gameObject.GetComponent<HoverShapeArc>();
-			HoverShapeArc handleShapeArc = (HoverShapeArc)rendSlider.HandleButton.GetShape();
-			HoverShapeArc jumpShapeArc = (HoverShapeArc)rendSlider.JumpButton.GetShape();
-
-			return new SliderUtil.SliderInfo {
-				TrackStartPosition = -shapeArc.ArcDegrees/2,
-				TrackEndPosition = shapeArc.ArcDegrees/2,
-				HandleSize = handleShapeArc.ArcDegrees,
-				JumpSize = (rendSlider.AllowJump ? jumpShapeArc.ArcDegrees : 0),
-			};
-		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -54,10 +37,10 @@ namespace Hover.Renderers.Elements {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateButtonRotations(HoverRendererSlider pRendSlider) {
-			List<SliderUtil.SegmentInfo> segInfoList = pRendSlider.GetSegmentInfoList();
+			HoverRendererSliderSegments segs = gameObject.GetComponent<HoverRendererSliderSegments>();
 
-			for ( int i = 0 ; i < segInfoList.Count ; i++ ) {
-				SliderUtil.SegmentInfo segInfo = segInfoList[i];
+			for ( int i = 0 ; i < segs.SegmentInfoList.Count ; i++ ) {
+				SliderUtil.SegmentInfo segInfo = segs.SegmentInfoList[i];
 				bool isHandle = (segInfo.Type == SliderUtil.SegmentType.Handle);
 				bool isJump = (segInfo.Type == SliderUtil.SegmentType.Jump);
 

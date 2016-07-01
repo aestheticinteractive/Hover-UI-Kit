@@ -76,6 +76,7 @@ GameObject:
   - 114: {fileID: 11458166}
   - 114: {fileID: 11432838}
   - 114: {fileID: 11480304}
+  - 114: {fileID: 11490418}
   - 114: {fileID: 11462120}
   - 114: {fileID: 11417822}
   - 114: {fileID: 11426054}
@@ -2190,6 +2191,68 @@ MonoBehaviour:
   UvOuterRadius: 1
   UvMinArcDegree: 0
   UvMaxArcDegree: 1
+--- !u!114 &11490418
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 122234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a947ab29b801384f88f938fbd57ba80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SegmentInfoList:
+  - Type: 3
+    StartPositionType: 0
+    EndPositionType: 0
+    StartPosition: -30
+    EndPosition: -30
+    IsFill: 0
+    IsHidden: 0
+  - Type: 0
+    StartPositionType: 0
+    EndPositionType: 2
+    StartPosition: -30
+    EndPosition: -4
+    IsFill: 0
+    IsHidden: 0
+  - Type: 1
+    StartPositionType: 2
+    EndPositionType: 3
+    StartPosition: -4
+    EndPosition: 4
+    IsFill: 0
+    IsHidden: 0
+  - Type: 0
+    StartPositionType: 3
+    EndPositionType: 3
+    StartPosition: 4
+    EndPosition: 4
+    IsFill: 1
+    IsHidden: 0
+  - Type: 4
+    StartPositionType: 3
+    EndPositionType: 3
+    StartPosition: 4
+    EndPosition: 4
+    IsFill: 0
+    IsHidden: 0
+  - Type: 0
+    StartPositionType: 3
+    EndPositionType: 1
+    StartPosition: 4
+    EndPosition: 30
+    IsFill: 0
+    IsHidden: 0
+  - Type: 5
+    StartPositionType: 1
+    EndPositionType: 1
+    StartPosition: 30
+    EndPosition: 30
+    IsFill: 0
+    IsHidden: 0
+  TickInfoList: []
 --- !u!114 &11495174
 MonoBehaviour:
   m_ObjectHideFlags: 1
