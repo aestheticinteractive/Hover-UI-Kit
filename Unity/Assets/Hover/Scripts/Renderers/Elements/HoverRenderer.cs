@@ -16,7 +16,6 @@ namespace Hover.Renderers.Elements {
 		public const string IsEnabledName = "IsEnabled";
 
 		public ISettingsControllerMap Controllers { get; private set; }
-		public bool IsNearestToCursor { get; set; }
 		
 		[DisableWhenControlled(DisplayMessage=true)]
 		public bool IsEnabled = true;

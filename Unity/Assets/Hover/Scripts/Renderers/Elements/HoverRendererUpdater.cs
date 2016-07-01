@@ -99,7 +99,11 @@ namespace Hover.Renderers.Elements {
 
 			UpdateRenderer(activeRenderer, hoverItem);
 			UpdateRendererCanvas(activeRenderer, hoverItem);
-			UpdateRendererIndicator(activeRenderer, hoverItem, highState, selState);
+			UpdateRendererIndicator(activeRenderer, highState, selState);
+
+			if ( ButtonRenderer != null ) {
+				UpdateButtonSettings(highState);
+			}
 
 			if ( SliderRenderer != null ) {
 				UpdateSliderSettings(hoverItem);
@@ -253,7 +257,7 @@ namespace Hover.Renderers.Elements {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateRendererIndicator(HoverRenderer pRenderer, HoverItem pHoverItem,					
+		private void UpdateRendererIndicator(HoverRenderer pRenderer,
 								HoverItemHighlightState pHighState, HoverItemSelectionState pSelState) {
 			HoverIndicator rendInd = pRenderer.GetIndicator();
 			
@@ -262,8 +266,14 @@ namespace Hover.Renderers.Elements {
 
 			rendInd.HighlightProgress = pHighState.MaxHighlightProgress;
 			rendInd.SelectionProgress = pSelState.SelectionProgress;
+		}
 
-			pRenderer.IsNearestToCursor = pHighState.IsNearestAcrossAllItemsForAnyCursor;
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateButtonSettings(HoverItemHighlightState pHighState) {
+			ButtonRenderer.Fill.Controllers.Set(HoverFillButton.ShowEdgeName, this);
+			ButtonRenderer.Fill.ShowEdge = pHighState.IsNearestAcrossAllItemsForAnyCursor;
 		}
 
 

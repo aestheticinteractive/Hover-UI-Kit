@@ -10,6 +10,8 @@ namespace Hover.Renderers.Elements {
 	[RequireComponent(typeof(HoverShape))]
 	public class HoverFillButton : HoverFill {
 
+		public const string ShowEdgeName = "ShowEdge";
+
 		[DisableWhenControlled(DisplayMessage=true)]
 		public HoverMesh Background;
 

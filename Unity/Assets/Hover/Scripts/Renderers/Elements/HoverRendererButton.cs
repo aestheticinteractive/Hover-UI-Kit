@@ -10,7 +10,7 @@ namespace Hover.Renderers.Elements {
 	public class HoverRendererButton : HoverRenderer {
 
 		[DisableWhenControlled]
-		public HoverFill Fill;
+		public HoverFillButton Fill;
 
 		[DisableWhenControlled]
 		public HoverCanvas Canvas;

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Hover.Cursors;
-using Hover.Renderers;
+using Hover.Renderers.Elements;
 using UnityEngine;
 
 namespace Hover.Items.Managers {
@@ -26,7 +26,7 @@ namespace Hover.Items.Managers {
 		public bool IsNearestAcrossAllItemsForAnyCursor { get; private set; }
 		
 		public HoverCursorDataProvider CursorDataProvider;
-		public HoverRendererController ProximityProvider;
+		public HoverRendererUpdater ProximityProvider;
 		public HoverInteractionSettings InteractionSettings;
 
 		private readonly HashSet<string> vPreventHighlightMap;
@@ -48,7 +48,7 @@ namespace Hover.Items.Managers {
 			}
 
 			if ( ProximityProvider == null ) {
-				ProximityProvider = GetComponent<HoverRendererController>();
+				ProximityProvider = GetComponent<HoverRendererUpdater>();
 			}
 
 			if ( InteractionSettings == null ) {
