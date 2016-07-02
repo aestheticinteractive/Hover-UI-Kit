@@ -77,12 +77,12 @@ namespace Hover.Cursors {
 			}
 
 			if ( FollowCursorPosition ) {
-				Controllers.Set("transform.position", this, 0);
+				Controllers.Set(SettingsControllerMap.TransformPosition, this, 0);
 				tx.position = (raycast == null ? cursor.WorldPosition : raycast.Value.WorldPosition);
 			}
 
 			if ( FollowCursorRotation ) {
-				Controllers.Set("transform.rotation", this, 0);
+				Controllers.Set(SettingsControllerMap.TransformRotation, this, 0);
 
 				if ( raycast == null ) {
 					tx.rotation = cursor.WorldRotation;
@@ -107,7 +107,7 @@ namespace Hover.Cursors {
 			}
 
 			if ( ScaleUsingCursorSize ) {
-				Controllers.Set("transform.localScale", this, 0);
+				Controllers.Set(SettingsControllerMap.TransformLocalScale, this, 0);
 				tx.localScale = Vector3.one*(cursor.Size*CursorSizeMultiplier);
 			}
 		}

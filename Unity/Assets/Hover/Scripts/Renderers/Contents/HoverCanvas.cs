@@ -172,19 +172,19 @@ namespace Hover.Renderers.Contents {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateGeneralSettings() {
-			Label.Controllers.Set("GameObject.activeSelf", this);
+			Label.Controllers.Set(SettingsControllerMap.GameObjectActiveSelf, this);
 			Label.Controllers.Set(HoverLabel.CanvasScaleName, this);
 			Label.Controllers.Set(HoverLabel.SizeXName, this);
 			Label.Controllers.Set(HoverLabel.SizeYName, this);
-			Label.Controllers.Set("Text.alignment", this);
-			Label.Controllers.Set("Text.material.renderQueue", this);
+			Label.Controllers.Set(SettingsControllerMap.TextAlignment, this);
+			Label.Controllers.Set(SettingsControllerMap.TextMaterialRenderQueue, this);
 			
-			IconOuter.Controllers.Set("GameObject.activeSelf", this);
+			IconOuter.Controllers.Set(SettingsControllerMap.GameObjectActiveSelf, this);
 			IconOuter.Controllers.Set(HoverIcon.CanvasScaleName, this);
 			IconOuter.Controllers.Set(HoverIcon.SizeXName, this);
 			IconOuter.Controllers.Set(HoverIcon.SizeYName, this);
 			
-			IconInner.Controllers.Set("GameObject.activeSelf", this);
+			IconInner.Controllers.Set(SettingsControllerMap.GameObjectActiveSelf, this);
 			IconInner.Controllers.Set(HoverIcon.CanvasScaleName, this);
 			IconInner.Controllers.Set(HoverIcon.SizeXName, this);
 			IconInner.Controllers.Set(HoverIcon.SizeYName, this);

@@ -134,8 +134,10 @@ namespace Hover.Layouts.Rect {
 				posX += (isHoriz ? elemRelSizeX+InnerPadding : 0);
 				posY += (isHoriz ? 0 : elemRelSizeY+InnerPadding);
 				
-				elem.Controllers.Set("Transform.localPosition.x", this);
-				elem.Controllers.Set("Transform.localPosition.y", this);
+				elem.Controllers.Set(
+					SettingsControllerMap.SpecialPrefix+"Transform.localPosition.x", this);
+				elem.Controllers.Set(
+					SettingsControllerMap.SpecialPrefix+"Transform.localPosition.y", this);
 
 				elem.SetRectLayout(elemRelSizeX, elemRelSizeY, this);
 				elem.transform.localPosition = localPos;

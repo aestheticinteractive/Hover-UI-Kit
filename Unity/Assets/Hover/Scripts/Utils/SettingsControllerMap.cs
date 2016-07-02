@@ -6,6 +6,20 @@ namespace Hover.Utils {
 	/*================================================================================================*/
 	public class SettingsControllerMap : ISettingsControllerMap {
 
+		public const char SpecialPrefixChar = '*';
+		public const string SpecialPrefix = "*";
+		public const string GameObjectActiveSelf = SpecialPrefix+"gameObject.activeSelf";
+		public const string TransformPosition = SpecialPrefix+"transform.position";
+		public const string TransformRotation = SpecialPrefix+"transform.rotation";
+		public const string TransformLocalPosition = SpecialPrefix+"transform.localPosition";
+		public const string TransformLocalRotation = SpecialPrefix+"transform.localRotation";
+		public const string TransformLocalScale = SpecialPrefix+"transform.localScale";
+		public const string CanvasSortingLayer = SpecialPrefix+"canvas.sortingLayer";
+		public const string CanvasGroupAlpha = SpecialPrefix+"canvasGroup.alpha";
+		public const string TextText = SpecialPrefix+"Text.text"; 
+		public const string TextAlignment = SpecialPrefix+"Text.alignment";
+		public const string TextMaterialRenderQueue = SpecialPrefix+"Text.material.renderQueue";
+
 		private class ExpirableController {
 			public ISettingsController Controller;
 			public int ExpireCount;
@@ -105,10 +119,14 @@ namespace Hover.Utils {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public int GetControlledCount() {
+		public int GetControlledCount(bool pSpecialsOnly=false) {
 			int count = 0;
 
 			for ( int i = 0 ; i < vKeys.Count ; i++ ) {
+				if ( pSpecialsOnly && vKeys[i][0] != SpecialPrefixChar ) {
+					continue;
+				}
+
 				if ( IsControlled(vKeys[i]) ) {
 					count++;
 				}
@@ -120,18 +138,22 @@ namespace Hover.Utils {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public List<string> GetNewListOfControlledValueNames() {
+		public List<string> GetNewListOfControlledValueNames(bool pSpecialsOnly=false) {
 			var list = new List<string>();
-			FillListWithControlledValueNames(list);
+			FillListWithControlledValueNames(list, pSpecialsOnly);
 			return list;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void FillListWithControlledValueNames(List<string> pList) {
+		public void FillListWithControlledValueNames(List<string> pList, bool pSpecialsOnly=false) {
 			pList.Clear();
 
 			for ( int i = 0 ; i < vKeys.Count ; i++ ) {
 				string valueName = vKeys[i];
+
+				if ( pSpecialsOnly && valueName[0] != SpecialPrefixChar ) {
+					continue;
+				}
 
 				if ( !IsControlled(valueName) ) {
 					continue;

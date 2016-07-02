@@ -124,9 +124,9 @@ namespace Hover.Layouts.Arc {
 					this
 				);
 				
-				elem.Controllers.Set("Transform.localPosition.x", this);
-				elem.Controllers.Set("Transform.localPosition.y", this);
-				elem.Controllers.Set("Transform.localRotation", this);
+				elem.Controllers.Set(SettingsControllerMap.TransformLocalPosition+".x", this);
+				elem.Controllers.Set(SettingsControllerMap.TransformLocalPosition+".y", this);
+				elem.Controllers.Set(SettingsControllerMap.TransformLocalRotation, this);
 
 				Vector3 localPos = elem.transform.localPosition;
 				localPos.x = anchorPos.x;

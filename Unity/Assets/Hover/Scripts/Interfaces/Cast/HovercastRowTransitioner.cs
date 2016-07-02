@@ -111,8 +111,8 @@ namespace Hover.Interfaces.Cast {
 
 			TransitionProgressCurved = 1-Mathf.Pow(1-TransitionProgress, TransitionExponent);
 
-			cast.ActiveRow.Controllers.Set("gameObject.activeSelf", this);
-			cast.ActiveRow.Controllers.Set("transform.localScale", this);
+			cast.ActiveRow.Controllers.Set(SettingsControllerMap.GameObjectActiveSelf, this);
+			cast.ActiveRow.Controllers.Set(SettingsControllerMap.TransformLocalScale, this);
 			cast.ActiveRow.Controllers.Set(HoverLayoutArcRow.OuterRadiusName, this);
 			cast.ActiveRow.Controllers.Set(HoverLayoutArcRow.InnerRadiusName, this);
 
@@ -121,8 +121,8 @@ namespace Hover.Interfaces.Cast {
 			cast.ActiveRow.gameObject.SetActive(true);
 
 			if ( hasPrevRow ) {
-				cast.PreviousRow.Controllers.Set("gameObject.activeSelf", this);
-				cast.PreviousRow.Controllers.Set("transform.localScale", this);
+				cast.PreviousRow.Controllers.Set(SettingsControllerMap.GameObjectActiveSelf, this);
+				cast.PreviousRow.Controllers.Set(SettingsControllerMap.TransformLocalScale, this);
 				cast.PreviousRow.Controllers.Set(HoverLayoutArcRow.OuterRadiusName, this);
 				cast.PreviousRow.Controllers.Set(HoverLayoutArcRow.InnerRadiusName, this);
 

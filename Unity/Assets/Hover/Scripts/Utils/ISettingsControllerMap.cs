@@ -29,15 +29,15 @@ namespace Hover.Utils {
 		bool AreAnyControlled();
 
 		/*--------------------------------------------------------------------------------------------*/
-		int GetControlledCount();
+		int GetControlledCount(bool pSpecialsOnly=false);
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		List<string> GetNewListOfControlledValueNames();
+		List<string> GetNewListOfControlledValueNames(bool pSpecialsOnly=false);
 
 		/*--------------------------------------------------------------------------------------------*/
-		void FillListWithControlledValueNames(List<string> pList);
+		void FillListWithControlledValueNames(List<string> pList, bool pSpecialsOnly=false);
 #endif
 
 	}

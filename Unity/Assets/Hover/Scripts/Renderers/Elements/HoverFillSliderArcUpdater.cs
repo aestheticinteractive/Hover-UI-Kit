@@ -80,8 +80,8 @@ namespace Hover.Renderers.Elements {
 			HoverShapeArc meshShapeArc = pSegmentMesh.GetComponent<HoverShapeArc>();
 			HoverMeshArc meshArc = (HoverMeshArc)pSegmentMesh;
 
-			pSegmentMesh.Controllers.Set("GameObject.activeSelf", this);
-			pSegmentMesh.Controllers.Set("Transform.localRotation", this);
+			pSegmentMesh.Controllers.Set(SettingsControllerMap.GameObjectActiveSelf, this);
+			pSegmentMesh.Controllers.Set(SettingsControllerMap.TransformLocalRotation, this);
 			pSegmentMesh.Controllers.Set(HoverMesh.DisplayModeName, this);
 			meshShapeArc.Controllers.Set(HoverShapeArc.OuterRadiusName, this);
 			meshShapeArc.Controllers.Set(HoverShapeArc.InnerRadiusName, this);

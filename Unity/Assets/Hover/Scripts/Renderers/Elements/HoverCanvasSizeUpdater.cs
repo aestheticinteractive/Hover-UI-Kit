@@ -55,7 +55,7 @@ namespace Hover.Renderers.Elements {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateWithArc(HoverCanvas pHoverCanvas, HoverShapeArc pShapeArc) {
-			pHoverCanvas.Controllers.Set("Transform.localPosition.x", this);
+			pHoverCanvas.Controllers.Set(SettingsControllerMap.TransformLocalPosition+".x", this);
 			pHoverCanvas.Controllers.Set(HoverCanvas.SizeXName, this);
 
 			float edgeThick = 0; //TODO: Fill.EdgeThickness

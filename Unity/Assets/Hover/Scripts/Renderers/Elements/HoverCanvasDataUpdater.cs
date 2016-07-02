@@ -59,7 +59,7 @@ namespace Hover.Renderers.Elements {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateLabel(HoverCanvas pHoverCanvas) {
-			pHoverCanvas.Label.Controllers.Set("Text.text", this);
+			pHoverCanvas.Label.Controllers.Set(SettingsControllerMap.TextText, this);
 			pHoverCanvas.Label.TextComponent.text = LabelText;
 		}
 

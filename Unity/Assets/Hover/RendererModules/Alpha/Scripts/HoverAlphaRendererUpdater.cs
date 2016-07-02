@@ -104,8 +104,8 @@ namespace Hover.RendererModules.Alpha {
 				return;
 			}
 
-			pChildCanvas.Controllers.Set("canvas.sortingLayer", this);
-			pChildCanvas.Controllers.Set("canvasGroup.alpha", this);
+			pChildCanvas.Controllers.Set(SettingsControllerMap.CanvasSortingLayer, this);
+			pChildCanvas.Controllers.Set(SettingsControllerMap.CanvasGroupAlpha, this);
 
 			pChildCanvas.CanvasComponent.sortingLayerName = SortingLayer;
 			pChildCanvas.CanvasGroupComponent.alpha = pAlpha;
