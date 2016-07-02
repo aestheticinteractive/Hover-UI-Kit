@@ -30,9 +30,17 @@ namespace Hover.Items {
 		[SerializeField]
 		private HoverItemData _Data;
 
+		private readonly List<HoverItemData> vDataComponentBuffer;
 		private HoverItemsManager vItemsMan;
 		private HoverItemType vPrevItemType;
-		
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverItem() {
+			vDataComponentBuffer = new List<HoverItemData>();
+		}
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -97,14 +105,9 @@ namespace Hover.Items {
 			}
 
 			HoverItemData newData = BuildData(_ItemType);
+
 			TransferData(newData);
-
-			DestroyImmediate(_Data);
-
-			if ( gameObject.GetComponent<HoverItemData>() != null ) { //TODO: how did this occur?
-				Debug.LogWarning("Unexpected "+typeof(HoverItemData).Name+" component found on this "+
-					"GameObject: "+gameObject.GetComponent<HoverItemData>(), this);
-			}
+			DestroyData(_Data, newData);
 
 			_Data = newData;
 
@@ -227,7 +230,28 @@ namespace Hover.Items {
 					throw new InvalidEnumArgumentException("Unhandled type: "+pType);
 			}
 		}
-		
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void DestroyData(HoverItemData pData, HoverItemData pIgnoreNewData) {
+			gameObject.GetComponents(vDataComponentBuffer);
+
+			for ( int i = 0 ; i < vDataComponentBuffer.Count ; i++ ) {
+				HoverItemData data = vDataComponentBuffer[i];
+
+				if ( data == pIgnoreNewData ) {
+					continue;
+				}
+
+				if ( data != pData ) {
+					Debug.LogWarning("Removed unexpected "+typeof(HoverItemData).Name+": "+data, this);
+				}
+
+				DestroyImmediate(data, false);
+			}
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private IBaseItem[] GetChildItems() {
 			return GetChildItemsFromGameObject(gameObject);
