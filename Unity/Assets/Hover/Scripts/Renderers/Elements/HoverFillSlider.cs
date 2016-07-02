@@ -1,6 +1,7 @@
 using System;
 using Hover.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.Renderers.Elements {
 
@@ -15,17 +16,21 @@ namespace Hover.Renderers.Elements {
 		[DisableWhenControlled(DisplaySpecials=true)]
 		public HoverRendererSliderSegments SegmentInfo;
 
+		[FormerlySerializedAs("SegmentMeshA")]
 		[DisableWhenControlled]
-		public HoverMesh SegmentMeshA;
+		public HoverMesh SegmentA;
 
+		[FormerlySerializedAs("SegmentMeshB")]
 		[DisableWhenControlled]
-		public HoverMesh SegmentMeshB;
+		public HoverMesh SegmentB;
 
+		[FormerlySerializedAs("SegmentMeshC")]
 		[DisableWhenControlled]
-		public HoverMesh SegmentMeshC;
+		public HoverMesh SegmentC;
 
+		[FormerlySerializedAs("SegmentMeshD")]
 		[DisableWhenControlled]
-		public HoverMesh SegmentMeshD;
+		public HoverMesh SegmentD;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -37,10 +42,10 @@ namespace Hover.Renderers.Elements {
 		/*--------------------------------------------------------------------------------------------*/
 		public override HoverMesh GetChildMesh(int pIndex) {
 			switch ( pIndex ) {
-				case 0: return SegmentMeshA;
-				case 1: return SegmentMeshB;
-				case 2: return SegmentMeshC;
-				case 3: return SegmentMeshD;
+				case 0: return SegmentA;
+				case 1: return SegmentB;
+				case 2: return SegmentC;
+				case 3: return SegmentD;
 			}
 
 			throw new ArgumentOutOfRangeException();
