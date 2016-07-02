@@ -39,9 +39,6 @@ namespace Hover.Renderers.Elements {
 		protected Component _SliderRenderer;
 
 		[DisableWhenControlled]
-		public bool ShowProximityDebugLines = true;
-
-		[DisableWhenControlled]
 		public bool ClickToRebuildRenderer = false;
 
 		private GameObject vPrevButtonPrefab;
@@ -61,9 +58,9 @@ namespace Hover.Renderers.Elements {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private IRendererSlider SliderRenderer {
-			get { return (_SliderRenderer as IRendererSlider); }
-			set { _SliderRenderer = (Component)value; }
+		private HoverRendererSlider SliderRenderer {
+			get { return (_SliderRenderer as HoverRendererSlider); }
+			set { _SliderRenderer = value; }
 		}
 
 
@@ -95,7 +92,7 @@ namespace Hover.Renderers.Elements {
 
 			HoverItemHighlightState highState = GetComponent<HoverItemHighlightState>();
 			HoverItemSelectionState selState = GetComponent<HoverItemSelectionState>();
-			HoverRenderer activeRenderer = (ButtonRenderer /*?? SliderRenderer*/);
+			HoverRenderer activeRenderer = ((HoverRenderer)ButtonRenderer ?? SliderRenderer);
 
 			UpdateRenderer(activeRenderer, hoverItem);
 			UpdateRendererCanvas(activeRenderer, hoverItem);
@@ -108,10 +105,6 @@ namespace Hover.Renderers.Elements {
 			if ( SliderRenderer != null ) {
 				UpdateSliderSettings(hoverItem);
 				UpdateSliderSettings(hoverItem, highState);
-			}
-
-			if ( ShowProximityDebugLines && Application.isPlaying ) {
-				DrawProximityDebugLines();
 			}
 
 			Controllers.TryExpireControllers();
@@ -144,7 +137,7 @@ namespace Hover.Renderers.Elements {
 
 				RendererUtil.DestroyRenderer(ButtonRenderer);
 				ButtonRenderer = null;
-				//TODO: SliderRenderer = (SliderRenderer ?? FindOrBuildSlider());
+				SliderRenderer = (SliderRenderer ?? FindOrBuildSlider());
 				IsButtonRendererType = false;
 			}
 			else {
@@ -164,11 +157,10 @@ namespace Hover.Renderers.Elements {
 				ButtonRendererPrefab, "Button", typeof(HoverRendererButton));
 		}
 
-		/*--------------------------------------------------------------------------------------------* /
-		private IRendererSlider FindOrBuildSlider() {
-			return RendererUtil.FindOrBuildRenderer<HoverAlphaRendererArcSlider>(
-				gameObject.transform, SliderRendererPrefab, "Slider", 
-				typeof(HoverAlphaRendererArcSlider));
+		/*--------------------------------------------------------------------------------------------*/
+		private HoverRendererSlider FindOrBuildSlider() {
+			return RendererUtil.FindOrBuildRenderer<HoverRendererSlider>(gameObject.transform,
+				SliderRendererPrefab, "Slider", typeof(HoverRendererSlider));
 		}
 
 
@@ -202,13 +194,13 @@ namespace Hover.Renderers.Elements {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected void UpdateRenderer(HoverRenderer pRenderer, HoverItem pHoverItem) {
+		private void UpdateRenderer(HoverRenderer pRenderer, HoverItem pHoverItem) {
 			pRenderer.Controllers.Set(HoverRenderer.IsEnabledName, this);
 			pRenderer.IsEnabled = pHoverItem.Data.IsEnabled;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		protected void UpdateRendererCanvas(HoverRenderer pRenderer, HoverItem pHoverItem) {
+		private void UpdateRendererCanvas(HoverRenderer pRenderer, HoverItem pHoverItem) {
 			HoverCanvasDataUpdater canvasUp = pRenderer.GetCanvasDataUpdater();
 
 			if ( canvasUp == null ) {
@@ -282,6 +274,12 @@ namespace Hover.Renderers.Elements {
 		private void UpdateSliderSettings(HoverItem pHoverItem) {
 			ISliderItem data = (ISliderItem)pHoverItem.Data;
 
+			SliderRenderer.Controllers.Set(HoverRendererSlider.HandleValueName, this);
+			SliderRenderer.Controllers.Set(HoverRendererSlider.FillStartingPointName, this);
+			SliderRenderer.Controllers.Set(HoverRendererSlider.ZeroValueName, this);
+			SliderRenderer.Controllers.Set(HoverRendererSlider.AllowJumpName, this);
+			SliderRenderer.Controllers.Set(HoverRendererSlider.TickCountName, this);
+
 			SliderRenderer.HandleValue = data.SnappedValue;
 			SliderRenderer.FillStartingPoint = data.FillStartingPoint;
 			SliderRenderer.ZeroValue = Mathf.InverseLerp(data.RangeMin, data.RangeMax, 0);
@@ -295,47 +293,33 @@ namespace Hover.Renderers.Elements {
 			HoverItemHighlightState.Highlight? high = pHighState.NearestHighlight;
 			float highProg = pHighState.MaxHighlightProgress;
 			bool isNearest = pHighState.IsNearestAcrossAllItemsForAnyCursor;
-			
+
+			SliderRenderer.Controllers.Set(HoverRendererSlider.JumpValueName, this);
+			SliderRenderer.Controllers.Set(HoverRendererSlider.ShowButtonEdgesName, this);
+
+			SliderRenderer.ShowButtonEdges = isNearest;
+
 			if ( high == null || highProg <= 0 || !isNearest ) {
 				data.HoverValue = null;
 				SliderRenderer.JumpValue = -1;
 				return;
 			}
-			
+
 			float value = SliderRenderer.GetValueViaNearestWorldPosition(high.Value.NearestWorldPos);
-			
+
 			data.HoverValue = value;
-			
+
 			float snapValue = (float)data.SnappedHoverValue;
 			//float easePower = (1-high.Value.Progress)*5+1; //gets "snappier" as you pull away
 			float showValue = DisplayUtil.GetEasedValue(data.Snaps, value, snapValue, 3);
-				
+
 			SliderRenderer.JumpValue = showValue;
-			
+
 			if ( data.IsStickySelected ) {
 				data.Value = value;
+				SliderRenderer.Controllers.Set(HoverRendererSlider.HandleValueName, this);
 				SliderRenderer.HandleValue = showValue;
 			}
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		private void DrawProximityDebugLines() {
-			HoverItemHighlightState.Highlight? nearHigh = 
-				GetComponent<HoverItemHighlightState>().NearestHighlight;
-
-			if ( nearHigh == null ) {
-				return;
-			}
-
-			Vector3 cursorPos = nearHigh.Value.Cursor.WorldPosition;
-			Vector3 nearPos = nearHigh.Value.NearestWorldPos;
-			float prog = nearHigh.Value.Progress;
-			Color color = (prog >= 1 ? new Color(0.3f, 1, 0.4f, 1) : 
-				(prog <= 0 ? new Color(1, 0, 0, 0.25f) : new Color(1, 1, 0, prog*0.5f+0.25f)));
-
-			Debug.DrawLine(nearPos, cursorPos, color);
 		}
 
 	}

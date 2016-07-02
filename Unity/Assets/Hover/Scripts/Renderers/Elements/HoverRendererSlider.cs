@@ -17,6 +17,7 @@ namespace Hover.Renderers.Elements {
 		public const string AllowJumpName = "AllowJump";
 		public const string TickCountName = "TickCount";
 		public const string FillStartingPointName = "FillStartingPoint";
+		public const string ShowButtonEdgesName = "ShowButtonEdges";
 		
 		[DisableWhenControlled]
 		public GameObject Container;
@@ -50,6 +51,9 @@ namespace Hover.Renderers.Elements {
 
 		[DisableWhenControlled]
 		public SliderFillType FillStartingPoint = SliderFillType.Zero;
+		
+		[DisableWhenControlled]
+		public bool ShowButtonEdges = false;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -138,19 +142,18 @@ namespace Hover.Renderers.Elements {
 		private void UpdateButtons() {
 			HoverRendererSliderSegments segs = gameObject.GetComponent<HoverRendererSliderSegments>();
 
-			RendererUtil.SetActiveWithUpdate(JumpButton, (AllowJump && segs.IsJumpVisible));
-
-			HandleButton.Controllers.Set(IsEnabledName, this);
-			JumpButton.Controllers.Set(IsEnabledName, this);
+			HandleButton.Controllers.Set(HoverRendererButton.IsEnabledName, this);
+			JumpButton.Controllers.Set(HoverRendererButton.IsEnabledName, this);
+			HandleButton.Fill.Controllers.Set(HoverFillButton.ShowEdgeName, this);
+			JumpButton.Fill.Controllers.Set(HoverFillButton.ShowEdgeName, this);
 
 			HandleButton.IsEnabled = IsEnabled;
 			JumpButton.IsEnabled = IsEnabled;
 
-			/*HandleButton.IconOuterType = HoverIcon.IconOffset.None;
-			HandleButton.IconInnerType = HoverIcon.IconOffset.Slider;
+			HandleButton.Fill.ShowEdge = ShowButtonEdges;
+			JumpButton.Fill.ShowEdge = ShowButtonEdges;
 
-			HandleButton.ShowEdge = ShowEdge;
-			JumpButton.ShowEdge = ShowEdge;*/
+			RendererUtil.SetActiveWithUpdate(JumpButton, (AllowJump && segs.IsJumpVisible));
 		}
 	}
 
