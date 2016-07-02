@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Hover.Utils;
 using UnityEngine;
 
@@ -7,43 +6,6 @@ namespace Hover.Renderers.Utils {
 
 	/*================================================================================================*/
 	public static class RendererUtil {
-
-#if UNITY_EDITOR
-		private const string BulletText = "\n - ";
-		private const string ControlledSettingsText =
-			"The following settings are controlled externally.{0}";
-		private const string ValueControlledBySelfText = "self (locked)";
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public static string GetSettingsControllerName(ISettingsController pController) {
-			return pController.name+" ("+pController.GetType().Name+")";
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public static string GetControlledSettingsText(
-									UnityEngine.Object pSelf, ISettingsControllerMap pControllerMap) {
-			if ( !Application.isEditor ) {
-				throw new Exception("This method is meant for editor mode only.");
-			}
-
-			List<string> valueNames = pControllerMap.GetNewListOfControlledValueNames();
-			string text = "";
-
-			for ( int i = 0 ; i < valueNames.Count ; i++ ) {
-				string valueName = valueNames[i];
-				string valueNameDisplay = valueName.Replace("_", "");
-				ISettingsController controller = pControllerMap.Get(valueName);
-				string contName = ((controller as UnityEngine.Object) == pSelf ? 
-					ValueControlledBySelfText : GetSettingsControllerName(controller));
-
-				text += BulletText+valueNameDisplay+": "+contName;
-			}
-
-			return string.Format(ControlledSettingsText, text);
-		}
-#endif
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
