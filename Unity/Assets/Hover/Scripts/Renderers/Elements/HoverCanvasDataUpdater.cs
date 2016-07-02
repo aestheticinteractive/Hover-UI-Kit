@@ -26,7 +26,7 @@ namespace Hover.Renderers.Elements {
 
 		public ISettingsControllerMap Controllers { get; private set; }
 
-		[DisableWhenControlled(DisplayMessage=true)]
+		[DisableWhenControlled(DisplaySpecials=true)]
 		public string LabelText;
 
 		[DisableWhenControlled]

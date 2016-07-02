@@ -17,7 +17,7 @@ namespace Hover.Renderers.Elements {
 
 		public ISettingsControllerMap Controllers { get; private set; }
 		
-		[DisableWhenControlled(DisplayMessage=true)]
+		[DisableWhenControlled(DisplaySpecials=true)]
 		public bool IsEnabled = true;
 
 

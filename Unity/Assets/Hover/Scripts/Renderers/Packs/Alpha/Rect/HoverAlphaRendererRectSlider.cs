@@ -18,7 +18,7 @@ namespace Hover.Renderers.Packs.Alpha.Rect {
 		public const string TickCountName = "_TickCount";
 		public const string FillStartingPointName = "_FillStartingPoint";
 
-		[DisableWhenControlled(DisplayMessage=true)]
+		[DisableWhenControlled(DisplaySpecials=true)]
 		public GameObject Container;
 
 		[DisableWhenControlled]

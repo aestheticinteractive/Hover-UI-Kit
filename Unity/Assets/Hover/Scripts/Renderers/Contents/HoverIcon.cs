@@ -29,7 +29,7 @@ namespace Hover.Renderers.Contents {
 
 		public ISettingsControllerMap Controllers { get; private set; }
 		
-		[DisableWhenControlled(DisplayMessage=true)]
+		[DisableWhenControlled(DisplaySpecials=true)]
 		public IconOffset IconType = IconOffset.CheckOuter;
 
 		[DisableWhenControlled(RangeMin=0.0001f, RangeMax=1)]

@@ -15,7 +15,7 @@ namespace Hover.RendererModules.Alpha {
 		
 		public ISettingsControllerMap Controllers { get; private set; }
 
-		[DisableWhenControlled(DisplayMessage=true)]
+		[DisableWhenControlled(DisplaySpecials=true)]
 		public string SortingLayer = "Default";
 
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]

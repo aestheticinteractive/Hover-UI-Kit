@@ -16,7 +16,7 @@ namespace Hover.Renderers.Contents {
 
 		public ISettingsControllerMap Controllers { get; private set; }
 		
-		[DisableWhenControlled(RangeMin=0.0001f, RangeMax=1, DisplayMessage=true)]
+		[DisableWhenControlled(RangeMin=0.0001f, RangeMax=1, DisplaySpecials=true)]
 		public float CanvasScale = 0.0002f;
 		
 		[DisableWhenControlled(RangeMin=0)]

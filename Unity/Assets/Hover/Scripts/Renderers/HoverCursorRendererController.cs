@@ -15,7 +15,7 @@ namespace Hover.Renderers {
 		public ISettingsControllerMap Controllers { get; private set; }
 		public abstract string DefaultCursorPrefabResourcePath { get; }
 
-		[DisableWhenControlled(DisplayMessage=true)]
+		[DisableWhenControlled(DisplaySpecials=true)]
 		public GameObject CursorRendererPrefab;
 
 		[SerializeField]

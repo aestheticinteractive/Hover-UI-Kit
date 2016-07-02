@@ -18,7 +18,7 @@ namespace Hover.Layouts.Arc {
 			OuterToInner
 		}
 		
-		[DisableWhenControlled(DisplayMessage=true)]
+		[DisableWhenControlled(DisplaySpecials=true)]
 		public ArrangementType Arrangement = ArrangementType.InnerToOuter;
 		
 		[DisableWhenControlled(RangeMin=0)]

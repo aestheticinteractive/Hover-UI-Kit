@@ -10,7 +10,7 @@ namespace Hover.Cursors {
 
 		public ISettingsControllerMap Controllers { get; private set; }
 
-		[DisableWhenControlled(DisplayMessage=true)]
+		[DisableWhenControlled(DisplaySpecials=true)]
 		public HoverCursorDataProvider CursorDataProvider;
 
 		[DisableWhenControlled]

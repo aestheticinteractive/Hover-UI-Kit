@@ -13,7 +13,7 @@ namespace Hover.Renderers.Elements {
 
 		public ISettingsControllerMap Controllers { get; private set; }
 
-		[DisableWhenControlled(RangeMin=0, DisplayMessage=true)]
+		[DisableWhenControlled(RangeMin=0, DisplaySpecials=true)]
 		public float InsetOuter = 0.01f;
 
 		[DisableWhenControlled(RangeMin=0)]

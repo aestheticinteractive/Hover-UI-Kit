@@ -13,7 +13,7 @@ namespace Hover.Renderers.Packs.Alpha.Rect {
 	
 		public ISettingsController SliderController { get; set; }
 
-		[DisableWhenControlled(DisplayMessage=true)]
+		[DisableWhenControlled(DisplaySpecials=true)]
 		public HoverAlphaFillRectButton Fill;
 
 		[DisableWhenControlled]

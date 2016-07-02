@@ -12,7 +12,7 @@ namespace Hover.Renderers.Elements {
 
 		public const string ShowEdgeName = "ShowEdge";
 
-		[DisableWhenControlled(DisplayMessage=true)]
+		[DisableWhenControlled(DisplaySpecials=true)]
 		public HoverMesh Background;
 
 		[DisableWhenControlled]

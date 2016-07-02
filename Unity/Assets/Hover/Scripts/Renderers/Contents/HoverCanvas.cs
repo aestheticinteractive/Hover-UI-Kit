@@ -39,7 +39,7 @@ namespace Hover.Renderers.Contents {
 		
 		public ISettingsControllerMap Controllers { get; private set; }
 		
-		[DisableWhenControlled(DisplayMessage=true)]
+		[DisableWhenControlled(DisplaySpecials=true)]
 		public HoverLabel Label;
 		public HoverIcon IconOuter;
 		public HoverIcon IconInner;

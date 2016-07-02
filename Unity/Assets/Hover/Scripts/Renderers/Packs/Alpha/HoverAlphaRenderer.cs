@@ -27,7 +27,7 @@ namespace Hover.Renderers.Packs.Alpha {
 		public bool ShowEdge { get; set; }
 		
 		[SerializeField]
-		[DisableWhenControlled(DisplayMessage=true)]
+		[DisableWhenControlled(DisplaySpecials=true)]
 		private bool _IsEnabled = true;
 
 		[SerializeField]

@@ -27,7 +27,7 @@ namespace Hover.Renderers {
 		
 		public bool IsButtonRendererType { get; protected set; }
 
-		[DisableWhenControlled(DisplayMessage=true)]
+		[DisableWhenControlled(DisplaySpecials=true)]
 		public GameObject ButtonRendererPrefab;
 
 		[DisableWhenControlled]

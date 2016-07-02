@@ -14,7 +14,7 @@ namespace Hover.Renderers {
 
 		public ISettingsControllerMap Controllers { get; private set; }
 		
-		[DisableWhenControlled(DisplayMessage=true)]
+		[DisableWhenControlled(DisplaySpecials=true)]
 		public string SortingLayer = "Default"; //TODO: move to "Alpha"
 		
 		

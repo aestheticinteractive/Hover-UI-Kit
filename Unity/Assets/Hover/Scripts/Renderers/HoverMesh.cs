@@ -22,7 +22,7 @@ namespace Hover.Renderers {
 		public MeshBuilder Builder { get { return vMeshBuild; } }
 		public bool DidRebuildMesh { get; private set; }
 		
-		[DisableWhenControlled(DisplayMessage=true)]
+		[DisableWhenControlled(DisplaySpecials=true)]
 		public DisplayModeType DisplayMode = DisplayModeType.Standard;
 
 		[DisableWhenControlled]

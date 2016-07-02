@@ -29,7 +29,7 @@ namespace Hover.Editor.Utils {
 
 			//TODO: show displays for non-properties like "gameObject.activeSelf"
 			
-			if ( map != null && attrib.DisplayMessage ) {
+			if ( map != null && attrib.DisplaySpecials ) {
 				List<string> specialValueNames = map.GetNewListOfControlledValueNames(true);
 				Rect specialRect = propRect;
 				specialRect.height = EditorGUIUtility.singleLineHeight;
@@ -81,7 +81,7 @@ namespace Hover.Editor.Utils {
 			ISettingsControllerMap map = EditorUtil.GetControllerMap(pProp.serializedObject, mapName);
 			float propHeight = base.GetPropertyHeight(pProp, pLabel);
 
-			if ( map == null || !attrib.DisplayMessage ) {
+			if ( map == null || !attrib.DisplaySpecials ) {
 				return propHeight;
 			}
 

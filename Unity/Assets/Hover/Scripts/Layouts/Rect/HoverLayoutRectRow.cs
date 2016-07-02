@@ -17,7 +17,7 @@ namespace Hover.Layouts.Rect {
 			BottomToTop
 		}
 		
-		[DisableWhenControlled(DisplayMessage=true)]
+		[DisableWhenControlled(DisplaySpecials=true)]
 		public ArrangementType Arrangement = ArrangementType.LeftToRight;
 
 		[DisableWhenControlled(RangeMin=0)]

@@ -12,7 +12,7 @@ namespace Hover.Renderers.Elements {
 		public ISettingsControllerMap Controllers { get; private set; }
 		public bool DidSettingsChange { get; protected set; }
 		
-		[DisableWhenControlled(DisplayMessage=true)]
+		[DisableWhenControlled(DisplaySpecials=true)]
 		public bool ControlChildShapes = true;
 
 

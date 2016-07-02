@@ -18,7 +18,7 @@ namespace Hover.Layouts.Arc {
 			Reverse
 		}
 		
-		[DisableWhenControlled(DisplayMessage=true)]
+		[DisableWhenControlled(DisplaySpecials=true)]
 		public ArrangementType Arrangement = ArrangementType.Forward;
 		
 		[DisableWhenControlled(RangeMin=0)]

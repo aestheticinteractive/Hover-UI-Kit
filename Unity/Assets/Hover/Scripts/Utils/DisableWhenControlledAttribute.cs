@@ -11,7 +11,7 @@ namespace Hover.Utils {
 		public const float NullRangeMax = float.MinValue;
 
 		public string ControllerMapName { get; private set; }
-		public bool DisplayMessage { get; set; }
+		public bool DisplaySpecials { get; set; }
 		public float RangeMin { get; set; }
 		public float RangeMax { get; set; }
 

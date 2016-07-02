@@ -12,7 +12,7 @@ namespace Hover.Renderers.Elements {
 		public const string SegmentInfoName = "SegmentInfo";
 		public const int SegmentCount = 4;
 
-		[DisableWhenControlled(DisplayMessage=true)]
+		[DisableWhenControlled(DisplaySpecials=true)]
 		public HoverRendererSliderSegments SegmentInfo;
 
 		[DisableWhenControlled]

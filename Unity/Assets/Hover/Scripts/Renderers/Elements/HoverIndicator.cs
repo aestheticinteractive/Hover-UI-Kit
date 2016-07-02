@@ -14,7 +14,7 @@ namespace Hover.Renderers.Elements {
 		public ISettingsControllerMap Controllers { get; private set; }
 		public bool DidSettingsChange { get; protected set; }
 
-		[DisableWhenControlled(RangeMin=0, RangeMax=1, DisplayMessage=true)]
+		[DisableWhenControlled(RangeMin=0, RangeMax=1, DisplaySpecials=true)]
 		public float HighlightProgress = 0.7f;
 
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]

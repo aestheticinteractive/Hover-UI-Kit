@@ -24,7 +24,7 @@ namespace Hover.Renderers.CursorPacks.Alpha.Arc {
 		[DisableWhenControlled(RangeMin=0, RangeMax=360)]
 		private float _ArcAngle = 270;
 
-		[DisableWhenControlled(DisplayMessage=true)]
+		[DisableWhenControlled(DisplaySpecials=true)]
 		public HoverAlphaFillArcButton Fill;
 
 
