@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Hover.Renderers.Utils;
 using Hover.Utils;
@@ -39,7 +38,7 @@ namespace Hover.Renderers.Elements {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public override int GetChildMeshCount() {
-			return SegmentCount;
+			return SegmentCount+Ticks.Count;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -51,7 +50,7 @@ namespace Hover.Renderers.Elements {
 				case 3: return SegmentD;
 			}
 
-			throw new ArgumentOutOfRangeException();
+			return Ticks[pIndex-4];
 		}
 
 

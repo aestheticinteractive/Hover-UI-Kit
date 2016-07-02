@@ -8,7 +8,7 @@ namespace Hover.RendererModules.Alpha {
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(HoverMesh))]
-	public class HoverAlphaMeshUpdater : MonoBehaviour, ITreeUpdateable {
+	public class HoverAlphaMeshUpdater : MonoBehaviour, ITreeUpdateable, ISettingsController {
 	
 		public const string SortingLayerName = "SortingLayer";
 		public const string AlphaName = "Alpha";
@@ -17,6 +17,9 @@ namespace Hover.RendererModules.Alpha {
 
 		[DisableWhenControlled(DisplaySpecials=true)]
 		public string SortingLayer = "Default";
+		
+		[DisableWhenControlled]
+		public int SortingOrder = 0;
 
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
 		public float Alpha = 1;
@@ -28,6 +31,7 @@ namespace Hover.RendererModules.Alpha {
 		public Color SliderFillColor = Color.white;
 
 		private string vPrevLayer;
+		private int vPrevOrder;
 		private float vPrevAlpha;
 		private Color vPrevColor;
 		
@@ -53,6 +57,7 @@ namespace Hover.RendererModules.Alpha {
 			TryUpdateColor(hoverMesh);
 
 			vPrevLayer = SortingLayer;
+			vPrevOrder = SortingOrder;
 			vPrevAlpha = Alpha;
 			vPrevColor = StandardColor;
 		}
@@ -61,15 +66,23 @@ namespace Hover.RendererModules.Alpha {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void TryUpdateLayer(HoverMesh pHoverMesh) {
-			if ( !pHoverMesh.DidRebuildMesh && SortingLayer == vPrevLayer ) {
+			Controllers.Set(SettingsControllerMap.MeshRendererSortingLayer, this);
+			Controllers.Set(SettingsControllerMap.MeshRendererSortingOrder, this);
+
+			if ( !pHoverMesh.DidRebuildMesh && SortingLayer == vPrevLayer && 
+					SortingOrder == vPrevOrder ) {
 				return;
 			}
 
-			gameObject.GetComponent<MeshRenderer>().sortingLayerName = SortingLayer;
+			MeshRenderer meshRend = gameObject.GetComponent<MeshRenderer>();
+			meshRend.sortingLayerName = SortingLayer;
+			meshRend.sortingOrder = SortingOrder;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void TryUpdateColor(HoverMesh pHoverMesh) {
+			Controllers.Set(SettingsControllerMap.MeshColors, this);
+
 			Color useColor;
 
 			switch ( pHoverMesh.DisplayMode ) {
