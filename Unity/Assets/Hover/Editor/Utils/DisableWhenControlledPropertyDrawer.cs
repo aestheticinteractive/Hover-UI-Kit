@@ -51,6 +51,9 @@ namespace Hover.Editor.Utils {
 				DrawLinkIcon(settingsController, propRect);
 				pLabel.text = IconTextPrefix+labelText;
 			}
+			else {
+				pLabel.text = labelText;
+			}
 
 			GUI.enabled = !isControlled;
 
