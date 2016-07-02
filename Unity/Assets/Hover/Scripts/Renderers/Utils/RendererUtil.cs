@@ -44,7 +44,7 @@ namespace Hover.Renderers.Utils {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private static T TryBuildPrefabRenderer<T>(GameObject pPrefab) where T : IGameObjectProvider {
+		public static T TryBuildPrefabRenderer<T>(GameObject pPrefab) {
 			if ( pPrefab.GetComponent<T>() == null ) {
 				return default(T);
 			}

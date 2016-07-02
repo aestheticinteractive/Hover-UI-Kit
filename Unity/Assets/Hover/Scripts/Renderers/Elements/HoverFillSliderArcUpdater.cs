@@ -41,14 +41,16 @@ namespace Hover.Renderers.Elements {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void TreeUpdate() {
-			UpdateMeshes();
+			UpdateFillMeshes();
+			UpdateTickMeshes();
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected virtual void UpdateMeshes() {
+		private void UpdateFillMeshes() {
 			HoverFillSlider fillSlider = gameObject.GetComponent<HoverFillSlider>();
+			HoverShapeArc shapeArc = gameObject.GetComponent<HoverShapeArc>();
 			List<SliderUtil.SegmentInfo> segInfoList = fillSlider.SegmentInfo.SegmentInfoList;
 			int segCount = fillSlider.GetChildMeshCount();
 			int segIndex = 0;
@@ -56,7 +58,7 @@ namespace Hover.Renderers.Elements {
 			float endPos = segInfoList[segInfoList.Count-1].EndPosition;
 
 			for ( int i = 0 ; i < segCount ; i++ ) {
-				ResetMesh(fillSlider.GetChildMesh(i));
+				ResetFillMesh(fillSlider.GetChildMesh(i), shapeArc);
 			}
 
 			for ( int i = 0 ; i < segInfoList.Count ; i++ ) {
@@ -66,38 +68,37 @@ namespace Hover.Renderers.Elements {
 					continue;
 				}
 
-				UpdateMesh(fillSlider.GetChildMesh(segIndex++), segInfo, startPos, endPos);
+				UpdateFillMesh(fillSlider.GetChildMesh(segIndex++), segInfo, startPos, endPos);
 			}
 
 			for ( int i = 0 ; i < segCount ; i++ ) {
-				ActivateMesh(fillSlider.GetChildMesh(i));
+				ActivateFillMesh(fillSlider.GetChildMesh(i));
 			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void ResetMesh(HoverMesh pSegmentMesh) {
-			HoverShapeArc shapeArc = gameObject.GetComponent<HoverShapeArc>();
+		private void ResetFillMesh(HoverMesh pSegmentMesh, HoverShapeArc pShapeArc) {
 			HoverShapeArc meshShapeArc = pSegmentMesh.GetComponent<HoverShapeArc>();
-			HoverMeshArc meshArc = (HoverMeshArc)pSegmentMesh;
 
-			pSegmentMesh.Controllers.Set(SettingsControllerMap.GameObjectActiveSelf, this);
-			pSegmentMesh.Controllers.Set(SettingsControllerMap.TransformLocalRotation, this);
-			pSegmentMesh.Controllers.Set(HoverMesh.DisplayModeName, this);
 			meshShapeArc.Controllers.Set(HoverShapeArc.OuterRadiusName, this);
 			meshShapeArc.Controllers.Set(HoverShapeArc.InnerRadiusName, this);
-			meshArc.Controllers.Set(HoverMeshArc.UvMinArcDegreeName, this);
-			meshArc.Controllers.Set(HoverMeshArc.UvMaxArcDegreeName, this);
+			meshShapeArc.Controllers.Set(HoverShapeArc.ArcDegreesName, this);
 
-			meshShapeArc.OuterRadius = shapeArc.OuterRadius-InsetOuter;
-			meshShapeArc.InnerRadius = shapeArc.InnerRadius+InsetInner;
+			meshShapeArc.OuterRadius = pShapeArc.OuterRadius-InsetOuter;
+			meshShapeArc.InnerRadius = pShapeArc.InnerRadius+InsetInner;
 			meshShapeArc.ArcDegrees = 0;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateMesh(HoverMesh pSegmentMesh, SliderUtil.SegmentInfo pSegmentInfo,
+		private void UpdateFillMesh(HoverMesh pSegmentMesh, SliderUtil.SegmentInfo pSegmentInfo,
 																	float pStartPos, float pEndPos) {
 			HoverShapeArc meshShapeArc = pSegmentMesh.GetComponent<HoverShapeArc>();
 			HoverMeshArc meshArc = (HoverMeshArc)pSegmentMesh;
+			
+			pSegmentMesh.Controllers.Set(SettingsControllerMap.TransformLocalRotation, this);
+			pSegmentMesh.Controllers.Set(HoverMesh.DisplayModeName, this);
+			meshArc.Controllers.Set(HoverMeshArc.UvMinArcDegreeName, this);
+			meshArc.Controllers.Set(HoverMeshArc.UvMaxArcDegreeName, this);
 
 			meshShapeArc.ArcDegrees = pSegmentInfo.EndPosition-pSegmentInfo.StartPosition;
 			pSegmentMesh.DisplayMode = (pSegmentInfo.IsFill ?
@@ -112,9 +113,50 @@ namespace Hover.Renderers.Elements {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void ActivateMesh(HoverMesh pSegmentMesh) {
+		private void ActivateFillMesh(HoverMesh pSegmentMesh) {
 			HoverShapeArc meshShapeArc = pSegmentMesh.GetComponent<HoverShapeArc>();
+
+			pSegmentMesh.Controllers.Set(SettingsControllerMap.GameObjectActiveSelf, this);
+
 			RendererUtil.SetActiveWithUpdate(pSegmentMesh, (meshShapeArc.ArcDegrees > 0));
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateTickMeshes() {
+			HoverFillSlider fillSlider = gameObject.GetComponent<HoverFillSlider>();
+			HoverShapeArc shapeArc = gameObject.GetComponent<HoverShapeArc>();
+			List<SliderUtil.SegmentInfo> tickInfoList = fillSlider.SegmentInfo.TickInfoList;
+			float tickInset = (shapeArc.OuterRadius-shapeArc.InnerRadius-InsetOuter-InsetInner)*
+				(1-TickRelativeSizeX)/2;
+			float tickOuterRadius = shapeArc.OuterRadius-InsetOuter-tickInset;
+			float tickInnerRadius = shapeArc.InnerRadius+InsetInner+tickInset;
+
+			for ( int i = 0 ; i < tickInfoList.Count ; i++ ) {
+				UpdateTickMesh(fillSlider.Ticks[i], tickInfoList[i], tickOuterRadius, tickInnerRadius);
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateTickMesh(HoverMesh pTickMesh, SliderUtil.SegmentInfo pTickInfo,
+																float pOuterRadius, float pInnerRadius) {
+			HoverShapeArc meshShapeArc = pTickMesh.GetComponent<HoverShapeArc>();
+
+			pTickMesh.Controllers.Set(SettingsControllerMap.GameObjectActiveSelf, this);
+			pTickMesh.Controllers.Set(SettingsControllerMap.TransformLocalRotation, this);
+			meshShapeArc.Controllers.Set(HoverShapeArc.OuterRadiusName, this);
+			meshShapeArc.Controllers.Set(HoverShapeArc.InnerRadiusName, this);
+			meshShapeArc.Controllers.Set(HoverShapeArc.ArcDegreesName, this);
+
+			meshShapeArc.OuterRadius = pOuterRadius;
+			meshShapeArc.InnerRadius = pInnerRadius;
+			meshShapeArc.ArcDegrees = pTickInfo.EndPosition-pTickInfo.StartPosition;
+			
+			pTickMesh.transform.localRotation = Quaternion.AngleAxis(
+				(pTickInfo.StartPosition+pTickInfo.EndPosition)/2, Vector3.forward);
+
+			RendererUtil.SetActiveWithUpdate(pTickMesh, !pTickInfo.IsHidden);
 		}
 
 	}
