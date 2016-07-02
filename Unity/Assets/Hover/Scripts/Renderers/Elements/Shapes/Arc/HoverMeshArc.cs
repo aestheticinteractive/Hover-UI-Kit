@@ -2,7 +2,7 @@ using System;
 using Hover.Utils;
 using UnityEngine;
 
-namespace Hover.Renderers.Elements {
+namespace Hover.Renderers.Elements.Shapes.Arc {
 
 	/*================================================================================================*/
 	[RequireComponent(typeof(HoverIndicator))]

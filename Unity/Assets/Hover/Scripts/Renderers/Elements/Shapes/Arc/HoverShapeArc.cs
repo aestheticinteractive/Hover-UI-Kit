@@ -3,30 +3,35 @@ using Hover.Renderers.Utils;
 using Hover.Utils;
 using UnityEngine;
 
-namespace Hover.Renderers.Elements {
+namespace Hover.Renderers.Elements.Shapes.Arc {
 
 	/*================================================================================================*/
-	public class HoverShapeRect : HoverShape {
+	public class HoverShapeArc : HoverShape {
 		
-		public const string SizeXName = "SizeX";
-		public const string SizeYName = "SizeY";
+		public const string OuterRadiusName = "OuterRadius";
+		public const string InnerRadiusName = "InnerRadius";
+		public const string ArcDegreesName = "ArcDegrees";
 
 		[DisableWhenControlled(RangeMin=0)]
-		public float SizeX = 0.1f;
-		
+		public float OuterRadius = 0.1f;
+
 		[DisableWhenControlled(RangeMin=0)]
-		public float SizeY = 0.1f;
+		public float InnerRadius = 0.04f;
+
+		[DisableWhenControlled(RangeMin=0, RangeMax=360)]
+		public float ArcDegrees = 60;
 
 		private Plane vWorldPlane;
-		private float vPrevSizeX;
-		private float vPrevSizeY;
+		private float vPrevOuter;
+		private float vPrevInner;
+		private float vPrevDegrees;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public override Vector3 GetNearestWorldPosition(Vector3 pFromWorldPosition) {
-			return RendererUtil.GetNearestWorldPositionOnRectangle(
-				pFromWorldPosition, gameObject.transform, SizeX, SizeY);
+			return RendererUtil.GetNearestWorldPositionOnArc(pFromWorldPosition, 
+				gameObject.transform, OuterRadius, InnerRadius, ArcDegrees);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -41,17 +46,24 @@ namespace Hover.Renderers.Elements {
 		/*--------------------------------------------------------------------------------------------*/
 		public override float GetSliderValueViaNearestWorldPosition(Vector3 pNearestWorldPosition, 
 										Transform pSliderContainerTx, HoverShape pHandleButtonShape) {
-			HoverShapeRect buttonShapeRect = (pHandleButtonShape as HoverShapeRect);
+			HoverShapeArc buttonShapeArc = (pHandleButtonShape as HoverShapeArc);
 
-			if ( buttonShapeRect == null ) {
-				Debug.LogError("Expected slider handle to have a '"+typeof(HoverShapeRect).Name+
+			if ( buttonShapeArc == null ) {
+				Debug.LogError("Expected slider handle to have a '"+typeof(HoverShapeArc).Name+
 					"' component attached to it.", this);
 				return 0;
 			}
-			
+
 			Vector3 nearLocalPos = pSliderContainerTx.InverseTransformPoint(pNearestWorldPosition);
-			float halfTrackSizeY = (SizeY-buttonShapeRect.SizeY)/2;
-			return Mathf.InverseLerp(-halfTrackSizeY, halfTrackSizeY, nearLocalPos.y);
+			float fromAngle;
+			Vector3 fromAxis;
+			Quaternion fromLocalRot = Quaternion.FromToRotation(Vector3.right, nearLocalPos.normalized);
+
+			fromLocalRot.ToAngleAxis(out fromAngle, out fromAxis);
+			fromAngle *= Mathf.Sign(nearLocalPos.y);
+
+			float halfTrackAngle = (ArcDegrees-buttonShapeArc.ArcDegrees)/2;
+			return Mathf.InverseLerp(-halfTrackAngle, halfTrackAngle, fromAngle);
 		}
 
 
@@ -64,20 +76,22 @@ namespace Hover.Renderers.Elements {
 
 			DidSettingsChange = (
 				DidSettingsChange ||
-				SizeX != vPrevSizeX ||
-				SizeY != vPrevSizeY
+				OuterRadius != vPrevOuter ||
+				InnerRadius != vPrevInner || 
+				ArcDegrees != vPrevDegrees
 			);
 
-			UpdateShapeRectChildren();
+			UpdateShapeArcChildren();
 
-			vPrevSizeX = SizeX;
-			vPrevSizeY = SizeY;
+			vPrevOuter = OuterRadius;
+			vPrevInner = InnerRadius;
+			vPrevDegrees = ArcDegrees;
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateShapeRectChildren() {
+		private void UpdateShapeArcChildren() {
 			if ( !ControlChildShapes ) {
 				return;
 			}
@@ -86,17 +100,19 @@ namespace Hover.Renderers.Elements {
 
 			for ( int i = 0 ; i < tree.TreeChildrenThisFrame.Count ; i++ ) {
 				TreeUpdater child = tree.TreeChildrenThisFrame[i];
-				HoverShapeRect childRect = child.GetComponent<HoverShapeRect>();
+				HoverShapeArc childArc = child.GetComponent<HoverShapeArc>();
 
-				if ( childRect == null ) {
+				if ( childArc == null ) {
 					continue;
 				}
 
-				childRect.Controllers.Set(SizeXName, this);
-				childRect.Controllers.Set(SizeYName, this);
+				childArc.Controllers.Set(OuterRadiusName, this);
+				childArc.Controllers.Set(InnerRadiusName, this);
+				childArc.Controllers.Set(ArcDegreesName, this);
 
-				childRect.SizeX = SizeX;
-				childRect.SizeY = SizeY;
+				childArc.OuterRadius = OuterRadius;
+				childArc.InnerRadius = InnerRadius;
+				childArc.ArcDegrees = ArcDegrees;
 			}
 		}
 

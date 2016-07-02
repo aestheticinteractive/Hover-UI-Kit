@@ -1,9 +1,10 @@
 using System.Collections.Generic;
+using Hover.Renderers.Elements.Shapes;
 using Hover.Renderers.Utils;
 using Hover.Utils;
 using UnityEngine;
 
-namespace Hover.Renderers.Elements {
+namespace Hover.Renderers.Elements.Sliders {
 
 	/*================================================================================================*/
 	[RequireComponent(typeof(HoverIndicator))]

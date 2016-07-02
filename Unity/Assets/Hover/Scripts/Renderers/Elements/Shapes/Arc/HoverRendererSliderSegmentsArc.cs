@@ -1,6 +1,7 @@
+using Hover.Renderers.Elements.Sliders;
 using UnityEngine;
 
-namespace Hover.Renderers.Elements {
+namespace Hover.Renderers.Elements.Shapes.Arc {
 
 	/*================================================================================================*/
 	[RequireComponent(typeof(HoverShapeArc))]

@@ -1,7 +1,8 @@
+using Hover.Renderers.Elements.Buttons;
 using Hover.Utils;
 using UnityEngine;
 
-namespace Hover.Renderers.Elements {
+namespace Hover.Renderers.Elements.Shapes.Arc {
 
 	/*================================================================================================*/
 	[RequireComponent(typeof(TreeUpdater))]

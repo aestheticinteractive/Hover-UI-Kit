@@ -1,10 +1,12 @@
 using System;
 using Hover.Items;
 using Hover.Renderers.Contents;
+using Hover.Renderers.Elements.Contents;
+using Hover.Renderers.Elements.Shapes;
 using Hover.Utils;
 using UnityEngine;
 
-namespace Hover.Renderers.Elements {
+namespace Hover.Renderers.Elements.Buttons {
 
 	/*================================================================================================*/
 	public class HoverRendererButton : HoverRenderer {

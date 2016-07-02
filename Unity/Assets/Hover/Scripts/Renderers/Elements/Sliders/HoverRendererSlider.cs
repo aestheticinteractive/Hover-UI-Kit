@@ -1,11 +1,14 @@
 using System;
 using Hover.Items;
 using Hover.Renderers.Contents;
+using Hover.Renderers.Elements.Buttons;
+using Hover.Renderers.Elements.Contents;
+using Hover.Renderers.Elements.Shapes;
 using Hover.Renderers.Utils;
 using Hover.Utils;
 using UnityEngine;
 
-namespace Hover.Renderers.Elements {
+namespace Hover.Renderers.Elements.Sliders {
 
 	/*================================================================================================*/
 	[RequireComponent(typeof(HoverRendererSliderSegments))]

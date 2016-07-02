@@ -1,9 +1,12 @@
 using System;
 using Hover.Renderers.Contents;
+using Hover.Renderers.Elements.Shapes;
+using Hover.Renderers.Elements.Shapes.Arc;
+using Hover.Renderers.Elements.Shapes.Rect;
 using Hover.Utils;
 using UnityEngine;
 
-namespace Hover.Renderers.Elements {
+namespace Hover.Renderers.Elements.Contents {
 
 	/*================================================================================================*/
 	[RequireComponent(typeof(HoverCanvas))]

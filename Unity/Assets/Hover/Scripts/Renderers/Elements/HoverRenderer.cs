@@ -1,5 +1,7 @@
 using Hover.Items;
 using Hover.Renderers.Contents;
+using Hover.Renderers.Elements.Contents;
+using Hover.Renderers.Elements.Shapes;
 using Hover.Utils;
 using UnityEngine;
 
