@@ -1,7 +1,6 @@
 using System;
 using Hover.Utils;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Hover.Renderers.Elements {
 
@@ -16,19 +15,15 @@ namespace Hover.Renderers.Elements {
 		[DisableWhenControlled(DisplaySpecials=true)]
 		public HoverRendererSliderSegments SegmentInfo;
 
-		[FormerlySerializedAs("SegmentMeshA")]
 		[DisableWhenControlled]
 		public HoverMesh SegmentA;
 
-		[FormerlySerializedAs("SegmentMeshB")]
 		[DisableWhenControlled]
 		public HoverMesh SegmentB;
 
-		[FormerlySerializedAs("SegmentMeshC")]
 		[DisableWhenControlled]
 		public HoverMesh SegmentC;
 
-		[FormerlySerializedAs("SegmentMeshD")]
 		[DisableWhenControlled]
 		public HoverMesh SegmentD;
 
