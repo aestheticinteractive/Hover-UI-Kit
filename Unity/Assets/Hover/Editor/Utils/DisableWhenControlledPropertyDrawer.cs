@@ -19,7 +19,8 @@ namespace Hover.Editor.Utils {
 		public override void OnGUI(Rect pPosition, SerializedProperty pProp, GUIContent pLabel) {
 			DisableWhenControlledAttribute attrib = (DisableWhenControlledAttribute)attribute;
 			string mapName = attrib.ControllerMapName;
-			ISettingsControllerMap map = EditorUtil.GetControllerMap(pProp.serializedObject, mapName);
+			SerializedObject self = pProp.serializedObject;
+			ISettingsControllerMap map = EditorUtil.GetControllerMap(self, mapName);
 			bool wasEnabled = GUI.enabled;
 			Rect propRect = pPosition;
 			bool hasRangeMin = (attrib.RangeMin != DisableWhenControlledAttribute.NullRangeMin);
@@ -35,7 +36,7 @@ namespace Hover.Editor.Utils {
 				specialRect.height = EditorGUIUtility.singleLineHeight;
 
 				foreach ( string specialValueName in specialValueNames ) {
-					DrawLinkIcon(map.Get(specialValueName), specialRect);
+					DrawLinkIcon(self.targetObject, map.Get(specialValueName), specialRect);
 					GUI.enabled = false;
 					EditorGUI.LabelField(specialRect, IconTextPrefix+specialValueName.Substring(1));
 					GUI.enabled = wasEnabled;
@@ -48,7 +49,7 @@ namespace Hover.Editor.Utils {
 
 			if ( isControlled ) {
 				ISettingsController settingsController = map.Get(pProp.name);
-				DrawLinkIcon(settingsController, propRect);
+				DrawLinkIcon(self.targetObject, settingsController, propRect);
 				pLabel.text = IconTextPrefix+labelText;
 			}
 			else {
@@ -92,7 +93,9 @@ namespace Hover.Editor.Utils {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void DrawLinkIcon(ISettingsController pControl, Rect pPropertyRect) {
+		private void DrawLinkIcon(Object pSelf, ISettingsController pControl, Rect pPropertyRect) {
+			bool isSelf = ((pControl as Object) == pSelf);
+
 			Rect iconRect = pPropertyRect;
 			iconRect.x -= 26;
 			iconRect.y += 1;
@@ -101,8 +104,8 @@ namespace Hover.Editor.Utils {
 
 			GUIContent labelContent = new GUIContent();
 			labelContent.image = ControlIconTex;
-			labelContent.tooltip = "Controlled by '"+pControl.GetType().Name+"' in "+
-				"'"+pControl.name+"'";
+			labelContent.tooltip = "Controlled by "+(isSelf ? "this component" : 
+				pControl.GetType().Name+" in \""+pControl.name+"\"");
 
 			GUIStyle labelStyle = new GUIStyle();
 			labelStyle.imagePosition = ImagePosition.ImageOnly;
