@@ -7,12 +7,8 @@ using UnityEngine;
 namespace Hover.Renderers.Elements.Shapes.Arc {
 
 	/*================================================================================================*/
-	[ExecuteInEditMode]
-	[RequireComponent(typeof(HoverFillSlider))]
 	[RequireComponent(typeof(HoverShapeArc))]
-	public class HoverFillSliderArcUpdater : MonoBehaviour, ITreeUpdateable, ISettingsController {
-
-		public ISettingsControllerMap Controllers { get; private set; }
+	public class HoverFillSliderArcUpdater : HoverFillSliderUpdater {
 
 		[DisableWhenControlled(RangeMin=0, DisplaySpecials=true)]
 		public float InsetOuter = 0.01f;
@@ -26,73 +22,39 @@ namespace Hover.Renderers.Elements.Shapes.Arc {
 		[DisableWhenControlled]
 		public bool UseTrackUv = false;
 
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		protected HoverFillSliderArcUpdater() {
-			Controllers = new SettingsControllerMap();
-		}
+		private float vMeshOuterRadius;
+		private float vMeshInnerRadius;
+		private float vTickOuterRadius;
+		private float vTickInnerRadius;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
-			//do nothing...
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public void TreeUpdate() {
-			UpdateFillMeshes();
-			UpdateTickMeshes();
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateFillMeshes() {
-			HoverFillSlider fillSlider = gameObject.GetComponent<HoverFillSlider>();
+		protected override void UpdateFillMeshes() {
 			HoverShapeArc shapeArc = gameObject.GetComponent<HoverShapeArc>();
-			List<SliderUtil.SegmentInfo> segInfoList = fillSlider.SegmentInfo.SegmentInfoList;
-			int segCount = fillSlider.GetChildMeshCount();
-			int segIndex = 0;
-			float startPos = segInfoList[0].StartPosition;
-			float endPos = segInfoList[segInfoList.Count-1].EndPosition;
 
-			for ( int i = 0 ; i < segCount ; i++ ) {
-				ResetFillMesh(fillSlider.GetChildMesh(i), shapeArc);
-			}
+			vMeshOuterRadius = shapeArc.OuterRadius-InsetOuter;
+			vMeshInnerRadius = shapeArc.InnerRadius+InsetInner;
 
-			for ( int i = 0 ; i < segInfoList.Count ; i++ ) {
-				SliderUtil.SegmentInfo segInfo = segInfoList[i];
-
-				if ( segInfo.Type != SliderUtil.SegmentType.Track ) {
-					continue;
-				}
-
-				UpdateFillMesh(fillSlider.GetChildMesh(segIndex++), segInfo, startPos, endPos);
-			}
-
-			for ( int i = 0 ; i < segCount ; i++ ) {
-				ActivateFillMesh(fillSlider.GetChildMesh(i));
-			}
+			base.UpdateFillMeshes();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void ResetFillMesh(HoverMesh pSegmentMesh, HoverShapeArc pShapeArc) {
+		protected override void ResetFillMesh(HoverMesh pSegmentMesh) {
 			HoverShapeArc meshShapeArc = pSegmentMesh.GetComponent<HoverShapeArc>();
 
 			meshShapeArc.Controllers.Set(HoverShapeArc.OuterRadiusName, this);
 			meshShapeArc.Controllers.Set(HoverShapeArc.InnerRadiusName, this);
 			meshShapeArc.Controllers.Set(HoverShapeArc.ArcDegreesName, this);
 
-			meshShapeArc.OuterRadius = pShapeArc.OuterRadius-InsetOuter;
-			meshShapeArc.InnerRadius = pShapeArc.InnerRadius+InsetInner;
+			meshShapeArc.OuterRadius = vMeshOuterRadius;
+			meshShapeArc.InnerRadius = vMeshInnerRadius;
 			meshShapeArc.ArcDegrees = 0;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateFillMesh(HoverMesh pSegmentMesh, SliderUtil.SegmentInfo pSegmentInfo,
-																	float pStartPos, float pEndPos) {
+		protected override void UpdateFillMesh(HoverMesh pSegmentMesh, 
+								SliderUtil.SegmentInfo pSegmentInfo, float pStartPos, float pEndPos) {
 			HoverShapeArc meshShapeArc = pSegmentMesh.GetComponent<HoverShapeArc>();
 			HoverMeshArc meshArc = (HoverMeshArc)pSegmentMesh;
 			
@@ -114,7 +76,7 @@ namespace Hover.Renderers.Elements.Shapes.Arc {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void ActivateFillMesh(HoverMesh pSegmentMesh) {
+		protected override void ActivateFillMesh(HoverMesh pSegmentMesh) {
 			HoverShapeArc meshShapeArc = pSegmentMesh.GetComponent<HoverShapeArc>();
 
 			pSegmentMesh.Controllers.Set(SettingsControllerMap.GameObjectActiveSelf, this);
@@ -125,23 +87,19 @@ namespace Hover.Renderers.Elements.Shapes.Arc {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateTickMeshes() {
-			HoverFillSlider fillSlider = gameObject.GetComponent<HoverFillSlider>();
+		protected override void UpdateTickMeshes() {
 			HoverShapeArc shapeArc = gameObject.GetComponent<HoverShapeArc>();
-			List<SliderUtil.SegmentInfo> tickInfoList = fillSlider.SegmentInfo.TickInfoList;
-			float tickInset = (shapeArc.OuterRadius-shapeArc.InnerRadius-InsetOuter-InsetInner)*
+			float inset = (shapeArc.OuterRadius-shapeArc.InnerRadius-InsetOuter-InsetInner)*
 				(1-TickRelativeSizeX)/2;
-			float tickOuterRadius = shapeArc.OuterRadius-InsetOuter-tickInset;
-			float tickInnerRadius = shapeArc.InnerRadius+InsetInner+tickInset;
+			
+			vTickOuterRadius = shapeArc.OuterRadius-InsetOuter-inset;
+			vTickInnerRadius = shapeArc.InnerRadius+InsetInner+inset;
 
-			for ( int i = 0 ; i < tickInfoList.Count ; i++ ) {
-				UpdateTickMesh(fillSlider.Ticks[i], tickInfoList[i], tickOuterRadius, tickInnerRadius);
-			}
+			base.UpdateTickMeshes();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateTickMesh(HoverMesh pTickMesh, SliderUtil.SegmentInfo pTickInfo,
-																float pOuterRadius, float pInnerRadius) {
+		protected override void UpdateTickMesh(HoverMesh pTickMesh, SliderUtil.SegmentInfo pTickInfo) {
 			HoverShapeArc meshShapeArc = pTickMesh.GetComponent<HoverShapeArc>();
 
 			pTickMesh.Controllers.Set(SettingsControllerMap.GameObjectActiveSelf, this);
@@ -150,8 +108,8 @@ namespace Hover.Renderers.Elements.Shapes.Arc {
 			meshShapeArc.Controllers.Set(HoverShapeArc.InnerRadiusName, this);
 			meshShapeArc.Controllers.Set(HoverShapeArc.ArcDegreesName, this);
 
-			meshShapeArc.OuterRadius = pOuterRadius;
-			meshShapeArc.InnerRadius = pInnerRadius;
+			meshShapeArc.OuterRadius = vTickOuterRadius;
+			meshShapeArc.InnerRadius = vTickInnerRadius;
 			meshShapeArc.ArcDegrees = pTickInfo.EndPosition-pTickInfo.StartPosition;
 			
 			pTickMesh.transform.localRotation = Quaternion.AngleAxis(

@@ -66,6 +66,10 @@ namespace Hover.Renderers.Elements.Sliders {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateTickList() {
+			if ( SegmentInfo == null || SegmentInfo.TickInfoList == null ) {
+				return;
+			}
+
 			int newTickCount = SegmentInfo.TickInfoList.Count;
 
 #if UNITY_EDITOR
