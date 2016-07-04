@@ -1,6 +1,7 @@
 using Hover.Renderers.Elements.Buttons;
 using Hover.Renderers.Elements.Sliders;
 using Hover.Renderers.Utils;
+using Hover.Utils;
 using UnityEngine;
 
 namespace Hover.Renderers.Elements.Shapes.Arc {
@@ -67,8 +68,11 @@ namespace Hover.Renderers.Elements.Shapes.Arc {
 				HoverRendererButton button = (isHandle ? 
 					pRendSlider.HandleButton : pRendSlider.JumpButton);
 
-				button.transform.localRotation = Quaternion.AngleAxis(
-					(segInfo.StartPosition+segInfo.EndPosition)/2, Vector3.forward);
+				button.Controllers.Set(SettingsControllerMap.TransformLocalRotation+".z", this);
+
+				Vector3 buttonLocalEuler = button.transform.localRotation.eulerAngles;
+				buttonLocalEuler.z = (segInfo.StartPosition+segInfo.EndPosition)/2;
+				button.transform.localRotation = Quaternion.Euler(buttonLocalEuler);
 			}
 		}
 
