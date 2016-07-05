@@ -55,15 +55,20 @@ namespace Hover.Renderers.Elements {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private HoverRendererButton ButtonRenderer {
+		public HoverRendererButton ButtonRenderer {
 			get { return (_ButtonRenderer as HoverRendererButton); }
 			set { _ButtonRenderer = value; }
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private HoverRendererSlider SliderRenderer {
+		public HoverRendererSlider SliderRenderer {
 			get { return (_SliderRenderer as HoverRendererSlider); }
 			set { _SliderRenderer = value; }
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverRenderer ActiveRenderer {
+			get { return ((HoverRenderer)ButtonRenderer ?? SliderRenderer); }
 		}
 
 

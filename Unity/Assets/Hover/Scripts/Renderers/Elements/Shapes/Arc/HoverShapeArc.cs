@@ -1,4 +1,5 @@
 using Hover.Items;
+using Hover.Layouts.Arc;
 using Hover.Renderers.Utils;
 using Hover.Utils;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine;
 namespace Hover.Renderers.Elements.Shapes.Arc {
 
 	/*================================================================================================*/
-	public class HoverShapeArc : HoverShape {
+	public class HoverShapeArc : HoverShape, IArcLayoutable {
 		
 		public const string OuterRadiusName = "OuterRadius";
 		public const string InnerRadiusName = "InnerRadius";
@@ -64,6 +65,20 @@ namespace Hover.Renderers.Elements.Shapes.Arc {
 
 			float halfTrackAngle = (ArcDegrees-buttonShapeArc.ArcDegrees)/2;
 			return Mathf.InverseLerp(-halfTrackAngle, halfTrackAngle, fromAngle);
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public void SetArcLayout(float pOuterRadius, float pInnerRadius, 
+													float pArcAngle, ISettingsController pController) {
+			Controllers.Set(OuterRadiusName, pController);
+			Controllers.Set(InnerRadiusName, pController);
+			Controllers.Set(ArcDegreesName, pController);
+
+			OuterRadius = pOuterRadius;
+			InnerRadius = pInnerRadius;
+			ArcDegrees = pArcAngle;
 		}
 
 
