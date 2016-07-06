@@ -10,7 +10,7 @@ namespace Hover.Renderers.Elements.Shapes.Rect {
 	[RequireComponent(typeof(HoverShapeRect))]
 	public class HoverFillButtonRectUpdater : MonoBehaviour, ITreeUpdateable, ISettingsController {
 
-		public float EdgeThickness = 0.002f;
+		public float EdgeThickness = 0.001f;
 		
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -32,8 +32,9 @@ namespace Hover.Renderers.Elements.Shapes.Rect {
 			HoverFillButton fillButton = gameObject.GetComponent<HoverFillButton>();
 			HoverShapeRect shapeRect = gameObject.GetComponent<HoverShapeRect>();
 		
-			float insetSizeX = Mathf.Max(0, shapeRect.SizeX-EdgeThickness);
-			float insetSizeY = Mathf.Max(0, shapeRect.SizeY-EdgeThickness);
+			float totalEdgeThick = EdgeThickness*2;
+			float insetSizeX = Mathf.Max(0, shapeRect.SizeX-totalEdgeThick);
+			float insetSizeY = Mathf.Max(0, shapeRect.SizeY-totalEdgeThick);
 		
 			if ( fillButton.Background != null ) {
 				UpdateMeshShape(fillButton.Background, insetSizeX, insetSizeY);
@@ -54,7 +55,7 @@ namespace Hover.Renderers.Elements.Shapes.Rect {
 				UpdateMeshShape(fillButton.Edge, shapeRect.SizeX, shapeRect.SizeY);
 
 				meshInd.Controllers.Set(HoverIndicator.HighlightProgressName, this);
-				meshInd.HighlightProgress = 1-EdgeThickness/minSize; //TODO:  hack/workaround
+				meshInd.HighlightProgress = 1-totalEdgeThick/minSize; //TODO:  hack/workaround
 			}
 		}
 
