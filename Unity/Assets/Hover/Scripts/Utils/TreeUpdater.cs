@@ -12,6 +12,8 @@ namespace Hover.Utils {
 		public int TreeDepthLevelThisFrame { get; private set; }
 		public List<ITreeUpdateable> TreeUpdatablesThisFrame { get; private set; }
 		public List<TreeUpdater> TreeChildrenThisFrame { get; private set; }
+
+		private bool vIsDestroyed;
 		
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -36,6 +38,11 @@ namespace Hover.Utils {
 		public void LateUpdate() {
 			DidTreeUpdateThisFrame = false;
 		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void OnDestroy() {
+			vIsDestroyed = true;
+		}
 		
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -56,6 +63,11 @@ namespace Hover.Utils {
 		/*--------------------------------------------------------------------------------------------*/
 		private void BeginAtThisTreeLevel() {
 			//Debug.Log("BeginAtThisTreeLevel: "+gameObject.name, gameObject);
+
+			if ( vIsDestroyed ) {
+				return;
+			}
+
 			SendTreeUpdates(0);
 			DescendTree(0);
 		}
@@ -63,8 +75,14 @@ namespace Hover.Utils {
 		/*--------------------------------------------------------------------------------------------*/
 		private void SendTreeUpdates(int pDepth) {
 			//Debug.Log(new string('-', pDepth)+"SendTreeUpdates: "+gameObject.name, gameObject);
+
+			if ( vIsDestroyed ) {
+				return;
+			}
+
 			gameObject.GetComponents<ITreeUpdateable>(TreeUpdatablesThisFrame);
-			
+			FindTreeChildren();
+
 			for ( int i = 0 ; i < TreeUpdatablesThisFrame.Count ; i++ ) {
 				ITreeUpdateable treeUpdatable = TreeUpdatablesThisFrame[i];
 				
@@ -80,10 +98,7 @@ namespace Hover.Utils {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		private void DescendTree(int pDepth) {
-			//Debug.Log(new string('-', pDepth)+"DescendTree: "+gameObject.name, gameObject);
-			int childDepth = pDepth+1;
-			
+		private void FindTreeChildren() {
 			TreeChildrenThisFrame.Clear();
 			
 			foreach ( Transform childTx in transform ) {
@@ -94,10 +109,24 @@ namespace Hover.Utils {
 				}
 				
 				childTreeUp.TreeParentThisFrame = this;
+				TreeChildrenThisFrame.Add(childTreeUp);
+			}
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
+		private void DescendTree(int pDepth) {
+			//Debug.Log(new string('-', pDepth)+"DescendTree: "+gameObject.name, gameObject);
+
+			if ( vIsDestroyed ) {
+				return;
+			}
+
+			int childDepth = pDepth+1;
+			
+			for ( int i = 0 ; i < TreeChildrenThisFrame.Count ; i++ ) {
+				TreeUpdater childTreeUp = TreeChildrenThisFrame[i];
 				childTreeUp.SendTreeUpdates(childDepth);
 				childTreeUp.DescendTree(childDepth);
-				
-				TreeChildrenThisFrame.Add(childTreeUp);
 			}
 		}
 
