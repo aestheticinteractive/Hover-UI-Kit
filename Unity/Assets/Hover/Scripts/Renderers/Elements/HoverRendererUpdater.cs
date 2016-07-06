@@ -75,10 +75,10 @@ namespace Hover.Renderers.Elements {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
-			ButtonRendererPrefab = Resources.Load<GameObject>(
+			/*ButtonRendererPrefab = Resources.Load<GameObject>(
 				"Prefabs/HoverAlphaButtonRenderer-Default");
 			SliderRendererPrefab = Resources.Load<GameObject>(
-				"Prefabs/HoverAlphaSliderRenderer-Default");
+				"Prefabs/HoverAlphaSliderRenderer-Default");*/
 
 			vPrevButtonPrefab = ButtonRendererPrefab;
 			vPrevSliderPrefab = SliderRendererPrefab;
