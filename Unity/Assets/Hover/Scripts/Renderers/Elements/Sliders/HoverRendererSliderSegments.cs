@@ -45,7 +45,6 @@ namespace Hover.Renderers.Elements.Sliders {
 			vInfo.JumpValue = rendSlider.JumpValue;
 			vInfo.ZeroValue = rendSlider.ZeroValue;
 			vInfo.TickCount = rendSlider.TickCount;
-			vInfo.TickSize = rendSlider.TickSizeY;
 
 			/*Debug.Log("INFO: "+info.TrackStartPosition+" / "+info.TrackEndPosition);
 

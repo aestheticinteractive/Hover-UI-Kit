@@ -49,9 +49,6 @@ namespace Hover.Renderers.Elements.Sliders {
 		[DisableWhenControlled]
 		public int TickCount = 0;
 
-		[DisableWhenControlled(RangeMin=0.01f)]
-		public float TickSizeY = 0.34f;
-
 		[DisableWhenControlled]
 		public SliderFillType FillStartingPoint = SliderFillType.Zero;
 		
