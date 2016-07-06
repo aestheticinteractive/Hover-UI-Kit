@@ -46,7 +46,7 @@ namespace Hover.Renderers.Elements.Sliders {
 			}
 
 			List<SliderUtil.SegmentInfo> segInfoList = fillSlider.SegmentInfo.SegmentInfoList;
-			int segCount = fillSlider.GetChildMeshCount();
+			int segCount = HoverFillSlider.SegmentCount;
 			int segIndex = 0;
 			float startPos = segInfoList[0].StartPosition;
 			float endPos = segInfoList[segInfoList.Count-1].EndPosition;
