@@ -29,6 +29,13 @@ namespace Hover.Renderers.Utils {
 
 				if ( prefabRend != null ) {
 					prefabRend.gameObject.transform.SetParent(pParentTx, false);
+
+					TreeUpdater treeUp = prefabRend.gameObject.GetComponent<TreeUpdater>();
+
+					if ( treeUp != null ) {
+						treeUp.Update();
+					}
+
 					return prefabRend;
 				}
 
@@ -36,11 +43,8 @@ namespace Hover.Renderers.Utils {
 					typeof(T)+"' component. ", pParentTx);
 			}
 
-			Debug.Log("Building default "+pDisplayTypeName.ToLower()+" renderer.", pParentTx);
-
-			var buttonGo = new GameObject(pDisplayTypeName+"Renderer");
-			buttonGo.transform.SetParent(pParentTx, false);
-			return (buttonGo.AddComponent(pDefaultType) as T);
+			Debug.LogWarning("Could not find existing renderer, and no prefab provided.", pParentTx);
+			return default(T);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

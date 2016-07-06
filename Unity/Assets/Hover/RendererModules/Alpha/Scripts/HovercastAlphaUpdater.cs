@@ -84,6 +84,11 @@ namespace Hover.RendererModules.Alpha {
 		private void FadeItem(HoverItemData pItemData, float pAlpha) {
 			HoverAlphaRendererUpdater rendUp = 
 				pItemData.gameObject.GetComponentInChildren<HoverAlphaRendererUpdater>();
+
+			if ( rendUp == null ) {
+				return;
+			}
+
 			float currAlpha = (pItemData.IsEnabled ? rendUp.EnabledAlpha : rendUp.DisabledAlpha);
 
 			rendUp.Controllers.Set(HoverAlphaRendererUpdater.MasterAlphaName, this);
