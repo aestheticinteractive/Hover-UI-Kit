@@ -1,5 +1,6 @@
 using Hover.Items;
 using Hover.Layouts.Arc;
+using Hover.Layouts.Rect;
 using Hover.Renderers.Utils;
 using Hover.Utils;
 using UnityEngine;
@@ -7,7 +8,7 @@ using UnityEngine;
 namespace Hover.Renderers.Elements.Shapes.Arc {
 
 	/*================================================================================================*/
-	public class HoverShapeArc : HoverShape, IArcLayoutable {
+	public class HoverShapeArc : HoverShape, IArcLayoutable, IRectLayoutable {
 		
 		public const string OuterRadiusName = "OuterRadius";
 		public const string InnerRadiusName = "InnerRadius";
@@ -79,6 +80,12 @@ namespace Hover.Renderers.Elements.Shapes.Arc {
 			OuterRadius = pOuterRadius;
 			InnerRadius = pInnerRadius;
 			ArcDegrees = pArcAngle;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void SetRectLayout(float pSizeX, float pSizeY, ISettingsController pController) {
+			Controllers.Set(OuterRadiusName, pController);
+			OuterRadius = Mathf.Min(pSizeX, pSizeY)/2;
 		}
 
 

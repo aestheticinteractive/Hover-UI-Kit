@@ -1,4 +1,5 @@
 using Hover.Items;
+using Hover.Layouts.Rect;
 using Hover.Renderers.Utils;
 using Hover.Utils;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine;
 namespace Hover.Renderers.Elements.Shapes.Rect {
 
 	/*================================================================================================*/
-	public class HoverShapeRect : HoverShape {
+	public class HoverShapeRect : HoverShape, IRectLayoutable {
 		
 		public const string SizeXName = "SizeX";
 		public const string SizeYName = "SizeY";
@@ -52,6 +53,17 @@ namespace Hover.Renderers.Elements.Shapes.Rect {
 			Vector3 nearLocalPos = pSliderContainerTx.InverseTransformPoint(pNearestWorldPosition);
 			float halfTrackSizeY = (SizeY-buttonShapeRect.SizeY)/2;
 			return Mathf.InverseLerp(-halfTrackSizeY, halfTrackSizeY, nearLocalPos.y);
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public void SetRectLayout(float pSizeX, float pSizeY, ISettingsController pController) {
+			Controllers.Set(SizeXName, pController);
+			Controllers.Set(SizeYName, pController);
+
+			SizeX = pSizeX;
+			SizeY = pSizeY;
 		}
 
 
