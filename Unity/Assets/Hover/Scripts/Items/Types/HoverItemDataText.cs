@@ -4,7 +4,7 @@ namespace Hover.Items.Types {
 
 	/*================================================================================================*/
 	[Serializable]
-	public class HoverItemDataText : HoverItemData, ITextItem {
+	public class HoverItemDataText : HoverItemData, ITextItemData {
 
 	}
 

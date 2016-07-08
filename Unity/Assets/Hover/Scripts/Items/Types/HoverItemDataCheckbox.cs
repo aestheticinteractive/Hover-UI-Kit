@@ -4,7 +4,7 @@ namespace Hover.Items.Types {
 
 	/*================================================================================================*/
 	[Serializable]
-	public class HoverItemDataCheckbox : SelectableItemBool, ICheckboxItem {
+	public class HoverItemDataCheckbox : SelectableItemDataBool, ICheckboxItemData {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

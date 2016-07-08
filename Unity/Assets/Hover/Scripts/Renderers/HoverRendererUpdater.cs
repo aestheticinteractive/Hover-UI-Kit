@@ -216,11 +216,11 @@ namespace Hover.Renderers {
 			}
 
 			HoverItemData data = pHoverItem.Data;
-			ICheckboxItem checkboxData = (data as ICheckboxItem);
-			IRadioItem radioData = (data as IRadioItem);
-			ISelectorItem selectorData = (data as ISelectorItem);
-			IStickyItem stickyData = (data as IStickyItem);
-			ISliderItem sliderData = (data as ISliderItem);
+			ICheckboxItemData checkboxData = (data as ICheckboxItemData);
+			IRadioItemData radioData = (data as IRadioItemData);
+			ISelectorItemData selectorData = (data as ISelectorItemData);
+			IStickyItemData stickyData = (data as IStickyItemData);
+			ISliderItemData sliderData = (data as ISliderItemData);
 			var icon = HoverCanvasDataUpdater.IconPairType.Unspecified;
 
 			if ( checkboxData != null ) {
@@ -280,7 +280,7 @@ namespace Hover.Renderers {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateSliderSettings(HoverItem pHoverItem) {
-			ISliderItem data = (ISliderItem)pHoverItem.Data;
+			ISliderItemData data = (ISliderItemData)pHoverItem.Data;
 
 			SliderRenderer.Controllers.Set(HoverRendererSlider.HandleValueName, this);
 			SliderRenderer.Controllers.Set(HoverRendererSlider.FillStartingPointName, this);

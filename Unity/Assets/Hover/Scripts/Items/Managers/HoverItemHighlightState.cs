@@ -102,7 +102,7 @@ namespace Hover.Items.Managers {
 		/*--------------------------------------------------------------------------------------------*/
 		public float MaxHighlightProgress {
 			get {
-				ISelectableItem selData = (GetComponent<HoverItemData>() as ISelectableItem);
+				ISelectableItemData selData = (GetComponent<HoverItemData>() as ISelectableItemData);
 				
 				if ( selData != null && selData.IsStickySelected ) {
 					return 1;
@@ -175,7 +175,7 @@ namespace Hover.Items.Managers {
 		private void UpdateIsHighlightPrevented() {
 			HoverItem hoverItem = GetComponent<HoverItem>();
 			HoverItemData itemData = GetComponent<HoverItem>().Data;
-			ISelectableItem selData = (itemData as ISelectableItem);
+			ISelectableItemData selData = (itemData as ISelectableItemData);
 			
 			IsHighlightPrevented = (
 				selData == null ||

@@ -6,7 +6,7 @@ namespace Hover.Interfaces.Cast {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
-	[RequireComponent(typeof(SelectableItem))]
+	[RequireComponent(typeof(SelectableItemData))]
 	public class HovercastRowSwitchingInfo : MonoBehaviour {
 
 		public enum RowEntryType {

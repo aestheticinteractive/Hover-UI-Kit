@@ -66,19 +66,19 @@ namespace Hover.Interfaces.Cast {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void OnOpenToggled(ISelectableItem pItem) {
+		public void OnOpenToggled(ISelectableItemData pItemData) {
 			IsOpen = !IsOpen;
 			OnOpenToggledEvent.Invoke();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void OnRowSwitched(ISelectableItem pItem) {
+		public void OnRowSwitched(ISelectableItemData pItemData) {
 			HovercastRowSwitchingInfo switchInfo = 
-				pItem.gameObject.GetComponent<HovercastRowSwitchingInfo>();
+				pItemData.gameObject.GetComponent<HovercastRowSwitchingInfo>();
 
 			if ( switchInfo == null ) {
 				Debug.LogError("Selected item requires a '"+
-					typeof(HovercastRowSwitchingInfo).Name+"' component.", pItem.gameObject);
+					typeof(HovercastRowSwitchingInfo).Name+"' component.", pItemData.gameObject);
 				return;
 			}
 

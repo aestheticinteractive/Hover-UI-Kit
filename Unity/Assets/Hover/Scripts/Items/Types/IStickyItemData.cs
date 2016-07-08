@@ -1,7 +1,7 @@
 ﻿namespace Hover.Items.Types {
 
 	/*================================================================================================*/
-	public interface ITextItem : IBaseItem {
+	public interface IStickyItemData : ISelectableItemData {
 
 	}
 

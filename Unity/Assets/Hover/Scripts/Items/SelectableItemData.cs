@@ -5,10 +5,10 @@ namespace Hover.Items {
 
 	/*================================================================================================*/
 	[Serializable]
-	public abstract class SelectableItem : HoverItemData, ISelectableItem {
+	public abstract class SelectableItemData : HoverItemData, ISelectableItemData {
 		
 		[Serializable]
-		public class SelectedEventHandler : UnityEvent<ISelectableItem> {}
+		public class SelectedEventHandler : UnityEvent<ISelectableItemData> {}
 		
 		public bool IsStickySelected { get; private set; }
 
@@ -21,7 +21,7 @@ namespace Hover.Items {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected SelectableItem() {
+		protected SelectableItemData() {
 			OnSelected += (x => { OnSelectedEvent.Invoke(x); });
 			OnDeselected += (x => { OnDeselectedEvent.Invoke(x); });
 		}

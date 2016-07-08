@@ -5,7 +5,7 @@ namespace Hover.Items.Types {
 
 	/*================================================================================================*/
 	[Serializable]
-	public class HoverItemDataRadio : SelectableItemBool, IRadioItem {
+	public class HoverItemDataRadio : SelectableItemDataBool, IRadioItemData {
 		
 		[SerializeField]
 		private string _DefaultGroupId;

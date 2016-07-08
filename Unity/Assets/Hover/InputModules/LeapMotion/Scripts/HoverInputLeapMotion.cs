@@ -18,6 +18,7 @@ namespace Hover.InputModules.LeapMotion {
 		public HoverCursorDataProvider CursorDataProvider;
 		public LeapServiceProvider LeapServiceProvider;
 		public bool UseStabilizedPositions = false;
+		//TODO: Add "extend cursor beyond fingertip" setting
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

@@ -4,7 +4,7 @@ namespace Hover.Items.Types {
 
 	/*================================================================================================*/
 	[Serializable]
-	public class HoverItemDataSticky : SelectableItem, IStickyItem {
+	public class HoverItemDataSticky : SelectableItemData, IStickyItemData {
 
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////

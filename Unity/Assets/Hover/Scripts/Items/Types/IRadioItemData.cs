@@ -1,9 +1,10 @@
 ﻿namespace Hover.Items.Types {
 
 	/*================================================================================================*/
-	public interface ISelectorItem : ISelectableItem {
+	public interface IRadioItemData : ISelectableItemData<bool> {
 
-		SelectorActionType Action { get; set; }
+		string DefaultGroupId { get; }
+		string GroupId { get; set; }
 
 	}
 

@@ -6,10 +6,10 @@ namespace Hover.Items {
 
 	/*================================================================================================*/
 	[Serializable]
-	public abstract class SelectableItemFloat : SelectableItem, ISelectableItem<float> {
+	public abstract class SelectableItemDataFloat : SelectableItemData, ISelectableItemData<float> {
 		
 		[Serializable]
-		public class ValueChangedEventHandler : UnityEvent<ISelectableItem<float>> { }
+		public class ValueChangedEventHandler : UnityEvent<ISelectableItemData<float>> { }
 
 		public ValueChangedEventHandler OnValueChangedEvent = new ValueChangedEventHandler();
 
@@ -21,7 +21,7 @@ namespace Hover.Items {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected SelectableItemFloat() {
+		protected SelectableItemDataFloat() {
 			OnValueChanged += (x => { OnValueChangedEvent.Invoke(x); });
 		}
 

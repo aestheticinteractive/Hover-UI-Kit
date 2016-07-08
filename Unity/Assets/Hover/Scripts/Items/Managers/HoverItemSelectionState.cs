@@ -34,7 +34,7 @@ namespace Hover.Items.Managers {
 			}
 			
 			HoverItemData itemData = GetComponent<HoverItem>().Data;
-			ISelectableItem selData = (itemData as ISelectableItem);
+			ISelectableItemData selData = (itemData as ISelectableItemData);
 			
 			vSelectionStart = null;
 			
@@ -49,7 +49,7 @@ namespace Hover.Items.Managers {
 
 			if ( vSelectionStart == null ) {
 				HoverItemData itemData = GetComponent<HoverItem>().Data;
-				ISelectableItem selData = (itemData as ISelectableItem);
+				ISelectableItemData selData = (itemData as ISelectableItemData);
 
 				if ( selData == null || !selData.IsStickySelected ) {
 					SelectionProgress = 0;
@@ -71,7 +71,7 @@ namespace Hover.Items.Managers {
 		/*--------------------------------------------------------------------------------------------*/
 		private bool UpdateState() {
 			HoverItemData itemData = GetComponent<HoverItem>().Data;
-			ISelectableItem selData = (itemData as ISelectableItem);
+			ISelectableItemData selData = (itemData as ISelectableItemData);
 
 			if ( selData == null ) {
 				return false;

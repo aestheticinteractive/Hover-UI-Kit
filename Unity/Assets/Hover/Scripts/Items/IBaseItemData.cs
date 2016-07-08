@@ -3,7 +3,7 @@
 namespace Hover.Items {
 
 	/*================================================================================================*/
-	public interface IBaseItem {
+	public interface IBaseItemData {
 
 		GameObject gameObject { get; }
 

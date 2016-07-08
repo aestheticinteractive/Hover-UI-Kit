@@ -3,14 +3,14 @@
 namespace Hover.Items.Types {
 
 	/*================================================================================================*/
-	public interface ISliderItem : ISelectableItem<float> {
+	public interface ISliderItemData : ISelectableItemData<float> {
 
 		string LabelFormat { get; }
 		int Ticks { get; }
 		int Snaps { get; }
 		float RangeMin { get; }
 		float RangeMax { get; }
-		Func<ISliderItem, string> GetFormattedLabel { get; }
+		Func<ISliderItemData, string> GetFormattedLabel { get; }
 		bool AllowJump { get; }
 		SliderFillType FillStartingPoint { get; }
 		

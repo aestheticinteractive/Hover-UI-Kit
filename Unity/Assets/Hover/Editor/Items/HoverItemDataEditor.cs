@@ -108,7 +108,7 @@ namespace Hover.Editor.Items {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void DrawEventItemGroup() {
-			SelectableItem selectableData = (vData as SelectableItem);
+			SelectableItemData selectableData = (vData as SelectableItemData);
 
 			if ( selectableData == null ) {
 				return;
@@ -126,8 +126,8 @@ namespace Hover.Editor.Items {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		private void DrawEventItems() {
-			SelectableItemBool selBoolData = (vData as SelectableItemBool);
-			SelectableItemFloat selFloatData = (vData as SelectableItemFloat);
+			SelectableItemDataBool selBoolData = (vData as SelectableItemDataBool);
+			SelectableItemDataFloat selFloatData = (vData as SelectableItemDataFloat);
 			
 			EditorGUILayout.PropertyField(serializedObject.FindProperty("OnSelectedEvent"));
 			EditorGUILayout.PropertyField(serializedObject.FindProperty("OnDeselectedEvent"));
@@ -159,7 +159,7 @@ namespace Hover.Editor.Items {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		private void DrawHiddenItems() {
-			SelectableItem selectableData = (vData as SelectableItem);
+			SelectableItemData selectableData = (vData as SelectableItemData);
 
 			EditorGUILayout.IntField("Auto ID", vData.AutoId);
 			EditorGUILayout.Toggle("Is Ancestry Enabled", vData.IsAncestryEnabled);
@@ -172,8 +172,8 @@ namespace Hover.Editor.Items {
 			EditorGUILayout.Toggle("Is Sticky-Selected", selectableData.IsStickySelected);
 			EditorGUILayout.Toggle("Allow Selection", selectableData.AllowSelection);
 
-			IRadioItem radioData = (vData as IRadioItem);
-			ISliderItem sliderData = (vData as ISliderItem);
+			IRadioItemData radioData = (vData as IRadioItemData);
+			ISliderItemData sliderData = (vData as ISliderItemData);
 
 			if ( radioData != null ) {
 				EditorGUILayout.TextField("Radio Default Group ID", radioData.DefaultGroupId);
