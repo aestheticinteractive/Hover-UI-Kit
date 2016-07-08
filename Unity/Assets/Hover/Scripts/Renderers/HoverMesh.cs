@@ -16,12 +16,12 @@ namespace Hover.Renderers {
 		}
 
 		public const string DisplayModeName = "DisplayMode";
-		public const string SortingLayerName = "SortingLayer";
 
 		public ISettingsControllerMap Controllers { get; private set; }
 		public MeshBuilder Builder { get { return vMeshBuild; } }
 		public bool DidRebuildMesh { get; private set; }
-		
+		public abstract bool IsMeshVisible { get; }
+
 		[DisableWhenControlled(DisplaySpecials=true)]
 		public DisplayModeType DisplayMode = DisplayModeType.Standard;
 

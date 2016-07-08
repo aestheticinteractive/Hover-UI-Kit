@@ -104,7 +104,7 @@ namespace Hover.Utils {
 			foreach ( Transform childTx in transform ) {
 				TreeUpdater childTreeUp = childTx.GetComponent<TreeUpdater>();
 				
-				if ( childTreeUp == null || !childTreeUp.isActiveAndEnabled ) {
+				if ( childTreeUp == null ) {
 					continue;
 				}
 				

@@ -56,6 +56,18 @@ namespace Hover.Renderers.Shapes.Arc {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
+		public override bool IsMeshVisible {
+			get {
+				HoverShapeArc shape = GetComponent<HoverShapeArc>();
+				float innerRadProg = GetRadiusProgress(InnerRadiusType);
+				float outerRadProg = GetRadiusProgress(OuterRadiusType);
+				return (shape.OuterRadius != shape.InnerRadius && outerRadProg != innerRadProg);
+			}
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
 		protected override bool ShouldUpdateMesh() {
 			var ind = GetComponent<HoverIndicator>();
 			var shape = GetComponent<HoverShapeArc>();

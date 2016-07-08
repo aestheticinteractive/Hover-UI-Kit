@@ -40,7 +40,7 @@ namespace Hover.Renderers.Cursors {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*-- ------------------------------------------------------------------------------------------* /
+		/*--------------------------------------------------------------------------------------------*/
 		public override void TreeUpdate() {
 			base.TreeUpdate();
 			UpdateMeshes();
@@ -48,7 +48,7 @@ namespace Hover.Renderers.Cursors {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------* /
+		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateMeshes() {
 			if ( Background != null ) {
 				UpdateMesh(Background);
@@ -63,13 +63,11 @@ namespace Hover.Renderers.Cursors {
 			}
 		}
 		
-		/*--------------------------------------------------------------------------------------------* /
+		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateMesh(HoverMesh pMesh) {
 			pMesh.Controllers.Set(SettingsControllerMap.GameObjectActiveSelf, this);
-
-			//TODO: determine when mesh can be disabled (without needing a mesh update to occur first)
 			RendererUtil.SetActiveWithUpdate(pMesh, pMesh.IsMeshVisible);
-		}*/
+		}
 
 	}
 

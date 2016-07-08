@@ -45,6 +45,17 @@ namespace Hover.Renderers.Shapes.Rect {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
+		public override bool IsMeshVisible {
+			get {
+				HoverShapeRect shape = GetComponent<HoverShapeRect>();
+				float outerProg = GetDimensionProgress(OuterSizeType);
+				return (shape.SizeX != 0 && shape.SizeY != 0 && outerProg != 0);
+			}
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
 		protected override bool ShouldUpdateMesh() {
 			var ind = GetComponent<HoverIndicator>();
 			var shape = GetComponent<HoverShapeRect>();

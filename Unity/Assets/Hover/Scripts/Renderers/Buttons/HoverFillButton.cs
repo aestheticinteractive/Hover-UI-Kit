@@ -60,15 +60,15 @@ namespace Hover.Renderers.Buttons {
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateMeshes() {
 			if ( Background != null ) {
-				UpdateMesh(Background, true);
+				UpdateMesh(Background);
 			}
 			
 			if ( Highlight != null ) {
-				UpdateMesh(Highlight, true);
+				UpdateMesh(Highlight);
 			}
 			
 			if ( Selection != null ) {
-				UpdateMesh(Selection, true);
+				UpdateMesh(Selection);
 			}
 			
 			if ( Edge != null ) {
@@ -77,11 +77,9 @@ namespace Hover.Renderers.Buttons {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateMesh(HoverMesh pMesh, bool pShowMesh) {
+		private void UpdateMesh(HoverMesh pMesh, bool pShowMesh=true) {
 			pMesh.Controllers.Set(SettingsControllerMap.GameObjectActiveSelf, this);
-
-			//TODO: determine when mesh can be disabled (without needing a mesh update to occur first)
-			RendererUtil.SetActiveWithUpdate(pMesh, (pShowMesh /*&& pMesh.IsMeshVisible*/));
+			RendererUtil.SetActiveWithUpdate(pMesh, (pShowMesh && pMesh.IsMeshVisible));
 		}
 
 	}
