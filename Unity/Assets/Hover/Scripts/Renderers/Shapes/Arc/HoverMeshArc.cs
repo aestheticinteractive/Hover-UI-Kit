@@ -30,7 +30,8 @@ namespace Hover.Renderers.Shapes.Arc {
 		[DisableWhenControlled]
 		public RadiusType OuterRadiusType = RadiusType.Max;
 
-		//TODO: add settings/script for automatic/dynamic control of UV values
+		[DisableWhenControlled]
+		public bool AutoUvViaRadiusType = false;
 
 		[DisableWhenControlled]
 		public float UvInnerRadius = 0;
@@ -39,7 +40,7 @@ namespace Hover.Renderers.Shapes.Arc {
 		public float UvOuterRadius = 1;
 
 		[DisableWhenControlled]
-		public float UvMinArcDegree = 0;
+		public float UvMinArcDegree = 1;
 
 		[DisableWhenControlled]
 		public float UvMaxArcDegree = 0;
@@ -48,6 +49,7 @@ namespace Hover.Renderers.Shapes.Arc {
 		private float vPrevArcSegs;
 		private RadiusType vPrevInnerType;
 		private RadiusType vPrevOuterType;
+		private bool vPrevAutoUv;
 		private float vPrevUvInner;
 		private float vPrevUvOuter;
 		private float vPrevUvMinDeg;
@@ -81,6 +83,7 @@ namespace Hover.Renderers.Shapes.Arc {
 				ArcSegmentsPerDegree != vPrevArcSegs ||
 				InnerRadiusType != vPrevInnerType ||
 				OuterRadiusType != vPrevOuterType ||
+				AutoUvViaRadiusType != vPrevAutoUv ||
 				UvInnerRadius != vPrevUvInner ||
 				UvOuterRadius != vPrevUvOuter ||
 				UvMinArcDegree != vPrevUvMinDeg ||
@@ -90,6 +93,7 @@ namespace Hover.Renderers.Shapes.Arc {
 			vPrevArcSegs = ArcSegmentsPerDegree;
 			vPrevInnerType = InnerRadiusType;
 			vPrevOuterType = OuterRadiusType;
+			vPrevAutoUv = AutoUvViaRadiusType;
 			vPrevUvInner = UvInnerRadius;
 			vPrevUvOuter = UvOuterRadius;
 			vPrevUvMinDeg = UvMinArcDegree;
@@ -131,9 +135,30 @@ namespace Hover.Renderers.Shapes.Arc {
 
 			MeshUtil.BuildRingMesh(vMeshBuild, innerRad, outerRad, -halfRadians, halfRadians, steps);
 
+			UpdateAutoUv(shape, innerRadProg, outerRadProg);
+			UpdateMeshUvAndColors(steps);
+			vMeshBuild.Commit();
+			vMeshBuild.CommitColors();
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		protected void UpdateAutoUv(HoverShapeArc pShapeArc, float pInnerProg, float pOuterProg) {
+			if ( !AutoUvViaRadiusType ) {
+				return;
+			}
+
+			Controllers.Set(UvInnerRadiusName, this);
+			Controllers.Set(UvOuterRadiusName, this);
+
+			UvInnerRadius = pInnerProg;
+			UvOuterRadius = pOuterProg;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		protected void UpdateMeshUvAndColors(int pSteps) {
 			for ( int i = 0 ; i < vMeshBuild.Uvs.Length ; i++ ) {
 				int stepI = i/2;
-				float arcProg = (float)stepI/steps;
+				float arcProg = (float)stepI/pSteps;
 				bool isInner = (i%2 == 0);
 
 				Vector2 uv = vMeshBuild.Uvs[i];
@@ -142,9 +167,6 @@ namespace Hover.Renderers.Shapes.Arc {
 				vMeshBuild.Uvs[i] = uv;
 				vMeshBuild.Colors[i] = Color.white;
 			}
-
-			vMeshBuild.Commit();
-			vMeshBuild.CommitColors();
 		}
 
 	}

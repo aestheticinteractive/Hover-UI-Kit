@@ -67,6 +67,7 @@ namespace Hover.Renderers.Shapes.Rect {
 
 			MeshUtil.BuildHollowRectangleMesh(vMeshBuild, outerW, outerH, innerW, innerH);
 
+			UpdateAutoUv(shape, outerW, outerH);
 			UpdateMeshUvAndColors();
 			vMeshBuild.Commit();
 			vMeshBuild.CommitColors();

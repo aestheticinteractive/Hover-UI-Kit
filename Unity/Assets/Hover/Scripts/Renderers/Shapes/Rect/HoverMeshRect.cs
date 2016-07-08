@@ -25,6 +25,9 @@ namespace Hover.Renderers.Shapes.Rect {
 		public SizeType OuterSizeType = SizeType.Max;
 
 		[DisableWhenControlled]
+		public bool AutoUvViaSizeType = false;
+
+		[DisableWhenControlled]
 		public float UvTop = 0;
 
 		[DisableWhenControlled]
@@ -37,6 +40,7 @@ namespace Hover.Renderers.Shapes.Rect {
 		public float UvRight = 1;
 
 		private SizeType vPrevOuterType;
+		private bool vPrevAutoUv;
 		private float vPrevUvTop;
 		private float vPrevUvBottom;
 		private float vPrevUvLeft;
@@ -65,6 +69,7 @@ namespace Hover.Renderers.Shapes.Rect {
 				ind.DidSettingsChange ||
 				shape.DidSettingsChange ||
 				OuterSizeType != vPrevOuterType ||
+				AutoUvViaSizeType != vPrevAutoUv ||
 				UvTop != vPrevUvTop ||
 				UvBottom != vPrevUvBottom ||
 				UvLeft != vPrevUvLeft ||
@@ -72,6 +77,7 @@ namespace Hover.Renderers.Shapes.Rect {
 			);
 
 			vPrevOuterType = OuterSizeType;
+			vPrevAutoUv = AutoUvViaSizeType;
 			vPrevUvTop = UvTop;
 			vPrevUvBottom = UvBottom;
 			vPrevUvLeft = UvLeft;
@@ -100,20 +106,41 @@ namespace Hover.Renderers.Shapes.Rect {
 		protected override void UpdateMesh() {
 			HoverShapeRect shape = GetComponent<HoverShapeRect>();
 			float outerProg = GetDimensionProgress(OuterSizeType);
+			float outerW;
+			float outerH;
 
-			MeshUtil.BuildRectangleMesh(vMeshBuild, shape.SizeX, shape.SizeY, outerProg);
-
-			for ( int i = 0 ; i < vMeshBuild.Uvs.Length ; i++ ) {
-				Vector2 uv = vMeshBuild.Uvs[i];
-				uv.x = Mathf.Lerp(UvLeft, UvRight, uv.x);
-				uv.y = Mathf.Lerp(UvTop, UvBottom, uv.y);
-				vMeshBuild.Uvs[i] = uv;
-				vMeshBuild.Colors[i] = Color.white;
+			if ( shape.SizeX >= shape.SizeY ) {
+				outerH = shape.SizeY*outerProg;
+				outerW = shape.SizeX-(shape.SizeY-outerH);
+			}
+			else {
+				outerW = shape.SizeX*outerProg;
+				outerH = shape.SizeY-(shape.SizeX-outerW);
 			}
 
+			MeshUtil.BuildQuadMesh(vMeshBuild, outerW, outerH);
+
+			UpdateAutoUv(shape, outerW, outerH);
 			UpdateMeshUvAndColors();
 			vMeshBuild.Commit();
 			vMeshBuild.CommitColors();
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		protected void UpdateAutoUv(HoverShapeRect pShapeRect, float pOuterW, float pOuterH) {
+			if ( !AutoUvViaSizeType ) {
+				return;
+			}
+
+			Controllers.Set(UvTopName, this);
+			Controllers.Set(UvBottomName, this);
+			Controllers.Set(UvLeftName, this);
+			Controllers.Set(UvRightName, this);
+
+			UvTop = Mathf.Lerp(0.5f, 0, pOuterH/pShapeRect.SizeY);
+			UvBottom = 1-UvTop;
+			UvLeft = Mathf.Lerp(0.5f, 0, pOuterW/pShapeRect.SizeX);
+			UvRight = 1-UvLeft;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

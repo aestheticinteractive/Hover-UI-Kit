@@ -150,43 +150,6 @@ namespace Hover.Utils {
 			pMeshBuild.AddTriangle(3, 0, 4);
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
-		public static void BuildRectangleMesh(MeshBuilder pMeshBuild, float pWidth, float pHeight, 
-																						float pAmount) {
-			float fullW;
-			float fullH;
-
-			if ( pWidth >= pHeight ) {
-				fullH = pHeight*pAmount;
-				fullW = pWidth-(pHeight-fullH);
-			}
-			else {
-				fullW = pWidth*pAmount;
-				fullH = pHeight-(pWidth-fullW);
-			}
-
-			float halfW = fullW/2f;
-			float halfH = fullH/2f;
-
-			pMeshBuild.Resize(4, 6);
-			pMeshBuild.ResetIndices();
-
-			pMeshBuild.AddVertex(new Vector3( halfW,  halfH, 0));
-			pMeshBuild.AddVertex(new Vector3( halfW, -halfH, 0)); 
-			pMeshBuild.AddVertex(new Vector3(-halfW, -halfH, 0));
-			pMeshBuild.AddVertex(new Vector3(-halfW,  halfH, 0));
-
-			pMeshBuild.AddUv(new Vector2(1, 1));
-			pMeshBuild.AddUv(new Vector2(1, 0));
-			pMeshBuild.AddUv(new Vector2(0, 0));
-			pMeshBuild.AddUv(new Vector2(0, 1));
-			
-			pMeshBuild.AddTriangle(0, 1, 2);
-			pMeshBuild.AddTriangle(0, 2, 3);
-
-			pMeshBuild.AddRemainingUvs(Vector2.zero);
-		}
-
 	}
 
 }

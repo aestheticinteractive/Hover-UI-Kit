@@ -8,7 +8,7 @@ namespace Hover.Renderers {
 	[RequireComponent(typeof(TreeUpdater))]
 	[RequireComponent(typeof(MeshRenderer))]
 	[RequireComponent(typeof(MeshFilter))]
-	public abstract class HoverMesh : MonoBehaviour, ITreeUpdateable {
+	public abstract class HoverMesh : MonoBehaviour, ITreeUpdateable, ISettingsController {
 
 		public enum DisplayModeType {
 			Standard,
