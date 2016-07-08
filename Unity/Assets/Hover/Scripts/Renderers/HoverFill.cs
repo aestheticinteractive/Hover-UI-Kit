@@ -11,12 +11,7 @@ namespace Hover.Renderers {
 	[RequireComponent(typeof(HoverShape))]
 	public abstract class HoverFill : MonoBehaviour, ITreeUpdateable, ISettingsController {
 
-		public const string SortingLayerName = "SortingLayer";
-
 		public ISettingsControllerMap Controllers { get; private set; }
-		
-		[DisableWhenControlled(DisplaySpecials=true)]
-		public string SortingLayer = "Default"; //TODO: move to "Alpha"
 		
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////

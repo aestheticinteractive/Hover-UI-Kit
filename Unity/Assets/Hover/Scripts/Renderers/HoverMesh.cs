@@ -25,12 +25,8 @@ namespace Hover.Renderers {
 		[DisableWhenControlled(DisplaySpecials=true)]
 		public DisplayModeType DisplayMode = DisplayModeType.Standard;
 
-		[DisableWhenControlled]
-		public string SortingLayer = "Default"; //TODO: move to "Alpha"
-
 		protected MeshBuilder vMeshBuild;
 		protected bool vForceUpdates;
-		private string vPrevSortLayer;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -63,7 +59,6 @@ namespace Hover.Renderers {
 				UpdateMesh();
 			}
 
-			UpdateSortingLayer();
 			Controllers.TryExpireControllers();
 		}
 
@@ -133,16 +128,6 @@ namespace Hover.Renderers {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		protected abstract void UpdateMesh();
-		
-		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateSortingLayer() {
-			if ( !vForceUpdates && SortingLayer == vPrevSortLayer ) {
-				return;
-			}
-
-			gameObject.GetComponent<MeshRenderer>().sortingLayerName = SortingLayer;
-			vPrevSortLayer = SortingLayer;
-		}
 		
 	}
 

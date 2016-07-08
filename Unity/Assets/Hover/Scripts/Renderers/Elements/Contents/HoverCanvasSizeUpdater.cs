@@ -50,10 +50,8 @@ namespace Hover.Renderers.Elements.Contents {
 			pHoverCanvas.Controllers.Set(HoverCanvas.SizeXName, this);
 			pHoverCanvas.Controllers.Set(HoverCanvas.SizeYName, this);
 
-			float edgeThick = 0; //TODO: Fill.EdgeThickness
-
-			pHoverCanvas.SizeX = pShapeRect.SizeX-edgeThick*2;
-			pHoverCanvas.SizeY = pShapeRect.SizeY-edgeThick*2;
+			pHoverCanvas.SizeX = pShapeRect.SizeX;
+			pHoverCanvas.SizeY = pShapeRect.SizeY;
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
@@ -61,12 +59,10 @@ namespace Hover.Renderers.Elements.Contents {
 			pHoverCanvas.Controllers.Set(SettingsControllerMap.TransformLocalPosition+".x", this);
 			pHoverCanvas.Controllers.Set(HoverCanvas.SizeXName, this);
 
-			float edgeThick = 0; //TODO: Fill.EdgeThickness
-			
-			pHoverCanvas.SizeX = pShapeArc.OuterRadius-pShapeArc.InnerRadius-edgeThick;
+			pHoverCanvas.SizeX = pShapeArc.OuterRadius-pShapeArc.InnerRadius;
 
 			Vector3 canvasLocalPos = pHoverCanvas.transform.localPosition;
-			canvasLocalPos.x = pShapeArc.InnerRadius+edgeThick+pHoverCanvas.SizeX/2;
+			canvasLocalPos.x = pShapeArc.InnerRadius+pHoverCanvas.SizeX/2;
 			pHoverCanvas.transform.localPosition = canvasLocalPos;
 		}
 

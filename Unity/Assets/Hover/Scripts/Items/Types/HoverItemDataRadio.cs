@@ -22,13 +22,12 @@ namespace Hover.Items.Types {
 				return;
 			}
 
-			//TODO: 
-			/*HoverItemData parentData = pParentTx.GetComponent<HoverItemData>();
+			HoverItemData parentData = pParentTx.GetComponent<HoverItemData>();
 
 			if ( parentData != null ) {
-				vDefaultGroupId = "Group-"+parentData.Data.AutoId;
+				_DefaultGroupId = "Group-"+parentData.AutoId;
 				return;
-			}*/
+			}
 
 			_DefaultGroupId = "Group-Instance"+pParentTx.GetInstanceID();
 		}

@@ -27,8 +27,6 @@ namespace Hover.Editor.Utils {
 			bool hasRangeMax = (attrib.RangeMax != DisableWhenControlledAttribute.NullRangeMax);
 			bool isControlled = (map != null && map.IsControlled(pProp.name));
 			string labelText = pLabel.text;
-
-			//TODO: show displays for non-properties like "gameObject.activeSelf"
 			
 			if ( map != null && attrib.DisplaySpecials ) {
 				List<string> specialValueNames = map.GetNewListOfControlledValueNames(true);
