@@ -1,37 +1,38 @@
-﻿using Hover.Renderers;
-using Hover.Renderers.Shapes;
+using Hover.Items;
 using Hover.Utils;
 using UnityEngine;
 
-namespace Hover.Renderers {
+namespace Hover.Renderers.Shapes {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
-	[RequireComponent(typeof(HoverShape))]
-	public abstract class HoverFill : MonoBehaviour, ITreeUpdateable, ISettingsController {
+	public abstract class HoverShape : MonoBehaviour, ITreeUpdateable, ISettingsController {
 
 		public ISettingsControllerMap Controllers { get; private set; }
+		public bool DidSettingsChange { get; protected set; }
 		
-		
+		[DisableWhenControlled(DisplaySpecials=true)]
+		public bool ControlChildShapes = true;
+
+
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected HoverFill() {
+		protected HoverShape() {
 			Controllers = new SettingsControllerMap();
 		}
-		
-		
+
+
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public abstract int GetChildMeshCount();
+		public abstract Vector3 GetNearestWorldPosition(Vector3 pFromWorldPosition);
 
 		/*--------------------------------------------------------------------------------------------*/
-		public abstract HoverMesh GetChildMesh(int pIndex);
-
+		public abstract Vector3 GetNearestWorldPosition(Ray pFromWorldRay, out RaycastResult pRaycast);
+		
 		/*--------------------------------------------------------------------------------------------*/
-		public HoverShape GetShape() {
-			return gameObject.GetComponent<HoverShape>();
-		}
+		public abstract float GetSliderValueViaNearestWorldPosition(Vector3 pNearestWorldPosition, 
+			Transform pSliderContainerTx, HoverShape pHandleButtonShape);
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -39,12 +40,13 @@ namespace Hover.Renderers {
 		public virtual void Start() {
 			//do nothing...
 		}
-		
+
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void TreeUpdate() {
+			DidSettingsChange = false;
 			Controllers.TryExpireControllers();
 		}
-				
+
 	}
 
 }
