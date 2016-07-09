@@ -17,7 +17,9 @@ namespace Hover.InputModules.LeapMotionOld {
 		public HoverCursorDataProvider CursorDataProvider;
 		public HandController LeapControl;
 		public bool UseStabilizedPositions = false;
-		//TODO: Add "extend cursor beyond fingertip" setting
+
+		[Range(0, 0.04f)]
+		public float ExtendFingertipDistance = 0;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -99,9 +101,16 @@ namespace Hover.InputModules.LeapMotionOld {
 			Vector tipPos = (UseStabilizedPositions ? 
 				pLeapFinger.StabilizedTipPosition: pLeapFinger.TipPosition);
 			Bone distalBone = pLeapFinger.Bone(Bone.BoneType.TYPE_DISTAL);
+			Vector3 tipWorldPos = leapTx.TransformPoint(tipPos.ToUnityScaled());
+			Vector3 boneWorldPos = leapTx.TransformPoint(distalBone.Center.ToUnityScaled());
+			Vector3 extendedWorldPos = tipWorldPos;
+
+			if ( ExtendFingertipDistance != 0 ) {
+				extendedWorldPos += (tipWorldPos-boneWorldPos).normalized*ExtendFingertipDistance;
+			}
 
 			IHoverCursorDataForInput data = CursorDataProvider.GetCursorDataForInput(cursorType);
-			data.SetWorldPosition(leapTx.TransformPoint(tipPos.ToUnityScaled()));
+			data.SetWorldPosition(extendedWorldPos);
 			data.SetWorldRotation(leapTx.rotation*distalBone.Basis.Rotation()*RotationFix);
 			data.SetSize(pLeapFinger.Width*UnityVectorExtension.INPUT_SCALE);
 			data.SetUsedByInput(true);
