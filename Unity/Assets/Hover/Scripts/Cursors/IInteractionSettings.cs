@@ -7,6 +7,8 @@
 		float HighlightDistanceMax { get; set; }
 		float StickyReleaseDistance { get; set; }
 		float SelectionMilliseconds { get; set; }
+		float MotionlessDistanceThreshold { get; set; }
+		float MotionlessMilliseconds { get; set; }
 
 	}
 

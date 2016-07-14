@@ -305,17 +305,17 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItem+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItem+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemBool+ValueChangedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 1
 --- !u!114 &184718263
@@ -643,17 +643,17 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItem+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItem+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemFloat+ValueChangedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.SelectableItemDataFloat+ValueChangedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0.5
   _LabelFormat: '{0}: {1:N1}'
@@ -907,17 +907,17 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItem+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItem+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemBool+ValueChangedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &653511618
@@ -1324,6 +1324,52 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1190899128}
   m_Script: {fileID: 11500000, guid: 940246c5a7b9f0a43b53ad73ccd4fbcb, type: 3}
+--- !u!1001 &1432131203
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 493240, guid: 542aa9a35c2a0b141bac2f7452dfe3ae, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 493240, guid: 542aa9a35c2a0b141bac2f7452dfe3ae, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 493240, guid: 542aa9a35c2a0b141bac2f7452dfe3ae, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 493240, guid: 542aa9a35c2a0b141bac2f7452dfe3ae, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 493240, guid: 542aa9a35c2a0b141bac2f7452dfe3ae, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 493240, guid: 542aa9a35c2a0b141bac2f7452dfe3ae, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 493240, guid: 542aa9a35c2a0b141bac2f7452dfe3ae, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 493240, guid: 542aa9a35c2a0b141bac2f7452dfe3ae, type: 2}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 196452, guid: 542aa9a35c2a0b141bac2f7452dfe3ae, type: 2}
+      propertyPath: m_Name
+      value: HoverManagers (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 542aa9a35c2a0b141bac2f7452dfe3ae, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1557592892
 GameObject:
   m_ObjectHideFlags: 0
@@ -1339,6 +1385,7 @@ GameObject:
   - 114: {fileID: 1557592894}
   - 114: {fileID: 1557592900}
   - 114: {fileID: 1557592893}
+  - 114: {fileID: 1557592901}
   m_Layer: 0
   m_Name: SliderItem-Arc
   m_TagString: Untagged
@@ -1363,17 +1410,17 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItem+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItem+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemFloat+ValueChangedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.SelectableItemDataFloat+ValueChangedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0.5
   _LabelFormat: '{0}: {1:N1}'
@@ -1476,6 +1523,17 @@ MonoBehaviour:
   NearColor: {r: 1, g: 1, b: 0, a: 0.2}
   FarColor: {r: 1, g: 1, b: 0, a: 0.8}
   FullColor: {r: 0.3, g: 1, b: 0.4, a: 1}
+--- !u!114 &1557592901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1557592892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 113aff48a08a9b0448c76b3c25ee1750, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1652974012
 Prefab:
   m_ObjectHideFlags: 0
@@ -1633,6 +1691,14 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11477416, guid: 62045f3d51b184e5a9e5059b44d036a5, type: 2}
       propertyPath: SelectionProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 177170, guid: 62045f3d51b184e5a9e5059b44d036a5, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 107858, guid: 62045f3d51b184e5a9e5059b44d036a5, type: 2}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2107,6 +2173,14 @@ Prefab:
       propertyPath: Ticks.Array.data[4]
       value: 
       objectReference: {fileID: 1137038196}
+    - target: {fileID: 118080, guid: 81b9003e7ea5fba4480b8c1fe50dd3dc, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 109408, guid: 81b9003e7ea5fba4480b8c1fe50dd3dc, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 81b9003e7ea5fba4480b8c1fe50dd3dc, type: 2}
   m_IsPrefabParent: 0
@@ -2262,6 +2336,14 @@ Prefab:
     - target: {fileID: 3334766, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: m_Mesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 177450, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 104768, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
@@ -2586,6 +2668,18 @@ Prefab:
     - target: {fileID: 2308202, guid: 542aa9a35c2a0b141bac2f7452dfe3ae, type: 2}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 479924, guid: 542aa9a35c2a0b141bac2f7452dfe3ae, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -0.0034
+      objectReference: {fileID: 0}
+    - target: {fileID: 479924, guid: 542aa9a35c2a0b141bac2f7452dfe3ae, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -0.0163
+      objectReference: {fileID: 0}
+    - target: {fileID: 479924, guid: 542aa9a35c2a0b141bac2f7452dfe3ae, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -0.1046
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 542aa9a35c2a0b141bac2f7452dfe3ae, type: 2}
@@ -3191,6 +3285,14 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11484602, guid: 1b19ee4ea1ecb4fb3811be1bc81742c5, type: 2}
       propertyPath: SelectionProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 169610, guid: 1b19ee4ea1ecb4fb3811be1bc81742c5, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 119078, guid: 1b19ee4ea1ecb4fb3811be1bc81742c5, type: 2}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
