@@ -53,6 +53,7 @@ namespace Hover.Items.Managers {
 
 			if ( StationaryProgress >= 1 ) {
 				selData.DeselectStickySelections();
+				StationaryProgress = 0;
 				Debug.Log("STATIONARY DESELECT!");
 			}
 		}

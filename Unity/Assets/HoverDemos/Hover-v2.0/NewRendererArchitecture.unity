@@ -418,7 +418,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SortingLayer: Default
   SortingOrder: 0
-  Alpha: 1
+  Alpha: 0
   StandardColor: {r: 1, g: 1, b: 1, a: 1}
   SliderFillColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &245023001
@@ -492,7 +492,7 @@ MonoBehaviour:
   ControlChildShapes: 0
   OuterRadius: 0.002
   InnerRadius: 0.002
-  ArcDegrees: 270
+  ArcDegrees: 30
 --- !u!114 &245023005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1436,7 +1436,7 @@ MonoBehaviour:
   ControlChildShapes: 0
   OuterRadius: 0.004
   InnerRadius: 0.002
-  ArcDegrees: 270
+  ArcDegrees: 30
 --- !u!114 &677063384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1451,7 +1451,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SortingLayer: Default
   SortingOrder: 0
-  Alpha: 1
+  Alpha: 0
   StandardColor: {r: 1, g: 1, b: 0, a: 1}
   SliderFillColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &677063385
@@ -1731,7 +1731,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SortingLayer: Default
-  Alpha: 1
+  Alpha: 0
 --- !u!114 &956827380
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1792,7 +1792,7 @@ MonoBehaviour:
   ControlChildShapes: 1
   OuterRadius: 0.004
   InnerRadius: 0.002
-  ArcDegrees: 270
+  ArcDegrees: 30
 --- !u!114 &956827384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2040,7 +2040,7 @@ CanvasGroup:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1173279252}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -2196,7 +2196,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SortingLayer: Default
   SortingOrder: 0
-  Alpha: 1
+  Alpha: 0
   StandardColor: {r: 1, g: 1, b: 1, a: 1}
   SliderFillColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &1223985318
@@ -2270,7 +2270,7 @@ MonoBehaviour:
   ControlChildShapes: 0
   OuterRadius: 0.004
   InnerRadius: 0.002
-  ArcDegrees: 270
+  ArcDegrees: 30
 --- !u!114 &1223985322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2563,6 +2563,7 @@ GameObject:
   - 114: {fileID: 1557592900}
   - 114: {fileID: 1557592893}
   - 114: {fileID: 1557592901}
+  - 114: {fileID: 1557592902}
   m_Layer: 0
   m_Name: SliderItem-Arc
   m_TagString: Untagged
@@ -2712,6 +2713,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 113aff48a08a9b0448c76b3c25ee1750, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1557592902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1557592892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c830995b28530ff409b2ea2085e80df0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StationaryRendererPrefab: {fileID: 0}
+  StationaryRenderer: {fileID: 1640161976}
+  ClickToRebuildRenderer: 0
 --- !u!1 &1640161975
 GameObject:
   m_ObjectHideFlags: 0
@@ -2760,7 +2775,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SortingLayer: Default
-  MasterAlpha: 1
+  MasterAlpha: 0
   EnabledAlpha: 1
   DisabledAlpha: 0.35
 --- !u!114 &1640161978
@@ -2793,7 +2808,7 @@ MonoBehaviour:
   ControlChildShapes: 1
   OuterRadius: 0.004
   InnerRadius: 0.002
-  ArcDegrees: 270
+  ArcDegrees: 30
 --- !u!114 &1640161980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4176,7 +4191,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SortingLayer: Default
   SortingOrder: 0
-  Alpha: 1
+  Alpha: 0
   StandardColor: {r: 0.27450982, g: 0.78431374, b: 0.11894465, a: 1}
   SliderFillColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &2067368869
@@ -4250,7 +4265,7 @@ MonoBehaviour:
   ControlChildShapes: 0
   OuterRadius: 0.004
   InnerRadius: 0.002
-  ArcDegrees: 270
+  ArcDegrees: 30
 --- !u!114 &2067368873
 MonoBehaviour:
   m_ObjectHideFlags: 0
