@@ -12,6 +12,7 @@ namespace Hover.Items.Managers {
 	public class HoverItemStationaryState : MonoBehaviour {
 
 		public struct HistoryRecord {
+			public HoverItemHighlightState.Highlight NearestHighlight;
 			public DateTime Time;
 			public Vector3 WorldPosition;
 		}
@@ -25,6 +26,11 @@ namespace Hover.Items.Managers {
 		/*--------------------------------------------------------------------------------------------*/
 		protected HoverItemStationaryState() {
 			vHistory = new List<HistoryRecord>();
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public HistoryRecord? GetCurrentRecord() {
+			return (vHistory.Count == 0 ? (HistoryRecord?)null : vHistory[0]);
 		}
 
 
@@ -47,24 +53,24 @@ namespace Hover.Items.Managers {
 				return;
 			}
 
-			AddCursorToHistory(nearestHigh.Value.Cursor);
+			AddCursorToHistory(nearestHigh.Value);
 			RemoveNonstationaryHistory(highState.InteractionSettings);
 			UpdateStationaryProgress(highState.InteractionSettings);
 
 			if ( StationaryProgress >= 1 ) {
 				selData.DeselectStickySelections();
 				StationaryProgress = 0;
-				Debug.Log("STATIONARY DESELECT!");
 			}
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void AddCursorToHistory(IHoverCursorData pCursor) {
+		private void AddCursorToHistory(HoverItemHighlightState.Highlight pNearestHighlight) {
 			var current = new HistoryRecord {
+				NearestHighlight = pNearestHighlight,
 				Time = DateTime.UtcNow,
-				WorldPosition = pCursor.WorldPosition
+				WorldPosition = pNearestHighlight.Cursor.WorldPosition
 			};
 
 			vHistory.Add(current);
@@ -102,7 +108,6 @@ namespace Hover.Items.Managers {
 			float earliestMsAgo = (float)(current.Time-vHistory[0].Time).TotalMilliseconds;
 
 			StationaryProgress = Mathf.Min(1, earliestMsAgo/pInterSett.MotionlessMilliseconds);
-			Debug.Log("STATIONARY: "+StationaryProgress.ToString("0%"));
 		}
 
 	}

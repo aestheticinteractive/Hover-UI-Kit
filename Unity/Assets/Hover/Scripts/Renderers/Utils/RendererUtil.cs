@@ -113,13 +113,17 @@ namespace Hover.Renderers.Utils {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public static void SetActiveWithUpdate(MonoBehaviour pBehaviour, bool pIsActive) {
-			GameObject go = pBehaviour.gameObject;
-			bool wasActive = go.activeSelf;
+			SetActiveWithUpdate(pBehaviour.gameObject, pIsActive);
+		}
 
-			go.SetActive(pIsActive);
+		/*--------------------------------------------------------------------------------------------*/
+		public static void SetActiveWithUpdate(GameObject pGameObj, bool pIsActive) {
+			bool wasActive = pGameObj.activeSelf;
+
+			pGameObj.SetActive(pIsActive);
 
 			if ( pIsActive && !wasActive ) {
-				go.SendMessage("TreeUpdate", SendMessageOptions.DontRequireReceiver);
+				pGameObj.SendMessage("TreeUpdate", SendMessageOptions.DontRequireReceiver);
 			}
 		}
 
