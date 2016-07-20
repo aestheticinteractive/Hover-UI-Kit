@@ -1,7 +1,6 @@
 using Hover.Cursors;
 using Hover.Items.Managers;
 using Hover.RendererModules.Alpha;
-using Hover.Renderers.Shapes.Arc;
 using Hover.Renderers.Utils;
 using Hover.Utils;
 using UnityEngine;
@@ -70,9 +69,9 @@ namespace Hover.Renderers.Stationaries {
 		private void UpdatePosition() {
 			HoverItemStationaryState stationState = GetComponent<HoverItemStationaryState>();
 			HoverItemStationaryState.HistoryRecord? currRec = stationState.GetCurrentRecord();
-			HoverRenderer rend = StationaryRenderer.GetComponent<HoverRenderer>();
-			Transform caratHold = StationaryRenderer.transform.FindChild("CaratHolder");
-			Transform caratHold2 = StationaryRenderer.transform.FindChild("CaratHolder2");
+			HoverRendererStationary rend = StationaryRenderer.GetComponent<HoverRendererStationary>();
+			Transform itemPointHold = rend.Fill.ItemPointer.transform.parent;
+			Transform cursPointHold = rend.Fill.CursorPointer.transform.parent;
 
 			rend.Controllers.Set(SettingsControllerMap.GameObjectActiveSelf, this);
 
@@ -107,45 +106,24 @@ namespace Hover.Renderers.Stationaries {
 			Vector3 cursorLocalPos = StationaryRenderer.transform
 				.InverseTransformPoint(cursor.WorldPosition);
 
-			caratHold.localRotation = Quaternion.FromToRotation(Vector3.left, itemNearLocalPos);
-			caratHold2.localRotation = Quaternion.FromToRotation(Vector3.left, cursorLocalPos);
+			itemPointHold.localRotation = Quaternion.FromToRotation(Vector3.right, itemNearLocalPos);
+			cursPointHold.localRotation = Quaternion.FromToRotation(Vector3.right, cursorLocalPos);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateRenderer() {
 			HoverItemStationaryState stationState = GetComponent<HoverItemStationaryState>();
-			HoverRenderer rend = StationaryRenderer.GetComponent<HoverRenderer>();
-			HoverShapeArc bgShapeArc = rend
-				.GetChildFill(0)
-				.GetChildMesh(0)
-				.GetComponent<HoverShapeArc>();
-			HoverShapeArc highShapeArc = rend
-				.GetChildFill(0)
-				.GetChildMesh(1)
-				.GetComponent<HoverShapeArc>();
-			HoverAlphaRendererUpdater alphaUp = 
+			HoverIndicator stationInd = StationaryRenderer.GetComponent<HoverIndicator>();
+			HoverAlphaRendererUpdater alphaUp =
 				StationaryRenderer.GetComponent<HoverAlphaRendererUpdater>();
-			HoverAlphaMeshUpdater caratAlphaUp = StationaryRenderer.transform
-				.FindChild("CaratHolder")
-				.FindChild("Carat")
-				.GetComponent<HoverAlphaMeshUpdater>();
-			HoverAlphaMeshUpdater caratAlphaUp2 = StationaryRenderer.transform
-				.FindChild("CaratHolder2")
-				.FindChild("Carat2")
-				.GetComponent<HoverAlphaMeshUpdater>();
-			float prog = (Application.isPlaying ? stationState.StationaryProgress : 0.75f);
 
-			bgShapeArc.Controllers.Set(HoverShapeArc.ArcDegreesName, this);
-			highShapeArc.Controllers.Set(HoverShapeArc.ArcDegreesName, this);
+			if ( Application.isPlaying ) {
+				stationInd.Controllers.Set(HoverIndicator.HighlightProgressName, this);
+				stationInd.HighlightProgress = stationState.StationaryProgress;
+			}
+
 			alphaUp.Controllers.Set(HoverAlphaRendererUpdater.MasterAlphaName, this);
-			caratAlphaUp.Controllers.Set(HoverAlphaMeshUpdater.AlphaName, this);
-			caratAlphaUp2.Controllers.Set(HoverAlphaMeshUpdater.AlphaName, this);
-
-			highShapeArc.ArcDegrees = Mathf.Lerp(30, 360, prog);
-			bgShapeArc.ArcDegrees = 360-highShapeArc.ArcDegrees;
-			alphaUp.MasterAlpha = prog;
-			caratAlphaUp.Alpha = prog;
-			caratAlphaUp2.Alpha = prog;
+			alphaUp.MasterAlpha = Mathf.Pow(stationInd.HighlightProgress, 2);
 		}
 
 	}
