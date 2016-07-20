@@ -14,7 +14,7 @@ namespace Hover.Renderers.Stationaries {
 	public class HoverRendererStationaryUpdater : MonoBehaviour, ITreeUpdateable, ISettingsController {
 
 		public GameObject StationaryRendererPrefab;
-		public Component StationaryRenderer;
+		public HoverRendererStationary StationaryRenderer;
 		public bool ClickToRebuildRenderer = false;
 
 		[Range(0, 1)]
@@ -37,27 +37,27 @@ namespace Hover.Renderers.Stationaries {
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void TreeUpdate() {
 			DestroyRendererIfNecessary();
-			//StationaryRenderer = (StationaryRenderer ?? FindOrBuildStationary());
+			StationaryRenderer = (StationaryRenderer ?? FindOrBuildStationary());
 
 			//TODO: these methods are just a quick proof-of-concept, will need to be refactored
 			UpdatePosition();
-			UpdateRenderer();
+			UpdateIndicator();
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void DestroyRendererIfNecessary() {
-			/*if ( ClickToRebuildRenderer || StationaryRendererPrefab != vPrevStationaryPrefab ) {
+			if ( ClickToRebuildRenderer || StationaryRendererPrefab != vPrevStationaryPrefab ) {
 				vPrevStationaryPrefab = StationaryRendererPrefab;
 				RendererUtil.DestroyRenderer(StationaryRenderer);
 				StationaryRenderer = null;
 			}
 
-			ClickToRebuildRenderer = false;*/
+			ClickToRebuildRenderer = false;
 		}
 
-		/*--------------------------------------------------------------------------------------------* /
+		/*--------------------------------------------------------------------------------------------*/
 		private HoverRendererStationary FindOrBuildStationary() {
 			return RendererUtil.FindOrBuildRenderer<HoverRendererStationary>(gameObject.transform, 
 				StationaryRendererPrefab, "Stationary", typeof(HoverRendererStationary));
@@ -69,14 +69,14 @@ namespace Hover.Renderers.Stationaries {
 		private void UpdatePosition() {
 			HoverItemStationaryState stationState = GetComponent<HoverItemStationaryState>();
 			HoverItemStationaryState.HistoryRecord? currRec = stationState.GetCurrentRecord();
-			HoverRendererStationary rend = StationaryRenderer.GetComponent<HoverRendererStationary>();
-			Transform itemPointHold = rend.Fill.ItemPointer.transform.parent;
-			Transform cursPointHold = rend.Fill.CursorPointer.transform.parent;
+			Transform itemPointHold = StationaryRenderer.Fill.ItemPointer.transform.parent;
+			Transform cursPointHold = StationaryRenderer.Fill.CursorPointer.transform.parent;
 
-			rend.Controllers.Set(SettingsControllerMap.GameObjectActiveSelf, this);
+			StationaryRenderer.Controllers.Set(SettingsControllerMap.GameObjectActiveSelf, this);
 
 			RendererUtil.SetActiveWithUpdate(StationaryRenderer.gameObject, 
 				(!Application.isPlaying || currRec != null));
+
 			IHoverCursorData cursor;
 			Vector3 itemNearestWorldPos;
 
@@ -94,7 +94,7 @@ namespace Hover.Renderers.Stationaries {
 				itemNearestWorldPos = currRec.Value.NearestHighlight.NearestWorldPos;
 			}
 
-			rend.Controllers.Set(SettingsControllerMap.TransformPosition, this);
+			StationaryRenderer.Controllers.Set(SettingsControllerMap.TransformPosition, this);
 
 			StationaryRenderer.transform.position = cursor.WorldPosition+
 				cursor.WorldRotation*(Vector3.up*cursor.Size*1.5f);
@@ -111,7 +111,7 @@ namespace Hover.Renderers.Stationaries {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateRenderer() {
+		private void UpdateIndicator() {
 			HoverItemStationaryState stationState = GetComponent<HoverItemStationaryState>();
 			HoverIndicator stationInd = StationaryRenderer.GetComponent<HoverIndicator>();
 			HoverAlphaRendererUpdater alphaUp =
@@ -122,6 +122,7 @@ namespace Hover.Renderers.Stationaries {
 				stationInd.HighlightProgress = stationState.StationaryProgress;
 			}
 
+			//TODO: handle alpha elsewhere
 			alphaUp.Controllers.Set(HoverAlphaRendererUpdater.MasterAlphaName, this);
 			alphaUp.MasterAlpha = Mathf.Pow(stationInd.HighlightProgress, 2);
 		}
