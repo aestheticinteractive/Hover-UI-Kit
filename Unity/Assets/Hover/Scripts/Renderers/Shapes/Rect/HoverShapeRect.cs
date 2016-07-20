@@ -25,6 +25,11 @@ namespace Hover.Renderers.Shapes.Rect {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
+		public override Vector3 GetCenterWorldPosition() {
+			return gameObject.transform.position;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
 		public override Vector3 GetNearestWorldPosition(Vector3 pFromWorldPosition) {
 			return RendererUtil.GetNearestWorldPositionOnRectangle(
 				pFromWorldPosition, gameObject.transform, SizeX, SizeY);

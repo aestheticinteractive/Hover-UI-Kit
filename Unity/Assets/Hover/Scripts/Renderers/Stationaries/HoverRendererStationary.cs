@@ -53,6 +53,11 @@ namespace Hover.Renderers.Stationaries {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
+		public override Vector3 GetCenterWorldPosition() {
+			return transform.position;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
 		public override Vector3 GetNearestWorldPosition(Vector3 pFromWorldPosition) {
 			return GetComponent<HoverShape>().GetNearestWorldPosition(pFromWorldPosition);
 		}

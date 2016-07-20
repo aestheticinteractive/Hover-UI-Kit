@@ -1,7 +1,6 @@
 using System;
 using Hover.Items;
 using Hover.Renderers.Contents;
-using Hover.Renderers.Shapes;
 using Hover.Utils;
 using UnityEngine;
 
@@ -47,6 +46,11 @@ namespace Hover.Renderers.Cursors {
 		/*--------------------------------------------------------------------------------------------*/
 		public override HoverCanvasDataUpdater GetCanvasDataUpdater() {
 			return null;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public override Vector3 GetCenterWorldPosition() {
+			return transform.position;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

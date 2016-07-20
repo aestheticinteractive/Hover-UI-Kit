@@ -31,6 +31,16 @@ namespace Hover.Renderers.Shapes.Arc {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
+		public override Vector3 GetCenterWorldPosition() {
+			if ( ArcDegrees >= 360 ) {
+				return gameObject.transform.position;
+			}
+
+			var midLocalPos = new Vector3((OuterRadius+InnerRadius)/2, 0, 0);
+			return gameObject.transform.TransformPoint(midLocalPos);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
 		public override Vector3 GetNearestWorldPosition(Vector3 pFromWorldPosition) {
 			return RendererUtil.GetNearestWorldPositionOnArc(pFromWorldPosition, 
 				gameObject.transform, OuterRadius, InnerRadius, ArcDegrees);

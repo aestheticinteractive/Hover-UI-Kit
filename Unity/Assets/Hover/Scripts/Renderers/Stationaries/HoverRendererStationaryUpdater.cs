@@ -71,14 +71,12 @@ namespace Hover.Renderers.Stationaries {
 			HoverItemStationaryState.HistoryRecord? currRec = stationState.GetCurrentRecord();
 			Transform itemPointHold = StationaryRenderer.Fill.ItemPointer.transform.parent;
 			Transform cursPointHold = StationaryRenderer.Fill.CursorPointer.transform.parent;
+			IHoverCursorData cursor;
 
 			StationaryRenderer.Controllers.Set(SettingsControllerMap.GameObjectActiveSelf, this);
 
 			RendererUtil.SetActiveWithUpdate(StationaryRenderer.gameObject, 
 				(!Application.isPlaying || currRec != null));
-
-			IHoverCursorData cursor;
-			Vector3 itemNearestWorldPos;
 
 			if ( currRec == null ) {
 				if ( Application.isPlaying ) {
@@ -87,11 +85,9 @@ namespace Hover.Renderers.Stationaries {
 
 				cursor = FindObjectOfType<HoverCursorDataProvider>()
 					.GetCursorData(CursorType.RightIndex);
-				itemNearestWorldPos = transform.position;
 			}
 			else {
 				cursor = currRec.Value.NearestHighlight.Cursor;
-				itemNearestWorldPos = currRec.Value.NearestHighlight.NearestWorldPos;
 			}
 
 			StationaryRenderer.Controllers.Set(SettingsControllerMap.TransformPosition, this);
@@ -101,12 +97,14 @@ namespace Hover.Renderers.Stationaries {
 			StationaryRenderer.transform.rotation = 
 				Quaternion.Slerp(cursor.WorldRotation, transform.rotation, RotationLerp);
 
-			Vector3 itemNearLocalPos = StationaryRenderer.transform
-				.InverseTransformPoint(itemNearestWorldPos);
+			Vector3 itemCenter = GetComponent<HoverRendererUpdater>()
+				.ActiveRenderer.GetCenterWorldPosition();
+			Vector3 itemCenterLocalPos = StationaryRenderer.transform
+				.InverseTransformPoint(itemCenter);
 			Vector3 cursorLocalPos = StationaryRenderer.transform
 				.InverseTransformPoint(cursor.WorldPosition);
 
-			itemPointHold.localRotation = Quaternion.FromToRotation(Vector3.right, itemNearLocalPos);
+			itemPointHold.localRotation = Quaternion.FromToRotation(Vector3.right, itemCenterLocalPos);
 			cursPointHold.localRotation = Quaternion.FromToRotation(Vector3.right, cursorLocalPos);
 		}
 

@@ -96,6 +96,11 @@ namespace Hover.Renderers.Sliders {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
+		public override Vector3 GetCenterWorldPosition() {
+			return HandleButton.GetShape().GetCenterWorldPosition();
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
 		public override Vector3 GetNearestWorldPosition(Vector3 pFromWorldPosition) {
 			if ( AllowJump ) {
 				return GetComponent<HoverShape>().GetNearestWorldPosition(pFromWorldPosition);

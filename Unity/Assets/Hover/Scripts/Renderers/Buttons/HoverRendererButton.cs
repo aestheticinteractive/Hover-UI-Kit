@@ -53,6 +53,11 @@ namespace Hover.Renderers.Buttons {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
+		public override Vector3 GetCenterWorldPosition() {
+			return GetComponent<HoverShape>().GetCenterWorldPosition();
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
 		public override Vector3 GetNearestWorldPosition(Vector3 pFromWorldPosition) {
 			return GetComponent<HoverShape>().GetNearestWorldPosition(pFromWorldPosition);
 		}

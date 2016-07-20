@@ -61,6 +61,9 @@ namespace Hover.Renderers {
 		public abstract HoverCanvasDataUpdater GetCanvasDataUpdater();
 
 		/*--------------------------------------------------------------------------------------------*/
+		public abstract Vector3 GetCenterWorldPosition();
+
+		/*--------------------------------------------------------------------------------------------*/
 		public abstract Vector3 GetNearestWorldPosition(Vector3 pFromWorldPosition);
 
 		/*--------------------------------------------------------------------------------------------*/
