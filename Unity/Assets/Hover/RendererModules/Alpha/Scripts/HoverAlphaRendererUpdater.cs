@@ -44,7 +44,7 @@ namespace Hover.RendererModules.Alpha {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void TreeUpdate() {
+		public virtual void TreeUpdate() {
 			HoverRenderer hoverRend = GetComponent<HoverRenderer>();
 			int childRendCount = hoverRend.GetChildRendererCount();
 			int childFillCount = hoverRend.GetChildFillCount();

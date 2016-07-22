@@ -1,6 +1,5 @@
 using Hover.Cursors;
 using Hover.Items.Managers;
-using Hover.RendererModules.Alpha;
 using Hover.Renderers.Utils;
 using Hover.Utils;
 using UnityEngine;
@@ -110,19 +109,15 @@ namespace Hover.Renderers.Stationaries {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateIndicator() {
-			HoverItemStationaryState stationState = GetComponent<HoverItemStationaryState>();
-			HoverIndicator stationInd = StationaryRenderer.GetComponent<HoverIndicator>();
-			HoverAlphaRendererUpdater alphaUp =
-				StationaryRenderer.GetComponent<HoverAlphaRendererUpdater>();
-
-			if ( Application.isPlaying ) {
-				stationInd.Controllers.Set(HoverIndicator.HighlightProgressName, this);
-				stationInd.HighlightProgress = stationState.StationaryProgress;
+			if ( !Application.isPlaying ) {
+				return;
 			}
 
-			//TODO: handle alpha elsewhere
-			alphaUp.Controllers.Set(HoverAlphaRendererUpdater.MasterAlphaName, this);
-			alphaUp.MasterAlpha = Mathf.Pow(stationInd.HighlightProgress, 2);
+			HoverItemStationaryState stationState = GetComponent<HoverItemStationaryState>();
+			HoverIndicator stationInd = StationaryRenderer.GetComponent<HoverIndicator>();
+
+			stationInd.Controllers.Set(HoverIndicator.HighlightProgressName, this);
+			stationInd.HighlightProgress = stationState.StationaryProgress;
 		}
 
 	}
