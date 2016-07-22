@@ -1,4 +1,5 @@
-﻿using Hover.Items;
+﻿using System.Collections.Generic;
+using Hover.Items;
 using UnityEngine;
 
 namespace Hover.Cursors {
@@ -20,6 +21,7 @@ namespace Hover.Cursors {
 		RaycastResult? BestRaycastResult { get; set; }
 		float MaxItemHighlightProgress { get; set; }
 		float MaxItemSelectionProgress { get; set; }
+		List<StickySelectionInfo> ActiveStickySelections { get; }
 
 	}
 

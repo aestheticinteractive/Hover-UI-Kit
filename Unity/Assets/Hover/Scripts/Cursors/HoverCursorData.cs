@@ -1,4 +1,5 @@
-﻿using Hover.Items;
+﻿using System.Collections.Generic;
+using Hover.Items;
 using UnityEngine;
 
 namespace Hover.Cursors {
@@ -10,6 +11,7 @@ namespace Hover.Cursors {
 		public RaycastResult? BestRaycastResult { get; set; }
 		public float MaxItemHighlightProgress { get; set; }
 		public float MaxItemSelectionProgress { get; set; }
+		public List<StickySelectionInfo> ActiveStickySelections { get; private set; }
 
 		[SerializeField]
 		public CursorType _Type;
@@ -29,7 +31,14 @@ namespace Hover.Cursors {
 		[SerializeField]
 		[Range(0, 1)]
 		public float _TriggerStrength = 0;
-		
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverCursorData() {
+			ActiveStickySelections = new List<StickySelectionInfo>();
+		}
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
