@@ -20,8 +20,8 @@ namespace Hover.Renderers.Shapes.Arc {
 		/*--------------------------------------------------------------------------------------------*/
 		public void TreeUpdate() {
 			HoverShapeArc shape = GetComponent<HoverShapeArc>();
-			shape.Controllers.Set(HoverShapeArc.OuterOffsetName, this);
-			shape.OuterOffset = GetComponent<HoverRendererIdle>().CenterPosition;
+			shape.Controllers.Set(HoverShapeArc.InnerOffsetName, this);
+			shape.InnerOffset = GetComponent<HoverRendererIdle>().CenterPosition;
 		}
 
 	}

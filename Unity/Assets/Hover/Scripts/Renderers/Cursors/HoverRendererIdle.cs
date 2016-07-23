@@ -16,9 +16,6 @@ namespace Hover.Renderers.Cursors {
 		public HoverFillIdle Fill;
 
 		[DisableWhenControlled]
-		public HoverCanvas Canvas;
-
-		[DisableWhenControlled]
 		public Vector3 CenterPosition;
 
 
@@ -49,12 +46,12 @@ namespace Hover.Renderers.Cursors {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public override HoverCanvas GetCanvas() {
-			return Canvas;
+			return null;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public override HoverCanvasDataUpdater GetCanvasDataUpdater() {
-			return Canvas.GetComponent<HoverCanvasDataUpdater>();
+			return null;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

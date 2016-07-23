@@ -12,39 +12,27 @@ namespace Hover.Renderers.Cursors {
 	public class HoverFillIdle : HoverFill {
 
 		[DisableWhenControlled(DisplaySpecials=true)]
-		public HoverMesh BackgroundTop;
+		public HoverMesh Background;
 
 		[DisableWhenControlled]
-		public HoverMesh BackgroundBottom;
-
-		[DisableWhenControlled]
-		public HoverMesh TimerLeft;
-
-		[DisableWhenControlled]
-		public HoverMesh TimerRight;
+		public HoverMesh Timer;
 
 		[DisableWhenControlled]
 		public HoverMesh ItemPointer;
-
-		[DisableWhenControlled]
-		public HoverMesh CursorPointer;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public override int GetChildMeshCount() {
-			return 6;
+			return 2;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public override HoverMesh GetChildMesh(int pIndex) {
 			switch ( pIndex ) {
-				case 0: return BackgroundTop;
-				case 1: return BackgroundBottom;
-				case 2: return TimerLeft;
-				case 3: return TimerRight;
-				case 4: return ItemPointer;
-				case 5: return CursorPointer;
+				case 0: return Background;
+				case 1: return Timer;
+				//case 2: return ItemPointer;
 			}
 
 			throw new ArgumentOutOfRangeException();
@@ -62,20 +50,12 @@ namespace Hover.Renderers.Cursors {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateMeshes() {
-			if ( BackgroundTop != null ) {
-				UpdateMesh(BackgroundTop);
+			if ( Background != null ) {
+				UpdateMesh(Background);
 			}
 
-			if ( BackgroundBottom != null ) {
-				UpdateMesh(BackgroundBottom);
-			}
-
-			if ( TimerLeft != null ) {
-				UpdateMesh(TimerLeft);
-			}
-
-			if ( TimerRight != null ) {
-				UpdateMesh(TimerRight);
+			if ( Timer != null ) {
+				UpdateMesh(Timer);
 			}
 		}
 		

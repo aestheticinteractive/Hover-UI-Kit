@@ -130,11 +130,13 @@ namespace Hover.Renderers.Shapes.Arc {
 			float outerRadProg = GetRadiusProgress(OuterRadiusType);
 			float innerRad = Mathf.Lerp(shape.InnerRadius, shape.OuterRadius, innerRadProg);
 			float outerRad = Mathf.Lerp(shape.InnerRadius, shape.OuterRadius, outerRadProg);
+			Vector3 innerOff = Vector3.Lerp(shape.InnerOffset, shape.OuterOffset, innerRadProg);
+			Vector3 outerOff = Vector3.Lerp(shape.InnerOffset, shape.OuterOffset, outerRadProg);
 			float halfRadians = shape.ArcDegrees/180*Mathf.PI/2;
 			int steps = GetArcMeshSteps();
 
-			MeshUtil.BuildRingMesh(vMeshBuild, innerRad, outerRad, -halfRadians, halfRadians, 
-				shape.InnerOffset, shape.OuterOffset, steps);
+			MeshUtil.BuildRingMesh(vMeshBuild, innerRad, outerRad, -halfRadians, halfRadians,
+				innerOff, outerOff, steps);
 
 			UpdateAutoUv(shape, innerRadProg, outerRadProg);
 			UpdateMeshUvAndColors(steps);
