@@ -64,9 +64,9 @@ namespace Hover.Cursors {
 				Progress = 0;
 			}
 
-			AddCursorToHistory(data.WorldPosition);
-			RemoveNonstationaryHistory();
-			UpdateStationaryProgress();
+			AddToHistory(data.WorldPosition);
+			CullHistory();
+			UpdateProgress();
 
 			WorldPosition = vHistory[0].WorldPosition;
 		}
@@ -74,7 +74,7 @@ namespace Hover.Cursors {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void AddCursorToHistory(Vector3 pWorldPosition) {
+		private void AddToHistory(Vector3 pWorldPosition) {
 			var current = new HistoryRecord {
 				Time = DateTime.UtcNow,
 				WorldPosition = pWorldPosition
@@ -84,7 +84,7 @@ namespace Hover.Cursors {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void RemoveNonstationaryHistory() {
+		private void CullHistory() {
 			float maxMs = InteractionSettings.MotionlessMilliseconds;
 			float maxDistSqr = Mathf.Pow(InteractionSettings.MotionlessDistanceThreshold, 2);
 			HistoryRecord current = vHistory[vHistory.Count-1];
@@ -110,7 +110,7 @@ namespace Hover.Cursors {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateStationaryProgress() {
+		private void UpdateProgress() {
 			HistoryRecord current = vHistory[vHistory.Count-1];
 			float earliestMsAgo = (float)(current.Time-vHistory[0].Time).TotalMilliseconds;
 

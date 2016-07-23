@@ -4,12 +4,12 @@ using Hover.Renderers.Utils;
 using Hover.Utils;
 using UnityEngine;
 
-namespace Hover.Renderers.Stationaries {
+namespace Hover.Renderers.Cursors {
 
 	/*================================================================================================*/
 	[RequireComponent(typeof(HoverIndicator))]
 	[RequireComponent(typeof(HoverShape))]
-	public class HoverFillStationary : HoverFill {
+	public class HoverFillIdle : HoverFill {
 
 		[DisableWhenControlled(DisplaySpecials=true)]
 		public HoverMesh BackgroundTop;

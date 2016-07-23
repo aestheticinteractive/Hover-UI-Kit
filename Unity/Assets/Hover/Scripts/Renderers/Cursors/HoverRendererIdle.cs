@@ -5,13 +5,13 @@ using Hover.Renderers.Shapes;
 using Hover.Utils;
 using UnityEngine;
 
-namespace Hover.Renderers.Stationaries {
+namespace Hover.Renderers.Cursors {
 
 	/*================================================================================================*/
-	public class HoverRendererStationary : HoverRenderer {
+	public class HoverRendererIdle : HoverRenderer {
 
 		[DisableWhenControlled]
-		public HoverFillStationary Fill;
+		public HoverFillIdle Fill;
 
 		[DisableWhenControlled]
 		public HoverCanvas Canvas;

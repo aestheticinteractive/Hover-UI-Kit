@@ -3,28 +3,28 @@ using Hover.Renderers.Utils;
 using Hover.Utils;
 using UnityEngine;
 
-namespace Hover.Renderers.Stationaries {
+namespace Hover.Renderers.Cursors {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
 	[RequireComponent(typeof(HoverCursorFollower))]
-	public class HoverRendererStationaryUpdater : MonoBehaviour, ITreeUpdateable, ISettingsController {
+	public class HoverRendererIdleUpdater : MonoBehaviour, ITreeUpdateable, ISettingsController {
 
-		public GameObject StationaryRendererPrefab;
-		public HoverRendererStationary StationaryRenderer;
+		public GameObject IdleRendererPrefab;
+		public HoverRendererIdle IdleRenderer;
 		public bool ClickToRebuildRenderer = false;
 
 		[Range(0, 1)]
 		public float RotationLerp = 0;
 
-		private GameObject vPrevStationaryPrefab;
+		private GameObject vPrevIdlePrefab;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
-			vPrevStationaryPrefab = StationaryRendererPrefab;
+			vPrevIdlePrefab = IdleRendererPrefab;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -35,7 +35,7 @@ namespace Hover.Renderers.Stationaries {
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void TreeUpdate() {
 			DestroyRendererIfNecessary();
-			StationaryRenderer = (StationaryRenderer ?? FindOrBuildStationary());
+			IdleRenderer = (IdleRenderer ?? FindOrBuildIdle());
 
 			IHoverCursorData cursorData = GetComponent<HoverCursorFollower>().GetCursorData();
 
@@ -47,31 +47,31 @@ namespace Hover.Renderers.Stationaries {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void DestroyRendererIfNecessary() {
-			if ( ClickToRebuildRenderer || StationaryRendererPrefab != vPrevStationaryPrefab ) {
-				vPrevStationaryPrefab = StationaryRendererPrefab;
-				RendererUtil.DestroyRenderer(StationaryRenderer);
-				StationaryRenderer = null;
+			if ( ClickToRebuildRenderer || IdleRendererPrefab != vPrevIdlePrefab ) {
+				vPrevIdlePrefab = IdleRendererPrefab;
+				RendererUtil.DestroyRenderer(IdleRenderer);
+				IdleRenderer = null;
 			}
 
 			ClickToRebuildRenderer = false;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private HoverRendererStationary FindOrBuildStationary() {
-			return RendererUtil.FindOrBuildRenderer<HoverRendererStationary>(gameObject.transform, 
-				StationaryRendererPrefab, "Stationary", typeof(HoverRendererStationary));
+		private HoverRendererIdle FindOrBuildIdle() {
+			return RendererUtil.FindOrBuildRenderer<HoverRendererIdle>(gameObject.transform, 
+				IdleRendererPrefab, "Idle", typeof(HoverRendererIdle));
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdatePosition(IHoverCursorData pCursorData) {
-			/*Transform itemPointHold = StationaryRenderer.Fill.ItemPointer.transform.parent;
-			Transform cursPointHold = StationaryRenderer.Fill.CursorPointer.transform.parent;
+			/*Transform itemPointHold = IdleRenderer.Fill.ItemPointer.transform.parent;
+			Transform cursPointHold = IdleRenderer.Fill.CursorPointer.transform.parent;
 
-			StationaryRenderer.Controllers.Set(SettingsControllerMap.GameObjectActiveSelf, this);
+			IdleRenderer.Controllers.Set(SettingsControllerMap.GameObjectActiveSelf, this);
 
-			RendererUtil.SetActiveWithUpdate(StationaryRenderer.gameObject, 
+			RendererUtil.SetActiveWithUpdate(IdleRenderer.gameObject, 
 				(!Application.isPlaying || currRec != null));
 
 			if ( currRec == null ) {
@@ -86,18 +86,18 @@ namespace Hover.Renderers.Stationaries {
 				cursor = currRec.Value.NearestHighlight.Cursor;
 			}*/
 
-			StationaryRenderer.Controllers.Set(SettingsControllerMap.TransformPosition, this);
+			IdleRenderer.Controllers.Set(SettingsControllerMap.TransformPosition, this);
 
-			StationaryRenderer.transform.position = pCursorData.Idle.WorldPosition;
+			IdleRenderer.transform.position = pCursorData.Idle.WorldPosition;
 				//+pCursorData.WorldRotation*(Vector3.up*pCursorData.Size*1.5f);
-			//StationaryRenderer.transform.rotation = 
+			//IdleRenderer.transform.rotation = 
 			//	Quaternion.Slerp(pCursorData.WorldRotation, transform.rotation, RotationLerp);
 
 			/*Vector3 itemCenter = GetComponent<HoverRendererUpdater>()
 				.ActiveRenderer.GetCenterWorldPosition();
-			Vector3 itemCenterLocalPos = StationaryRenderer.transform
+			Vector3 itemCenterLocalPos = IdleRenderer.transform
 				.InverseTransformPoint(itemCenter);
-			Vector3 cursorLocalPos = StationaryRenderer.transform
+			Vector3 cursorLocalPos = IdleRenderer.transform
 				.InverseTransformPoint(pCursorData.WorldPosition);
 
 			itemPointHold.localRotation = Quaternion.FromToRotation(Vector3.right, itemCenterLocalPos);
@@ -110,10 +110,10 @@ namespace Hover.Renderers.Stationaries {
 				return;
 			}
 
-			HoverIndicator stationInd = StationaryRenderer.GetComponent<HoverIndicator>();
+			HoverIndicator idleInd = IdleRenderer.GetComponent<HoverIndicator>();
 
-			stationInd.Controllers.Set(HoverIndicator.HighlightProgressName, this);
-			stationInd.HighlightProgress = pCursorData.Idle.Progress;
+			idleInd.Controllers.Set(HoverIndicator.HighlightProgressName, this);
+			idleInd.HighlightProgress = pCursorData.Idle.Progress;
 		}
 
 	}

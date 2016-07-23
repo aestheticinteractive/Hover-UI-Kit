@@ -1,4 +1,4 @@
-using Hover.Renderers.Stationaries;
+using Hover.Renderers.Cursors;
 using Hover.Utils;
 using UnityEngine;
 
@@ -7,9 +7,9 @@ namespace Hover.Renderers.Shapes.Arc {
 	/*================================================================================================*/
 	[RequireComponent(typeof(TreeUpdater))]
 	[RequireComponent(typeof(HoverIndicator))]
-	[RequireComponent(typeof(HoverFillStationary))]
+	[RequireComponent(typeof(HoverFillIdle))]
 	[RequireComponent(typeof(HoverShapeArc))]
-	public class HoverFillStationaryArcUpdater : MonoBehaviour, ITreeUpdateable, ISettingsController {
+	public class HoverFillIdleArcUpdater : MonoBehaviour, ITreeUpdateable, ISettingsController {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -27,28 +27,28 @@ namespace Hover.Renderers.Shapes.Arc {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateMeshes() {
-			HoverFillStationary fillStationary = GetComponent<HoverFillStationary>();
+			HoverFillIdle fillIdle = GetComponent<HoverFillIdle>();
 			HoverShapeArc shapeArc = GetComponent<HoverShapeArc>();
 			HoverIndicator indic = GetComponent<HoverIndicator>();
 			float timerArcDeg = Mathf.Lerp(180, 0, indic.HighlightProgress);
 
-			if ( fillStationary.BackgroundTop != null ) {
-				UpdateMeshShape(fillStationary.BackgroundTop, 180-timerArcDeg, 90,
+			if ( fillIdle.BackgroundTop != null ) {
+				UpdateMeshShape(fillIdle.BackgroundTop, 180-timerArcDeg, 90,
 					shapeArc.OuterRadius, shapeArc.InnerRadius);
 			}
 
-			if ( fillStationary.BackgroundBottom != null ) {
-				UpdateMeshShape(fillStationary.BackgroundBottom, 180-timerArcDeg, -90,
+			if ( fillIdle.BackgroundBottom != null ) {
+				UpdateMeshShape(fillIdle.BackgroundBottom, 180-timerArcDeg, -90,
 					shapeArc.OuterRadius, shapeArc.InnerRadius);
 			}
 
-			if ( fillStationary.TimerLeft != null ) {
-				UpdateMeshShape(fillStationary.TimerLeft, timerArcDeg, 0,
+			if ( fillIdle.TimerLeft != null ) {
+				UpdateMeshShape(fillIdle.TimerLeft, timerArcDeg, 0,
 					shapeArc.OuterRadius, shapeArc.InnerRadius);
 			}
 
-			if ( fillStationary.TimerRight != null ) {
-				UpdateMeshShape(fillStationary.TimerRight, timerArcDeg, 180,
+			if ( fillIdle.TimerRight != null ) {
+				UpdateMeshShape(fillIdle.TimerRight, timerArcDeg, 180,
 					shapeArc.OuterRadius, shapeArc.InnerRadius);
 			}
 		}
