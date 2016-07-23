@@ -13,6 +13,8 @@ namespace Hover.Renderers.Shapes.Arc {
 		public const string OuterRadiusName = "OuterRadius";
 		public const string InnerRadiusName = "InnerRadius";
 		public const string ArcDegreesName = "ArcDegrees";
+		public const string OuterOffsetName = "OuterOffset";
+		public const string InnerOffsetName = "InnerOffset";
 
 		[DisableWhenControlled(RangeMin=0)]
 		public float OuterRadius = 0.1f;
@@ -23,10 +25,18 @@ namespace Hover.Renderers.Shapes.Arc {
 		[DisableWhenControlled(RangeMin=0, RangeMax=360)]
 		public float ArcDegrees = 60;
 
+		[DisableWhenControlled]
+		public Vector3 OuterOffset = Vector3.zero;
+
+		[DisableWhenControlled]
+		public Vector3 InnerOffset = Vector3.zero;
+
 		private Plane vWorldPlane;
-		private float vPrevOuter;
-		private float vPrevInner;
+		private float vPrevOuterRad;
+		private float vPrevInnerRad;
 		private float vPrevDegrees;
+		private Vector3 vPrevOuterOff;
+		private Vector3 vPrevInnerOff;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -108,16 +118,20 @@ namespace Hover.Renderers.Shapes.Arc {
 
 			DidSettingsChange = (
 				DidSettingsChange ||
-				OuterRadius != vPrevOuter ||
-				InnerRadius != vPrevInner || 
-				ArcDegrees != vPrevDegrees
+				OuterRadius != vPrevOuterRad ||
+				InnerRadius != vPrevInnerRad || 
+				ArcDegrees != vPrevDegrees ||
+				OuterOffset != vPrevOuterOff ||
+				InnerOffset != vPrevInnerOff
 			);
 
 			UpdateShapeArcChildren();
 
-			vPrevOuter = OuterRadius;
-			vPrevInner = InnerRadius;
+			vPrevOuterRad = OuterRadius;
+			vPrevInnerRad = InnerRadius;
 			vPrevDegrees = ArcDegrees;
+			vPrevOuterOff = OuterOffset;
+			vPrevInnerOff = InnerOffset;
 		}
 
 
@@ -138,13 +152,19 @@ namespace Hover.Renderers.Shapes.Arc {
 					continue;
 				}
 
+				Quaternion offsetRot = Quaternion.Inverse(childArc.transform.localRotation);
+
 				childArc.Controllers.Set(OuterRadiusName, this);
 				childArc.Controllers.Set(InnerRadiusName, this);
 				childArc.Controllers.Set(ArcDegreesName, this);
+				childArc.Controllers.Set(OuterOffsetName, this);
+				childArc.Controllers.Set(InnerOffsetName, this);
 
 				childArc.OuterRadius = OuterRadius;
 				childArc.InnerRadius = InnerRadius;
 				childArc.ArcDegrees = ArcDegrees;
+				childArc.OuterOffset = offsetRot*OuterOffset;
+				childArc.InnerOffset = offsetRot*InnerOffset;
 			}
 		}
 

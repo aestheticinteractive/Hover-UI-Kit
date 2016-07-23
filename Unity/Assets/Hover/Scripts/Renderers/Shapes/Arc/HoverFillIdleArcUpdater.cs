@@ -27,46 +27,32 @@ namespace Hover.Renderers.Shapes.Arc {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateMeshes() {
-			HoverFillIdle fillIdle = GetComponent<HoverFillIdle>();
-			HoverShapeArc shapeArc = GetComponent<HoverShapeArc>();
-			HoverIndicator indic = GetComponent<HoverIndicator>();
-			float timerArcDeg = Mathf.Lerp(180, 0, indic.HighlightProgress);
+			HoverFillIdle fill = GetComponent<HoverFillIdle>();
+			HoverIndicator ind = GetComponent<HoverIndicator>();
+			float timerArcDeg = Mathf.Lerp(0, 180, ind.HighlightProgress);
 
-			if ( fillIdle.BackgroundTop != null ) {
-				UpdateMeshShape(fillIdle.BackgroundTop, 180-timerArcDeg, 90,
-					shapeArc.OuterRadius, shapeArc.InnerRadius);
+			if ( fill.BackgroundTop != null ) {
+				UpdateMeshShape(fill.BackgroundTop, 180-timerArcDeg);
 			}
 
-			if ( fillIdle.BackgroundBottom != null ) {
-				UpdateMeshShape(fillIdle.BackgroundBottom, 180-timerArcDeg, -90,
-					shapeArc.OuterRadius, shapeArc.InnerRadius);
+			if ( fill.BackgroundBottom != null ) {
+				UpdateMeshShape(fill.BackgroundBottom, 180-timerArcDeg);
 			}
 
-			if ( fillIdle.TimerLeft != null ) {
-				UpdateMeshShape(fillIdle.TimerLeft, timerArcDeg, 0,
-					shapeArc.OuterRadius, shapeArc.InnerRadius);
+			if ( fill.TimerLeft != null ) {
+				UpdateMeshShape(fill.TimerLeft, timerArcDeg);
 			}
 
-			if ( fillIdle.TimerRight != null ) {
-				UpdateMeshShape(fillIdle.TimerRight, timerArcDeg, 180,
-					shapeArc.OuterRadius, shapeArc.InnerRadius);
+			if ( fill.TimerRight != null ) {
+				UpdateMeshShape(fill.TimerRight, timerArcDeg);
 			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		protected virtual void UpdateMeshShape(HoverMesh pMesh, float pArcDegrees, float pRotateZ,
-																	float pOuterRad, float pInnerRad) {
+		protected virtual void UpdateMeshShape(HoverMesh pMesh, float pArcDegrees) {
 			HoverShapeArc meshShape = pMesh.GetComponent<HoverShapeArc>();
-
 			meshShape.Controllers.Set(HoverShapeArc.ArcDegreesName, this);
-			meshShape.Controllers.Set(HoverShapeArc.OuterRadiusName, this);
-			meshShape.Controllers.Set(HoverShapeArc.InnerRadiusName, this);
-			meshShape.Controllers.Set(SettingsControllerMap.TransformLocalRotation, this);
-
 			meshShape.ArcDegrees = pArcDegrees;
-			meshShape.OuterRadius = pOuterRad;
-			meshShape.InnerRadius = pInnerRad;
-			pMesh.transform.localRotation = Quaternion.Euler(0, 0, pRotateZ);
 		}
 
 	}

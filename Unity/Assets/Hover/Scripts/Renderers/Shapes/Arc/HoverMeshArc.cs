@@ -133,7 +133,8 @@ namespace Hover.Renderers.Shapes.Arc {
 			float halfRadians = shape.ArcDegrees/180*Mathf.PI/2;
 			int steps = GetArcMeshSteps();
 
-			MeshUtil.BuildRingMesh(vMeshBuild, innerRad, outerRad, -halfRadians, halfRadians, steps);
+			MeshUtil.BuildRingMesh(vMeshBuild, innerRad, outerRad, -halfRadians, halfRadians, 
+				shape.InnerOffset, shape.OuterOffset, steps);
 
 			UpdateAutoUv(shape, innerRadProg, outerRadProg);
 			UpdateMeshUvAndColors(steps);

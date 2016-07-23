@@ -43,7 +43,7 @@ namespace Hover.Utils {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public static void BuildRingMesh(MeshBuilder pMeshBuild, float pInnerRadius, float pOuterRadius,
-															float pAngle0, float pAngle1, int pSteps) {
+				float pAngle0, float pAngle1, Vector3 pInnerOffset, Vector3 pOuterOffset, int pSteps) {
 			float angleFull = pAngle1-pAngle0;
 			float angleInc = angleFull/pSteps;
 			float angle = pAngle0;
@@ -54,8 +54,8 @@ namespace Hover.Utils {
 			for ( int i = 0 ; i <= pSteps ; ++i ) {
 				float uvx = i/(float)pSteps;
 
-				pMeshBuild.AddVertex(GetRingPoint(pInnerRadius, angle));
-				pMeshBuild.AddVertex(GetRingPoint(pOuterRadius, angle));
+				pMeshBuild.AddVertex(pInnerOffset+GetRingPoint(pInnerRadius, angle));
+				pMeshBuild.AddVertex(pOuterOffset+GetRingPoint(pOuterRadius, angle));
 
 				pMeshBuild.AddUv(new Vector2(uvx, 0));
 				pMeshBuild.AddUv(new Vector2(uvx, 1));
@@ -68,6 +68,13 @@ namespace Hover.Utils {
 
 				angle += angleInc;
 			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public static void BuildRingMesh(MeshBuilder pMeshBuild, float pInnerRadius, float pOuterRadius,
+															float pAngle0, float pAngle1, int pSteps) {
+			BuildRingMesh(pMeshBuild, pInnerRadius, pOuterRadius, pAngle0, pAngle1,
+				Vector3.zero, Vector3.zero, pSteps);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
