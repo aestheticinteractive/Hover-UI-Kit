@@ -10,11 +10,16 @@ namespace Hover.Renderers.Cursors {
 	/*================================================================================================*/
 	public class HoverRendererIdle : HoverRenderer {
 
+		public const string CenterPositionName = "CenterPosition";
+
 		[DisableWhenControlled]
 		public HoverFillIdle Fill;
 
 		[DisableWhenControlled]
 		public HoverCanvas Canvas;
+
+		[DisableWhenControlled]
+		public Vector3 CenterPosition;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

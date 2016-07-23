@@ -66,6 +66,10 @@ namespace Hover.Renderers.Cursors {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdatePosition(IHoverCursorData pCursorData) {
+			IdleRenderer.Controllers.Set(HoverRendererIdle.CenterPositionName, this);
+			IdleRenderer.CenterPosition =
+				transform.InverseTransformPoint(pCursorData.Idle.WorldPosition);
+
 			/*Transform itemPointHold = IdleRenderer.Fill.ItemPointer.transform.parent;
 			Transform cursPointHold = IdleRenderer.Fill.CursorPointer.transform.parent;
 
@@ -86,7 +90,7 @@ namespace Hover.Renderers.Cursors {
 				cursor = currRec.Value.NearestHighlight.Cursor;
 			}*/
 
-			IdleRenderer.Controllers.Set(SettingsControllerMap.TransformPosition, this);
+			/*IdleRenderer.Controllers.Set(SettingsControllerMap.TransformPosition, this);
 
 			IdleRenderer.transform.position = pCursorData.Idle.WorldPosition;
 				//+pCursorData.WorldRotation*(Vector3.up*pCursorData.Size*1.5f);
