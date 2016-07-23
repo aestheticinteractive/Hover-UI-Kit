@@ -20,6 +20,9 @@ namespace Hover.Cursors {
 
 		public HoverInteractionSettings InteractionSettings;
 
+		[Range(0, 3)]
+		public float DriftStrength = 1;
+
 		private readonly List<HistoryRecord> vHistory;
 
 
@@ -68,10 +71,9 @@ namespace Hover.Cursors {
 			}
 
 			AddToHistory(data.WorldPosition);
+			CalcSmoothPosition();
 			CullHistory();
 			UpdateProgress();
-
-			WorldPosition = vHistory[0].WorldPosition;
 		}
 
 
@@ -87,33 +89,56 @@ namespace Hover.Cursors {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void CullHistory() {
-			float maxMs = InteractionSettings.MotionlessMilliseconds;
-			float maxDistSqr = Mathf.Pow(InteractionSettings.MotionlessDistanceThreshold, 2);
+		private void CalcSmoothPosition() {
+			if ( vHistory.Count == 1 ) {
+				WorldPosition = vHistory[0].WorldPosition;
+				return;
+			}
+
 			HistoryRecord current = vHistory[vHistory.Count-1];
-			bool foundLast = false;
+			float maxSec = 1000f/InteractionSettings.MotionlessMilliseconds;
+			float smoothing = maxSec*Time.deltaTime*DriftStrength;
+
+			WorldPosition = Vector3.Lerp(WorldPosition, current.WorldPosition, smoothing);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void CullHistory() {
+			HistoryRecord current = vHistory[vHistory.Count-1];
+			float currDistFromCenter = (current.WorldPosition-WorldPosition).magnitude;
+
+			if ( currDistFromCenter > InteractionSettings.MotionlessDistanceThreshold ) {
+				vHistory.Clear();
+				return;
+			}
+
+			float maxMs = InteractionSettings.MotionlessMilliseconds;
+			int staleIndex = -1;
 
 			for ( int i = vHistory.Count-2 ; i >= 0 ; i-- ) {
 				HistoryRecord record = vHistory[i];
 
-				foundLast = (
-					foundLast ||
-					(float)(current.Time-record.Time).TotalMilliseconds > maxMs+60 ||
-					(record.WorldPosition-current.WorldPosition).sqrMagnitude > maxDistSqr
-				);
-
-				if ( foundLast ) {
-					vHistory.RemoveAt(i);
-					continue;
+				if ( (current.Time-record.Time).TotalMilliseconds > maxMs ) {
+					staleIndex = i;
+					break;
 				}
 
-				HistoryRecord recordPrev = vHistory[i+1];
-				Debug.DrawLine(recordPrev.WorldPosition, record.WorldPosition, Color.yellow);
+				//HistoryRecord recordPrev = vHistory[i+1];
+				//Debug.DrawLine(recordPrev.WorldPosition, record.WorldPosition, Color.yellow);
+			}
+
+			if ( staleIndex < 0 ) {
+				vHistory.RemoveRange(0, staleIndex+1);
 			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateProgress() {
+			if ( vHistory.Count < 2 ) {
+				Progress = 0;
+				return;
+			}
+
 			HistoryRecord current = vHistory[vHistory.Count-1];
 			float earliestMsAgo = (float)(current.Time-vHistory[0].Time).TotalMilliseconds;
 
