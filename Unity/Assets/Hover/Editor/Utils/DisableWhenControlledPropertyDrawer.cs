@@ -9,10 +9,14 @@ namespace Hover.Editor.Utils {
 	[CustomPropertyDrawer(typeof(DisableWhenControlledAttribute))]
 	public class DisableWhenControlledPropertyDrawer : PropertyDrawer {
 
+		private const int MinSingleRowVector3Width = 299;
+		private const string Vector3TypeName = "Vector3";
 		private const string IconTextPrefix = " _  ";
 		private static readonly Texture2D ControlIconTex = 
 			Resources.Load<Texture2D>("Textures/ControlledPropertyIconTexture");
-		
+
+		private float vWidth;
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -55,6 +59,7 @@ namespace Hover.Editor.Utils {
 			}
 
 			GUI.enabled = !isControlled;
+			vWidth = pPosition.width;
 
 			if ( hasRangeMin && hasRangeMax ) {
 				EditorGUI.Slider(propRect, pProp, attrib.RangeMin, attrib.RangeMax, pLabel);
@@ -79,6 +84,10 @@ namespace Hover.Editor.Utils {
 			string mapName = attrib.ControllerMapName;
 			ISettingsControllerMap map = EditorUtil.GetControllerMap(pProp.serializedObject, mapName);
 			float propHeight = base.GetPropertyHeight(pProp, pLabel);
+
+			if ( pProp.type == Vector3TypeName ) {
+				return propHeight*(vWidth < MinSingleRowVector3Width ? 2 : 1);
+			}
 
 			if ( map == null || !attrib.DisplaySpecials ) {
 				return propHeight;
