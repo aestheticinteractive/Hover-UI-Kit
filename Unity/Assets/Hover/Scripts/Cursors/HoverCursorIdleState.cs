@@ -1,85 +1,92 @@
 using System;
 using System.Collections.Generic;
-using Hover.Cursors;
 using UnityEngine;
 
-namespace Hover.Items.Managers {
+namespace Hover.Cursors {
 
 	/*================================================================================================*/
-	[RequireComponent(typeof(HoverItem))]
-	[RequireComponent(typeof(HoverItemHighlightState))]
-	[RequireComponent(typeof(HoverItemSelectionState))]
-	public class HoverItemStationaryState : MonoBehaviour {
+	[ExecuteInEditMode]
+	[RequireComponent(typeof(HoverCursorData))]
+	public class HoverCursorIdleState : MonoBehaviour, IHoverCursorIdle {
 
 		public struct HistoryRecord {
-			public HoverItemHighlightState.Highlight NearestHighlight;
 			public DateTime Time;
 			public Vector3 WorldPosition;
 		}
 
-		public float StationaryProgress { get; private set; }
+		public float Progress { get; private set; }
+		public Vector3 WorldPosition { get; private set; }
+
+		public HoverInteractionSettings InteractionSettings;
 
 		private readonly List<HistoryRecord> vHistory;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected HoverItemStationaryState() {
+		protected HoverCursorIdleState() {
 			vHistory = new List<HistoryRecord>();
 		}
 
-		/*--------------------------------------------------------------------------------------------*/
-		public HistoryRecord? GetCurrentRecord() {
-			return (vHistory.Count == 0 ? (HistoryRecord?)null : vHistory[0]);
-		}
-
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public void Awake() {
+			if ( InteractionSettings == null ) {
+				InteractionSettings = (GetComponent<HoverInteractionSettings>() ??
+					FindObjectOfType<HoverInteractionSettings>());
+			}
+
+			if ( InteractionSettings == null ) {
+				Debug.LogWarning("Could not find 'InteractionSettings'.");
+			}
+		}
+
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			HoverItemData itemData = GetComponent<HoverItem>().Data;
-			ISelectableItemData selData = (itemData as ISelectableItemData);
+			HoverCursorData data = GetComponent<HoverCursorData>();
 
-			if ( selData == null || !selData.IsStickySelected ) {
-				vHistory.Clear();
+			if ( !Application.isPlaying ) {
+				Progress = 0.25f;
+				WorldPosition = data.WorldPosition;
 				return;
 			}
 
-			HoverItemHighlightState highState = GetComponent<HoverItemHighlightState>();
-			HoverItemHighlightState.Highlight? nearestHigh = highState.NearestHighlight;
-
-			if ( nearestHigh == null ) {
+			if ( data.ActiveStickySelections.Count == 0 ) {
 				vHistory.Clear();
+				Progress = 0;
+				WorldPosition = data.WorldPosition;
 				return;
 			}
 
-			AddCursorToHistory(nearestHigh.Value);
-			RemoveNonstationaryHistory(highState.InteractionSettings);
-			UpdateStationaryProgress(highState.InteractionSettings);
-
-			if ( StationaryProgress >= 1 ) {
-				selData.DeselectStickySelections();
-				StationaryProgress = 0;
+			if ( Progress >= 1 ) {
+				vHistory.Clear();
+				Progress = 0;
 			}
+
+			AddCursorToHistory(data.WorldPosition);
+			RemoveNonstationaryHistory();
+			UpdateStationaryProgress();
+
+			WorldPosition = vHistory[0].WorldPosition;
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void AddCursorToHistory(HoverItemHighlightState.Highlight pNearestHighlight) {
+		private void AddCursorToHistory(Vector3 pWorldPosition) {
 			var current = new HistoryRecord {
-				NearestHighlight = pNearestHighlight,
 				Time = DateTime.UtcNow,
-				WorldPosition = pNearestHighlight.Cursor.WorldPosition
+				WorldPosition = pWorldPosition
 			};
 
 			vHistory.Add(current);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void RemoveNonstationaryHistory(HoverInteractionSettings pInterSett) {
-			float maxMs = pInterSett.MotionlessMilliseconds;
-			float maxDistSqr = Mathf.Pow(pInterSett.MotionlessDistanceThreshold, 2);
+		private void RemoveNonstationaryHistory() {
+			float maxMs = InteractionSettings.MotionlessMilliseconds;
+			float maxDistSqr = Mathf.Pow(InteractionSettings.MotionlessDistanceThreshold, 2);
 			HistoryRecord current = vHistory[vHistory.Count-1];
 			bool foundLast = false;
 
@@ -103,11 +110,11 @@ namespace Hover.Items.Managers {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateStationaryProgress(HoverInteractionSettings pInterSett) {
+		private void UpdateStationaryProgress() {
 			HistoryRecord current = vHistory[vHistory.Count-1];
 			float earliestMsAgo = (float)(current.Time-vHistory[0].Time).TotalMilliseconds;
 
-			StationaryProgress = Mathf.Min(1, earliestMsAgo/pInterSett.MotionlessMilliseconds);
+			Progress = Mathf.Min(1, earliestMsAgo/InteractionSettings.MotionlessMilliseconds);
 		}
 
 	}

@@ -65,6 +65,12 @@ namespace Hover.Items.Managers {
 				}
 
 				IHoverCursorData cursorData = highState.NearestHighlight.Value.Cursor;
+
+				if ( cursorData.Idle.Progress >= 1 ) {
+					selData.DeselectStickySelections();
+					continue;
+				}
+
 				HoverItemSelectionState selState = data.GetComponent<HoverItemSelectionState>();
 				HoverRenderer rend = data.GetComponent<HoverRendererUpdater>().ActiveRenderer;
 

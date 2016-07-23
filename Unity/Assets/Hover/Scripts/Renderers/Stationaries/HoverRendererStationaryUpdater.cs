@@ -1,5 +1,4 @@
 using Hover.Cursors;
-using Hover.Items.Managers;
 using Hover.Renderers.Utils;
 using Hover.Utils;
 using UnityEngine;
@@ -9,7 +8,7 @@ namespace Hover.Renderers.Stationaries {
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
-	[RequireComponent(typeof(HoverItemStationaryState))]
+	[RequireComponent(typeof(HoverCursorFollower))]
 	public class HoverRendererStationaryUpdater : MonoBehaviour, ITreeUpdateable, ISettingsController {
 
 		public GameObject StationaryRendererPrefab;
@@ -38,9 +37,10 @@ namespace Hover.Renderers.Stationaries {
 			DestroyRendererIfNecessary();
 			StationaryRenderer = (StationaryRenderer ?? FindOrBuildStationary());
 
-			//TODO: these methods are just a quick proof-of-concept, will need to be refactored
-			UpdatePosition();
-			UpdateIndicator();
+			IHoverCursorData cursorData = GetComponent<HoverCursorFollower>().GetCursorData();
+
+			UpdatePosition(cursorData);
+			UpdateIndicator(cursorData);
 		}
 
 
@@ -65,12 +65,9 @@ namespace Hover.Renderers.Stationaries {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdatePosition() {
-			HoverItemStationaryState stationState = GetComponent<HoverItemStationaryState>();
-			HoverItemStationaryState.HistoryRecord? currRec = stationState.GetCurrentRecord();
-			Transform itemPointHold = StationaryRenderer.Fill.ItemPointer.transform.parent;
+		private void UpdatePosition(IHoverCursorData pCursorData) {
+			/*Transform itemPointHold = StationaryRenderer.Fill.ItemPointer.transform.parent;
 			Transform cursPointHold = StationaryRenderer.Fill.CursorPointer.transform.parent;
-			IHoverCursorData cursor;
 
 			StationaryRenderer.Controllers.Set(SettingsControllerMap.GameObjectActiveSelf, this);
 
@@ -87,37 +84,36 @@ namespace Hover.Renderers.Stationaries {
 			}
 			else {
 				cursor = currRec.Value.NearestHighlight.Cursor;
-			}
+			}*/
 
 			StationaryRenderer.Controllers.Set(SettingsControllerMap.TransformPosition, this);
 
-			StationaryRenderer.transform.position = cursor.WorldPosition+
-				cursor.WorldRotation*(Vector3.up*cursor.Size*1.5f);
-			StationaryRenderer.transform.rotation = 
-				Quaternion.Slerp(cursor.WorldRotation, transform.rotation, RotationLerp);
+			StationaryRenderer.transform.position = pCursorData.Idle.WorldPosition;
+				//+pCursorData.WorldRotation*(Vector3.up*pCursorData.Size*1.5f);
+			//StationaryRenderer.transform.rotation = 
+			//	Quaternion.Slerp(pCursorData.WorldRotation, transform.rotation, RotationLerp);
 
-			Vector3 itemCenter = GetComponent<HoverRendererUpdater>()
+			/*Vector3 itemCenter = GetComponent<HoverRendererUpdater>()
 				.ActiveRenderer.GetCenterWorldPosition();
 			Vector3 itemCenterLocalPos = StationaryRenderer.transform
 				.InverseTransformPoint(itemCenter);
 			Vector3 cursorLocalPos = StationaryRenderer.transform
-				.InverseTransformPoint(cursor.WorldPosition);
+				.InverseTransformPoint(pCursorData.WorldPosition);
 
 			itemPointHold.localRotation = Quaternion.FromToRotation(Vector3.right, itemCenterLocalPos);
-			cursPointHold.localRotation = Quaternion.FromToRotation(Vector3.right, cursorLocalPos);
+			cursPointHold.localRotation = Quaternion.FromToRotation(Vector3.right, cursorLocalPos);*/
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateIndicator() {
+		private void UpdateIndicator(IHoverCursorData pCursorData) {
 			if ( !Application.isPlaying ) {
 				return;
 			}
 
-			HoverItemStationaryState stationState = GetComponent<HoverItemStationaryState>();
 			HoverIndicator stationInd = StationaryRenderer.GetComponent<HoverIndicator>();
 
 			stationInd.Controllers.Set(HoverIndicator.HighlightProgressName, this);
-			stationInd.HighlightProgress = stationState.StationaryProgress;
+			stationInd.HighlightProgress = pCursorData.Idle.Progress;
 		}
 
 	}

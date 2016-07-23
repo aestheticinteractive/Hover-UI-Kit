@@ -17,6 +17,7 @@ namespace Hover.Cursors {
 		float TriggerStrength { get; }
 		Vector3 WorldPosition { get; }
 		Quaternion WorldRotation { get; }
+		IHoverCursorIdle Idle { get; }
 
 		RaycastResult? BestRaycastResult { get; set; }
 		float MaxItemHighlightProgress { get; set; }

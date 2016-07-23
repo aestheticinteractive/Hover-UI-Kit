@@ -32,6 +32,8 @@ namespace Hover.Cursors {
 		[Range(0, 1)]
 		public float _TriggerStrength = 0;
 
+		private IHoverCursorIdle vIdle;
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -91,6 +93,11 @@ namespace Hover.Cursors {
 			get { return transform.rotation; }
 		}
 
+		/*--------------------------------------------------------------------------------------------*/
+		public IHoverCursorIdle Idle {
+			get { return vIdle; }
+		}
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -127,7 +134,12 @@ namespace Hover.Cursors {
 		public void SetWorldRotation(Quaternion pWorldRotation) {
 			transform.rotation = pWorldRotation;
 		}
-		
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void SetIdle(IHoverCursorIdle pIdle) {
+			vIdle = pIdle;
+		}
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -139,6 +151,16 @@ namespace Hover.Cursors {
 		public void ActivateIfUsedByInput() {
 			gameObject.SetActive(enabled && Capability != CursorCapabilityType.None);
 		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public void Update() {
+			if ( vIdle == null ) {
+				vIdle = GetComponent<IHoverCursorIdle>();
+			}
+		}
+
 	}
 
 }
