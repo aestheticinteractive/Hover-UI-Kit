@@ -16,6 +16,7 @@ namespace Hover.Cursors {
 
 		public float Progress { get; private set; }
 		public Vector3 WorldPosition { get; private set; }
+		public float DistanceThreshold { get; private set; }
 
 		public HoverInteractionSettings InteractionSettings;
 
@@ -45,6 +46,8 @@ namespace Hover.Cursors {
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
 			HoverCursorData data = GetComponent<HoverCursorData>();
+
+			DistanceThreshold = InteractionSettings.MotionlessDistanceThreshold;
 
 			if ( !Application.isPlaying ) {
 				Progress = 0.25f;

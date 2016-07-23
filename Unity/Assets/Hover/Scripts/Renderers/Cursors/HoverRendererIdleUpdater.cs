@@ -15,9 +15,6 @@ namespace Hover.Renderers.Cursors {
 		public HoverRendererIdle IdleRenderer;
 		public bool ClickToRebuildRenderer = false;
 
-		[Range(0, 1)]
-		public float RotationLerp = 0;
-
 		private GameObject vPrevIdlePrefab;
 
 
@@ -67,8 +64,11 @@ namespace Hover.Renderers.Cursors {
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdatePosition(IHoverCursorData pCursorData) {
 			IdleRenderer.Controllers.Set(HoverRendererIdle.CenterPositionName, this);
+			IdleRenderer.Controllers.Set(HoverRendererIdle.DistanceThresholdName, this);
+
 			IdleRenderer.CenterPosition =
 				transform.InverseTransformPoint(pCursorData.Idle.WorldPosition);
+			IdleRenderer.DistanceThreshold = pCursorData.Idle.DistanceThreshold;
 
 			/*Transform itemPointHold = IdleRenderer.Fill.ItemPointer.transform.parent;
 			Transform cursPointHold = IdleRenderer.Fill.CursorPointer.transform.parent;

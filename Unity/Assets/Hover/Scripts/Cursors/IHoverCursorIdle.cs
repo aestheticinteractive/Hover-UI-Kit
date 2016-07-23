@@ -7,6 +7,7 @@ namespace Hover.Cursors {
 
 		float Progress { get; }
 		Vector3 WorldPosition { get; }
+		float DistanceThreshold { get; }
 
 	}
 
