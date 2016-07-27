@@ -108,14 +108,12 @@ namespace Hover.Interfaces.Panel {
 		private void UpdateRows() {
 			HoverpanelInterface panel = GetComponent<HoverpanelInterface>();
 			HoverShapeRect shape = GetComponent<HoverShapeRect>();
-			bool hasPrevRow = (panel.PreviousRow != null);
 			bool isTransitionDone = (TransitionProgress >= 1);
 			var posScale = new Vector3(shape.SizeX, shape.SizeY, DepthDistance);
 			Vector3 activeFromLocalPos = Vector3.zero;
 			Vector3 prevToLocalPos = Vector3.zero;
 			Quaternion activeFromLocalRot = Quaternion.identity;
 			Quaternion prevToLocalRot = Quaternion.identity;
-			bool controlRot = false;
 
 			TransitionProgressCurved = 1-Mathf.Pow(1-TransitionProgress, TransitionExponent);
 
@@ -154,60 +152,52 @@ namespace Hover.Interfaces.Panel {
 					case HoverpanelRowSwitchingInfo.RowEntryType.RotateFromTop:
 						activeFromLocalRot = RotateNegX;
 						prevToLocalRot = RotatePosX;
-						controlRot = true;
 						break;
 
 					case HoverpanelRowSwitchingInfo.RowEntryType.RotateFromBottom:
 						activeFromLocalRot = RotatePosX;
 						prevToLocalRot = RotateNegX;
-						controlRot = true;
 						break;
 
 					case HoverpanelRowSwitchingInfo.RowEntryType.RotateFromLeft:
 						activeFromLocalRot = RotateNegY;
 						prevToLocalRot = RotatePosY;
-						controlRot = true;
 						break;
 
 					case HoverpanelRowSwitchingInfo.RowEntryType.RotateFromRight:
 						activeFromLocalRot = RotatePosY;
 						prevToLocalRot = RotateNegY;
-						controlRot = true;
 						break;
 				}
 			}
 
 			panel.ActiveRow.Controllers.Set(SettingsControllerMap.GameObjectActiveSelf, this);
 			panel.ActiveRow.Controllers.Set(SettingsControllerMap.TransformLocalPosition, this);
+			panel.ActiveRow.Controllers.Set(SettingsControllerMap.TransformLocalRotation, this);
+
 			panel.ActiveRow.gameObject.SetActive(true);
-
-			if ( hasPrevRow ) {
-				panel.PreviousRow.Controllers.Set(SettingsControllerMap.GameObjectActiveSelf, this);
-				panel.PreviousRow.Controllers.Set(SettingsControllerMap.TransformLocalPosition, this);
-				panel.PreviousRow.gameObject.SetActive(!isTransitionDone);
-			}
-
 			activeFromLocalPos = Vector3.Scale(activeFromLocalPos, posScale);
+
 			panel.ActiveRow.transform.localPosition = 
 				Vector3.Lerp(activeFromLocalPos, Vector3.zero, TransitionProgressCurved);
-
-			if ( hasPrevRow ) {
-				prevToLocalPos = Vector3.Scale(prevToLocalPos, posScale);
-				panel.PreviousRow.transform.localPosition =
-					Vector3.Lerp(Vector3.zero, prevToLocalPos, TransitionProgressCurved);
-			}
-
-			if ( !controlRot ) {
-				return;
-			}
-
 			panel.ActiveRow.transform.localRotation =
 				Quaternion.Slerp(activeFromLocalRot, Quaternion.identity, TransitionProgressCurved);
 
-			if ( hasPrevRow ) {
-				panel.PreviousRow.transform.localRotation =
-					Quaternion.Slerp(Quaternion.identity, prevToLocalRot, TransitionProgressCurved);
+			if ( panel.PreviousRow == null ) {
+				return;
 			}
+
+			panel.PreviousRow.Controllers.Set(SettingsControllerMap.GameObjectActiveSelf, this);
+			panel.PreviousRow.Controllers.Set(SettingsControllerMap.TransformLocalPosition, this);
+			panel.PreviousRow.Controllers.Set(SettingsControllerMap.TransformLocalRotation, this);
+
+			panel.PreviousRow.gameObject.SetActive(!isTransitionDone);
+			prevToLocalPos = Vector3.Scale(prevToLocalPos, posScale);
+
+			panel.PreviousRow.transform.localPosition =
+				Vector3.Lerp(Vector3.zero, prevToLocalPos, TransitionProgressCurved);
+			panel.PreviousRow.transform.localRotation =
+				Quaternion.Slerp(Quaternion.identity, prevToLocalRot, TransitionProgressCurved);
 		}
 
 	}
