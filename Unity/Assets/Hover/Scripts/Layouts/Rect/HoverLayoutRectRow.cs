@@ -68,7 +68,7 @@ namespace Hover.Layouts.Rect {
 		private bool IsReversed {
 			get {
 				return (Arrangement == ArrangementType.RightToLeft || 
-					Arrangement == ArrangementType.BottomToTop);
+					Arrangement == ArrangementType.TopToBottom);
 			}
 		}
 		
