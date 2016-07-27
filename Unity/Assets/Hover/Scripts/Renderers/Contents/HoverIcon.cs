@@ -96,7 +96,7 @@ namespace Hover.Renderers.Contents {
 		/*--------------------------------------------------------------------------------------------*/
 		private void BuildIcon() {
 			RawImage icon = ImageComponent;
-			icon.material = Resources.Load<Material>("Materials/HoverRendererStandardIconsMaterial");
+			icon.material = Resources.Load<Material>("Materials/HoverStandardIconsMaterial");
 			icon.color = Color.white;
 			icon.raycastTarget = false;
 		}

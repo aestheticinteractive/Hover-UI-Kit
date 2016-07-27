@@ -75,7 +75,7 @@ namespace Hover.Renderers {
 			
 			if ( meshRend.sharedMaterial == null ) {
 				meshRend.sharedMaterial = Resources.Load<Material>(
-					"Materials/HoverRendererVertexColorMaterial");
+					"Materials/HoverVertexColorMaterial");
 				meshRend.sortingOrder = 0;
 			}
 		}
