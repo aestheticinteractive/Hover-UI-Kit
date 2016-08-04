@@ -1,10 +1,10 @@
-﻿using Hover.Layouts.Rect;
-using Hover.Utils;
+﻿using Hover.Items;
 using UnityEngine;
 
 namespace Hover.Interfaces.Key {
 
 	/*================================================================================================*/
+	[RequireComponent(typeof(HoverItemData))]
 	public class HoverkeyItemLabels : MonoBehaviour {
 
 		public KeyCode DefaultKey;
