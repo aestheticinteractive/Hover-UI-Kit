@@ -1,24 +1,26 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Hover.Items;
-using Hover.Layouts.Rect;
-using Hover.Utils;
-using UnityEngine;
 using Hover.Items.Types;
+using UnityEngine;
+using UnityEngine.Events;
 
 namespace Hover.Interfaces.Key {
 
 	/*================================================================================================*/
 	public class HoverkeyManager : MonoBehaviour {
 
-		public HoverLayoutRectRow Full;
-		public HoverLayoutRectRow Arrows;
-		public HoverLayoutRectRow Numpad;
-		public HoverLayoutRectRow Functions;
-		public HoverLayoutRectRow SixGroup;
-		public HoverLayoutRectRow ThreeGroup;
+		[Serializable]
+		public class HoverkeySelectedEvent : UnityEvent<ISelectableItemData, HoverkeyItemLabels> {}
+
+		[Serializable]
+		public class HoverkeyToggledEvent : UnityEvent<ISelectableItemData<bool>, HoverkeyItemLabels> {}
+
+		public HoverkeySelectedEvent OnItemSelectedEvent;
+		public HoverkeySelectedEvent OnItemDeselectedEvent;
+		public HoverkeyToggledEvent OnItemToggledEvent;
 
 		private List<HoverkeyItemLabels> vAllLabels;
-		private List<HoverkeyItemLabels> vFullLabels;
 		private IStickyItemData vShiftStickyL;
 		private IStickyItemData vShiftStickyR;
 		private ICheckboxItemData vCapsCheckbox;
@@ -41,17 +43,66 @@ namespace Hover.Interfaces.Key {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
+		public bool IsLeftShiftSelected {
+			get {
+				return vShiftStickyL.IsStickySelected;
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool IsRightShiftSelected {
+			get {
+				return vShiftStickyR.IsStickySelected;
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool IsCapsLockActive {
+			get {
+				return vCapsCheckbox.Value;
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool IsInShiftMode {
+			get {
+				return (IsLeftShiftSelected || IsRightShiftSelected || IsCapsLockActive);
+			}
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public void HandleItemSelected(ISelectableItemData pItemData) {
+			OnItemSelectedEvent.Invoke(pItemData, GetLabels(pItemData));
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void HandleItemDeselected(ISelectableItemData pItemData) {
+			OnItemDeselectedEvent.Invoke(pItemData, GetLabels(pItemData));
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void HandleItemValueChanged(ISelectableItemData<bool> pItemData) {
+			OnItemToggledEvent.Invoke(pItemData, GetLabels(pItemData));
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private HoverkeyItemLabels GetLabels(ISelectableItemData pItemData) {
+			return pItemData.gameObject.GetComponent<HoverkeyItemLabels>();
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
 		private void FillLabelLists() {
 			vAllLabels = new List<HoverkeyItemLabels>();
-			vFullLabels = new List<HoverkeyItemLabels>();
-
 			GetComponentsInChildren(vAllLabels);
-			Full.GetComponentsInChildren(vFullLabels);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void FillShiftData() {
-			foreach ( HoverkeyItemLabels label in vFullLabels ) {
+			foreach ( HoverkeyItemLabels label in vAllLabels ) {
 				switch ( label.DefaultKey ) {
 					case KeyCode.LeftShift:
 						vShiftStickyL = (label.GetComponent<HoverItemData>() as IStickyItemData);
@@ -68,17 +119,9 @@ namespace Hover.Interfaces.Key {
 			}
 		}
 
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		private bool IsInShiftMode() {
-			return (vShiftStickyL.IsStickySelected || vShiftStickyR.IsStickySelected ||
-				vCapsCheckbox.Value);
-		}
-
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateShiftLabels(bool pForceUpdate=false) {
-			bool isShiftMode = IsInShiftMode();
+			bool isShiftMode = IsInShiftMode;
 
 			if (  isShiftMode == vWasShiftMode && !pForceUpdate ) {
 				return;
