@@ -78,9 +78,15 @@ namespace Hover.Interfaces.Cast {
 		/*--------------------------------------------------------------------------------------------*/
 		private void SetScale(float pScaleFactor) {
 			HoverCursorFollower follower = GetComponent<HoverCursorFollower>();
+			Transform openTx = GetComponent<HovercastInterface>().OpenItem.transform;
 
 			for ( int i = 0 ; i < follower.ObjectsToActivate.Length ; i++ ) {
 				Transform tx = follower.ObjectsToActivate[i].transform;
+
+				if ( tx == openTx ) {
+					continue;
+				}
+
 				tx.localScale = Vector3.one*pScaleFactor;
 			}
 		}
