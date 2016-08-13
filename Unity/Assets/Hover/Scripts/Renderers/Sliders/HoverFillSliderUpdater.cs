@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Hover.Renderers.Sliders;
 using Hover.Renderers.Shapes;
 using Hover.Renderers.Utils;
 using Hover.Utils;

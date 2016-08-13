@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Hover.Layouts.Arc;
-using Hover.Items;
 using Hover.Items.Types;
+using Hover.Layouts.Arc;
 using Hover.Utils;
 using UnityEngine;
 using UnityEngine.Events;
-using Debug = UnityEngine.Debug;
 
 namespace Hover.Interfaces.Cast {
 

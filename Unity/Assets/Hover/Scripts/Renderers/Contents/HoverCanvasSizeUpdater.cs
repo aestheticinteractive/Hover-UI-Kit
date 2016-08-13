@@ -1,5 +1,4 @@
 using System;
-using Hover.Renderers.Contents;
 using Hover.Renderers.Shapes;
 using Hover.Renderers.Shapes.Arc;
 using Hover.Renderers.Shapes.Rect;

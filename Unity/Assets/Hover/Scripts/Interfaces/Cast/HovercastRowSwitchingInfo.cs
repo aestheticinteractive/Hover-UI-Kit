@@ -1,5 +1,4 @@
-﻿using Hover.Items;
-using Hover.Items.Types;
+﻿using Hover.Items.Types;
 using Hover.Layouts.Arc;
 using UnityEngine;
 
