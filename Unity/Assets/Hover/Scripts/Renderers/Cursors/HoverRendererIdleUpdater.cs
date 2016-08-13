@@ -34,7 +34,7 @@ namespace Hover.Renderers.Cursors {
 			DestroyRendererIfNecessary();
 			IdleRenderer = (IdleRenderer ?? FindOrBuildIdle());
 
-			IHoverCursorData cursorData = GetComponent<HoverCursorFollower>().GetCursorData();
+			ICursorData cursorData = GetComponent<HoverCursorFollower>().GetCursorData();
 
 			UpdatePosition(cursorData);
 			UpdateIndicator(cursorData);
@@ -62,7 +62,7 @@ namespace Hover.Renderers.Cursors {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdatePosition(IHoverCursorData pCursorData) {
+		private void UpdatePosition(ICursorData pCursorData) {
 			IdleRenderer.Controllers.Set(HoverRendererIdle.CenterPositionName, this);
 			IdleRenderer.Controllers.Set(HoverRendererIdle.DistanceThresholdName, this);
 
@@ -109,7 +109,7 @@ namespace Hover.Renderers.Cursors {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateIndicator(IHoverCursorData pCursorData) {
+		private void UpdateIndicator(ICursorData pCursorData) {
 			if ( !Application.isPlaying ) {
 				return;
 			}

@@ -8,21 +8,21 @@ namespace Hover.Cursors {
 	[ExecuteInEditMode]
 	public class HoverCursorDataProvider : MonoBehaviour {
 
-		public List<IHoverCursorData> Cursors { get; private set; }
-		public List<IHoverCursorData> ExcludedCursors { get; private set; }
+		public List<ICursorData> Cursors { get; private set; }
+		public List<ICursorData> ExcludedCursors { get; private set; }
 		
-		private readonly List<IHoverCursorDataForInput> vCursorsForInput;
-		private readonly Dictionary<CursorType, IHoverCursorDataForInput> vCursorMap;
+		private readonly List<ICursorDataForInput> vCursorsForInput;
+		private readonly Dictionary<CursorType, ICursorDataForInput> vCursorMap;
 
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public HoverCursorDataProvider() {
-			Cursors = new List<IHoverCursorData>();
-			ExcludedCursors = new List<IHoverCursorData>();
+			Cursors = new List<ICursorData>();
+			ExcludedCursors = new List<ICursorData>();
 			
-			vCursorsForInput = new List<IHoverCursorDataForInput>();
-			vCursorMap = new Dictionary<CursorType, IHoverCursorDataForInput>();
+			vCursorsForInput = new List<ICursorDataForInput>();
+			vCursorMap = new Dictionary<CursorType, ICursorDataForInput>();
 		}
 		
 
@@ -41,7 +41,7 @@ namespace Hover.Cursors {
 			vCursorMap.Clear();
 			
 			for ( int i = 0 ; i < vCursorsForInput.Count ; i++ ) {
-				IHoverCursorDataForInput cursor = vCursorsForInput[i];
+				ICursorDataForInput cursor = vCursorsForInput[i];
 				
 				if ( vCursorMap.ContainsKey(cursor.Type) ) {
 					ExcludedCursors.Add(cursor);
@@ -66,12 +66,12 @@ namespace Hover.Cursors {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		public IHoverCursorData GetCursorData(CursorType pType) {
+		public ICursorData GetCursorData(CursorType pType) {
 			return GetCursorDataForInput(pType);
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		public IHoverCursorDataForInput GetCursorDataForInput(CursorType pType) {
+		public ICursorDataForInput GetCursorDataForInput(CursorType pType) {
 			if ( !HasCursorData(pType) ) {
 				throw new Exception("No '"+pType+"' cursor was found.");
 			}

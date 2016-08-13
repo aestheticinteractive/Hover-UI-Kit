@@ -57,11 +57,11 @@ namespace Hover.Items.Managers {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateItems() {
-			List<IHoverCursorData> cursors = CursorDataProvider.Cursors;
+			List<ICursorData> cursors = CursorDataProvider.Cursors;
 			int cursorCount = cursors.Count;
 			
 			for ( int i = 0 ; i < cursorCount ; i++ ) {
-				IHoverCursorData cursor = cursors[i];
+				ICursorData cursor = cursors[i];
 				cursor.BestRaycastResult = null;
 				cursor.MaxItemHighlightProgress = 0;
 				cursor.MaxItemSelectionProgress = 0;

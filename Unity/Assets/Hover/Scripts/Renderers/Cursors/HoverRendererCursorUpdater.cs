@@ -57,7 +57,7 @@ namespace Hover.Renderers.Cursors {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateRenderer(HoverCursorFollower pFollower) {
-			IHoverCursorData cursorData = pFollower.GetCursorData();
+			ICursorData cursorData = pFollower.GetCursorData();
 			HoverIndicator cursorInd = CursorRenderer.GetIndicator();
 
 			CursorRenderer.Controllers.Set(SettingsControllerMap.GameObjectActiveSelf, this);

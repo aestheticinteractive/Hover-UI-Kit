@@ -14,7 +14,7 @@ namespace Hover.Items.Managers {
 		[Serializable]
 		public struct Highlight {
 			public bool IsNearestAcrossAllItems;
-			public IHoverCursorData Cursor;
+			public ICursorData Cursor;
 			public Vector3 NearestWorldPos;
 			public RaycastResult? RaycastResult;
 			public float Distance;
@@ -192,11 +192,11 @@ namespace Hover.Items.Managers {
 		/*--------------------------------------------------------------------------------------------*/
 		private void AddLatestHighlightsAndFindNearest() {
 			float minDist = float.MaxValue;
-			List<IHoverCursorData> cursors = CursorDataProvider.Cursors;
+			List<ICursorData> cursors = CursorDataProvider.Cursors;
 			int cursorCount = cursors.Count;
 			
 			for ( int i = 0 ; i < cursorCount ; i++ ) {
-				IHoverCursorData cursor = cursors[i];
+				ICursorData cursor = cursors[i];
 
 				if ( !cursor.CanCauseSelections ) {
 					continue;
@@ -215,7 +215,7 @@ namespace Hover.Items.Managers {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private Highlight CalculateHighlight(IHoverCursorData pCursor) {
+		private Highlight CalculateHighlight(ICursorData pCursor) {
 			var high = new Highlight();
 			high.Cursor = pCursor;
 			

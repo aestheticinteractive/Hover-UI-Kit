@@ -130,7 +130,7 @@ namespace Hover.Items.Managers {
 				return;
 			}
 
-			IHoverCursorData cursor = nearestHigh.Value.Cursor;
+			ICursorData cursor = nearestHigh.Value.Cursor;
 
 			cursor.MaxItemSelectionProgress = Mathf.Max(
 				cursor.MaxItemSelectionProgress, SelectionProgress);

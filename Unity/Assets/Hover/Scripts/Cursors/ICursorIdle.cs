@@ -3,7 +3,7 @@
 namespace Hover.Cursors {
 
 	/*================================================================================================*/
-	public interface IHoverCursorIdle {
+	public interface ICursorIdle {
 
 		float Progress { get; }
 		Vector3 WorldPosition { get; }

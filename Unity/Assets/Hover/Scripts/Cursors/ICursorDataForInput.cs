@@ -3,7 +3,7 @@
 namespace Hover.Cursors {
 
 	/*================================================================================================*/
-	public interface IHoverCursorDataForInput : IHoverCursorData {
+	public interface ICursorDataForInput : ICursorData {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -29,7 +29,7 @@ namespace Hover.Cursors {
 		void SetWorldRotation(Quaternion pWorldRotation);
 
 		/*--------------------------------------------------------------------------------------------*/
-		void SetIdle(IHoverCursorIdle pIdle);
+		void SetIdle(ICursorIdle pIdle);
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

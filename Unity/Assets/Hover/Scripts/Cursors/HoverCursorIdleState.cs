@@ -7,7 +7,7 @@ namespace Hover.Cursors {
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(HoverCursorData))]
-	public class HoverCursorIdleState : MonoBehaviour, IHoverCursorIdle {
+	public class HoverCursorIdleState : MonoBehaviour, ICursorIdle {
 
 		public struct HistoryRecord {
 			public DateTime Time;

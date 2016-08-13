@@ -41,7 +41,7 @@ namespace Hover.Items.Managers {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void ClearCursorLists() {
-			List<IHoverCursorData> cursors = CursorDataProvider.Cursors;
+			List<ICursorData> cursors = CursorDataProvider.Cursors;
 			int cursorCount = cursors.Count;
 
 			for ( int ci = 0 ; ci < cursorCount ; ci++ ) {
@@ -65,7 +65,7 @@ namespace Hover.Items.Managers {
 					continue;
 				}
 
-				IHoverCursorData cursorData = highState.NearestHighlight.Value.Cursor;
+				ICursorData cursorData = highState.NearestHighlight.Value.Cursor;
 
 				if ( cursorData.Idle.Progress >= 1 ) {
 					selData.DeselectStickySelections();

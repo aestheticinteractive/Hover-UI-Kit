@@ -35,12 +35,12 @@ namespace Hover.Editor.Input {
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void DrawCursorList(string pLabel, List<IHoverCursorData> pCursors) {
+		private void DrawCursorList(string pLabel, List<ICursorData> pCursors) {
 			EditorGUILayout.LabelField(pLabel, EditorStyles.boldLabel);
 			GUI.enabled = false;
 			
 			for ( int i = 0 ; i < pCursors.Count ; i++ ) {
-				IHoverCursorData cursor = pCursors[i];
+				ICursorData cursor = pCursors[i];
 				EditorGUILayout.ObjectField(cursor.Type+"", (Object)cursor, cursor.GetType(), true);
 			}
 			

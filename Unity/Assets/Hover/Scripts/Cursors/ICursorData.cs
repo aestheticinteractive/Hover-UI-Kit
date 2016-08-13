@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Hover.Cursors {
 
 	/*================================================================================================*/
-	public interface IHoverCursorData {
+	public interface ICursorData {
 
 		CursorType Type { get; }
 		bool IsActive { get; }
@@ -17,7 +17,7 @@ namespace Hover.Cursors {
 		float TriggerStrength { get; }
 		Vector3 WorldPosition { get; }
 		Quaternion WorldRotation { get; }
-		IHoverCursorIdle Idle { get; }
+		ICursorIdle Idle { get; }
 
 		RaycastResult? BestRaycastResult { get; set; }
 		float MaxItemHighlightProgress { get; set; }

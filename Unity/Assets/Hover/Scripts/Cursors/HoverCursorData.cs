@@ -6,7 +6,7 @@ namespace Hover.Cursors {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
-	public class HoverCursorData : MonoBehaviour, IHoverCursorDataForInput {
+	public class HoverCursorData : MonoBehaviour, ICursorDataForInput {
 		
 		public RaycastResult? BestRaycastResult { get; set; }
 		public float MaxItemHighlightProgress { get; set; }
@@ -32,7 +32,7 @@ namespace Hover.Cursors {
 		[Range(0, 1)]
 		public float _TriggerStrength = 0;
 
-		private IHoverCursorIdle vIdle;
+		private ICursorIdle vIdle;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -94,7 +94,7 @@ namespace Hover.Cursors {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public IHoverCursorIdle Idle {
+		public ICursorIdle Idle {
 			get { return vIdle; }
 		}
 
@@ -136,7 +136,7 @@ namespace Hover.Cursors {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void SetIdle(IHoverCursorIdle pIdle) {
+		public void SetIdle(ICursorIdle pIdle) {
 			vIdle = pIdle;
 		}
 
@@ -157,7 +157,7 @@ namespace Hover.Cursors {
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
 			if ( vIdle == null ) {
-				vIdle = GetComponent<IHoverCursorIdle>();
+				vIdle = GetComponent<ICursorIdle>();
 			}
 		}
 

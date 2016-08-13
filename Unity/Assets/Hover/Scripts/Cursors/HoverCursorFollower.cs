@@ -43,7 +43,7 @@ namespace Hover.Cursors {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public IHoverCursorData GetCursorData() {
+		public ICursorData GetCursorData() {
 			return CursorDataProvider.GetCursorData(CursorType);
 		}
 
@@ -66,7 +66,7 @@ namespace Hover.Cursors {
 				return;
 			}
 
-			IHoverCursorData cursor = GetCursorData();
+			ICursorData cursor = GetCursorData();
 			RaycastResult? raycast = cursor.BestRaycastResult;
 			Transform tx = gameObject.transform;
 
