@@ -150,12 +150,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Action: 2
 --- !u!114 &3650574
@@ -319,18 +319,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &25621392
 MonoBehaviour:
@@ -563,6 +563,112 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 178909469}
   m_Script: {fileID: 11500000, guid: 302d14202c5454f09a8f1386385329df, type: 3}
+--- !u!1001 &196747144
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2004573447}
+    m_Modifications:
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 184334, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 185068, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480266, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: HighlightProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480266, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: SelectionProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11449670, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: HighlightProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11449670, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: SelectionProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3339430, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11489216, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: HighlightProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11489216, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: SelectionProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3385164, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11443966, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: HighlightProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11443966, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: SelectionProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3364264, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11495430, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: HighlightProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11495430, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: SelectionProgress
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+  m_IsPrefabParent: 0
+--- !u!4 &196747145 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+  m_PrefabInternal: {fileID: 196747144}
 --- !u!1 &237594296
 GameObject:
   m_ObjectHideFlags: 0
@@ -679,104 +785,112 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!1001 &364754122
+--- !u!1001 &404062013
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 2004573447}
+    m_TransformParent: {fileID: 1901831541}
     m_Modifications:
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
       propertyPath: m_LocalRotation.z
       value: 0.7071068
       objectReference: {fileID: 0}
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
       propertyPath: m_LocalRotation.w
       value: 0.7071067
       objectReference: {fileID: 0}
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3364334, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+    - target: {fileID: 184334, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 185068, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480266, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: HighlightProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480266, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: SelectionProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11449670, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: HighlightProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11449670, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: SelectionProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3339430, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 11493642, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+    - target: {fileID: 11489216, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
       propertyPath: HighlightProgress
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 11493642, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+    - target: {fileID: 11489216, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
       propertyPath: SelectionProgress
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3356292, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+    - target: {fileID: 3385164, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 11479218, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+    - target: {fileID: 11443966, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
       propertyPath: HighlightProgress
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 11479218, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+    - target: {fileID: 11443966, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
       propertyPath: SelectionProgress
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3387414, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+    - target: {fileID: 3364264, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 11427722, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+    - target: {fileID: 11495430, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
       propertyPath: HighlightProgress
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 11427722, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: SelectionProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11453886, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: HighlightProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11453886, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: SelectionProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11463248, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: HighlightProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11463248, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+    - target: {fileID: 11495430, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
       propertyPath: SelectionProgress
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+  m_ParentPrefab: {fileID: 100100000, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
   m_IsPrefabParent: 0
---- !u!4 &364754123 stripped
+--- !u!4 &404062014 stripped
 Transform:
-  m_PrefabParentObject: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-  m_PrefabInternal: {fileID: 364754122}
+  m_PrefabParentObject: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+  m_PrefabInternal: {fileID: 404062013}
 --- !u!1 &417819525
 GameObject:
   m_ObjectHideFlags: 0
@@ -842,12 +956,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Action: 1
 --- !u!114 &417819528
@@ -986,7 +1100,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0.05}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children:
-  - {fileID: 2061193309}
+  - {fileID: 2001863730}
   m_Father: {fileID: 237594297}
   m_RootOrder: 2
 --- !u!114 &454228535
@@ -1000,7 +1114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3faee9f2c67a4d30bd52b01a870ddff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CursorRendererPrefab: {fileID: 129392, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+  CursorRendererPrefab: {fileID: 126722, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
   ClickToRebuildRenderer: 0
 --- !u!114 &454228536
 MonoBehaviour:
@@ -1113,12 +1227,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Action: 2
 --- !u!114 &595115493
@@ -1684,18 +1798,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &783704065
 MonoBehaviour:
@@ -2417,12 +2531,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Action: 1
 --- !u!114 &927321522
@@ -3096,12 +3210,12 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Action: 0
 --- !u!114 &1013279435
@@ -3251,18 +3365,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &1033958697
 MonoBehaviour:
@@ -4344,18 +4458,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &1601764838
 MonoBehaviour:
@@ -4576,18 +4690,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &1695261411
 MonoBehaviour:
@@ -4736,18 +4850,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &1755684318
 MonoBehaviour:
@@ -5508,18 +5622,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &1830001759
 MonoBehaviour:
@@ -5815,7 +5929,7 @@ Transform:
   m_LocalPosition: {x: 0.118313216, y: 0.055020627, z: 0.27210003}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children:
-  - {fileID: 1975885287}
+  - {fileID: 404062014}
   m_Father: {fileID: 237594297}
   m_RootOrder: 1
 --- !u!114 &1901831542
@@ -5829,7 +5943,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3faee9f2c67a4d30bd52b01a870ddff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CursorRendererPrefab: {fileID: 129392, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+  CursorRendererPrefab: {fileID: 126722, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
   ClickToRebuildRenderer: 0
 --- !u!114 &1901831543
 MonoBehaviour:
@@ -5863,112 +5977,112 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1babd2bcabac74a3c8ee5dcc8f7e6b96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &1975885286
+--- !u!1001 &2001863729
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1901831541}
+    m_TransformParent: {fileID: 454228534}
     m_Modifications:
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
       propertyPath: m_LocalRotation.z
       value: 0.7071068
       objectReference: {fileID: 0}
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
       propertyPath: m_LocalRotation.w
       value: 0.7071067
       objectReference: {fileID: 0}
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3364334, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11493642, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: HighlightProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11493642, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: SelectionProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3356292, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11479218, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: HighlightProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11479218, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: SelectionProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3387414, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11427722, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: HighlightProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11427722, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: SelectionProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11453886, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: HighlightProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11453886, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: SelectionProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11463248, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: HighlightProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11463248, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: SelectionProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 103950, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+    - target: {fileID: 184334, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 156284, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+    - target: {fileID: 185068, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480266, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: HighlightProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480266, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: SelectionProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11449670, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: HighlightProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11449670, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: SelectionProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3339430, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11489216, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: HighlightProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11489216, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: SelectionProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3385164, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11443966, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: HighlightProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11443966, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: SelectionProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3364264, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11495430, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: HighlightProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11495430, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: SelectionProgress
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+  m_ParentPrefab: {fileID: 100100000, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
   m_IsPrefabParent: 0
---- !u!4 &1975885287 stripped
+--- !u!4 &2001863730 stripped
 Transform:
-  m_PrefabParentObject: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-  m_PrefabInternal: {fileID: 1975885286}
+  m_PrefabParentObject: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+  m_PrefabInternal: {fileID: 2001863729}
 --- !u!1 &2004573446
 GameObject:
   m_ObjectHideFlags: 0
@@ -5986,7 +6100,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2004573447
 Transform:
   m_ObjectHideFlags: 0
@@ -5997,7 +6111,7 @@ Transform:
   m_LocalPosition: {x: -0.2, y: 0, z: 0.3}
   m_LocalScale: {x: 0.025, y: 0.025, z: 0.025}
   m_Children:
-  - {fileID: 364754123}
+  - {fileID: 196747145}
   m_Father: {fileID: 237594297}
   m_RootOrder: 0
 --- !u!114 &2004573448
@@ -6043,7 +6157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3faee9f2c67a4d30bd52b01a870ddff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CursorRendererPrefab: {fileID: 129392, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+  CursorRendererPrefab: {fileID: 126722, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
   ClickToRebuildRenderer: 0
 --- !u!1 &2006765801
 GameObject:
@@ -6098,12 +6212,12 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Action: 0
 --- !u!114 &2006765804
@@ -6386,116 +6500,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 542aa9a35c2a0b141bac2f7452dfe3ae, type: 2}
   m_IsPrefabParent: 0
---- !u!1001 &2061193308
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 454228534}
-    m_Modifications:
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071067
-      objectReference: {fileID: 0}
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3364334, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11493642, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: HighlightProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11493642, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: SelectionProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3356292, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11479218, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: HighlightProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11479218, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: SelectionProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3387414, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11427722, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: HighlightProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11427722, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: SelectionProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11453886, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: HighlightProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11453886, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: SelectionProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11463248, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: HighlightProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11463248, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: SelectionProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11469558, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: IsEnabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 103950, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 156284, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-  m_IsPrefabParent: 0
---- !u!4 &2061193309 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-  m_PrefabInternal: {fileID: 2061193308}
 --- !u!1 &2091804075
 GameObject:
   m_ObjectHideFlags: 0
@@ -6549,18 +6553,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &2091804078
 MonoBehaviour:
@@ -6789,18 +6793,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataFloat+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableFloat+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0.825
   _LabelFormat: '{0}: {1:N1}'
   _Ticks: 5

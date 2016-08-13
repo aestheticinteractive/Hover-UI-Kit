@@ -150,12 +150,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Action: 2
 --- !u!114 &3650574
@@ -267,6 +267,8 @@ MonoBehaviour:
   OuterRadius: 0.17999999
   InnerRadius: 0.12
   ArcDegrees: 12.685715
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &25621389
 GameObject:
   m_ObjectHideFlags: 0
@@ -320,18 +322,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &25621392
 MonoBehaviour:
@@ -428,6 +430,114 @@ MonoBehaviour:
   OuterRadius: 0.17999999
   InnerRadius: 0.12
   ArcDegrees: 12.685715
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}
+--- !u!1001 &161502511
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 454228534}
+    m_Modifications:
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 184334, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 185068, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480266, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: HighlightProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480266, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: SelectionProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11449670, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: HighlightProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11449670, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: SelectionProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3339430, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11489216, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: HighlightProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11489216, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: SelectionProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3385164, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11443966, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: HighlightProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11443966, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: SelectionProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3364264, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11495430, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: HighlightProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11495430, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: SelectionProgress
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+  m_IsPrefabParent: 0
+--- !u!4 &161502512 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+  m_PrefabInternal: {fileID: 161502511}
 --- !u!1 &166591464
 GameObject:
   m_ObjectHideFlags: 0
@@ -856,104 +966,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!1001 &364754122
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 2004573447}
-    m_Modifications:
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071067
-      objectReference: {fileID: 0}
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3364334, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11493642, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: HighlightProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11493642, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: SelectionProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3356292, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11479218, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: HighlightProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11479218, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: SelectionProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3387414, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11427722, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: HighlightProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11427722, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: SelectionProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11453886, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: HighlightProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11453886, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: SelectionProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11463248, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: HighlightProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11463248, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: SelectionProgress
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-  m_IsPrefabParent: 0
---- !u!4 &364754123 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-  m_PrefabInternal: {fileID: 364754122}
 --- !u!1001 &406453157
 Prefab:
   m_ObjectHideFlags: 0
@@ -1255,12 +1267,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Action: 1
 --- !u!114 &417819528
@@ -1372,6 +1384,8 @@ MonoBehaviour:
   OuterRadius: 0.17999999
   InnerRadius: 0.12
   ArcDegrees: 22.35
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &454228533
 GameObject:
   m_ObjectHideFlags: 0
@@ -1400,7 +1414,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0.05}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children:
-  - {fileID: 2061193309}
+  - {fileID: 161502512}
   m_Father: {fileID: 237594297}
   m_RootOrder: 2
 --- !u!114 &454228535
@@ -1414,7 +1428,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3faee9f2c67a4d30bd52b01a870ddff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CursorRendererPrefab: {fileID: 129392, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+  CursorRendererPrefab: {fileID: 126722, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
   ClickToRebuildRenderer: 0
 --- !u!114 &454228536
 MonoBehaviour:
@@ -1888,12 +1902,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Action: 2
 --- !u!114 &595115493
@@ -1991,6 +2005,8 @@ MonoBehaviour:
   OuterRadius: 0.17999999
   InnerRadius: 0.12
   ArcDegrees: 14.900001
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!1001 &771393681
 Prefab:
   m_ObjectHideFlags: 0
@@ -2196,18 +2212,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &783704065
 MonoBehaviour:
@@ -2304,6 +2320,114 @@ MonoBehaviour:
   OuterRadius: 0.17999999
   InnerRadius: 0.12
   ArcDegrees: 12.685715
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}
+--- !u!1001 &845169150
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1901831541}
+    m_Modifications:
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 184334, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 185068, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480266, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: HighlightProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480266, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: SelectionProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11449670, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: HighlightProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11449670, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: SelectionProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3339430, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11489216, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: HighlightProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11489216, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: SelectionProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3385164, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11443966, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: HighlightProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11443966, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: SelectionProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3364264, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11495430, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: HighlightProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11495430, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: SelectionProgress
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+  m_IsPrefabParent: 0
+--- !u!4 &845169151 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+  m_PrefabInternal: {fileID: 845169150}
 --- !u!1 &850156548
 GameObject:
   m_ObjectHideFlags: 0
@@ -2769,12 +2893,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Action: 1
 --- !u!114 &927321522
@@ -2886,6 +3010,8 @@ MonoBehaviour:
   OuterRadius: 0.17999999
   InnerRadius: 0.12
   ArcDegrees: 22.35
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &955989442 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11412156, guid: 542aa9a35c2a0b141bac2f7452dfe3ae,
@@ -3188,12 +3314,12 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Action: 0
 --- !u!114 &1013279435
@@ -3291,6 +3417,8 @@ MonoBehaviour:
   OuterRadius: 0.17999999
   InnerRadius: 0.12
   ArcDegrees: 22.35
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &1027741830
 GameObject:
   m_ObjectHideFlags: 0
@@ -3427,18 +3555,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &1033958697
 MonoBehaviour:
@@ -3535,6 +3663,8 @@ MonoBehaviour:
   OuterRadius: 0.17999999
   InnerRadius: 0.12
   ArcDegrees: 12.685715
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!1001 &1093303896
 Prefab:
   m_ObjectHideFlags: 0
@@ -4798,12 +4928,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Action: 2
 --- !u!114 &1292246293
@@ -4821,6 +4951,8 @@ MonoBehaviour:
   OuterRadius: 0.01
   InnerRadius: 0
   ArcDegrees: 360
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!1001 &1326205424
 Prefab:
   m_ObjectHideFlags: 0
@@ -5523,6 +5655,8 @@ MonoBehaviour:
   OuterRadius: 0.07
   InnerRadius: 0.01
   ArcDegrees: 90
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!1001 &1459008733
 Prefab:
   m_ObjectHideFlags: 0
@@ -6176,18 +6310,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &1601764838
 MonoBehaviour:
@@ -6284,6 +6418,8 @@ MonoBehaviour:
   OuterRadius: 0.17999999
   InnerRadius: 0.12
   ArcDegrees: 12.685715
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &1641242515
 GameObject:
   m_ObjectHideFlags: 0
@@ -6349,12 +6485,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Action: 0
 --- !u!114 &1641242518
@@ -6466,6 +6602,8 @@ MonoBehaviour:
   OuterRadius: 0.02
   InnerRadius: 0
   ArcDegrees: 360
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &1695261408
 GameObject:
   m_ObjectHideFlags: 0
@@ -6519,18 +6657,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &1695261411
 MonoBehaviour:
@@ -6627,6 +6765,8 @@ MonoBehaviour:
   OuterRadius: 0.17999999
   InnerRadius: 0.12
   ArcDegrees: 12.685715
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &1755684315
 GameObject:
   m_ObjectHideFlags: 0
@@ -6680,18 +6820,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &1755684318
 MonoBehaviour:
@@ -6788,6 +6928,8 @@ MonoBehaviour:
   OuterRadius: 0.17999999
   InnerRadius: 0.12
   ArcDegrees: 14.900001
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!1001 &1815836281
 Prefab:
   m_ObjectHideFlags: 0
@@ -7209,18 +7351,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &1830001759
 MonoBehaviour:
@@ -7317,6 +7459,8 @@ MonoBehaviour:
   OuterRadius: 0.17999999
   InnerRadius: 0.12
   ArcDegrees: 14.900001
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!1001 &1850102773
 Prefab:
   m_ObjectHideFlags: 0
@@ -7717,7 +7861,7 @@ Transform:
   m_LocalPosition: {x: 0.11831322, y: 0.055020627, z: 0.30000004}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children:
-  - {fileID: 1975885287}
+  - {fileID: 845169151}
   m_Father: {fileID: 237594297}
   m_RootOrder: 1
 --- !u!114 &1901831542
@@ -7731,7 +7875,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3faee9f2c67a4d30bd52b01a870ddff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CursorRendererPrefab: {fileID: 129392, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+  CursorRendererPrefab: {fileID: 126722, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
   ClickToRebuildRenderer: 0
 --- !u!114 &1901831543
 MonoBehaviour:
@@ -8001,112 +8145,6 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1911307663}
   m_Script: {fileID: 11500000, guid: 40bd96aa58ba1a3408c3469d64989981, type: 3}
---- !u!1001 &1975885286
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1901831541}
-    m_Modifications:
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071067
-      objectReference: {fileID: 0}
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3364334, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11493642, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: HighlightProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11493642, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: SelectionProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3356292, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11479218, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: HighlightProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11479218, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: SelectionProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3387414, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11427722, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: HighlightProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11427722, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: SelectionProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11453886, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: HighlightProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11453886, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: SelectionProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11463248, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: HighlightProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11463248, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: SelectionProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 103950, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 156284, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-  m_IsPrefabParent: 0
---- !u!4 &1975885287 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-  m_PrefabInternal: {fileID: 1975885286}
 --- !u!1 &2004573446
 GameObject:
   m_ObjectHideFlags: 0
@@ -8135,7 +8173,7 @@ Transform:
   m_LocalPosition: {x: -0.2, y: 0, z: 0.3}
   m_LocalScale: {x: 0.025, y: 0.025, z: 0.025}
   m_Children:
-  - {fileID: 364754123}
+  - {fileID: 2061406618}
   m_Father: {fileID: 237594297}
   m_RootOrder: 0
 --- !u!114 &2004573448
@@ -8181,8 +8219,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3faee9f2c67a4d30bd52b01a870ddff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CursorRendererPrefab: {fileID: 129392, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-  ClickToRebuildRenderer: 0
+  CursorRendererPrefab: {fileID: 126722, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+  ClickToRebuildRenderer: 1
 --- !u!1 &2006765801
 GameObject:
   m_ObjectHideFlags: 0
@@ -8236,12 +8274,12 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Action: 0
 --- !u!114 &2006765804
@@ -8339,6 +8377,8 @@ MonoBehaviour:
   OuterRadius: 0.17999999
   InnerRadius: 0.12
   ArcDegrees: 22.35
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!1001 &2050297226
 Prefab:
   m_ObjectHideFlags: 0
@@ -8527,116 +8567,112 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 2050297226}
   m_Script: {fileID: 11500000, guid: e301966260d08e447af6e6ac7589f6fa, type: 3}
---- !u!1001 &2061193308
+--- !u!1001 &2061406617
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 454228534}
+    m_TransformParent: {fileID: 2004573447}
     m_Modifications:
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
       propertyPath: m_LocalRotation.z
       value: 0.7071068
       objectReference: {fileID: 0}
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
       propertyPath: m_LocalRotation.w
       value: 0.7071067
       objectReference: {fileID: 0}
-    - target: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+    - target: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3364334, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11493642, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: HighlightProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11493642, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: SelectionProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3356292, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11479218, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: HighlightProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11479218, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: SelectionProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3387414, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11427722, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: HighlightProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11427722, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: SelectionProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11453886, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: HighlightProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11453886, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: SelectionProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11463248, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: HighlightProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11463248, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: SelectionProgress
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11469558, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-      propertyPath: IsEnabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 103950, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+    - target: {fileID: 184334, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 156284, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+    - target: {fileID: 185068, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480266, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: HighlightProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480266, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: SelectionProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11449670, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: HighlightProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11449670, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: SelectionProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3339430, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11489216, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: HighlightProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11489216, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: SelectionProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3385164, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11443966, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: HighlightProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11443966, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: SelectionProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3364264, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11495430, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: HighlightProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11495430, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+      propertyPath: SelectionProgress
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
+  m_ParentPrefab: {fileID: 100100000, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
   m_IsPrefabParent: 0
---- !u!4 &2061193309 stripped
+--- !u!4 &2061406618 stripped
 Transform:
-  m_PrefabParentObject: {fileID: 436524, guid: 49afed32c580f49ca9cdd46857c3f787, type: 2}
-  m_PrefabInternal: {fileID: 2061193308}
+  m_PrefabParentObject: {fileID: 480344, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
+  m_PrefabInternal: {fileID: 2061406617}
 --- !u!1001 &2073859087
 Prefab:
   m_ObjectHideFlags: 0
@@ -8969,18 +9005,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &2091804078
 MonoBehaviour:
@@ -9077,6 +9113,8 @@ MonoBehaviour:
   OuterRadius: 0.17999999
   InnerRadius: 0.12
   ArcDegrees: 12.685715
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &2096490246
 GameObject:
   m_ObjectHideFlags: 0
@@ -9210,18 +9248,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataFloat+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableFloat+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0.825
   _LabelFormat: '{0}: {1:N1}'
   _Ticks: 5
@@ -9261,3 +9299,5 @@ MonoBehaviour:
   OuterRadius: 0.17999999
   InnerRadius: 0.12
   ArcDegrees: 44.7
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}

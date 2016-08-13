@@ -1,13 +1,13 @@
-﻿Shader "HoverVR/VertColorTexTwoSided" {
+﻿Shader "HoverVR/VertColorTexTwoSidedOpaque" {
 	Properties {
 		_MainTex ("Main Texture", 2D) = "white"
 	}
 	Category {
 		Lighting Off
-		ZWrite Off
+		ZWrite On
 		Cull Off
 		Blend SrcAlpha OneMinusSrcAlpha
-		Tags {Queue=Transparent}
+		Tags {Queue=Geometry}
 		SubShader {
 			Pass {
 				BindChannels {

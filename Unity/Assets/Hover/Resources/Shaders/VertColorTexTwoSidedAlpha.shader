@@ -1,12 +1,11 @@
-﻿Shader "HoverVR/VertColorTop" {
+﻿Shader "HoverVR/VertColorTexTwoSidedAlpha" {
 	Properties {
 		_MainTex ("Main Texture", 2D) = "white"
 	}
 	Category {
 		Lighting Off
-		ZTest Always
 		ZWrite Off
-		Cull Back
+		Cull Off
 		Blend SrcAlpha OneMinusSrcAlpha
 		Tags {Queue=Transparent}
 		SubShader {
