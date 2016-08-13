@@ -1,4 +1,4 @@
-﻿#if !HOVER_IGNORE_LEAP
+﻿#if HOVER_INPUT_LEAPMOTION
 
 using System;
 using System.Collections.Generic;
@@ -81,7 +81,7 @@ namespace Hover.InputModules.LeapMotion {
 			Vector palmPos = (UseStabilizedPositions ? 
 				pLeapHand.StabilizedPalmPosition : pLeapHand.PalmPosition);
 
-			IHoverCursorDataForInput data = CursorDataProvider.GetCursorDataForInput(cursorType);
+			ICursorDataForInput data = CursorDataProvider.GetCursorDataForInput(cursorType);
 			data.SetWorldPosition(palmPos.ToVector3());
 			data.SetWorldRotation(pLeapHand.Basis.CalculateRotation()*RotationFix);
 			data.SetSize(pLeapHand.PalmWidth);
@@ -108,7 +108,7 @@ namespace Hover.InputModules.LeapMotion {
 				extendedWorldPos += (tipWorldPos-boneWorldPos).normalized*ExtendFingertipDistance;
 			}
 
-			IHoverCursorDataForInput data = CursorDataProvider.GetCursorDataForInput(cursorType);
+			ICursorDataForInput data = CursorDataProvider.GetCursorDataForInput(cursorType);
 			data.SetWorldPosition(extendedWorldPos);
 			data.SetWorldRotation(distalBone.Basis.CalculateRotation()*RotationFix);
 			data.SetSize(pLeapFinger.Width);
@@ -143,4 +143,4 @@ namespace Hover.InputModules.LeapMotion {
 
 }
 
-#endif //!HOVER_IGNORE_LEAP
+#endif //HOVER_INPUT_LEAPMOTION
