@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Hover.Layouts.Arc {
 
 	/*================================================================================================*/
-	public class HoverLayoutArcStack : HoverLayoutArcGroup, IArcLayoutable, IRectLayoutable {
+	public class HoverLayoutArcStack : HoverLayoutArcGroup, ILayoutableArc, ILayoutableRect {
 		
 		public const string OuterRadiusName = "OuterRadius";
 		public const string InnerRadiusName = "InnerRadius";
@@ -111,7 +111,7 @@ namespace Hover.Layouts.Arc {
 			for ( int i = 0 ; i < itemCount ; i++ ) {
 				int childI = (isRev ? itemCount-i-1 : i);
 				HoverLayoutArcGroupChild item = vChildItems[childI];
-				IArcLayoutable elem = item.Elem;
+				ILayoutableArc elem = item.Elem;
 				float elemRelThick = availThick*item.RelativeThickness/relSumThickness;
 				float elemRelArcAngle = availAngle*item.RelativeArcAngle;
 				float radiusOffset = elemRelThick*item.RelativeRadiusOffset;

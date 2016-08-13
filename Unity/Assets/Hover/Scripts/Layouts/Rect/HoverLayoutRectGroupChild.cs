@@ -3,13 +3,13 @@
 	/*================================================================================================*/
 	public struct HoverLayoutRectGroupChild {
 
-		public IRectLayoutable Elem { get; private set; }
+		public ILayoutableRect Elem { get; private set; }
 		public HoverLayoutRectRelativeSizer RelSizer { get; private set; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public HoverLayoutRectGroupChild(IRectLayoutable pElem, HoverLayoutRectRelativeSizer pSizer) {
+		public HoverLayoutRectGroupChild(ILayoutableRect pElem, HoverLayoutRectRelativeSizer pSizer) {
 			Elem = pElem;
 			RelSizer = pSizer;
 		}

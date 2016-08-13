@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Hover.Layouts.Rect {
 
 	/*================================================================================================*/
-	public interface IRectLayoutable {
+	public interface ILayoutableRect {
 
 		bool isActiveAndEnabled { get; }
 		Transform transform { get; }

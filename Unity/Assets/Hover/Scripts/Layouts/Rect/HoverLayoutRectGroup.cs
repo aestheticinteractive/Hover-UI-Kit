@@ -41,7 +41,7 @@ namespace Hover.Layouts.Rect {
 			vChildItems.Clear();
 
 			foreach ( Transform childTx in gameObject.transform ) {
-				IRectLayoutable elem = childTx.GetComponent<IRectLayoutable>();
+				ILayoutableRect elem = childTx.GetComponent<ILayoutableRect>();
 
 				if ( elem == null ) {
 					//Debug.LogWarning("Item '"+childTx.name+"' does not have a renderer "+

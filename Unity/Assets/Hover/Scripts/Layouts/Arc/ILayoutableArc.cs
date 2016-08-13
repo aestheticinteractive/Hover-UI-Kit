@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Hover.Layouts.Arc {
 
 	/*================================================================================================*/
-	public interface IArcLayoutable {
+	public interface ILayoutableArc {
 
 		bool isActiveAndEnabled { get; }
 		Transform transform { get; }

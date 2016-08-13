@@ -37,13 +37,13 @@ namespace Hover.Layouts.Arc {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public int GetChildOrder(IArcLayoutable pFirst, IArcLayoutable pSecond) {
+		public int GetChildOrder(ILayoutableArc pFirst, ILayoutableArc pSecond) {
 			int firstIndex = -1;
 			int secondIndex = -1;
 			int i = 0;
 
 			foreach ( Transform childTx in gameObject.transform ) {
-				IArcLayoutable elem = childTx.GetComponent<IArcLayoutable>();
+				ILayoutableArc elem = childTx.GetComponent<ILayoutableArc>();
 
 				if ( elem == pFirst ) {
 					firstIndex = i;
@@ -70,7 +70,7 @@ namespace Hover.Layouts.Arc {
 			vChildItems.Clear();
 
 			foreach ( Transform childTx in gameObject.transform ) {
-				IArcLayoutable elem = childTx.GetComponent<IArcLayoutable>();
+				ILayoutableArc elem = childTx.GetComponent<ILayoutableArc>();
 
 				if ( elem == null ) {
 					//Debug.LogWarning("Item '"+childTx.name+"' does not have a renderer "+

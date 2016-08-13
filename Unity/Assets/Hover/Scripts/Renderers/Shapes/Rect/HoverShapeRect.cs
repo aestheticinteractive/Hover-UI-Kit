@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Hover.Renderers.Shapes.Rect {
 
 	/*================================================================================================*/
-	public class HoverShapeRect : HoverShape, IRectLayoutable {
+	public class HoverShapeRect : HoverShape, ILayoutableRect {
 		
 		public const string SizeXName = "SizeX";
 		public const string SizeYName = "SizeY";

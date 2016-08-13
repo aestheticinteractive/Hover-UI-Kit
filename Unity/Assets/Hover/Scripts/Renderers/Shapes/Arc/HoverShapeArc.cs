@@ -8,7 +8,7 @@ using UnityEngine;
 namespace Hover.Renderers.Shapes.Arc {
 
 	/*================================================================================================*/
-	public class HoverShapeArc : HoverShape, IArcLayoutable, IRectLayoutable {
+	public class HoverShapeArc : HoverShape, ILayoutableArc, ILayoutableRect {
 		
 		public const string OuterRadiusName = "OuterRadius";
 		public const string InnerRadiusName = "InnerRadius";

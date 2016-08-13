@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Hover.Layouts.Rect {
 
 	/*================================================================================================*/
-	public class HoverLayoutRectRow : HoverLayoutRectGroup, IRectLayoutable {
+	public class HoverLayoutRectRow : HoverLayoutRectGroup, ILayoutableRect {
 
 		public const string SizeXName = "SizeX";
 		public const string SizeYName = "SizeY";
@@ -120,7 +120,7 @@ namespace Hover.Layouts.Rect {
 			for ( int i = 0 ; i < itemCount ; i++ ) {
 				int childI = (isRev ? itemCount-i-1 : i);
 				HoverLayoutRectGroupChild item = vChildItems[childI];
-				IRectLayoutable elem = item.Elem;
+				ILayoutableRect elem = item.Elem;
 
 				Vector3 localPos = elem.transform.localPosition;
 				float elemRelSizeX = elemAvailSizeX*item.RelativeSizeX/(isHoriz ? relSumX : 1);
