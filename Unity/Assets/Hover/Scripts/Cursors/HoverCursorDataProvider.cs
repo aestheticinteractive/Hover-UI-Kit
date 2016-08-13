@@ -22,7 +22,7 @@ namespace Hover.Cursors {
 			ExcludedCursors = new List<ICursorData>();
 			
 			vCursorsForInput = new List<ICursorDataForInput>();
-			vCursorMap = new Dictionary<CursorType, ICursorDataForInput>();
+			vCursorMap = new Dictionary<CursorType, ICursorDataForInput>(new CursorTypeComparer());
 		}
 		
 

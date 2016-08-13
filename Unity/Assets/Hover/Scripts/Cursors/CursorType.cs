@@ -1,4 +1,6 @@
-﻿namespace Hover.Cursors {
+﻿using System.Collections.Generic;
+
+namespace Hover.Cursors {
 
 	/*================================================================================================*/
 	public enum CursorType {
@@ -17,6 +19,24 @@
 		RightPinky,
 
 		Look
+	}
+
+
+	/*================================================================================================*/
+	public struct CursorTypeComparer : IEqualityComparer<CursorType> {
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public bool Equals(CursorType pTypeA, CursorType pTypeB) {
+			return pTypeA == pTypeB;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public int GetHashCode(CursorType pType) {
+			return (int)pType;
+		}
+
 	}
 
 }

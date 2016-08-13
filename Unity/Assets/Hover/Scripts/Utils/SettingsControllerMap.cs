@@ -47,17 +47,19 @@ namespace Hover.Utils {
 				return;
 			}
 
-			var expCont = new ExpirableController();
-			expCont.Controller = pController;
-			expCont.ExpireCount = pExpirationCount;
+			ExpirableController expCont;
 
 			if ( vMap.ContainsKey(pValueName) ) {
-				vMap[pValueName] = expCont;
+				expCont = vMap[pValueName];
 			}
 			else {
+				expCont = new ExpirableController();
 				vMap.Add(pValueName, expCont);
 				vKeys.Add(pValueName);
 			}
+
+			expCont.Controller = pController;
+			expCont.ExpireCount = pExpirationCount;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

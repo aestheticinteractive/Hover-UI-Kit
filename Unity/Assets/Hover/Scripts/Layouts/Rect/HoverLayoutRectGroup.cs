@@ -40,7 +40,10 @@ namespace Hover.Layouts.Rect {
 		protected virtual void FillChildItemsList() {
 			vChildItems.Clear();
 
-			foreach ( Transform childTx in gameObject.transform ) {
+			int childCount = transform.childCount;
+
+			for ( int i = 0 ; i < childCount ; i++ ) {
+				Transform childTx = transform.GetChild(i);
 				ILayoutableRect elem = childTx.GetComponent<ILayoutableRect>();
 
 				if ( elem == null ) {

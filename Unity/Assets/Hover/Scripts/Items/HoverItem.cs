@@ -143,13 +143,15 @@ namespace Hover.Items {
 		/*--------------------------------------------------------------------------------------------*/
 		private bool FindDuplicateData() {
 			HoverItem[] items = FindObjectsOfType<HoverItem>();
-			
-			foreach ( HoverItem item in items ) {
+
+			for ( int i = 0 ; i < items.Length ; i++ ) {
+				HoverItem item = items[i];
+
 				if ( item != this && item.Data == _Data ) {
 					return true;
 				}
 			}
-			
+
 			return false;
 		}
 		

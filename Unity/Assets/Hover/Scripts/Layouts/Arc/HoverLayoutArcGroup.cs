@@ -36,40 +36,15 @@ namespace Hover.Layouts.Arc {
 		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public int GetChildOrder(ILayoutableArc pFirst, ILayoutableArc pSecond) {
-			int firstIndex = -1;
-			int secondIndex = -1;
-			int i = 0;
-
-			foreach ( Transform childTx in gameObject.transform ) {
-				ILayoutableArc elem = childTx.GetComponent<ILayoutableArc>();
-
-				if ( elem == pFirst ) {
-					firstIndex = i;
-				}
-
-				if ( elem == pSecond ) {
-					secondIndex = i;
-				}
-
-				if ( firstIndex != -1 && secondIndex != -1 ) {
-					return firstIndex.CompareTo(secondIndex);
-				}
-
-				i++;
-			}
-
-			return 0;
-		}
-
-		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected virtual void FillChildItemsList() {
 			vChildItems.Clear();
 
-			foreach ( Transform childTx in gameObject.transform ) {
+			int childCount = transform.childCount;
+
+			for ( int i = 0 ; i < childCount ; i++ ) {
+				Transform childTx = transform.GetChild(i);
 				ILayoutableArc elem = childTx.GetComponent<ILayoutableArc>();
 
 				if ( elem == null ) {

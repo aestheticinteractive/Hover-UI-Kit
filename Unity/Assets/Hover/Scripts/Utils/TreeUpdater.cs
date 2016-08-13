@@ -6,7 +6,10 @@ namespace Hover.Utils {
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	public class TreeUpdater : MonoBehaviour {
-		
+
+		//NOTE: use this with renamed ITreeUpdateable "TreeUpdate()" => "Update()"
+		//private const bool IsProfilingMode = false;
+
 		public bool DidTreeUpdateThisFrame { get; private set; }
 		public TreeUpdater TreeParentThisFrame { get; private set; }
 		public int TreeDepthLevelThisFrame { get; private set; }
@@ -27,6 +30,10 @@ namespace Hover.Utils {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
+			/*if ( IsProfilingMode && Application.isPlaying ) {
+				return;
+			}*/
+
 			if ( DidTreeUpdateThisFrame ) {
 				return;
 			}
@@ -80,28 +87,31 @@ namespace Hover.Utils {
 				return;
 			}
 
-			gameObject.GetComponents<ITreeUpdateable>(TreeUpdatablesThisFrame);
+			gameObject.GetComponents(TreeUpdatablesThisFrame);
 			FindTreeChildren();
 
 			for ( int i = 0 ; i < TreeUpdatablesThisFrame.Count ; i++ ) {
-				ITreeUpdateable treeUpdatable = TreeUpdatablesThisFrame[i];
-				
-				if ( !treeUpdatable.isActiveAndEnabled ) {
+				ITreeUpdateable treeUp = TreeUpdatablesThisFrame[i];
+
+				if ( !treeUp.isActiveAndEnabled ) {
 					continue;
 				}
-				
-				treeUpdatable.TreeUpdate();
+
+				treeUp.TreeUpdate();
 			}
-			
+
 			DidTreeUpdateThisFrame = true;
 			TreeDepthLevelThisFrame = pDepth;
 		}
-		
+
 		/*--------------------------------------------------------------------------------------------*/
 		private void FindTreeChildren() {
 			TreeChildrenThisFrame.Clear();
+
+			int childCount = transform.childCount;
 			
-			foreach ( Transform childTx in transform ) {
+			for ( int i = 0 ; i < childCount ; i++ ) {
+				Transform childTx = transform.GetChild(i);
 				TreeUpdater childTreeUp = childTx.GetComponent<TreeUpdater>();
 				
 				if ( childTreeUp == null ) {

@@ -32,8 +32,8 @@ namespace Hover.Items.Managers {
 
 			itemsMan.FillListWithAllItems(vItemsBuffer);
 
-			foreach ( HoverItem item in vItemsBuffer ) {
-				AddItemListeners(item);
+			for ( int i = 0 ; i < vItemsBuffer.Count ; i++ ) {
+				AddItemListeners(vItemsBuffer[i]);
 			}
 		}
 

@@ -81,7 +81,10 @@ namespace Hover.Renderers.Utils {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private static T FindInImmediateChildren<T>(Transform pParentTx) where T : IGameObjectProvider {
-			foreach ( Transform childTx in pParentTx ) {
+			int childCount = pParentTx.childCount;
+
+			for ( int i = 0 ; i < childCount ; i++ ) {
+				Transform childTx = pParentTx.GetChild(i);
 				T renderer = childTx.GetComponent<T>();
 				
 				if ( renderer != null ) {

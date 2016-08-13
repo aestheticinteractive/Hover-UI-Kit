@@ -129,8 +129,9 @@ namespace Hover.Interfaces.Key {
 
 			vWasShiftMode = isShiftMode;
 
-			foreach ( HoverkeyItemLabels label in vAllLabels ) {
-				label.GetComponent<HoverItemData>().Label = 
+			for ( int i = 0 ; i < vAllLabels.Count ; i++ ) {
+				HoverkeyItemLabels label = vAllLabels[i];
+				label.GetComponent<HoverItemData>().Label =
 					(isShiftMode && label.HasShiftLabel ? label.ShiftLabel : label.DefaultLabel);
 			}
 		}

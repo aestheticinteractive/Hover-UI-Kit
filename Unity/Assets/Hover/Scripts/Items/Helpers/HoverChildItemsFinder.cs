@@ -48,7 +48,10 @@ namespace Hover.Items.Helpers {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void FillChildItemsList(Transform pParentTx) {
-			foreach ( Transform childTx in pParentTx ) {
+			int childCount = pParentTx.childCount;
+
+			for ( int i = 0 ; i < childCount ; i++ ) {
+				Transform childTx = pParentTx.GetChild(i);
 				HoverItemData item = childTx.GetComponent<HoverItemData>();
 
 				if ( item != null ) {
