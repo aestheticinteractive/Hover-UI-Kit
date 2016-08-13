@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Hover.Cursors;
+using Hover.Items.Types;
 using Hover.Renderers;
 using UnityEngine;
 
@@ -52,7 +53,7 @@ namespace Hover.Items.Managers {
 		private void FillCursorLists() {
 			for ( int i = 0 ; i < vItemDatas.Count ; i++ ) {
 				HoverItemData data = vItemDatas[i];
-				ISelectableItemData selData = (data as ISelectableItemData);
+				IItemDataSelectable selData = (data as IItemDataSelectable);
 
 				if ( selData == null || !selData.IsStickySelected ) {
 					continue;

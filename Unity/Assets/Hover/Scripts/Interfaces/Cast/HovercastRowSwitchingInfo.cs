@@ -1,4 +1,5 @@
 ﻿using Hover.Items;
+using Hover.Items.Types;
 using Hover.Layouts.Arc;
 using UnityEngine;
 
@@ -6,7 +7,7 @@ namespace Hover.Interfaces.Cast {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
-	[RequireComponent(typeof(SelectableItemData))]
+	[RequireComponent(typeof(HoverItemDataSelectable))]
 	public class HovercastRowSwitchingInfo : MonoBehaviour {
 
 		public enum RowEntryType {

@@ -1,7 +1,7 @@
-﻿namespace Hover.Items {
+﻿namespace Hover.Items.Types {
 
 	/*================================================================================================*/
-	public interface ISelectableItemData : IBaseItemData {
+	public interface IItemDataSelectable : IItemData {
 
 		event ItemEvents.SelectedHandler OnSelected;
 		event ItemEvents.DeselectedHandler OnDeselected;

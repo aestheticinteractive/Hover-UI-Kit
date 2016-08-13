@@ -11,19 +11,19 @@ namespace Hover.Interfaces.Key {
 	public class HoverkeyManager : MonoBehaviour {
 
 		[Serializable]
-		public class HoverkeySelectedEvent : UnityEvent<ISelectableItemData, HoverkeyItemLabels> {}
+		public class HoverkeySelectedEvent : UnityEvent<IItemDataSelectable, HoverkeyItemLabels> {}
 
 		[Serializable]
-		public class HoverkeyToggledEvent : UnityEvent<ISelectableItemData<bool>, HoverkeyItemLabels> {}
+		public class HoverkeyToggledEvent : UnityEvent<IItemDataSelectable<bool>, HoverkeyItemLabels> {}
 
 		public HoverkeySelectedEvent OnItemSelectedEvent;
 		public HoverkeySelectedEvent OnItemDeselectedEvent;
 		public HoverkeyToggledEvent OnItemToggledEvent;
 
 		private List<HoverkeyItemLabels> vAllLabels;
-		private IStickyItemData vShiftStickyL;
-		private IStickyItemData vShiftStickyR;
-		private ICheckboxItemData vCapsCheckbox;
+		private IItemDataSticky vShiftStickyL;
+		private IItemDataSticky vShiftStickyR;
+		private IItemDataCheckbox vCapsCheckbox;
 		private bool vWasShiftMode;
 
 
@@ -73,24 +73,24 @@ namespace Hover.Interfaces.Key {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void HandleItemSelected(ISelectableItemData pItemData) {
+		public void HandleItemSelected(IItemDataSelectable pItemData) {
 			OnItemSelectedEvent.Invoke(pItemData, GetLabels(pItemData));
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void HandleItemDeselected(ISelectableItemData pItemData) {
+		public void HandleItemDeselected(IItemDataSelectable pItemData) {
 			OnItemDeselectedEvent.Invoke(pItemData, GetLabels(pItemData));
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void HandleItemValueChanged(ISelectableItemData<bool> pItemData) {
+		public void HandleItemValueChanged(IItemDataSelectable<bool> pItemData) {
 			OnItemToggledEvent.Invoke(pItemData, GetLabels(pItemData));
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private HoverkeyItemLabels GetLabels(ISelectableItemData pItemData) {
+		private HoverkeyItemLabels GetLabels(IItemDataSelectable pItemData) {
 			return pItemData.gameObject.GetComponent<HoverkeyItemLabels>();
 		}
 		
@@ -105,15 +105,15 @@ namespace Hover.Interfaces.Key {
 			foreach ( HoverkeyItemLabels label in vAllLabels ) {
 				switch ( label.DefaultKey ) {
 					case KeyCode.LeftShift:
-						vShiftStickyL = (label.GetComponent<HoverItemData>() as IStickyItemData);
+						vShiftStickyL = label.GetComponent<HoverItemDataSticky>();
 						break;
 
 					case KeyCode.RightShift:
-						vShiftStickyR = (label.GetComponent<HoverItemData>() as IStickyItemData);
+						vShiftStickyR = label.GetComponent<HoverItemDataSticky>();
 						break;
 
 					case KeyCode.CapsLock:
-						vCapsCheckbox = (label.GetComponent<HoverItemData>() as ICheckboxItemData);
+						vCapsCheckbox = label.GetComponent<HoverItemDataCheckbox>();
 						break;
 				}
 			}

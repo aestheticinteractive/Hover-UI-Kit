@@ -5,9 +5,9 @@ namespace Hover.Items.Types {
 
 	/*================================================================================================*/
 	[Serializable]
-	public class HoverItemDataSlider : SelectableItemDataFloat, ISliderItemData {
+	public class HoverItemDataSlider : HoverItemDataSelectableFloat, IItemDataSlider {
 
-		public Func<ISliderItemData, string> GetFormattedLabel { get; set; }
+		public Func<IItemDataSlider, string> GetFormattedLabel { get; set; }
 
 		[SerializeField]
 		private string _LabelFormat = "{0}: {1:N1}";

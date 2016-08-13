@@ -61,7 +61,7 @@ namespace Hover.Interfaces.Cast {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateItem(HoverItemData pItemData, bool pPreventHighlight) {
+		private void UpdateItem(IItemData pItemData, bool pPreventHighlight) {
 			HoverItemHighlightState highState = pItemData.gameObject
 				.GetComponent<HoverItemHighlightState>();
 

@@ -4,7 +4,7 @@ namespace Hover.Items.Types {
 
 	/*================================================================================================*/
 	[Serializable]
-	public class HoverItemDataSelector : SelectableItemData, ISelectorItemData {
+	public class HoverItemDataSelector : HoverItemDataSelectable, IItemDataSelector {
 		
 		public SelectorActionType _Action = SelectorActionType.Default;
 		

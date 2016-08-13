@@ -1,5 +1,6 @@
 using System;
 using Hover.Cursors;
+using Hover.Items.Types;
 using UnityEngine;
 
 namespace Hover.Items.Managers {
@@ -34,7 +35,7 @@ namespace Hover.Items.Managers {
 			}
 			
 			HoverItemData itemData = GetComponent<HoverItem>().Data;
-			ISelectableItemData selData = (itemData as ISelectableItemData);
+			IItemDataSelectable selData = (itemData as IItemDataSelectable);
 			
 			vSelectionStart = null;
 			
@@ -49,7 +50,7 @@ namespace Hover.Items.Managers {
 
 			if ( vSelectionStart == null ) {
 				HoverItemData itemData = GetComponent<HoverItem>().Data;
-				ISelectableItemData selData = (itemData as ISelectableItemData);
+				IItemDataSelectable selData = (itemData as IItemDataSelectable);
 
 				if ( selData == null || !selData.IsStickySelected ) {
 					SelectionProgress = 0;
@@ -71,7 +72,7 @@ namespace Hover.Items.Managers {
 		/*--------------------------------------------------------------------------------------------*/
 		private bool UpdateState() {
 			HoverItemData itemData = GetComponent<HoverItem>().Data;
-			ISelectableItemData selData = (itemData as ISelectableItemData);
+			IItemDataSelectable selData = (itemData as IItemDataSelectable);
 
 			if ( selData == null ) {
 				return false;

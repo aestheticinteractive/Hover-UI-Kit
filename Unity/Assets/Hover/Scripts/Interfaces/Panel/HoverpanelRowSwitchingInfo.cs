@@ -1,4 +1,5 @@
 ﻿using Hover.Items;
+using Hover.Items.Types;
 using Hover.Layouts.Rect;
 using UnityEngine;
 
@@ -6,7 +7,7 @@ namespace Hover.Interfaces.Panel {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
-	[RequireComponent(typeof(SelectableItemData))]
+	[RequireComponent(typeof(HoverItemDataSelectable))]
 	public class HoverpanelRowSwitchingInfo : MonoBehaviour {
 
 		public enum RowEntryType {

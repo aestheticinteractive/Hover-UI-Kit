@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Hover.Items;
+using Hover.Items.Types;
 using Hover.Layouts.Rect;
 using Hover.Utils;
 using UnityEngine;
@@ -52,7 +53,7 @@ namespace Hover.Interfaces.Panel {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void OnRowSwitched(ISelectableItemData pItemData) {
+		public void OnRowSwitched(IItemDataSelectable pItemData) {
 			HoverpanelRowSwitchingInfo switchInfo = 
 				pItemData.gameObject.GetComponent<HoverpanelRowSwitchingInfo>();
 

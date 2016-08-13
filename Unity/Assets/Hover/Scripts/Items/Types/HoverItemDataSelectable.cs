@@ -1,14 +1,14 @@
 ﻿using System;
 using UnityEngine.Events;
 
-namespace Hover.Items {
+namespace Hover.Items.Types {
 
 	/*================================================================================================*/
 	[Serializable]
-	public abstract class SelectableItemData : HoverItemData, ISelectableItemData {
+	public abstract class HoverItemDataSelectable : HoverItemData, IItemDataSelectable {
 		
 		[Serializable]
-		public class SelectedEventHandler : UnityEvent<ISelectableItemData> {}
+		public class SelectedEventHandler : UnityEvent<IItemDataSelectable> {}
 		
 		public bool IsStickySelected { get; private set; }
 
@@ -21,7 +21,7 @@ namespace Hover.Items {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected SelectableItemData() {
+		protected HoverItemDataSelectable() {
 			OnSelected += (x => { OnSelectedEvent.Invoke(x); });
 			OnDeselected += (x => { OnDeselectedEvent.Invoke(x); });
 		}

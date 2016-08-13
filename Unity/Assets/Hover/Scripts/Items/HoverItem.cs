@@ -170,8 +170,8 @@ namespace Hover.Items {
 			newData.IsEnabled = oldData.IsEnabled;
 			newData.IsVisible = oldData.IsVisible;
 
-			SelectableItemData oldSelData = (oldData as SelectableItemData);
-			SelectableItemData newSelData = (newData as SelectableItemData);
+			HoverItemDataSelectable oldSelData = (oldData as HoverItemDataSelectable);
+			HoverItemDataSelectable newSelData = (newData as HoverItemDataSelectable);
 
 			if ( oldSelData == null || newSelData == null ) {
 				return newData;
@@ -182,8 +182,8 @@ namespace Hover.Items {
 			//newSelData.OnSelected += oldSelData.OnSelected;
 			//newSelData.OnDeselected += oldSelData.OnDeselected;
 			
-			SelectableItemDataBool oldSelBoolData = (oldData as SelectableItemDataBool);
-			SelectableItemDataBool newSelBoolData = (newData as SelectableItemDataBool);
+			HoverItemDataSelectableBool oldSelBoolData = (oldData as HoverItemDataSelectableBool);
+			HoverItemDataSelectableBool newSelBoolData = (newData as HoverItemDataSelectableBool);
 
 			if ( oldSelBoolData != null && newSelBoolData != null ) {
 				newSelBoolData.Value = oldSelBoolData.Value;
@@ -191,8 +191,8 @@ namespace Hover.Items {
 				//newSelBoolData.OnValueChanged += oldSelBoolData.OnValueChanged;
 			}
 
-			SelectableItemDataFloat oldSelFloatData = (oldData as SelectableItemDataFloat);
-			SelectableItemDataFloat newSelFloatData = (newData as SelectableItemDataFloat);
+			HoverItemDataSelectableFloat oldSelFloatData = (oldData as HoverItemDataSelectableFloat);
+			HoverItemDataSelectableFloat newSelFloatData = (newData as HoverItemDataSelectableFloat);
 
 			if ( oldSelFloatData != null && newSelFloatData != null ) {
 				newSelFloatData.Value = oldSelFloatData.Value;
@@ -253,19 +253,19 @@ namespace Hover.Items {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private IBaseItemData[] GetChildItems() {
+		private IItemData[] GetChildItems() {
 			return GetChildItemsFromGameObject(gameObject);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private static IBaseItemData[] GetChildItemsFromGameObject(GameObject pParentObj) {
+		private static IItemData[] GetChildItemsFromGameObject(GameObject pParentObj) {
 			Transform tx = pParentObj.transform;
 			int childCount = tx.childCount;
-			var items = new List<IBaseItemData>();
+			var items = new List<IItemData>();
 			
 			for ( int i = 0 ; i < childCount ; ++i ) {
 				HoverItem hni = tx.GetChild(i).GetComponent<HoverItem>();
-				IBaseItemData item = hni.Data;
+				IItemData item = hni.Data;
 
 				if ( !item.IsVisible ) {
 					continue;

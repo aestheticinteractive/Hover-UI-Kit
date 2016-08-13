@@ -5,7 +5,7 @@ namespace Hover.Items.Types {
 
 	/*================================================================================================*/
 	[Serializable]
-	public class HoverItemDataRadio : SelectableItemDataBool, IRadioItemData {
+	public class HoverItemDataRadio : HoverItemDataSelectableBool, IItemDataRadio {
 		
 		[SerializeField]
 		private string _DefaultGroupId;
@@ -22,7 +22,7 @@ namespace Hover.Items.Types {
 				return;
 			}
 
-			HoverItemData parentData = pParentTx.GetComponent<HoverItemData>();
+			IItemData parentData = pParentTx.GetComponent<IItemData>();
 
 			if ( parentData != null ) {
 				_DefaultGroupId = "Group-"+parentData.AutoId;

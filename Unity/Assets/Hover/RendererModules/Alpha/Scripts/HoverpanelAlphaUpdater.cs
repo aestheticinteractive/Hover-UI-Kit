@@ -14,13 +14,13 @@ namespace Hover.RendererModules.Alpha {
 	[RequireComponent(typeof(HoverpanelRowTransitioner))]
 	public class HoverpanelAlphaUpdater : MonoBehaviour, ITreeUpdateable, ISettingsController {
 
-		private readonly List<HoverItemData> vItemDataResults;
+		private readonly List<IItemData> vItemDataResults;
 		
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public HoverpanelAlphaUpdater() {
-			vItemDataResults = new List<HoverItemData>();
+			vItemDataResults = new List<IItemData>();
 		}
 
 
@@ -60,7 +60,7 @@ namespace Hover.RendererModules.Alpha {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void FadeItem(HoverItemData pItemData, float pAlpha) {
+		private void FadeItem(IItemData pItemData, float pAlpha) {
 			HoverAlphaRendererUpdater rendUp = 
 				pItemData.gameObject.GetComponentInChildren<HoverAlphaRendererUpdater>();
 

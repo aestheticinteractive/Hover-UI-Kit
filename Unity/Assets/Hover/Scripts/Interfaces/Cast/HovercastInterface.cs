@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Hover.Layouts.Arc;
 using Hover.Items;
+using Hover.Items.Types;
 using Hover.Utils;
 using UnityEngine;
 using UnityEngine.Events;
@@ -20,9 +21,9 @@ namespace Hover.Interfaces.Cast {
 		public Transform RowContainer;
 		public HoverLayoutArcRow ActiveRow;
 		public HoverLayoutArcRow PreviousRow;
-		public HoverItemData OpenItem;
-		public HoverItemData TitleItem;
-		public HoverItemData BackItem;
+		public HoverItemDataSelector OpenItem;
+		public HoverItemDataText TitleItem;
+		public HoverItemDataSelector BackItem;
 		public bool IsOpen = true;
 
 		public UnityEvent OnOpenToggledEvent;
@@ -66,13 +67,13 @@ namespace Hover.Interfaces.Cast {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void OnOpenToggled(ISelectableItemData pItemData) {
+		public void OnOpenToggled(IItemDataSelectable pItemData) {
 			IsOpen = !IsOpen;
 			OnOpenToggledEvent.Invoke();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void OnRowSwitched(ISelectableItemData pItemData) {
+		public void OnRowSwitched(IItemDataSelectable pItemData) {
 			HovercastRowSwitchingInfo switchInfo = 
 				pItemData.gameObject.GetComponent<HovercastRowSwitchingInfo>();
 

@@ -53,7 +53,7 @@ namespace Hover.Items.Managers {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void AddRadioDataListeners(HoverItem pItem) {
-			IRadioItemData radData = (pItem.Data as IRadioItemData);
+			IItemDataRadio radData = (pItem.Data as IItemDataRadio);
 
 			if ( radData != null ) {
 				radData.OnValueChanged += HandleRadioValueChanged;
@@ -62,7 +62,7 @@ namespace Hover.Items.Managers {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void RemoveRadioDataListeners(HoverItem pItem) {
-			IRadioItemData radData = (pItem.Data as IRadioItemData);
+			IItemDataRadio radData = (pItem.Data as IItemDataRadio);
 
 			if ( radData != null ) {
 				radData.OnValueChanged -= HandleRadioValueChanged;
@@ -70,8 +70,8 @@ namespace Hover.Items.Managers {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void HandleRadioValueChanged(ISelectableItemData<bool> pSelData) {
-			IRadioItemData radData = (IRadioItemData)pSelData;
+		private void HandleRadioValueChanged(IItemDataSelectable<bool> pSelData) {
+			IItemDataRadio radData = (IItemDataRadio)pSelData;
 
 			if ( !radData.Value ) {
 				return;
@@ -83,19 +83,19 @@ namespace Hover.Items.Managers {
 			
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void DeselectRemainingRadioGroupMembers(IRadioItemData pRadioData) {
+		private void DeselectRemainingRadioGroupMembers(IItemDataRadio pRadioData) {
 			HoverItemsManager itemsMan = GetComponent<HoverItemsManager>();
 			string groupId = pRadioData.GroupId;
 
 			Func<HoverItem, bool> filter = (tryItem => {
-				IRadioItemData match = (tryItem.Data as IRadioItemData);
+				IItemDataRadio match = (tryItem.Data as IItemDataRadio);
 				return (match != null && match != pRadioData && match.GroupId == groupId);
 			});
 
 			itemsMan.FillListWithMatchingItems(vItemsBuffer, filter);
 
 			for ( int i = 0 ; i < vItemsBuffer.Count ; i++ ) {
-				((IRadioItemData)vItemsBuffer[i].Data).Value = false;
+				((IItemDataRadio)vItemsBuffer[i].Data).Value = false;
 			}
 		}
 

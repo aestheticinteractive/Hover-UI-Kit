@@ -2,33 +2,34 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Hover.Items {
+namespace Hover.Items.Types {
 
 	/*================================================================================================*/
 	[Serializable]
-	public abstract class SelectableItemDataFloat : SelectableItemData, ISelectableItemData<float> {
+	public abstract class HoverItemDataSelectableBool : 
+													HoverItemDataSelectable, IItemDataSelectable<bool> {
 		
 		[Serializable]
-		public class ValueChangedEventHandler : UnityEvent<ISelectableItemData<float>> { }
-
+		public class ValueChangedEventHandler : UnityEvent<IItemDataSelectable<bool>> {}
+		
 		public ValueChangedEventHandler OnValueChangedEvent = new ValueChangedEventHandler();
 
-		public event ItemEvents.ValueChangedHandler<float> OnValueChanged;
+		public event ItemEvents.ValueChangedHandler<bool> OnValueChanged;
 
 		[SerializeField]
-		protected float _Value = 0;
+		protected bool _Value = false;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected SelectableItemDataFloat() {
+		protected HoverItemDataSelectableBool() {
 			OnValueChanged += (x => { OnValueChangedEvent.Invoke(x); });
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual float Value {
+		public virtual bool Value {
 			get {
 				return _Value;
 			}

@@ -1,7 +1,9 @@
 ﻿namespace Hover.Items.Types {
 
 	/*================================================================================================*/
-	public interface IStickyItemData : ISelectableItemData {
+	public interface IItemDataSelector : IItemDataSelectable {
+
+		SelectorActionType Action { get; set; }
 
 	}
 

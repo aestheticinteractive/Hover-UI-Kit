@@ -3,7 +3,7 @@
 namespace Hover.Items {
 
 	/*================================================================================================*/
-	public abstract class HoverItemData : MonoBehaviour, IBaseItemData {
+	public abstract class HoverItemData : MonoBehaviour, IItemData {
 		
 		private static int ItemCount;
 

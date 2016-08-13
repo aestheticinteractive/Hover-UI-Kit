@@ -1,7 +1,7 @@
 ﻿namespace Hover.Items.Types {
 
 	/*================================================================================================*/
-	public interface ICheckboxItemData : ISelectableItemData<bool> {
+	public interface IItemDataSticky : IItemDataSelectable {
 
 	}
 

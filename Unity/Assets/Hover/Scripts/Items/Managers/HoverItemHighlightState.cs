@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Hover.Cursors;
+using Hover.Items.Types;
 using Hover.Renderers;
 using UnityEngine;
 
@@ -102,7 +103,7 @@ namespace Hover.Items.Managers {
 		/*--------------------------------------------------------------------------------------------*/
 		public float MaxHighlightProgress {
 			get {
-				ISelectableItemData selData = (GetComponent<HoverItemData>() as ISelectableItemData);
+				IItemDataSelectable selData = (GetComponent<HoverItemData>() as IItemDataSelectable);
 				
 				if ( selData != null && selData.IsStickySelected ) {
 					return 1;
@@ -175,7 +176,7 @@ namespace Hover.Items.Managers {
 		private void UpdateIsHighlightPrevented() {
 			HoverItem hoverItem = GetComponent<HoverItem>();
 			HoverItemData itemData = GetComponent<HoverItem>().Data;
-			ISelectableItemData selData = (itemData as ISelectableItemData);
+			IItemDataSelectable selData = (itemData as IItemDataSelectable);
 			
 			IsHighlightPrevented = (
 				selData == null ||
