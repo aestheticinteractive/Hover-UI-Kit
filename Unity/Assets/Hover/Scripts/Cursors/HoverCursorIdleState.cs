@@ -49,19 +49,21 @@ namespace Hover.Cursors {
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
 			HoverCursorData data = GetComponent<HoverCursorData>();
+			Vector3 worldPos = (data.BestRaycastResult == null ?
+				data.WorldPosition : data.BestRaycastResult.Value.WorldPosition);
 
 			DistanceThreshold = InteractionSettings.MotionlessDistanceThreshold;
 
 			if ( !Application.isPlaying ) {
 				Progress = 0.25f;
-				WorldPosition = data.WorldPosition;
+				WorldPosition = worldPos;
 				return;
 			}
 
 			if ( data.ActiveStickySelections.Count == 0 ) {
 				vHistory.Clear();
 				Progress = 0;
-				WorldPosition = data.WorldPosition;
+				WorldPosition = worldPos;
 				return;
 			}
 
@@ -70,7 +72,7 @@ namespace Hover.Cursors {
 				Progress = 0;
 			}
 
-			AddToHistory(data.WorldPosition);
+			AddToHistory(worldPos);
 			CalcSmoothPosition();
 			CullHistory();
 			UpdateProgress();
