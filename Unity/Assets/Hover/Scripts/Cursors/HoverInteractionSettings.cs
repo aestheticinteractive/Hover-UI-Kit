@@ -24,7 +24,7 @@ namespace Hover.Cursors {
 
 		[SerializeField]
 		[Range(1, 10000)]
-		private float _MotionlessMilliseconds = 1000;
+		private float _MotionlessMilliseconds = 1500;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

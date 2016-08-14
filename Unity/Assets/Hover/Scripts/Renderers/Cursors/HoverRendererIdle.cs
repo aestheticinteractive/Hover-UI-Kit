@@ -12,6 +12,7 @@ namespace Hover.Renderers.Cursors {
 
 		public const string CenterPositionName = "CenterPosition";
 		public const string DistanceThresholdName = "DistanceThreshold";
+		public const string TimerProgressName = "TimerProgress";
 
 		[DisableWhenControlled]
 		public HoverFillIdle Fill;
@@ -21,6 +22,12 @@ namespace Hover.Renderers.Cursors {
 
 		[DisableWhenControlled]
 		public float DistanceThreshold;
+
+		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
+		public float TimerProgress;
+
+		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
+		public float TimerVisibleAfterProgress = 0.333f;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -32,12 +39,13 @@ namespace Hover.Renderers.Cursors {
 		/*--------------------------------------------------------------------------------------------*/
 		public override HoverFill GetChildFill(int pIndex) {
 			switch ( pIndex ) {
-				case 0: return Fill;
+				case 0:
+					return Fill;
 			}
 
 			throw new ArgumentOutOfRangeException();
 		}
-		
+
 		/*--------------------------------------------------------------------------------------------*/
 		public override int GetChildRendererCount() {
 			return 0;
@@ -71,6 +79,29 @@ namespace Hover.Renderers.Cursors {
 		/*--------------------------------------------------------------------------------------------*/
 		public override Vector3 GetNearestWorldPosition(Ray pFromWorldRay, out RaycastResult pRaycast) {
 			return GetComponent<HoverShape>().GetNearestWorldPosition(pFromWorldRay, out pRaycast);
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public override void TreeUpdate() {
+			base.TreeUpdate();
+			UpdateIndicator();
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateIndicator() {
+			if ( !Application.isPlaying ) {
+				return;
+			}
+
+			HoverIndicator idleInd = GetComponent<HoverIndicator>();
+			float prog = Mathf.InverseLerp(TimerVisibleAfterProgress, 1, TimerProgress);
+
+			idleInd.Controllers.Set(HoverIndicator.HighlightProgressName, this);
+			idleInd.HighlightProgress = prog;
 		}
 
 	}
