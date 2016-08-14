@@ -955,6 +955,10 @@ Prefab:
       propertyPath: DistanceThreshold
       value: 0.004
       objectReference: {fileID: 0}
+    - target: {fileID: 11498272, guid: 76548fb3b2f3fd5419158b494a430879, type: 2}
+      propertyPath: TimerProgress
+      value: 0.25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 76548fb3b2f3fd5419158b494a430879, type: 2}
   m_IsPrefabParent: 0
@@ -3370,7 +3374,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActiveWhenFacingMainCamera: 1
-  ActiveWhenFacingTransform: {fileID: 0}
+  ActiveWhenFacingTransform: {fileID: 260486308}
   ChildForActivation: {fileID: 2083447262}
   FullyActiveWithinDegree: 30
   InactiveOutsideDegree: 55
@@ -4946,6 +4950,7 @@ GameObject:
   - 114: {fileID: 1292246292}
   - 114: {fileID: 1292246291}
   - 114: {fileID: 1292246288}
+  - 114: {fileID: 1292246294}
   - 114: {fileID: 1292246285}
   - 114: {fileID: 1292246293}
   m_Layer: 0
@@ -5111,11 +5116,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ControlChildShapes: 1
-  OuterRadius: 0.01
+  OuterRadius: 0.015
   InnerRadius: 0
   ArcDegrees: 360
   OuterOffset: {x: 0, y: 0, z: 0}
   InnerOffset: {x: 0, y: 0, z: 0}
+--- !u!114 &1292246294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1292246283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a329405f383d85c49ba285c5dfabd931, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MinHightlightProgress: 0
+  MinSelectionProgress: 0
 --- !u!1001 &1326205424
 Prefab:
   m_ObjectHideFlags: 0
@@ -5816,8 +5834,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ControlChildShapes: 1
-  OuterRadius: 0.07
-  InnerRadius: 0.01
+  OuterRadius: 0.075
+  InnerRadius: 0.015
   ArcDegrees: 90
   OuterOffset: {x: 0, y: 0, z: 0}
   InnerOffset: {x: 0, y: 0, z: 0}
@@ -7279,11 +7297,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22455446, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0.0044978093
+      value: 0.007000342
       objectReference: {fileID: 0}
     - target: {fileID: 22455446, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 45
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 22406602, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: m_AnchoredPosition.x
@@ -7291,7 +7309,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22465374, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -25
+      value: -40
       objectReference: {fileID: 0}
     - target: {fileID: 11436572, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: OuterRadius
@@ -7331,7 +7349,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22465374, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 22465374, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: m_AnchoredPosition.y
@@ -8023,7 +8041,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22455446, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0.040499374
+      value: 0.04550328
       objectReference: {fileID: 0}
     - target: {fileID: 104768, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: m_IsActive
@@ -8032,6 +8050,10 @@ Prefab:
     - target: {fileID: 177450, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22455446, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 245.00002
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
@@ -8716,7 +8738,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11444988, guid: 542aa9a35c2a0b141bac2f7452dfe3ae, type: 2}
       propertyPath: _Capability
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 198590, guid: 542aa9a35c2a0b141bac2f7452dfe3ae, type: 2}
       propertyPath: m_IsActive
