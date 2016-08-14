@@ -13,7 +13,7 @@ SceneSettings:
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 6
+  serializedVersion: 7
   m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
@@ -37,12 +37,12 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!157 &4
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 6
+  serializedVersion: 7
   m_GIWorkflowMode: 1
-  m_LightmapsMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -53,17 +53,22 @@ LightmapSettings:
     m_EnableBakedLightmaps: 1
     m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
-    serializedVersion: 3
+    serializedVersion: 4
     m_Resolution: 1
     m_BakeResolution: 50
     m_TextureWidth: 1024
     m_TextureHeight: 1024
+    m_AO: 0
     m_AOMaxDistance: 1
-    m_Padding: 2
     m_CompAOExponent: 0
+    m_CompAOExponentDirect: 0
+    m_Padding: 2
     m_LightmapParameters: {fileID: 0}
+    m_LightmapsBakeMode: 1
     m_TextureCompression: 0
+    m_DirectLightInLightProbes: 1
     m_FinalGather: 0
+    m_FinalGatherFiltering: 1
     m_FinalGatherRayCount: 1024
     m_ReflectionCompression: 2
   m_LightingDataAsset: {fileID: 0}
@@ -109,8 +114,9 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 15817325}
   m_LocalRotation: {x: -0, y: -0, z: 0.81072336, w: 0.58542943}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1285504471}
   - {fileID: 926274319}
@@ -1820,6 +1826,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.03963462, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 952770873}
   m_Father: {fileID: 279021901}
@@ -1841,18 +1848,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &123589778
 MonoBehaviour:
@@ -2802,6 +2809,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.143125, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 279021901}
   - {fileID: 1878587905}
@@ -2881,8 +2889,9 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 164472675}
   m_LocalRotation: {x: -0, y: -0, z: 0.22424246, w: 0.9745334}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 966153958}
   m_Father: {fileID: 839867653}
@@ -2904,12 +2913,12 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Action: 0
 --- !u!114 &164472678
@@ -2992,6 +3001,8 @@ MonoBehaviour:
   OuterRadius: 0.060500003
   InnerRadius: 0.0215
   ArcDegrees: 52.833332
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &164472684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3039,6 +3050,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.039825004, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1887491958}
   m_Father: {fileID: 529764533}
@@ -3060,18 +3072,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &186383234
 MonoBehaviour:
@@ -3194,6 +3206,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 20, y: 3, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1711967964}
   m_RootOrder: 2
@@ -3206,17 +3219,20 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 1
-  m_ReflectionProbeUsage: 1
   m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_SelectedWireframeHidden: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -3341,6 +3357,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.081, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1803360594}
   - {fileID: 935788658}
@@ -3959,6 +3976,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.013275, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 69172074}
   m_Father: {fileID: 529764533}
@@ -4034,18 +4052,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &265464146
 MonoBehaviour:
@@ -4119,6 +4137,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.061106253, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 569693233}
   m_Father: {fileID: 1878587905}
@@ -4140,18 +4159,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &269582857
 MonoBehaviour:
@@ -4271,8 +4290,9 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 279021900}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.04, z: 0}
+  m_LocalPosition: {x: 0, y: 0.04, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 123589776}
   - {fileID: 1845738596}
@@ -4338,8 +4358,9 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 282242375}
   m_LocalRotation: {x: 0, y: 0, z: -0.6099146, w: 0.7924672}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 113976766}
   m_Father: {fileID: 563274213}
@@ -4361,12 +4382,12 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Action: 0
 --- !u!114 &282242378
@@ -4449,6 +4470,8 @@ MonoBehaviour:
   OuterRadius: 0.06
   InnerRadius: 0.04
   ArcDegrees: 74.666664
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &282242384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4491,6 +4514,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 20, y: 3, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1501898822}
   m_RootOrder: 4
@@ -4503,17 +4527,20 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 1
-  m_ReflectionProbeUsage: 1
   m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_SelectedWireframeHidden: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -4569,8 +4596,9 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 308742744}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.01, z: 0}
+  m_LocalPosition: {x: 0, y: -0.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 361532899}
   m_Father: {fileID: 1711967964}
@@ -4592,18 +4620,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &308742747
 MonoBehaviour:
@@ -4811,6 +4839,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.013275001, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1572001616}
   m_Father: {fileID: 529764533}
@@ -4886,18 +4915,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &326762325
 MonoBehaviour:
@@ -4971,6 +5000,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.046240382, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1916843505}
   m_Father: {fileID: 279021901}
@@ -4992,18 +5022,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &359572496
 MonoBehaviour:
@@ -5357,6 +5387,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.189, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 861477523}
   - {fileID: 1965981128}
@@ -5429,6 +5460,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.07266346, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 496611369}
   m_Father: {fileID: 279021901}
@@ -5450,18 +5482,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &425601603
 MonoBehaviour:
@@ -6125,8 +6157,9 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 447056779}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.04, z: 0}
+  m_LocalPosition: {x: 0, y: 0.04, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1936078634}
   - {fileID: 1463269260}
@@ -6193,8 +6226,9 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 466865083}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.01, z: 0}
+  m_LocalPosition: {x: 0, y: 0.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1694728112}
   m_Father: {fileID: 1584049672}
@@ -6216,18 +6250,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &466865086
 MonoBehaviour:
@@ -6676,8 +6710,9 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 529764531}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.03, z: 0}
+  m_LocalPosition: {x: 0, y: 0.03, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1239769335}
   - {fileID: 265464140}
@@ -6959,8 +6994,9 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 545801603}
   m_LocalRotation: {x: 0, y: 0, z: -0.4723584, w: 0.88140655}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1453196923}
   m_Father: {fileID: 1600615876}
@@ -6982,12 +7018,12 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Action: 0
 --- !u!114 &545801606
@@ -7070,6 +7106,8 @@ MonoBehaviour:
   OuterRadius: 0.08
   InnerRadius: 0.06
   ArcDegrees: 37.083332
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &545801612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7184,6 +7222,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1170169342}
   - {fileID: 1838528900}
@@ -7493,6 +7532,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.17175001, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 447056780}
   - {fileID: 1501898822}
@@ -8275,6 +8315,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: -0.7303609, w: 0.6830615}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 93654779}
   m_Father: {fileID: 1844611620}
@@ -8296,12 +8337,12 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Action: 0
 --- !u!114 &607111175
@@ -8384,6 +8425,8 @@ MonoBehaviour:
   OuterRadius: 0.04
   InnerRadius: 0.02
   ArcDegrees: 37.333332
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &607111181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8426,6 +8469,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 20, y: 3, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1584049672}
   m_RootOrder: 2
@@ -8438,17 +8482,20 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 1
-  m_ReflectionProbeUsage: 1
   m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_SelectedWireframeHidden: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -8504,8 +8551,9 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 663544329}
   m_LocalRotation: {x: -0, y: -0, z: 0.91907805, w: 0.39407557}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 98250129}
   m_Father: {fileID: 839867653}
@@ -8527,12 +8575,12 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Action: 0
 --- !u!114 &663544332
@@ -8615,6 +8663,8 @@ MonoBehaviour:
   OuterRadius: 0.060500003
   InnerRadius: 0.0215
   ArcDegrees: 52.833332
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &663544338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9232,8 +9282,9 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 711591722}
   m_LocalRotation: {x: 0, y: 0, z: -0.7311056, w: 0.6822643}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1547487072}
   m_Father: {fileID: 1600615876}
@@ -9255,12 +9306,12 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Action: 0
 --- !u!114 &711591725
@@ -9343,6 +9394,8 @@ MonoBehaviour:
   OuterRadius: 0.08
   InnerRadius: 0.06
   ArcDegrees: 37.083332
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &711591731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9684,6 +9737,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.18900001, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 988269968}
   - {fileID: 1091687094}
@@ -9748,8 +9802,9 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 819571810}
   m_LocalRotation: {x: -0, y: -0, z: 0.47235855, w: 0.8814065}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1626908636}
   m_Father: {fileID: 1600615876}
@@ -9771,12 +9826,12 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Action: 0
 --- !u!114 &819571813
@@ -9859,6 +9914,8 @@ MonoBehaviour:
   OuterRadius: 0.08
   InnerRadius: 0.06
   ArcDegrees: 37.083332
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &819571819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9901,6 +9958,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 663544330}
   - {fileID: 1341271686}
@@ -9983,8 +10041,9 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 861477522}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.04, z: 0}
+  m_LocalPosition: {x: 0, y: 0.04, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 251806055}
   m_Father: {fileID: 370382312}
@@ -10006,18 +10065,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &861477525
 MonoBehaviour:
@@ -10412,6 +10471,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 20, y: 3, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 370382312}
   m_RootOrder: 2
@@ -10424,17 +10484,20 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 1
-  m_ReflectionProbeUsage: 1
   m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_SelectedWireframeHidden: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -10517,6 +10580,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 15817326}
   - {fileID: 1035661004}
@@ -10568,8 +10632,9 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 922767449}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.01, z: 0}
+  m_LocalPosition: {x: 0, y: 0.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1590638772}
   m_Father: {fileID: 1711967964}
@@ -10591,18 +10656,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &922767452
 MonoBehaviour:
@@ -10728,8 +10793,9 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 926274318}
   m_LocalRotation: {x: -0, y: -0, z: 0.000000016644758, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1143443305}
   m_Father: {fileID: 15817326}
@@ -10751,12 +10817,12 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Action: 0
 --- !u!114 &926274321
@@ -10839,6 +10905,8 @@ MonoBehaviour:
   OuterRadius: 0.078600004
   InnerRadius: 0.061900005
   ArcDegrees: 30.69111
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &926274327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10884,8 +10952,9 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 928616727}
   m_LocalRotation: {x: -0, y: -0, z: 0.29607853, w: 0.95516366}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 95992272}
   m_Father: {fileID: 1136786549}
@@ -10907,12 +10976,12 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Action: 0
 --- !u!114 &928616730
@@ -10995,6 +11064,8 @@ MonoBehaviour:
   OuterRadius: 0.078600004
   InnerRadius: 0.061900005
   ArcDegrees: 34.444447
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &928616736
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11036,6 +11107,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: -0.99976206, w: 0.021814838}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1844611620}
   - {fileID: 563274213}
@@ -11178,8 +11250,9 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 951447160}
   m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1304839192}
   m_Father: {fileID: 1746451188}
@@ -11201,12 +11274,12 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Action: 0
 --- !u!114 &951447163
@@ -11289,6 +11362,8 @@ MonoBehaviour:
   OuterRadius: 0.0215
   InnerRadius: 0.002
   ArcDegrees: 320
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &951447169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11568,6 +11643,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.020368751, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1291089996}
   m_Father: {fileID: 1878587905}
@@ -11589,18 +11665,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &964406813
 MonoBehaviour:
@@ -12302,8 +12378,9 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 988269967}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.04, z: 0}
+  m_LocalPosition: {x: 0, y: 0.04, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1181836533}
   m_Father: {fileID: 819055514}
@@ -12325,18 +12402,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &988269970
 MonoBehaviour:
@@ -12737,6 +12814,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.0143125, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1193329492}
   m_Father: {fileID: 1501898822}
@@ -12758,18 +12836,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &1026278503
 MonoBehaviour:
@@ -12982,8 +13060,9 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1035661003}
   m_LocalRotation: {x: 0, y: 0, z: -0.000000033289517, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1238096986}
   m_Father: {fileID: 920407484}
@@ -13005,12 +13084,12 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Action: 0
 --- !u!114 &1035661006
@@ -13093,6 +13172,8 @@ MonoBehaviour:
   OuterRadius: 0.080000006
   InnerRadius: 0.060500003
   ArcDegrees: 103.333336
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &1035661012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13372,6 +13453,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.0143125, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 687356370}
   m_Father: {fileID: 447056780}
@@ -13393,18 +13475,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &1054723979
 MonoBehaviour:
@@ -13762,8 +13844,9 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1084481130}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.01, z: 0}
+  m_LocalPosition: {x: 0, y: -0.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 437941768}
   m_Father: {fileID: 1584049672}
@@ -13785,18 +13868,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &1084481133
 MonoBehaviour:
@@ -13922,8 +14005,9 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1091687093}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.04, z: 0}
+  m_LocalPosition: {x: 0, y: -0.04, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1181483573}
   m_Father: {fileID: 819055514}
@@ -13945,18 +14029,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &1091687096
 MonoBehaviour:
@@ -14084,6 +14168,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.0143125, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 247674563}
   m_Father: {fileID: 1501898822}
@@ -14105,18 +14190,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &1125567684
 MonoBehaviour:
@@ -14475,8 +14560,9 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1135388233}
   m_LocalRotation: {x: 0, y: 0, z: -0.2960786, w: 0.9551636}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 997536456}
   m_Father: {fileID: 1136786549}
@@ -14498,12 +14584,12 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Action: 0
 --- !u!114 &1135388236
@@ -14601,6 +14687,8 @@ MonoBehaviour:
   OuterRadius: 0.078600004
   InnerRadius: 0.061900005
   ArcDegrees: 34.444447
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &1135388243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14640,8 +14728,9 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1136786548}
   m_LocalRotation: {x: 0, y: 0, z: -0.8107234, w: 0.5854294}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 928616728}
   - {fileID: 1475390928}
@@ -15004,6 +15093,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.15, z: 0.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 819055514}
   - {fileID: 1313803019}
@@ -15043,6 +15133,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.042937502, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1058696663}
   m_Father: {fileID: 447056780}
@@ -15064,18 +15155,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &1155363690
 MonoBehaviour:
@@ -15945,8 +16036,9 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1170169341}
   m_LocalRotation: {x: -0, y: -0, z: 0.6099147, w: 0.79246706}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1572697526}
   m_Father: {fileID: 563274213}
@@ -15968,12 +16060,12 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Action: 0
 --- !u!114 &1170169344
@@ -16056,6 +16148,8 @@ MonoBehaviour:
   OuterRadius: 0.06
   InnerRadius: 0.04
   ArcDegrees: 74.666664
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &1170169350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17406,6 +17500,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 20, y: 3, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 819055514}
   m_RootOrder: 2
@@ -17418,17 +17513,20 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 1
-  m_ReflectionProbeUsage: 1
   m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_SelectedWireframeHidden: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -17712,6 +17810,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.000000007450581, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 529764533}
   - {fileID: 1746901025}
@@ -18078,6 +18177,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.039825, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1665254785}
   m_Father: {fileID: 529764533}
@@ -18124,18 +18224,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &1239769339
 MonoBehaviour:
@@ -18207,8 +18307,9 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1248899409}
   m_LocalRotation: {x: -0, y: -0, z: 0.16325428, w: 0.986584}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1522832868}
   m_Father: {fileID: 1600615876}
@@ -18230,12 +18331,12 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Action: 0
 --- !u!114 &1248899412
@@ -18318,6 +18419,8 @@ MonoBehaviour:
   OuterRadius: 0.08
   InnerRadius: 0.06
   ArcDegrees: 37.083332
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &1248899418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18443,8 +18546,9 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1285504470}
   m_LocalRotation: {x: -0, y: -0, z: 0.31168088, w: 0.95018685}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 68231395}
   m_Father: {fileID: 15817326}
@@ -18466,12 +18570,12 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Action: 0
 --- !u!114 &1285504473
@@ -18554,6 +18658,8 @@ MonoBehaviour:
   OuterRadius: 0.078600004
   InnerRadius: 0.061900005
   ArcDegrees: 30.69111
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &1285504479
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19130,6 +19236,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.081, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1746451188}
   - {fileID: 839867653}
@@ -19257,8 +19364,9 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1341271685}
   m_LocalRotation: {x: -0, y: -0, z: 0.6411149, w: 0.7674449}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 872842111}
   m_Father: {fileID: 839867653}
@@ -19280,12 +19388,12 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Action: 0
 --- !u!114 &1341271688
@@ -19368,6 +19476,8 @@ MonoBehaviour:
   OuterRadius: 0.060500003
   InnerRadius: 0.0215
   ArcDegrees: 52.833332
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &1341271694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19877,8 +19987,9 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1377784743}
   m_LocalRotation: {x: -0, y: -0, z: 0.73110574, w: 0.6822642}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1181995113}
   m_Father: {fileID: 1600615876}
@@ -19900,12 +20011,12 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Action: 0
 --- !u!114 &1377784746
@@ -19988,6 +20099,8 @@ MonoBehaviour:
   OuterRadius: 0.08
   InnerRadius: 0.06
   ArcDegrees: 37.083332
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &1377784752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20643,6 +20756,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.0143125, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1761824199}
   m_Father: {fileID: 447056780}
@@ -20664,18 +20778,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &1463269262
 MonoBehaviour:
@@ -20877,8 +20991,9 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1475390927}
   m_LocalRotation: {x: 0, y: 0, z: -0.000000016644758, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 676788889}
   m_Father: {fileID: 1136786549}
@@ -20900,12 +21015,12 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Action: 0
 --- !u!114 &1475390930
@@ -20988,6 +21103,8 @@ MonoBehaviour:
   OuterRadius: 0.078600004
   InnerRadius: 0.061900005
   ArcDegrees: 34.444447
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &1475390936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21110,6 +21227,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.05725, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1629996737}
   - {fileID: 1026278501}
@@ -22005,6 +22123,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.020368751, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1038487467}
   m_Father: {fileID: 1878587905}
@@ -22026,18 +22145,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &1535677020
 MonoBehaviour:
@@ -22165,6 +22284,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.042937502, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1129884826}
   m_Father: {fileID: 1501898822}
@@ -22186,18 +22306,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &1536330269
 MonoBehaviour:
@@ -22405,6 +22525,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: 0.73036104, w: 0.6830613}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1415871461}
   m_Father: {fileID: 1844611620}
@@ -22426,12 +22547,12 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Action: 0
 --- !u!114 &1541000576
@@ -22514,6 +22635,8 @@ MonoBehaviour:
   OuterRadius: 0.04
   InnerRadius: 0.02
   ArcDegrees: 37.333332
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &1541000582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22827,8 +22950,9 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1555704318}
   m_LocalRotation: {x: 0, y: 0, z: -0.16325414, w: 0.98658407}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1196487967}
   m_Father: {fileID: 1600615876}
@@ -22850,12 +22974,12 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Action: 0
 --- !u!114 &1555704321
@@ -22938,6 +23062,8 @@ MonoBehaviour:
   OuterRadius: 0.08
   InnerRadius: 0.06
   ArcDegrees: 37.083332
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &1555704327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22985,6 +23111,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.0000000018626451, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 732846932}
   m_Father: {fileID: 1746901025}
@@ -23006,18 +23133,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &1559408217
 MonoBehaviour:
@@ -23622,6 +23749,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.085875005, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 599815365}
   m_Father: {fileID: 2037471574}
@@ -23658,18 +23786,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataFloat+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableFloat+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0.75
   _LabelFormat: '{0}: {1:N1}'
   _Ticks: 9
@@ -23796,8 +23924,9 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1584049671}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.04, z: 0}
+  m_LocalPosition: {x: 0, y: -0.04, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 466865084}
   - {fileID: 1084481131}
@@ -24091,6 +24220,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1377784744}
   - {fileID: 819571811}
@@ -24177,6 +24307,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.038166672, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 534141228}
   m_Father: {fileID: 1746901025}
@@ -24198,18 +24329,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &1613012958
 MonoBehaviour:
@@ -24605,6 +24736,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.042937502, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 966795808}
   m_Father: {fileID: 1501898822}
@@ -24626,18 +24758,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &1629996739
 MonoBehaviour:
@@ -24913,6 +25045,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.061106253, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 441168390}
   m_Father: {fileID: 1878587905}
@@ -24934,18 +25067,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &1655873752
 MonoBehaviour:
@@ -25390,18 +25523,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataFloat+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableFloat+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0.75
   _LabelFormat: '{0}: {1:N0}'
   _Ticks: 9
@@ -25482,8 +25615,9 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1671234461}
   m_LocalRotation: {x: 0, y: 0, z: -0.6477875, w: 0.7618211}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1160887425}
   m_Father: {fileID: 839867653}
@@ -25518,6 +25652,8 @@ MonoBehaviour:
   OuterRadius: 0.060500003
   InnerRadius: 0.0215
   ArcDegrees: 158.5
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &1671234471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25566,6 +25702,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: 0.000000066579034, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1512842553}
   m_Father: {fileID: 1844611620}
@@ -25587,12 +25724,12 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Action: 0
 --- !u!114 &1689662630
@@ -25690,6 +25827,8 @@ MonoBehaviour:
   OuterRadius: 0.035
   InnerRadius: 0.024999999
   ArcDegrees: 149.33333
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &1689662637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25967,8 +26106,9 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1710851243}
   m_LocalRotation: {x: 0, y: 0, z: -0.31168082, w: 0.95018685}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1530543278}
   m_Father: {fileID: 15817326}
@@ -25990,12 +26130,12 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Action: 0
 --- !u!114 &1710851246
@@ -26078,6 +26218,8 @@ MonoBehaviour:
   OuterRadius: 0.078600004
   InnerRadius: 0.061900005
   ArcDegrees: 30.69111
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &1710851252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26117,8 +26259,9 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1711967963}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.04, z: 0}
+  m_LocalPosition: {x: 0, y: -0.04, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 922767450}
   - {fileID: 308742745}
@@ -26216,6 +26359,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 951447161}
   m_Father: {fileID: 1313803019}
@@ -26259,8 +26403,9 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1746901024}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.03, z: 0}
+  m_LocalPosition: {x: 0, y: -0.03, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1910301623}
   - {fileID: 1559408215}
@@ -26561,6 +26706,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: 0.021814888, w: 0.99976206}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 136876780}
   m_Father: {fileID: 243047772}
@@ -26597,18 +26743,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataFloat+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableFloat+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0.75
   _LabelFormat: '{1:N0}'
   _Ticks: 9
@@ -26697,6 +26843,8 @@ MonoBehaviour:
   OuterRadius: 0.067999996
   InnerRadius: 0.031999998
   ArcDegrees: 135
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &1803360603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26875,6 +27023,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -26908,8 +27057,9 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1838528899}
   m_LocalRotation: {x: -0, y: -0, z: 0.000000033289517, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 2027864843}
   m_Father: {fileID: 563274213}
@@ -26931,12 +27081,12 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Action: 0
 --- !u!114 &1838528902
@@ -27019,6 +27169,8 @@ MonoBehaviour:
   OuterRadius: 0.06
   InnerRadius: 0.04
   ArcDegrees: 74.666664
+  OuterOffset: {x: 0, y: 0, z: 0}
+  InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &1838528908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27061,6 +27213,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1541000574}
   - {fileID: 1689662628}
@@ -27144,6 +27297,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.019817306, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 2136375118}
   m_Father: {fileID: 279021901}
@@ -27165,18 +27319,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &1845738598
 MonoBehaviour:
@@ -27299,6 +27453,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 20, y: 3, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 447056780}
   m_RootOrder: 4
@@ -27311,17 +27466,20 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 1
-  m_ReflectionProbeUsage: 1
   m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_SelectedWireframeHidden: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -27373,6 +27531,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1655873750}
   - {fileID: 1535677018}
@@ -27673,6 +27832,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.038166665, y: 0, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1346826222}
   m_Father: {fileID: 1746901025}
@@ -27694,18 +27854,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &1910301625
 MonoBehaviour:
@@ -28060,6 +28220,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 20, y: 3, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1746901025}
   m_RootOrder: 3
@@ -28072,17 +28233,20 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 1
-  m_ReflectionProbeUsage: 1
   m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_SelectedWireframeHidden: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -28140,6 +28304,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.042937502, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1359686180}
   m_Father: {fileID: 447056780}
@@ -28161,18 +28326,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &1936078636
 MonoBehaviour:
@@ -28446,8 +28611,9 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1965981127}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.04, z: 0}
+  m_LocalPosition: {x: 0, y: -0.04, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1210793602}
   m_Father: {fileID: 370382312}
@@ -28469,18 +28635,18 @@ MonoBehaviour:
   OnSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnDeselectedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemData+SelectedEventHandler, Assembly-CSharp,
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectable+SelectedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.SelectableItemDataBool+ValueChangedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: Hover.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &1965981130
 MonoBehaviour:
@@ -28603,6 +28769,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 20, y: 3, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1878587905}
   m_RootOrder: 4
@@ -28615,17 +28782,20 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 1
-  m_ReflectionProbeUsage: 1
   m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_SelectedWireframeHidden: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -28678,6 +28848,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 20, y: 3, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 529764533}
   m_RootOrder: 4
@@ -28690,17 +28861,20 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 1
-  m_ReflectionProbeUsage: 1
   m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_SelectedWireframeHidden: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -29214,6 +29388,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 144600790}
   - {fileID: 1216604632}
