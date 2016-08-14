@@ -17,6 +17,7 @@ namespace Hover.InputModules.LeapMotion {
 
 		public HoverCursorDataProvider CursorDataProvider;
 		public LeapServiceProvider LeapServiceProvider;
+		public Transform LookCursorTransform;
 		public bool UseStabilizedPositions = false;
 
 		[Range(0, 0.04f)]
@@ -49,6 +50,7 @@ namespace Hover.InputModules.LeapMotion {
 
 			CursorDataProvider.MarkAllCursorsUnused();
 			UpdateCursorsWithHands(LeapServiceProvider.CurrentFrame.Hands);
+			UpdateCursorWithCamera();
 			CursorDataProvider.ActivateAllCursorsBasedOnUsage();
 		}
 
@@ -112,6 +114,18 @@ namespace Hover.InputModules.LeapMotion {
 			data.SetWorldPosition(extendedWorldPos);
 			data.SetWorldRotation(distalBone.Basis.CalculateRotation()*RotationFix);
 			data.SetSize(pLeapFinger.Width);
+			data.SetUsedByInput(true);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateCursorWithCamera() {
+			if ( !CursorDataProvider.HasCursorData(CursorType.Look) ) {
+				return;
+			}
+
+			ICursorDataForInput data = CursorDataProvider.GetCursorDataForInput(CursorType.Look);
+			data.SetWorldPosition(LookCursorTransform.position);
+			data.SetWorldRotation(LookCursorTransform.rotation);
 			data.SetUsedByInput(true);
 		}
 

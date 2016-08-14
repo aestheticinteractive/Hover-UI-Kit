@@ -1,7 +1,6 @@
 ﻿#if HOVER_INPUT_LEAPMOTIONOLD
 
 using System;
-using System.Collections.Generic;
 using Hover.Cursors;
 using Leap;
 using UnityEngine;
@@ -16,6 +15,7 @@ namespace Hover.InputModules.LeapMotionOld {
 
 		public HoverCursorDataProvider CursorDataProvider;
 		public HandController LeapControl;
+		public Transform LookCursorTransform;
 		public bool UseStabilizedPositions = false;
 
 		[Range(0, 0.04f)]
@@ -48,6 +48,7 @@ namespace Hover.InputModules.LeapMotionOld {
 
 			CursorDataProvider.MarkAllCursorsUnused();
 			UpdateCursorsWithHands(LeapControl.GetFrame().Hands);
+			UpdateCursorWithCamera();
 			CursorDataProvider.ActivateAllCursorsBasedOnUsage();
 		}
 
@@ -113,6 +114,18 @@ namespace Hover.InputModules.LeapMotionOld {
 			data.SetWorldPosition(extendedWorldPos);
 			data.SetWorldRotation(leapTx.rotation*distalBone.Basis.Rotation()*RotationFix);
 			data.SetSize(pLeapFinger.Width*UnityVectorExtension.INPUT_SCALE);
+			data.SetUsedByInput(true);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateCursorWithCamera() {
+			if ( !CursorDataProvider.HasCursorData(CursorType.Look) ) {
+				return;
+			}
+
+			ICursorDataForInput data = CursorDataProvider.GetCursorDataForInput(CursorType.Look);
+			data.SetWorldPosition(LookCursorTransform.position);
+			data.SetWorldRotation(LookCursorTransform.rotation);
 			data.SetUsedByInput(true);
 		}
 
