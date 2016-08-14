@@ -1,4 +1,5 @@
-﻿using Hover.Utils;
+﻿using Hover.Interfaces.Cast;
+using Hover.Utils;
 using UnityEngine;
 
 namespace Hover.Interfaces.Cast {
@@ -9,46 +10,78 @@ namespace Hover.Interfaces.Cast {
 	[RequireComponent(typeof(HovercastInterface))]
 	public class HovercastActiveDirection : MonoBehaviour, ITreeUpdateable, ISettingsController {
 
+		public const string ActiveWhenFacingTransformName = "ActiveWhenFacingTransform";
+
+		public ISettingsControllerMap Controllers { get; private set; }
 		public float CurrentDegree { get; private set; }
 
-		public Transform ActiveWhenFacing;
+		public bool ActiveWhenFacingMainCamera = true;
+
+		[DisableWhenControlled]
+		public Transform ActiveWhenFacingTransform;
+
 		public GameObject ChildForActivation;
 
 		[Range(10, 180)]
 		public float FullyActiveWithinDegree = 30;
-		
+
 		[Range(10, 180)]
 		public float InactiveOutsideDegree = 55;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Awake() {
-			if ( ActiveWhenFacing == null ) {
-				ActiveWhenFacing = Camera.main.transform;
-			}
+		protected HovercastActiveDirection() {
+			Controllers = new SettingsControllerMap();
+		}
 
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public void Awake() {
 			if ( ChildForActivation == null ) {
 				ChildForActivation = gameObject.transform.GetChild(0).gameObject;
 			}
 		}
-		
+
 		/*--------------------------------------------------------------------------------------------*/
 		public void Start() {
 			//do nothing...
 		}
-		
+
 		/*--------------------------------------------------------------------------------------------*/
 		public void TreeUpdate() {
+			UpdateFacingTransform();
+			UpdateDegree();
+			Controllers.TryExpireControllers();
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateFacingTransform() {
+			if ( ActiveWhenFacingMainCamera ) {
+				Controllers.Set(ActiveWhenFacingTransformName, this);
+				ActiveWhenFacingTransform = null;
+			}
+
+			if ( ActiveWhenFacingTransform == null ) {
+				ActiveWhenFacingTransform = (Camera.main == null ? transform : Camera.main.transform);
+			}
+		}
+	
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateDegree() {
 			HovercastInterface cast = GetComponent<HovercastInterface>();
-			
+
 			Vector3 castWorldDir = cast.transform.TransformDirection(Vector3.forward);
-			Vector3 castToTxWorldDir = (ActiveWhenFacing.position-cast.transform.position).normalized;
+			Vector3 castToTxWorldVec = (ActiveWhenFacingTransform.position-cast.transform.position);
+			Vector3 castToTxWorldDir = castToTxWorldVec.normalized;
 			float dotBetweenDirs = Vector3.Dot(castWorldDir, castToTxWorldDir);
 
 			CurrentDegree = Mathf.Acos(dotBetweenDirs)/Mathf.PI*180;
 			ChildForActivation.SetActive(CurrentDegree <= InactiveOutsideDegree);
-			
+
 			//Vector3 castPos = cast.transform.position;
 			//Debug.DrawLine(castPos, castPos+castWorldDir, Color.red);
 			//Debug.DrawLine(castPos, castPos+castToTxWorldDir, Color.cyan);
