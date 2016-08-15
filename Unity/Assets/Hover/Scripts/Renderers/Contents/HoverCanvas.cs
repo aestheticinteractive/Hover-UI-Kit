@@ -62,6 +62,9 @@ namespace Hover.Renderers.Contents {
 		[DisableWhenControlled]
 		public IconSizeType IconSize = IconSizeType.FontSize;
 
+		[DisableWhenControlled]
+		public bool UseMirrorLayout = false;
+
 		[HideInInspector]
 		[SerializeField]
 		private bool _IsBuilt;
@@ -167,6 +170,7 @@ namespace Hover.Renderers.Contents {
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateGeneralSettings() {
 			Label.Controllers.Set(SettingsControllerMap.GameObjectActiveSelf, this);
+			Label.Controllers.Set(SettingsControllerMap.TransformLocalScale+".x", this);
 			Label.Controllers.Set(HoverLabel.CanvasScaleName, this);
 			Label.Controllers.Set(HoverLabel.SizeXName, this);
 			Label.Controllers.Set(HoverLabel.SizeYName, this);
@@ -238,6 +242,7 @@ namespace Hover.Renderers.Contents {
 			
 			const float iconVertShiftMult = -0.35f;
 			
+			Vector3 labelLocalScale = Label.transform.localScale;
 			float fontSize = Label.TextComponent.fontSize*Label.CanvasScale/2;
 			float iconAvailW = UnscaledPaddedSizeX-IconOuter.SizeX;
 			float iconPad = IconOuter.SizeX*0.2f;
@@ -275,7 +280,7 @@ namespace Hover.Renderers.Contents {
 			switch ( Alignment ) { //label
 				case CanvasAlignmentType.Left:
 				case CanvasAlignmentType.TextLeftAndIconRight:
-					labelAlign = TextAnchor.MiddleLeft;
+					labelAlign = (UseMirrorLayout ? TextAnchor.MiddleRight : TextAnchor.MiddleLeft);
 					break;
 					
 				case CanvasAlignmentType.Center:
@@ -284,13 +289,16 @@ namespace Hover.Renderers.Contents {
 					
 				case CanvasAlignmentType.Right:
 				case CanvasAlignmentType.TextRightAndIconLeft:
-					labelAlign = TextAnchor.MiddleRight;
+					labelAlign = (UseMirrorLayout ? TextAnchor.MiddleLeft : TextAnchor.MiddleRight);
 					break;
 					
 				default:
 					throw new Exception("Unhandled alignment: "+Alignment);
 			}
 			
+			labelLocalScale.x = (UseMirrorLayout ? -1 : 1);
+			Label.transform.localScale = labelLocalScale;
+
 			if ( !IconOuter.gameObject.activeSelf && !IconInner.gameObject.activeSelf ) {
 				iconShiftX = 0;
 				iconShiftY = 0;

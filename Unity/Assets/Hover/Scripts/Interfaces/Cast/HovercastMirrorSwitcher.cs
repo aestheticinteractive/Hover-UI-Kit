@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
+using Hover.Renderers.Contents;
 using Hover.Utils;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Hover.Interfaces.Cast {
 
@@ -11,23 +11,23 @@ namespace Hover.Interfaces.Cast {
 	[RequireComponent(typeof(HovercastInterface))]
 	public class HovercastMirrorSwitcher : MonoBehaviour, ITreeUpdateable, ISettingsController {
 
-		public bool IsLeftHanded = true;
+		public bool UseMirrorLayout = false;
 
-		private readonly List<Text> vLabelTexts;
-		private bool vWasLeftHanded;
+		private readonly List<HoverCanvas> vHoverCanvases;
+		private bool vWasMirror;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected HovercastMirrorSwitcher() {
-			vLabelTexts = new List<Text>();
+			vHoverCanvases = new List<HoverCanvas>();
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
-			vWasLeftHanded = IsLeftHanded;
+			vWasMirror = UseMirrorLayout;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -44,19 +44,18 @@ namespace Hover.Interfaces.Cast {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void TrySwitch() { 
-			if ( IsLeftHanded == vWasLeftHanded ) {
+			if ( UseMirrorLayout == vWasMirror ) {
 				return;
 			}
 
 			PerformSwitch();
-			vWasLeftHanded = IsLeftHanded;
+			vWasMirror = UseMirrorLayout;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void PerformSwitch() {
 			HovercastInterface cast = GetComponent<HovercastInterface>();
 			Transform adjustTx = cast.transform.GetChild(0);
-			Vector3 flipX = new Vector3(-1,  1,  1);
 			Vector3 flipY = new Vector3( 1, -1,  1);
 			Vector3 flipZ = new Vector3( 1,  1, -1);
 			Quaternion spinRotZ = Quaternion.Euler(0, 0, 180);
@@ -79,11 +78,16 @@ namespace Hover.Interfaces.Cast {
 
 			////
 
-			cast.GetComponentsInChildren(true, vLabelTexts);
+			cast.GetComponentsInChildren(true, vHoverCanvases);
 
-			for ( int i = 0 ; i < vLabelTexts.Count ; i++ ) {
-				Transform labelTx = vLabelTexts[i].transform;
-				labelTx.localScale = Vector3.Scale(labelTx.localScale, flipX);
+			for ( int i = 0 ; i < vHoverCanvases.Count ; i++ ) {
+				HoverCanvas can = vHoverCanvases[i];
+				can.UseMirrorLayout = !can.UseMirrorLayout;
+
+#if UNITY_EDITOR
+				//force serialization of changes made outside of the renderer prefab
+				UnityEditor.EditorUtility.SetDirty(can);
+#endif
 			}
 		}
 
