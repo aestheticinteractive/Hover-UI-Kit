@@ -10,7 +10,7 @@ namespace Hover.Interfaces.Cast {
 	[RequireComponent(typeof(HovercastInterface))]
 	public class HovercastBackCursorTrigger : MonoBehaviour, ITreeUpdateable, ISettingsController {
 		
-		public HoverCursorData BackTriggerCursor;
+		public CursorType BackTriggerCursorType;
 
 		[Range(0, 1)]
 		public float TriggerAgainThreshold = 0.5f;
@@ -32,20 +32,25 @@ namespace Hover.Interfaces.Cast {
 				return;
 			}
 
-			UpdateTrigger(cast);
-			UpdateOverrider(cast.BackItem);
+			ICursorData cursorData = cast.GetComponent<HoverCursorFollower>()
+				.CursorDataProvider.GetCursorData(BackTriggerCursorType);
+			float triggerStrength = cursorData.TriggerStrength;
+
+			UpdateTrigger(cast, triggerStrength);
+			UpdateOverrider(cast.BackItem, triggerStrength);
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateTrigger(HovercastInterface pCast) {
-			if ( vIsTriggered && BackTriggerCursor.TriggerStrength < TriggerAgainThreshold ) {
+		private void UpdateTrigger(HovercastInterface pCast, float pTriggerStrength) {
+
+			if ( vIsTriggered && pTriggerStrength < TriggerAgainThreshold ) {
 				vIsTriggered = false;
 				return;
 			}
 
-			if ( vIsTriggered || BackTriggerCursor.TriggerStrength < 1 ) {
+			if ( vIsTriggered || pTriggerStrength < 1 ) {
 				return;
 			}
 
@@ -54,7 +59,7 @@ namespace Hover.Interfaces.Cast {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateOverrider(HoverItemDataSelector pBackItem) {
+		private void UpdateOverrider(HoverItemDataSelector pBackItem, float pTriggerStrength) {
 			HoverRendererIndicatorOverrider rendInd =
 				pBackItem.GetComponent<HoverRendererIndicatorOverrider>();
 
@@ -63,7 +68,7 @@ namespace Hover.Interfaces.Cast {
 			}
 
 			float minStren = (vIsTriggered ? TriggerAgainThreshold : 0);
-			float stren = BackTriggerCursor.TriggerStrength;
+			float stren = pTriggerStrength;
 
 			rendInd.Controllers.Set(HoverRendererIndicatorOverrider.MinHightlightProgressName, this);
 			rendInd.Controllers.Set(HoverRendererIndicatorOverrider.MinSelectionProgressName, this);
