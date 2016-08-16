@@ -13,12 +13,13 @@ namespace Hover.Renderers.Cursors {
 		public const string CenterPositionName = "CenterPosition";
 		public const string DistanceThresholdName = "DistanceThreshold";
 		public const string TimerProgressName = "TimerProgress";
+		public const string IsRaycastName = "IsRaycast";
 
 		[DisableWhenControlled]
 		public HoverFillIdle Fill;
 
 		[DisableWhenControlled]
-		public Vector3 CenterPosition;
+		public Vector3 CenterOffset;
 
 		[DisableWhenControlled]
 		public float DistanceThreshold;
@@ -28,6 +29,12 @@ namespace Hover.Renderers.Cursors {
 
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
 		public float TimerVisibleAfterProgress = 0.333f;
+
+		[DisableWhenControlled]
+		public bool IsRaycast;
+
+		[DisableWhenControlled]
+		public float RaycastOffsetZ = -0.001f;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -86,11 +93,25 @@ namespace Hover.Renderers.Cursors {
 		/*--------------------------------------------------------------------------------------------*/
 		public override void TreeUpdate() {
 			base.TreeUpdate();
+			UpdatePosition();
 			UpdateIndicator();
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdatePosition() {
+			if ( !Application.isPlaying || !IsRaycast ) {
+				return;
+			}
+
+			Controllers.Set(SettingsControllerMap.TransformLocalPosition+".z", this);
+
+			Vector3 localPos = transform.localPosition;
+			localPos.z = RaycastOffsetZ/transform.lossyScale.z;
+			transform.localPosition = localPos;
+		}
+		
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateIndicator() {
 			if ( !Application.isPlaying ) {

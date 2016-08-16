@@ -9,8 +9,16 @@ namespace Hover.Renderers.Cursors {
 	/*================================================================================================*/
 	public class HoverRendererCursor : HoverRenderer {
 
+		public const string IsRaycastName = "IsRaycast";
+
 		[DisableWhenControlled]
 		public HoverFillCursor Fill;
+
+		[DisableWhenControlled]
+		public bool IsRaycast;
+
+		[DisableWhenControlled]
+		public float RaycastOffsetZ = -0.001f;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -62,6 +70,29 @@ namespace Hover.Renderers.Cursors {
 		public override Vector3 GetNearestWorldPosition(Ray pFromWorldRay, out RaycastResult pRaycast) {
 			pRaycast = new RaycastResult();
 			return Vector3.zero;
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public override void TreeUpdate() {
+			base.TreeUpdate();
+			UpdatePosition();
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdatePosition() {
+			if ( !Application.isPlaying || !IsRaycast ) {
+				return;
+			}
+
+			Controllers.Set(SettingsControllerMap.TransformLocalPosition+".z", this);
+
+			Vector3 localPos = transform.localPosition;
+			localPos.z = RaycastOffsetZ/transform.lossyScale.z;
+			transform.localPosition = localPos;
 		}
 
 	}

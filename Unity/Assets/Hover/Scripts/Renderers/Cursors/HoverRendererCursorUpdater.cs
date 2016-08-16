@@ -61,10 +61,12 @@ namespace Hover.Renderers.Cursors {
 			HoverIndicator cursorInd = CursorRenderer.GetIndicator();
 
 			CursorRenderer.Controllers.Set(SettingsControllerMap.GameObjectActiveSelf, this);
+			CursorRenderer.Controllers.Set(HoverRendererCursor.IsRaycastName, this);
 			cursorInd.Controllers.Set(HoverIndicator.HighlightProgressName, this);
 			cursorInd.Controllers.Set(HoverIndicator.SelectionProgressName, this);
 
 			RendererUtil.SetActiveWithUpdate(CursorRenderer, cursorData.IsActive);
+			CursorRenderer.IsRaycast = cursorData.IsRaycast;
 			cursorInd.HighlightProgress = cursorData.MaxItemHighlightProgress;
 			cursorInd.SelectionProgress = cursorData.MaxItemSelectionProgress;
 		}

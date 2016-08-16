@@ -27,7 +27,7 @@ namespace Hover.Renderers.Shapes.Arc {
 			shape.Controllers.Set(HoverShapeArc.InnerOffsetName, this);
 
 			shape.InnerRadius = shape.OuterRadius+thickness;
-			shape.InnerOffset = rend.CenterPosition;
+			shape.InnerOffset = rend.CenterOffset;
 		}
 
 	}

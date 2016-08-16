@@ -65,11 +65,13 @@ namespace Hover.Renderers.Cursors {
 			IdleRenderer.Controllers.Set(HoverRendererIdle.CenterPositionName, this);
 			IdleRenderer.Controllers.Set(HoverRendererIdle.DistanceThresholdName, this);
 			IdleRenderer.Controllers.Set(HoverRendererIdle.TimerProgressName, this);
+			IdleRenderer.Controllers.Set(HoverRendererIdle.IsRaycastName, this);
 
-			IdleRenderer.CenterPosition =
+			IdleRenderer.CenterOffset =
 				transform.InverseTransformPoint(pCursorData.Idle.WorldPosition);
 			IdleRenderer.DistanceThreshold = pCursorData.Idle.DistanceThreshold;
 			IdleRenderer.TimerProgress = pCursorData.Idle.Progress;
+			IdleRenderer.IsRaycast = pCursorData.IsRaycast;
 
 			/*Transform itemPointHold = IdleRenderer.Fill.ItemPointer.transform.parent;
 			Transform cursPointHold = IdleRenderer.Fill.CursorPointer.transform.parent;
