@@ -28,7 +28,7 @@ namespace Hover.Layouts.Arc {
 		public float InnerRadius = 0.04f;
 
 		[DisableWhenControlled(RangeMin=0, RangeMax=360)]
-		public float ArcAngle = 135;
+		public float ArcAngle = 135; //TODO: rename to ArcDegrees
 		
 		[DisableWhenControlled(RangeMin=0)]
 		public float RadiusPadding = 0;

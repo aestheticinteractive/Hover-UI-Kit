@@ -19,10 +19,10 @@ namespace Hover.Interfaces.Cast {
 		public float TransitionProgress = 1;
 		
 		[Range(0.1f, 10)]
-		public float TransitionExponent = 2;
+		public float TransitionExponent = 4;
 
 		[Range(1, 10000)]
-		public float TransitionMilliseconds = 200;
+		public float TransitionMilliseconds = 500;
 
 		private Stopwatch vTimer;
 
@@ -32,12 +32,16 @@ namespace Hover.Interfaces.Cast {
 		public void Start() {
 			HovercastInterface cast = GetComponent<HovercastInterface>();
 			SetScale(cast.IsOpen ? 1 : 0);
+			UpdateIcons(cast);
 		}
-		
+
 		/*--------------------------------------------------------------------------------------------*/
 		public void TreeUpdate() {
+			HovercastInterface cast = GetComponent<HovercastInterface>();
+
 			UpdateTimedProgress();
-			UpdateTransition();
+			UpdateTransition(cast);
+			UpdateIcons(cast);
 		}
 
 
@@ -68,11 +72,9 @@ namespace Hover.Interfaces.Cast {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateTransition() {
-			HovercastInterface cast = GetComponent<HovercastInterface>();
-
+		private void UpdateTransition(HovercastInterface pCast) {
 			TransitionProgressCurved = 1-Mathf.Pow(1-TransitionProgress, TransitionExponent);
-			SetScale(cast.IsOpen ? TransitionProgressCurved : 1-TransitionProgressCurved);
+			SetScale(pCast.IsOpen ? TransitionProgressCurved : 1-TransitionProgressCurved);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -88,6 +90,19 @@ namespace Hover.Interfaces.Cast {
 				}
 
 				tx.localScale = Vector3.one*pScaleFactor;
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateIcons(HovercastInterface pCast) {
+			HovercastOpenIcons icons = pCast.OpenItem.GetComponentInChildren<HovercastOpenIcons>();
+
+			if ( icons.OpenIcon != null ) {
+				icons.OpenIcon.SetActive(!pCast.IsOpen);
+			}
+
+			if ( icons.CloseIcon != null ) {
+				icons.CloseIcon.SetActive(pCast.IsOpen);
 			}
 		}
 

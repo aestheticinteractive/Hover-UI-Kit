@@ -19,7 +19,7 @@ namespace Hover.Interfaces.Panel {
 		public HoverLayoutRectRow ActiveRow;
 		public HoverLayoutRectRow PreviousRow;
 
-		public HoverpanelRowEvent OnRowSwitchedEvent;
+		public HoverpanelRowEvent OnRowSwitchedEvent = new HoverpanelRowEvent();
 
 		public readonly Stack<HoverLayoutRectRow> vRowHistory;
 

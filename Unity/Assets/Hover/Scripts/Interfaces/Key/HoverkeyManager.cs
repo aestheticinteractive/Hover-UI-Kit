@@ -16,9 +16,9 @@ namespace Hover.Interfaces.Key {
 		[Serializable]
 		public class HoverkeyToggledEvent : UnityEvent<IItemDataSelectable<bool>, HoverkeyItemLabels> {}
 
-		public HoverkeySelectedEvent OnItemSelectedEvent;
-		public HoverkeySelectedEvent OnItemDeselectedEvent;
-		public HoverkeyToggledEvent OnItemToggledEvent;
+		public HoverkeySelectedEvent OnItemSelectedEvent = new HoverkeySelectedEvent();
+		public HoverkeySelectedEvent OnItemDeselectedEvent = new HoverkeySelectedEvent();
+		public HoverkeyToggledEvent OnItemToggledEvent = new HoverkeyToggledEvent();
 
 		private List<HoverkeyItemLabels> vAllLabels;
 		private IItemDataSticky vShiftStickyL;

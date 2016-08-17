@@ -62,7 +62,8 @@ namespace Hover.Items.Managers {
 			}
 
 			if ( ProximityProvider == null ) {
-				Debug.LogWarning("Could not find 'ProximityProvider'.");
+				//TODO: show warning elsewhere? the renderer is typically added *after* this
+				//Debug.LogWarning("Could not find 'ProximityProvider'.");
 			}
 
 			if ( InteractionSettings == null ) {

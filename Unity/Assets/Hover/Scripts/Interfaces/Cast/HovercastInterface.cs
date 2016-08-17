@@ -24,8 +24,8 @@ namespace Hover.Interfaces.Cast {
 		public HoverItemDataSelector BackItem;
 		public bool IsOpen = true;
 
-		public UnityEvent OnOpenToggledEvent;
-		public HovercastRowEvent OnRowSwitchedEvent;
+		public UnityEvent OnOpenToggledEvent = new UnityEvent();
+		public HovercastRowEvent OnRowSwitchedEvent = new HovercastRowEvent();
 
 		public readonly Stack<HoverLayoutArcRow> vRowHistory;
 

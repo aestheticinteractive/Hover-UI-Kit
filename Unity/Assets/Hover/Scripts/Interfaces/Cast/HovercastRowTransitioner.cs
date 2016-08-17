@@ -24,7 +24,7 @@ namespace Hover.Interfaces.Cast {
 		public float TransitionExponent = 2;
 
 		[Range(1, 10000)]
-		public float TransitionMilliseconds = 1000;
+		public float TransitionMilliseconds = 500;
 
 		public HovercastRowSwitchingInfo.RowEntryType RowEntryTransition;
 
