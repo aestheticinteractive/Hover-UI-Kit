@@ -9,13 +9,26 @@ namespace Hover.Items {
 	[ExecuteInEditMode]
 	public class HoverItemBuilder : MonoBehaviour {
 
-		public HoverItem.HoverItemType ItemType;
+		public HoverItem.HoverItemType ItemType = HoverItem.HoverItemType.Selector;
 		public GameObject ButtonRendererPrefab;
 		public GameObject SliderRendererPrefab;
 		public bool ClickToBuild = false;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public void Awake() {
+			if ( ButtonRendererPrefab == null ) {
+				ButtonRendererPrefab = Resources.Load<GameObject>(
+					"Prefabs/HoverAlphaButtonArcRenderer-Default");
+			}
+
+			if ( SliderRendererPrefab == null ) {
+				SliderRendererPrefab = Resources.Load<GameObject>(
+					"Prefabs/HoverAlphaSliderArcRenderer-Default");
+			}
+		}
+		
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
 			if ( ClickToBuild ) {
