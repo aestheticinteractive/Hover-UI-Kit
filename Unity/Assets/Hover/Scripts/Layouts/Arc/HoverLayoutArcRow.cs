@@ -2,7 +2,6 @@
 using Hover.Renderers.Utils;
 using Hover.Utils;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Hover.Layouts.Arc {
 
@@ -29,18 +28,15 @@ namespace Hover.Layouts.Arc {
 		public float InnerRadius = 0.04f;
 
 		[DisableWhenControlled(RangeMin=0, RangeMax=360)]
-		[FormerlySerializedAs("ArcAngle")]
 		public float ArcDegrees = 135;
 		
 		[DisableWhenControlled(RangeMin=0)]
 		public float RadiusPadding = 0;
 
 		[DisableWhenControlled(RangeMin=0, RangeMax=90)]
-		[FormerlySerializedAs("AnglePadding")]
 		public float DegreePadding = 0;
 
 		[DisableWhenControlled(RangeMin=-180, RangeMax=180)]
-		[FormerlySerializedAs("StartingAngle")]
 		public float StartingDegree = 0;
 
 		[DisableWhenControlled]

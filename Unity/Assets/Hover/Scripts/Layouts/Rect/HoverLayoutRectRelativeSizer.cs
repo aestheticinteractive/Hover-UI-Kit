@@ -1,6 +1,5 @@
 ﻿using Hover.Utils;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Hover.Layouts.Rect {
 
@@ -9,11 +8,9 @@ namespace Hover.Layouts.Rect {
 
 		public ISettingsControllerMap Controllers { get; private set; }
 
-		[FormerlySerializedAs("_RelativeSizeX")]
 		[DisableWhenControlled(RangeMin=0, RangeMax=10)]
 		public float RelativeSizeX = 1;
 
-		[FormerlySerializedAs("_RelativeSizeY")]
 		[DisableWhenControlled(RangeMin=0, RangeMax=10)]
 		public float RelativeSizeY = 1;
 		
