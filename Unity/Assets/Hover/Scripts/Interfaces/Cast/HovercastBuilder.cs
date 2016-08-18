@@ -6,6 +6,7 @@ using Hover.RendererModules.Alpha;
 using Hover.Renderers;
 using Hover.Renderers.Contents;
 using Hover.Renderers.Shapes.Arc;
+using Hover.Renderers.Sliders;
 using Hover.Utils;
 using UnityEngine;
 using UnityEngine.UI;
@@ -87,7 +88,7 @@ namespace Hover.Interfaces.Cast {
 
 			////
 
-			gameObject.AddComponent<TreeUpdater>();
+			TreeUpdater treeUp = gameObject.AddComponent<TreeUpdater>();
 
 			HoverCursorFollower follow = gameObject.AddComponent<HoverCursorFollower>();
 			follow.CursorType = (AttachToLeftHand ? CursorType.LeftPalm : CursorType.RightPalm);
@@ -132,6 +133,9 @@ namespace Hover.Interfaces.Cast {
 			mirror.UseMirrorLayout = !AttachToLeftHand;
 
 			gameObject.AddComponent<HovercastAlphaUpdater>();
+
+			follow.Update(); //moves interface to the correct cursor transform
+			treeUp.Update(); //forces entire interface to update
 		}
 
 
@@ -183,11 +187,11 @@ namespace Hover.Interfaces.Cast {
 
 			RawImage openImage = iconOpenGo.AddComponent<RawImage>();
 			openImage.material = Resources.Load<Material>("Materials/HovercastIconsMaterial");
-			openImage.uvRect = new Rect(0.002f, 0.002f, 0.496f, 0.496f);
+			openImage.uvRect = new Rect(0.002f, 0.002f, 0.496f, 0.996f);
 
 			RawImage closeImage = iconCloseGo.AddComponent<RawImage>();
 			closeImage.material = openImage.material;
-			closeImage.uvRect = new Rect(0.502f, 0.002f, 0.496f, 0.496f);
+			closeImage.uvRect = new Rect(0.502f, 0.002f, 0.496f, 0.996f);
 
 			////
 
@@ -290,7 +294,7 @@ namespace Hover.Interfaces.Cast {
 			sliderSizer.RelativeArcAngle = 3;
 
 			HoverItemDataSlider data = sliderItemGo.GetComponent<HoverItemDataSlider>();
-			data.Value = 0.325f;
+			data.Value = 0.825f;
 			data.Ticks = 5;
 			data.AllowJump = true;
 		}
@@ -336,7 +340,7 @@ namespace Hover.Interfaces.Cast {
 			bool isBack = (pNavToRowGo == null);
 
 			HoverItemDataSelector data = itemGo.GetComponent<HoverItemDataSelector>();
-			data.Action = (isBack ? SelectorActionType.NavigateIn : SelectorActionType.NavigateOut);
+			data.Action = (isBack ? SelectorActionType.NavigateOut : SelectorActionType.NavigateIn);
 
 			//TODO: HovercastInterface has not been created yet!
 /*#if UNITY_EDITOR
@@ -346,8 +350,6 @@ namespace Hover.Interfaces.Cast {
 			data.OnSelectedEvent.AddListener(inter.OnRowSwitched);
 #endif*/
 
-			itemGo.AddComponent<HoverShapeArc>();
-
 			HovercastRowSwitchingInfo rowSwitch = itemGo.AddComponent<HovercastRowSwitchingInfo>();
 			rowSwitch.NavigateBack = isBack;
 			rowSwitch.NavigateToRow = (isBack ? null : pNavToRowGo.GetComponent<HoverLayoutArcRow>());
@@ -355,6 +357,11 @@ namespace Hover.Interfaces.Cast {
 				HovercastRowSwitchingInfo.RowEntryType.FromInside : 
 				HovercastRowSwitchingInfo.RowEntryType.FromOutside
 			);
+
+			if ( !isBack ) {
+				HoverCanvas can = itemGo.GetComponentInChildren<HoverCanvas>();
+				can.Alignment = HoverCanvas.CanvasAlignmentType.TextLeftAndIconRight;
+			}
 		}
 
 	}
