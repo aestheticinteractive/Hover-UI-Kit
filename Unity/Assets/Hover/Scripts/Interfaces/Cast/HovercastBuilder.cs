@@ -137,10 +137,11 @@ namespace Hover.Interfaces.Cast {
 			if ( AutoRotateHandToFaceCamera ) {
 				HoverCursorDataProvider curDataProv = FindObjectOfType<HoverCursorDataProvider>();
 				ICursorDataForInput curData = curDataProv.GetCursorDataForInput(follow.CursorType);
+				float addRotZ = 80*(AttachToLeftHand ? 1 : -1);
 
 				actDir.TreeUpdate(); //forces search for the "facing" transform
 				curData.transform.LookAt(actDir.ActiveWhenFacingTransform, Vector3.up);
-				curData.transform.localRotation *= Quaternion.Euler(0, 0, 80);
+				curData.transform.localRotation *= Quaternion.Euler(0, 0, addRotZ);
 			}
 
 			follow.Update(); //moves interface to the correct cursor transform
