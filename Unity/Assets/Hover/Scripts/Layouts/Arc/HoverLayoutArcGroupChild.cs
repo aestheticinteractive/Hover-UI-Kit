@@ -22,8 +22,8 @@
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public float RelativeArcAngle {
-			get { return (RelSizer == null ? 1 : RelSizer.RelativeArcAngle); }
+		public float RelativeArcDegrees {
+			get { return (RelSizer == null ? 1 : RelSizer.RelativeArcDegrees); }
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -32,8 +32,8 @@
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public float RelativeStartAngleOffset {
-			get { return (RelSizer == null ? 0 : RelSizer.RelativeStartAngleOffset); }
+		public float RelativeStartDegreeOffset {
+			get { return (RelSizer == null ? 0 : RelSizer.RelativeStartDegreeOffset); }
 		}
 
 	}

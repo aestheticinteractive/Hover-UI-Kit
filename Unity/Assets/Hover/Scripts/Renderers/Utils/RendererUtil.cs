@@ -165,7 +165,7 @@ namespace Hover.Renderers.Utils {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public static Vector3 GetNearestWorldPositionOnArc(Vector3 pFromWorldPosition, 
-						Transform pArcTx, float pOuterRadius, float pInnerRadius, float pArcAngle) {
+						Transform pArcTx, float pOuterRadius, float pInnerRadius, float pArcDegrees) {
 			Vector3 fromLocalPos = pArcTx.InverseTransformPoint(pFromWorldPosition);
 
 			if ( fromLocalPos.x == 0 && fromLocalPos.y == 0 ) {
@@ -177,21 +177,21 @@ namespace Hover.Renderers.Utils {
 			float fromLocalPosMag = fromLocalPos.magnitude;
 			Vector3 fromLocalDir = fromLocalPos/fromLocalPosMag;
 			Quaternion fromLocalRot = Quaternion.FromToRotation(Vector3.right, fromLocalDir);
-			float halfAngle = pArcAngle/2;
+			float halfDeg = pArcDegrees/2;
 			float fromRadius = Mathf.Clamp(fromLocalPosMag, pInnerRadius, pOuterRadius);
-			float fromAngle;
+			float fromDeg;
 			Vector3 fromAxis;
 
-			fromLocalRot.ToAngleAxis(out fromAngle, out fromAxis);
+			fromLocalRot.ToAngleAxis(out fromDeg, out fromAxis);
 
-			if ( fromLocalPos.x > 0 && fromAngle >= -halfAngle && fromAngle <= halfAngle ) {
-				Quaternion nearLocalRot = Quaternion.AngleAxis(fromAngle, fromAxis);
+			if ( fromLocalPos.x > 0 && fromDeg >= -halfDeg && fromDeg <= halfDeg ) {
+				Quaternion nearLocalRot = Quaternion.AngleAxis(fromDeg, fromAxis);
 				Vector3 nearLocalPos = nearLocalRot*new Vector3(fromRadius, 0, 0);
 				return pArcTx.TransformPoint(nearLocalPos);
 			}
 
-			float rotatedAngle = -halfAngle*Mathf.Sign(fromLocalPos.y);
-			Quaternion rotatedRot = Quaternion.AngleAxis(rotatedAngle, Vector3.forward);
+			float rotatedDeg = -halfDeg*Mathf.Sign(fromLocalPos.y);
+			Quaternion rotatedRot = Quaternion.AngleAxis(rotatedDeg, Vector3.forward);
 
 			Vector3 fromRotatedPos = rotatedRot*fromLocalPos;
 			fromRotatedPos.x = Mathf.Clamp(fromRotatedPos.x, pInnerRadius, pOuterRadius);

@@ -15,7 +15,7 @@ namespace Hover.Layouts.Arc {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		void SetArcLayout(float pOuterRadius, float pInnerRadius, 
-			float pArcAngle, ISettingsController pController);
+			float pArcDegrees, ISettingsController pController);
 
 	}
 

@@ -317,8 +317,8 @@ namespace Hover.Interfaces.Cast {
 			pRowGo.AddComponent<TreeUpdater>();
 
 			HoverLayoutArcRow layoutArc = pRowGo.AddComponent<HoverLayoutArcRow>();
-			layoutArc.ArcAngle = 90;
-			layoutArc.AnglePadding = 0.2f;
+			layoutArc.ArcDegrees = 90;
+			layoutArc.DegreePadding = 0.2f;
 
 			HovercastRowTitle title = pRowGo.AddComponent<HovercastRowTitle>();
 			title.RowTitle = pRowTitle;
@@ -383,7 +383,7 @@ namespace Hover.Interfaces.Cast {
 
 			HoverLayoutArcRelativeSizer sliderSizer =
 				sliderItemGo.AddComponent<HoverLayoutArcRelativeSizer>();
-			sliderSizer.RelativeArcAngle = 3;
+			sliderSizer.RelativeArcDegrees = 3;
 
 			HoverItemDataSlider data = sliderItemGo.GetComponent<HoverItemDataSlider>();
 			data.Value = 0.825f;

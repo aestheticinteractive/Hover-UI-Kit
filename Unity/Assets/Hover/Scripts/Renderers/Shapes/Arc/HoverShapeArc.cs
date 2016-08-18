@@ -77,29 +77,29 @@ namespace Hover.Renderers.Shapes.Arc {
 			}
 
 			Vector3 nearLocalPos = pSliderContainerTx.InverseTransformPoint(pNearestWorldPosition);
-			float fromAngle;
+			float fromDeg;
 			Vector3 fromAxis;
 			Quaternion fromLocalRot = Quaternion.FromToRotation(Vector3.right, nearLocalPos.normalized);
 
-			fromLocalRot.ToAngleAxis(out fromAngle, out fromAxis);
-			fromAngle *= Mathf.Sign(nearLocalPos.y);
+			fromLocalRot.ToAngleAxis(out fromDeg, out fromAxis);
+			fromDeg *= Mathf.Sign(nearLocalPos.y);
 
-			float halfTrackAngle = (ArcDegrees-buttonShapeArc.ArcDegrees)/2;
-			return Mathf.InverseLerp(-halfTrackAngle, halfTrackAngle, fromAngle);
+			float halfTrackDeg = (ArcDegrees-buttonShapeArc.ArcDegrees)/2;
+			return Mathf.InverseLerp(-halfTrackDeg, halfTrackDeg, fromDeg);
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void SetArcLayout(float pOuterRadius, float pInnerRadius, 
-													float pArcAngle, ISettingsController pController) {
+												float pArcDegrees, ISettingsController pController) {
 			Controllers.Set(OuterRadiusName, pController);
 			Controllers.Set(InnerRadiusName, pController);
 			Controllers.Set(ArcDegreesName, pController);
 
 			OuterRadius = pOuterRadius;
 			InnerRadius = pInnerRadius;
-			ArcDegrees = pArcAngle;
+			ArcDegrees = pArcDegrees;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

@@ -2,6 +2,7 @@
 using Hover.Renderers.Utils;
 using Hover.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.Layouts.Arc {
 
@@ -10,7 +11,7 @@ namespace Hover.Layouts.Arc {
 		
 		public const string OuterRadiusName = "OuterRadius";
 		public const string InnerRadiusName = "InnerRadius";
-		public const string ArcAngleName = "ArcAngle";
+		public const string ArcDegreesName = "ArcDegrees";
 		public const string RectAnchorName = "RectAnchor";
 
 		public enum ArrangementType {
@@ -28,16 +29,19 @@ namespace Hover.Layouts.Arc {
 		public float InnerRadius = 0.04f;
 
 		[DisableWhenControlled(RangeMin=0, RangeMax=360)]
-		public float ArcAngle = 135;
+		[FormerlySerializedAs("ArcAngle")]
+		public float ArcDegrees = 135;
 		
 		[DisableWhenControlled(RangeMin=0)]
 		public float RadiusPadding = 0;
 
 		[DisableWhenControlled(RangeMin=0, RangeMax=90)]
-		public float AnglePadding = 0;
+		[FormerlySerializedAs("AnglePadding")]
+		public float DegreePadding = 0;
 
 		[DisableWhenControlled(RangeMin=-180, RangeMax=180)]
-		public float StartingAngle = 0;
+		[FormerlySerializedAs("StartingAngle")]
+		public float StartingDegree = 0;
 
 		[DisableWhenControlled]
 		public AnchorType RectAnchor = AnchorType.MiddleCenter;
@@ -63,14 +67,14 @@ namespace Hover.Layouts.Arc {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void SetArcLayout(float pOuterRadius, float pInnerRadius, 
-													float pArcAngle, ISettingsController pController) {
+												float pArcDegrees, ISettingsController pController) {
 			Controllers.Set(OuterRadiusName, pController);
 			Controllers.Set(InnerRadiusName, pController);
-			Controllers.Set(ArcAngleName, pController);
+			Controllers.Set(ArcDegreesName, pController);
 
 			OuterRadius = pOuterRadius;
 			InnerRadius = pInnerRadius;
-			ArcAngle = pArcAngle;
+			ArcDegrees = pArcDegrees;
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
@@ -95,7 +99,7 @@ namespace Hover.Layouts.Arc {
 			float relSumThickness = 0;
 			float paddedOuterRadius = OuterRadius-RadiusPadding;
 			float paddedInnerRadius = InnerRadius+RadiusPadding;
-			float availAngle = ArcAngle-AnglePadding*(itemCount-1);
+			float availDeg = ArcDegrees-DegreePadding*(itemCount-1);
 			float availThick = paddedOuterRadius-paddedInnerRadius;
 			float innerRadius = paddedInnerRadius;
 
@@ -113,14 +117,14 @@ namespace Hover.Layouts.Arc {
 				HoverLayoutArcGroupChild item = vChildItems[childI];
 				ILayoutableArc elem = item.Elem;
 				float elemRelThick = availThick*item.RelativeThickness/relSumThickness;
-				float elemRelArcAngle = availAngle*item.RelativeArcAngle;
+				float elemRelArcDeg = availDeg*item.RelativeArcDegrees;
 				float radiusOffset = elemRelThick*item.RelativeRadiusOffset;
-				float elemStartAngle = StartingAngle + elemRelArcAngle*item.RelativeStartAngleOffset;
+				float elemStartDeg = StartingDegree + elemRelArcDeg*item.RelativeStartDegreeOffset;
 
 				elem.SetArcLayout(
 					innerRadius+elemRelThick+radiusOffset,
 					innerRadius+radiusOffset,
-					elemRelArcAngle,
+					elemRelArcDeg,
 					this
 				);
 				
@@ -133,7 +137,7 @@ namespace Hover.Layouts.Arc {
 				localPos.y = anchorPos.y;
 
 				elem.transform.localPosition = localPos;
-				elem.transform.localRotation = Quaternion.AngleAxis(elemStartAngle, Vector3.back);
+				elem.transform.localRotation = Quaternion.AngleAxis(elemStartDeg, Vector3.back);
 
 				innerRadius += elemRelThick;
 			}
