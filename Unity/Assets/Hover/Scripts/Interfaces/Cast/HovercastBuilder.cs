@@ -19,6 +19,7 @@ namespace Hover.Interfaces.Cast {
 		public bool AttachToLeftHand = true;
 		public GameObject ButtonRendererPrefab;
 		public GameObject SliderRendererPrefab;
+		public bool AutoRotateHandToFaceCamera = true;
 		public bool IncludeExampleRows = true;
 		public bool ClickToBuild = false;
 
@@ -39,12 +40,14 @@ namespace Hover.Interfaces.Cast {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			if ( ClickToBuild ) {
-				ClickToBuild = false;
-				BuilderUtil.FindOrAddHoverManagerPrefab();
-				PerformBuild();
-				DestroyImmediate(this, false);
+			if ( !ClickToBuild ) {
+				return;
 			}
+
+			ClickToBuild = false;
+			BuilderUtil.FindOrAddHoverManagerPrefab();
+			PerformBuild();
+			DestroyImmediate(this, false);
 		}
 
 
@@ -130,6 +133,15 @@ namespace Hover.Interfaces.Cast {
 			mirror.UseMirrorLayout = !AttachToLeftHand;
 
 			gameObject.AddComponent<HovercastAlphaUpdater>();
+
+			if ( AutoRotateHandToFaceCamera ) {
+				HoverCursorDataProvider curDataProv = FindObjectOfType<HoverCursorDataProvider>();
+				ICursorDataForInput curData = curDataProv.GetCursorDataForInput(follow.CursorType);
+
+				actDir.TreeUpdate(); //forces search for the "facing" transform
+				curData.transform.LookAt(actDir.ActiveWhenFacingTransform, Vector3.up);
+				curData.transform.localRotation *= Quaternion.Euler(0, 0, 80);
+			}
 
 			follow.Update(); //moves interface to the correct cursor transform
 			treeUp.Update(); //forces entire interface to update

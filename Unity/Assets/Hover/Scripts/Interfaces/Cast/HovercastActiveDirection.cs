@@ -79,7 +79,13 @@ namespace Hover.Interfaces.Cast {
 			Vector3 castToTxWorldDir = castToTxWorldVec.normalized;
 			float dotBetweenDirs = Vector3.Dot(castWorldDir, castToTxWorldDir);
 
-			CurrentDegree = Mathf.Acos(dotBetweenDirs)/Mathf.PI*180;
+			if ( dotBetweenDirs >= 1 ) {
+				CurrentDegree = 0;
+			}
+			else {
+				CurrentDegree = Mathf.Acos(dotBetweenDirs)/Mathf.PI*180;
+			}
+
 			ChildForActivation.SetActive(CurrentDegree <= InactiveOutsideDegree);
 
 			//Vector3 castPos = cast.transform.position;
