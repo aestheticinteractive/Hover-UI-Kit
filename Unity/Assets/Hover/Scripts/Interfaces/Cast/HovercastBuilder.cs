@@ -6,7 +6,6 @@ using Hover.RendererModules.Alpha;
 using Hover.Renderers;
 using Hover.Renderers.Contents;
 using Hover.Renderers.Shapes.Arc;
-using Hover.Renderers.Sliders;
 using Hover.Utils;
 using UnityEngine;
 using UnityEngine.UI;
@@ -52,11 +51,16 @@ namespace Hover.Interfaces.Cast {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void PerformBuild() {
+			TreeUpdater treeUp = gameObject.AddComponent<TreeUpdater>();
+			HoverCursorFollower follow = gameObject.AddComponent<HoverCursorFollower>();
+			HovercastInterface inter = gameObject.AddComponent<HovercastInterface>();
+
+			////
+
 			var adjustGo = new GameObject("TransformAdjuster");
 			adjustGo.transform.SetParent(transform, false);
 			adjustGo.transform.localPosition = new Vector3(0, 0, 0.02f);
 			adjustGo.transform.localRotation = Quaternion.Euler(0, 180, 80);
-			adjustGo.AddComponent<TreeUpdater>();
 
 			var openItemGo = new GameObject("OpenItem");
 			openItemGo.transform.SetParent(adjustGo.transform, false);
@@ -86,20 +90,13 @@ namespace Hover.Interfaces.Cast {
 				BuildExampleRows(rowContGo, row0Go);
 			}
 
+			adjustGo.AddComponent<TreeUpdater>(); //after building items
+
 			////
 
-			TreeUpdater treeUp = gameObject.AddComponent<TreeUpdater>();
-
-			HoverCursorFollower follow = gameObject.AddComponent<HoverCursorFollower>();
 			follow.CursorType = (AttachToLeftHand ? CursorType.LeftPalm : CursorType.RightPalm);
-			follow.ObjectsToActivate = new[] {
-				openItemGo,
-				titleItemGo,
-				backItemGo,
-				rowContGo
-			};
+			follow.ObjectsToActivate = new[] { openItemGo, titleItemGo, backItemGo, rowContGo };
 
-			HovercastInterface inter = gameObject.AddComponent<HovercastInterface>();
 			inter.RowContainer = rowContGo.transform;
 			inter.ActiveRow = row0Go.GetComponent<HoverLayoutArcRow>();
 			inter.OpenItem = openItemGo.GetComponent<HoverItemDataSelector>();
@@ -149,14 +146,20 @@ namespace Hover.Interfaces.Cast {
 
 			////
 
+			HovercastInterface inter = gameObject.GetComponent<HovercastInterface>();
+
 			HoverItemDataSelector data = pItemGo.GetComponent<HoverItemDataSelector>();
 			data.Id = "HovercastOpenItem";
 			data.Label = "";
 
+#if UNITY_EDITOR
+			UnityEditor.Events.UnityEventTools.AddPersistentListener(
+				data.OnSelectedEvent, inter.OnOpenToggled);
+#else
+			data.OnSelectedEvent.AddListener(inter.OnRowSwitched);
+#endif
+
 			HoverCanvas can = pItemGo.GetComponentInChildren<HoverCanvas>();
-			//can.Label.gameObject.SetActive(false);
-			//can.IconOuter.gameObject.SetActive(false);
-			//can.IconInner.gameObject.SetActive(false);
 
 			var iconPivotGo = new GameObject("IconPivot");
 			iconPivotGo.transform.SetParent(can.transform, false);
@@ -233,10 +236,19 @@ namespace Hover.Interfaces.Cast {
 
 			////
 
+			HovercastInterface inter = gameObject.GetComponent<HovercastInterface>();
+
 			HoverItemDataSelector data = pItemGo.GetComponent<HoverItemDataSelector>();
 			data.Id = "HovercastBackItem";
 			data.Label = "";
 			data.Action = SelectorActionType.NavigateOut;
+
+#if UNITY_EDITOR
+			UnityEditor.Events.UnityEventTools.AddPersistentListener(
+				data.OnSelectedEvent, inter.OnRowSwitched);
+#else
+			data.OnSelectedEvent.AddListener(inter.OnRowSwitched);
+#endif
 
 			HoverCanvas can = pItemGo.GetComponentInChildren<HoverCanvas>();
 			can.Alignment = HoverCanvas.CanvasAlignmentType.Custom;
@@ -281,22 +293,10 @@ namespace Hover.Interfaces.Cast {
 			BuildRowItem(row1Go, "Row1-ItemF", "AF", HoverItem.HoverItemType.Radio);
 			BuildRowNavItem(row1Go, "Row1-ItemBack", "Back", null);
 
-			GameObject sliderItemGo = 
-				BuildRowItem(row2Go, "Row2-ItemA", "BA", HoverItem.HoverItemType.Slider);
+			BuildRowSliderItem(row2Go, "Row2-ItemA", "BA");
 			BuildRowItem(row2Go, "Row2-ItemB", "BB", HoverItem.HoverItemType.Checkbox);
 			BuildRowItem(row2Go, "Row2-ItemC", "BC", HoverItem.HoverItemType.Checkbox);
 			BuildRowNavItem(row2Go, "Row2-ItemBack", "Back", null);
-
-			////
-
-			HoverLayoutArcRelativeSizer sliderSizer =
-				sliderItemGo.AddComponent<HoverLayoutArcRelativeSizer>();
-			sliderSizer.RelativeArcAngle = 3;
-
-			HoverItemDataSlider data = sliderItemGo.GetComponent<HoverItemDataSlider>();
-			data.Value = 0.825f;
-			data.Ticks = 5;
-			data.AllowJump = true;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -342,13 +342,12 @@ namespace Hover.Interfaces.Cast {
 			HoverItemDataSelector data = itemGo.GetComponent<HoverItemDataSelector>();
 			data.Action = (isBack ? SelectorActionType.NavigateOut : SelectorActionType.NavigateIn);
 
-			//TODO: HovercastInterface has not been created yet!
-/*#if UNITY_EDITOR
+#if UNITY_EDITOR
 			UnityEditor.Events.UnityEventTools.AddPersistentListener(
 				data.OnSelectedEvent, inter.OnRowSwitched);
 #else
 			data.OnSelectedEvent.AddListener(inter.OnRowSwitched);
-#endif*/
+#endif
 
 			HovercastRowSwitchingInfo rowSwitch = itemGo.AddComponent<HovercastRowSwitchingInfo>();
 			rowSwitch.NavigateBack = isBack;
@@ -363,6 +362,24 @@ namespace Hover.Interfaces.Cast {
 				can.Alignment = HoverCanvas.CanvasAlignmentType.TextLeftAndIconRight;
 			}
 		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void BuildRowSliderItem(GameObject pRowGo, string pId, string pLabel) {
+			GameObject sliderItemGo =
+				BuildRowItem(pRowGo, "Row2-ItemA", "BA", HoverItem.HoverItemType.Slider);
+
+			HoverLayoutArcRelativeSizer sliderSizer =
+				sliderItemGo.AddComponent<HoverLayoutArcRelativeSizer>();
+			sliderSizer.RelativeArcAngle = 3;
+
+			HoverItemDataSlider data = sliderItemGo.GetComponent<HoverItemDataSlider>();
+			data.Value = 0.825f;
+			data.Ticks = 5;
+			data.AllowJump = true;
+
+			sliderItemGo.GetComponent<TreeUpdater>().Update(); //forces slider (and ticks) to update
+		}
+
 
 	}
 

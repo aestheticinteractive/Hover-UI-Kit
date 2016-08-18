@@ -33,7 +33,7 @@ namespace Hover.Interfaces.Cast {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Awake() {
+		public void Start() {
 			HovercastInterface cast = GetComponent<HovercastInterface>();
 
 			foreach ( Transform childTx in cast.RowContainer ) {
@@ -43,11 +43,6 @@ namespace Hover.Interfaces.Cast {
 					childTx.gameObject.SetActive(false);
 				}
 			}
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
-			//do nothing...
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
