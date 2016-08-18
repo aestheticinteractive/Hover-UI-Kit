@@ -1,4 +1,5 @@
 using Hover.Renderers.Buttons;
+using Hover.Renderers.Utils;
 using Hover.Utils;
 using UnityEngine;
 
@@ -52,20 +53,24 @@ namespace Hover.Renderers.Shapes.Rect {
 				HoverIndicator meshInd = fillButton.Edge.GetComponent<HoverIndicator>();
 				float minSize = Mathf.Min(shapeRect.SizeX, shapeRect.SizeY);
 
-				UpdateMeshShape(fillButton.Edge, shapeRect.SizeX, shapeRect.SizeY);
-
 				meshInd.Controllers.Set(HoverIndicator.HighlightProgressName, this);
 				meshInd.HighlightProgress = 1-totalEdgeThick/minSize; //TODO:  hack/workaround
+
+				UpdateMeshShape(fillButton.Edge, 
+					shapeRect.SizeX, shapeRect.SizeY, fillButton.ShowEdge);
 			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		protected virtual void UpdateMeshShape(HoverMesh pMesh, float pSizeX, float pSizeY) {
+		protected virtual void UpdateMeshShape(HoverMesh pMesh, float pSizeX, float pSizeY,
+																				bool pShowMesh=true) {
 			HoverShapeRect meshShape = pMesh.GetComponent<HoverShapeRect>();
 
+			pMesh.Controllers.Set(SettingsControllerMap.GameObjectActiveSelf, this);
 			meshShape.Controllers.Set(HoverShapeRect.SizeXName, this);
 			meshShape.Controllers.Set(HoverShapeRect.SizeYName, this);
 
+			RendererUtil.SetActiveWithUpdate(pMesh, (pShowMesh && pMesh.IsMeshVisible));
 			meshShape.SizeX = pSizeX;
 			meshShape.SizeY = pSizeY;
 		}

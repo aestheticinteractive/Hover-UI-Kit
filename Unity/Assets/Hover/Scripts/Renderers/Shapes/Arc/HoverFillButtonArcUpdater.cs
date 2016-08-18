@@ -1,4 +1,5 @@
 using Hover.Renderers.Buttons;
+using Hover.Renderers.Utils;
 using Hover.Utils;
 using UnityEngine;
 
@@ -58,17 +59,21 @@ namespace Hover.Renderers.Shapes.Arc {
 			}
 
 			if ( fillButton.Edge != null ) {
-				UpdateMeshShape(fillButton.Edge, edgeOuterRadius, edgeInnerRadius);
+				UpdateMeshShape(fillButton.Edge, 
+					edgeOuterRadius, edgeInnerRadius, fillButton.ShowEdge);
 			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		protected virtual void UpdateMeshShape(HoverMesh pMesh, float pOuterRad, float pInnerRad) {
+		protected virtual void UpdateMeshShape(HoverMesh pMesh, float pOuterRad, float pInnerRad,
+																				bool pShowMesh=true) {
 			HoverShapeArc meshShape = pMesh.GetComponent<HoverShapeArc>();
 
+			pMesh.Controllers.Set(SettingsControllerMap.GameObjectActiveSelf, this);
 			meshShape.Controllers.Set(HoverShapeArc.OuterRadiusName, this);
 			meshShape.Controllers.Set(HoverShapeArc.InnerRadiusName, this);
 
+			RendererUtil.SetActiveWithUpdate(pMesh, (pShowMesh && pMesh.IsMeshVisible));
 			meshShape.OuterRadius = pOuterRad;
 			meshShape.InnerRadius = pInnerRad;
 		}

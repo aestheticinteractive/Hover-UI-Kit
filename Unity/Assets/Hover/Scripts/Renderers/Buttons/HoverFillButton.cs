@@ -1,6 +1,5 @@
 using System;
 using Hover.Renderers.Shapes;
-using Hover.Renderers.Utils;
 using Hover.Utils;
 using UnityEngine;
 
@@ -45,41 +44,6 @@ namespace Hover.Renderers.Buttons {
 			}
 
 			throw new ArgumentOutOfRangeException();
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public override void TreeUpdate() {
-			base.TreeUpdate();
-			UpdateMeshes();
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateMeshes() {
-			if ( Background != null ) {
-				UpdateMesh(Background);
-			}
-			
-			if ( Highlight != null ) {
-				UpdateMesh(Highlight);
-			}
-			
-			if ( Selection != null ) {
-				UpdateMesh(Selection);
-			}
-			
-			if ( Edge != null ) {
-				UpdateMesh(Edge, ShowEdge);
-			}
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateMesh(HoverMesh pMesh, bool pShowMesh=true) {
-			pMesh.Controllers.Set(SettingsControllerMap.GameObjectActiveSelf, this);
-			RendererUtil.SetActiveWithUpdate(pMesh, (pShowMesh && pMesh.IsMeshVisible));
 		}
 
 	}

@@ -91,12 +91,6 @@ namespace Hover.Renderers.Sliders {
 
 			List<SliderUtil.SegmentInfo> tickInfoList = fillSlider.SegmentInfo.TickInfoList;
 
-			//TODO: fix this by moving "updater" after the "fill" script (+ handle edges differently)
-			if ( fillSlider.Ticks.Count != tickInfoList.Count ) {
-				fillSlider.TreeUpdate(); //force tick list to rebuild
-				Debug.LogWarning("Rebuilding slider ticks...", this);
-			}
-
 			for ( int i = 0 ; i < tickInfoList.Count ; i++ ) {
 				UpdateTickMesh(fillSlider.Ticks[i], tickInfoList[i]);
 			}

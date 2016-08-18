@@ -389,10 +389,7 @@ namespace Hover.Interfaces.Cast {
 			data.Value = 0.825f;
 			data.Ticks = 5;
 			data.AllowJump = true;
-
-			sliderItemGo.GetComponent<TreeUpdater>().Update(); //forces slider (and ticks) to update
 		}
-
 
 	}
 
