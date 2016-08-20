@@ -1,4 +1,4 @@
-﻿using Hover.Renderers;
+﻿using Hover.Core.Renderers;
 using UnityEngine;
 
 namespace Hover.RendererModules.Alpha {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Hover.Interfaces.Cast {
+namespace Hover.InterfaceModules.Cast {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]

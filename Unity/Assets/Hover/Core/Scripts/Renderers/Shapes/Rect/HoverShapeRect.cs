@@ -1,10 +1,10 @@
-using Hover.Items;
-using Hover.Layouts.Rect;
-using Hover.Renderers.Utils;
-using Hover.Utils;
+using Hover.Core.Items;
+using Hover.Core.Layouts.Rect;
+using Hover.Core.Renderers.Utils;
+using Hover.Core.Utils;
 using UnityEngine;
 
-namespace Hover.Renderers.Shapes.Rect {
+namespace Hover.Core.Renderers.Shapes.Rect {
 
 	/*================================================================================================*/
 	public class HoverShapeRect : HoverShape, ILayoutableRect {

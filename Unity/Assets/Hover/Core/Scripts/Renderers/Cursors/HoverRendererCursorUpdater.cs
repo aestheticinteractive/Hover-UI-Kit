@@ -1,9 +1,9 @@
-using Hover.Cursors;
-using Hover.Renderers.Utils;
-using Hover.Utils;
+using Hover.Core.Cursors;
+using Hover.Core.Renderers.Utils;
+using Hover.Core.Utils;
 using UnityEngine;
 
-namespace Hover.Renderers.Cursors {
+namespace Hover.Core.Renderers.Cursors {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]

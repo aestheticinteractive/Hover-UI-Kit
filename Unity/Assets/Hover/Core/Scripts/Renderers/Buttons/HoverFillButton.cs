@@ -1,9 +1,9 @@
 using System;
-using Hover.Renderers.Shapes;
-using Hover.Utils;
+using Hover.Core.Renderers.Shapes;
+using Hover.Core.Utils;
 using UnityEngine;
 
-namespace Hover.Renderers.Buttons {
+namespace Hover.Core.Renderers.Buttons {
 
 	/*================================================================================================*/
 	[RequireComponent(typeof(HoverIndicator))]

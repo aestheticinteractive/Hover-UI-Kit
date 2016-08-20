@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Hover.Cursors {
+namespace Hover.Core.Cursors {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]

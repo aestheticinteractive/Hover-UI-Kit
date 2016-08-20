@@ -1,8 +1,8 @@
-﻿using Hover.Items.Types;
-using Hover.Layouts.Rect;
+﻿using Hover.Core.Items.Types;
+using Hover.Core.Layouts.Rect;
 using UnityEngine;
 
-namespace Hover.Interfaces.Panel {
+namespace Hover.InterfaceModules.Panel {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]

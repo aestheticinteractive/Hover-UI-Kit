@@ -1,11 +1,11 @@
-using Hover.Items;
-using Hover.Layouts.Arc;
-using Hover.Layouts.Rect;
-using Hover.Renderers.Utils;
-using Hover.Utils;
+using Hover.Core.Items;
+using Hover.Core.Layouts.Arc;
+using Hover.Core.Layouts.Rect;
+using Hover.Core.Renderers.Utils;
+using Hover.Core.Utils;
 using UnityEngine;
 
-namespace Hover.Renderers.Shapes.Arc {
+namespace Hover.Core.Renderers.Shapes.Arc {
 
 	/*================================================================================================*/
 	public class HoverShapeArc : HoverShape, ILayoutableArc, ILayoutableRect {

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Hover.Utils;
+using Hover.Core.Utils;
 using UnityEngine;
 
-namespace Hover.Layouts.Rect {
+namespace Hover.Core.Layouts.Rect {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]

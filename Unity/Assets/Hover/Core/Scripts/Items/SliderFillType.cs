@@ -1,4 +1,4 @@
-﻿namespace Hover.Items {
+﻿namespace Hover.Core.Items {
 
 	/*================================================================================================*/
 	public enum SliderFillType {

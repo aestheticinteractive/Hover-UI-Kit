@@ -1,7 +1,7 @@
-using Hover.Utils;
+using Hover.Core.Utils;
 using UnityEngine;
 
-namespace Hover.Renderers.Sliders {
+namespace Hover.Core.Renderers.Sliders {
 
 	/*================================================================================================*/
 	[RequireComponent(typeof(TreeUpdater))]

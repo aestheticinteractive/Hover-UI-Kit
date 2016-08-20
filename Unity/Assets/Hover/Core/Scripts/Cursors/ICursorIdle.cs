@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Hover.Cursors {
+namespace Hover.Core.Cursors {
 
 	/*================================================================================================*/
 	public interface ICursorIdle {

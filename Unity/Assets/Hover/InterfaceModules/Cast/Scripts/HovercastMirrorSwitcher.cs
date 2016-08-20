@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Hover.Renderers.Contents;
-using Hover.Utils;
+using Hover.Core.Renderers.Contents;
+using Hover.Core.Utils;
 using UnityEngine;
 
-namespace Hover.Interfaces.Cast {
+namespace Hover.InterfaceModules.Cast {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]

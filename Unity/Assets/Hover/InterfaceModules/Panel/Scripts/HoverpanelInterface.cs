@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using Hover.Items.Types;
-using Hover.Layouts.Rect;
-using Hover.Utils;
+using Hover.Core.Items.Types;
+using Hover.Core.Layouts.Rect;
+using Hover.Core.Utils;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Hover.Interfaces.Panel {
+namespace Hover.InterfaceModules.Panel {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]

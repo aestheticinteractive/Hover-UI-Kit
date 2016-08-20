@@ -1,6 +1,6 @@
-﻿using Hover.Items.Types;
+﻿using Hover.Core.Items.Types;
 
-namespace Hover.Items {
+namespace Hover.Core.Items {
 
 	/*================================================================================================*/
 	public static class ItemEvents {

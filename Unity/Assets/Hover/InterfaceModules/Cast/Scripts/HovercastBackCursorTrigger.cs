@@ -1,10 +1,10 @@
-﻿using Hover.Cursors;
-using Hover.Items.Types;
-using Hover.Renderers;
-using Hover.Utils;
+﻿using Hover.Core.Cursors;
+using Hover.Core.Items.Types;
+using Hover.Core.Renderers;
+using Hover.Core.Utils;
 using UnityEngine;
 
-namespace Hover.Interfaces.Cast {
+namespace Hover.InterfaceModules.Cast {
 
 	/*================================================================================================*/
 	[RequireComponent(typeof(HovercastInterface))]

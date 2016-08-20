@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Hover.Utils {
+namespace Hover.Core.Utils {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]

@@ -1,10 +1,10 @@
-using Hover.Items;
-using Hover.Renderers.Contents;
-using Hover.Renderers.Shapes;
-using Hover.Utils;
+using Hover.Core.Items;
+using Hover.Core.Renderers.Contents;
+using Hover.Core.Renderers.Shapes;
+using Hover.Core.Utils;
 using UnityEngine;
 
-namespace Hover.Renderers {
+namespace Hover.Core.Renderers {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]

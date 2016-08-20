@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Hover.Items {
+namespace Hover.Core.Items {
 
 	/*================================================================================================*/
 	public struct RaycastResult {

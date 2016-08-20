@@ -1,4 +1,4 @@
-﻿namespace Hover.Cursors {
+﻿namespace Hover.Core.Cursors {
 
 	/*================================================================================================*/
 	public enum CursorCapabilityType {

@@ -1,10 +1,10 @@
 ﻿using System.Diagnostics;
-using Hover.Layouts.Rect;
-using Hover.Renderers.Shapes.Rect;
-using Hover.Utils;
+using Hover.Core.Layouts.Rect;
+using Hover.Core.Renderers.Shapes.Rect;
+using Hover.Core.Utils;
 using UnityEngine;
 
-namespace Hover.Interfaces.Panel {
+namespace Hover.InterfaceModules.Panel {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]

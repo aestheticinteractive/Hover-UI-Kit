@@ -1,8 +1,8 @@
-using Hover.Items.Managers;
-using Hover.Utils;
+using Hover.Core.Items.Managers;
+using Hover.Core.Utils;
 using UnityEngine;
 
-namespace Hover.Renderers {
+namespace Hover.Core.Renderers {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]

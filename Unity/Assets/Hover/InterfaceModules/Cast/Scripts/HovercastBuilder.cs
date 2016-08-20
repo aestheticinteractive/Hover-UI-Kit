@@ -1,16 +1,16 @@
-﻿using Hover.Cursors;
-using Hover.Items;
-using Hover.Items.Types;
-using Hover.Layouts.Arc;
+﻿using Hover.Core.Cursors;
+using Hover.Core.Items;
+using Hover.Core.Items.Types;
+using Hover.Core.Layouts.Arc;
+using Hover.Core.Renderers;
+using Hover.Core.Renderers.Contents;
+using Hover.Core.Renderers.Shapes.Arc;
+using Hover.Core.Utils;
 using Hover.RendererModules.Alpha;
-using Hover.Renderers;
-using Hover.Renderers.Contents;
-using Hover.Renderers.Shapes.Arc;
-using Hover.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Hover.Interfaces.Cast {
+namespace Hover.InterfaceModules.Cast {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]

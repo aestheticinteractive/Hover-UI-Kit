@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Hover.Cursors {
+namespace Hover.Core.Cursors {
 
 	/*================================================================================================*/
 	public enum CursorType {

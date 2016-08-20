@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using Hover.Cursors;
-using Hover.Items.Types;
-using Hover.Renderers;
+using Hover.Core.Cursors;
+using Hover.Core.Items.Types;
+using Hover.Core.Renderers;
 using UnityEngine;
 
-namespace Hover.Items.Managers {
+namespace Hover.Core.Items.Managers {
 
 	/*================================================================================================*/
 	[RequireComponent(typeof(HoverItemsManager))]

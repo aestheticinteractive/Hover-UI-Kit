@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Hover.Items.Types;
+using Hover.Core.Items.Types;
 using UnityEngine;
 
-namespace Hover.Items.Managers {
+namespace Hover.Core.Items.Managers {
 
 	/*================================================================================================*/
 	[RequireComponent(typeof(HoverItemsManager))]

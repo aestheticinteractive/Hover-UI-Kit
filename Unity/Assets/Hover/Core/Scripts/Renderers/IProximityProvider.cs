@@ -1,7 +1,7 @@
-﻿using Hover.Items;
+﻿using Hover.Core.Items;
 using UnityEngine;
 
-namespace Hover.Renderers {
+namespace Hover.Core.Renderers {
 
 	/*================================================================================================*/
 	public interface IProximityProvider {

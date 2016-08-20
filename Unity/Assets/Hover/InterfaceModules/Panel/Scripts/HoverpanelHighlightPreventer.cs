@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using Hover.Items.Managers;
-using Hover.Layouts.Rect;
-using Hover.Utils;
+using Hover.Core.Items.Managers;
+using Hover.Core.Layouts.Rect;
+using Hover.Core.Utils;
 using UnityEngine;
 
-namespace Hover.Interfaces.Panel {
+namespace Hover.InterfaceModules.Panel {
 
 	/*================================================================================================*/
 	[RequireComponent(typeof(HoverpanelInterface))]

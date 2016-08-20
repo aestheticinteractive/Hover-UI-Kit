@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using Hover.Items;
-using Hover.Items.Types;
+using Hover.Core.Items;
+using Hover.Core.Items.Types;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Hover.Interfaces.Key {
+namespace Hover.InterfaceModules.Key {
 
 	/*================================================================================================*/
 	public class HoverkeyManager : MonoBehaviour {

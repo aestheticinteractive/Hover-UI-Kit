@@ -1,7 +1,7 @@
-﻿using Hover.Items.Managers;
+﻿using Hover.Core.Items.Managers;
 using UnityEngine;
 
-namespace Hover.Utils {
+namespace Hover.Core.Utils {
 
 	/*================================================================================================*/
 	public static class BuilderUtil {

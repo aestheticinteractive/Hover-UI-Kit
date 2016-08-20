@@ -1,7 +1,7 @@
-using Hover.Utils;
+using Hover.Core.Utils;
 using UnityEngine;
 
-namespace Hover.Renderers {
+namespace Hover.Core.Renderers {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]

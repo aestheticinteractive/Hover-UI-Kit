@@ -1,7 +1,7 @@
-using Hover.Renderers.Sliders;
+using Hover.Core.Renderers.Sliders;
 using UnityEngine;
 
-namespace Hover.Renderers.Shapes.Rect {
+namespace Hover.Core.Renderers.Shapes.Rect {
 
 	/*================================================================================================*/
 	[RequireComponent(typeof(HoverShapeRect))]

@@ -1,7 +1,7 @@
-﻿using Hover.Items;
+﻿using Hover.Core.Items;
 using UnityEngine;
 
-namespace Hover.Interfaces.Key {
+namespace Hover.InterfaceModules.Key {
 
 	/*================================================================================================*/
 	[RequireComponent(typeof(HoverItemData))]

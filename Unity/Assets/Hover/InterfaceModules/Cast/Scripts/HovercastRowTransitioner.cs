@@ -1,9 +1,9 @@
 ﻿using System.Diagnostics;
-using Hover.Layouts.Arc;
-using Hover.Utils;
+using Hover.Core.Layouts.Arc;
+using Hover.Core.Utils;
 using UnityEngine;
 
-namespace Hover.Interfaces.Cast {
+namespace Hover.InterfaceModules.Cast {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]

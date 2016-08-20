@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using Hover.Renderers.Shapes;
-using Hover.Renderers.Utils;
-using Hover.Utils;
+using Hover.Core.Renderers.Shapes;
+using Hover.Core.Renderers.Utils;
+using Hover.Core.Utils;
 using UnityEngine;
 
-namespace Hover.Renderers.Sliders {
+namespace Hover.Core.Renderers.Sliders {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]

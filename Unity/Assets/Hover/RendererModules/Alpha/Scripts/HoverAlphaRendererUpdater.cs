@@ -1,6 +1,6 @@
-﻿using Hover.Renderers;
-using Hover.Renderers.Contents;
-using Hover.Utils;
+﻿using Hover.Core.Renderers;
+using Hover.Core.Renderers.Contents;
+using Hover.Core.Utils;
 using UnityEngine;
 
 namespace Hover.RendererModules.Alpha {

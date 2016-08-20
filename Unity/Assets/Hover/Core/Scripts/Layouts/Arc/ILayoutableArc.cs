@@ -1,7 +1,7 @@
-﻿using Hover.Utils;
+﻿using Hover.Core.Utils;
 using UnityEngine;
 
-namespace Hover.Layouts.Arc {
+namespace Hover.Core.Layouts.Arc {
 
 	/*================================================================================================*/
 	public interface ILayoutableArc {

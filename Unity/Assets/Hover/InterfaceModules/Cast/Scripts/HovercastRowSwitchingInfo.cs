@@ -1,8 +1,8 @@
-﻿using Hover.Items.Types;
-using Hover.Layouts.Arc;
+﻿using Hover.Core.Items.Types;
+using Hover.Core.Layouts.Arc;
 using UnityEngine;
 
-namespace Hover.Interfaces.Cast {
+namespace Hover.InterfaceModules.Cast {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]

@@ -1,7 +1,7 @@
-using Hover.Utils;
+using Hover.Core.Utils;
 using UnityEngine;
 
-namespace Hover.Renderers.Shapes.Rect {
+namespace Hover.Core.Renderers.Shapes.Rect {
 
 	/*================================================================================================*/
 	[RequireComponent(typeof(HoverIndicator))]

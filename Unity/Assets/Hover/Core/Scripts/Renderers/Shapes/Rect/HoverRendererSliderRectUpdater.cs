@@ -1,10 +1,10 @@
-using Hover.Renderers.Buttons;
-using Hover.Renderers.Sliders;
-using Hover.Renderers.Utils;
-using Hover.Utils;
+using Hover.Core.Renderers.Buttons;
+using Hover.Core.Renderers.Sliders;
+using Hover.Core.Renderers.Utils;
+using Hover.Core.Utils;
 using UnityEngine;
 
-namespace Hover.Renderers.Shapes.Rect {
+namespace Hover.Core.Renderers.Shapes.Rect {
 
 	/*================================================================================================*/
 	[RequireComponent(typeof(HoverRendererSliderSegments))]

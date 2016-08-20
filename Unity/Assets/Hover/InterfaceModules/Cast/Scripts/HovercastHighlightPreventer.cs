@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using Hover.Items;
-using Hover.Items.Managers;
-using Hover.Layouts.Arc;
-using Hover.Utils;
+using Hover.Core.Items;
+using Hover.Core.Items.Managers;
+using Hover.Core.Layouts.Arc;
+using Hover.Core.Utils;
 using UnityEngine;
 
-namespace Hover.Interfaces.Cast {
+namespace Hover.InterfaceModules.Cast {
 
 	/*================================================================================================*/
 	[RequireComponent(typeof(HovercastInterface))]

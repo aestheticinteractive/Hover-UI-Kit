@@ -1,5 +1,5 @@
-using Hover.Items;
-using Hover.Items.Types;
+using Hover.Core.Items;
+using Hover.Core.Items.Types;
 using UnityEditor;
 using UnityEngine;
 

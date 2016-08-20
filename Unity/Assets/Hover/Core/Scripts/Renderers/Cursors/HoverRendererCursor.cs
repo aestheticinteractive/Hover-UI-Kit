@@ -1,10 +1,10 @@
 using System;
-using Hover.Items;
-using Hover.Renderers.Contents;
-using Hover.Utils;
+using Hover.Core.Items;
+using Hover.Core.Renderers.Contents;
+using Hover.Core.Utils;
 using UnityEngine;
 
-namespace Hover.Renderers.Cursors {
+namespace Hover.Core.Renderers.Cursors {
 
 	/*================================================================================================*/
 	public class HoverRendererCursor : HoverRenderer {

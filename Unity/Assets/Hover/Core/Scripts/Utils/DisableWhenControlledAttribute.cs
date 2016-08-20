@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Hover.Utils {
+namespace Hover.Core.Utils {
 
 	/*================================================================================================*/
 	[AttributeUsage(AttributeTargets.Field)]

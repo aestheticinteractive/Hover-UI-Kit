@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Hover.Items;
+using Hover.Core.Items;
 using UnityEngine;
 
-namespace Hover.Cursors {
+namespace Hover.Core.Cursors {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]

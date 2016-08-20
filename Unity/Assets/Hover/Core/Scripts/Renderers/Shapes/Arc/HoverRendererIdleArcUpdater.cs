@@ -1,8 +1,8 @@
-using Hover.Renderers.Cursors;
-using Hover.Utils;
+using Hover.Core.Renderers.Cursors;
+using Hover.Core.Utils;
 using UnityEngine;
 
-namespace Hover.Renderers.Shapes.Arc {
+namespace Hover.Core.Renderers.Shapes.Arc {
 
 	/*================================================================================================*/
 	[RequireComponent(typeof(TreeUpdater))]

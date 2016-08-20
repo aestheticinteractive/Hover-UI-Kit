@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using Hover.Interfaces.Cast;
-using Hover.Items;
-using Hover.Layouts.Arc;
-using Hover.Utils;
+using Hover.Core.Items;
+using Hover.Core.Layouts.Arc;
+using Hover.Core.Utils;
+using Hover.InterfaceModules.Cast;
 using UnityEngine;
 
 namespace Hover.RendererModules.Alpha {

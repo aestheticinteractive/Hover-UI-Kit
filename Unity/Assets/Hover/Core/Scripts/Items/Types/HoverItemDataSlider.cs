@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Hover.Items.Types {
+namespace Hover.Core.Items.Types {
 
 	/*================================================================================================*/
 	[Serializable]

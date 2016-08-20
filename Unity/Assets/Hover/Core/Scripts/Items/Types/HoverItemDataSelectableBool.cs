@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Hover.Items.Types {
+namespace Hover.Core.Items.Types {
 
 	/*================================================================================================*/
 	[Serializable]
