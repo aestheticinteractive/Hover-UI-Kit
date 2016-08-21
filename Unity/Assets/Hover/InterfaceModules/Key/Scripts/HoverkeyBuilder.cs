@@ -53,9 +53,13 @@ namespace Hover.InterfaceModules.Key {
 
 			BuildMain();
 			BuildFunctions();
+			BuildThree();
+			BuildSix();
+			BuildArrows();
 
 			TreeUpdater treeUp = gameObject.AddComponent<TreeUpdater>();
 			treeUp.Update(); //force entire interface update 
+			DestroyImmediate(treeUp, false); //remove the updater
 		}
 
 
@@ -94,21 +98,66 @@ namespace Hover.InterfaceModules.Key {
 			rectRow.SizeY = 0.03f;
 			rectRow.InnerPadding = 0.0175f;
 
-			GameObject esctGo = BuildRowItem(funcGo.transform, HoverkeyBuilderData.FuncRow[0]);
-			HoverLayoutRectRelativeSizer escSizer = esctGo.AddComponent<HoverLayoutRectRelativeSizer>();
-
-			escSizer.RelativeSizeX = 0.25f;
-
+			BuildRowItem(funcGo.transform, HoverkeyBuilderData.FuncRow[0]);
 			BuildRow("Row0", funcGo.transform, HoverkeyBuilderData.FuncRow, 1, 4);
 			BuildRow("Row1", funcGo.transform, HoverkeyBuilderData.FuncRow, 5, 4);
 			BuildRow("Row2", funcGo.transform, HoverkeyBuilderData.FuncRow, 9, 4);
 		}
 
+		/*--------------------------------------------------------------------------------------------*/
+		private void BuildThree() {
+			GameObject threeGo = BuildRow("Three", gameObject.transform, HoverkeyBuilderData.ThreeRow);
+			threeGo.transform.localPosition = new Vector3(0.3f, 0.105f, 0);
+
+			HoverLayoutRectRow rectRow = threeGo.GetComponent<HoverLayoutRectRow>();
+			rectRow.Arrangement = HoverLayoutRectRow.ArrangementType.LeftToRight;
+			rectRow.SizeX = 0.09f;
+			rectRow.SizeY = 0.03f;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void BuildSix() {
+			var sixGo = new GameObject("Six");
+			sixGo.transform.SetParent(gameObject.transform, false);
+			sixGo.transform.localPosition = new Vector3(0.3f, 0.045f, 0);
+
+			sixGo.AddComponent<TreeUpdater>();
+
+			HoverLayoutRectRow rectRow = sixGo.AddComponent<HoverLayoutRectRow>();
+			rectRow.Arrangement = HoverLayoutRectRow.ArrangementType.TopToBottom;
+			rectRow.SizeX = 0.09f;
+			rectRow.SizeY = 0.06f;
+
+			BuildRow("Row0", sixGo.transform, HoverkeyBuilderData.SixRow0);
+			BuildRow("Row1", sixGo.transform, HoverkeyBuilderData.SixRow1);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void BuildArrows() {
+			var arrowsGo = new GameObject("Arrows");
+			arrowsGo.transform.SetParent(gameObject.transform, false);
+			arrowsGo.transform.localPosition = new Vector3(0.3f, -0.045f, 0);
+
+			arrowsGo.AddComponent<TreeUpdater>();
+
+			HoverLayoutRectRow rectRow = arrowsGo.AddComponent<HoverLayoutRectRow>();
+			rectRow.Arrangement = HoverLayoutRectRow.ArrangementType.TopToBottom;
+			rectRow.SizeX = 0.09f;
+			rectRow.SizeY = 0.06f;
+
+			GameObject row0Go = BuildRow("Row0", arrowsGo.transform, HoverkeyBuilderData.Arrows, 0, 1);
+			BuildRow("Row1", arrowsGo.transform, HoverkeyBuilderData.Arrows, 1);
+
+			HoverLayoutRectRelativeSizer row0Sizer = 
+				row0Go.AddComponent<HoverLayoutRectRelativeSizer>();
+			row0Sizer.RelativeSizeX = 0.333f;
+		}
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void BuildRow(string pName, Transform pParentTx, HoverkeyBuilderKeyInfo[] pKeys,
-														int pStartIndex=0, int pCount=int.MaxValue) {
+		private GameObject BuildRow(string pName, Transform pParentTx, HoverkeyBuilderKeyInfo[] pKeys,
+																int pStartIndex=0, int pCount=99999) {
 			var rowGo = new GameObject(pName);
 			rowGo.transform.SetParent(pParentTx, false);
 
@@ -118,6 +167,8 @@ namespace Hover.InterfaceModules.Key {
 			for ( int i = pStartIndex ; i < pKeys.Length && i < pStartIndex+pCount ; i++ ) {
 				BuildRowItem(rowGo.transform, pKeys[i]);
 			}
+
+			return rowGo;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

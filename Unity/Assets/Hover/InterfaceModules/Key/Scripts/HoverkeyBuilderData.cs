@@ -82,7 +82,7 @@ namespace Hover.InterfaceModules.Key {
 		};
 
 		public static HoverkeyBuilderKeyInfo[] FuncRow = {
-			HoverkeyBuilderKeyInfo.Ctrl(KeyCode.Escape, "Esc"),
+			HoverkeyBuilderKeyInfo.Ctrl(KeyCode.Escape, "Esc").RelSize(0.25f),
 			HoverkeyBuilderKeyInfo.Ctrl(KeyCode.F1, "F1"),
 			HoverkeyBuilderKeyInfo.Ctrl(KeyCode.F2, "F2"),
 			HoverkeyBuilderKeyInfo.Ctrl(KeyCode.F3, "F3"),
