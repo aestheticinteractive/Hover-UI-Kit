@@ -104,7 +104,7 @@ namespace Hover.InterfaceModules.Key {
 		};
 
 		public static HoverkeyBuilderKeyInfo[] SixRow0 = {
-			HoverkeyBuilderKeyInfo.Ctrl(KeyCode.Insert, "Insert"),
+			HoverkeyBuilderKeyInfo.Ctrl(KeyCode.Insert, "Ins"),
 			HoverkeyBuilderKeyInfo.Nav(KeyCode.Home, "Home"),
 			HoverkeyBuilderKeyInfo.Nav(KeyCode.PageUp, "Page Up")
 		};
@@ -153,7 +153,7 @@ namespace Hover.InterfaceModules.Key {
 		};
 
 		public static HoverkeyBuilderKeyInfo[] NumCol = {
-			HoverkeyBuilderKeyInfo.Char(KeyCode.KeypadPlus, "+").RelSize(2),
+			HoverkeyBuilderKeyInfo.Char(KeyCode.KeypadPlus, "+"),
 			HoverkeyBuilderKeyInfo.Ctrl(KeyCode.KeypadEnter, "=")
 		};
 

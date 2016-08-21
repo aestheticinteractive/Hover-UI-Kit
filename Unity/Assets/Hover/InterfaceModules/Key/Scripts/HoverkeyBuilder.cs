@@ -56,6 +56,7 @@ namespace Hover.InterfaceModules.Key {
 			BuildThree();
 			BuildSix();
 			BuildArrows();
+			BuildNumpad();
 
 			TreeUpdater treeUp = gameObject.AddComponent<TreeUpdater>();
 			treeUp.Update(); //force entire interface update 
@@ -151,6 +152,47 @@ namespace Hover.InterfaceModules.Key {
 			HoverLayoutRectRelativeSizer row0Sizer = 
 				row0Go.AddComponent<HoverLayoutRectRelativeSizer>();
 			row0Sizer.RelativeSizeX = 0.333f;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void BuildNumpad() {
+			var numGo = new GameObject("Numpad");
+			numGo.transform.SetParent(gameObject.transform, false);
+			numGo.transform.localPosition = new Vector3(0.43f, 0, 0);
+
+			numGo.AddComponent<TreeUpdater>();
+
+			HoverLayoutRectRow numRectRow = numGo.AddComponent<HoverLayoutRectRow>();
+			numRectRow.Arrangement = HoverLayoutRectRow.ArrangementType.TopToBottom;
+			numRectRow.SizeX = 0.12f;
+			numRectRow.SizeY = 0.15f;
+
+			BuildRow("Row0", numGo.transform, HoverkeyBuilderData.NumRow0);
+
+			////
+
+			var noKeys = new HoverkeyBuilderKeyInfo[0];
+
+			GameObject botGo = BuildRow("Bottom", numGo.transform, noKeys);
+			HoverLayoutRectRelativeSizer botRectSizer =
+				botGo.AddComponent<HoverLayoutRectRelativeSizer>();
+			botRectSizer.RelativeSizeY = 4;
+
+			GameObject botLeftGo = BuildRow("Left", botGo.transform, noKeys);
+			HoverLayoutRectRelativeSizer botLeftRectSizer =
+				botLeftGo.AddComponent<HoverLayoutRectRelativeSizer>();
+			botLeftRectSizer.RelativeSizeX = 3;
+			HoverLayoutRectRow botLeftRow = botLeftGo.GetComponent<HoverLayoutRectRow>();
+			botLeftRow.Arrangement = HoverLayoutRectRow.ArrangementType.TopToBottom;
+
+			BuildRow("Row1", botLeftGo.transform, HoverkeyBuilderData.NumRow1);
+			BuildRow("Row2", botLeftGo.transform, HoverkeyBuilderData.NumRow2);
+			BuildRow("Row3", botLeftGo.transform, HoverkeyBuilderData.NumRow3);
+			BuildRow("Row4", botLeftGo.transform, HoverkeyBuilderData.NumRow4);
+
+			GameObject botRightGo = BuildRow("Right", botGo.transform, HoverkeyBuilderData.NumCol);
+			HoverLayoutRectRow botRightRow = botRightGo.GetComponent<HoverLayoutRectRow>();
+			botRightRow.Arrangement = HoverLayoutRectRow.ArrangementType.TopToBottom;
 		}
 
 
