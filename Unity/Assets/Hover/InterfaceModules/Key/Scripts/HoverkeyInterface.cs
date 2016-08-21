@@ -8,7 +8,7 @@ using UnityEngine.Events;
 namespace Hover.InterfaceModules.Key {
 
 	/*================================================================================================*/
-	public class HoverkeyManager : MonoBehaviour {
+	public class HoverkeyInterface : MonoBehaviour {
 
 		[Serializable]
 		public class HoverkeySelectedEvent : UnityEvent<IItemDataSelectable, HoverkeyItemLabels> {}

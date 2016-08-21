@@ -49,7 +49,7 @@ namespace Hover.InterfaceModules.Key {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void PerformBuild() {
-			gameObject.AddComponent<HoverkeyManager>();
+			gameObject.AddComponent<HoverkeyInterface>();
 
 			BuildMain();
 			BuildFunctions();
@@ -251,7 +251,7 @@ namespace Hover.InterfaceModules.Key {
 
 			////
 
-			HoverkeyManager inter = gameObject.GetComponent<HoverkeyManager>();
+			HoverkeyInterface inter = gameObject.GetComponent<HoverkeyInterface>();
 			HoverItemDataSelector selData = (data as HoverItemDataSelector);
 			HoverItemDataSticky stickyData = (data as HoverItemDataSticky);
 			HoverItemDataCheckbox checkboxData = (data as HoverItemDataCheckbox);
