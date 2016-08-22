@@ -50,6 +50,7 @@ namespace Hover.InterfaceModules.Key {
 		/*--------------------------------------------------------------------------------------------*/
 		public void PerformBuild() {
 			gameObject.AddComponent<HoverkeyInterface>();
+			gameObject.AddComponent<HoverkeyTextInput>();
 
 			BuildMain();
 			BuildFunctions();
