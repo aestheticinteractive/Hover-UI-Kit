@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Hover.Core.Utils {
 
 	/*================================================================================================*/
-	public static class BuilderUtil {
+	public static class UnityUtil {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -29,6 +29,30 @@ namespace Hover.Core.Utils {
 			BuildPrefab(managerPrefab);
 			Debug.Log("Added the 'HoverManagers' prefab to the scene.", managerPrefab);
 			return managerPrefab;
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public static T FindNearbyComponent<T>(GameObject pGameObj) where T : Component {
+			T sibling = pGameObj.GetComponent<T>();
+
+			if ( sibling != null ) {
+				return sibling;
+			}
+
+			T child = pGameObj.GetComponentInChildren<T>();
+
+			if ( child != null ) {
+				return child;
+			}
+
+			T parent = pGameObj.GetComponentInParent<T>();
+
+			if ( parent != null ) {
+				return parent;
+			}
+			return Object.FindObjectOfType<T>();
 		}
 
 	}

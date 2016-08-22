@@ -33,7 +33,7 @@ namespace Hover.Core.Items {
 		public void Update() {
 			if ( ClickToBuild ) {
 				ClickToBuild = false;
-				BuilderUtil.FindOrAddHoverManagerPrefab();
+				UnityUtil.FindOrAddHoverManagerPrefab();
 				PerformBuild();
 				DestroyImmediate(this, false);
 			}

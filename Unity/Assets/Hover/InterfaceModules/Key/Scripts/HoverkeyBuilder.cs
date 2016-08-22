@@ -40,7 +40,7 @@ namespace Hover.InterfaceModules.Key {
 			}
 
 			ClickToBuild = false;
-			BuilderUtil.FindOrAddHoverManagerPrefab();
+			UnityUtil.FindOrAddHoverManagerPrefab();
 			PerformBuild();
 			DestroyImmediate(this, false);
 		}
