@@ -5,7 +5,6 @@ using UnityEngine;
 namespace Hover.Core.Cursors {
 
 	/*================================================================================================*/
-	[ExecuteInEditMode]
 	public class HoverCursorData : MonoBehaviour, ICursorDataForInput {
 		
 		public RaycastResult? BestRaycastResult { get; set; }
@@ -95,7 +94,13 @@ namespace Hover.Core.Cursors {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public ICursorIdle Idle {
-			get { return vIdle; }
+			get {
+				if ( vIdle == null ) {
+					vIdle = GetComponent<ICursorIdle>();
+				}
+
+				return vIdle;
+			}
 		}
 
 
@@ -150,15 +155,6 @@ namespace Hover.Core.Cursors {
 		/*--------------------------------------------------------------------------------------------*/
 		public void ActivateIfUsedByInput() {
 			gameObject.SetActive(enabled && Capability != CursorCapabilityType.None);
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public void Update() {
-			if ( vIdle == null ) {
-				vIdle = GetComponent<ICursorIdle>();
-			}
 		}
 
 	}
