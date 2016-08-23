@@ -39,7 +39,7 @@ namespace Hover.InterfaceModules.Panel {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Awake() {
+		public void Start() {
 			HoverpanelInterface panel = GetComponent<HoverpanelInterface>();
 
 			foreach ( Transform childTx in panel.transform ) {
@@ -49,11 +49,6 @@ namespace Hover.InterfaceModules.Panel {
 					childTx.gameObject.SetActive(false);
 				}
 			}
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
-			//do nothing...
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

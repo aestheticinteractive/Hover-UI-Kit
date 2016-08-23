@@ -11,18 +11,26 @@ namespace Hover.InterfaceModules.Panel {
 	[RequireComponent(typeof(HoverpanelRowTransitioner))]
 	public class HoverpanelActiveDirection : MonoBehaviour, ITreeUpdateable, ISettingsController {
 
-		public Transform ActiveWhenFacing;
-		public bool OnlyDuringTransitions = true;
+		public const string ActiveWhenFacingTransformName = "ActiveWhenFacingTransform";
+
+		public ISettingsControllerMap Controllers { get; private set; }
+
+		public bool ActiveWhenFacingMainCamera = true;
+
+		[DisableWhenControlled]
+		public Transform ActiveWhenFacingTransform;
+
+		public bool OnlyDuringTransitions = false;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Awake() {
-			if ( ActiveWhenFacing == null ) {
-				ActiveWhenFacing = Camera.main.transform;
-			}
+		protected HoverpanelActiveDirection() {
+			Controllers = new SettingsControllerMap();
 		}
-		
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Start() {
 			//do nothing...
@@ -30,6 +38,8 @@ namespace Hover.InterfaceModules.Panel {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void TreeUpdate() {
+			UpdateFacingTransform();
+
 			HoverpanelInterface panel = GetComponent<HoverpanelInterface>();
 			HoverpanelRowTransitioner trans = GetComponent<HoverpanelRowTransitioner>();
 
@@ -44,13 +54,26 @@ namespace Hover.InterfaceModules.Panel {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateFacingTransform() {
+			if ( ActiveWhenFacingMainCamera ) {
+				Controllers.Set(ActiveWhenFacingTransformName, this);
+				ActiveWhenFacingTransform = null;
+			}
+
+			if ( ActiveWhenFacingTransform == null ) {
+				ActiveWhenFacingTransform = (Camera.main == null ? transform : Camera.main.transform);
+			}
+		}
+		
+		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateRow(HoverLayoutRectRow pRow) {
 			if ( pRow == null || !pRow.gameObject.activeSelf ) {
 				return;
 			}
 
 			Vector3 panelWorldNorm = pRow.transform.TransformDirection(Vector3.back);
-			Vector3 panelToTxWorldDir = (ActiveWhenFacing.position-pRow.transform.position).normalized;
+			Vector3 panelToTxWorldVec = (ActiveWhenFacingTransform.position-pRow.transform.position);
+			Vector3 panelToTxWorldDir = panelToTxWorldVec.normalized;
 			float dotBetweenDirs = Vector3.Dot(panelWorldNorm, panelToTxWorldDir);
 
 			if ( dotBetweenDirs > 0 ) {
