@@ -29,7 +29,10 @@ namespace Hover.Core.Items.Types {
 
 		[SerializeField]
 		private SliderFillType _FillStartingPoint = SliderFillType.Zero;
-		
+
+		[SerializeField]
+		private bool _AllowIdleDeselection = true;
+
 		private float? vHoverValue;
 		private string vPrevLabel;
 		private string vPrevLabelFormat;
@@ -105,6 +108,12 @@ namespace Hover.Core.Items.Types {
 		public override void DeselectStickySelections() {
 			Value = SnappedValue;
 			base.DeselectStickySelections();
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public override bool AllowIdleDeselection {
+			get { return _AllowIdleDeselection; }
+			set { _AllowIdleDeselection = value; }
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

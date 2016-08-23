@@ -55,7 +55,7 @@ namespace Hover.Core.Items.Managers {
 				HoverItemData data = vItemDatas[i];
 				IItemDataSelectable selData = (data as IItemDataSelectable);
 
-				if ( selData == null || !selData.IsStickySelected ) {
+				if ( selData == null || !selData.IsStickySelected || !selData.AllowIdleDeselection ) {
 					continue;
 				}
 

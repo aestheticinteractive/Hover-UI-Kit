@@ -64,6 +64,7 @@ namespace Hover.Editor.Items {
 			HoverItemDataCheckbox checkboxData = (vData as HoverItemDataCheckbox);
 			HoverItemDataRadio radioData = (vData as HoverItemDataRadio);
 			HoverItemDataSlider sliderData = (vData as HoverItemDataSlider);
+			HoverItemDataSticky stickyData = (vData as HoverItemDataSticky);
 			
 			if ( selectorData != null ) {
 				EditorGUILayout.PropertyField(serializedObject.FindProperty("_Action"));
@@ -101,6 +102,12 @@ namespace Hover.Editor.Items {
 					new GUIContent("Slider Allow Jump"));
 				EditorGUILayout.PropertyField(serializedObject.FindProperty("_FillStartingPoint"),
 					new GUIContent("Slider Fill Starting-Point"));
+				EditorGUILayout.PropertyField(serializedObject.FindProperty("_AllowIdleDeselection"),
+					new GUIContent("Allow Idle Deselection"));
+			}
+			else if ( stickyData != null ) {
+				EditorGUILayout.PropertyField(serializedObject.FindProperty("_AllowIdleDeselection"),
+					new GUIContent("Allow Idle Deselection"));
 			}
 		}
 

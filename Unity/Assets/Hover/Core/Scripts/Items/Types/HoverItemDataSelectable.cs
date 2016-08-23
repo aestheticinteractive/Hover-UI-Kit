@@ -11,6 +11,7 @@ namespace Hover.Core.Items.Types {
 		public class SelectedEventHandler : UnityEvent<IItemDataSelectable> {}
 		
 		public bool IsStickySelected { get; private set; }
+		public virtual bool AllowIdleDeselection { get; set; }
 
 		public SelectedEventHandler OnSelectedEvent = new SelectedEventHandler();
 		public SelectedEventHandler OnDeselectedEvent = new SelectedEventHandler();
