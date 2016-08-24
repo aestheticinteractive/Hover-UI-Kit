@@ -12,6 +12,7 @@ namespace Hover.Core.Items.Managers {
 
 		public float SelectionProgress { get; private set; }
 		public bool IsSelectionPrevented { get; private set; }
+		public bool WasSelectedThisFrame { get; private set; }
 		
 		private DateTime? vSelectionStart;
 		private float vDistanceUponSelection;
@@ -74,6 +75,8 @@ namespace Hover.Core.Items.Managers {
 			HoverItemData itemData = GetComponent<HoverItem>().Data;
 			IItemDataSelectable selData = (itemData as IItemDataSelectable);
 
+			WasSelectedThisFrame = false;
+
 			if ( selData == null ) {
 				return false;
 			}
@@ -116,6 +119,7 @@ namespace Hover.Core.Items.Managers {
 
 			vSelectionStart = null;
 			IsSelectionPrevented = true;
+			WasSelectedThisFrame = true;
 			vDistanceUponSelection = highState.NearestHighlight.Value.Distance;
 			selData.Select();
 			return true;

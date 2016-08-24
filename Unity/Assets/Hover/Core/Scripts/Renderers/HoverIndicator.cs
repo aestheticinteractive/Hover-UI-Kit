@@ -1,3 +1,4 @@
+using System;
 using Hover.Core.Utils;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ namespace Hover.Core.Renderers {
 
 		public ISettingsControllerMap Controllers { get; private set; }
 		public bool DidSettingsChange { get; protected set; }
+		public DateTime LatestSelectionTime { get; set; }
 
 		[DisableWhenControlled(RangeMin=0, RangeMax=1, DisplaySpecials=true)]
 		public float HighlightProgress = 0.7f;
@@ -71,6 +73,7 @@ namespace Hover.Core.Renderers {
 
 				childInd.HighlightProgress = HighlightProgress;
 				childInd.SelectionProgress = SelectionProgress;
+				childInd.LatestSelectionTime = LatestSelectionTime;
 			}
 		}
 

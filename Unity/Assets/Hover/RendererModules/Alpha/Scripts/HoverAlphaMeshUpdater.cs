@@ -7,6 +7,7 @@ namespace Hover.RendererModules.Alpha {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
+	[RequireComponent(typeof(HoverIndicator))]
 	[RequireComponent(typeof(HoverMesh))]
 	public class HoverAlphaMeshUpdater : MonoBehaviour, ITreeUpdateable, ISettingsController {
 	
@@ -30,10 +31,17 @@ namespace Hover.RendererModules.Alpha {
 		[DisableWhenControlled]
 		public Color SliderFillColor = Color.white;
 
+		[DisableWhenControlled]
+		public Color FlashColor = Color.white;
+
+		[DisableWhenControlled(RangeMin=0, RangeMax=2000)]
+		public float FlashColorMilliseconds = 400;
+
 		private string vPrevLayer;
 		private int vPrevOrder;
 		private float vPrevAlpha;
 		private Color vPrevColor;
+		private Color vCurrColor;
 		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -44,6 +52,16 @@ namespace Hover.RendererModules.Alpha {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public void Awake() {
+			vPrevColor = GetDisplayColor(GetComponent<HoverMesh>());
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void OnEnable() {
+			vPrevColor = GetDisplayColor(GetComponent<HoverMesh>());
+		}
+
 		/*--------------------------------------------------------------------------------------------*/
 		public void Start() {
 			//do nothing...
@@ -59,7 +77,9 @@ namespace Hover.RendererModules.Alpha {
 			vPrevLayer = SortingLayer;
 			vPrevOrder = SortingOrder;
 			vPrevAlpha = Alpha;
-			vPrevColor = StandardColor;
+			vPrevColor = vCurrColor;
+
+			Controllers.TryExpireControllers();
 		}
 
 
@@ -83,29 +103,39 @@ namespace Hover.RendererModules.Alpha {
 		private void TryUpdateColor(HoverMesh pHoverMesh) {
 			Controllers.Set(SettingsControllerMap.MeshColors, this);
 
-			Color useColor;
+			vCurrColor = GetDisplayColor(pHoverMesh);
 
+			if ( FlashColorMilliseconds > 0 ) {
+				TimeSpan test = DateTime.UtcNow-GetComponent<HoverIndicator>().LatestSelectionTime;
+
+				if ( test.TotalMilliseconds < FlashColorMilliseconds ) {
+					vCurrColor = Color.Lerp(FlashColor, vCurrColor, 
+						(float)test.TotalMilliseconds/FlashColorMilliseconds);
+				}
+			}
+
+			if ( !pHoverMesh.DidRebuildMesh && Alpha == vPrevAlpha && vCurrColor == vPrevColor ) {
+				return;
+			}
+
+			Color colorForAllVertices = DisplayUtil.FadeColor(vCurrColor, Alpha);
+			pHoverMesh.Builder.CommitColors(colorForAllVertices);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private Color GetDisplayColor(HoverMesh pHoverMesh) {
 			switch ( pHoverMesh.DisplayMode ) {
 				case HoverMesh.DisplayModeType.Standard:
-					useColor = StandardColor;
-					break;
+					return StandardColor;
 
 				case HoverMesh.DisplayModeType.SliderFill:
-					useColor = SliderFillColor;
-					break;
+					return SliderFillColor;
 
 				default:
 					throw new Exception("Unhandled display mode: "+pHoverMesh.DisplayMode);
 			}
-
-			if ( !pHoverMesh.DidRebuildMesh && Alpha == vPrevAlpha && useColor == vPrevColor ) {
-				return;
-			}
-
-			Color colorForAllVertices = DisplayUtil.FadeColor(useColor, Alpha);
-			pHoverMesh.Builder.CommitColors(colorForAllVertices);
 		}
-		
+
 	}
 
 }

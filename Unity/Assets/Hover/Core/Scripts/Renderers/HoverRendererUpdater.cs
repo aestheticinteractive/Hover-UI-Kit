@@ -266,6 +266,10 @@ namespace Hover.Core.Renderers {
 
 			rendInd.HighlightProgress = pHighState.MaxHighlightProgress;
 			rendInd.SelectionProgress = pSelState.SelectionProgress;
+
+			if ( pSelState.WasSelectedThisFrame ) {
+				rendInd.LatestSelectionTime = DateTime.UtcNow;
+			}
 		}
 
 
