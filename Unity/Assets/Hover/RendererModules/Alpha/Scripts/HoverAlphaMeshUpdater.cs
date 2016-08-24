@@ -25,16 +25,16 @@ namespace Hover.RendererModules.Alpha {
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
 		public float Alpha = 1;
 
-		[DisableWhenControlled]
+		[ColorUsage(true, true, 0, 1000, 0, 1000)]
 		public Color StandardColor = Color.gray;
 		
-		[DisableWhenControlled]
+		[ColorUsage(true, true, 0, 1000, 0, 1000)]
 		public Color SliderFillColor = Color.white;
 
-		[DisableWhenControlled]
+		[ColorUsage(true, true, 0, 1000, 0, 1000)]
 		public Color FlashColor = Color.white;
 
-		[DisableWhenControlled(RangeMin=0, RangeMax=2000)]
+		[Range(0, 2000)]
 		public float FlashColorMilliseconds = 400;
 
 		private string vPrevLayer;
