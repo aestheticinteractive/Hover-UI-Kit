@@ -40,6 +40,7 @@ namespace Hover.RendererModules.Opaque {
 		public void TreeUpdate() {
 			TryUpdateColor(GetComponent<HoverMesh>());
 			vPrevColor = StandardColor;
+			Controllers.TryExpireControllers();
 		}
 
 

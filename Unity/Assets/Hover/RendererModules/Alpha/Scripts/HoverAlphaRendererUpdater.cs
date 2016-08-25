@@ -59,6 +59,7 @@ namespace Hover.RendererModules.Alpha {
 			}
 
 			UpdateChildCanvas(hoverRend.GetCanvas(), currAlpha);
+			Controllers.TryExpireControllers();
 		}
 
 

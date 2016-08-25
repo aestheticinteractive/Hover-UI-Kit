@@ -12,15 +12,6 @@ namespace Hover.Core.Renderers.Sliders {
 	[RequireComponent(typeof(HoverShape))]
 	public abstract class HoverFillSliderUpdater : MonoBehaviour, ITreeUpdateable, ISettingsController {
 
-		public ISettingsControllerMap Controllers { get; private set; }
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		protected HoverFillSliderUpdater() {
-			Controllers = new SettingsControllerMap();
-		}
-
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/

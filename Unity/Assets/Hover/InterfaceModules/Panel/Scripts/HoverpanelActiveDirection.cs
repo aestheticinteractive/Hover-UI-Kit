@@ -49,6 +49,7 @@ namespace Hover.InterfaceModules.Panel {
 
 			UpdateRow(panel.ActiveRow);
 			UpdateRow(panel.PreviousRow);
+			Controllers.TryExpireControllers();
 		}
 
 

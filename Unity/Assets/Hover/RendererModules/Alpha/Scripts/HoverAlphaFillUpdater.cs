@@ -42,6 +42,8 @@ namespace Hover.RendererModules.Alpha {
 			for ( int i = 0 ; i < meshCount ; i++ ) {
 				UpdateChildMesh(hoverFill.GetChildMesh(i));
 			}
+
+			Controllers.TryExpireControllers();
 		}
 
 

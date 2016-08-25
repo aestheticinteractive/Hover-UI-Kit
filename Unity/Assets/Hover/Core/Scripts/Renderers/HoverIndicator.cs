@@ -52,6 +52,8 @@ namespace Hover.Core.Renderers {
 
 			vPrevHigh = HighlightProgress;
 			vPrevSel = SelectionProgress;
+
+			Controllers.TryExpireControllers();
 		}
 
 
