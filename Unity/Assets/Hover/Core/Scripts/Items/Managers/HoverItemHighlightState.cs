@@ -234,7 +234,6 @@ namespace Hover.Core.Items.Managers {
 				high.NearestWorldPos = ProximityProvider.GetNearestWorldPosition(worldRay, out raycast);
 				high.RaycastResult = raycast;
 				useCursorPos = raycast.WorldPosition;
-				Debug.DrawLine(worldRay.origin, useCursorPos, Color.cyan);
 			}
 			else {
 				high.NearestWorldPos = ProximityProvider.GetNearestWorldPosition(pCursor.WorldPosition);

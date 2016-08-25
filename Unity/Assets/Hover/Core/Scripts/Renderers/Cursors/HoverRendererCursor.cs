@@ -1,6 +1,7 @@
 using System;
 using Hover.Core.Items;
 using Hover.Core.Renderers.Contents;
+using Hover.Core.Renderers.Utils;
 using Hover.Core.Utils;
 using UnityEngine;
 
@@ -10,12 +11,19 @@ namespace Hover.Core.Renderers.Cursors {
 	public class HoverRendererCursor : HoverRenderer {
 
 		public const string IsRaycastName = "IsRaycast";
+		public const string RaycastWorldOriginName = "RaycastWorldOrigin";
 
 		[DisableWhenControlled]
 		public HoverFillCursor Fill;
 
 		[DisableWhenControlled]
+		public HoverRaycastLine RaycastLine;
+
+		[DisableWhenControlled]
 		public bool IsRaycast;
+
+		[DisableWhenControlled]
+		public Vector3 RaycastWorldOrigin;
 
 		[DisableWhenControlled]
 		public float RaycastOffsetZ = -0.001f;
@@ -84,6 +92,14 @@ namespace Hover.Core.Renderers.Cursors {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdatePosition() {
+			if ( RaycastLine != null ) {
+				RaycastLine.Controllers.Set(SettingsControllerMap.GameObjectActiveSelf, this);
+				RaycastLine.Controllers.Set(HoverRaycastLine.RaycastWorldOriginName, this);
+
+				RaycastLine.RaycastWorldOrigin = RaycastWorldOrigin;
+				RendererUtil.SetActiveWithUpdate(RaycastLine, IsRaycast);
+			}
+
 			if ( !Application.isPlaying || !IsRaycast ) {
 				return;
 			}
