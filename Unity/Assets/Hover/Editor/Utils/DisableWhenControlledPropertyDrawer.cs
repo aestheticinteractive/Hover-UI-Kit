@@ -14,6 +14,8 @@ namespace Hover.Editor.Utils {
 		private const string IconTextPrefix = " _  ";
 		private static readonly Texture2D ControlIconTex = 
 			Resources.Load<Texture2D>("Textures/ControlledPropertyIconTexture");
+		private static readonly Texture2D ControlIconHoverTex = 
+			Resources.Load<Texture2D>("Textures/ControlledPropertyIconHoverTexture");
 
 		private float vWidth;
 
@@ -107,7 +109,7 @@ namespace Hover.Editor.Utils {
 			iconRect.x -= 26;
 			iconRect.y += 1;
 			iconRect.width = 40;
-			iconRect.height = 40;
+			iconRect.height = 16;
 
 			GUIContent labelContent = new GUIContent();
 			labelContent.image = ControlIconTex;
@@ -120,6 +122,7 @@ namespace Hover.Editor.Utils {
 			labelStyle.padding = new RectOffset(15, 0, 0, 0);
 			labelStyle.stretchWidth = true;
 			labelStyle.stretchHeight = true;
+			labelStyle.hover.background = ControlIconHoverTex;
 
 			bool shouldPing = EditorGUI.ToggleLeft(iconRect, labelContent, false, labelStyle);
 
