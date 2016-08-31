@@ -229,6 +229,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 493240}
   - 114: {fileID: 11493234}
+  - 114: {fileID: 114000011947904468}
   - 114: {fileID: 11466264}
   - 114: {fileID: 11471938}
   - 114: {fileID: 11442494}
@@ -1430,12 +1431,12 @@ MonoBehaviour:
   OnItemAdded:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.Managers.HoverItemsManager+ItemEvent, Assembly-CSharp,
+    m_TypeName: Hover.Core.Items.Managers.HoverItemsManager+ItemEvent, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnItemRemoved:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Items.Managers.HoverItemsManager+ItemEvent, Assembly-CSharp,
+    m_TypeName: Hover.Core.Items.Managers.HoverItemsManager+ItemEvent, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!114 &11495496
 MonoBehaviour:
@@ -1508,3 +1509,15 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 196452}
   m_IsPrefabParent: 1
+--- !u!114 &114000011947904468
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 196452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9133cfb250b64b489f23035a03ca605, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CursorDataProvider: {fileID: 11412156}

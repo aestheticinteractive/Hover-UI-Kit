@@ -7,7 +7,7 @@ namespace Hover.Core.Items.Managers {
 
 	/*================================================================================================*/
 	[RequireComponent(typeof(HoverItemsManager))]
-	public class HoverItemsHighlightManager : MonoBehaviour {
+	public class HoverItemsRaycastManager : MonoBehaviour {
 
 		public HoverCursorDataProvider CursorDataProvider;
 
@@ -33,81 +33,67 @@ namespace Hover.Core.Items.Managers {
 			HoverItemsManager itemsMan = GetComponent<HoverItemsManager>();
 			
 			itemsMan.FillListWithExistingItemComponents(vHighStates);
-			ResetItems();
-			UpdateItems();
+			CalcNearestRaycastResults();
 		}
 		
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void ResetItems() {
-			for ( int i = 0 ; i < vHighStates.Count ; i++ ) {
-				HoverItemHighlightState highState = vHighStates[i];
-				
-				if ( highState == null ) {
-					vHighStates.RemoveAt(i);
-					i--;
-					Debug.LogWarning("Found and removed a null item; use RemoveItem() instead.");
-					continue;
-				}
-				
-				highState.ResetAllNearestStates();
-			}
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateItems() {
+		private void CalcNearestRaycastResults() {
 			List<ICursorData> cursors = CursorDataProvider.Cursors;
 			int cursorCount = cursors.Count;
 			
 			for ( int i = 0 ; i < cursorCount ; i++ ) {
 				ICursorData cursor = cursors[i];
-				cursor.MaxItemHighlightProgress = 0;
-				cursor.MaxItemSelectionProgress = 0;
+				cursor.BestRaycastResult = CalcNearestRaycastResult(cursor);
 
-				if ( !cursor.CanCauseSelections ) {
-					continue;
+				if ( cursor.BestRaycastResult != null ) {
+					Debug.DrawLine(cursor.BestRaycastResult.Value.WorldPosition, 
+						cursor.WorldPosition, Color.red);
 				}
-
-				HoverItemHighlightState.Highlight? high;
-				HoverItemHighlightState highState = FindNearestItemToCursor(cursor.Type, out high);
-
-				if ( highState == null || high == null ) {
-					continue;
-				}
-
-				highState.SetNearestAcrossAllItemsForCursor(cursor.Type);
-				cursor.MaxItemHighlightProgress = high.Value.Progress;
 			}
 		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		private HoverItemHighlightState FindNearestItemToCursor(CursorType pCursorType, 
-												out HoverItemHighlightState.Highlight? pNearestHigh) {
-			float minDist = float.MaxValue;
-			HoverItemHighlightState nearestItem = null;
 
-			pNearestHigh = null;
-			
+		/*--------------------------------------------------------------------------------------------*/
+		private RaycastResult? CalcNearestRaycastResult(ICursorData pCursor) {
+			if ( !pCursor.IsRaycast ) {
+				return null;
+			}
+
+			float minHighSqrDist = float.MaxValue;
+			float minCastSqrDist = float.MaxValue;
+			RaycastResult? result = null;
+
 			for ( int i = 0 ; i < vHighStates.Count ; i++ ) {
 				HoverItemHighlightState item = vHighStates[i];
-				
-				if ( !item.gameObject.activeInHierarchy || item.IsHighlightPrevented ) {
+				var worldRay = new Ray(pCursor.WorldPosition,
+					pCursor.WorldRotation*pCursor.RaycastLocalDirection);
+
+				RaycastResult raycast;
+				Vector3 nearHighWorldPos = item.ProximityProvider
+					.GetNearestWorldPosition(worldRay, out raycast);
+
+				float highSqrDist = (raycast.WorldPosition-nearHighWorldPos).sqrMagnitude;
+				float castSqrDist = (raycast.WorldPosition-pCursor.WorldPosition).sqrMagnitude;
+				//float hitSqrDist = Mathf.Pow(item.InteractionSettings.HighlightDistanceMin, 2);
+				float hitSqrDist = 0.0000001f;
+
+				highSqrDist = Mathf.Max(highSqrDist, hitSqrDist);
+
+				bool isHighlightWorse = (highSqrDist > minHighSqrDist);
+				bool isComparingHits = (highSqrDist <= hitSqrDist && minHighSqrDist <= hitSqrDist);
+				bool isRaycastNearer = (castSqrDist < minCastSqrDist);
+
+				if ( isHighlightWorse || (isComparingHits && !isRaycastNearer) ) {
 					continue;
 				}
-				
-				HoverItemHighlightState.Highlight? high = item.GetHighlight(pCursorType);
-				
-				if ( high == null || high.Value.Distance >= minDist ) {
-					continue;
-				}
-				
-				minDist = high.Value.Distance;
-				nearestItem = item;
-				pNearestHigh = high;
+
+				minHighSqrDist = highSqrDist;
+				minCastSqrDist = castSqrDist;
+				result = raycast;
 			}
-			
-			return nearestItem;
+
+			return result;
 		}
 
 	}
