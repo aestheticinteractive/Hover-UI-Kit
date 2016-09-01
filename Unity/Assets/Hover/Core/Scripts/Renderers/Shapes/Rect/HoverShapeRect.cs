@@ -37,8 +37,17 @@ namespace Hover.Core.Renderers.Shapes.Rect {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public override Vector3 GetNearestWorldPosition(Ray pFromWorldRay, out RaycastResult pRaycast) {
-			pRaycast.WorldPosition = 
+			pRaycast = new RaycastResult();
+
+			Vector3? nearWorldPos =
 				RendererUtil.GetNearestWorldPositionOnPlane(pFromWorldRay, vWorldPlane);
+
+			if ( nearWorldPos == null ) {
+				return pFromWorldRay.origin;
+			}
+
+			pRaycast.IsHit = true;
+			pRaycast.WorldPosition = nearWorldPos.Value;
 			pRaycast.WorldRotation = transform.rotation;
 			pRaycast.WorldPlane = vWorldPlane;
 			return GetNearestWorldPosition(pRaycast.WorldPosition);

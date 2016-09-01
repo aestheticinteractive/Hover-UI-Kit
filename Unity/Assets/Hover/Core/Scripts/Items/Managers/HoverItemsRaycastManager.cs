@@ -62,16 +62,22 @@ namespace Hover.Core.Items.Managers {
 
 			float minHighSqrDist = float.MaxValue;
 			float minCastSqrDist = float.MaxValue;
-			RaycastResult? result = null;
+			var worldRay = new Ray(pCursor.WorldPosition,
+				pCursor.WorldRotation*pCursor.RaycastLocalDirection);
+
+			RaycastResult result = new RaycastResult();
+			result.WorldPosition = worldRay.GetPoint(10000);
+			result.WorldRotation = pCursor.WorldRotation;
 
 			for ( int i = 0 ; i < vHighStates.Count ; i++ ) {
 				HoverItemHighlightState item = vHighStates[i];
-				var worldRay = new Ray(pCursor.WorldPosition,
-					pCursor.WorldRotation*pCursor.RaycastLocalDirection);
-
 				RaycastResult raycast;
 				Vector3 nearHighWorldPos = item.ProximityProvider
 					.GetNearestWorldPosition(worldRay, out raycast);
+
+				if ( !raycast.IsHit ) {
+					continue;
+				}
 
 				float highSqrDist = (raycast.WorldPosition-nearHighWorldPos).sqrMagnitude;
 				float castSqrDist = (raycast.WorldPosition-pCursor.WorldPosition).sqrMagnitude;
