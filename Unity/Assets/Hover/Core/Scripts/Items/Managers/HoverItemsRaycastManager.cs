@@ -47,10 +47,10 @@ namespace Hover.Core.Items.Managers {
 				ICursorData cursor = cursors[i];
 				cursor.BestRaycastResult = CalcNearestRaycastResult(cursor);
 
-				if ( cursor.BestRaycastResult != null ) {
+				/*if ( cursor.BestRaycastResult != null ) {
 					Debug.DrawLine(cursor.BestRaycastResult.Value.WorldPosition, 
 						cursor.WorldPosition, Color.red);
-				}
+				}*/
 			}
 		}
 

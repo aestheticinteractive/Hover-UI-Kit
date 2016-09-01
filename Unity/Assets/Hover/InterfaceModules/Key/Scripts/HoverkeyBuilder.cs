@@ -1,12 +1,10 @@
 ﻿using Hover.Core.Items;
 using Hover.Core.Items.Types;
-using Hover.Core.Layouts.Arc;
 using Hover.Core.Layouts.Rect;
-using Hover.Core.Renderers.Shapes.Arc;
+using Hover.Core.Renderers.Contents;
 using Hover.Core.Renderers.Shapes.Rect;
 using Hover.Core.Utils;
 using UnityEngine;
-using Hover.Core.Renderers.Contents;
 
 namespace Hover.InterfaceModules.Key {
 
