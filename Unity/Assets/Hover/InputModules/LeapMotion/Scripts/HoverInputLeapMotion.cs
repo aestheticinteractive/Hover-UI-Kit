@@ -2,7 +2,7 @@
 
 using System;
 using System.Collections.Generic;
-using Hover.Cursors;
+using Hover.Core.Cursors;
 using Leap;
 using Leap.Unity;
 using UnityEngine;

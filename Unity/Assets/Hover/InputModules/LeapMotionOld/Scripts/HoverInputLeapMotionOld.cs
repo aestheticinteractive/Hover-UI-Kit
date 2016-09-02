@@ -1,7 +1,7 @@
 ﻿#if HOVER_INPUT_LEAPMOTIONOLD
 
 using System;
-using Hover.Cursors;
+using Hover.Core.Cursors;
 using Leap;
 using UnityEngine;
 
