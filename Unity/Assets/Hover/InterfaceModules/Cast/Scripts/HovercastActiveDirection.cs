@@ -21,6 +21,8 @@ namespace Hover.InterfaceModules.Cast {
 
 		public GameObject ChildForActivation;
 
+		public Vector3 LocalFacingDirection = Vector3.forward;
+
 		[Range(10, 180)]
 		public float FullyActiveWithinDegree = 30;
 
@@ -73,7 +75,7 @@ namespace Hover.InterfaceModules.Cast {
 		private void UpdateDegree() {
 			HovercastInterface cast = GetComponent<HovercastInterface>();
 
-			Vector3 castWorldDir = cast.transform.TransformDirection(Vector3.forward);
+			Vector3 castWorldDir = cast.transform.TransformDirection(LocalFacingDirection.normalized);
 			Vector3 castToTxWorldVec = (ActiveWhenFacingTransform.position-cast.transform.position);
 			Vector3 castToTxWorldDir = castToTxWorldVec.normalized;
 			float dotBetweenDirs = Vector3.Dot(castWorldDir, castToTxWorldDir);
