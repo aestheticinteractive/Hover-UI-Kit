@@ -48,8 +48,9 @@ namespace Hover.Core.Items.Managers {
 				cursor.BestRaycastResult = CalcNearestRaycastResult(cursor);
 
 				/*if ( cursor.BestRaycastResult != null ) {
+					Color col = (cursor.BestRaycastResult.Value.IsHit ? Color.green : Color.red);
 					Debug.DrawLine(cursor.BestRaycastResult.Value.WorldPosition, 
-						cursor.WorldPosition, Color.red);
+						cursor.WorldPosition, col);
 				}*/
 			}
 		}

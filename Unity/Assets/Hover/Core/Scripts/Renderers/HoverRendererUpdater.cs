@@ -277,7 +277,8 @@ namespace Hover.Core.Renderers {
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateButtonSettings(HoverItemHighlightState pHighState) {
 			ButtonRenderer.Fill.Controllers.Set(HoverFillButton.ShowEdgeName, this);
-			ButtonRenderer.Fill.ShowEdge = pHighState.IsNearestAcrossAllItemsForAnyCursor;
+			ButtonRenderer.Fill.ShowEdge = (pHighState.IsNearestAcrossAllItemsForAnyCursor && 
+				pHighState.MaxHighlightProgress > 0);
 		}
 
 
@@ -309,7 +310,7 @@ namespace Hover.Core.Renderers {
 			SliderRenderer.Controllers.Set(HoverRendererSlider.JumpValueName, this);
 			SliderRenderer.Controllers.Set(HoverRendererSlider.ShowButtonEdgesName, this);
 
-			SliderRenderer.ShowButtonEdges = isNearest;
+			SliderRenderer.ShowButtonEdges = (isNearest && highProg > 0);
 
 			if ( high == null || highProg <= 0 || !isNearest ) {
 				data.HoverValue = null;
