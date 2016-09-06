@@ -13,7 +13,6 @@ namespace Hover.InputModules.Vive {
 
 		[Serializable]
 		public class Info {
-			public bool IsEnabled = true;
 			public Vector3 LocalPosition = Vector3.zero;
 			public Vector3 LocalRotation = new Vector3(90, 0, 0);
 
@@ -176,11 +175,10 @@ namespace Hover.InputModules.Vive {
 			}
 
 			ICursorDataForInput data = CursorDataProvider.GetCursorDataForInput(pCursorType);
-			bool isUsed = (pDevice.valid && pInfo.IsEnabled);
 
-			data.SetUsedByInput(isUsed);
+			data.SetUsedByInput(pDevice.valid);
 
-			if ( !isUsed ) {
+			if ( !pDevice.valid ) {
 				return;
 			}
 
