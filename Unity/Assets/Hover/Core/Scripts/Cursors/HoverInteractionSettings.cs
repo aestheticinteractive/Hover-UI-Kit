@@ -20,11 +20,11 @@ namespace Hover.Core.Cursors {
 		private float _SelectionMilliseconds = 400;
 
 		[SerializeField]
-		private float _MotionlessDistanceThreshold = 0.001f;
+		private float _MotionlessDistanceThreshold = 0.004f;
 
 		[SerializeField]
 		[Range(1, 10000)]
-		private float _MotionlessMilliseconds = 1500;
+		private float _MotionlessMilliseconds = 1000;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
