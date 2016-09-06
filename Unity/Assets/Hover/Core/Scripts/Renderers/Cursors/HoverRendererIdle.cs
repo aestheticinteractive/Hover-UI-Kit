@@ -27,9 +27,6 @@ namespace Hover.Core.Renderers.Cursors {
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
 		public float TimerProgress;
 
-		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
-		public float TimerVisibleAfterProgress = 0.333f;
-
 		[DisableWhenControlled]
 		public bool IsRaycast;
 
@@ -119,10 +116,8 @@ namespace Hover.Core.Renderers.Cursors {
 			}
 
 			HoverIndicator idleInd = GetComponent<HoverIndicator>();
-			float prog = Mathf.InverseLerp(TimerVisibleAfterProgress, 1, TimerProgress);
-
 			idleInd.Controllers.Set(HoverIndicator.HighlightProgressName, this);
-			idleInd.HighlightProgress = prog;
+			idleInd.HighlightProgress = Mathf.Lerp(0.05f, 1, TimerProgress);
 		}
 
 	}
