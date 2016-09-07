@@ -1,0 +1,1 @@
+This is a main page placeholder for the **Hover UI Kit** documentation.
