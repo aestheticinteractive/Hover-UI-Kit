@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['unityutil_2ecs',['UnityUtil.cs',['../_unity_util_8cs.html',1,'']]],
   ['unscaledpaddedsizex',['UnscaledPaddedSizeX',['../class_hover_1_1_core_1_1_renderers_1_1_contents_1_1_hover_canvas.html#a129eaaa4b8bef01f554aff502c3cdeb4',1,'Hover::Core::Renderers::Contents::HoverCanvas']]],
   ['unscaledpaddedsizey',['UnscaledPaddedSizeY',['../class_hover_1_1_core_1_1_renderers_1_1_contents_1_1_hover_canvas.html#aeb7ef905cd38fb0e416233fa8a69eadb',1,'Hover::Core::Renderers::Contents::HoverCanvas']]],
   ['unset',['Unset',['../interface_hover_1_1_core_1_1_utils_1_1_i_settings_controller_map.html#a5f4031d1e90f62250fbb63af4a5794db',1,'Hover.Core.Utils.ISettingsControllerMap.Unset()'],['../class_hover_1_1_core_1_1_utils_1_1_settings_controller_map.html#a9255aa82ef60f6a0d3e7de10f167616b',1,'Hover.Core.Utils.SettingsControllerMap.Unset()']]],
