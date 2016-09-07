@@ -1,0 +1,7 @@
+var searchData=
+[
+  ['highlightdistancemax',['HighlightDistanceMax',['../class_hover_1_1_core_1_1_cursors_1_1_hover_interaction_settings.html#a053b6ec99d7b7c74e2f89b7d7421b2ec',1,'Hover.Core.Cursors.HoverInteractionSettings.HighlightDistanceMax()'],['../interface_hover_1_1_core_1_1_cursors_1_1_i_interaction_settings.html#ab575da946194ba76f0e05fd75949de4e',1,'Hover.Core.Cursors.IInteractionSettings.HighlightDistanceMax()']]],
+  ['highlightdistancemin',['HighlightDistanceMin',['../class_hover_1_1_core_1_1_cursors_1_1_hover_interaction_settings.html#a300ca4c9d8ae8e00b02f26d0f486aca9',1,'Hover.Core.Cursors.HoverInteractionSettings.HighlightDistanceMin()'],['../interface_hover_1_1_core_1_1_cursors_1_1_i_interaction_settings.html#a913669a8f34e7dfa4e5a366adc7d239f',1,'Hover.Core.Cursors.IInteractionSettings.HighlightDistanceMin()']]],
+  ['highlights',['Highlights',['../class_hover_1_1_core_1_1_items_1_1_managers_1_1_hover_item_highlight_state.html#a3c97518c657861257021658d626a77f0',1,'Hover::Core::Items::Managers::HoverItemHighlightState']]],
+  ['hovervalue',['HoverValue',['../class_hover_1_1_core_1_1_items_1_1_types_1_1_hover_item_data_slider.html#a1621a202bd3fc8f334618930395ee180',1,'Hover.Core.Items.Types.HoverItemDataSlider.HoverValue()'],['../interface_hover_1_1_core_1_1_items_1_1_types_1_1_i_item_data_slider.html#a7d83b5c86ac000cd6187462e59c1dbf4',1,'Hover.Core.Items.Types.IItemDataSlider.HoverValue()']]]
+];

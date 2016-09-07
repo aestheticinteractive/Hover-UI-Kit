@@ -1,0 +1,6 @@
+var searchData=
+[
+  ['gameobject',['gameObject',['../interface_hover_1_1_core_1_1_cursors_1_1_i_cursor_data_for_input.html#a9156c3096e3cf8adf643e9199b4023d5',1,'Hover.Core.Cursors.ICursorDataForInput.gameObject()'],['../interface_hover_1_1_core_1_1_items_1_1_i_item_data.html#ab235cb5122bb181ac4131d75f77770be',1,'Hover.Core.Items.IItemData.gameObject()'],['../interface_hover_1_1_core_1_1_renderers_1_1_i_game_object_provider.html#aeb00ad609e2c3ad075b55699a978801e',1,'Hover.Core.Renderers.IGameObjectProvider.gameObject()']]],
+  ['getformattedlabel',['GetFormattedLabel',['../class_hover_1_1_core_1_1_items_1_1_types_1_1_hover_item_data_slider.html#a594a9a8b7d1bdd8529f0b91adef316d2',1,'Hover.Core.Items.Types.HoverItemDataSlider.GetFormattedLabel()'],['../interface_hover_1_1_core_1_1_items_1_1_types_1_1_i_item_data_slider.html#a9b888abf34face266cab748c4de45b48',1,'Hover.Core.Items.Types.IItemDataSlider.GetFormattedLabel()']]],
+  ['groupid',['GroupId',['../class_hover_1_1_core_1_1_items_1_1_types_1_1_hover_item_data_radio.html#ab34e94fc064bdb7dbfdf04af4094f556',1,'Hover.Core.Items.Types.HoverItemDataRadio.GroupId()'],['../interface_hover_1_1_core_1_1_items_1_1_types_1_1_i_item_data_radio.html#aa187643e0342b4395a82de5499eb5270',1,'Hover.Core.Items.Types.IItemDataRadio.GroupId()']]]
+];
