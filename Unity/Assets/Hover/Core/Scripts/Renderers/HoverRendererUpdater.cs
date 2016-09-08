@@ -35,11 +35,11 @@ namespace Hover.Core.Renderers {
 
 		[SerializeField]
 		[DisableWhenControlled]
-		protected Component _ButtonRenderer;
+		private Component _ButtonRenderer;
 
 		[SerializeField]
 		[DisableWhenControlled]
-		protected Component _SliderRenderer;
+		private Component _SliderRenderer;
 
 		[DisableWhenControlled]
 		public bool ClickToRebuildRenderer = false;

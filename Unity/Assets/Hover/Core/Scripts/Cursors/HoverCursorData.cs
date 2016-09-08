@@ -13,23 +13,23 @@ namespace Hover.Core.Cursors {
 		public List<StickySelectionInfo> ActiveStickySelections { get; private set; }
 
 		[SerializeField]
-		public CursorType _Type;
+		private CursorType _Type;
 		
 		[SerializeField]
-		public CursorCapabilityType _Capability = CursorCapabilityType.Full;
+		private CursorCapabilityType _Capability = CursorCapabilityType.Full;
 		
 		[SerializeField]
-		public bool _IsRaycast = false;
+		private bool _IsRaycast = false;
 
 		[SerializeField]
-		public Vector3 _RaycastLocalDirection = Vector3.up;
+		private Vector3 _RaycastLocalDirection = Vector3.up;
 
 		[SerializeField]
-		public float _Size = 1;
+		private float _Size = 1;
 
 		[SerializeField]
 		[Range(0, 1)]
-		public float _TriggerStrength = 0;
+		private float _TriggerStrength = 0;
 
 		private ICursorIdle vIdle;
 
