@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['selectoractiontype',['SelectorActionType',['../namespace_hover_1_1_core_1_1_items.html#a54ec6146f080689d2faeb450af1b24a1',1,'Hover::Core::Items']]],
-  ['sizetype',['SizeType',['../class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_rect_1_1_hover_mesh_rect.html#a1cbecdcd2542e16a7811c3a5d5f2f9a6',1,'Hover::Core::Renderers::Shapes::Rect::HoverMeshRect']]],
-  ['sliderfilltype',['SliderFillType',['../namespace_hover_1_1_core_1_1_items.html#a15bf4c233e746e407c619fc9552c5fa5',1,'Hover::Core::Items']]]
+  ['radiustype',['RadiusType',['../class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_mesh_arc.html#a219702437760240c0aa296fc20fd7025',1,'Hover::Core::Renderers::Shapes::Arc::HoverMeshArc']]],
+  ['rowentrytype',['RowEntryType',['../class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_row_switching_info.html#a98e8d19ca3dab4f9062e3f2b5f662a2c',1,'Hover.InterfaceModules.Cast.HovercastRowSwitchingInfo.RowEntryType()'],['../class_hover_1_1_interface_modules_1_1_panel_1_1_hoverpanel_row_switching_info.html#ac9ffa1c4b5958e6cfb72dc70eb29f2ac',1,'Hover.InterfaceModules.Panel.HoverpanelRowSwitchingInfo.RowEntryType()']]]
 ];

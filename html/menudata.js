@@ -54,7 +54,8 @@ var menudata={children:[
 {text:'r',url:'functions_func_r.html#index_r'},
 {text:'s',url:'functions_func_s.html#index_s'},
 {text:'t',url:'functions_func_t.html#index_t'},
-{text:'u',url:'functions_func_u.html#index_u'}]},
+{text:'u',url:'functions_func_u.html#index_u'},
+{text:'v',url:'functions_func_v.html#index_v'}]},
 {text:'Variables',url:'functions_vars.html',children:[
 {text:'_',url:'functions_vars.html#index__'},
 {text:'a',url:'functions_vars_a.html#index_a'},

@@ -5,6 +5,7 @@ var namespace_hover_1_1_core_1_1_renderers =
     [ "Cursors", "namespace_hover_1_1_core_1_1_renderers_1_1_cursors.html", "namespace_hover_1_1_core_1_1_renderers_1_1_cursors" ],
     [ "Shapes", "namespace_hover_1_1_core_1_1_renderers_1_1_shapes.html", "namespace_hover_1_1_core_1_1_renderers_1_1_shapes" ],
     [ "Sliders", "namespace_hover_1_1_core_1_1_renderers_1_1_sliders.html", "namespace_hover_1_1_core_1_1_renderers_1_1_sliders" ],
+    [ "Utils", "namespace_hover_1_1_core_1_1_renderers_1_1_utils.html", "namespace_hover_1_1_core_1_1_renderers_1_1_utils" ],
     [ "HoverFill", "class_hover_1_1_core_1_1_renderers_1_1_hover_fill.html", "class_hover_1_1_core_1_1_renderers_1_1_hover_fill" ],
     [ "HoverIndicator", "class_hover_1_1_core_1_1_renderers_1_1_hover_indicator.html", "class_hover_1_1_core_1_1_renderers_1_1_hover_indicator" ],
     [ "HoverMesh", "class_hover_1_1_core_1_1_renderers_1_1_hover_mesh.html", "class_hover_1_1_core_1_1_renderers_1_1_hover_mesh" ],

@@ -1,9 +1,21 @@
 var searchData=
 [
-  ['text',['Text',['../class_hover_1_1_core_1_1_items_1_1_hover_item.html#afe8d8e85a977b604bc655f9b1185bc46a9dffbf69ffba8bc38bc4e01abf4b1675',1,'Hover::Core::Items::HoverItem']]],
-  ['textleftandiconright',['TextLeftAndIconRight',['../class_hover_1_1_core_1_1_renderers_1_1_contents_1_1_hover_canvas.html#a854d6969242453126170559a59d84fcdaa7dbee18bd7c4fcc48981086dac691ba',1,'Hover::Core::Renderers::Contents::HoverCanvas']]],
-  ['textrightandiconleft',['TextRightAndIconLeft',['../class_hover_1_1_core_1_1_renderers_1_1_contents_1_1_hover_canvas.html#a854d6969242453126170559a59d84fcda1438ed0e61d9289a541ad7c661511077',1,'Hover::Core::Renderers::Contents::HoverCanvas']]],
-  ['threequartersfontsize',['ThreeQuartersFontSize',['../class_hover_1_1_core_1_1_renderers_1_1_contents_1_1_hover_canvas.html#a7e261e068a239a44869ef6bef724947babfedc431af4bbd2058994467fd28a692',1,'Hover::Core::Renderers::Contents::HoverCanvas']]],
-  ['toptobottom',['TopToBottom',['../class_hover_1_1_core_1_1_layouts_1_1_rect_1_1_hover_layout_rect_row.html#ace3b9106a8055a7f01bb1ca9dd08f50eaf2b1a19a8d0f523d042f9ede79a80804',1,'Hover::Core::Layouts::Rect::HoverLayoutRectRow']]],
-  ['transformonly',['TransformOnly',['../namespace_hover_1_1_core_1_1_cursors.html#ad0fb6ce169f651d81643880456e86ccaa931c9eaa839fb27b85da6296811a378b',1,'Hover::Core::Cursors']]]
+  ['radio',['Radio',['../class_hover_1_1_core_1_1_items_1_1_hover_item.html#afe8d8e85a977b604bc655f9b1185bc46a1f32d2c1b49b9b0c9d99bd10da107e41',1,'Hover::Core::Items::HoverItem']]],
+  ['radioinner',['RadioInner',['../class_hover_1_1_core_1_1_renderers_1_1_contents_1_1_hover_icon.html#a9e373df56b6047ee66e6f8c2dcdbb2a4aa15c4939b45aa79cde8aa7fb93ca78b1',1,'Hover::Core::Renderers::Contents::HoverIcon']]],
+  ['radiooff',['RadioOff',['../class_hover_1_1_core_1_1_renderers_1_1_contents_1_1_hover_canvas_data_updater.html#a1a275ff43294d153d9dad07198d6e2b6ac142e388499b24efa844b40f86f17133',1,'Hover::Core::Renderers::Contents::HoverCanvasDataUpdater']]],
+  ['radioon',['RadioOn',['../class_hover_1_1_core_1_1_renderers_1_1_contents_1_1_hover_canvas_data_updater.html#a1a275ff43294d153d9dad07198d6e2b6a03c38efe7bebcb589f76de8925a2b5ec',1,'Hover::Core::Renderers::Contents::HoverCanvasDataUpdater']]],
+  ['radioouter',['RadioOuter',['../class_hover_1_1_core_1_1_renderers_1_1_contents_1_1_hover_icon.html#a9e373df56b6047ee66e6f8c2dcdbb2a4a0dc4457a67cc570f5f945e42e1dc7c04',1,'Hover::Core::Renderers::Contents::HoverIcon']]],
+  ['reverse',['Reverse',['../class_hover_1_1_core_1_1_layouts_1_1_arc_1_1_hover_layout_arc_row.html#a5a5baedf572b8f492e066371b0c22136a67f115c1fddc4ce1aeb1c754001585bc',1,'Hover::Core::Layouts::Arc::HoverLayoutArcRow']]],
+  ['right',['Right',['../class_hover_1_1_core_1_1_renderers_1_1_contents_1_1_hover_canvas.html#a854d6969242453126170559a59d84fcda92b09c7c48c520c3c55e497875da437c',1,'Hover::Core::Renderers::Contents::HoverCanvas']]],
+  ['rightindex',['RightIndex',['../namespace_hover_1_1_core_1_1_cursors.html#a2944183e84014f9de94a0ec5729dbf0aaef153cf22ccd4a464020cc25e76a9181',1,'Hover::Core::Cursors']]],
+  ['rightmiddle',['RightMiddle',['../namespace_hover_1_1_core_1_1_cursors.html#a2944183e84014f9de94a0ec5729dbf0aa5c5a710e9fdd63168ce0694355223105',1,'Hover::Core::Cursors']]],
+  ['rightpalm',['RightPalm',['../namespace_hover_1_1_core_1_1_cursors.html#a2944183e84014f9de94a0ec5729dbf0aa2197a3021b27c717265232f7325f2d3e',1,'Hover::Core::Cursors']]],
+  ['rightpinky',['RightPinky',['../namespace_hover_1_1_core_1_1_cursors.html#a2944183e84014f9de94a0ec5729dbf0aa580a798771dfe2dbe80e52ea2919c47b',1,'Hover::Core::Cursors']]],
+  ['rightring',['RightRing',['../namespace_hover_1_1_core_1_1_cursors.html#a2944183e84014f9de94a0ec5729dbf0aaae22d7c9044ddc4eb3cc09f0bb4a5fbb',1,'Hover::Core::Cursors']]],
+  ['rightthumb',['RightThumb',['../namespace_hover_1_1_core_1_1_cursors.html#a2944183e84014f9de94a0ec5729dbf0aae499bf8bc6e897455b94cabc7a5c2da7',1,'Hover::Core::Cursors']]],
+  ['righttoleft',['RightToLeft',['../class_hover_1_1_core_1_1_layouts_1_1_rect_1_1_hover_layout_rect_row.html#ace3b9106a8055a7f01bb1ca9dd08f50eab7b0ea3028791689ea070674776855e2',1,'Hover::Core::Layouts::Rect::HoverLayoutRectRow']]],
+  ['rotatefrombottom',['RotateFromBottom',['../class_hover_1_1_interface_modules_1_1_panel_1_1_hoverpanel_row_switching_info.html#ac9ffa1c4b5958e6cfb72dc70eb29f2acab216d92b259e7bf0d58b0be702662aba',1,'Hover::InterfaceModules::Panel::HoverpanelRowSwitchingInfo']]],
+  ['rotatefromleft',['RotateFromLeft',['../class_hover_1_1_interface_modules_1_1_panel_1_1_hoverpanel_row_switching_info.html#ac9ffa1c4b5958e6cfb72dc70eb29f2acaa50b9bce975441d6e235e7a18415b132',1,'Hover::InterfaceModules::Panel::HoverpanelRowSwitchingInfo']]],
+  ['rotatefromright',['RotateFromRight',['../class_hover_1_1_interface_modules_1_1_panel_1_1_hoverpanel_row_switching_info.html#ac9ffa1c4b5958e6cfb72dc70eb29f2acabef7fcc537bd483107b0ae7db6b848b1',1,'Hover::InterfaceModules::Panel::HoverpanelRowSwitchingInfo']]],
+  ['rotatefromtop',['RotateFromTop',['../class_hover_1_1_interface_modules_1_1_panel_1_1_hoverpanel_row_switching_info.html#ac9ffa1c4b5958e6cfb72dc70eb29f2aca923287d59fcf76088e25e533aabd4a5b',1,'Hover::InterfaceModules::Panel::HoverpanelRowSwitchingInfo']]]
 ];

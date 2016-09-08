@@ -6,8 +6,6 @@ var class_hover_1_1_core_1_1_renderers_1_1_hover_renderer_updater =
     [ "GetNearestWorldPosition", "class_hover_1_1_core_1_1_renderers_1_1_hover_renderer_updater.html#a66f812a6a28f58a330c5faea53a21c33", null ],
     [ "Start", "class_hover_1_1_core_1_1_renderers_1_1_hover_renderer_updater.html#ac63165165f8b30d6f40479eeabb85b87", null ],
     [ "TreeUpdate", "class_hover_1_1_core_1_1_renderers_1_1_hover_renderer_updater.html#ace75b913769af7441757b8d1d0203308", null ],
-    [ "_ButtonRenderer", "class_hover_1_1_core_1_1_renderers_1_1_hover_renderer_updater.html#a6fccc4fc9ee73f7e14103402d30e66d6", null ],
-    [ "_SliderRenderer", "class_hover_1_1_core_1_1_renderers_1_1_hover_renderer_updater.html#a2860405dec72665bf6298ff0cdb2633b", null ],
     [ "ButtonRendererName", "class_hover_1_1_core_1_1_renderers_1_1_hover_renderer_updater.html#a9b6b5118152ac360063706bbcdbadf2e", null ],
     [ "ButtonRendererPrefab", "class_hover_1_1_core_1_1_renderers_1_1_hover_renderer_updater.html#a8768a879b4c4702272a390a45fa55e97", null ],
     [ "ClickToRebuildRenderer", "class_hover_1_1_core_1_1_renderers_1_1_hover_renderer_updater.html#a61aa298f1fc5a207c2bfade20be6e609", null ],

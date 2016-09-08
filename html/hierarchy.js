@@ -1,7 +1,9 @@
 var hierarchy =
 [
+    [ "Hover.Core.Utils.DisplayUtil", "class_hover_1_1_core_1_1_utils_1_1_display_util.html", null ],
     [ "Hover.Core.Items.Managers.HoverItemHighlightState.Highlight", "struct_hover_1_1_core_1_1_items_1_1_managers_1_1_hover_item_highlight_state_1_1_highlight.html", null ],
     [ "Hover.Core.Cursors.HoverCursorIdleState.HistoryRecord", "struct_hover_1_1_core_1_1_cursors_1_1_hover_cursor_idle_state_1_1_history_record.html", null ],
+    [ "Hover.InterfaceModules.Key.HoverkeyBuilderData", "class_hover_1_1_interface_modules_1_1_key_1_1_hoverkey_builder_data.html", null ],
     [ "Hover.InterfaceModules.Key.HoverkeyBuilderKeyInfo", "struct_hover_1_1_interface_modules_1_1_key_1_1_hoverkey_builder_key_info.html", null ],
     [ "Hover.Core.Layouts.Arc.HoverLayoutArcGroupChild", "struct_hover_1_1_core_1_1_layouts_1_1_arc_1_1_hover_layout_arc_group_child.html", null ],
     [ "Hover.Core.Layouts.Rect.HoverLayoutRectGroupChild", "struct_hover_1_1_core_1_1_layouts_1_1_rect_1_1_hover_layout_rect_group_child.html", null ],
@@ -84,6 +86,7 @@ var hierarchy =
       [ "Hover.Core.Renderers.Shapes.Arc.HoverShapeArc", "class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_shape_arc.html", null ],
       [ "Hover.Core.Renderers.Shapes.Rect.HoverShapeRect", "class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_rect_1_1_hover_shape_rect.html", null ]
     ] ],
+    [ "Hover.InputModules.Vive.HoverInputVive.Info", "class_hover_1_1_input_modules_1_1_vive_1_1_hover_input_vive_1_1_info.html", null ],
     [ "Hover.Core.Renderers.IProximityProvider", "interface_hover_1_1_core_1_1_renderers_1_1_i_proximity_provider.html", [
       [ "Hover.Core.Renderers.HoverRendererUpdater", "class_hover_1_1_core_1_1_renderers_1_1_hover_renderer_updater.html", null ]
     ] ],
@@ -154,6 +157,7 @@ var hierarchy =
     [ "Hover.Core.Utils.ISettingsControllerMap", "interface_hover_1_1_core_1_1_utils_1_1_i_settings_controller_map.html", [
       [ "Hover.Core.Utils.SettingsControllerMap", "class_hover_1_1_core_1_1_utils_1_1_settings_controller_map.html", null ]
     ] ],
+    [ "Hover.Core.Items.ItemEvents", "class_hover_1_1_core_1_1_items_1_1_item_events.html", null ],
     [ "Hover.Core.Utils.ITreeUpdateable", "interface_hover_1_1_core_1_1_utils_1_1_i_tree_updateable.html", [
       [ "Hover.Core.Items.Helpers.HoverChildItemsEnabler", "class_hover_1_1_core_1_1_items_1_1_helpers_1_1_hover_child_items_enabler.html", null ],
       [ "Hover.Core.Items.Helpers.HoverChildItemsFinder", "class_hover_1_1_core_1_1_items_1_1_helpers_1_1_hover_child_items_finder.html", null ],
@@ -205,6 +209,7 @@ var hierarchy =
       [ "Hover.RendererModules.Opaque.HoverOpaqueMeshUpdater", "class_hover_1_1_renderer_modules_1_1_opaque_1_1_hover_opaque_mesh_updater.html", null ]
     ] ],
     [ "Hover.Core.Utils.MeshBuilder", "class_hover_1_1_core_1_1_utils_1_1_mesh_builder.html", null ],
+    [ "Hover.Core.Utils.MeshUtil", "class_hover_1_1_core_1_1_utils_1_1_mesh_util.html", null ],
     [ "MonoBehaviour", null, [
       [ "Hover.Core.Cursors.HoverCursorData", "class_hover_1_1_core_1_1_cursors_1_1_hover_cursor_data.html", null ],
       [ "Hover.Core.Cursors.HoverCursorDataProvider", "class_hover_1_1_core_1_1_cursors_1_1_hover_cursor_data_provider.html", null ],
@@ -251,6 +256,9 @@ var hierarchy =
       [ "Hover.Core.Renderers.Sliders.HoverRendererSliderUpdater", "class_hover_1_1_core_1_1_renderers_1_1_sliders_1_1_hover_renderer_slider_updater.html", null ],
       [ "Hover.Core.Utils.HoverSceneLoader", "class_hover_1_1_core_1_1_utils_1_1_hover_scene_loader.html", null ],
       [ "Hover.Core.Utils.TreeUpdater", "class_hover_1_1_core_1_1_utils_1_1_tree_updater.html", null ],
+      [ "Hover.InputModules.LeapMotion.HoverInputLeapMotion", "class_hover_1_1_input_modules_1_1_leap_motion_1_1_hover_input_leap_motion.html", null ],
+      [ "Hover.InputModules.LeapMotionOld.HoverInputLeapMotionOld", "class_hover_1_1_input_modules_1_1_leap_motion_old_1_1_hover_input_leap_motion_old.html", null ],
+      [ "Hover.InputModules.Vive.HoverInputVive", "class_hover_1_1_input_modules_1_1_vive_1_1_hover_input_vive.html", null ],
       [ "Hover.InterfaceModules.Cast.HovercastActiveDirection", "class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_active_direction.html", null ],
       [ "Hover.InterfaceModules.Cast.HovercastBackCursorTrigger", "class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_back_cursor_trigger.html", null ],
       [ "Hover.InterfaceModules.Cast.HovercastBuilder", "class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_builder.html", null ],
@@ -285,8 +293,10 @@ var hierarchy =
       [ "Hover.Core.Utils.DisableWhenControlledAttribute", "class_hover_1_1_core_1_1_utils_1_1_disable_when_controlled_attribute.html", null ]
     ] ],
     [ "Hover.Core.Items.RaycastResult", "struct_hover_1_1_core_1_1_items_1_1_raycast_result.html", null ],
+    [ "Hover.Core.Renderers.Utils.RendererUtil", "class_hover_1_1_core_1_1_renderers_1_1_utils_1_1_renderer_util.html", null ],
     [ "Hover.Core.Renderers.Utils.SliderUtil.SegmentInfo", "struct_hover_1_1_core_1_1_renderers_1_1_utils_1_1_slider_util_1_1_segment_info.html", null ],
     [ "Hover.Core.Renderers.Utils.SliderUtil.SliderInfo", "struct_hover_1_1_core_1_1_renderers_1_1_utils_1_1_slider_util_1_1_slider_info.html", null ],
+    [ "Hover.Core.Renderers.Utils.SliderUtil", "class_hover_1_1_core_1_1_renderers_1_1_utils_1_1_slider_util.html", null ],
     [ "Hover.Core.Cursors.StickySelectionInfo", "struct_hover_1_1_core_1_1_cursors_1_1_sticky_selection_info.html", null ],
     [ "UnityEvent", null, [
       [ "Hover.Core.Items.Managers.HoverItemsManager.ItemEvent", "class_hover_1_1_core_1_1_items_1_1_managers_1_1_hover_items_manager_1_1_item_event.html", null ],
@@ -301,5 +311,6 @@ var hierarchy =
     ] ],
     [ "UnityEvent< IItemDataSelectable< float >>", null, [
       [ "Hover.Core.Items.Types.HoverItemDataSelectableFloat.ValueChangedEventHandler", "class_hover_1_1_core_1_1_items_1_1_types_1_1_hover_item_data_selectable_float_1_1_value_changed_event_handler.html", null ]
-    ] ]
+    ] ],
+    [ "Hover.Core.Utils.UnityUtil", "class_hover_1_1_core_1_1_utils_1_1_unity_util.html", null ]
 ];

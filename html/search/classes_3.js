@@ -8,7 +8,7 @@ var searchData=
   ['iitemdata',['IItemData',['../interface_hover_1_1_core_1_1_items_1_1_i_item_data.html',1,'Hover::Core::Items']]],
   ['iitemdatacheckbox',['IItemDataCheckbox',['../interface_hover_1_1_core_1_1_items_1_1_types_1_1_i_item_data_checkbox.html',1,'Hover::Core::Items::Types']]],
   ['iitemdataradio',['IItemDataRadio',['../interface_hover_1_1_core_1_1_items_1_1_types_1_1_i_item_data_radio.html',1,'Hover::Core::Items::Types']]],
-  ['iitemdataselectable',['IItemDataSelectable',['../interface_hover_1_1_core_1_1_items_1_1_types_1_1_i_item_data_selectable.html',1,'Hover.Core.Items.Types.IItemDataSelectable'],['../interface_hover_1_1_core_1_1_items_1_1_types_1_1_i_item_data_selectable.html',1,'Hover.Core.Items.Types.IItemDataSelectable&lt; T &gt;']]],
+  ['iitemdataselectable',['IItemDataSelectable',['../interface_hover_1_1_core_1_1_items_1_1_types_1_1_i_item_data_selectable.html',1,'Hover.Core.Items.Types.IItemDataSelectable&lt; T &gt;'],['../interface_hover_1_1_core_1_1_items_1_1_types_1_1_i_item_data_selectable.html',1,'Hover.Core.Items.Types.IItemDataSelectable']]],
   ['iitemdataselectable_3c_20bool_20_3e',['IItemDataSelectable&lt; bool &gt;',['../interface_hover_1_1_core_1_1_items_1_1_types_1_1_i_item_data_selectable.html',1,'Hover::Core::Items::Types']]],
   ['iitemdataselectable_3c_20float_20_3e',['IItemDataSelectable&lt; float &gt;',['../interface_hover_1_1_core_1_1_items_1_1_types_1_1_i_item_data_selectable.html',1,'Hover::Core::Items::Types']]],
   ['iitemdataselector',['IItemDataSelector',['../interface_hover_1_1_core_1_1_items_1_1_types_1_1_i_item_data_selector.html',1,'Hover::Core::Items::Types']]],
@@ -17,9 +17,11 @@ var searchData=
   ['iitemdatatext',['IItemDataText',['../interface_hover_1_1_core_1_1_items_1_1_types_1_1_i_item_data_text.html',1,'Hover::Core::Items::Types']]],
   ['ilayoutablearc',['ILayoutableArc',['../interface_hover_1_1_core_1_1_layouts_1_1_arc_1_1_i_layoutable_arc.html',1,'Hover::Core::Layouts::Arc']]],
   ['ilayoutablerect',['ILayoutableRect',['../interface_hover_1_1_core_1_1_layouts_1_1_rect_1_1_i_layoutable_rect.html',1,'Hover::Core::Layouts::Rect']]],
+  ['info',['Info',['../class_hover_1_1_input_modules_1_1_vive_1_1_hover_input_vive_1_1_info.html',1,'Hover::InputModules::Vive::HoverInputVive']]],
   ['iproximityprovider',['IProximityProvider',['../interface_hover_1_1_core_1_1_renderers_1_1_i_proximity_provider.html',1,'Hover::Core::Renderers']]],
   ['isettingscontroller',['ISettingsController',['../interface_hover_1_1_core_1_1_utils_1_1_i_settings_controller.html',1,'Hover::Core::Utils']]],
   ['isettingscontrollermap',['ISettingsControllerMap',['../interface_hover_1_1_core_1_1_utils_1_1_i_settings_controller_map.html',1,'Hover::Core::Utils']]],
   ['itemevent',['ItemEvent',['../class_hover_1_1_core_1_1_items_1_1_managers_1_1_hover_items_manager_1_1_item_event.html',1,'Hover::Core::Items::Managers::HoverItemsManager']]],
+  ['itemevents',['ItemEvents',['../class_hover_1_1_core_1_1_items_1_1_item_events.html',1,'Hover::Core::Items']]],
   ['itreeupdateable',['ITreeUpdateable',['../interface_hover_1_1_core_1_1_utils_1_1_i_tree_updateable.html',1,'Hover::Core::Utils']]]
 ];

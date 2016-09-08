@@ -1,5 +1,7 @@
 var searchData=
 [
+  ['calculatesegments',['CalculateSegments',['../class_hover_1_1_core_1_1_renderers_1_1_utils_1_1_slider_util.html#a997dd472ee5c9f9f5449153ad147a718',1,'Hover::Core::Renderers::Utils::SliderUtil']]],
+  ['calculateticks',['CalculateTicks',['../class_hover_1_1_core_1_1_renderers_1_1_utils_1_1_slider_util.html#a21a68831953212b4d57dcdadb69e176e',1,'Hover::Core::Renderers::Utils::SliderUtil']]],
   ['char',['Char',['../struct_hover_1_1_interface_modules_1_1_key_1_1_hoverkey_builder_key_info.html#a724457d1dbc09c9721d1b70562304464',1,'Hover::InterfaceModules::Key::HoverkeyBuilderKeyInfo']]],
   ['checkbox',['Checkbox',['../struct_hover_1_1_interface_modules_1_1_key_1_1_hoverkey_builder_key_info.html#a10129efb65dc2597bfcc5dddf047b474',1,'Hover::InterfaceModules::Key::HoverkeyBuilderKeyInfo']]],
   ['commit',['Commit',['../class_hover_1_1_core_1_1_utils_1_1_mesh_builder.html#a10e6220a7a53c684414e85514c405e43',1,'Hover::Core::Utils::MeshBuilder']]],

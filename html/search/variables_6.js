@@ -13,5 +13,6 @@ var searchData=
   ['followcursorrotation',['FollowCursorRotation',['../class_hover_1_1_core_1_1_cursors_1_1_hover_cursor_follower.html#a4f4080583bfcb28e44678172a8f79faf',1,'Hover::Core::Cursors::HoverCursorFollower']]],
   ['forceupdate',['ForceUpdate',['../class_hover_1_1_core_1_1_items_1_1_helpers_1_1_hover_child_items_finder.html#a8a1c6ed46105459b4545a6d2d33983b6',1,'Hover::Core::Items::Helpers::HoverChildItemsFinder']]],
   ['fullcolor',['FullColor',['../class_hover_1_1_core_1_1_renderers_1_1_hover_renderer_proximity_debugger.html#af2794e96fc547c039e8dabc45089e23c',1,'Hover::Core::Renderers::HoverRendererProximityDebugger']]],
-  ['fullyactivewithindegree',['FullyActiveWithinDegree',['../class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_active_direction.html#aacba324bace82a266531c9ef2a213436',1,'Hover::InterfaceModules::Cast::HovercastActiveDirection']]]
+  ['fullyactivewithindegree',['FullyActiveWithinDegree',['../class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_active_direction.html#aacba324bace82a266531c9ef2a213436',1,'Hover::InterfaceModules::Cast::HovercastActiveDirection']]],
+  ['funcrow',['FuncRow',['../class_hover_1_1_interface_modules_1_1_key_1_1_hoverkey_builder_data.html#a6fe0bce02eff0b5e1953a5850866e6c2',1,'Hover::InterfaceModules::Key::HoverkeyBuilderData']]]
 ];

@@ -1,7 +1,10 @@
 var struct_hover_1_1_interface_modules_1_1_key_1_1_hoverkey_builder_key_info =
 [
     [ "HoverkeyBuilderKeyInfo", "struct_hover_1_1_interface_modules_1_1_key_1_1_hoverkey_builder_key_info.html#a4e58daabe51961d25fccc5850f9f25e1", null ],
+    [ "Char", "struct_hover_1_1_interface_modules_1_1_key_1_1_hoverkey_builder_key_info.html#a724457d1dbc09c9721d1b70562304464", null ],
     [ "Checkbox", "struct_hover_1_1_interface_modules_1_1_key_1_1_hoverkey_builder_key_info.html#a10129efb65dc2597bfcc5dddf047b474", null ],
+    [ "Ctrl", "struct_hover_1_1_interface_modules_1_1_key_1_1_hoverkey_builder_key_info.html#a4dcd78acf548a8f8f9b9feee48451f56", null ],
+    [ "Nav", "struct_hover_1_1_interface_modules_1_1_key_1_1_hoverkey_builder_key_info.html#a5c87727aed463eccecdc9bcf340fe12d", null ],
     [ "RelSize", "struct_hover_1_1_interface_modules_1_1_key_1_1_hoverkey_builder_key_info.html#a9840a7d5361e2821a039c97c7971b65b", null ],
     [ "Shift", "struct_hover_1_1_interface_modules_1_1_key_1_1_hoverkey_builder_key_info.html#ad3f7692c5cfd23a4b1a64754bed60c71", null ],
     [ "Sticky", "struct_hover_1_1_interface_modules_1_1_key_1_1_hoverkey_builder_key_info.html#ab017fb74b7ce90aa27796daefa45a1cc", null ],
