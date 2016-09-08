@@ -1,0 +1,190 @@
+﻿/// \namespace Hover
+/// <summary>
+///   Contain the entire project.
+/// </summary>
+
+
+/// \namespace Hover::Core
+/// <summary>
+///   Provide functionality to be shared across all modules.
+/// </summary>
+
+
+	/// \namespace Hover::Core::Cursors
+	/// <summary>
+	///   Provide data and features related to cursors.
+	/// </summary>
+
+
+	/// \namespace Hover::Core::Items
+	/// <summary>
+	///   Provide data and features related to items.
+	/// </summary>
+
+
+		/// \namespace Hover::Core::Items::Helpers
+		/// <summary>
+		///   Perform common item tasks.
+		/// </summary>
+
+
+		/// \namespace Hover::Core::Items::Managers
+		/// <summary>
+		///   Manage state for individual items and across all items.
+		/// </summary>
+
+
+		/// \namespace Hover::Core::Items::Types
+		/// <summary>
+		///   Provide data for various item types.
+		/// </summary>
+
+
+	/// \namespace Hover::Core::Layouts
+	/// <summary>
+	///   Arrange items based on a particular shape.
+	/// </summary>
+
+
+		/// \namespace Hover::Core::Layouts::Arc
+		/// <summary>
+		///   Arrange items into arc-shaped layouts.
+		/// </summary>
+
+
+		/// \namespace Hover::Core::Layouts::Rect
+		/// <summary>
+		///   Arrange items into rectangular-shaped layouts.
+		/// </summary>
+
+
+	/// \namespace Hover::Core::Renderers
+	/// <summary>
+	///   Draw graphics for items and cursors.
+	/// </summary>
+
+
+		/// \namespace Hover::Core::Renderers::Buttons
+		/// <summary>
+		///   Draw graphics for button-style items.
+		/// </summary>
+
+
+		/// \namespace Hover::Core::Renderers::Contents
+		/// <summary>
+		///   Draw graphics for Unity Canvas-based elements.
+		/// </summary>
+
+
+		/// \namespace Hover::Core::Renderers::Cursors
+		/// <summary>
+		///   Draw graphics for cursors.
+		/// </summary>
+
+
+		/// \namespace Hover::Core::Renderers::Shapes
+		/// <summary>
+		///   Draw and update graphics for a particular shape.
+		/// </summary>
+
+
+			/// \namespace Hover::Core::Renderers::Shapes::Arc
+			/// <summary>
+			///   Draw and update arc-shaped graphics.
+			/// </summary>
+
+
+			/// \namespace Hover::Core::Renderers::Shapes::Rect
+			/// <summary>
+			///   Draw and update rectangular-shaped graphics.
+			/// </summary>
+
+
+		/// \namespace Hover::Core::Renderers::Sliders
+		/// <summary>
+		///   Draw graphics for slider-style items.
+		/// </summary>
+
+
+		/// \namespace Hover::Core::Renderers::Utils
+		/// <summary>
+		///   Assist with common tasks for renderers.
+		/// </summary>
+
+
+	/// \namespace Hover::Core::Utils
+	/// <summary>
+	///   Assist with common tasks for this project.
+	/// </summary>
+
+
+/// \namespace Hover::InputModules
+/// <summary>
+///   Convert device-specific input into cursor data.
+/// </summary>
+
+
+	/// \namespace Hover::InputModules::LeapMotion
+	/// <summary>
+	///   Convert Leap Motion (post-Orion) input into cursor data.
+	/// </summary>
+
+
+	/// \namespace Hover::InputModules::LeapMotionOld
+	/// <summary>
+	///   Convert Leap Motion (pre-Orion) input into cursor data.
+	/// </summary>
+
+
+	/// \namespace Hover::InputModules::Vive
+	/// <summary>
+	///   Convert HTC %Vive input into cursor data.
+	/// </summary>
+
+
+/// \namespace Hover::InterfaceModules
+/// <summary>
+///   Create interfaces by arranging items with layouts and custom functionality.
+/// </summary>
+
+
+	/// \namespace Hover::InterfaceModules::Cast
+	/// <summary>
+	///   Create an arc-shaped, hierarchical interface that attaches to a particular cursor.
+	/// </summary>
+
+
+	/// \namespace Hover::InterfaceModules::Cursors
+	/// <summary>
+	///   Create renderers that follow and respond to each cursor.
+	/// </summary>
+
+
+	/// \namespace Hover::InterfaceModules::Key
+	/// <summary>
+	///   Create an interface that resembles a typical computer keyboard.
+	/// </summary>
+
+
+	/// \namespace Hover::InterfaceModules::Panel
+	/// <summary>
+	///   Create a rectangular-shaped, hierarchical interface.
+	/// </summary>
+
+
+/// \namespace Hover::RendererModules
+/// <summary>
+///   Draw custom graphics (or update existing graphics) for items and cursors.
+/// </summary>
+
+
+	/// \namespace Hover::RendererModules::Alpha
+	/// <summary>
+	///   Update graphics to include colors with transparency.
+	/// </summary>
+
+
+	/// \namespace Hover::RendererModules::Opaque
+	/// <summary>
+	///   Update graphics to include colors without transparency.
+	/// </summary>
