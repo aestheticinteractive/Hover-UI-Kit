@@ -20,12 +20,12 @@ namespace Hover.Core.Items {
 		public void Awake() {
 			if ( ButtonRendererPrefab == null ) {
 				ButtonRendererPrefab = Resources.Load<GameObject>(
-					"Prefabs/HoverAlphaButtonArcRenderer-Default");
+					"Prefabs/HoverAlphaButtonRectRenderer-Default");
 			}
 
 			if ( SliderRendererPrefab == null ) {
 				SliderRendererPrefab = Resources.Load<GameObject>(
-					"Prefabs/HoverAlphaSliderArcRenderer-Default");
+					"Prefabs/HoverAlphaSliderRectRenderer-Default");
 			}
 		}
 		
