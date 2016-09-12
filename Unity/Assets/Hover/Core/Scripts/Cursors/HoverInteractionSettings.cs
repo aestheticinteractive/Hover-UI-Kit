@@ -20,11 +20,11 @@ namespace Hover.Core.Cursors {
 		private float _SelectionMilliseconds = 400;
 
 		[SerializeField]
-		private float _MotionlessDistanceThreshold = 0.004f;
+		private float _IdleDistanceThreshold = 0.004f;
 
 		[SerializeField]
 		[Range(1, 10000)]
-		private float _MotionlessMilliseconds = 1000;
+		private float _IdleMilliseconds = 1000;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -53,15 +53,15 @@ namespace Hover.Core.Cursors {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public float MotionlessDistanceThreshold {
-			get { return _MotionlessDistanceThreshold; }
-			set { _MotionlessDistanceThreshold = value; }
+		public float IdleDistanceThreshold {
+			get { return _IdleDistanceThreshold; }
+			set { _IdleDistanceThreshold = value; }
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public float MotionlessMilliseconds {
-			get { return _MotionlessMilliseconds; }
-			set { _MotionlessMilliseconds = value; }
+		public float IdleMilliseconds {
+			get { return _IdleMilliseconds; }
+			set { _IdleMilliseconds = value; }
 		}
 
 
@@ -71,7 +71,7 @@ namespace Hover.Core.Cursors {
 			_HighlightDistanceMin = Mathf.Max(_HighlightDistanceMin, 0.0001f);
 			_HighlightDistanceMax = Mathf.Max(_HighlightDistanceMax, _HighlightDistanceMin*1.01f);
 			_StickyReleaseDistance = Mathf.Max(_StickyReleaseDistance, 0.0001f);
-			_MotionlessDistanceThreshold = Mathf.Max(_MotionlessDistanceThreshold, 0);
+			_IdleDistanceThreshold = Mathf.Max(_IdleDistanceThreshold, 0);
 		}
 
 	}

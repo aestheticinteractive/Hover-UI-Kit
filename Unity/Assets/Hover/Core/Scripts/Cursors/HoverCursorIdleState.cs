@@ -54,7 +54,7 @@ namespace Hover.Core.Cursors {
 				data.WorldPosition : data.BestRaycastResult.Value.WorldPosition);
 
 			IsActive = (data.ActiveStickySelections.Count > 0);
-			DistanceThreshold = InteractionSettings.MotionlessDistanceThreshold;
+			DistanceThreshold = InteractionSettings.IdleDistanceThreshold;
 
 			if ( !Application.isPlaying ) {
 				Progress = 0.25f;
@@ -100,7 +100,7 @@ namespace Hover.Core.Cursors {
 			}
 
 			HistoryRecord current = vHistory[vHistory.Count-1];
-			float maxSec = 1000f/InteractionSettings.MotionlessMilliseconds;
+			float maxSec = 1000f/InteractionSettings.IdleMilliseconds;
 			float smoothing = maxSec*Time.deltaTime*DriftStrength;
 
 			WorldPosition = Vector3.Lerp(WorldPosition, current.WorldPosition, smoothing);
@@ -111,12 +111,12 @@ namespace Hover.Core.Cursors {
 			HistoryRecord current = vHistory[vHistory.Count-1];
 			float currDistFromCenter = (current.WorldPosition-WorldPosition).magnitude;
 
-			if ( currDistFromCenter > InteractionSettings.MotionlessDistanceThreshold ) {
+			if ( currDistFromCenter > InteractionSettings.IdleDistanceThreshold ) {
 				vHistory.Clear();
 				return;
 			}
 
-			float maxMs = InteractionSettings.MotionlessMilliseconds;
+			float maxMs = InteractionSettings.IdleMilliseconds;
 			int staleIndex = -1;
 
 			for ( int i = vHistory.Count-2 ; i >= 0 ; i-- ) {
@@ -146,7 +146,7 @@ namespace Hover.Core.Cursors {
 			HistoryRecord current = vHistory[vHistory.Count-1];
 			float earliestMsAgo = (float)(current.Time-vHistory[0].Time).TotalMilliseconds;
 
-			Progress = Mathf.Min(1, earliestMsAgo/InteractionSettings.MotionlessMilliseconds);
+			Progress = Mathf.Min(1, earliestMsAgo/InteractionSettings.IdleMilliseconds);
 		}
 
 	}
