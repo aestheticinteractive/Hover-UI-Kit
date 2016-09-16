@@ -33,8 +33,11 @@ namespace Hover.Core.Layouts.Arc {
 		[DisableWhenControlled(RangeMin=0)]
 		public float RadiusPadding = 0;
 
-		[DisableWhenControlled(RangeMin=0, RangeMax=90)]
+		[DisableWhenControlled(RangeMin=0, RangeMax=180)]
 		public float DegreePadding = 0;
+
+		[DisableWhenControlled(RangeMin=0, RangeMax=180)]
+		public float InnerPadding = 0;
 
 		[DisableWhenControlled(RangeMin=-180, RangeMax=180)]
 		public float StartingDegree = 0;
@@ -49,6 +52,8 @@ namespace Hover.Core.Layouts.Arc {
 		/*--------------------------------------------------------------------------------------------*/
 		public override void TreeUpdate() {
 			base.TreeUpdate();
+
+			UpdateSettingsValues();
 			UpdateLayoutWithFixedSize();
 
 			if ( vRectSize == null ) {
@@ -84,6 +89,15 @@ namespace Hover.Core.Layouts.Arc {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateSettingsValues() {
+			float thickness = Mathf.Abs(OuterRadius-InnerRadius);
+
+			RadiusPadding = Mathf.Min(RadiusPadding, thickness/2);
+			DegreePadding = Mathf.Min(DegreePadding, ArcDegrees/2);
+			InnerPadding = Mathf.Min(InnerPadding, (thickness-RadiusPadding*2)/(vChildItems.Count-1));
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateLayoutWithFixedSize() {
 			int itemCount = vChildItems.Count;
 
@@ -95,7 +109,7 @@ namespace Hover.Core.Layouts.Arc {
 			float relSumThickness = 0;
 			float paddedOuterRadius = OuterRadius-RadiusPadding;
 			float paddedInnerRadius = InnerRadius+RadiusPadding;
-			float availDeg = ArcDegrees-DegreePadding*(itemCount-1);
+			float availDeg = ArcDegrees-DegreePadding*2;
 			float availThick = paddedOuterRadius-paddedInnerRadius;
 			float innerRadius = paddedInnerRadius;
 

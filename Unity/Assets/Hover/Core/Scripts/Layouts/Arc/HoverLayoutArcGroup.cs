@@ -10,7 +10,7 @@ namespace Hover.Core.Layouts.Arc {
 	public abstract class HoverLayoutArcGroup : MonoBehaviour, ISettingsController, ITreeUpdateable {
 		
 		public ISettingsControllerMap Controllers { get; private set; }
-		
+
 		protected readonly List<HoverLayoutArcGroupChild> vChildItems;
 
 
@@ -21,7 +21,14 @@ namespace Hover.Core.Layouts.Arc {
 			vChildItems = new List<HoverLayoutArcGroupChild>();
 		}
 
-		
+		/*--------------------------------------------------------------------------------------------*/
+		public int ChildCount {
+			get {
+				return vChildItems.Count;
+			}
+		}
+
+
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Start() {
@@ -35,7 +42,6 @@ namespace Hover.Core.Layouts.Arc {
 		}
 		
 
-		////////////////////////////////////////////////////////////////////////////////////////////////
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected virtual void FillChildItemsList() {
