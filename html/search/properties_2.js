@@ -4,6 +4,7 @@ var searchData=
   ['canvascomponent',['CanvasComponent',['../class_hover_1_1_core_1_1_renderers_1_1_contents_1_1_hover_canvas.html#a80f9853cfd2b4830b177dd636f03e610',1,'Hover::Core::Renderers::Contents::HoverCanvas']]],
   ['canvasgroupcomponent',['CanvasGroupComponent',['../class_hover_1_1_core_1_1_renderers_1_1_contents_1_1_hover_canvas.html#a58a597f5a4b316ee11ba3ab538a3f00a',1,'Hover::Core::Renderers::Contents::HoverCanvas']]],
   ['capability',['Capability',['../class_hover_1_1_core_1_1_cursors_1_1_hover_cursor_data.html#a6ea8977b66a29f3053c88ef7aaad9c76',1,'Hover.Core.Cursors.HoverCursorData.Capability()'],['../interface_hover_1_1_core_1_1_cursors_1_1_i_cursor_data.html#ad53072a050d10944d940dee46428d56d',1,'Hover.Core.Cursors.ICursorData.Capability()']]],
+  ['childcount',['ChildCount',['../class_hover_1_1_core_1_1_layouts_1_1_arc_1_1_hover_layout_arc_group.html#a74cda97c919366eb26a08a6b5d43fc39',1,'Hover::Core::Layouts::Arc::HoverLayoutArcGroup']]],
   ['childitems',['ChildItems',['../class_hover_1_1_core_1_1_items_1_1_helpers_1_1_hover_child_items_finder.html#adf43ec309ae81fcadb0a9a32ab0f3dee',1,'Hover::Core::Items::Helpers::HoverChildItemsFinder']]],
   ['colors',['Colors',['../class_hover_1_1_core_1_1_utils_1_1_mesh_builder.html#a128b134c4101fbfecf60d5245c829cba',1,'Hover::Core::Utils::MeshBuilder']]],
   ['controllermapname',['ControllerMapName',['../class_hover_1_1_core_1_1_utils_1_1_disable_when_controlled_attribute.html#abb840550215faa74d73e2298f9b2dd96',1,'Hover::Core::Utils::DisableWhenControlledAttribute']]],

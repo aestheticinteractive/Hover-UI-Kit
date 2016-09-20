@@ -1,5 +1,12 @@
 var NAVTREEINDEX2 =
 {
+"class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_idle.html#ac927bd2b9a260c7754dbafeda467bf40":[1,0,0,0,3,2,5,13],
+"class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_idle.html#acdcacec952c3fddb91a727f79da8f394":[1,0,0,0,3,2,5,0],
+"class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_idle.html#acff2e1f28636bb47eeb7fd8419ccd50d":[1,0,0,0,3,2,5,14],
+"class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_idle.html#aed75935c90be07821570adf2a1513d2e":[1,0,0,0,3,2,5,7],
+"class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_idle_updater.html":[1,0,0,0,3,2,6],
+"class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_idle_updater.html#a1bc4c2b264acfb717c7fd10e2c4e9af9":[1,0,0,0,3,2,6,0],
+"class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_idle_updater.html#a4735c40fd0cc08ba595bb98b7185faf6":[1,0,0,0,3,2,6,1],
 "class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_idle_updater.html#a64ea9b34bb29dcfc483a129ebe256e71":[1,0,0,0,3,2,6,3],
 "class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_idle_updater.html#abb381c18b8a884bcdb6f60d2a901bab7":[1,0,0,0,3,2,6,5],
 "class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_idle_updater.html#acf05b3923720d2a627013ca3d5b0c71b":[1,0,0,0,3,2,6,4],
@@ -242,12 +249,5 @@ var NAVTREEINDEX2 =
 "class_hover_1_1_core_1_1_renderers_1_1_sliders_1_1_hover_fill_slider.html#a09ec580c8ee6625bba46f4c22c7953b8":[1,0,0,0,3,4,0,5],
 "class_hover_1_1_core_1_1_renderers_1_1_sliders_1_1_hover_fill_slider.html#a136a0b4bdaeb8a823dc8d5efa8d3de0f":[1,0,0,0,3,4,0,8],
 "class_hover_1_1_core_1_1_renderers_1_1_sliders_1_1_hover_fill_slider.html#a2ac5c7b746bb38b99faa3af5831aa097":[1,0,0,0,3,4,0,6],
-"class_hover_1_1_core_1_1_renderers_1_1_sliders_1_1_hover_fill_slider.html#a31021579f23deb39b9f3ec7e8422ca39":[1,0,0,0,3,4,0,7],
-"class_hover_1_1_core_1_1_renderers_1_1_sliders_1_1_hover_fill_slider.html#a42371e26882cd79eb8df2b71994b817f":[1,0,0,0,3,4,0,0],
-"class_hover_1_1_core_1_1_renderers_1_1_sliders_1_1_hover_fill_slider.html#a51f04af994d9bce9d940aae42e55cf08":[1,0,0,0,3,4,0,9],
-"class_hover_1_1_core_1_1_renderers_1_1_sliders_1_1_hover_fill_slider.html#a5a30b17461efc9fad6241b56acbdba8e":[1,0,0,0,3,4,0,2],
-"class_hover_1_1_core_1_1_renderers_1_1_sliders_1_1_hover_fill_slider.html#a7a329643fc06bd117375515df600d28b":[1,0,0,0,3,4,0,1],
-"class_hover_1_1_core_1_1_renderers_1_1_sliders_1_1_hover_fill_slider.html#ab763fa2ed7241877bff82fb3a878b8cd":[1,0,0,0,3,4,0,3],
-"class_hover_1_1_core_1_1_renderers_1_1_sliders_1_1_hover_fill_slider.html#ac2dff384285ac08548f34f50f42ffc52":[1,0,0,0,3,4,0,11],
-"class_hover_1_1_core_1_1_renderers_1_1_sliders_1_1_hover_fill_slider.html#ace983a58745d17411712b38e173b56e4":[1,0,0,0,3,4,0,4]
+"class_hover_1_1_core_1_1_renderers_1_1_sliders_1_1_hover_fill_slider.html#a31021579f23deb39b9f3ec7e8422ca39":[1,0,0,0,3,4,0,7]
 };

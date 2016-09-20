@@ -75,6 +75,7 @@ var searchData=
   ['hoverlabel',['HoverLabel',['../class_hover_1_1_core_1_1_renderers_1_1_contents_1_1_hover_label.html',1,'Hover::Core::Renderers::Contents']]],
   ['hoverlayoutarcgroup',['HoverLayoutArcGroup',['../class_hover_1_1_core_1_1_layouts_1_1_arc_1_1_hover_layout_arc_group.html',1,'Hover::Core::Layouts::Arc']]],
   ['hoverlayoutarcgroupchild',['HoverLayoutArcGroupChild',['../struct_hover_1_1_core_1_1_layouts_1_1_arc_1_1_hover_layout_arc_group_child.html',1,'Hover::Core::Layouts::Arc']]],
+  ['hoverlayoutarcpaddingsettings',['HoverLayoutArcPaddingSettings',['../class_hover_1_1_core_1_1_layouts_1_1_arc_1_1_hover_layout_arc_padding_settings.html',1,'Hover::Core::Layouts::Arc']]],
   ['hoverlayoutarcrelativesizer',['HoverLayoutArcRelativeSizer',['../class_hover_1_1_core_1_1_layouts_1_1_arc_1_1_hover_layout_arc_relative_sizer.html',1,'Hover::Core::Layouts::Arc']]],
   ['hoverlayoutarcrow',['HoverLayoutArcRow',['../class_hover_1_1_core_1_1_layouts_1_1_arc_1_1_hover_layout_arc_row.html',1,'Hover::Core::Layouts::Arc']]],
   ['hoverlayoutarcstack',['HoverLayoutArcStack',['../class_hover_1_1_core_1_1_layouts_1_1_arc_1_1_hover_layout_arc_stack.html',1,'Hover::Core::Layouts::Arc']]],

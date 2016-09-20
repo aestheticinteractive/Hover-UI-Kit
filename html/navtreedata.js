@@ -27,12 +27,12 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"class_hover_1_1_core_1_1_layouts_1_1_arc_1_1_hover_layout_arc_row.html#a749eed2457327e48810377b3f32e91ba",
-"class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_idle_updater.html#a64ea9b34bb29dcfc483a129ebe256e71",
-"class_hover_1_1_core_1_1_renderers_1_1_sliders_1_1_hover_fill_slider.html#af8ed0389da60f63437f26d59c1100cd6",
-"class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_interface.html#a88d23e9a9f1c7697c6ef29e31931fe46",
-"functions_func_h.html",
-"struct_hover_1_1_core_1_1_cursors_1_1_hover_cursor_idle_state_1_1_history_record.html#a839031482c37983a70d7a95ce3a681d1"
+"class_hover_1_1_core_1_1_layouts_1_1_arc_1_1_hover_layout_arc_row.html",
+"class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_idle.html#ac927bd2b9a260c7754dbafeda467bf40",
+"class_hover_1_1_core_1_1_renderers_1_1_sliders_1_1_hover_fill_slider.html#a42371e26882cd79eb8df2b71994b817f",
+"class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_interface.html#a2ef4f692d310fd983ba676ae3ec48f17",
+"functions_func.html",
+"namespaces.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

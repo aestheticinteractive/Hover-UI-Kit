@@ -10,12 +10,11 @@ var class_hover_1_1_core_1_1_layouts_1_1_arc_1_1_hover_layout_arc_row =
     [ "ArcDegrees", "class_hover_1_1_core_1_1_layouts_1_1_arc_1_1_hover_layout_arc_row.html#a749eed2457327e48810377b3f32e91ba", null ],
     [ "ArcDegreesName", "class_hover_1_1_core_1_1_layouts_1_1_arc_1_1_hover_layout_arc_row.html#aec2817c7117316249a7bbccd782c7dbb", null ],
     [ "Arrangement", "class_hover_1_1_core_1_1_layouts_1_1_arc_1_1_hover_layout_arc_row.html#aecab90a3c38b3a97b9aac74a23e12b96", null ],
-    [ "DegreePadding", "class_hover_1_1_core_1_1_layouts_1_1_arc_1_1_hover_layout_arc_row.html#a26469b813293afd95839434496ea652b", null ],
     [ "InnerRadius", "class_hover_1_1_core_1_1_layouts_1_1_arc_1_1_hover_layout_arc_row.html#ac36a4c6d4e415144608319852d3d23c0", null ],
     [ "InnerRadiusName", "class_hover_1_1_core_1_1_layouts_1_1_arc_1_1_hover_layout_arc_row.html#aa104bd6c3b661d598af238ef351fa622", null ],
     [ "OuterRadius", "class_hover_1_1_core_1_1_layouts_1_1_arc_1_1_hover_layout_arc_row.html#a6dbc35d06f5b71abe7209da404166ce0", null ],
     [ "OuterRadiusName", "class_hover_1_1_core_1_1_layouts_1_1_arc_1_1_hover_layout_arc_row.html#aff54bd519a9763470fe9b2f8a0434e1e", null ],
-    [ "RadiusPadding", "class_hover_1_1_core_1_1_layouts_1_1_arc_1_1_hover_layout_arc_row.html#a347c7c3f368825c4384999f1ea811b3a", null ],
+    [ "Padding", "class_hover_1_1_core_1_1_layouts_1_1_arc_1_1_hover_layout_arc_row.html#a2017e191cb1444b15ff680e5b9043ecc", null ],
     [ "RectAnchor", "class_hover_1_1_core_1_1_layouts_1_1_arc_1_1_hover_layout_arc_row.html#a825149bbcf70a280287657ed762e9e3e", null ],
     [ "RectAnchorName", "class_hover_1_1_core_1_1_layouts_1_1_arc_1_1_hover_layout_arc_row.html#a6f420f31a63e67192eac4cacd184d1a6", null ],
     [ "StartingDegree", "class_hover_1_1_core_1_1_layouts_1_1_arc_1_1_hover_layout_arc_row.html#ade33fbde407694716a9695d95148d5a1", null ]

@@ -6,6 +6,7 @@ var hierarchy =
     [ "Hover.InterfaceModules.Key.HoverkeyBuilderData", "class_hover_1_1_interface_modules_1_1_key_1_1_hoverkey_builder_data.html", null ],
     [ "Hover.InterfaceModules.Key.HoverkeyBuilderKeyInfo", "struct_hover_1_1_interface_modules_1_1_key_1_1_hoverkey_builder_key_info.html", null ],
     [ "Hover.Core.Layouts.Arc.HoverLayoutArcGroupChild", "struct_hover_1_1_core_1_1_layouts_1_1_arc_1_1_hover_layout_arc_group_child.html", null ],
+    [ "Hover.Core.Layouts.Arc.HoverLayoutArcPaddingSettings", "class_hover_1_1_core_1_1_layouts_1_1_arc_1_1_hover_layout_arc_padding_settings.html", null ],
     [ "Hover.Core.Layouts.Rect.HoverLayoutRectGroupChild", "struct_hover_1_1_core_1_1_layouts_1_1_rect_1_1_hover_layout_rect_group_child.html", null ],
     [ "Hover.Core.Cursors.ICursorData", "interface_hover_1_1_core_1_1_cursors_1_1_i_cursor_data.html", [
       [ "Hover.Core.Cursors.ICursorDataForInput", "interface_hover_1_1_core_1_1_cursors_1_1_i_cursor_data_for_input.html", [

@@ -8,6 +8,7 @@ var searchData=
   ['enabledalpha',['EnabledAlpha',['../class_hover_1_1_renderer_modules_1_1_alpha_1_1_hover_alpha_renderer_updater.html#a64690262811460d49ca3a280e1bb11c2',1,'Hover::RendererModules::Alpha::HoverAlphaRendererUpdater']]],
   ['enabledalphaname',['EnabledAlphaName',['../class_hover_1_1_renderer_modules_1_1_alpha_1_1_hover_alpha_renderer_updater.html#a06561334a8242bd1f76129c29e7b287c',1,'Hover::RendererModules::Alpha::HoverAlphaRendererUpdater']]],
   ['end',['End',['../class_hover_1_1_core_1_1_renderers_1_1_utils_1_1_slider_util.html#a3ab32d0acd785e9536baab88ddfa265fa87557f11575c0ad78e4e28abedc13b6e',1,'Hover::Core::Renderers::Utils::SliderUtil']]],
+  ['enddegree',['EndDegree',['../class_hover_1_1_core_1_1_layouts_1_1_arc_1_1_hover_layout_arc_padding_settings.html#a5e5ddba4b85105e70d619df89e26560a',1,'Hover::Core::Layouts::Arc::HoverLayoutArcPaddingSettings']]],
   ['endposition',['EndPosition',['../struct_hover_1_1_core_1_1_renderers_1_1_utils_1_1_slider_util_1_1_segment_info.html#ac29801f209e00e74df0a3f0c0a93fa16',1,'Hover::Core::Renderers::Utils::SliderUtil::SegmentInfo']]],
   ['endpositiontype',['EndPositionType',['../struct_hover_1_1_core_1_1_renderers_1_1_utils_1_1_slider_util_1_1_segment_info.html#a0d7da1cbb83555a3fffb91176ebcf97d',1,'Hover::Core::Renderers::Utils::SliderUtil::SegmentInfo']]],
   ['equals',['Equals',['../struct_hover_1_1_core_1_1_cursors_1_1_cursor_type_comparer.html#a7e8b40997d548d7a39d84d0de7ea135a',1,'Hover::Core::Cursors::CursorTypeComparer']]],

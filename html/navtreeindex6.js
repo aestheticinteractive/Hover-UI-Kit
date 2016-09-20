@@ -1,5 +1,12 @@
 var NAVTREEINDEX6 =
 {
+"namespaces.html":[0,0],
+"pages.html":[],
+"struct_hover_1_1_core_1_1_cursors_1_1_cursor_type_comparer.html":[1,0,0,0,0,0],
+"struct_hover_1_1_core_1_1_cursors_1_1_cursor_type_comparer.html#a6f9eec3d8734b1e07debbd14b83021e6":[1,0,0,0,0,0,1],
+"struct_hover_1_1_core_1_1_cursors_1_1_cursor_type_comparer.html#a7e8b40997d548d7a39d84d0de7ea135a":[1,0,0,0,0,0,0],
+"struct_hover_1_1_core_1_1_cursors_1_1_hover_cursor_idle_state_1_1_history_record.html":[1,0,0,0,0,4,0],
+"struct_hover_1_1_core_1_1_cursors_1_1_hover_cursor_idle_state_1_1_history_record.html#a6ae2cd3665c85b33c256e2cebe15bd81":[1,0,0,0,0,4,0,1],
 "struct_hover_1_1_core_1_1_cursors_1_1_hover_cursor_idle_state_1_1_history_record.html#a839031482c37983a70d7a95ce3a681d1":[1,0,0,0,0,4,0,0],
 "struct_hover_1_1_core_1_1_cursors_1_1_sticky_selection_info.html":[1,0,0,0,0,10],
 "struct_hover_1_1_core_1_1_cursors_1_1_sticky_selection_info.html#abcb8baeb56903830a15630d8bf723589":[1,0,0,0,0,10,0],
