@@ -7,8 +7,8 @@ namespace Hover.Core.Layouts.Arc {
     [Serializable]
 	public class HoverLayoutArcPaddingSettings {
 
-		public float InnerRadius = 0;
 		public float OuterRadius = 0;
+		public float InnerRadius = 0;
 
 		[Range(0, 180)]
 		public float StartDegree = 0;
@@ -40,8 +40,8 @@ namespace Hover.Core.Layouts.Arc {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void ClampValues(float pArcDegrees, float pRadiusThickness) {
-			InnerRadius = Mathf.Clamp(InnerRadius, 0, pRadiusThickness);
 			OuterRadius = Mathf.Clamp(OuterRadius, 0, pRadiusThickness-InnerRadius);
+			InnerRadius = Mathf.Clamp(InnerRadius, 0, pRadiusThickness);
 			StartDegree = Mathf.Min(StartDegree, pArcDegrees);
 			EndDegree = Mathf.Min(EndDegree, pArcDegrees-StartDegree);
 		}
