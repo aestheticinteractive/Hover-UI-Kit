@@ -1375,6 +1375,10 @@ Prefab:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 118796, guid: 76548fb3b2f3fd5419158b494a430879, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 76548fb3b2f3fd5419158b494a430879, type: 2}
   m_IsPrefabParent: 0
@@ -1996,6 +2000,10 @@ Prefab:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 118796, guid: 76548fb3b2f3fd5419158b494a430879, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 76548fb3b2f3fd5419158b494a430879, type: 2}
   m_IsPrefabParent: 0
@@ -2612,6 +2620,10 @@ Prefab:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 118796, guid: 76548fb3b2f3fd5419158b494a430879, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 76548fb3b2f3fd5419158b494a430879, type: 2}
   m_IsPrefabParent: 0
@@ -2687,9 +2699,13 @@ MonoBehaviour:
   OuterRadius: 0.17999999
   InnerRadius: 0.12
   ArcDegrees: 90
-  RadiusPadding: 0
-  DegreePadding: 0.2
-  StartingDegree: 0
+  Padding:
+    InnerRadius: 0
+    OuterRadius: 0
+    StartDegree: 0
+    EndDegree: 0
+    Between: 0
+  StartingDegree: 0.2
   RectAnchor: 4
 --- !u!114 &409455363
 MonoBehaviour:
@@ -3262,6 +3278,10 @@ Prefab:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 118796, guid: 76548fb3b2f3fd5419158b494a430879, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 76548fb3b2f3fd5419158b494a430879, type: 2}
   m_IsPrefabParent: 0
@@ -3483,6 +3503,10 @@ Prefab:
     - target: {fileID: 3391392, guid: 76548fb3b2f3fd5419158b494a430879, type: 2}
       propertyPath: m_Mesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 118796, guid: 76548fb3b2f3fd5419158b494a430879, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 76548fb3b2f3fd5419158b494a430879, type: 2}
@@ -4329,6 +4353,10 @@ Prefab:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 118796, guid: 76548fb3b2f3fd5419158b494a430879, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 76548fb3b2f3fd5419158b494a430879, type: 2}
   m_IsPrefabParent: 0
@@ -5153,6 +5181,7 @@ MonoBehaviour:
   ActiveWhenFacingMainCamera: 1
   ActiveWhenFacingTransform: {fileID: 260486308}
   ChildForActivation: {fileID: 90272358}
+  LocalFacingDirection: {x: 0, y: 0, z: 1}
   FullyActiveWithinDegree: 30
   InactiveOutsideDegree: 55
 --- !u!114 &994448471
@@ -5370,12 +5399,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Arrangement: 0
-  OuterRadius: 0.1
-  InnerRadius: 0.04
+  OuterRadius: 0.17999999
+  InnerRadius: 0.12
   ArcDegrees: 90
-  RadiusPadding: 0
-  DegreePadding: 0.2
-  StartingDegree: 0
+  Padding:
+    InnerRadius: 0
+    OuterRadius: 0
+    StartDegree: 0
+    EndDegree: 0
+    Between: 0
+  StartingDegree: 0.2
   RectAnchor: 4
 --- !u!114 &1015417615
 MonoBehaviour:
@@ -5865,6 +5898,10 @@ Prefab:
     - target: {fileID: 3391392, guid: 76548fb3b2f3fd5419158b494a430879, type: 2}
       propertyPath: m_Mesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 118796, guid: 76548fb3b2f3fd5419158b494a430879, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 76548fb3b2f3fd5419158b494a430879, type: 2}
@@ -6456,12 +6493,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Arrangement: 0
-  OuterRadius: 0.1
-  InnerRadius: 0.04
+  OuterRadius: 0.17999999
+  InnerRadius: 0.12
   ArcDegrees: 90
-  RadiusPadding: 0
-  DegreePadding: 0.2
-  StartingDegree: 0
+  Padding:
+    InnerRadius: 0
+    OuterRadius: 0
+    StartDegree: 0
+    EndDegree: 0
+    Between: 0
+  StartingDegree: 0.2
   RectAnchor: 4
 --- !u!114 &1305180964
 MonoBehaviour:
@@ -6794,7 +6835,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1346259993}
-  m_LocalRotation: {x: -0, y: -0, z: 0.09823424, w: 0.9951633}
+  m_LocalRotation: {x: -0, y: -0, z: 0.09628006, w: 0.9953543}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6830,7 +6871,7 @@ MonoBehaviour:
   ControlChildShapes: 1
   OuterRadius: 0.17999999
   InnerRadius: 0.12
-  ArcDegrees: 22.35
+  ArcDegrees: 22.5
   OuterOffset: {x: 0, y: 0, z: 0}
   InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &1346259997
@@ -7686,6 +7727,10 @@ Prefab:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 118796, guid: 76548fb3b2f3fd5419158b494a430879, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 76548fb3b2f3fd5419158b494a430879, type: 2}
   m_IsPrefabParent: 0
@@ -8512,7 +8557,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1550637894}
-  m_LocalRotation: {x: -0, y: -0, z: 0.29091096, w: 0.95675015}
+  m_LocalRotation: {x: -0, y: -0, z: 0.28861403, w: 0.9574455}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8548,7 +8593,7 @@ MonoBehaviour:
   ControlChildShapes: 1
   OuterRadius: 0.17999999
   InnerRadius: 0.12
-  ArcDegrees: 22.35
+  ArcDegrees: 22.5
   OuterOffset: {x: 0, y: 0, z: 0}
   InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &1550637898
@@ -8696,7 +8741,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1573100781}
-  m_LocalRotation: {x: 0, y: 0, z: -0.098234266, w: 0.9951633}
+  m_LocalRotation: {x: 0, y: 0, z: -0.099753916, w: 0.99501216}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8718,7 +8763,7 @@ MonoBehaviour:
   ControlChildShapes: 1
   OuterRadius: 0.17999999
   InnerRadius: 0.12
-  ArcDegrees: 22.35
+  ArcDegrees: 22.5
   OuterOffset: {x: 0, y: 0, z: 0}
   InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &1573100784
@@ -9034,6 +9079,10 @@ Prefab:
     - target: {fileID: 3391392, guid: 76548fb3b2f3fd5419158b494a430879, type: 2}
       propertyPath: m_Mesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 118796, guid: 76548fb3b2f3fd5419158b494a430879, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 76548fb3b2f3fd5419158b494a430879, type: 2}
@@ -9973,7 +10022,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1722047841}
-  m_LocalRotation: {x: 0, y: 0, z: -0.29091096, w: 0.95675015}
+  m_LocalRotation: {x: 0, y: 0, z: -0.29195443, w: 0.9564322}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9995,7 +10044,7 @@ MonoBehaviour:
   ControlChildShapes: 1
   OuterRadius: 0.17999999
   InnerRadius: 0.12
-  ArcDegrees: 22.35
+  ArcDegrees: 22.5
   OuterOffset: {x: 0, y: 0, z: 0}
   InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &1722047844
@@ -10378,6 +10427,10 @@ Prefab:
     - target: {fileID: 3391392, guid: 76548fb3b2f3fd5419158b494a430879, type: 2}
       propertyPath: m_Mesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 118796, guid: 76548fb3b2f3fd5419158b494a430879, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 76548fb3b2f3fd5419158b494a430879, type: 2}
@@ -12302,6 +12355,10 @@ Prefab:
     - target: {fileID: 3391392, guid: 76548fb3b2f3fd5419158b494a430879, type: 2}
       propertyPath: m_Mesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 118796, guid: 76548fb3b2f3fd5419158b494a430879, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 76548fb3b2f3fd5419158b494a430879, type: 2}

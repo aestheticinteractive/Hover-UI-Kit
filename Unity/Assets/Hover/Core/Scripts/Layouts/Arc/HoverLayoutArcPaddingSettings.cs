@@ -1,13 +1,10 @@
-﻿using Hover.Core.Layouts.Rect;
-using Hover.Core.Renderers.Utils;
-using Hover.Core.Utils;
+﻿using System;
 using UnityEngine;
-using System;
 
 namespace Hover.Core.Layouts.Arc {
 
-	/*================================================================================================*/
-	[Serializable]
+    /*================================================================================================*/
+    [Serializable]
 	public class HoverLayoutArcPaddingSettings {
 
 		public float InnerRadius = 0;
@@ -19,7 +16,6 @@ namespace Hover.Core.Layouts.Arc {
 		[Range(0, 180)]
 		public float EndDegree = 0;
 
-		[Range(0, 180)]
 		public float Between = 0;
 
 
@@ -28,14 +24,16 @@ namespace Hover.Core.Layouts.Arc {
 		public void ClampValues(HoverLayoutArcRow pArcRow) {
 			float radThick = Mathf.Abs(pArcRow.OuterRadius-pArcRow.InnerRadius);
 			ClampValues(pArcRow.ArcDegrees, radThick);
-			Between = Mathf.Min(Between, (radThick-InnerRadius-OuterRadius)/pArcRow.ChildCount);
+			Between = Mathf.Clamp(Between, 0,
+				(pArcRow.ArcDegrees-StartDegree-EndDegree)/(pArcRow.ChildCount-1));
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void ClampValues(HoverLayoutArcStack pArcStack) {
-			float arcDeg = pArcStack.ArcDegrees;
-			ClampValues(arcDeg, Mathf.Abs(pArcStack.OuterRadius-pArcStack.InnerRadius));
-			Between = Mathf.Min(Between, (arcDeg-StartDegree-EndDegree)/pArcStack.ChildCount);
+			float radThick = Mathf.Abs(pArcStack.OuterRadius-pArcStack.InnerRadius);
+			ClampValues(pArcStack.ArcDegrees, radThick);
+			Between = Mathf.Clamp(Between, 0,
+				(radThick-InnerRadius-OuterRadius)/(pArcStack.ChildCount-1));
 		}
 
 

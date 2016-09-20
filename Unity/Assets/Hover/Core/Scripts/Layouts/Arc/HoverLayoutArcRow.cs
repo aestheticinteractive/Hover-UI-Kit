@@ -29,15 +29,8 @@ namespace Hover.Core.Layouts.Arc {
 
 		[DisableWhenControlled(RangeMin=0, RangeMax=360)]
 		public float ArcDegrees = 135;
-		
-		[DisableWhenControlled(RangeMin=0)]
-		public float RadiusPadding = 0;
 
-		[DisableWhenControlled(RangeMin=0, RangeMax=180)]
-		public float DegreePadding = 0;
-
-		[DisableWhenControlled(RangeMin=0, RangeMax=180)]
-		public float InnerPadding = 0;
+		public HoverLayoutArcPaddingSettings Padding = new HoverLayoutArcPaddingSettings();
 
 		[DisableWhenControlled(RangeMin=-180, RangeMax=180)]
 		public float StartingDegree = 0;
@@ -53,7 +46,7 @@ namespace Hover.Core.Layouts.Arc {
 		public override void TreeUpdate() {
 			base.TreeUpdate();
 
-			UpdateSettingsValues();
+			Padding.ClampValues(this);
 			UpdateLayoutWithFixedSize();
 
 			if ( vRectSize == null ) {
@@ -89,13 +82,6 @@ namespace Hover.Core.Layouts.Arc {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateSettingsValues() {
-			RadiusPadding = Mathf.Min(RadiusPadding, Mathf.Abs(OuterRadius-InnerRadius)/2);
-			DegreePadding = Mathf.Min(DegreePadding, ArcDegrees/2);
-			InnerPadding = Mathf.Min(InnerPadding, (ArcDegrees-DegreePadding*2)/(vChildItems.Count-1));
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateLayoutWithFixedSize() {
 			int itemCount = vChildItems.Count;
 
@@ -104,12 +90,12 @@ namespace Hover.Core.Layouts.Arc {
 			}
 
 			bool isRev = (Arrangement == ArrangementType.Reverse);
-			float sumInnerPad = InnerPadding*(itemCount-1);
 			float relSumArcDeg = 0;
-			float paddedOuterRadius = OuterRadius-RadiusPadding;
-			float paddedInnerRadius = InnerRadius+RadiusPadding;
-			float availDeg = ArcDegrees-DegreePadding*2-sumInnerPad;
-			float deg = StartingDegree-ArcDegrees/2+DegreePadding;
+			float paddedOuterRadius = OuterRadius-Padding.OuterRadius;
+			float paddedInnerRadius = InnerRadius+Padding.InnerRadius;
+			float paddedDeg = ArcDegrees-Padding.StartDegree-Padding.EndDegree;
+			float availDeg = paddedDeg-Padding.Between*(itemCount-1);
+			float deg = StartingDegree - paddedDeg/2 + (Padding.StartDegree-Padding.EndDegree)/2;
 
 			Vector2 anchorPos = RendererUtil.GetRelativeAnchorPosition(RectAnchor);
 			anchorPos.x *= (vRectSize == null ? OuterRadius*2 : ((Vector2)vRectSize).x);
@@ -150,7 +136,7 @@ namespace Hover.Core.Layouts.Arc {
 				elem.transform.localPosition = localPos;
 				elem.transform.localRotation = Quaternion.AngleAxis(elemStartDeg, Vector3.back);
 
-				deg += elemRelDeg+InnerPadding;
+				deg += elemRelDeg+Padding.Between;
 			}
 		}
 
