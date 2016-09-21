@@ -81,6 +81,7 @@ var searchData=
   ['hoverlayoutarcstack',['HoverLayoutArcStack',['../class_hover_1_1_core_1_1_layouts_1_1_arc_1_1_hover_layout_arc_stack.html',1,'Hover::Core::Layouts::Arc']]],
   ['hoverlayoutrectgroup',['HoverLayoutRectGroup',['../class_hover_1_1_core_1_1_layouts_1_1_rect_1_1_hover_layout_rect_group.html',1,'Hover::Core::Layouts::Rect']]],
   ['hoverlayoutrectgroupchild',['HoverLayoutRectGroupChild',['../struct_hover_1_1_core_1_1_layouts_1_1_rect_1_1_hover_layout_rect_group_child.html',1,'Hover::Core::Layouts::Rect']]],
+  ['hoverlayoutrectpaddingsettings',['HoverLayoutRectPaddingSettings',['../class_hover_1_1_core_1_1_layouts_1_1_rect_1_1_hover_layout_rect_padding_settings.html',1,'Hover::Core::Layouts::Rect']]],
   ['hoverlayoutrectrelativesizer',['HoverLayoutRectRelativeSizer',['../class_hover_1_1_core_1_1_layouts_1_1_rect_1_1_hover_layout_rect_relative_sizer.html',1,'Hover::Core::Layouts::Rect']]],
   ['hoverlayoutrectrow',['HoverLayoutRectRow',['../class_hover_1_1_core_1_1_layouts_1_1_rect_1_1_hover_layout_rect_row.html',1,'Hover::Core::Layouts::Rect']]],
   ['hovermesh',['HoverMesh',['../class_hover_1_1_core_1_1_renderers_1_1_hover_mesh.html',1,'Hover::Core::Renderers']]],

@@ -1,5 +1,12 @@
 var NAVTREEINDEX4 =
 {
+"class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_highlight_preventer.html#a9788346031d3266313b4b1a597c7d5a4":[1,0,0,2,0,3,0],
+"class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_highlight_preventer.html#aa2e69c91781b2a6ece7f8792de5bc3ab":[1,0,0,2,0,3,1],
+"class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_interface.html":[1,0,0,2,0,4],
+"class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_interface.html#a044b7aa3540c292b3b02661cad6c4a97":[1,0,0,2,0,4,6],
+"class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_interface.html#a045359366fd2fab1d70fc774771cc8e2":[1,0,0,2,0,4,12],
+"class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_interface.html#a0c9cce947f527b162e9c7f2cb9db2635":[1,0,0,2,0,4,10],
+"class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_interface.html#a2653e73661a0e9e76fcafd164197aa54":[1,0,0,2,0,4,17],
 "class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_interface.html#a2ef4f692d310fd983ba676ae3ec48f17":[1,0,0,2,0,4,7],
 "class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_interface.html#a422581cea42b19b2a438b3d02efa454a":[1,0,0,2,0,4,9],
 "class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_interface.html#a44ea42ef26b2590dc04b97ffead5d20a":[1,0,0,2,0,4,16],
@@ -242,12 +249,5 @@ var NAVTREEINDEX4 =
 "functions.html":[1,3,0],
 "functions.html":[1,3,0,0],
 "functions_a.html":[1,3,0,1],
-"functions_b.html":[1,3,0,2],
-"functions_c.html":[1,3,0,3],
-"functions_d.html":[1,3,0,4],
-"functions_e.html":[1,3,0,5],
-"functions_enum.html":[1,3,3],
-"functions_evnt.html":[1,3,5],
-"functions_f.html":[1,3,0,6],
-"functions_func.html":[1,3,1,0]
+"functions_b.html":[1,3,0,2]
 };

@@ -15,6 +15,7 @@ var searchData=
   ['relativestartdegreeoffset',['RelativeStartDegreeOffset',['../class_hover_1_1_core_1_1_layouts_1_1_arc_1_1_hover_layout_arc_relative_sizer.html#aba43efaf096c9ed0811ad5157e3787e5',1,'Hover::Core::Layouts::Arc::HoverLayoutArcRelativeSizer']]],
   ['relativethickness',['RelativeThickness',['../class_hover_1_1_core_1_1_layouts_1_1_arc_1_1_hover_layout_arc_relative_sizer.html#a800704bd3dc2f976541199210141b16b',1,'Hover::Core::Layouts::Arc::HoverLayoutArcRelativeSizer']]],
   ['renderqueuename',['RenderQueueName',['../class_hover_1_1_core_1_1_renderers_1_1_contents_1_1_hover_canvas.html#a7cb13095f18e5055c486fd2d04837adb',1,'Hover::Core::Renderers::Contents::HoverCanvas']]],
+  ['right',['Right',['../class_hover_1_1_core_1_1_layouts_1_1_rect_1_1_hover_layout_rect_padding_settings.html#aeaa9b6c61e1f8bd6d8afae5d839113a5',1,'Hover::Core::Layouts::Rect::HoverLayoutRectPaddingSettings']]],
   ['rightindex',['RightIndex',['../class_hover_1_1_input_modules_1_1_vive_1_1_hover_input_vive.html#ad0777303a98c275ce418d52d423f22bd',1,'Hover::InputModules::Vive::HoverInputVive']]],
   ['rightmiddle',['RightMiddle',['../class_hover_1_1_input_modules_1_1_vive_1_1_hover_input_vive.html#a78b65ae3aaf0cee8c10da3016f28081b',1,'Hover::InputModules::Vive::HoverInputVive']]],
   ['rightpalm',['RightPalm',['../class_hover_1_1_input_modules_1_1_vive_1_1_hover_input_vive.html#a0fe8302d5c1b35330fd859130b6e49b3',1,'Hover::InputModules::Vive::HoverInputVive']]],

@@ -1,5 +1,12 @@
 var NAVTREEINDEX6 =
 {
+"namespace_hover_1_1_renderer_modules.html":[1,0,0,3],
+"namespace_hover_1_1_renderer_modules_1_1_alpha.html":[1,0,0,3,0],
+"namespace_hover_1_1_renderer_modules_1_1_alpha.html":[0,0,0,3,0],
+"namespace_hover_1_1_renderer_modules_1_1_opaque.html":[1,0,0,3,1],
+"namespace_hover_1_1_renderer_modules_1_1_opaque.html":[0,0,0,3,1],
+"namespacemembers.html":[0,1,0],
+"namespacemembers_enum.html":[0,1,1],
 "namespaces.html":[0,0],
 "pages.html":[],
 "struct_hover_1_1_core_1_1_cursors_1_1_cursor_type_comparer.html":[1,0,0,0,0,0],

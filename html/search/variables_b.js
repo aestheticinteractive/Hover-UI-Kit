@@ -5,6 +5,7 @@ var searchData=
   ['labeltextname',['LabelTextName',['../class_hover_1_1_core_1_1_renderers_1_1_contents_1_1_hover_canvas_data_updater.html#acdd4dc088650959b9a3a4fb7265bcf3f',1,'Hover::Core::Renderers::Contents::HoverCanvasDataUpdater']]],
   ['leapcontrol',['LeapControl',['../class_hover_1_1_input_modules_1_1_leap_motion_old_1_1_hover_input_leap_motion_old.html#a2434fad634be236ba13c6203e5ba48cc',1,'Hover::InputModules::LeapMotionOld::HoverInputLeapMotionOld']]],
   ['leapserviceprovider',['LeapServiceProvider',['../class_hover_1_1_input_modules_1_1_leap_motion_1_1_hover_input_leap_motion.html#af5eeb8003aba4e8b4ddb6d57928e7525',1,'Hover::InputModules::LeapMotion::HoverInputLeapMotion']]],
+  ['left',['Left',['../class_hover_1_1_core_1_1_layouts_1_1_rect_1_1_hover_layout_rect_padding_settings.html#a747b65f1e7ca532805f426c39f242b6a',1,'Hover::Core::Layouts::Rect::HoverLayoutRectPaddingSettings']]],
   ['leftindex',['LeftIndex',['../class_hover_1_1_input_modules_1_1_vive_1_1_hover_input_vive.html#adb82782275200234db501cd2526b0b57',1,'Hover::InputModules::Vive::HoverInputVive']]],
   ['leftmiddle',['LeftMiddle',['../class_hover_1_1_input_modules_1_1_vive_1_1_hover_input_vive.html#a1ac93f5b52c1d4c17ea2054c7e052698',1,'Hover::InputModules::Vive::HoverInputVive']]],
   ['leftpalm',['LeftPalm',['../class_hover_1_1_input_modules_1_1_vive_1_1_hover_input_vive.html#a76410f13e3b034f3080c78cb868ca192',1,'Hover::InputModules::Vive::HoverInputVive']]],
