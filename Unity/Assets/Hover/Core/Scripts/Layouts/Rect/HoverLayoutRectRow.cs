@@ -26,11 +26,7 @@ namespace Hover.Core.Layouts.Rect {
 		[DisableWhenControlled(RangeMin=0)]
 		public float SizeY = 0.08f;
 		
-		[DisableWhenControlled(RangeMin=0)]
-		public float OuterPadding = 0;
-
-		[DisableWhenControlled(RangeMin=0)]
-		public float InnerPadding = 0;
+		public HoverLayoutRectPaddingSettings Padding = new HoverLayoutRectPaddingSettings();
 
 		[DisableWhenControlled]
 		public AnchorType Anchor = AnchorType.MiddleCenter;
@@ -40,6 +36,7 @@ namespace Hover.Core.Layouts.Rect {
 		/*--------------------------------------------------------------------------------------------*/
 		public override void TreeUpdate() {
 			base.TreeUpdate();
+			Padding.ClampValues(this);
 			UpdateLayoutWithFixedSize();
 		}
 		
@@ -57,15 +54,15 @@ namespace Hover.Core.Layouts.Rect {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private bool IsHorizontal {
+		public bool IsHorizontal {
 			get {
 				return (Arrangement == ArrangementType.LeftToRight || 
 					Arrangement == ArrangementType.RightToLeft);
 			}
 		}
-		
+
 		/*--------------------------------------------------------------------------------------------*/
-		private bool IsReversed {
+		public bool IsReversed {
 			get {
 				return (Arrangement == ArrangementType.RightToLeft || 
 					Arrangement == ArrangementType.TopToBottom);
@@ -85,9 +82,9 @@ namespace Hover.Core.Layouts.Rect {
 			Vector2 anchorPos = RendererUtil.GetRelativeAnchorPosition(Anchor);
 			float anchorStartX = anchorPos.x*SizeX;
 			float anchorStartY = anchorPos.y*SizeY;
-			float cellSumPad = OuterPadding*2 - InnerPadding;
-			float itemsSumPad = InnerPadding*(itemCount-1) + OuterPadding*2;
-			float outerSumPad = OuterPadding*2;
+			float horizOuterPad = Padding.Left+Padding.Right;
+			float vertOuterPad = Padding.Top+Padding.Bottom;
+			float betweenSumPad = Padding.Between*(itemCount-1);
 			float relSumX = 0;
 			float relSumY = 0;
 			float elemAvailSizeX;
@@ -96,16 +93,16 @@ namespace Hover.Core.Layouts.Rect {
 			float cellAvailSizeY;
 
 			if ( isHoriz ) {
-				elemAvailSizeX = SizeX-itemsSumPad;
-				elemAvailSizeY = SizeY-outerSumPad;
-				cellAvailSizeX = SizeX-cellSumPad;
+				elemAvailSizeX = SizeX-horizOuterPad-betweenSumPad;
+				elemAvailSizeY = SizeY-vertOuterPad;
+				cellAvailSizeX = SizeX-horizOuterPad;
 				cellAvailSizeY = elemAvailSizeY;
 			}
 			else {
-				elemAvailSizeX = SizeX-outerSumPad;
-				elemAvailSizeY = SizeY-itemsSumPad;
+				elemAvailSizeX = SizeX-horizOuterPad;
+				elemAvailSizeY = SizeY-vertOuterPad-betweenSumPad;
 				cellAvailSizeX = elemAvailSizeX;
-				cellAvailSizeY = SizeY-cellSumPad;
+				cellAvailSizeY = SizeY-vertOuterPad;
 			}
 			
 			for ( int i = 0 ; i < itemCount ; i++ ) {
@@ -113,9 +110,11 @@ namespace Hover.Core.Layouts.Rect {
 				relSumX += item.RelativeSizeX;
 				relSumY += item.RelativeSizeY;
 			}
-			
-			float posX = anchorStartX - (isHoriz ? cellAvailSizeX/2 : 0);
-			float posY = anchorStartY - (isHoriz ? 0 : cellAvailSizeY/2);
+
+			float posX = anchorStartX - (Padding.Right-Padding.Left)/2 -
+				(isHoriz ? cellAvailSizeX/2 : 0);
+			float posY = anchorStartY - (Padding.Top-Padding.Bottom)/2 -
+				(isHoriz ? 0 : cellAvailSizeY/2);
 
 			for ( int i = 0 ; i < itemCount ; i++ ) {
 				int childI = (isRev ? itemCount-i-1 : i);
@@ -126,13 +125,13 @@ namespace Hover.Core.Layouts.Rect {
 				float elemRelSizeX = elemAvailSizeX*item.RelativeSizeX/(isHoriz ? relSumX : 1);
 				float elemRelSizeY = elemAvailSizeY*item.RelativeSizeY/(isHoriz ? 1 : relSumY);
 				
-				localPos.x = posX+(isHoriz ? (elemRelSizeX+InnerPadding)/2 : 0)+
+				localPos.x = posX+(isHoriz ? elemRelSizeX/2 : 0)+
 					elemRelSizeX*item.RelativePositionOffsetX;
-				localPos.y = posY+(isHoriz ? 0 : (elemRelSizeY+InnerPadding)/2)+
+				localPos.y = posY+(isHoriz ? 0 : elemRelSizeY/2)+
 					elemRelSizeY*item.RelativePositionOffsetY;
 				
-				posX += (isHoriz ? elemRelSizeX+InnerPadding : 0);
-				posY += (isHoriz ? 0 : elemRelSizeY+InnerPadding);
+				posX += (isHoriz ? elemRelSizeX+Padding.Between : 0);
+				posY += (isHoriz ? 0 : elemRelSizeY+Padding.Between);
 				
 				elem.Controllers.Set(
 					SettingsControllerMap.SpecialPrefix+"Transform.localPosition.x", this);

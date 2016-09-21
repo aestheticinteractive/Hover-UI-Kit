@@ -96,7 +96,7 @@ namespace Hover.InterfaceModules.Key {
 			rectRow.Arrangement = HoverLayoutRectRow.ArrangementType.LeftToRight;
 			rectRow.SizeX = 0.4425f;
 			rectRow.SizeY = 0.03f;
-			rectRow.InnerPadding = 0.0175f;
+			rectRow.Padding.Between = 0.0175f;
 
 			BuildRowItem(funcGo.transform, HoverkeyBuilderData.FuncRow[0]);
 			BuildRow("Row0", funcGo.transform, HoverkeyBuilderData.FuncRow, 1, 4);
