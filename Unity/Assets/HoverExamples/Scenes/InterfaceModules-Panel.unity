@@ -424,7 +424,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 52059323}
-  - 114: {fileID: 52059331}
   - 114: {fileID: 52059330}
   - 114: {fileID: 52059329}
   - 114: {fileID: 52059328}
@@ -564,21 +563,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1babd2bcabac74a3c8ee5dcc8f7e6b96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &52059331
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 52059322}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a7eb8803eb7aa44091b166ce312230e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ItemType: 4
-  ButtonRendererPrefab: {fileID: 133464, guid: 62045f3d51b184e5a9e5059b44d036a5, type: 2}
-  SliderRendererPrefab: {fileID: 170086, guid: 1b19ee4ea1ecb4fb3811be1bc81742c5, type: 2}
-  ClickToBuild: 0
 --- !u!1001 &57677343
 Prefab:
   m_ObjectHideFlags: 0
@@ -1117,7 +1101,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 155977904}
-  - 114: {fileID: 155977912}
   - 114: {fileID: 155977911}
   - 114: {fileID: 155977910}
   - 114: {fileID: 155977909}
@@ -1250,21 +1233,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1babd2bcabac74a3c8ee5dcc8f7e6b96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &155977912
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 155977903}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a7eb8803eb7aa44091b166ce312230e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ItemType: 1
-  ButtonRendererPrefab: {fileID: 133464, guid: 62045f3d51b184e5a9e5059b44d036a5, type: 2}
-  SliderRendererPrefab: {fileID: 170086, guid: 1b19ee4ea1ecb4fb3811be1bc81742c5, type: 2}
-  ClickToBuild: 0
 --- !u!1001 &226371625
 Prefab:
   m_ObjectHideFlags: 0
@@ -1374,11 +1342,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22481350, guid: 62045f3d51b184e5a9e5059b44d036a5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 137.5
+      value: 137.50002
       objectReference: {fileID: 0}
     - target: {fileID: 22426548, guid: 62045f3d51b184e5a9e5059b44d036a5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 137.5
+      value: 137.50002
       objectReference: {fileID: 0}
     - target: {fileID: 22493156, guid: 62045f3d51b184e5a9e5059b44d036a5, type: 2}
       propertyPath: m_AnchoredPosition.x
@@ -1645,7 +1613,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 295264986}
-  - 114: {fileID: 295264994}
   - 114: {fileID: 295264993}
   - 114: {fileID: 295264992}
   - 114: {fileID: 295264991}
@@ -1785,21 +1752,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1babd2bcabac74a3c8ee5dcc8f7e6b96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &295264994
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 295264985}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a7eb8803eb7aa44091b166ce312230e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ItemType: 4
-  ButtonRendererPrefab: {fileID: 133464, guid: 62045f3d51b184e5a9e5059b44d036a5, type: 2}
-  SliderRendererPrefab: {fileID: 170086, guid: 1b19ee4ea1ecb4fb3811be1bc81742c5, type: 2}
-  ClickToBuild: 0
 --- !u!1 &300131449
 GameObject:
   m_ObjectHideFlags: 0
@@ -1808,7 +1760,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 300131450}
-  - 114: {fileID: 300131459}
   - 114: {fileID: 300131458}
   - 114: {fileID: 300131457}
   - 114: {fileID: 300131456}
@@ -1864,7 +1815,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ControlChildShapes: 1
-  SizeX: 0.1
+  SizeX: 0.057142857
   SizeY: 0.08
 --- !u!114 &300131453
 MonoBehaviour:
@@ -1967,21 +1918,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1babd2bcabac74a3c8ee5dcc8f7e6b96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &300131459
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 300131449}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a7eb8803eb7aa44091b166ce312230e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ItemType: 1
-  ButtonRendererPrefab: {fileID: 133464, guid: 62045f3d51b184e5a9e5059b44d036a5, type: 2}
-  SliderRendererPrefab: {fileID: 170086, guid: 1b19ee4ea1ecb4fb3811be1bc81742c5, type: 2}
-  ClickToBuild: 0
 --- !u!1001 &318917907
 Prefab:
   m_ObjectHideFlags: 0
@@ -2502,7 +2438,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 434011736}
-  - 114: {fileID: 434011745}
   - 114: {fileID: 434011744}
   - 114: {fileID: 434011743}
   - 114: {fileID: 434011742}
@@ -2661,21 +2596,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1babd2bcabac74a3c8ee5dcc8f7e6b96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &434011745
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 434011735}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a7eb8803eb7aa44091b166ce312230e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ItemType: 1
-  ButtonRendererPrefab: {fileID: 133464, guid: 62045f3d51b184e5a9e5059b44d036a5, type: 2}
-  SliderRendererPrefab: {fileID: 170086, guid: 1b19ee4ea1ecb4fb3811be1bc81742c5, type: 2}
-  ClickToBuild: 0
 --- !u!1001 &499390876
 Prefab:
   m_ObjectHideFlags: 0
@@ -2924,7 +2844,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 501706801}
-  - 114: {fileID: 501706810}
   - 114: {fileID: 501706809}
   - 114: {fileID: 501706808}
   - 114: {fileID: 501706807}
@@ -3083,21 +3002,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1babd2bcabac74a3c8ee5dcc8f7e6b96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &501706810
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 501706800}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a7eb8803eb7aa44091b166ce312230e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ItemType: 1
-  ButtonRendererPrefab: {fileID: 133464, guid: 62045f3d51b184e5a9e5059b44d036a5, type: 2}
-  SliderRendererPrefab: {fileID: 170086, guid: 1b19ee4ea1ecb4fb3811be1bc81742c5, type: 2}
-  ClickToBuild: 0
 --- !u!1001 &519635330
 Prefab:
   m_ObjectHideFlags: 0
@@ -3279,7 +3183,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 529658246}
-  - 114: {fileID: 529658254}
   - 114: {fileID: 529658253}
   - 114: {fileID: 529658252}
   - 114: {fileID: 529658251}
@@ -3419,21 +3322,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1babd2bcabac74a3c8ee5dcc8f7e6b96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &529658254
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 529658245}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a7eb8803eb7aa44091b166ce312230e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ItemType: 4
-  ButtonRendererPrefab: {fileID: 133464, guid: 62045f3d51b184e5a9e5059b44d036a5, type: 2}
-  SliderRendererPrefab: {fileID: 170086, guid: 1b19ee4ea1ecb4fb3811be1bc81742c5, type: 2}
-  ClickToBuild: 0
 --- !u!1 &537124392
 GameObject:
   m_ObjectHideFlags: 0
@@ -4268,19 +4156,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22481350, guid: 62045f3d51b184e5a9e5059b44d036a5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 137.5
+      value: 137.50002
       objectReference: {fileID: 0}
     - target: {fileID: 22481350, guid: 62045f3d51b184e5a9e5059b44d036a5, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -6.999998
+      value: -7
       objectReference: {fileID: 0}
     - target: {fileID: 22426548, guid: 62045f3d51b184e5a9e5059b44d036a5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 137.5
+      value: 137.50002
       objectReference: {fileID: 0}
     - target: {fileID: 22426548, guid: 62045f3d51b184e5a9e5059b44d036a5, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -6.999998
+      value: -7
       objectReference: {fileID: 0}
     - target: {fileID: 22493156, guid: 62045f3d51b184e5a9e5059b44d036a5, type: 2}
       propertyPath: m_AnchoredPosition.x
@@ -5498,7 +5386,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 935223216}
-  - 114: {fileID: 935223225}
   - 114: {fileID: 935223224}
   - 114: {fileID: 935223223}
   - 114: {fileID: 935223222}
@@ -5555,7 +5442,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ControlChildShapes: 1
-  SizeX: 0.1
+  SizeX: 0.057142857
   SizeY: 0.08
 --- !u!114 &935223219
 MonoBehaviour:
@@ -5660,21 +5547,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1babd2bcabac74a3c8ee5dcc8f7e6b96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &935223225
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 935223215}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a7eb8803eb7aa44091b166ce312230e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ItemType: 5
-  ButtonRendererPrefab: {fileID: 133464, guid: 62045f3d51b184e5a9e5059b44d036a5, type: 2}
-  SliderRendererPrefab: {fileID: 170086, guid: 1b19ee4ea1ecb4fb3811be1bc81742c5, type: 2}
-  ClickToBuild: 0
 --- !u!114 &955989442 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11412156, guid: 542aa9a35c2a0b141bac2f7452dfe3ae,
@@ -5763,7 +5635,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1005774158}
-  - 114: {fileID: 1005774167}
   - 114: {fileID: 1005774166}
   - 114: {fileID: 1005774165}
   - 114: {fileID: 1005774164}
@@ -5922,21 +5793,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1babd2bcabac74a3c8ee5dcc8f7e6b96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1005774167
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1005774157}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a7eb8803eb7aa44091b166ce312230e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ItemType: 1
-  ButtonRendererPrefab: {fileID: 133464, guid: 62045f3d51b184e5a9e5059b44d036a5, type: 2}
-  SliderRendererPrefab: {fileID: 170086, guid: 1b19ee4ea1ecb4fb3811be1bc81742c5, type: 2}
-  ClickToBuild: 0
 --- !u!1 &1028738953
 GameObject:
   m_ObjectHideFlags: 0
@@ -8134,7 +7990,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1373664921}
-  - 114: {fileID: 1373664929}
   - 114: {fileID: 1373664928}
   - 114: {fileID: 1373664927}
   - 114: {fileID: 1373664926}
@@ -8267,21 +8122,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1babd2bcabac74a3c8ee5dcc8f7e6b96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1373664929
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1373664920}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a7eb8803eb7aa44091b166ce312230e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ItemType: 1
-  ButtonRendererPrefab: {fileID: 133464, guid: 62045f3d51b184e5a9e5059b44d036a5, type: 2}
-  SliderRendererPrefab: {fileID: 170086, guid: 1b19ee4ea1ecb4fb3811be1bc81742c5, type: 2}
-  ClickToBuild: 0
 --- !u!1 &1376306928
 GameObject:
   m_ObjectHideFlags: 0
@@ -8716,7 +8556,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1557662181}
-  - 114: {fileID: 1557662189}
   - 114: {fileID: 1557662188}
   - 114: {fileID: 1557662187}
   - 114: {fileID: 1557662186}
@@ -8856,21 +8695,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1babd2bcabac74a3c8ee5dcc8f7e6b96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1557662189
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1557662180}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a7eb8803eb7aa44091b166ce312230e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ItemType: 4
-  ButtonRendererPrefab: {fileID: 133464, guid: 62045f3d51b184e5a9e5059b44d036a5, type: 2}
-  SliderRendererPrefab: {fileID: 170086, guid: 1b19ee4ea1ecb4fb3811be1bc81742c5, type: 2}
-  ClickToBuild: 0
 --- !u!1 &1575682742
 GameObject:
   m_ObjectHideFlags: 0
@@ -9176,7 +9000,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1581467211}
-  - 114: {fileID: 1581467219}
   - 114: {fileID: 1581467218}
   - 114: {fileID: 1581467217}
   - 114: {fileID: 1581467216}
@@ -9217,7 +9040,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ControlChildShapes: 1
-  SizeX: 0.1
+  SizeX: 0.057142857
   SizeY: 0.08
 --- !u!114 &1581467213
 MonoBehaviour:
@@ -9314,21 +9137,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1babd2bcabac74a3c8ee5dcc8f7e6b96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1581467219
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1581467210}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a7eb8803eb7aa44091b166ce312230e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ItemType: 3
-  ButtonRendererPrefab: {fileID: 133464, guid: 62045f3d51b184e5a9e5059b44d036a5, type: 2}
-  SliderRendererPrefab: {fileID: 170086, guid: 1b19ee4ea1ecb4fb3811be1bc81742c5, type: 2}
-  ClickToBuild: 0
 --- !u!1 &1615665086
 GameObject:
   m_ObjectHideFlags: 0
@@ -9917,7 +9725,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1890338752}
-  - 114: {fileID: 1890338760}
   - 114: {fileID: 1890338759}
   - 114: {fileID: 1890338758}
   - 114: {fileID: 1890338757}
@@ -10057,21 +9864,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1babd2bcabac74a3c8ee5dcc8f7e6b96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1890338760
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1890338751}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a7eb8803eb7aa44091b166ce312230e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ItemType: 4
-  ButtonRendererPrefab: {fileID: 133464, guid: 62045f3d51b184e5a9e5059b44d036a5, type: 2}
-  SliderRendererPrefab: {fileID: 170086, guid: 1b19ee4ea1ecb4fb3811be1bc81742c5, type: 2}
-  ClickToBuild: 0
 --- !u!1001 &1930279230
 Prefab:
   m_ObjectHideFlags: 0
@@ -10536,7 +10328,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1977025967}
-  - 114: {fileID: 1977025975}
   - 114: {fileID: 1977025974}
   - 114: {fileID: 1977025973}
   - 114: {fileID: 1977025972}
@@ -10676,21 +10467,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1babd2bcabac74a3c8ee5dcc8f7e6b96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1977025975
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1977025966}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a7eb8803eb7aa44091b166ce312230e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ItemType: 4
-  ButtonRendererPrefab: {fileID: 133464, guid: 62045f3d51b184e5a9e5059b44d036a5, type: 2}
-  SliderRendererPrefab: {fileID: 170086, guid: 1b19ee4ea1ecb4fb3811be1bc81742c5, type: 2}
-  ClickToBuild: 0
 --- !u!1001 &1987133756
 Prefab:
   m_ObjectHideFlags: 0
@@ -10921,7 +10697,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 2021904283}
-  - 114: {fileID: 2021904291}
   - 114: {fileID: 2021904290}
   - 114: {fileID: 2021904289}
   - 114: {fileID: 2021904288}
@@ -10962,7 +10737,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ControlChildShapes: 1
-  SizeX: 0.1
+  SizeX: 0.057142857
   SizeY: 0.08
 --- !u!114 &2021904285
 MonoBehaviour:
@@ -11059,21 +10834,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1babd2bcabac74a3c8ee5dcc8f7e6b96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2021904291
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2021904282}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a7eb8803eb7aa44091b166ce312230e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ItemType: 3
-  ButtonRendererPrefab: {fileID: 133464, guid: 62045f3d51b184e5a9e5059b44d036a5, type: 2}
-  SliderRendererPrefab: {fileID: 170086, guid: 1b19ee4ea1ecb4fb3811be1bc81742c5, type: 2}
-  ClickToBuild: 0
 --- !u!1001 &2050297226
 Prefab:
   m_ObjectHideFlags: 0

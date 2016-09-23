@@ -143,7 +143,8 @@ namespace Hover.InterfaceModules.Panel {
 			build.ItemType = pType;
 			build.ButtonRendererPrefab = ButtonRendererPrefab;
 			build.SliderRendererPrefab = SliderRendererPrefab;
-			build.PerformBuild();
+			build.ClickToBuild = true;
+			build.Update();
 
 			itemGo.AddComponent<HoverShapeRect>();
 
