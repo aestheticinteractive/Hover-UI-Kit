@@ -28,7 +28,7 @@ var searchData=
   ['hovercursordataprovider',['HoverCursorDataProvider',['../class_hover_1_1_core_1_1_cursors_1_1_hover_cursor_data_provider.html',1,'Hover::Core::Cursors']]],
   ['hovercursorfollower',['HoverCursorFollower',['../class_hover_1_1_core_1_1_cursors_1_1_hover_cursor_follower.html',1,'Hover::Core::Cursors']]],
   ['hovercursoridlestate',['HoverCursorIdleState',['../class_hover_1_1_core_1_1_cursors_1_1_hover_cursor_idle_state.html',1,'Hover::Core::Cursors']]],
-  ['hovercursorrenderersbuilder',['HoverCursorRenderersBuilder',['../class_hover_1_1_interface_modules_1_1_cursors_1_1_hover_cursor_renderers_builder.html',1,'Hover::InterfaceModules::Cursors']]],
+  ['hovercursorrenderersbuilder',['HoverCursorRenderersBuilder',['../class_hover_1_1_core_1_1_cursors_1_1_hover_cursor_renderers_builder.html',1,'Hover::Core::Cursors']]],
   ['hoverfill',['HoverFill',['../class_hover_1_1_core_1_1_renderers_1_1_hover_fill.html',1,'Hover::Core::Renderers']]],
   ['hoverfillbutton',['HoverFillButton',['../class_hover_1_1_core_1_1_renderers_1_1_buttons_1_1_hover_fill_button.html',1,'Hover::Core::Renderers::Buttons']]],
   ['hoverfillbuttonarcupdater',['HoverFillButtonArcUpdater',['../class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_fill_button_arc_updater.html',1,'Hover::Core::Renderers::Shapes::Arc']]],
