@@ -7,8 +7,8 @@ namespace Hover.Core.Utils {
 	[ExecuteInEditMode]
 	public class HoverSceneLoader : MonoBehaviour {
 
-		public string SceneFolderPath = "Hover/InputModules/Example/Scenes/";
-		public string SceneName = "HoverInputModule-Example";
+		public string SceneFolderPath = "Hover/InputModules/NAME/Scenes/";
+		public string SceneName = "HoverInputModule-NAME";
 		public bool ClickToReloadScene = false;
 
 
