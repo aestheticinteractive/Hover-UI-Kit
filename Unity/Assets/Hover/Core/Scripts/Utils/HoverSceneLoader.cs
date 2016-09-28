@@ -9,14 +9,16 @@ namespace Hover.Core.Utils {
 
 		public string SceneFolderPath = "Hover/InputModules/NAME/Scenes/";
 		public string SceneName = "HoverInputModule-NAME";
-		public bool ClickToReloadScene = false;
+
+		[TriggerButton("Reload Scene")]
+		public bool ClickToReloadScene;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
 			if ( Application.isEditor ) {
-				ClickToReloadScene = true;
+				LoadScene();
 			}
 		}
 		
@@ -28,11 +30,8 @@ namespace Hover.Core.Utils {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void Update() {
-			if ( ClickToReloadScene ) {
-				ClickToReloadScene = false;
-				LoadScene();
-			}
+		public void OnEditorTriggerButtonSelected() {
+			LoadScene();
 		}
 
 

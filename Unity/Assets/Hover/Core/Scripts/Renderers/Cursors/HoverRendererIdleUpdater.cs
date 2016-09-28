@@ -13,7 +13,9 @@ namespace Hover.Core.Renderers.Cursors {
 
 		public GameObject IdleRendererPrefab;
 		public HoverRendererIdle IdleRenderer;
-		public bool ClickToRebuildRenderer = false;
+
+		[TriggerButton("Rebuild Idle Renderer")]
+		public bool ClickToRebuildRenderer;
 
 		private GameObject vPrevIdlePrefab;
 
@@ -37,6 +39,11 @@ namespace Hover.Core.Renderers.Cursors {
 			ICursorData cursorData = GetComponent<HoverCursorFollower>().GetCursorData();
 
 			UpdateRenderer(cursorData);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void OnEditorTriggerButtonSelected() {
+			//do nothing here, check for (ClickToRebuildRenderer == true) elsewhere...
 		}
 
 

@@ -39,7 +39,25 @@ namespace Hover.Editor {
 
 			return (ISettingsControllerMap)propInfo.GetValue(behaviour, null);
 		}
-		
+
+		/*--------------------------------------------------------------------------------------------*/
+		public static bool CallMethod(SerializedObject pObject, string pName) {
+			Object behaviour = pObject.targetObject;
+			Type behaviourType = behaviour.GetType();
+			MethodInfo methodInfo = behaviourType.GetMethod(pName);
+
+			if ( methodInfo == null ) {
+				Debug.LogWarning(
+					"Could not find a method named '"+pName+"' on the '"+
+					behaviour+"' object.", behaviour);
+
+				return false;
+			}
+
+			methodInfo.Invoke(behaviour, null);
+			return true;
+		}
+
 		/*--------------------------------------------------------------------------------------------* /
 		public static RangeAttribute GetFieldRangeAttribute(SerializedProperty pProp) {
 			Object behaviour = pProp.serializedObject.targetObject;

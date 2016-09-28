@@ -11,7 +11,9 @@ namespace Hover.Core.Cursors {
 		public CursorCapabilityType MinimumCapabilityType = CursorCapabilityType.None;
 		public GameObject CursorRendererPrefab;
 		public GameObject IdleRendererPrefab;
-		public bool ClickToBuild = false;
+
+		[TriggerButton("Build Cursor Renderers")]
+		public bool ClickToBuild;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -27,17 +29,18 @@ namespace Hover.Core.Cursors {
 					"Prefabs/HoverOpaqueIdleArcRenderer-Default");
 			}
 		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		public void Update() {
-			if ( !ClickToBuild ) {
-				return;
-			}
 
-			ClickToBuild = false;
+		/*--------------------------------------------------------------------------------------------*/
+		public void OnEditorTriggerButtonSelected() {
 			UnityUtil.FindOrAddHoverManagerPrefab();
 			PerformBuild();
-			DestroyImmediate(this, false);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void Update() {
+			if ( ClickToBuild ) {
+				DestroyImmediate(this, false);
+			}
 		}
 
 

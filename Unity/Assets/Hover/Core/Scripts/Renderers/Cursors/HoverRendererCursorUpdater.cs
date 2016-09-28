@@ -13,7 +13,9 @@ namespace Hover.Core.Renderers.Cursors {
 
 		public GameObject CursorRendererPrefab;
 		protected HoverRendererCursor CursorRenderer;
-		public bool ClickToRebuildRenderer = false;
+
+		[TriggerButton("Rebuild Cursor Renderer")]
+		public bool ClickToRebuildRenderer;
 
 		private GameObject vPrevCursorPrefab;
 
@@ -34,6 +36,11 @@ namespace Hover.Core.Renderers.Cursors {
 			DestroyRendererIfNecessary();
 			CursorRenderer = (CursorRenderer ?? FindOrBuildCursor());
 			UpdateRenderer(gameObject.GetComponent<HoverCursorFollower>());
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void OnEditorTriggerButtonSelected() {
+			//do nothing here, check for (ClickToRebuildRenderer == true) elsewhere...
 		}
 
 

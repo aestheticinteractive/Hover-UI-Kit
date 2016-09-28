@@ -17,7 +17,9 @@ namespace Hover.InterfaceModules.Panel {
 		public GameObject ButtonRendererPrefab;
 		public GameObject SliderRendererPrefab;
 		public bool IncludeExampleRows = true;
-		public bool ClickToBuild = false;
+
+		[TriggerButton("Build Hoverpanel Interface")]
+		public bool ClickToBuild;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -33,17 +35,18 @@ namespace Hover.InterfaceModules.Panel {
 					"Prefabs/HoverAlphaSliderRectRenderer-Default");
 			}
 		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		public void Update() {
-			if ( !ClickToBuild ) {
-				return;
-			}
 
-			ClickToBuild = false;
+		/*--------------------------------------------------------------------------------------------*/
+		public void OnEditorTriggerButtonSelected() {
 			UnityUtil.FindOrAddHoverManagerPrefab();
 			PerformBuild();
-			DestroyImmediate(this, false);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void Update() {
+			if ( ClickToBuild ) {
+				DestroyImmediate(this, false);
+			}
 		}
 
 

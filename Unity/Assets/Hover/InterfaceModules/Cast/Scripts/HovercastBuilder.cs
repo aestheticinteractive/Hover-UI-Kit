@@ -21,7 +21,9 @@ namespace Hover.InterfaceModules.Cast {
 		public GameObject SliderRendererPrefab;
 		public bool AutoRotateHandToFaceCamera = true;
 		public bool IncludeExampleRows = true;
-		public bool ClickToBuild = false;
+
+		[TriggerButton("Build Hovercast Interface")]
+		public bool ClickToBuild;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -37,17 +39,18 @@ namespace Hover.InterfaceModules.Cast {
 					"Prefabs/HoverAlphaSliderArcRenderer-Default");
 			}
 		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		public void Update() {
-			if ( !ClickToBuild ) {
-				return;
-			}
 
-			ClickToBuild = false;
+		/*--------------------------------------------------------------------------------------------*/
+		public void OnEditorTriggerButtonSelected() {
 			UnityUtil.FindOrAddHoverManagerPrefab();
 			PerformBuild();
-			DestroyImmediate(this, false);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void Update() {
+			if ( ClickToBuild ) {
+				DestroyImmediate(this, false);
+			}
 		}
 
 

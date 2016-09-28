@@ -12,7 +12,9 @@ namespace Hover.Core.Items {
 		public HoverItem.HoverItemType ItemType = HoverItem.HoverItemType.Selector;
 		public GameObject ButtonRendererPrefab;
 		public GameObject SliderRendererPrefab;
-		public bool ClickToBuild = false;
+
+		[TriggerButton("Build Item")]
+		public bool ClickToBuild;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -28,13 +30,16 @@ namespace Hover.Core.Items {
 					"Prefabs/HoverAlphaSliderRectRenderer-Default");
 			}
 		}
-		
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void OnEditorTriggerButtonSelected() {
+			UnityUtil.FindOrAddHoverManagerPrefab();
+			PerformBuild();
+		}
+
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
 			if ( ClickToBuild ) {
-				ClickToBuild = false;
-				UnityUtil.FindOrAddHoverManagerPrefab();
-				PerformBuild();
 				DestroyImmediate(this, false);
 			}
 		}

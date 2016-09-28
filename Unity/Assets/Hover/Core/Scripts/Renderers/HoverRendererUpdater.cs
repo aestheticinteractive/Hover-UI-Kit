@@ -41,8 +41,8 @@ namespace Hover.Core.Renderers {
 		[DisableWhenControlled]
 		private Component _SliderRenderer;
 
-		[DisableWhenControlled]
-		public bool ClickToRebuildRenderer = false;
+		[TriggerButton("Rebuild Item Renderer")]
+		public bool ClickToRebuildRenderer;
 
 		private GameObject vPrevButtonPrefab;
 		private GameObject vPrevSliderPrefab;
@@ -116,6 +116,11 @@ namespace Hover.Core.Renderers {
 			}
 
 			Controllers.TryExpireControllers();
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void OnEditorTriggerButtonSelected() {
+			//do nothing here, check for (ClickToRebuildRenderer == true) elsewhere...
 		}
 
 

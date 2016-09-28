@@ -14,7 +14,9 @@ namespace Hover.InterfaceModules.Key {
 
 		public GameObject ButtonRendererPrefab;
 		public GameObject SliderRendererPrefab;
-		public bool ClickToBuild = false;
+
+		[TriggerButton("Build Hoverkey Interface")]
+		public bool ClickToBuild;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -30,17 +32,18 @@ namespace Hover.InterfaceModules.Key {
 					"Prefabs/HoverAlphaSliderRectRenderer-Default");
 			}
 		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		public void Update() {
-			if ( !ClickToBuild ) {
-				return;
-			}
 
-			ClickToBuild = false;
+		/*--------------------------------------------------------------------------------------------*/
+		public void OnEditorTriggerButtonSelected() {
 			UnityUtil.FindOrAddHoverManagerPrefab();
 			PerformBuild();
-			DestroyImmediate(this, false);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void Update() {
+			if ( ClickToBuild ) {
+				DestroyImmediate(this, false);
+			}
 		}
 
 
