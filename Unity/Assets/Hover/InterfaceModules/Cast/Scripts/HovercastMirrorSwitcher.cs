@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Hover.Core.Renderers.Contents;
+using Hover.Core.Renderers.CanvasElements;
 using Hover.Core.Utils;
 using UnityEngine;
 

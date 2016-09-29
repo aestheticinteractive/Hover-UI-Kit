@@ -1,5 +1,6 @@
 ﻿using Hover.Core.Items.Managers;
 using Hover.Core.Renderers;
+using Hover.Core.Renderers.Items;
 using Hover.Core.Utils;
 using UnityEngine;
 
@@ -57,7 +58,7 @@ namespace Hover.Core.Items {
 
 			gameObject.AddComponent<HoverItemSelectionState>();
 
-			HoverRendererUpdater rendUp = gameObject.AddComponent<HoverRendererUpdater>();
+			HoverRendererItemUpdater rendUp = gameObject.AddComponent<HoverRendererItemUpdater>();
 			rendUp.ButtonRendererPrefab = ButtonRendererPrefab;
 			rendUp.SliderRendererPrefab = SliderRendererPrefab;
 			highState.ProximityProvider = rendUp;

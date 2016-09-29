@@ -1,4 +1,4 @@
-using Hover.Core.Renderers.Sliders;
+using Hover.Core.Renderers.Items.Sliders;
 using Hover.Core.Renderers.Utils;
 using Hover.Core.Utils;
 using UnityEngine;

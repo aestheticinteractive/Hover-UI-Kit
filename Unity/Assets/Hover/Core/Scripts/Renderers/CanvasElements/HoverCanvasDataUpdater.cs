@@ -2,7 +2,7 @@ using System;
 using Hover.Core.Utils;
 using UnityEngine;
 
-namespace Hover.Core.Renderers.Contents {
+namespace Hover.Core.Renderers.CanvasElements {
 
 	/*================================================================================================*/
 	[RequireComponent(typeof(HoverCanvas))]

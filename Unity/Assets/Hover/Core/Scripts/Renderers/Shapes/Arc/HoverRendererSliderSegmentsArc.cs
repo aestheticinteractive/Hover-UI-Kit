@@ -1,4 +1,4 @@
-using Hover.Core.Renderers.Sliders;
+using Hover.Core.Renderers.Items.Sliders;
 using UnityEngine;
 
 namespace Hover.Core.Renderers.Shapes.Arc {

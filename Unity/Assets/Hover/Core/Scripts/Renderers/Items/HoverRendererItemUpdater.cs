@@ -2,14 +2,14 @@ using System;
 using Hover.Core.Items;
 using Hover.Core.Items.Managers;
 using Hover.Core.Items.Types;
-using Hover.Core.Renderers.Buttons;
-using Hover.Core.Renderers.Contents;
-using Hover.Core.Renderers.Sliders;
+using Hover.Core.Renderers.CanvasElements;
+using Hover.Core.Renderers.Items.Buttons;
+using Hover.Core.Renderers.Items.Sliders;
 using Hover.Core.Renderers.Utils;
 using Hover.Core.Utils;
 using UnityEngine;
 
-namespace Hover.Core.Renderers {
+namespace Hover.Core.Renderers.Items {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
@@ -17,7 +17,7 @@ namespace Hover.Core.Renderers {
 	[RequireComponent(typeof(HoverItem))]
 	[RequireComponent(typeof(HoverItemHighlightState))]
 	[RequireComponent(typeof(HoverItemSelectionState))]
-	public class HoverRendererUpdater : MonoBehaviour, ITreeUpdateable, 
+	public class HoverRendererItemUpdater : MonoBehaviour, ITreeUpdateable, 
 															ISettingsController, IProximityProvider {
 
 		public const string ButtonRendererName = "_ButtonRenderer";
@@ -50,7 +50,7 @@ namespace Hover.Core.Renderers {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected HoverRendererUpdater() {
+		protected HoverRendererItemUpdater() {
 			Controllers = new SettingsControllerMap();
 		}
 

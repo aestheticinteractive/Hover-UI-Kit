@@ -3,7 +3,7 @@ using Hover.Core.Items;
 using Hover.Core.Items.Types;
 using Hover.Core.Layouts.Arc;
 using Hover.Core.Renderers;
-using Hover.Core.Renderers.Contents;
+using Hover.Core.Renderers.CanvasElements;
 using Hover.Core.Renderers.Shapes.Arc;
 using Hover.Core.Utils;
 using Hover.RendererModules.Alpha;

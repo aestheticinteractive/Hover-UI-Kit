@@ -3,7 +3,7 @@ using Hover.Core.Renderers.Shapes;
 using Hover.Core.Utils;
 using UnityEngine;
 
-namespace Hover.Core.Renderers.Buttons {
+namespace Hover.Core.Renderers.Items.Buttons {
 
 	/*================================================================================================*/
 	[RequireComponent(typeof(HoverIndicator))]

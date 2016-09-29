@@ -1,38 +1,22 @@
-using Hover.Core.Utils;
+﻿using Hover.Core.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Hover.Core.Renderers.Contents {
+namespace Hover.Core.Renderers.CanvasElements {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
-	[RequireComponent(typeof(RawImage))]
-	public class HoverIcon : MonoBehaviour, ITreeUpdateable {
+	[RequireComponent(typeof(Text))]
+	public class HoverLabel : MonoBehaviour, ITreeUpdateable {
 		
-		public const string IconTypeName = "IconType";
 		public const string CanvasScaleName = "CanvasScale";
 		public const string SizeXName = "SizeX";
 		public const string SizeYName = "SizeY";
 
-		public enum IconOffset {
-			None,
-			CheckOuter,
-			CheckInner,
-			RadioOuter,
-			RadioInner,
-			NavigateIn,
-			NavigateOut,
-			Slider,
-			Sticky
-		}
-
 		public ISettingsControllerMap Controllers { get; private set; }
 		
-		[DisableWhenControlled(DisplaySpecials=true)]
-		public IconOffset IconType = IconOffset.CheckOuter;
-
-		[DisableWhenControlled(RangeMin=0.0001f, RangeMax=1)]
+		[DisableWhenControlled(RangeMin=0.0001f, RangeMax=1, DisplaySpecials=true)]
 		public float CanvasScale = 0.0002f;
 		
 		[DisableWhenControlled(RangeMin=0)]
@@ -40,9 +24,6 @@ namespace Hover.Core.Renderers.Contents {
 
 		[DisableWhenControlled(RangeMin=0)]
 		public float SizeY = 0.1f;
-		
-		[DisableWhenControlled(RangeMin=0, RangeMax=0.01f)]
-		public float UvInset = 0.002f;
 
 		[HideInInspector]
 		[SerializeField]
@@ -51,15 +32,15 @@ namespace Hover.Core.Renderers.Contents {
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public HoverIcon() {
+		public HoverLabel() {
 			Controllers = new SettingsControllerMap();
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public RawImage ImageComponent {
-			get { return GetComponent<RawImage>(); }
+		public Text TextComponent {
+			get { return GetComponent<Text>(); }
 		}
 
 
@@ -67,7 +48,7 @@ namespace Hover.Core.Renderers.Contents {
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
 			if ( !_IsBuilt ) {
-				BuildIcon();
+				BuildText();
 				_IsBuilt = true;
 			}
 		}
@@ -79,13 +60,7 @@ namespace Hover.Core.Renderers.Contents {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void TreeUpdate() {
-			RawImage icon = ImageComponent;
-			RectTransform rectTx = icon.rectTransform;
-			const float w = 1f/9;
-			const float h = 1;
-
-			icon.uvRect = new Rect((int)IconType*w+UvInset, UvInset, w-UvInset*2, h-UvInset*2);
-
+			RectTransform rectTx = TextComponent.rectTransform;
 			rectTx.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, SizeX/CanvasScale);
 			rectTx.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, SizeY/CanvasScale);
 			Controllers.TryExpireControllers();
@@ -94,11 +69,17 @@ namespace Hover.Core.Renderers.Contents {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void BuildIcon() {
-			RawImage icon = ImageComponent;
-			icon.material = Resources.Load<Material>("Materials/HoverStandardIconsMaterial");
-			icon.color = Color.white;
-			icon.raycastTarget = false;
+		private void BuildText() {
+			Text text = TextComponent;
+			text.text = "Label";
+			text.font = Resources.Load<Font>("Fonts/Tahoma");
+			text.fontSize = 40;
+			text.lineSpacing = 0.75f;
+			text.color = Color.white;
+			text.alignment = TextAnchor.MiddleCenter;
+			text.raycastTarget = false;
+			text.horizontalOverflow = HorizontalWrapMode.Wrap;
+			text.verticalOverflow = VerticalWrapMode.Overflow;
 		}
 
 	}

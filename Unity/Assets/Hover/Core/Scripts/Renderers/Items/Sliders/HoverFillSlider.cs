@@ -4,7 +4,7 @@ using Hover.Core.Renderers.Utils;
 using Hover.Core.Utils;
 using UnityEngine;
 
-namespace Hover.Core.Renderers.Sliders {
+namespace Hover.Core.Renderers.Items.Sliders {
 
 	/*================================================================================================*/
 	[RequireComponent(typeof(HoverIndicator))]

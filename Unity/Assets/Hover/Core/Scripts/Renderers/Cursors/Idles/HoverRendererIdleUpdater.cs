@@ -3,7 +3,7 @@ using Hover.Core.Renderers.Utils;
 using Hover.Core.Utils;
 using UnityEngine;
 
-namespace Hover.Core.Renderers.Cursors {
+namespace Hover.Core.Renderers.Cursors.Idles {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]

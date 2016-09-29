@@ -1,3 +1,4 @@
+using Hover.Core.Renderers.Items;
 using Hover.Core.Utils;
 using UnityEngine;
 
@@ -6,7 +7,7 @@ namespace Hover.Core.Renderers {
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
-	[RequireComponent(typeof(HoverRendererUpdater))]
+	[RequireComponent(typeof(HoverRendererItemUpdater))]
 	public class HoverRendererIndicatorOverrider : MonoBehaviour, ITreeUpdateable, ISettingsController {
 
 		public const string MinHightlightProgressName = "MinHightlightProgress";
@@ -36,7 +37,7 @@ namespace Hover.Core.Renderers {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void TreeUpdate() {
-			HoverRendererUpdater rendUp = GetComponent<HoverRendererUpdater>();
+			HoverRendererItemUpdater rendUp = GetComponent<HoverRendererItemUpdater>();
 			HoverIndicator rendInd = rendUp.ActiveRenderer.GetIndicator();
 
 			rendInd.Controllers.Set(HoverIndicator.HighlightProgressName, this);
