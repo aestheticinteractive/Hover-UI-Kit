@@ -1,0 +1,6 @@
+var searchData=
+[
+  ['wasselectedthisframe',['WasSelectedThisFrame',['../class_hover_1_1_core_1_1_items_1_1_managers_1_1_hover_item_selection_state.html#a9f044da8a4fac0049122a5e2e6c1d295',1,'Hover::Core::Items::Managers::HoverItemSelectionState']]],
+  ['worldposition',['WorldPosition',['../class_hover_1_1_core_1_1_cursors_1_1_hover_cursor_data.html#afa52e125b40f0f2e8fbd3a40542e9c72',1,'Hover.Core.Cursors.HoverCursorData.WorldPosition()'],['../class_hover_1_1_core_1_1_cursors_1_1_hover_cursor_idle_state.html#adfdc4825e2061e7ea2dbb9720659a25e',1,'Hover.Core.Cursors.HoverCursorIdleState.WorldPosition()'],['../interface_hover_1_1_core_1_1_cursors_1_1_i_cursor_data.html#a9323079ad9ab0b2126dd744ae3275d75',1,'Hover.Core.Cursors.ICursorData.WorldPosition()'],['../interface_hover_1_1_core_1_1_cursors_1_1_i_cursor_idle.html#a000b71d645f3dd9a04379212e2d5265a',1,'Hover.Core.Cursors.ICursorIdle.WorldPosition()']]],
+  ['worldrotation',['WorldRotation',['../class_hover_1_1_core_1_1_cursors_1_1_hover_cursor_data.html#aacff274f21930e987b4c29ad7bf309b3',1,'Hover.Core.Cursors.HoverCursorData.WorldRotation()'],['../interface_hover_1_1_core_1_1_cursors_1_1_i_cursor_data.html#ab72eed0def3a9efb790b508bd56099cd',1,'Hover.Core.Cursors.ICursorData.WorldRotation()']]]
+];

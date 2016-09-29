@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['label',['Label',['../class_hover_1_1_core_1_1_renderers_1_1_contents_1_1_hover_canvas.html#a343f6d799de288c968c60fe21f75e811',1,'Hover::Core::Renderers::Contents::HoverCanvas']]],
-  ['labeltext',['LabelText',['../class_hover_1_1_core_1_1_renderers_1_1_contents_1_1_hover_canvas_data_updater.html#a7de57c2e8dddbd3492b51d9a0b4df623',1,'Hover::Core::Renderers::Contents::HoverCanvasDataUpdater']]],
-  ['labeltextname',['LabelTextName',['../class_hover_1_1_core_1_1_renderers_1_1_contents_1_1_hover_canvas_data_updater.html#acdd4dc088650959b9a3a4fb7265bcf3f',1,'Hover::Core::Renderers::Contents::HoverCanvasDataUpdater']]],
+  ['label',['Label',['../class_hover_1_1_core_1_1_renderers_1_1_canvas_elements_1_1_hover_canvas.html#a0df37f5dcfbb330dd8a7409ad3373265',1,'Hover::Core::Renderers::CanvasElements::HoverCanvas']]],
+  ['labeltext',['LabelText',['../class_hover_1_1_core_1_1_renderers_1_1_canvas_elements_1_1_hover_canvas_data_updater.html#a1ed5837a7755c66f8ee6e7f032b15c80',1,'Hover::Core::Renderers::CanvasElements::HoverCanvasDataUpdater']]],
+  ['labeltextname',['LabelTextName',['../class_hover_1_1_core_1_1_renderers_1_1_canvas_elements_1_1_hover_canvas_data_updater.html#af12194d543b62d10e6b21c28c9045fb0',1,'Hover::Core::Renderers::CanvasElements::HoverCanvasDataUpdater']]],
   ['leapcontrol',['LeapControl',['../class_hover_1_1_input_modules_1_1_leap_motion_old_1_1_hover_input_leap_motion_old.html#a2434fad634be236ba13c6203e5ba48cc',1,'Hover::InputModules::LeapMotionOld::HoverInputLeapMotionOld']]],
   ['leapserviceprovider',['LeapServiceProvider',['../class_hover_1_1_input_modules_1_1_leap_motion_1_1_hover_input_leap_motion.html#af5eeb8003aba4e8b4ddb6d57928e7525',1,'Hover::InputModules::LeapMotion::HoverInputLeapMotion']]],
   ['left',['Left',['../class_hover_1_1_core_1_1_layouts_1_1_rect_1_1_hover_layout_rect_padding_settings.html#a747b65f1e7ca532805f426c39f242b6a',1,'Hover::Core::Layouts::Rect::HoverLayoutRectPaddingSettings']]],

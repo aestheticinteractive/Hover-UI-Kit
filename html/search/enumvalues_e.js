@@ -1,9 +1,9 @@
 var searchData=
 [
   ['text',['Text',['../class_hover_1_1_core_1_1_items_1_1_hover_item.html#afe8d8e85a977b604bc655f9b1185bc46a9dffbf69ffba8bc38bc4e01abf4b1675',1,'Hover::Core::Items::HoverItem']]],
-  ['textleftandiconright',['TextLeftAndIconRight',['../class_hover_1_1_core_1_1_renderers_1_1_contents_1_1_hover_canvas.html#a854d6969242453126170559a59d84fcdaa7dbee18bd7c4fcc48981086dac691ba',1,'Hover::Core::Renderers::Contents::HoverCanvas']]],
-  ['textrightandiconleft',['TextRightAndIconLeft',['../class_hover_1_1_core_1_1_renderers_1_1_contents_1_1_hover_canvas.html#a854d6969242453126170559a59d84fcda1438ed0e61d9289a541ad7c661511077',1,'Hover::Core::Renderers::Contents::HoverCanvas']]],
-  ['threequartersfontsize',['ThreeQuartersFontSize',['../class_hover_1_1_core_1_1_renderers_1_1_contents_1_1_hover_canvas.html#a7e261e068a239a44869ef6bef724947babfedc431af4bbd2058994467fd28a692',1,'Hover::Core::Renderers::Contents::HoverCanvas']]],
+  ['textleftandiconright',['TextLeftAndIconRight',['../class_hover_1_1_core_1_1_renderers_1_1_canvas_elements_1_1_hover_canvas.html#addf6f4304546119c022577059b0284a7aa7dbee18bd7c4fcc48981086dac691ba',1,'Hover::Core::Renderers::CanvasElements::HoverCanvas']]],
+  ['textrightandiconleft',['TextRightAndIconLeft',['../class_hover_1_1_core_1_1_renderers_1_1_canvas_elements_1_1_hover_canvas.html#addf6f4304546119c022577059b0284a7a1438ed0e61d9289a541ad7c661511077',1,'Hover::Core::Renderers::CanvasElements::HoverCanvas']]],
+  ['threequartersfontsize',['ThreeQuartersFontSize',['../class_hover_1_1_core_1_1_renderers_1_1_canvas_elements_1_1_hover_canvas.html#aea87646f87f54240dc36754de10f8188abfedc431af4bbd2058994467fd28a692',1,'Hover::Core::Renderers::CanvasElements::HoverCanvas']]],
   ['tick',['Tick',['../class_hover_1_1_core_1_1_renderers_1_1_utils_1_1_slider_util.html#a3ab32d0acd785e9536baab88ddfa265fa0b3516a5bbb77566f904f9d3877f4710',1,'Hover::Core::Renderers::Utils::SliderUtil']]],
   ['tickend',['TickEnd',['../class_hover_1_1_core_1_1_renderers_1_1_utils_1_1_slider_util.html#acc6cd906770204b142ef81c355c2c9cfa718a88bd2223391e5cec1ead020399e1',1,'Hover::Core::Renderers::Utils::SliderUtil']]],
   ['tickstart',['TickStart',['../class_hover_1_1_core_1_1_renderers_1_1_utils_1_1_slider_util.html#acc6cd906770204b142ef81c355c2c9cfa9fc721b64525a3518830b5337a027260',1,'Hover::Core::Renderers::Utils::SliderUtil']]],

@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['value',['Value',['../class_hover_1_1_core_1_1_items_1_1_types_1_1_hover_item_data_selectable_bool.html#ae2eabfb897b42fb2de970cbb73234c49',1,'Hover.Core.Items.Types.HoverItemDataSelectableBool.Value()'],['../class_hover_1_1_core_1_1_items_1_1_types_1_1_hover_item_data_selectable_float.html#a73cf3f8ea394ef1d0bb2fa380b33ee45',1,'Hover.Core.Items.Types.HoverItemDataSelectableFloat.Value()'],['../class_hover_1_1_core_1_1_items_1_1_types_1_1_hover_item_data_slider.html#a3b361fe6ee4159d4bc84220098f280d0',1,'Hover.Core.Items.Types.HoverItemDataSlider.Value()'],['../interface_hover_1_1_core_1_1_items_1_1_types_1_1_i_item_data_selectable.html#a60e59efd2f509adf96416d970332ff92',1,'Hover.Core.Items.Types.IItemDataSelectable.Value()']]],
-  ['vertexindex',['VertexIndex',['../class_hover_1_1_core_1_1_utils_1_1_mesh_builder.html#ad34b99500e97915f6af9ab30a1370488',1,'Hover::Core::Utils::MeshBuilder']]],
-  ['vertices',['Vertices',['../class_hover_1_1_core_1_1_utils_1_1_mesh_builder.html#a4edfc9d58ceb9cbc41445e489d30be19',1,'Hover::Core::Utils::MeshBuilder']]]
+  ['unscaledpaddedsizex',['UnscaledPaddedSizeX',['../class_hover_1_1_core_1_1_renderers_1_1_canvas_elements_1_1_hover_canvas.html#aa6171983dd6dd95e515c9da8a3de096d',1,'Hover::Core::Renderers::CanvasElements::HoverCanvas']]],
+  ['unscaledpaddedsizey',['UnscaledPaddedSizeY',['../class_hover_1_1_core_1_1_renderers_1_1_canvas_elements_1_1_hover_canvas.html#a428c1304ac33ee05adb9821996d4d2b2',1,'Hover::Core::Renderers::CanvasElements::HoverCanvas']]],
+  ['uvindex',['UvIndex',['../class_hover_1_1_core_1_1_utils_1_1_mesh_builder.html#a1a2e8628bb2456b8e234913a42a29d16',1,'Hover::Core::Utils::MeshBuilder']]],
+  ['uvs',['Uvs',['../class_hover_1_1_core_1_1_utils_1_1_mesh_builder.html#a0741ffae67df33a13e56f7338f28e6d8',1,'Hover::Core::Utils::MeshBuilder']]]
 ];

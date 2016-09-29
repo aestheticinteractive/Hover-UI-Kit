@@ -12,7 +12,7 @@ var class_hover_1_1_core_1_1_items_1_1_managers_1_1_hover_item_highlight_state =
     [ "Update", "class_hover_1_1_core_1_1_items_1_1_managers_1_1_hover_item_highlight_state.html#a8455bc46c046eddded5e6752f08924d0", null ],
     [ "CursorDataProvider", "class_hover_1_1_core_1_1_items_1_1_managers_1_1_hover_item_highlight_state.html#a7f9ec868eb8e9dd223ec1c8d7f9ea53c", null ],
     [ "InteractionSettings", "class_hover_1_1_core_1_1_items_1_1_managers_1_1_hover_item_highlight_state.html#a4bf27930bee103867c62260748bb55bd", null ],
-    [ "ProximityProvider", "class_hover_1_1_core_1_1_items_1_1_managers_1_1_hover_item_highlight_state.html#a45cfa65f12b46eeec581cdaaa7924130", null ],
+    [ "ProximityProvider", "class_hover_1_1_core_1_1_items_1_1_managers_1_1_hover_item_highlight_state.html#a799b6e98f3cab284edb27c224a857694", null ],
     [ "Highlights", "class_hover_1_1_core_1_1_items_1_1_managers_1_1_hover_item_highlight_state.html#a3c97518c657861257021658d626a77f0", null ],
     [ "IsHighlightPrevented", "class_hover_1_1_core_1_1_items_1_1_managers_1_1_hover_item_highlight_state.html#a9c9ae0b334567ac05d695f9e84ba6ffa", null ],
     [ "IsNearestAcrossAllItemsForAnyCursor", "class_hover_1_1_core_1_1_items_1_1_managers_1_1_hover_item_highlight_state.html#ad561f8216186218c94abd85374ae0172", null ],

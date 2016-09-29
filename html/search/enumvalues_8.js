@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['left',['Left',['../class_hover_1_1_core_1_1_renderers_1_1_contents_1_1_hover_canvas.html#a854d6969242453126170559a59d84fcda945d5e233cf7d6240f6b783b36a374ff',1,'Hover::Core::Renderers::Contents::HoverCanvas']]],
+  ['left',['Left',['../class_hover_1_1_core_1_1_renderers_1_1_canvas_elements_1_1_hover_canvas.html#addf6f4304546119c022577059b0284a7a945d5e233cf7d6240f6b783b36a374ff',1,'Hover::Core::Renderers::CanvasElements::HoverCanvas']]],
   ['leftindex',['LeftIndex',['../namespace_hover_1_1_core_1_1_cursors.html#a2944183e84014f9de94a0ec5729dbf0aa5c112ddbbae1cf62bbefbdc12f1f8879',1,'Hover::Core::Cursors']]],
   ['leftmiddle',['LeftMiddle',['../namespace_hover_1_1_core_1_1_cursors.html#a2944183e84014f9de94a0ec5729dbf0aaf00a7dc4d603cc4a15f548c247c8e590',1,'Hover::Core::Cursors']]],
   ['leftpalm',['LeftPalm',['../namespace_hover_1_1_core_1_1_cursors.html#a2944183e84014f9de94a0ec5729dbf0aa529b915a256a72c8b3793141500a72ec',1,'Hover::Core::Cursors']]],

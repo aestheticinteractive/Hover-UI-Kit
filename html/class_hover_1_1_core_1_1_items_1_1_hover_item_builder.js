@@ -1,6 +1,7 @@
 var class_hover_1_1_core_1_1_items_1_1_hover_item_builder =
 [
     [ "Awake", "class_hover_1_1_core_1_1_items_1_1_hover_item_builder.html#a5622e1284c1304c6072d88150d81c6b5", null ],
+    [ "OnEditorTriggerButtonSelected", "class_hover_1_1_core_1_1_items_1_1_hover_item_builder.html#a3f1e2454e2afb0dada4785a275040b45", null ],
     [ "PerformBuild", "class_hover_1_1_core_1_1_items_1_1_hover_item_builder.html#a08880986e9717903c60a30565de74f97", null ],
     [ "Update", "class_hover_1_1_core_1_1_items_1_1_hover_item_builder.html#a09156e9bc25ba9e1fa52eeecfe34b033", null ],
     [ "ButtonRendererPrefab", "class_hover_1_1_core_1_1_items_1_1_hover_item_builder.html#a7dd6ceba1e22f7cab92d9fee74bbef01", null ],

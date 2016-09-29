@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['edge',['Edge',['../class_hover_1_1_core_1_1_renderers_1_1_buttons_1_1_hover_fill_button.html#aca8254e8a745678ee888b608c541cc15',1,'Hover::Core::Renderers::Buttons::HoverFillButton']]],
+  ['edge',['Edge',['../class_hover_1_1_core_1_1_renderers_1_1_items_1_1_buttons_1_1_hover_fill_button.html#a992e493c4d90071700d1390273699715',1,'Hover::Core::Renderers::Items::Buttons::HoverFillButton']]],
   ['edgeposition',['EdgePosition',['../class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_fill_button_arc_updater.html#a2e3867f8aba07a247bf821c9b6f3eecc',1,'Hover::Core::Renderers::Shapes::Arc::HoverFillButtonArcUpdater']]],
   ['edgepositiontype',['EdgePositionType',['../class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_fill_button_arc_updater.html#a5c658247babf234de9cca36c9684b2b6',1,'Hover::Core::Renderers::Shapes::Arc::HoverFillButtonArcUpdater']]],
   ['edgethickness',['EdgeThickness',['../class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_fill_button_arc_updater.html#ad4f56dd8b1e77c56a5a137078b4378f4',1,'Hover.Core.Renderers.Shapes.Arc.HoverFillButtonArcUpdater.EdgeThickness()'],['../class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_rect_1_1_hover_fill_button_rect_updater.html#a1a042957dfbcb093f4208ff40e9d325a',1,'Hover.Core.Renderers.Shapes.Rect.HoverFillButtonRectUpdater.EdgeThickness()']]],

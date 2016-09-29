@@ -10,5 +10,6 @@ var namespace_hover_1_1_core_1_1_utils =
     [ "MeshUtil", "class_hover_1_1_core_1_1_utils_1_1_mesh_util.html", "class_hover_1_1_core_1_1_utils_1_1_mesh_util" ],
     [ "SettingsControllerMap", "class_hover_1_1_core_1_1_utils_1_1_settings_controller_map.html", "class_hover_1_1_core_1_1_utils_1_1_settings_controller_map" ],
     [ "TreeUpdater", "class_hover_1_1_core_1_1_utils_1_1_tree_updater.html", "class_hover_1_1_core_1_1_utils_1_1_tree_updater" ],
+    [ "TriggerButtonAttribute", "class_hover_1_1_core_1_1_utils_1_1_trigger_button_attribute.html", "class_hover_1_1_core_1_1_utils_1_1_trigger_button_attribute" ],
     [ "UnityUtil", "class_hover_1_1_core_1_1_utils_1_1_unity_util.html", "class_hover_1_1_core_1_1_utils_1_1_unity_util" ]
 ];
