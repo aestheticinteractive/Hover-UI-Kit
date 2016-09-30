@@ -1,5 +1,5 @@
+using Hover.Core.Items;
 using Hover.Core.Items.Managers;
-using Hover.Core.Renderers.Items;
 using Hover.Core.Utils;
 using UnityEngine;
 
@@ -7,7 +7,7 @@ namespace Hover.Core.Renderers {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
-	[RequireComponent(typeof(HoverRendererItemUpdater))]
+	[RequireComponent(typeof(HoverItemRendererUpdater))]
 	[RequireComponent(typeof(HoverItemHighlightState))]
 	public class HoverRendererProximityDebugger : MonoBehaviour, ITreeUpdateable {
 

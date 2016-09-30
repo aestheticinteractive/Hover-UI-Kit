@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Hover.Core.Cursors;
 using Hover.Core.Items.Types;
 using Hover.Core.Renderers;
-using Hover.Core.Renderers.Items;
 using UnityEngine;
 
 namespace Hover.Core.Items.Managers {
@@ -74,7 +73,7 @@ namespace Hover.Core.Items.Managers {
 				}
 
 				HoverItemSelectionState selState = data.GetComponent<HoverItemSelectionState>();
-				HoverRenderer rend = data.GetComponent<HoverRendererItemUpdater>().ActiveRenderer;
+				HoverRenderer rend = data.GetComponent<HoverItemRendererUpdater>().ActiveRenderer;
 
 				var info = new StickySelectionInfo {
 					ItemWorldPosition = rend.GetCenterWorldPosition(),

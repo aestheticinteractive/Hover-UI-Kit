@@ -1,15 +1,16 @@
-using Hover.Core.Cursors;
+using Hover.Core.Renderers;
+using Hover.Core.Renderers.Cursors;
 using Hover.Core.Renderers.Utils;
 using Hover.Core.Utils;
 using UnityEngine;
 
-namespace Hover.Core.Renderers.Cursors {
+namespace Hover.Core.Cursors {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
 	[RequireComponent(typeof(HoverCursorFollower))]
-	public class HoverRendererCursorUpdater : MonoBehaviour, ITreeUpdateable, ISettingsController {
+	public class HoverCursorRendererUpdater : MonoBehaviour, ITreeUpdateable, ISettingsController {
 
 		public GameObject CursorRendererPrefab;
 		protected HoverRendererCursor CursorRenderer;

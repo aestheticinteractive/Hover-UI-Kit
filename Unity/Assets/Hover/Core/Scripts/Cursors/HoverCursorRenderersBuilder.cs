@@ -1,6 +1,4 @@
-﻿using Hover.Core.Renderers.Cursors;
-using Hover.Core.Renderers.Cursors.Idles;
-using Hover.Core.Utils;
+﻿using Hover.Core.Utils;
 using UnityEngine;
 
 namespace Hover.Core.Cursors {
@@ -72,11 +70,11 @@ namespace Hover.Core.Cursors {
 			follow.FollowCursorActive = false;
 			follow.ScaleUsingCursorSize = true;
 
-			HoverRendererCursorUpdater cursRendUp = curGo.AddComponent<HoverRendererCursorUpdater>();
+			HoverCursorRendererUpdater cursRendUp = curGo.AddComponent<HoverCursorRendererUpdater>();
 			cursRendUp.CursorRendererPrefab = CursorRendererPrefab;
 
 			if ( pData.Idle != null ) {
-				HoverRendererIdleUpdater idleRendUp = curGo.AddComponent<HoverRendererIdleUpdater>();
+				HoverIdleRendererUpdater idleRendUp = curGo.AddComponent<HoverIdleRendererUpdater>();
 				idleRendUp.IdleRendererPrefab = IdleRendererPrefab;
 			}
 

@@ -1,5 +1,4 @@
 using Hover.Core.Renderers.Cursors;
-using Hover.Core.Renderers.Cursors.Idles;
 using Hover.Core.Utils;
 using UnityEngine;
 

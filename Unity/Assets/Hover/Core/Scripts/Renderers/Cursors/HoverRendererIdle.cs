@@ -1,11 +1,10 @@
 using System;
-using Hover.Core.Items;
 using Hover.Core.Renderers.CanvasElements;
 using Hover.Core.Renderers.Shapes;
 using Hover.Core.Utils;
 using UnityEngine;
 
-namespace Hover.Core.Renderers.Cursors.Idles {
+namespace Hover.Core.Renderers.Cursors {
 
 	/*================================================================================================*/
 	public class HoverRendererIdle : HoverRenderer {

@@ -1,15 +1,15 @@
-using Hover.Core.Cursors;
+using Hover.Core.Renderers.Cursors;
 using Hover.Core.Renderers.Utils;
 using Hover.Core.Utils;
 using UnityEngine;
 
-namespace Hover.Core.Renderers.Cursors.Idles {
+namespace Hover.Core.Cursors {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
 	[RequireComponent(typeof(HoverCursorFollower))]
-	public class HoverRendererIdleUpdater : MonoBehaviour, ITreeUpdateable, ISettingsController {
+	public class HoverIdleRendererUpdater : MonoBehaviour, ITreeUpdateable, ISettingsController {
 
 		public GameObject IdleRendererPrefab;
 		public HoverRendererIdle IdleRenderer;
