@@ -8,6 +8,7 @@ var namespace_hover_1_1_core_1_1_utils =
     [ "ITreeUpdateable", "interface_hover_1_1_core_1_1_utils_1_1_i_tree_updateable.html", "interface_hover_1_1_core_1_1_utils_1_1_i_tree_updateable" ],
     [ "MeshBuilder", "class_hover_1_1_core_1_1_utils_1_1_mesh_builder.html", "class_hover_1_1_core_1_1_utils_1_1_mesh_builder" ],
     [ "MeshUtil", "class_hover_1_1_core_1_1_utils_1_1_mesh_util.html", "class_hover_1_1_core_1_1_utils_1_1_mesh_util" ],
+    [ "RaycastResult", "struct_hover_1_1_core_1_1_utils_1_1_raycast_result.html", "struct_hover_1_1_core_1_1_utils_1_1_raycast_result" ],
     [ "SettingsControllerMap", "class_hover_1_1_core_1_1_utils_1_1_settings_controller_map.html", "class_hover_1_1_core_1_1_utils_1_1_settings_controller_map" ],
     [ "TreeUpdater", "class_hover_1_1_core_1_1_utils_1_1_tree_updater.html", "class_hover_1_1_core_1_1_utils_1_1_tree_updater" ],
     [ "TriggerButtonAttribute", "class_hover_1_1_core_1_1_utils_1_1_trigger_button_attribute.html", "class_hover_1_1_core_1_1_utils_1_1_trigger_button_attribute" ],

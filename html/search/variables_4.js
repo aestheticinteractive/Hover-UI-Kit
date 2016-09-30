@@ -8,7 +8,7 @@ var searchData=
   ['displaymode',['DisplayMode',['../class_hover_1_1_core_1_1_renderers_1_1_hover_mesh.html#a16e166736536e069866356cf7b877110',1,'Hover::Core::Renderers::HoverMesh']]],
   ['displaymodename',['DisplayModeName',['../class_hover_1_1_core_1_1_renderers_1_1_hover_mesh.html#a7b129c6e7bd71d2ec7e867804d181130',1,'Hover::Core::Renderers::HoverMesh']]],
   ['distance',['Distance',['../struct_hover_1_1_core_1_1_items_1_1_managers_1_1_hover_item_highlight_state_1_1_highlight.html#a590e21e00cb246ded66dcee6aa7a3657',1,'Hover::Core::Items::Managers::HoverItemHighlightState::Highlight']]],
-  ['distancethreshold',['DistanceThreshold',['../class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_idles_1_1_hover_renderer_idle.html#acf8b9d8497f6c01f59d51bb57b3122f6',1,'Hover::Core::Renderers::Cursors::Idles::HoverRendererIdle']]],
-  ['distancethresholdname',['DistanceThresholdName',['../class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_idles_1_1_hover_renderer_idle.html#a83bcba53bf1ab49007515f19f27cbeba',1,'Hover::Core::Renderers::Cursors::Idles::HoverRendererIdle']]],
+  ['distancethreshold',['DistanceThreshold',['../class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_idle.html#a707ad040b3cc2747538bde7785501349',1,'Hover::Core::Renderers::Cursors::HoverRendererIdle']]],
+  ['distancethresholdname',['DistanceThresholdName',['../class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_idle.html#ac927bd2b9a260c7754dbafeda467bf40',1,'Hover::Core::Renderers::Cursors::HoverRendererIdle']]],
   ['driftstrength',['DriftStrength',['../class_hover_1_1_core_1_1_cursors_1_1_hover_cursor_idle_state.html#a56f3cdea2db698cdd3a740ba79a0b069',1,'Hover::Core::Cursors::HoverCursorIdleState']]]
 ];
