@@ -158,8 +158,7 @@ namespace Hover.InterfaceModules.Cast {
 			HoverItemBuilder build = pItemGo.AddComponent<HoverItemBuilder>();
 			build.ItemType = HoverItem.HoverItemType.Selector;
 			build.ButtonRendererPrefab = ButtonRendererPrefab;
-			build.ClickToBuild = true;
-			build.Update();
+			build.OnEditorTriggerButtonSelected();
 
 			////
 
@@ -230,8 +229,7 @@ namespace Hover.InterfaceModules.Cast {
 			HoverItemBuilder build = pItemGo.AddComponent<HoverItemBuilder>();
 			build.ItemType = HoverItem.HoverItemType.Text;
 			build.ButtonRendererPrefab = ButtonRendererPrefab;
-			build.ClickToBuild = true;
-			build.Update();
+			build.OnEditorTriggerButtonSelected();
 
 			////
 
@@ -250,8 +248,7 @@ namespace Hover.InterfaceModules.Cast {
 			HoverItemBuilder build = pItemGo.AddComponent<HoverItemBuilder>();
 			build.ItemType = HoverItem.HoverItemType.Selector;
 			build.ButtonRendererPrefab = ButtonRendererPrefab;
-			build.ClickToBuild = true;
-			build.Update();
+			build.OnEditorTriggerButtonSelected();
 
 			////
 
@@ -340,8 +337,7 @@ namespace Hover.InterfaceModules.Cast {
 			build.ItemType = pType;
 			build.ButtonRendererPrefab = ButtonRendererPrefab;
 			build.SliderRendererPrefab = SliderRendererPrefab;
-			build.ClickToBuild = true;
-			build.Update();
+			build.OnEditorTriggerButtonSelected();
 
 			itemGo.AddComponent<HoverShapeArc>();
 

@@ -224,8 +224,7 @@ namespace Hover.InterfaceModules.Key {
 			build.ItemType = pKeyInfo.ItemType;
 			build.ButtonRendererPrefab = ButtonRendererPrefab;
 			build.SliderRendererPrefab = SliderRendererPrefab;
-			build.ClickToBuild = true;
-			build.Update();
+			build.OnEditorTriggerButtonSelected();
 
 			////
 

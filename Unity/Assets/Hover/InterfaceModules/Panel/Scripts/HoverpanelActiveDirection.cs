@@ -20,7 +20,7 @@ namespace Hover.InterfaceModules.Panel {
 		[DisableWhenControlled]
 		public Transform ActiveWhenFacingTransform;
 
-		public bool OnlyDuringTransitions = false;
+		public bool OnlyDuringTransitions = true;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
