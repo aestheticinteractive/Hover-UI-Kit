@@ -225,6 +225,7 @@ namespace Hover.InterfaceModules.Key {
 			build.ButtonRendererPrefab = ButtonRendererPrefab;
 			build.SliderRendererPrefab = SliderRendererPrefab;
 			build.OnEditorTriggerButtonSelected();
+			DestroyImmediate(build, false);
 
 			////
 
