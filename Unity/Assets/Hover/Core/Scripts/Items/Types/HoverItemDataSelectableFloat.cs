@@ -10,9 +10,9 @@ namespace Hover.Core.Items.Types {
 												HoverItemDataSelectable, IItemDataSelectable<float> {
 		
 		[Serializable]
-		public class ValueChangedEventHandler : UnityEvent<IItemDataSelectable<float>> { }
+		public class FloatValueChangedEventHandler : UnityEvent<IItemDataSelectable<float>> { }
 
-		public ValueChangedEventHandler OnValueChangedEvent = new ValueChangedEventHandler();
+		public FloatValueChangedEventHandler OnValueChangedEvent = new FloatValueChangedEventHandler();
 
 		public event ItemEvents.ValueChangedHandler<float> OnValueChanged;
 
