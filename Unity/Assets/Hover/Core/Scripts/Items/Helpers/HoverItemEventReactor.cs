@@ -10,12 +10,12 @@ namespace Hover.Core.Items.Helpers {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void EnableWithBoolValue(HoverItemDataSelectableBool pItemData) {
+		public void EnableWithBoolValue(IItemDataSelectable<bool> pItemData) {
 			GetComponent<HoverItemData>().IsEnabled = pItemData.Value;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void DisableWithBoolValue(HoverItemDataSelectableBool pItemData) {
+		public void DisableWithBoolValue(IItemDataSelectable<bool> pItemData) {
 			GetComponent<HoverItemData>().IsEnabled = !pItemData.Value;
 		}
 
