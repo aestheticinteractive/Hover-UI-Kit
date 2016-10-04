@@ -136,6 +136,7 @@ namespace Hover.Editor.Items {
 			HoverItemDataSelectableBool selBoolData = (vData as HoverItemDataSelectableBool);
 			HoverItemDataSelectableFloat selFloatData = (vData as HoverItemDataSelectableFloat);
 			
+			EditorGUILayout.PropertyField(serializedObject.FindProperty("OnEnabledChangedEvent"));
 			EditorGUILayout.PropertyField(serializedObject.FindProperty("OnSelectedEvent"));
 			EditorGUILayout.PropertyField(serializedObject.FindProperty("OnDeselectedEvent"));
 

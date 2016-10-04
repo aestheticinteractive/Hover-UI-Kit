@@ -5,6 +5,8 @@ namespace Hover.Core.Items {
 	/*================================================================================================*/
 	public interface IItemData {
 
+		event ItemEvents.EnabledChangedHandler OnEnabledChanged;
+
 		GameObject gameObject { get; }
 
 		int AutoId { get; }
