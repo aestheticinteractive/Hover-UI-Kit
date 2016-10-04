@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Hover.Demo.CastCubes {
+namespace HoverDemos.CastCubes {
 
 	/*================================================================================================*/
 	public class DemoMotion {

@@ -44,6 +44,38 @@ namespace Hover.Core.Utils {
 			return faded;
 		}
 
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		//based on: http://stackoverflow.com/questions/1335426
+		public static Color HsvToColor(float pHue, float pSat, float pVal) {
+			float hue60 = pHue/60f;
+			int i = (int)Math.Floor(hue60)%6;
+			float f = hue60 - (int)Math.Floor(hue60);
+
+			float v = pVal;
+			float p = pVal * (1-pSat);
+			float q = pVal * (1-f*pSat);
+			float t = pVal * (1-(1-f)*pSat);
+
+			switch ( i ) {
+				case 0:
+					return new Color(v, t, p);
+				case 1:
+					return new Color(q, v, p);
+				case 2:
+					return new Color(p, v, t);
+				case 3:
+					return new Color(p, q, v);
+				case 4:
+					return new Color(t, p, v);
+				case 5:
+					return new Color(v, p, q);
+			}
+
+			return Color.black;
+		}
+
 	}
 
 }

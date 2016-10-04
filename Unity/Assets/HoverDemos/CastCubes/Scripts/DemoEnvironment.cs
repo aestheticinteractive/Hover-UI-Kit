@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using Hover.Core.Utils;
 using Hover.Demo.Common;
 using UnityEngine;
 using UnityEngine.VR;
 
-namespace Hover.Demo.CastCubes {
+namespace HoverDemos.CastCubes {
 
 	/*================================================================================================*/
 	public class DemoEnvironment : MonoBehaviour {
@@ -32,6 +33,9 @@ namespace Hover.Demo.CastCubes {
 			Top
 		}
 
+		public Light MainLight;
+		public Light Spotlight;
+
 		private readonly GameObject[] vHolds;
 		private readonly GameObject[] vCubes;
 
@@ -49,9 +53,6 @@ namespace Hover.Demo.CastCubes {
 		private readonly IDictionary<CameraPlacement, Quaternion> vCameraRotMap;
 
 		private GameObject vCubesObj;
-		private Light vLight;
-		private Light vSpotlight;
-		private GameObject vEnviro;
 		private ColorMode vColorMode;
 
 
@@ -99,24 +100,11 @@ namespace Hover.Demo.CastCubes {
 			vCubesObj = new GameObject("Cubes");
 			vCubesObj.transform.SetParent(gameObject.transform, false);
 			
-			vLight = GameObject.Find("Light").GetComponent<Light>();
-			vSpotlight = GameObject.Find("Spotlight").GetComponent<Light>();
-			vEnviro = GameObject.Find("DemoEnvironment");
-
 			for ( int i = 0 ; i < Count ; ++i ) {
 				BuildCube(i);
 			}
 
-			vSpotlight.enabled = false;
-
-			////
-
-			/*GameObject ovrObj = GameObject.Find("LeapOVRPlayerController");
-
-			if ( ovrObj != null ) {
-				OVRPlayerController ovrPlayer = ovrObj.GetComponent<OVRPlayerController>();
-				ovrPlayer.SetSkipMouseRotation(true);
-			}*/
+			Spotlight.enabled = false;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -125,8 +113,6 @@ namespace Hover.Demo.CastCubes {
 				Application.Quit();
 				return;
 			}
-
-			InputForTests.UpdateOculus();
 
 			vOrbitMotion.Update();
 			vSpinMotion.Update();
@@ -137,11 +123,11 @@ namespace Hover.Demo.CastCubes {
 				UpdateCube(i);
 			}
 			
-			vSpotlight.intensity = vLightSpotAnim.GetValue();
-			vSpotlight.enabled = (vSpotlight.intensity > 0);
+			Spotlight.intensity = vLightSpotAnim.GetValue();
+			Spotlight.enabled = (Spotlight.intensity > 0);
 
-			vEnviro.transform.localPosition = vCameraAnim.GetValue();
-			vEnviro.transform.localRotation = vCameraRotAnim.GetValue();
+			gameObject.transform.localPosition = vCameraAnim.GetValue();
+			gameObject.transform.localRotation = vCameraRotAnim.GetValue();
 		}
 
 
@@ -158,7 +144,7 @@ namespace Hover.Demo.CastCubes {
 			Color color = Color.white;
 
 			if ( vColorMode == ColorMode.Custom ) {
-				color = HsvToColor(pHue, 1, 1);
+				color = DisplayUtil.HsvToColor(pHue, 1, 1);
 			}
 
 			for ( int i = 0 ; i < Count ; ++i ) {
@@ -187,23 +173,23 @@ namespace Hover.Demo.CastCubes {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void SetLightPos(float pPosition) {
-			vLight.gameObject.transform.localPosition = new Vector3(0, pPosition, 0);
+			MainLight.gameObject.transform.localPosition = new Vector3(0, pPosition, 0);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void SetLightIntensitiy(float pIntensity) {
-			vLight.intensity = pIntensity;
+			MainLight.intensity = pIntensity;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void ShowSpotlight(bool pShow) {
-			vLightSpotAnim.Start(vSpotlight.intensity, (pShow ? 3 : 0));
+			vLightSpotAnim.Start(Spotlight.intensity, (pShow ? 3 : 0));
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void SetCameraPlacement(CameraPlacement pPlace) {
-			vCameraAnim.Start(vEnviro.transform.localPosition, vCameraMap[pPlace]);
-			vCameraRotAnim.Start(vEnviro.transform.localRotation, vCameraRotMap[pPlace]);
+			vCameraAnim.Start(gameObject.transform.localPosition, vCameraMap[pPlace]);
+			vCameraRotAnim.Start(gameObject.transform.localRotation, vCameraRotMap[pPlace]);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -275,32 +261,6 @@ namespace Hover.Demo.CastCubes {
 			growPos = (float)Math.Sin(growPos*Math.PI)/2f + 0.5f;
 			cube.transform.localScale = 
 				Vector3.Lerp(cubeData.GrowScaleMin, cubeData.GrowScaleMax, growPos);
-		}
-		
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		//based on: http://stackoverflow.com/questions/1335426
-		public static Color HsvToColor(float pHue, float pSat, float pVal) {
-			float hue60 = pHue/60f;
-			int i = (int)Math.Floor(hue60)%6;
-			float f = hue60 - (int)Math.Floor(hue60);
-
-			float v = pVal;
-			float p = pVal * (1-pSat);
-			float q = pVal * (1-f*pSat);
-			float t = pVal * (1-(1-f)*pSat);
-
-			switch ( i ) {
-				case 0: return new Color(v, t, p);
-				case 1: return new Color(q, v, p);
-				case 2: return new Color(p, v, t);
-				case 3: return new Color(p, q, v);
-				case 4: return new Color(t, p, v);
-				case 5: return new Color(v, p, q);
-			}
-
-			return Color.black;
 		}
 
 	}

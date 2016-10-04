@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Hover.Demo.CastCubes {
+namespace HoverDemos.CastCubes {
 
 	/*================================================================================================*/
 	public class DemoCubeHold : MonoBehaviour {

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.VR;
 
-namespace Hover.Demo.Common {
+namespace HoverDemos.Common {
 
 	/*================================================================================================*/
 	public class InputForTests : MonoBehaviour {
@@ -15,23 +15,9 @@ namespace Hover.Demo.Common {
 				return;
 			}
 
-			UpdateOculus();
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		public static void UpdateOculus() {
 			if ( Input.GetKey(KeyCode.R) ) {
 				InputTracking.Recenter();
 			}
-
-			/*if ( !VRSettings.enabled || !VRDevice.isPresent || !OVRManager.isHSWDisplayed ) {
-				return;
-			}
-
-			OVRManager.DismissHSWDisplay();
-			InputTracking.Recenter();*/
 		}
 
 	}

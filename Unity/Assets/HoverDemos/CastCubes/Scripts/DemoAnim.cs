@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using UnityEngine;
 
-namespace Hover.Demo.CastCubes {
+namespace HoverDemos.CastCubes {
 
 	/*================================================================================================*/
 	public abstract class DemoAnim<T> {
