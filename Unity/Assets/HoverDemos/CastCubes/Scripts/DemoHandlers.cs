@@ -110,6 +110,28 @@ namespace HoverDemos.CastCubes {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
+		public void SetCameraCenter() {
+			Enviro.SetCameraPlacement(DemoEnvironment.CameraPlacement.Center);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void SetCameraBack() {
+			Enviro.SetCameraPlacement(DemoEnvironment.CameraPlacement.Back);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void SetCameraTop() {
+			Enviro.SetCameraPlacement(DemoEnvironment.CameraPlacement.Top);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void PerformCameraReorient() {
+			Enviro.ReorientCamera();
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
 		private bool IsItemAvailable(IItemData pItemData) {
 			return (pItemData.IsEnabled && pItemData.gameObject.activeInHierarchy);
 		}
