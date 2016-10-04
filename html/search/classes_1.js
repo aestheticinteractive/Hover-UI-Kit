@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['disablewhencontrolledattribute',['DisableWhenControlledAttribute',['../class_hover_1_1_core_1_1_utils_1_1_disable_when_controlled_attribute.html',1,'Hover::Core::Utils']]],
-  ['displayutil',['DisplayUtil',['../class_hover_1_1_core_1_1_utils_1_1_display_util.html',1,'Hover::Core::Utils']]]
+  ['cursortypecomparer',['CursorTypeComparer',['../struct_hover_1_1_core_1_1_cursors_1_1_cursor_type_comparer.html',1,'Hover::Core::Cursors']]]
 ];

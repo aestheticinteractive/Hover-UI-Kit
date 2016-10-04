@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['cursortypecomparer',['CursorTypeComparer',['../struct_hover_1_1_core_1_1_cursors_1_1_cursor_type_comparer.html',1,'Hover::Core::Cursors']]]
+  ['boolvaluechangedeventhandler',['BoolValueChangedEventHandler',['../class_hover_1_1_core_1_1_items_1_1_types_1_1_hover_item_data_selectable_bool_1_1_bool_value_changed_event_handler.html',1,'Hover::Core::Items::Types::HoverItemDataSelectableBool']]]
 ];

@@ -1,5 +1,14 @@
 var NAVTREEINDEX2 =
 {
+"class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_cursor.html#a08a15b6d8f460f2f7f658b8117f7ff13":[1,0,0,0,3,1,3,2],
+"class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_cursor.html#a0a5f6520b389734795546fd73ba305a7":[1,0,0,0,3,1,3,14],
+"class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_cursor.html#a1b69c8a55a68aea614625b061de10a28":[1,0,0,0,3,1,3,6],
+"class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_cursor.html#a22cb2b4f65ddbf408fcd91efd835246d":[1,0,0,0,3,1,3,10],
+"class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_cursor.html#a2689d96b773a1564681bbe455c07e749":[1,0,0,0,3,1,3,0],
+"class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_cursor.html#a4c9787f694d400b35f5c5ed9a8ab9cd0":[1,0,0,0,3,1,3,3],
+"class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_cursor.html#a53a3fb8f1261ed9ed5340f1f793e4462":[1,0,0,0,3,1,3,9],
+"class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_cursor.html#a5e11d44a6e689e44d5c16038223054d9":[1,0,0,0,3,1,3,5],
+"class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_cursor.html#a64300ea27b03d9f90ccb5a7a8f5131ac":[1,0,0,0,3,1,3,12],
 "class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_cursor.html#a643a8f28628b80babbde255a165e560a":[1,0,0,0,3,1,3,16],
 "class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_cursor.html#a6d442ecfa5528334f45fedce1c305e1e":[1,0,0,0,3,1,3,1],
 "class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_cursor.html#a7da3963fce66a69d9c7f3c8e1bf3e883":[1,0,0,0,3,1,3,11],
@@ -240,14 +249,5 @@ var NAVTREEINDEX2 =
 "class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_renderer_slider_arc_updater.html":[1,0,0,0,3,3,0,4],
 "class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_renderer_slider_arc_updater.html#a7cd6aff5ff65c0d08a1509b8d42d0e3f":[1,0,0,0,3,3,0,4,0],
 "class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_renderer_slider_segments_arc.html":[1,0,0,0,3,3,0,5],
-"class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_renderer_slider_segments_arc.html#a5cf0ede93defadd26149a86cee472905":[1,0,0,0,3,3,0,5,1],
-"class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_renderer_slider_segments_arc.html#aad5e8295c874ea51d560802c17e6db72":[1,0,0,0,3,3,0,5,0],
-"class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_shape_arc.html":[1,0,0,0,3,3,0,6],
-"class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_shape_arc.html#a04d558275a36953cbcd7163bc8c1014c":[1,0,0,0,3,3,0,6,16],
-"class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_shape_arc.html#a0b019be6c5e31002118ca40c41794cf8":[1,0,0,0,3,3,0,6,2],
-"class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_shape_arc.html#a0e16e5ced5235ff668a08025da76ea8b":[1,0,0,0,3,3,0,6,15],
-"class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_shape_arc.html#a3fe8d6b4e2264a785e69968489751582":[1,0,0,0,3,3,0,6,5],
-"class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_shape_arc.html#a422a06b3e1e21f106d5e762ae593304a":[1,0,0,0,3,3,0,6,8],
-"class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_shape_arc.html#a4a613074bc46d2967c1969ec3f64bb14":[1,0,0,0,3,3,0,6,11],
-"class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_shape_arc.html#a70948fce912def616d2758689b32b287":[1,0,0,0,3,3,0,6,1]
+"class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_renderer_slider_segments_arc.html#a5cf0ede93defadd26149a86cee472905":[1,0,0,0,3,3,0,5,1]
 };

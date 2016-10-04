@@ -4,6 +4,7 @@ var searchData=
   ['handleitemselected',['HandleItemSelected',['../class_hover_1_1_interface_modules_1_1_key_1_1_hoverkey_interface.html#a2c3963cef68d6aa025c548d56f12184f',1,'Hover::InterfaceModules::Key::HoverkeyInterface']]],
   ['handleitemvaluechanged',['HandleItemValueChanged',['../class_hover_1_1_interface_modules_1_1_key_1_1_hoverkey_interface.html#a5624474cfb2c42d72d8a4df41a50ed0a',1,'Hover::InterfaceModules::Key::HoverkeyInterface']]],
   ['hascursordata',['HasCursorData',['../class_hover_1_1_core_1_1_cursors_1_1_hover_cursor_data_provider.html#aa4cd0e36d7163b9502d100bef2e36a38',1,'Hover::Core::Cursors::HoverCursorDataProvider']]],
+  ['hidewithboolvalue',['HideWithBoolValue',['../class_hover_1_1_core_1_1_items_1_1_helpers_1_1_hover_item_event_reactor.html#a9fadd349bf3cddd02248991c48f83441',1,'Hover::Core::Items::Helpers::HoverItemEventReactor']]],
   ['hoveralphafillupdater',['HoverAlphaFillUpdater',['../class_hover_1_1_renderer_modules_1_1_alpha_1_1_hover_alpha_fill_updater.html#a5733cc8a14b69b19438e4a057152d122',1,'Hover::RendererModules::Alpha::HoverAlphaFillUpdater']]],
   ['hoveralphameshupdater',['HoverAlphaMeshUpdater',['../class_hover_1_1_renderer_modules_1_1_alpha_1_1_hover_alpha_mesh_updater.html#ae065eaa951836065e12183d47e93696e',1,'Hover::RendererModules::Alpha::HoverAlphaMeshUpdater']]],
   ['hoveralpharendererupdater',['HoverAlphaRendererUpdater',['../class_hover_1_1_renderer_modules_1_1_alpha_1_1_hover_alpha_renderer_updater.html#a5927e26e6f543c13b9dc1ff73d7ce1e0',1,'Hover::RendererModules::Alpha::HoverAlphaRendererUpdater']]],
@@ -44,5 +45,6 @@ var searchData=
   ['hoverraycastline',['HoverRaycastLine',['../class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_raycast_line.html#a0bbba0b2b6f7f0e0e55c2ed702d04ae9',1,'Hover::Core::Renderers::Cursors::HoverRaycastLine']]],
   ['hoverrenderer',['HoverRenderer',['../class_hover_1_1_core_1_1_renderers_1_1_hover_renderer.html#a5d790c16601760623bc17aaf6c1db43e',1,'Hover::Core::Renderers::HoverRenderer']]],
   ['hoverrendererindicatoroverrider',['HoverRendererIndicatorOverrider',['../class_hover_1_1_core_1_1_renderers_1_1_hover_renderer_indicator_overrider.html#aac3deea9e2d8d56a02c9dfca52ebf6e4',1,'Hover::Core::Renderers::HoverRendererIndicatorOverrider']]],
-  ['hovershape',['HoverShape',['../class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_hover_shape.html#a3456329bc9b2ee229f17088833f9280e',1,'Hover::Core::Renderers::Shapes::HoverShape']]]
+  ['hovershape',['HoverShape',['../class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_hover_shape.html#a3456329bc9b2ee229f17088833f9280e',1,'Hover::Core::Renderers::Shapes::HoverShape']]],
+  ['hsvtocolor',['HsvToColor',['../class_hover_1_1_core_1_1_utils_1_1_display_util.html#a33b07e017c24ea63ac1ad5b345b9056d',1,'Hover::Core::Utils::DisplayUtil']]]
 ];

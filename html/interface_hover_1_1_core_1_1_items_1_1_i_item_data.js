@@ -7,5 +7,6 @@ var interface_hover_1_1_core_1_1_items_1_1_i_item_data =
     [ "IsAncestryVisible", "interface_hover_1_1_core_1_1_items_1_1_i_item_data.html#a6252b9d23fc2e94c21a31a3e6ddc7097", null ],
     [ "IsEnabled", "interface_hover_1_1_core_1_1_items_1_1_i_item_data.html#a47b7c1dede3eec9a9cae548eb8d0888b", null ],
     [ "IsVisible", "interface_hover_1_1_core_1_1_items_1_1_i_item_data.html#ab40d816f28313b331de57137cc7ab4bc", null ],
-    [ "Label", "interface_hover_1_1_core_1_1_items_1_1_i_item_data.html#af6fad3fd6bafcdb1a3be6f018c08ce9d", null ]
+    [ "Label", "interface_hover_1_1_core_1_1_items_1_1_i_item_data.html#af6fad3fd6bafcdb1a3be6f018c08ce9d", null ],
+    [ "OnEnabledChanged", "interface_hover_1_1_core_1_1_items_1_1_i_item_data.html#ab0d18d092bf28c6c34b975c8ff3f01c7", null ]
 ];

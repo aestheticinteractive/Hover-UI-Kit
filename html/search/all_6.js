@@ -16,6 +16,7 @@ var searchData=
   ['findorbuildrenderer_3c_20t_20_3e',['FindOrBuildRenderer&lt; T &gt;',['../class_hover_1_1_core_1_1_renderers_1_1_utils_1_1_renderer_util.html#a86a8e3d087e62dbbc45cee0e346a542a',1,'Hover::Core::Renderers::Utils::RendererUtil']]],
   ['flashcolor',['FlashColor',['../class_hover_1_1_renderer_modules_1_1_alpha_1_1_hover_alpha_mesh_updater.html#a310671d90ee932629b2cac5646681f27',1,'Hover::RendererModules::Alpha::HoverAlphaMeshUpdater']]],
   ['flashcolormilliseconds',['FlashColorMilliseconds',['../class_hover_1_1_renderer_modules_1_1_alpha_1_1_hover_alpha_mesh_updater.html#a4f754e5bd53cfbe9f278f9cdc8f3c30c',1,'Hover::RendererModules::Alpha::HoverAlphaMeshUpdater']]],
+  ['floatvaluechangedeventhandler',['FloatValueChangedEventHandler',['../class_hover_1_1_core_1_1_items_1_1_types_1_1_hover_item_data_selectable_float_1_1_float_value_changed_event_handler.html',1,'Hover::Core::Items::Types::HoverItemDataSelectableFloat']]],
   ['followcursoractive',['FollowCursorActive',['../class_hover_1_1_core_1_1_cursors_1_1_hover_cursor_follower.html#aec9a8f46cda946fc66963f2d287cd3a5',1,'Hover::Core::Cursors::HoverCursorFollower']]],
   ['followcursorposition',['FollowCursorPosition',['../class_hover_1_1_core_1_1_cursors_1_1_hover_cursor_follower.html#a981c0964882917c8e2351319671a52a8',1,'Hover::Core::Cursors::HoverCursorFollower']]],
   ['followcursorrotation',['FollowCursorRotation',['../class_hover_1_1_core_1_1_cursors_1_1_hover_cursor_follower.html#a4f4080583bfcb28e44678172a8f79faf',1,'Hover::Core::Cursors::HoverCursorFollower']]],

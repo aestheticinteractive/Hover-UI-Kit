@@ -1,5 +1,14 @@
 var NAVTREEINDEX3 =
 {
+"class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_renderer_slider_segments_arc.html#aad5e8295c874ea51d560802c17e6db72":[1,0,0,0,3,3,0,5,0],
+"class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_shape_arc.html":[1,0,0,0,3,3,0,6],
+"class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_shape_arc.html#a04d558275a36953cbcd7163bc8c1014c":[1,0,0,0,3,3,0,6,16],
+"class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_shape_arc.html#a0b019be6c5e31002118ca40c41794cf8":[1,0,0,0,3,3,0,6,2],
+"class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_shape_arc.html#a0e16e5ced5235ff668a08025da76ea8b":[1,0,0,0,3,3,0,6,15],
+"class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_shape_arc.html#a3fe8d6b4e2264a785e69968489751582":[1,0,0,0,3,3,0,6,5],
+"class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_shape_arc.html#a422a06b3e1e21f106d5e762ae593304a":[1,0,0,0,3,3,0,6,8],
+"class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_shape_arc.html#a4a613074bc46d2967c1969ec3f64bb14":[1,0,0,0,3,3,0,6,11],
+"class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_shape_arc.html#a70948fce912def616d2758689b32b287":[1,0,0,0,3,3,0,6,1],
 "class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_shape_arc.html#aa0d87a033721e72019567ea19d9e70be":[1,0,0,0,3,3,0,6,12],
 "class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_shape_arc.html#aa75d55312f5eb9ff94cd5ba0a0d0e68b":[1,0,0,0,3,3,0,6,0],
 "class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_shape_arc.html#aad113d5ba53bf1059f0f36b8bd72c335":[1,0,0,0,3,3,0,6,13],
@@ -122,6 +131,7 @@ var NAVTREEINDEX3 =
 "class_hover_1_1_core_1_1_utils_1_1_disable_when_controlled_attribute.html#adb6414b2328d5a29e7d3c58797341421":[1,0,0,0,4,0,1],
 "class_hover_1_1_core_1_1_utils_1_1_disable_when_controlled_attribute.html#af177589396100cf14af22187dc3ca662":[1,0,0,0,4,0,4],
 "class_hover_1_1_core_1_1_utils_1_1_display_util.html":[1,0,0,0,4,1],
+"class_hover_1_1_core_1_1_utils_1_1_display_util.html#a33b07e017c24ea63ac1ad5b345b9056d":[1,0,0,0,4,1,2],
 "class_hover_1_1_core_1_1_utils_1_1_display_util.html#ab9b1c6b3d226357f5f91fb1c9cdd8f0a":[1,0,0,0,4,1,1],
 "class_hover_1_1_core_1_1_utils_1_1_display_util.html#ac5563b83b795cac2843c3d5c297fdd41":[1,0,0,0,4,1,0],
 "class_hover_1_1_core_1_1_utils_1_1_hover_scene_loader.html":[1,0,0,0,4,2],
@@ -239,15 +249,5 @@ var NAVTREEINDEX3 =
 "class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_active_direction.html":[1,0,0,2,0,0],
 "class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_active_direction.html#a0131b211134f1b1db65fa32377eb96f7":[1,0,0,2,0,0,3],
 "class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_active_direction.html#a130b1ae2a436d8ccf120cf6032d3c56f":[1,0,0,2,0,0,0],
-"class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_active_direction.html#a30996cfdcd4398cdfc663ef003acf003":[1,0,0,2,0,0,5],
-"class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_active_direction.html#a36a8d200c5fd7efa71b626ad5ad695a7":[1,0,0,2,0,0,12],
-"class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_active_direction.html#a59e47f6dc6e569686ac68f5f1efb1640":[1,0,0,2,0,0,10],
-"class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_active_direction.html#a5fd022f0d9c093e2f3bfe1b70b481776":[1,0,0,2,0,0,4],
-"class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_active_direction.html#a60d2fd1d0146e3524dceac37c4ca99cf":[1,0,0,2,0,0,1],
-"class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_active_direction.html#a681242a6d1fa839be11a3a34b7a796f7":[1,0,0,2,0,0,9],
-"class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_active_direction.html#aacba324bace82a266531c9ef2a213436":[1,0,0,2,0,0,8],
-"class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_active_direction.html#aaec0f0e29c805a8242c724fdf917f428":[1,0,0,2,0,0,11],
-"class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_active_direction.html#ace3367b6312ddbcf69638772fc4fe64d":[1,0,0,2,0,0,6],
-"class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_active_direction.html#ad4a542d3d7c192e01e2b21923340b0f9":[1,0,0,2,0,0,7],
-"class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_active_direction.html#ae027c532cf272025a81c4390e0246aee":[1,0,0,2,0,0,2]
+"class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_active_direction.html#a30996cfdcd4398cdfc663ef003acf003":[1,0,0,2,0,0,5]
 };

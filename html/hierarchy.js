@@ -223,6 +223,7 @@ var hierarchy =
       [ "Hover.Core.Cursors.HoverInteractionSettings", "class_hover_1_1_core_1_1_cursors_1_1_hover_interaction_settings.html", null ],
       [ "Hover.Core.Items.Helpers.HoverChildItemsEnabler", "class_hover_1_1_core_1_1_items_1_1_helpers_1_1_hover_child_items_enabler.html", null ],
       [ "Hover.Core.Items.Helpers.HoverChildItemsFinder", "class_hover_1_1_core_1_1_items_1_1_helpers_1_1_hover_child_items_finder.html", null ],
+      [ "Hover.Core.Items.Helpers.HoverItemEventReactor", "class_hover_1_1_core_1_1_items_1_1_helpers_1_1_hover_item_event_reactor.html", null ],
       [ "Hover.Core.Items.HoverItem", "class_hover_1_1_core_1_1_items_1_1_hover_item.html", null ],
       [ "Hover.Core.Items.HoverItemBuilder", "class_hover_1_1_core_1_1_items_1_1_hover_item_builder.html", null ],
       [ "Hover.Core.Items.HoverItemData", "class_hover_1_1_core_1_1_items_1_1_hover_item_data.html", null ],
@@ -302,6 +303,7 @@ var hierarchy =
     [ "Hover.Core.Renderers.Utils.SliderUtil", "class_hover_1_1_core_1_1_renderers_1_1_utils_1_1_slider_util.html", null ],
     [ "Hover.Core.Cursors.StickySelectionInfo", "struct_hover_1_1_core_1_1_cursors_1_1_sticky_selection_info.html", null ],
     [ "UnityEvent", null, [
+      [ "Hover.Core.Items.HoverItemData.EnabledChangedEventHandler", "class_hover_1_1_core_1_1_items_1_1_hover_item_data_1_1_enabled_changed_event_handler.html", null ],
       [ "Hover.Core.Items.Managers.HoverItemsManager.ItemEvent", "class_hover_1_1_core_1_1_items_1_1_managers_1_1_hover_items_manager_1_1_item_event.html", null ],
       [ "Hover.Core.Items.Types.HoverItemDataSelectable.SelectedEventHandler", "class_hover_1_1_core_1_1_items_1_1_types_1_1_hover_item_data_selectable_1_1_selected_event_handler.html", null ],
       [ "Hover.InterfaceModules.Cast.HovercastInterface.HovercastRowEvent", "class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_interface_1_1_hovercast_row_event.html", null ],
@@ -310,10 +312,10 @@ var hierarchy =
       [ "Hover.InterfaceModules.Panel.HoverpanelInterface.HoverpanelRowEvent", "class_hover_1_1_interface_modules_1_1_panel_1_1_hoverpanel_interface_1_1_hoverpanel_row_event.html", null ]
     ] ],
     [ "UnityEvent< IItemDataSelectable< bool >>", null, [
-      [ "Hover.Core.Items.Types.HoverItemDataSelectableBool.ValueChangedEventHandler", "class_hover_1_1_core_1_1_items_1_1_types_1_1_hover_item_data_selectable_bool_1_1_value_changed_event_handler.html", null ]
+      [ "Hover.Core.Items.Types.HoverItemDataSelectableBool.BoolValueChangedEventHandler", "class_hover_1_1_core_1_1_items_1_1_types_1_1_hover_item_data_selectable_bool_1_1_bool_value_changed_event_handler.html", null ]
     ] ],
     [ "UnityEvent< IItemDataSelectable< float >>", null, [
-      [ "Hover.Core.Items.Types.HoverItemDataSelectableFloat.ValueChangedEventHandler", "class_hover_1_1_core_1_1_items_1_1_types_1_1_hover_item_data_selectable_float_1_1_value_changed_event_handler.html", null ]
+      [ "Hover.Core.Items.Types.HoverItemDataSelectableFloat.FloatValueChangedEventHandler", "class_hover_1_1_core_1_1_items_1_1_types_1_1_hover_item_data_selectable_float_1_1_float_value_changed_event_handler.html", null ]
     ] ],
     [ "Hover.Core.Utils.UnityUtil", "class_hover_1_1_core_1_1_utils_1_1_unity_util.html", null ]
 ];
