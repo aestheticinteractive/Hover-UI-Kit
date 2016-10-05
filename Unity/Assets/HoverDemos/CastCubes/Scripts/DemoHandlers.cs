@@ -65,13 +65,6 @@ namespace HoverDemos.CastCubes {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void InitMotionSpeed(IItemData pItemData) {
-			if ( IsItemAvailable(pItemData) ) {
-				SetMotionSpeed((IItemDataSlider)pItemData);
-			}
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
 		public void SetMotionSpeed(IItemDataSelectable<float> pItemData) {
 			Enviro.SetMotionSpeed(((IItemDataSlider)pItemData).SnappedRangeValue);
 		}
@@ -79,22 +72,8 @@ namespace HoverDemos.CastCubes {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void InitLightingPos(IItemData pItemData) {
-			if ( IsItemAvailable(pItemData) ) {
-				SetLightingPos((IItemDataSlider)pItemData);
-			}
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
 		public void SetLightingPos(IItemDataSelectable<float> pItemData) {
 			Enviro.SetLightPos(((IItemDataSlider)pItemData).RangeValue);
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public void InitLightingPower(IItemData pItemData) {
-			if ( IsItemAvailable(pItemData) ) {
-				SetLightingPower((IItemDataSlider)pItemData);
-			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -105,6 +84,12 @@ namespace HoverDemos.CastCubes {
 		/*--------------------------------------------------------------------------------------------*/
 		public void SetLightingSpotlight(IItemDataSelectable pItemData) {
 			Enviro.ShowSpotlight(pItemData.IsStickySelected);
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public void SetCustomizeDarkTheme() {
 		}
 
 
