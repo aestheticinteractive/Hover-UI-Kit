@@ -59,6 +59,11 @@ namespace HoverDemos.CastCubes {
 			SliderTickColor = new Color(1, 1, 0.7f, 0.2f),
 		};
 
+		public CursorType StandardFollowCursor = CursorType.LeftPalm;
+		public CursorType SwitchedFollowCursor = CursorType.RightPalm;
+		public CursorType StandardInteractionCursor = CursorType.RightIndex;
+		public CursorType SwitchedInteractionCursor = CursorType.LeftIndex;
+
 		private Theme vCurrTheme;
 		private float vCurrBgAlpha;
 
@@ -113,40 +118,40 @@ namespace HoverDemos.CastCubes {
 		public void SwitchHands() {
 			HoverCursorFollower follow = GetComponent<HoverCursorFollower>();
 			HoverCursorDataProvider curProv = follow.CursorDataProvider;
-			ICursorDataForInput palmR = curProv.GetCursorDataForInput(CursorType.RightPalm);
-			ICursorDataForInput palmL = curProv.GetCursorDataForInput(CursorType.LeftPalm);
-			ICursorDataForInput indxR = curProv.GetCursorDataForInput(CursorType.RightIndex);
-			ICursorDataForInput indxL = curProv.GetCursorDataForInput(CursorType.LeftIndex);
+			ICursorDataForInput stdFol = curProv.GetCursorDataForInput(StandardFollowCursor);
+			ICursorDataForInput swiFol = curProv.GetCursorDataForInput(SwitchedFollowCursor);
+			ICursorDataForInput stdInt = curProv.GetCursorDataForInput(StandardInteractionCursor);
+			ICursorDataForInput swiInt = curProv.GetCursorDataForInput(SwitchedInteractionCursor);
 			HovercastMirrorSwitcher mirror = GetComponent<HovercastMirrorSwitcher>();
 			bool isMirror = !mirror.UseMirrorLayout;
 
 			if ( isMirror ) {
 				mirror.UseMirrorLayout = true;
-				follow.CursorType = CursorType.RightPalm;
+				follow.CursorType = SwitchedFollowCursor;
 
-				palmR.SetCapability(CursorCapabilityType.TransformOnly);
-				indxL.SetCapability(CursorCapabilityType.Full);
-				palmL.SetCapability(CursorCapabilityType.None);
-				indxR.SetCapability(CursorCapabilityType.None);
+				swiFol.SetCapability(CursorCapabilityType.TransformOnly);
+				swiInt.SetCapability(CursorCapabilityType.Full);
+				stdFol.SetCapability(CursorCapabilityType.None);
+				stdInt.SetCapability(CursorCapabilityType.None);
 
-				palmR.gameObject.SetActive(true);
-				indxL.gameObject.SetActive(true);
-				palmL.gameObject.SetActive(false);
-				indxR.gameObject.SetActive(false);
+				swiFol.gameObject.SetActive(true);
+				swiInt.gameObject.SetActive(true);
+				stdFol.gameObject.SetActive(false);
+				stdInt.gameObject.SetActive(false);
 			}
 			else {
 				mirror.UseMirrorLayout = false;
-				follow.CursorType = CursorType.LeftPalm;
+				follow.CursorType = StandardFollowCursor;
 
-				palmR.SetCapability(CursorCapabilityType.None);
-				indxL.SetCapability(CursorCapabilityType.None);
-				palmL.SetCapability(CursorCapabilityType.TransformOnly);
-				indxR.SetCapability(CursorCapabilityType.Full);
+				swiFol.SetCapability(CursorCapabilityType.None);
+				swiInt.SetCapability(CursorCapabilityType.None);
+				stdFol.SetCapability(CursorCapabilityType.TransformOnly);
+				stdInt.SetCapability(CursorCapabilityType.Full);
 
-				palmR.gameObject.SetActive(false);
-				indxL.gameObject.SetActive(false);
-				palmL.gameObject.SetActive(true);
-				indxR.gameObject.SetActive(true);
+				swiFol.gameObject.SetActive(false);
+				swiInt.gameObject.SetActive(false);
+				stdFol.gameObject.SetActive(true);
+				stdInt.gameObject.SetActive(true);
 			}
 		}
 
