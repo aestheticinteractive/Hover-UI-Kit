@@ -265,7 +265,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &155460
 GameObject:
   m_ObjectHideFlags: 1
@@ -561,7 +561,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &410456
 Transform:
   m_ObjectHideFlags: 1
@@ -691,7 +691,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 189958}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.0125, z: 0}
+  m_LocalPosition: {x: 0, y: 0.056250002, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -1494,7 +1494,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ControlChildShapes: 1
   SizeX: 0.08
-  SizeY: 0
+  SizeY: 0.0875
 --- !u!114 &11413314
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1654,8 +1654,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CanvasScale: 0.0002
-  SizeX: 0.0794
-  SizeY: -0.0010000002
+  SizeX: 0.059400007
+  SizeY: 0.02
   _IsBuilt: 1
 --- !u!114 &11422680
 MonoBehaviour:
@@ -1725,8 +1725,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CanvasScale: 0.0002
-  SizeX: 0.07840001
-  SizeY: 0.013
+  SizeX: 0.082320005
+  SizeY: 0.015
   _IsBuilt: 1
 --- !u!114 &11424728
 MonoBehaviour:
@@ -1741,8 +1741,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IconType: 3
   CanvasScale: 0.0002
-  SizeX: 0.007999999
-  SizeY: 0.007999999
+  SizeX: 0.0064
+  SizeY: 0.0064
   UvInset: 0.002
   _IsBuilt: 1
 --- !u!114 &11424942
@@ -1781,7 +1781,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d14202c5454f09a8f1386385329df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DisplayMode: 0
+  DisplayMode: 1
   OuterSizeType: 3
   AutoUvViaSizeType: 0
   UvTop: 0
@@ -1942,10 +1942,10 @@ MonoBehaviour:
   IconOuter: {fileID: 11476290}
   IconInner: {fileID: 11413314}
   Scale: 0.0002
-  SizeX: 0.099
-  SizeY: 0.009
-  PaddingX: 0.005
-  PaddingY: 0.005
+  SizeX: 0.079
+  SizeY: 0.03
+  PaddingX: 0.004
+  PaddingY: 0.004
   Alignment: 0
   IconSize: 0
   UseMirrorLayout: 0
@@ -2010,7 +2010,7 @@ MonoBehaviour:
     EndPositionType: 4
     StartPosition: -0.1
     EndPosition: -0.047174998
-    IsFill: 0
+    IsFill: 1
     IsHidden: 0
   - Type: 2
     StartPositionType: 4
@@ -2024,26 +2024,12 @@ MonoBehaviour:
     EndPositionType: 2
     StartPosition: -0.037175
     EndPosition: -0.0125
-    IsFill: 0
+    IsFill: 1
     IsHidden: 0
   - Type: 1
     StartPositionType: 2
     EndPositionType: 3
     StartPosition: -0.0125
-    EndPosition: 0.0125
-    IsFill: 0
-    IsHidden: 0
-  - Type: 0
-    StartPositionType: 3
-    EndPositionType: 3
-    StartPosition: 0.0125
-    EndPosition: 0.0125
-    IsFill: 1
-    IsHidden: 0
-  - Type: 4
-    StartPositionType: 3
-    EndPositionType: 3
-    StartPosition: 0.0125
     EndPosition: 0.0125
     IsFill: 0
     IsHidden: 0
@@ -2139,8 +2125,8 @@ MonoBehaviour:
   Scale: 0.0002
   SizeX: 0.098000005
   SizeY: 0.023
-  PaddingX: 0.005
-  PaddingY: 0.005
+  PaddingX: 0.004
+  PaddingY: 0.004
   Alignment: 3
   IconSize: 0
   UseMirrorLayout: 0
@@ -2435,8 +2421,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IconType: 4
   CanvasScale: 0.0002
-  SizeX: 0.007999999
-  SizeY: 0.007999999
+  SizeX: 0.0064
+  SizeY: 0.0064
   UvInset: 0.002
   _IsBuilt: 1
 --- !u!114 &11464614
@@ -2484,10 +2470,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 42ea59c0178676540aed0a37eeb6a643, type: 3}
-    m_FontSize: 40
+    m_FontSize: 32
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 3
     m_MaxSize: 40
     m_Alignment: 3
     m_AlignByGeometry: 0
@@ -2542,7 +2528,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d14202c5454f09a8f1386385329df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DisplayMode: 1
+  DisplayMode: 0
   OuterSizeType: 3
   AutoUvViaSizeType: 0
   UvTop: 0
@@ -2634,7 +2620,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ControlChildShapes: 1
   SizeX: 0.08
-  SizeY: 0.0875
+  SizeY: 0
 --- !u!114 &11474140
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2739,7 +2725,7 @@ MonoBehaviour:
   JumpValue: 0.259
   AllowJump: 1
   TickCount: 0
-  FillStartingPoint: 1
+  FillStartingPoint: 0
   ShowButtonEdges: 0
 --- !u!114 &11478318
 MonoBehaviour:
@@ -2831,10 +2817,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 42ea59c0178676540aed0a37eeb6a643, type: 3}
-    m_FontSize: 40
+    m_FontSize: 32
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 3
     m_MaxSize: 40
     m_Alignment: 3
     m_AlignByGeometry: 0
@@ -3166,7 +3152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d14202c5454f09a8f1386385329df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DisplayMode: 0
+  DisplayMode: 1
   OuterSizeType: 3
   AutoUvViaSizeType: 0
   UvTop: 0
@@ -3266,7 +3252,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 440.00006, y: 65}
+  m_SizeDelta: {x: 450.00003, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22404684
 RectTransform:
@@ -3319,8 +3305,8 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 200.00002, y: -7}
-  m_SizeDelta: {x: 40, y: 40}
+  m_AnchoredPosition: {x: 209.00002, y: -5.5999985}
+  m_SizeDelta: {x: 32, y: 32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22434788
 RectTransform:
@@ -3376,8 +3362,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -24, y: 0}
-  m_SizeDelta: {x: 392.00006, y: 65}
+  m_AnchoredPosition: {x: -19.199997, y: 0}
+  m_SizeDelta: {x: 411.60004, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22492854
 RectTransform:
@@ -3394,8 +3380,8 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 200.00002, y: -7}
-  m_SizeDelta: {x: 40, y: 40}
+  m_AnchoredPosition: {x: 209.00002, y: -5.5999994}
+  m_SizeDelta: {x: 32, y: 32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &22503066
 CanvasGroup:

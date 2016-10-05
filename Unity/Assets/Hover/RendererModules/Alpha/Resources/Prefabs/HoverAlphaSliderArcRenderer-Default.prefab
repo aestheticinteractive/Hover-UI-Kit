@@ -418,7 +418,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &178428
 GameObject:
   m_ObjectHideFlags: 1
@@ -559,7 +559,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &400430
 Transform:
   m_ObjectHideFlags: 1
@@ -737,7 +737,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 197262}
-  m_LocalRotation: {x: 0, y: 0, z: 0.0348995, w: 0.99939084}
+  m_LocalRotation: {x: 0, y: 0, z: 0.14780942, w: 0.9890159}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1482,8 +1482,8 @@ MonoBehaviour:
   Scale: 0.0002
   SizeX: 0.079
   SizeY: 0.03
-  PaddingX: 0.005
-  PaddingY: 0.005
+  PaddingX: 0.004
+  PaddingY: 0.004
   Alignment: 3
   IconSize: 0
   UseMirrorLayout: 0
@@ -1884,8 +1884,8 @@ MonoBehaviour:
   Scale: 0.0002
   SizeX: 0.079
   SizeY: 0.03
-  PaddingX: 0.005
-  PaddingY: 0.005
+  PaddingX: 0.004
+  PaddingY: 0.004
   Alignment: 0
   IconSize: 0
   UseMirrorLayout: 0
@@ -2107,7 +2107,7 @@ MonoBehaviour:
   ControlChildShapes: 0
   OuterRadius: 0.19
   InnerRadius: 0.13
-  ArcDegrees: 26
+  ArcDegrees: 0
   OuterOffset: {x: 0, y: 0, z: 0}
   InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &11445120
@@ -2246,8 +2246,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CanvasScale: 0.0002
-  SizeX: 0.059400007
-  SizeY: 0.02
+  SizeX: 0.06332
+  SizeY: 0.022
   _IsBuilt: 1
 --- !u!114 &11453266
 MonoBehaviour:
@@ -2350,7 +2350,7 @@ MonoBehaviour:
   JumpValue: 0
   AllowJump: 0
   TickCount: 0
-  FillStartingPoint: 1
+  FillStartingPoint: 0
   ShowButtonEdges: 0
 --- !u!114 &11462414
 MonoBehaviour:
@@ -2406,8 +2406,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IconType: 3
   CanvasScale: 0.0002
-  SizeX: 0.007999999
-  SizeY: 0.007999999
+  SizeX: 0.0064
+  SizeY: 0.0064
   UvInset: 0.002
   _IsBuilt: 1
 --- !u!114 &11468836
@@ -2456,7 +2456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 940246c5a7b9f0a43b53ad73ccd4fbcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DisplayMode: 1
+  DisplayMode: 0
   ArcSegmentsPerDegree: 0.5
   InnerRadiusType: 0
   OuterRadiusType: 3
@@ -2537,7 +2537,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 940246c5a7b9f0a43b53ad73ccd4fbcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DisplayMode: 0
+  DisplayMode: 1
   ArcSegmentsPerDegree: 0.5
   InnerRadiusType: 0
   OuterRadiusType: 3
@@ -2617,10 +2617,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 42ea59c0178676540aed0a37eeb6a643, type: 3}
-    m_FontSize: 40
+    m_FontSize: 32
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 3
     m_MaxSize: 40
     m_Alignment: 3
     m_AlignByGeometry: 0
@@ -2932,7 +2932,7 @@ MonoBehaviour:
   ControlChildShapes: 0
   OuterRadius: 0.19
   InnerRadius: 0.13
-  ArcDegrees: 0
+  ArcDegrees: 26
   OuterOffset: {x: 0, y: 0, z: 0}
   InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &11488850
@@ -2966,8 +2966,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IconType: 4
   CanvasScale: 0.0002
-  SizeX: 0.007999999
-  SizeY: 0.007999999
+  SizeX: 0.0064
+  SizeY: 0.0064
   UvInset: 0.002
   _IsBuilt: 1
 --- !u!114 &11490364
@@ -3014,26 +3014,12 @@ MonoBehaviour:
     EndPositionType: 2
     StartPosition: -30
     EndPosition: -4
-    IsFill: 0
+    IsFill: 1
     IsHidden: 0
   - Type: 1
     StartPositionType: 2
     EndPositionType: 3
     StartPosition: -4
-    EndPosition: 4
-    IsFill: 0
-    IsHidden: 0
-  - Type: 0
-    StartPositionType: 3
-    EndPositionType: 3
-    StartPosition: 4
-    EndPosition: 4
-    IsFill: 1
-    IsHidden: 0
-  - Type: 4
-    StartPositionType: 3
-    EndPositionType: 3
-    StartPosition: 4
     EndPosition: 4
     IsFill: 0
     IsHidden: 0
@@ -3192,10 +3178,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 42ea59c0178676540aed0a37eeb6a643, type: 3}
-    m_FontSize: 40
+    m_FontSize: 32
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 3
     m_MaxSize: 40
     m_Alignment: 3
     m_AlignByGeometry: 0
@@ -3297,7 +3283,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0.16048604, y: 0}
-  m_SizeDelta: {x: 345.00003, y: 100}
+  m_SizeDelta: {x: 355.00003, y: 110}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22434640
 RectTransform:
@@ -3314,8 +3300,8 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 152.50002, y: -7}
-  m_SizeDelta: {x: 40, y: 40}
+  m_AnchoredPosition: {x: 161.50002, y: -5.5999994}
+  m_SizeDelta: {x: 32, y: 32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22437472
 RectTransform:
@@ -3332,8 +3318,8 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 152.50002, y: -7}
-  m_SizeDelta: {x: 40, y: 40}
+  m_AnchoredPosition: {x: 161.50002, y: -5.5999985}
+  m_SizeDelta: {x: 32, y: 32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22447904
 RectTransform:
@@ -3425,8 +3411,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -24, y: 0}
-  m_SizeDelta: {x: 297.00003, y: 100}
+  m_AnchoredPosition: {x: -19.199997, y: 0}
+  m_SizeDelta: {x: 316.60004, y: 110}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &22519396
 CanvasGroup:

@@ -49,7 +49,7 @@ namespace Hover.Core.Renderers.Items.Sliders {
 		public int TickCount = 0;
 
 		[DisableWhenControlled]
-		public SliderFillType FillStartingPoint = SliderFillType.Zero;
+		public SliderFillType FillStartingPoint = SliderFillType.MinimumValue;
 		
 		[DisableWhenControlled]
 		public bool ShowButtonEdges = false;

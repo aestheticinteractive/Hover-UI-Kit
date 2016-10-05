@@ -28,7 +28,7 @@ namespace Hover.Core.Items.Types {
 		private bool _AllowJump = false;
 
 		[SerializeField]
-		private SliderFillType _FillStartingPoint = SliderFillType.Zero;
+		private SliderFillType _FillStartingPoint = SliderFillType.MinimumValue;
 
 		[SerializeField]
 		private bool _AllowIdleDeselection = true;
