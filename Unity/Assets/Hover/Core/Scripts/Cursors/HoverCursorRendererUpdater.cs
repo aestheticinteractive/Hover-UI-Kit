@@ -77,8 +77,8 @@ namespace Hover.Core.Cursors {
 
 			RendererUtil.SetActiveWithUpdate(CursorRenderer, cursorData.IsActive);
 			CursorRenderer.IsRaycast = cursorData.IsRaycast;
-			CursorRenderer.ShowRaycastLine = (cursorData.Type != CursorType.Look &&
-				cursorData.Capability == CursorCapabilityType.Full);
+			CursorRenderer.ShowRaycastLine = (cursorData.CanCauseSelections &&
+				cursorData.Type != CursorType.Look);
 			CursorRenderer.RaycastWorldOrigin = cursorData.WorldPosition;
 			cursorInd.HighlightProgress = cursorData.MaxItemHighlightProgress;
 			cursorInd.SelectionProgress = cursorData.MaxItemSelectionProgress;

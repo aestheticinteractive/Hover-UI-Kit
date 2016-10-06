@@ -58,7 +58,7 @@ namespace Hover.Core.Items.Managers {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private RaycastResult? CalcNearestRaycastResult(ICursorData pCursor) {
-			if ( !pCursor.IsRaycast ) {
+			if ( !pCursor.IsRaycast || !pCursor.CanCauseSelections ) {
 				return null;
 			}
 
