@@ -10,6 +10,9 @@ namespace Hover.Core.Utils {
 		public string SceneFolderPath = "Hover/InputModules/NAME/Scenes/";
 		public string SceneName = "HoverInputModule-NAME";
 
+		[Header("Disable this setting when creating builds!")]
+		public bool AutoLoadInEditor = false;
+
 		[TriggerButton("Reload Scene")]
 		public bool ClickToReloadScene;
 
@@ -17,7 +20,7 @@ namespace Hover.Core.Utils {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
-			if ( Application.isEditor ) {
+			if ( Application.isEditor && AutoLoadInEditor ) {
 				LoadScene();
 			}
 		}
