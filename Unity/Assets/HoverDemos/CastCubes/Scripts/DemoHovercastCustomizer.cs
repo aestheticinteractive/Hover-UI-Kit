@@ -75,6 +75,11 @@ namespace HoverDemos.CastCubes {
 			vCurrBgAlpha = DarkTheme.BackgroundColor.a;
 		}
 
+		/*--------------------------------------------------------------------------------------------*/
+		public void Start() {
+			SetDarkTheme();
+		}
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -188,7 +193,8 @@ namespace HoverDemos.CastCubes {
 				//canvas.IconInner.ImageComponent.color = pTheme.IconColor;
 				//canvas.IconOuter.ImageComponent.color = pTheme.IconColor;
 
-				RawImage[] iconImages = canvas.GetComponentsInChildren<RawImage>();
+				//get all icons, including custom ones (like the Hovercast "open" button)
+				RawImage[] iconImages = canvas.GetComponentsInChildren<RawImage>(true);
 
 				foreach ( RawImage iconImage in iconImages ) {
 					iconImage.color = pTheme.IconColor;
