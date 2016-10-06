@@ -10,6 +10,7 @@ namespace Hover.Core.Renderers.Cursors {
 	public class HoverRendererCursor : HoverRenderer {
 
 		public const string IsRaycastName = "IsRaycast";
+		public const string ShowRaycastLineName = "ShowRaycastLine";
 		public const string RaycastWorldOriginName = "RaycastWorldOrigin";
 
 		[DisableWhenControlled]
@@ -20,6 +21,9 @@ namespace Hover.Core.Renderers.Cursors {
 
 		[DisableWhenControlled]
 		public bool IsRaycast;
+
+		[DisableWhenControlled]
+		public bool ShowRaycastLine;
 
 		[DisableWhenControlled]
 		public Vector3 RaycastWorldOrigin;
@@ -96,7 +100,7 @@ namespace Hover.Core.Renderers.Cursors {
 				RaycastLine.Controllers.Set(HoverRaycastLine.RaycastWorldOriginName, this);
 
 				RaycastLine.RaycastWorldOrigin = RaycastWorldOrigin;
-				RendererUtil.SetActiveWithUpdate(RaycastLine, IsRaycast);
+				RendererUtil.SetActiveWithUpdate(RaycastLine, (IsRaycast && ShowRaycastLine));
 			}
 
 			if ( !Application.isPlaying || !IsRaycast ) {
