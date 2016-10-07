@@ -1,5 +1,7 @@
-﻿using Hover.Core.Items.Managers;
+﻿using System;
+using Hover.Core.Items.Managers;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Hover.Core.Utils {
 
@@ -53,6 +55,34 @@ namespace Hover.Core.Utils {
 				return parent;
 			}
 			return Object.FindObjectOfType<T>();
+		}
+
+		/*--------------------------------------------------------------------------------------------* /
+		public static T FindComponentAll<T>(Func<T, bool> pMatchFunc) where T : Object {
+			T[] comps = Resources.FindObjectsOfTypeAll<T>();
+
+			foreach ( T comp in comps ) {
+				if ( pMatchFunc(comp) ) {
+					return comp;
+				}
+			}
+
+			Debug.LogError("Could not find a matching "+typeof(T).Name+".");
+			return default(T);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public static T FindComponentAll<T>(string pName) where T : Object {
+			T[] comps = Resources.FindObjectsOfTypeAll<T>();
+
+			foreach ( T comp in comps ) {
+				if ( comp.name == pName ) {
+					return comp;
+				}
+			}
+
+			Debug.LogError("Could not find a "+typeof(T).Name+" with name '"+pName+"'.");
+			return default(T);
 		}
 
 	}

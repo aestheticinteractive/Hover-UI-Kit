@@ -1,6 +1,8 @@
 ﻿#if HOVER_INPUT_VIVE
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using Hover.Core.Cursors;
 using UnityEngine;
 using Valve.VR;
@@ -92,13 +94,10 @@ namespace Hover.InputModules.Vive {
 		};
 
 
-
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
-			if ( CursorDataProvider == null ) {
-				CursorDataProvider = FindObjectOfType<HoverCursorDataProvider>();
-			}
+			FindCursorReference(false);
 
 			if ( LookCursorTransform == null ) {
 				LookCursorTransform = Camera.main.transform;
@@ -111,13 +110,11 @@ namespace Hover.InputModules.Vive {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			if ( !Application.isPlaying ) {
+			if ( !FindCursorReference(true) ) {
 				return;
 			}
 
-			if ( CursorDataProvider == null ) {
-				Debug.LogError("References to "+typeof(HoverCursorDataProvider).Name+" and "+
-					typeof(SteamVR_ControllerManager).Name+" must be set.", this);
+			if ( !Application.isPlaying ) {
 				return;
 			}
 
@@ -129,6 +126,26 @@ namespace Hover.InputModules.Vive {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private bool FindCursorReference(bool pShowLog) { //TODO: use this in other input modules
+			if ( CursorDataProvider != null ) {
+				return true;
+			}
+
+			CursorDataProvider = FindObjectOfType<HoverCursorDataProvider>();
+
+			if ( pShowLog ) {
+				if ( CursorDataProvider == null ) {
+					Debug.LogWarning("Could not find 'CursorDataProvider' reference.", this);
+				}
+				else {
+					Debug.Log("Found 'CursorDataProvider' reference.", this);
+				}
+			}
+
+			return (CursorDataProvider != null);
+		}
+
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateCursorsWithDevices() {
 			int objectCount = SteamControllers.objects.Length;
