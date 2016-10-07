@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 namespace Hover.Core.Utils {
@@ -7,29 +9,42 @@ namespace Hover.Core.Utils {
 	[ExecuteInEditMode]
 	public class HoverSceneLoader : MonoBehaviour {
 
+		[Serializable]
+		public class SceneLoadedEventHandler : UnityEvent<HoverSceneLoader> {}
+
 		public string SceneFolderPath = "Hover/InputModules/NAME/Scenes/";
 		public string SceneName = "HoverInputModule-NAME";
 
 		[Header("Disable this setting when creating builds!")]
 		public bool AutoLoadInEditor = false;
 
+		public SceneLoadedEventHandler OnSceneLoadedEvent;
+
 		[TriggerButton("Reload Scene")]
 		public bool ClickToReloadScene;
+
+		private Scene? vLoadedScene;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
-			if ( Application.isEditor && AutoLoadInEditor ) {
+			if ( Application.isPlaying || AutoLoadInEditor ) {
+				//StartCoroutine(LoadWhenReady());
 				LoadScene();
 			}
 		}
-		
+
 		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
-			if ( !Application.isEditor ) {
-				LoadScene();
+		public void OnDestroy() {
+#if UNITY_EDITOR
+			if ( !Application.isPlaying || vLoadedScene == null ) {
+				return;
 			}
+
+			SceneManager.UnloadScene((Scene)vLoadedScene);
+			Debug.Log("Removed scene for editor: "+vLoadedScene, this);
+#endif
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -39,9 +54,24 @@ namespace Hover.Core.Utils {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------* /
+		private IEnumerator LoadWhenReady() {
+			yield return new WaitUntil(() => {
+				int sceneCount = SceneManager.sceneCount;
+#if UNITY_EDITOR
+				sceneCount = UnityEditor.SceneManagement.EditorSceneManager.loadedSceneCount+1;
+#endif
+				Debug.Log("TRY LOAD SCENE: "+name+"... "+sceneCount+" >= "+LoadAfterSceneCount);
+				return (sceneCount >= LoadAfterSceneCount);
+			});
+
+			LoadScene();
+		}
+
 		/*--------------------------------------------------------------------------------------------*/
 		private void LoadScene() {
-			if ( LoadSceneForEditor() ) {
+			if ( !Application.isPlaying ) {
+				LoadSceneForNonplayingEditor();
 				return;
 			}
 
@@ -49,21 +79,15 @@ namespace Hover.Core.Utils {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private bool LoadSceneForEditor() {
+		private void LoadSceneForNonplayingEditor() {
 #if UNITY_EDITOR
-			if ( Application.isPlaying ) {
-				return false;
-			}
-
 			string fullPath = Application.dataPath+"/"+SceneFolderPath+SceneName+".unity";
 
-			UnityEditor.SceneManagement.EditorSceneManager.OpenScene(
+			vLoadedScene = UnityEditor.SceneManagement.EditorSceneManager.OpenScene(
 				fullPath, UnityEditor.SceneManagement.OpenSceneMode.Additive);
 
 			Debug.Log("Loaded scene for editor: "+fullPath, this);
-			return true;
-#else
-			return false;
+			OnSceneLoadedEvent.Invoke(this);
 #endif
 		}
 
@@ -82,7 +106,9 @@ namespace Hover.Core.Utils {
 			}
 
 			SceneManager.LoadScene(scenePathAndName, LoadSceneMode.Additive);
+			vLoadedScene = SceneManager.GetSceneByName(scenePathAndName);
 			Debug.Log("Loaded scene: "+scenePathAndName, this);
+			OnSceneLoadedEvent.Invoke(this);
 		}
 
 	}
