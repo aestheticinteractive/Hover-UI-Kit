@@ -2,7 +2,9 @@ var namespace_hover_1_1_core_1_1_utils =
 [
     [ "DisableWhenControlledAttribute", "class_hover_1_1_core_1_1_utils_1_1_disable_when_controlled_attribute.html", "class_hover_1_1_core_1_1_utils_1_1_disable_when_controlled_attribute" ],
     [ "DisplayUtil", "class_hover_1_1_core_1_1_utils_1_1_display_util.html", "class_hover_1_1_core_1_1_utils_1_1_display_util" ],
+    [ "HoverSceneAdjust", "class_hover_1_1_core_1_1_utils_1_1_hover_scene_adjust.html", "class_hover_1_1_core_1_1_utils_1_1_hover_scene_adjust" ],
     [ "HoverSceneLoader", "class_hover_1_1_core_1_1_utils_1_1_hover_scene_loader.html", "class_hover_1_1_core_1_1_utils_1_1_hover_scene_loader" ],
+    [ "InputModuleUtil", "class_hover_1_1_core_1_1_utils_1_1_input_module_util.html", "class_hover_1_1_core_1_1_utils_1_1_input_module_util" ],
     [ "ISettingsController", "interface_hover_1_1_core_1_1_utils_1_1_i_settings_controller.html", "interface_hover_1_1_core_1_1_utils_1_1_i_settings_controller" ],
     [ "ISettingsControllerMap", "interface_hover_1_1_core_1_1_utils_1_1_i_settings_controller_map.html", "interface_hover_1_1_core_1_1_utils_1_1_i_settings_controller_map" ],
     [ "ITreeUpdateable", "interface_hover_1_1_core_1_1_utils_1_1_i_tree_updateable.html", "interface_hover_1_1_core_1_1_utils_1_1_i_tree_updateable" ],

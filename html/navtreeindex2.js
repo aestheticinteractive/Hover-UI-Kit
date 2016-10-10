@@ -1,5 +1,6 @@
 var NAVTREEINDEX2 =
 {
+"class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_cursor.html#a0777c7e3800b5c093f41fcf46756a9cf":[1,0,0,0,3,1,3,4],
 "class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_cursor.html#a08a15b6d8f460f2f7f658b8117f7ff13":[1,0,0,0,3,1,3,2],
 "class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_cursor.html#a0a5f6520b389734795546fd73ba305a7":[1,0,0,0,3,1,3,14],
 "class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_cursor.html#a1b69c8a55a68aea614625b061de10a28":[1,0,0,0,3,1,3,6],
@@ -13,6 +14,7 @@ var NAVTREEINDEX2 =
 "class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_cursor.html#a6d442ecfa5528334f45fedce1c305e1e":[1,0,0,0,3,1,3,1],
 "class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_cursor.html#a7da3963fce66a69d9c7f3c8e1bf3e883":[1,0,0,0,3,1,3,11],
 "class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_cursor.html#a8c6a7a12570b8f5168c850c97dd0f79c":[1,0,0,0,3,1,3,15],
+"class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_cursor.html#ab968dfedd42aa6a5c106e8157c2be4e7":[1,0,0,0,3,1,3,18],
 "class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_cursor.html#ad4c3b7907f3f82d497b3bf7c974f2f87":[1,0,0,0,3,1,3,7],
 "class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_cursor.html#adb296f20f6ecb8d806d8f71be3b3c16a":[1,0,0,0,3,1,3,13],
 "class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_idle.html":[1,0,0,0,3,1,4],
@@ -247,7 +249,5 @@ var NAVTREEINDEX2 =
 "class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_renderer_idle_arc_updater.html#a74d9f1c182e88c3f00ed5abcc657a46d":[1,0,0,0,3,3,0,3,1],
 "class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_renderer_idle_arc_updater.html#ac3fa8996b53ded9f0414235dbaf5ecf6":[1,0,0,0,3,3,0,3,0],
 "class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_renderer_slider_arc_updater.html":[1,0,0,0,3,3,0,4],
-"class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_renderer_slider_arc_updater.html#a7cd6aff5ff65c0d08a1509b8d42d0e3f":[1,0,0,0,3,3,0,4,0],
-"class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_renderer_slider_segments_arc.html":[1,0,0,0,3,3,0,5],
-"class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_renderer_slider_segments_arc.html#a5cf0ede93defadd26149a86cee472905":[1,0,0,0,3,3,0,5,1]
+"class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_renderer_slider_arc_updater.html#a7cd6aff5ff65c0d08a1509b8d42d0e3f":[1,0,0,0,3,3,0,4,0]
 };

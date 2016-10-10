@@ -89,6 +89,7 @@ var hierarchy =
       [ "Hover.Core.Renderers.Shapes.Rect.HoverShapeRect", "class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_rect_1_1_hover_shape_rect.html", null ]
     ] ],
     [ "Hover.InputModules.Vive.HoverInputVive.Info", "class_hover_1_1_input_modules_1_1_vive_1_1_hover_input_vive_1_1_info.html", null ],
+    [ "Hover.Core.Utils.InputModuleUtil", "class_hover_1_1_core_1_1_utils_1_1_input_module_util.html", null ],
     [ "Hover.Core.Renderers.IProximityProvider", "interface_hover_1_1_core_1_1_renderers_1_1_i_proximity_provider.html", [
       [ "Hover.Core.Items.HoverItemRendererUpdater", "class_hover_1_1_core_1_1_items_1_1_hover_item_renderer_updater.html", null ]
     ] ],
@@ -258,6 +259,7 @@ var hierarchy =
       [ "Hover.Core.Renderers.Shapes.Arc.HoverRendererIdleArcUpdater", "class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_renderer_idle_arc_updater.html", null ],
       [ "Hover.Core.Renderers.Shapes.HoverShape", "class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_hover_shape.html", null ],
       [ "Hover.Core.Renderers.Shapes.Rect.HoverFillButtonRectUpdater", "class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_rect_1_1_hover_fill_button_rect_updater.html", null ],
+      [ "Hover.Core.Utils.HoverSceneAdjust", "class_hover_1_1_core_1_1_utils_1_1_hover_scene_adjust.html", null ],
       [ "Hover.Core.Utils.HoverSceneLoader", "class_hover_1_1_core_1_1_utils_1_1_hover_scene_loader.html", null ],
       [ "Hover.Core.Utils.TreeUpdater", "class_hover_1_1_core_1_1_utils_1_1_tree_updater.html", null ],
       [ "Hover.InputModules.LeapMotion.HoverInputLeapMotion", "class_hover_1_1_input_modules_1_1_leap_motion_1_1_hover_input_leap_motion.html", null ],
@@ -306,6 +308,7 @@ var hierarchy =
       [ "Hover.Core.Items.HoverItemData.EnabledChangedEventHandler", "class_hover_1_1_core_1_1_items_1_1_hover_item_data_1_1_enabled_changed_event_handler.html", null ],
       [ "Hover.Core.Items.Managers.HoverItemsManager.ItemEvent", "class_hover_1_1_core_1_1_items_1_1_managers_1_1_hover_items_manager_1_1_item_event.html", null ],
       [ "Hover.Core.Items.Types.HoverItemDataSelectable.SelectedEventHandler", "class_hover_1_1_core_1_1_items_1_1_types_1_1_hover_item_data_selectable_1_1_selected_event_handler.html", null ],
+      [ "Hover.Core.Utils.HoverSceneLoader.SceneLoadedEventHandler", "class_hover_1_1_core_1_1_utils_1_1_hover_scene_loader_1_1_scene_loaded_event_handler.html", null ],
       [ "Hover.InterfaceModules.Cast.HovercastInterface.HovercastRowEvent", "class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_interface_1_1_hovercast_row_event.html", null ],
       [ "Hover.InterfaceModules.Key.HoverkeyInterface.HoverkeySelectedEvent", "class_hover_1_1_interface_modules_1_1_key_1_1_hoverkey_interface_1_1_hoverkey_selected_event.html", null ],
       [ "Hover.InterfaceModules.Key.HoverkeyInterface.HoverkeyToggledEvent", "class_hover_1_1_interface_modules_1_1_key_1_1_hoverkey_interface_1_1_hoverkey_toggled_event.html", null ],

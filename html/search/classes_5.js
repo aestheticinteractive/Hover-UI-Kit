@@ -117,6 +117,7 @@ var searchData=
   ['hoverrendererslidersegmentsarc',['HoverRendererSliderSegmentsArc',['../class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_renderer_slider_segments_arc.html',1,'Hover::Core::Renderers::Shapes::Arc']]],
   ['hoverrendererslidersegmentsrect',['HoverRendererSliderSegmentsRect',['../class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_rect_1_1_hover_renderer_slider_segments_rect.html',1,'Hover::Core::Renderers::Shapes::Rect']]],
   ['hoverrenderersliderupdater',['HoverRendererSliderUpdater',['../class_hover_1_1_core_1_1_renderers_1_1_items_1_1_sliders_1_1_hover_renderer_slider_updater.html',1,'Hover::Core::Renderers::Items::Sliders']]],
+  ['hoversceneadjust',['HoverSceneAdjust',['../class_hover_1_1_core_1_1_utils_1_1_hover_scene_adjust.html',1,'Hover::Core::Utils']]],
   ['hoversceneloader',['HoverSceneLoader',['../class_hover_1_1_core_1_1_utils_1_1_hover_scene_loader.html',1,'Hover::Core::Utils']]],
   ['hovershape',['HoverShape',['../class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_hover_shape.html',1,'Hover::Core::Renderers::Shapes']]],
   ['hovershapearc',['HoverShapeArc',['../class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_shape_arc.html',1,'Hover::Core::Renderers::Shapes::Arc']]],
