@@ -1,7 +1,4 @@
-﻿using System;
-using UnityEngine;
-
-namespace Hover.Demo.BoardKeys {
+﻿namespace HoverDemos.BoardKeys {
 
 	/*================================================================================================* /
 	public class DemoTextPixels {

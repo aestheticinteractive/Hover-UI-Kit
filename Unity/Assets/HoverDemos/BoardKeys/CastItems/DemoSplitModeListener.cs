@@ -1,7 +1,4 @@
-﻿using System;
-using UnityEngine;
-
-namespace Hover.Demo.BoardKeys.CastItems {
+﻿namespace HoverDemos.BoardKeys.CastItems {
 
 	/*================================================================================================* /
 	public class DemoSplitModeListener : DemoBaseListener<ICheckboxItem> {

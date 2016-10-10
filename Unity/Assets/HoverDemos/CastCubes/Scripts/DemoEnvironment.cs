@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Hover.Core.Utils;
-using Hover.Demo.Common;
+using HoverDemos.Common;
 using UnityEngine;
 using UnityEngine.VR;
 

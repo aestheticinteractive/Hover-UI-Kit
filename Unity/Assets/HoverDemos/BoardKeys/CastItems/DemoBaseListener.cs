@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Hover.Demo.BoardKeys.CastItems {
+﻿namespace HoverDemos.BoardKeys.CastItems {
 
 	/*================================================================================================* /
 	public abstract class DemoBaseListener<T> : HovercastItemListener<T> where T : ISelectableItem {

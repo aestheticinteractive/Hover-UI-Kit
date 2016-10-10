@@ -1,4 +1,4 @@
-﻿namespace Hover.Demo.BoardKeys.CastItems {
+﻿namespace HoverDemos.BoardKeys.CastItems {
 
 	/*================================================================================================* /
 	public class DemoAllowThumbListener : DemoBaseListener<ICheckboxItem> {

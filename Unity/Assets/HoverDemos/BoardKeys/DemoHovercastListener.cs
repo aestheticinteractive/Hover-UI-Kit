@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using UnityEngine;
-
-namespace Hover.Demo.BoardKeys {
+﻿namespace HoverDemos.BoardKeys {
 
 	/*================================================================================================* /
 	public class DemoHovercastListener : MonoBehaviour {

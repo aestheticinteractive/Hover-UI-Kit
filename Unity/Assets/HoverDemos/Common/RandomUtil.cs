@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Hover.Demo.Common {
+namespace HoverDemos.Common {
 
 	/*================================================================================================*/
 	public static class RandomUtil {

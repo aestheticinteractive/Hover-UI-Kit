@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-
-namespace Hover.Demo.BoardKeys.PrefabBuilders {
+﻿namespace HoverDemos.BoardKeys.PrefabBuilders {
 
 	/*================================================================================================* /
 	public class DemoPrefabSplitKeyboard : MonoBehaviour {

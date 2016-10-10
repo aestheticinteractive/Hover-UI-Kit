@@ -1,8 +1,8 @@
 ﻿using System;
-using Hover.Demo.Common;
+using HoverDemos.Common;
 using UnityEngine;
 
-namespace Hover.Demo.GifAnim {
+namespace HoverDemos.GifAnim {
 
 	/*================================================================================================*/
 	public class GifAnimCubes : MonoBehaviour {

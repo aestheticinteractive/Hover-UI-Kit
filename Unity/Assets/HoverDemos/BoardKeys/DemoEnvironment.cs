@@ -1,10 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Hover.Demo.Common;
-using UnityEngine;
-using UnityEngine.VR;
-
-namespace Hover.Demo.BoardKeys {
+﻿namespace HoverDemos.BoardKeys {
 
 	/*================================================================================================* /
 	public class DemoEnvironment : MonoBehaviour {

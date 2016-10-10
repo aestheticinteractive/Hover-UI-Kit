@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace Hover.Demo.BoardKeys {
+﻿namespace HoverDemos.BoardKeys {
 
 	/*================================================================================================* /
 	public class DemoLetter : MonoBehaviour {
