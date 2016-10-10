@@ -3,20 +3,20 @@
 namespace HoverDemos.CastCubes.Inputs {
 
 	/*================================================================================================*/
-	public class DemoAdjustInputSceneForVive : DemoAdjustInputSceneBase {
+	public class DemoAdjustInputSceneForLeap : DemoAdjustInputSceneBase {
 
-		private const string ViveCameraName = "Camera (eye)";
+		private const string LeapCameraName = "CenterEyeAnchor";
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected override bool IsReadyToAdjust() {
-			return (GameObject.Find(ViveCameraName) != null);
+			return (GameObject.Find(LeapCameraName) != null);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		protected override void PerformAdjustments() {
-			ConfigureCamera(ViveCameraName);
+			ConfigureCamera(LeapCameraName);
 		}
 
 	}

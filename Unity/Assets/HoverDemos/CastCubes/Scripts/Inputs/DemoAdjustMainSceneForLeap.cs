@@ -1,22 +1,22 @@
-﻿using UnityEngine;
+﻿using Hover.Core.Utils;
+using Hover.InterfaceModules.Cast;
+using UnityEngine;
 
 namespace HoverDemos.CastCubes.Inputs {
 
 	/*================================================================================================*/
-	public class DemoAdjustInputSceneForVive : DemoAdjustInputSceneBase {
-
-		private const string ViveCameraName = "Camera (eye)";
+	public class DemoAdjustMainSceneForLeap : HoverSceneAdjust {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected override bool IsReadyToAdjust() {
-			return (GameObject.Find(ViveCameraName) != null);
+			return (FindObjectOfType<HovercastInterface>() != null);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		protected override void PerformAdjustments() {
-			ConfigureCamera(ViveCameraName);
+			Deactivate(UnityUtil.FindComponentAll<Camera>("MainCamera").gameObject);
 		}
 
 	}
