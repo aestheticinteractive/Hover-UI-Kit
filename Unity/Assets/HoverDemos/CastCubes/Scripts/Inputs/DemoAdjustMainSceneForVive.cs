@@ -1,4 +1,5 @@
 ﻿using Hover.Core.Cursors;
+using Hover.Core.Items.Types;
 using Hover.Core.Utils;
 using Hover.InterfaceModules.Cast;
 using UnityEngine;
@@ -28,6 +29,7 @@ namespace HoverDemos.CastCubes.Inputs {
 			Deactivate(UnityUtil.FindComponentAll<Camera>("MainCamera").gameObject);
 			Deactivate(UnityUtil.FindComponentAll<HoverCursorRendererUpdater>("LeftPinky"));
 			Deactivate(UnityUtil.FindComponentAll<HoverCursorRendererUpdater>("RightPinky"));
+			Deactivate(UnityUtil.FindComponentAll<HoverItemDataSelector>("Re-orient"));
 
 			foreach ( ICursorData cursorData in cursProv.Cursors ) {
 				ICursorDataForInput cursorDataInp = cursProv.GetCursorDataForInput(cursorData.Type);
