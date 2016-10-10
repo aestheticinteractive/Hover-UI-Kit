@@ -2,6 +2,7 @@
 
 using System;
 using Hover.Core.Cursors;
+using Hover.Core.Utils;
 using Leap;
 using UnityEngine;
 
@@ -25,9 +26,7 @@ namespace Hover.InputModules.LeapMotionOld {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
-			if ( CursorDataProvider == null ) {
-				CursorDataProvider = FindObjectOfType<HoverCursorDataProvider>();
-			}
+			InputModuleUtil.FindCursorReference(this, ref CursorDataProvider, false);
 
 			if ( LeapControl == null ) {
 				LeapControl = FindObjectOfType<HandController>();
@@ -36,13 +35,11 @@ namespace Hover.InputModules.LeapMotionOld {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			if ( !Application.isPlaying ) {
+			if ( !InputModuleUtil.FindCursorReference(this, ref CursorDataProvider, true) ) {
 				return;
 			}
 
-			if ( CursorDataProvider == null || LeapControl == null ) {
-				Debug.LogError("References to "+typeof(HoverCursorDataProvider).Name+" and "+
-					typeof(HandController).Name+" must be set.", this);
+			if ( !Application.isPlaying ) {
 				return;
 			}
 

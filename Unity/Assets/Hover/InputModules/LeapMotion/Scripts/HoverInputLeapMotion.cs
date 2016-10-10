@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using Hover.Core.Cursors;
+using Hover.Core.Utils;
 using Leap;
 using Leap.Unity;
 using UnityEngine;
@@ -21,15 +22,13 @@ namespace Hover.InputModules.LeapMotion {
 		public bool UseStabilizedPositions = false;
 
 		[Range(0, 0.04f)]
-		public float ExtendFingertipDistance = 0; //TODO: test this
+		public float ExtendFingertipDistance = 0;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
-			if ( CursorDataProvider == null ) {
-				CursorDataProvider = FindObjectOfType<HoverCursorDataProvider>();
-			}
+			InputModuleUtil.FindCursorReference(this, ref CursorDataProvider, false);
 
 			if ( LeapServiceProvider == null ) {
 				LeapServiceProvider = FindObjectOfType<LeapServiceProvider>();
@@ -38,13 +37,11 @@ namespace Hover.InputModules.LeapMotion {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			if ( !Application.isPlaying ) {
+			if ( !InputModuleUtil.FindCursorReference(this, ref CursorDataProvider, true) ) {
 				return;
 			}
 
-			if ( CursorDataProvider == null || LeapServiceProvider == null ) {
-				Debug.LogError("References to "+typeof(HoverCursorDataProvider).Name+" and "+
-					typeof(LeapServiceProvider).Name+" must be set.", this);
+			if ( !Application.isPlaying ) {
 				return;
 			}
 

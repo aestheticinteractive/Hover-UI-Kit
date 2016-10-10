@@ -1,9 +1,8 @@
 ﻿#if HOVER_INPUT_VIVE
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Hover.Core.Cursors;
+using Hover.Core.Utils;
 using UnityEngine;
 using Valve.VR;
 
@@ -97,7 +96,7 @@ namespace Hover.InputModules.Vive {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
-			FindCursorReference(false);
+			InputModuleUtil.FindCursorReference(this, ref CursorDataProvider, false);
 
 			if ( LookCursorTransform == null ) {
 				LookCursorTransform = Camera.main.transform;
@@ -110,7 +109,7 @@ namespace Hover.InputModules.Vive {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			if ( !FindCursorReference(true) ) {
+			if ( !InputModuleUtil.FindCursorReference(this, ref CursorDataProvider, true) ) {
 				return;
 			}
 
@@ -126,26 +125,6 @@ namespace Hover.InputModules.Vive {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
-		private bool FindCursorReference(bool pShowLog) { //TODO: use this in other input modules
-			if ( CursorDataProvider != null ) {
-				return true;
-			}
-
-			CursorDataProvider = FindObjectOfType<HoverCursorDataProvider>();
-
-			if ( pShowLog ) {
-				if ( CursorDataProvider == null ) {
-					Debug.LogWarning("Could not find 'CursorDataProvider' reference.", this);
-				}
-				else {
-					Debug.Log("Found 'CursorDataProvider' reference.", this);
-				}
-			}
-
-			return (CursorDataProvider != null);
-		}
-
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateCursorsWithDevices() {
 			int objectCount = SteamControllers.objects.Length;
