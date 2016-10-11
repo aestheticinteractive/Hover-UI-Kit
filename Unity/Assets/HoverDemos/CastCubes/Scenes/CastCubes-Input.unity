@@ -90,6 +90,79 @@ NavMeshSettings:
     cellSize: 0.16666666
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &274455063
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 274455064}
+  - 114: {fileID: 274455067}
+  - 114: {fileID: 274455066}
+  - 114: {fileID: 274455065}
+  m_Layer: 0
+  m_Name: LeapMotionOld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &274455064
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 274455063}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 1135034265}
+  m_RootOrder: 1
+--- !u!114 &274455065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 274455063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc83e9a22f235e64ca09172a76798480, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &274455066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 274455063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a56b1232ca163c419f7b4f3f3423d30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &274455067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 274455063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e99608d8c38bad4f9ab31f2fc415523, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SceneFolderPath: Hover/InputModules/LeapMotionOld/Scenes/
+  SceneName: HoverInputModule-LeapMotionOld
+  AutoLoadInEditor: 0
+  OnSceneLoadedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Core.Utils.HoverSceneLoader+SceneLoadedEventHandler, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  ClickToReloadScene: 1
 --- !u!1 &705335436
 GameObject:
   m_ObjectHideFlags: 0
@@ -99,9 +172,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 705335438}
   - 114: {fileID: 705335437}
-  - 114: {fileID: 705335439}
   m_Layer: 0
-  m_Name: SceneLoaders
+  m_Name: MainSceneLoader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -119,7 +191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneFolderPath: HoverDemos/CastCubes/Scenes/
-  SceneName: HoverDemos-CastCubes
+  SceneName: CastCubes-Main
   AutoLoadInEditor: 0
   OnSceneLoadedEvent:
     m_PersistentCalls:
@@ -139,20 +211,104 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!1 &1135034264
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1135034265}
+  m_Layer: 0
+  m_Name: InputSceneLoaders (enable one)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1135034265
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1135034264}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children:
+  - {fileID: 1948043446}
+  - {fileID: 274455064}
+  - {fileID: 1367616759}
+  m_Father: {fileID: 0}
   m_RootOrder: 1
---- !u!114 &705335439
+--- !u!1 &1367616758
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1367616759}
+  - 114: {fileID: 1367616762}
+  - 114: {fileID: 1367616761}
+  - 114: {fileID: 1367616760}
+  m_Layer: 0
+  m_Name: Vive
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1367616759
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1367616758}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 1135034265}
+  m_RootOrder: 2
+--- !u!114 &1367616760
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 705335436}
+  m_GameObject: {fileID: 1367616758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd5d625c259d72f43ba978eee6028842, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1367616761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1367616758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dbe4146f735c51428a9fdc1df4f863f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1367616762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1367616758}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5e99608d8c38bad4f9ab31f2fc415523, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneFolderPath: Hover/InputModules/LeapMotion/Scenes/
-  SceneName: HoverInputModule-LeapMotion
+  SceneFolderPath: Hover/InputModules/Vive/Scenes/
+  SceneName: HoverInputModule-Vive
   AutoLoadInEditor: 0
   OnSceneLoadedEvent:
     m_PersistentCalls:
@@ -160,90 +316,6 @@ MonoBehaviour:
     m_TypeName: Hover.Core.Utils.HoverSceneLoader+SceneLoadedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   ClickToReloadScene: 1
---- !u!1 &732793541
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 732793542}
-  m_Layer: 0
-  m_Name: Loads the "main" and "vive" scenes...
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &732793542
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 732793541}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
---- !u!1 &1503680458
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1503680459}
-  m_Layer: 0
-  m_Name: Adjusts scenes for this demo+input combo...
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1503680459
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1503680458}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
---- !u!1 &1761052320
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1761052321}
-  m_Layer: 0
-  m_Name: Play or build this scene to continue!
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1761052321
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1761052320}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
 --- !u!1 &1948043444
 GameObject:
   m_ObjectHideFlags: 0
@@ -252,15 +324,16 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1948043446}
+  - 114: {fileID: 1948043448}
   - 114: {fileID: 1948043445}
   - 114: {fileID: 1948043447}
   m_Layer: 0
-  m_Name: AdjustScenesForLeap
+  m_Name: LeapMotion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1948043445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,13 +351,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1948043444}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: -0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_Father: {fileID: 1135034265}
+  m_RootOrder: 0
 --- !u!114 &1948043447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -296,3 +369,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc83e9a22f235e64ca09172a76798480, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1948043448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1948043444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e99608d8c38bad4f9ab31f2fc415523, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SceneFolderPath: Hover/InputModules/LeapMotion/Scenes/
+  SceneName: HoverInputModule-LeapMotion
+  AutoLoadInEditor: 0
+  OnSceneLoadedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Core.Utils.HoverSceneLoader+SceneLoadedEventHandler, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  ClickToReloadScene: 1
