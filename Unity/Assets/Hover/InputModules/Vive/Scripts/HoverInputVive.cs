@@ -206,4 +206,20 @@ namespace Hover.InputModules.Vive {
 
 }
 
+#else
+
+using Hover.Core.Utils;
+
+namespace Hover.InputModules.Vive {
+
+	/*================================================================================================*/
+	public class HoverInputVive : HoverInputMissing {
+
+		public override string ModuleName { get { return "Vive"; } }
+		public override string RequiredSymbol { get { return "HOVER_INPUT_VIVE"; } }
+
+	}
+
+}
+
 #endif //HOVER_INPUT_VIVE

@@ -154,4 +154,20 @@ namespace Hover.InputModules.LeapMotionOld {
 
 }
 
+#else
+
+using Hover.Core.Utils;
+
+namespace Hover.InputModules.LeapMotionOld {
+
+	/*================================================================================================*/
+	public class HoverInputLeapMotionOld : HoverInputMissing {
+
+		public override string ModuleName { get { return "LeapMotionOld"; } }
+		public override string RequiredSymbol { get { return "HOVER_INPUT_LEAPMOTIONOLD"; } }
+
+	}
+
+}
+
 #endif //HOVER_INPUT_LEAPMOTIONOLD
