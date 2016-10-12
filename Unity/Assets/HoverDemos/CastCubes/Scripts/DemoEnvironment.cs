@@ -114,6 +114,10 @@ namespace HoverDemos.CastCubes {
 				return;
 			}
 
+			if ( Input.GetKey(KeyCode.R) ) {
+				InputTracking.Recenter();
+			}
+
 			vOrbitMotion.Update();
 			vSpinMotion.Update();
 			vBobMotion.Update();

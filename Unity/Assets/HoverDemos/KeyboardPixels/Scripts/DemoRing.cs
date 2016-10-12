@@ -7,23 +7,19 @@ namespace HoverDemos.BoardKeys {
 	/*================================================================================================*/
 	public class DemoRing : MonoBehaviour {
 
-		private static readonly Material RingMat = InitRingMat();
+		private static Material RingMat;
 
 		public float Radius { get; set; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private static Material InitRingMat() {
-			var mat = new Material(Shader.Find("Diffuse"));
-			mat.color = new Color(0.2f, 0.2f, 0.2f);
-			return mat;
-		}
-		
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
 		public void Start() {
+			if ( RingMat == null ) {
+				RingMat = new Material(Shader.Find("Diffuse"));
+				RingMat.color = new Color(0.2f, 0.2f, 0.2f);
+			}
+
 			MeshRenderer rend = gameObject.AddComponent<MeshRenderer>();
 			rend.sharedMaterial = RingMat;
 

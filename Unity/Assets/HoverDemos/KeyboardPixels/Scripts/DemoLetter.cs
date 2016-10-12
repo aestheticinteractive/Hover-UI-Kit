@@ -1,7 +1,13 @@
-﻿namespace HoverDemos.BoardKeys {
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 
-	/*================================================================================================* /
+namespace HoverDemos.BoardKeys {
+
+	/*================================================================================================*/
 	public class DemoLetter : MonoBehaviour {
+
+		private static Material BoxMat;
 
 		public class CellData : MonoBehaviour {
 			public CellData[] Surrounding;
@@ -18,25 +24,20 @@
 
 		public Vector3 RandomAxis { get; set; }
 
-		private readonly CellData[,] vCells;
-		private readonly Color vBoxColor;
-
+		private CellData[,] vCells;
 		private bool vIsAnimating;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------* /
-		public DemoLetter() {
-			vCells = new CellData[Width, Height];
-			//vBoxColor = new Color(0.1f, 0.5f, 0.9f)*0.666f;
-			vBoxColor = HoverboardItemVisualSettingsStandard.Green*0.5f;
-			//vBoxColor = Color.white;
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------* /
+		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
+			if ( BoxMat == null ) {
+				BoxMat = new Material(Shader.Find("Diffuse"));
+				BoxMat.color = new Color(0.1f, 0.9f, 0.2f)*0.5f;
+			}
+
+			vCells = new CellData[Width, Height];
+
 			for ( int xi = 0 ; xi < Width ; ++xi ) {
 				for ( int yi = 0 ; yi < Height ; ++yi ) {
 					GameObject boxObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -44,7 +45,7 @@
 					boxTx.SetParent(gameObject.transform, false);
 					boxTx.localPosition = new Vector3(xi-Width/2, 0, yi-Width/2)*1.1f;
 					boxTx.localScale = Vector3.zero;
-					boxObj.GetComponent<Renderer>().sharedMaterial.color = vBoxColor;
+					boxObj.GetComponent<Renderer>().sharedMaterial = BoxMat;
 					boxObj.SetActive(false);
 
 					vCells[xi, yi] = boxObj.AddComponent<CellData>();
@@ -77,7 +78,7 @@
 			}
 		}
 
-		/*--------------------------------------------------------------------------------------------* /
+		/*--------------------------------------------------------------------------------------------*/
 		public void FixedUpdate() {
 			if ( !vIsAnimating ) {
 				return;
@@ -126,7 +127,7 @@
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------* /
+		/*--------------------------------------------------------------------------------------------*/
 		public void SetPixels(float[,] pValues, int pWidth, int pHeight) {
 			int x = (Width-pWidth)/2;
 			int y = (Height-pHeight)/2;
@@ -144,7 +145,7 @@
 					}
 					else {
 						float val = pValues[xi-x, pHeight-(yi-y)-1];
-						cellData.TargVal = Math.Min(1, val*1.1f);
+						cellData.TargVal = Mathf.Min(1, val*1.1f);
 						cellData.Delay = (yi-y)*2 + (xi-x);
 					}
 				}
@@ -153,6 +154,6 @@
 			vIsAnimating = true;
 		}
 
-	}*/
+	}
 
 }
