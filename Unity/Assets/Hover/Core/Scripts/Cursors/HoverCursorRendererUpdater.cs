@@ -75,7 +75,8 @@ namespace Hover.Core.Cursors {
 			cursorInd.Controllers.Set(HoverIndicator.HighlightProgressName, this);
 			cursorInd.Controllers.Set(HoverIndicator.SelectionProgressName, this);
 
-			RendererUtil.SetActiveWithUpdate(CursorRenderer, cursorData.IsActive);
+			RendererUtil.SetActiveWithUpdate(CursorRenderer, 
+				(cursorData.IsActive && cursorData.Capability != CursorCapabilityType.None));
 			CursorRenderer.IsRaycast = cursorData.IsRaycast;
 			CursorRenderer.ShowRaycastLine = (cursorData.CanCauseSelections &&
 				cursorData.Type != CursorType.Look);

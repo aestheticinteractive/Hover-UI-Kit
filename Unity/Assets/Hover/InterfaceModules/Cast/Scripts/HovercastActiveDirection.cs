@@ -29,6 +29,8 @@ namespace Hover.InterfaceModules.Cast {
 		[Range(10, 180)]
 		public float InactiveOutsideDegree = 55;
 
+		//TODO: events for active, inactive, fully-active
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
