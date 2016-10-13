@@ -58,6 +58,7 @@ namespace HoverDemos.KeyboardPixels {
 
 			HoverkeyMain.SetActive(!isSplit);
 			HoverkeySplit.SetActive(isSplit);
+			Hoverkey.RefreshKeyLists();
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/

@@ -30,9 +30,7 @@ namespace Hover.InterfaceModules.Key {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Start() {
-			FillLabelLists();
-			FillShiftData();
-			UpdateShiftLabels(true);
+			RefreshKeyLists();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -68,6 +66,13 @@ namespace Hover.InterfaceModules.Key {
 			get {
 				return (IsLeftShiftSelected || IsRightShiftSelected || IsCapsLockActive);
 			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void RefreshKeyLists() {
+			FillLabelLists();
+			FillShiftData();
+			UpdateShiftLabels(true);
 		}
 
 
