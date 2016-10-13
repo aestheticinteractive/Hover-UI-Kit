@@ -129,9 +129,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 274455063}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc83e9a22f235e64ca09172a76798480, type: 3}
+  m_Script: {fileID: 11500000, guid: 441fcd2ab69229e418e055e96721db81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CameraName: CenterEyeAnchor
+  MainSceneCameraName: MainCamera
+  UseBloom: 1
 --- !u!114 &274455066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,9 +285,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1367616758}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd5d625c259d72f43ba978eee6028842, type: 3}
+  m_Script: {fileID: 11500000, guid: 441fcd2ab69229e418e055e96721db81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CameraName: Camera (eye)
+  MainSceneCameraName: MainCamera
+  UseBloom: 1
 --- !u!114 &1367616761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -326,7 +332,7 @@ GameObject:
   - 4: {fileID: 1948043446}
   - 114: {fileID: 1948043448}
   - 114: {fileID: 1948043445}
-  - 114: {fileID: 1948043447}
+  - 114: {fileID: 1948043449}
   m_Layer: 0
   m_Name: LeapMotion
   m_TagString: Untagged
@@ -358,17 +364,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1135034265}
   m_RootOrder: 0
---- !u!114 &1948043447
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1948043444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc83e9a22f235e64ca09172a76798480, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1948043448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -389,3 +384,17 @@ MonoBehaviour:
     m_TypeName: Hover.Core.Utils.HoverSceneLoader+SceneLoadedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   ClickToReloadScene: 1
+--- !u!114 &1948043449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1948043444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 441fcd2ab69229e418e055e96721db81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CameraName: CenterEyeAnchor
+  MainSceneCameraName: MainCamera
+  UseBloom: 1

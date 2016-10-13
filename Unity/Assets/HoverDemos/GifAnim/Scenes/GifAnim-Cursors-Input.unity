@@ -90,6 +90,100 @@ NavMeshSettings:
     cellSize: 0.16666666
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &90760706
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 90760707}
+  m_Layer: 0
+  m_Name: InputSceneLoaders (enable one)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &90760707
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 90760706}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children:
+  - {fileID: 1750104598}
+  - {fileID: 763366721}
+  - {fileID: 322601361}
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+--- !u!1 &322601360
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 322601361}
+  - 114: {fileID: 322601363}
+  - 114: {fileID: 322601362}
+  m_Layer: 0
+  m_Name: Vive
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &322601361
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 322601360}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 90760707}
+  m_RootOrder: 2
+--- !u!114 &322601362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 322601360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 441fcd2ab69229e418e055e96721db81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CameraName: Camera (eye)
+  UseBloom: 0
+--- !u!114 &322601363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 322601360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e99608d8c38bad4f9ab31f2fc415523, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SceneFolderPath: Hover/InputModules/Vive/Scenes/
+  SceneName: HoverInputModule-Vive
+  AutoLoadInEditor: 0
+  OnSceneLoadedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Core.Utils.HoverSceneLoader+SceneLoadedEventHandler, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  ClickToReloadScene: 1
 --- !u!1 &617923903
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,15 +233,16 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!1 &1258270505
+--- !u!1 &763366720
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 1258270506}
-  - 114: {fileID: 1258270507}
+  - 4: {fileID: 763366721}
+  - 114: {fileID: 763366723}
+  - 114: {fileID: 763366722}
   m_Layer: 0
   m_Name: LeapMotionOld
   m_TagString: Untagged
@@ -155,25 +250,38 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!4 &1258270506
+--- !u!4 &763366721
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1258270505}
+  m_GameObject: {fileID: 763366720}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
-  m_Father: {fileID: 1537225313}
+  m_Father: {fileID: 90760707}
   m_RootOrder: 1
---- !u!114 &1258270507
+--- !u!114 &763366722
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1258270505}
+  m_GameObject: {fileID: 763366720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 441fcd2ab69229e418e055e96721db81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CameraName: CenterEyeAnchor
+  UseBloom: 0
+--- !u!114 &763366723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 763366720}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5e99608d8c38bad4f9ab31f2fc415523, type: 3}
@@ -188,46 +296,16 @@ MonoBehaviour:
     m_TypeName: Hover.Core.Utils.HoverSceneLoader+SceneLoadedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   ClickToReloadScene: 1
---- !u!1 &1537225312
+--- !u!1 &1750104597
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 1537225313}
-  m_Layer: 0
-  m_Name: InputSceneLoaders (enable one)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1537225313
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1537225312}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children:
-  - {fileID: 1829429911}
-  - {fileID: 1258270506}
-  - {fileID: 2115672217}
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
---- !u!1 &1829429910
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1829429911}
-  - 114: {fileID: 1829429912}
+  - 4: {fileID: 1750104598}
+  - 114: {fileID: 1750104600}
+  - 114: {fileID: 1750104599}
   m_Layer: 0
   m_Name: LeapMotion
   m_TagString: Untagged
@@ -235,25 +313,38 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!4 &1829429911
+--- !u!4 &1750104598
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1829429910}
+  m_GameObject: {fileID: 1750104597}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
-  m_Father: {fileID: 1537225313}
+  m_Father: {fileID: 90760707}
   m_RootOrder: 0
---- !u!114 &1829429912
+--- !u!114 &1750104599
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1829429910}
+  m_GameObject: {fileID: 1750104597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 441fcd2ab69229e418e055e96721db81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CameraName: CenterEyeAnchor
+  UseBloom: 0
+--- !u!114 &1750104600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1750104597}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5e99608d8c38bad4f9ab31f2fc415523, type: 3}
@@ -261,55 +352,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneFolderPath: Hover/InputModules/LeapMotion/Scenes/
   SceneName: HoverInputModule-LeapMotion
-  AutoLoadInEditor: 0
-  OnSceneLoadedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Hover.Core.Utils.HoverSceneLoader+SceneLoadedEventHandler, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  ClickToReloadScene: 1
---- !u!1 &2115672216
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 2115672217}
-  - 114: {fileID: 2115672218}
-  m_Layer: 0
-  m_Name: Vive
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &2115672217
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2115672216}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children: []
-  m_Father: {fileID: 1537225313}
-  m_RootOrder: 2
---- !u!114 &2115672218
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2115672216}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e99608d8c38bad4f9ab31f2fc415523, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SceneFolderPath: Hover/InputModules/Vive/Scenes/
-  SceneName: HoverInputModule-Vive
   AutoLoadInEditor: 0
   OnSceneLoadedEvent:
     m_PersistentCalls:
