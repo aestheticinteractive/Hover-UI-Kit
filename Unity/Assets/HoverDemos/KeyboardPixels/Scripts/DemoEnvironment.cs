@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Hover.Core.Items.Types;
-using Hover.InterfaceModules.Key;
 using HoverDemos.Common;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,7 +12,6 @@ namespace HoverDemos.BoardKeys {
 	public class DemoEnvironment : MonoBehaviour {
 
 		public int RandomSeed = 0;
-		public HoverkeyInterface Hoverkey;
 		public Text PixelText;
 
 		private DemoTextPixels vPixels;
@@ -95,22 +92,7 @@ namespace HoverDemos.BoardKeys {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void HandleKeySelected(IItemDataSelectable pItemData, HoverkeyItemLabels pLabels) {
-			if ( pLabels.ActionType == HoverkeyItemLabels.KeyActionType.Character ) {
-				char letter = (Hoverkey.IsInShiftMode && pLabels.HasShiftLabel ?
-					pLabels.ShiftLabel[0] : pLabels.DefaultLabel[0]);
-				AddLetter(letter);
-				return;
-			}
-
-			if ( pLabels.DefaultKey == KeyCode.Backspace ) {
-				RemoveLatestLetter();
-				return;
-			}
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		private void AddLetter(char pLetter) {
+		public void AddLetter(char pLetter) {
 			int w;
 			int h;
 			float[,] pixels = vPixels.GetPixels(pLetter, out w, out h);
@@ -136,7 +118,7 @@ namespace HoverDemos.BoardKeys {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void RemoveLatestLetter() {
+		public void RemoveLatestLetter() {
 			if ( vLetters.Count == 0 ) {
 				return;
 			}
