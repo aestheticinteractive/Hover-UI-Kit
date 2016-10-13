@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace HoverDemos.BoardKeys {
+namespace HoverDemos.KeyboardPixels {
 
 	/*================================================================================================*/
 	public class DemoRing : MonoBehaviour {

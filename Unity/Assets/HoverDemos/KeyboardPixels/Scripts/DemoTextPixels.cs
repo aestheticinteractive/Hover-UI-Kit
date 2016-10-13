@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace HoverDemos.BoardKeys {
+namespace HoverDemos.KeyboardPixels {
 
 	/*================================================================================================*/
 	public class DemoTextPixels {

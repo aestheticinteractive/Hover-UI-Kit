@@ -4,7 +4,7 @@ using Hover.InterfaceModules.Cast;
 using Hover.InterfaceModules.Key;
 using UnityEngine;
 
-namespace HoverDemos.BoardKeys {
+namespace HoverDemos.KeyboardPixels {
 
 	/*================================================================================================*/
 	[RequireComponent(typeof(DemoEnvironment))]

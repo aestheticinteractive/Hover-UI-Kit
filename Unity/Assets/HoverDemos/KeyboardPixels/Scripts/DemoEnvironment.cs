@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.VR;
 using Random = UnityEngine.Random;
 
-namespace HoverDemos.BoardKeys {
+namespace HoverDemos.KeyboardPixels {
 
 	/*================================================================================================*/
 	public class DemoEnvironment : MonoBehaviour {

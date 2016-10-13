@@ -1,4 +1,4 @@
-﻿namespace HoverDemos.BoardKeys {
+﻿namespace HoverDemos.KeyboardPixels {
 
 	/*================================================================================================* /
 	public class DemoHovercastListener : MonoBehaviour {
