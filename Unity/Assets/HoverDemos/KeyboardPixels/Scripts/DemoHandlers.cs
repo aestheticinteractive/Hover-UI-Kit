@@ -29,6 +29,11 @@ namespace HoverDemos.KeyboardPixels {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
+		public void Start() {
+			HoverkeySplit.SetActive(false);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
 			UpdateCursorCapabilities();
 		}
