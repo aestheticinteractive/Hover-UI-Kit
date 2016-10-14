@@ -24,6 +24,14 @@ namespace Hover.InputModules.Vive {
 			public float MaxSize = 0.03f;
 		}
 
+		private struct ControlState {
+			public Transform Tx;
+			public bool IsValid;
+			public bool IsTouchpadTouched;
+			public Vector2 TouchpadAxis;
+			public Vector2 TriggerAxis;
+		}
+
 		public HoverCursorDataProvider CursorDataProvider;
 		public SteamVR_ControllerManager SteamControllers;
 		public Transform LookCursorTransform;
@@ -118,7 +126,7 @@ namespace Hover.InputModules.Vive {
 			}
 
 			CursorDataProvider.MarkAllCursorsUnused();
-			UpdateCursorsWithDevices();
+			UpdateCursorsWithControllers();
 			UpdateCursorWithCamera();
 			CursorDataProvider.ActivateAllCursorsBasedOnUsage();
 		}
@@ -126,68 +134,72 @@ namespace Hover.InputModules.Vive {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateCursorsWithDevices() {
-			int objectCount = SteamControllers.objects.Length;
-			int indexL = -1;
-			int indexR = -1;
+		private void UpdateCursorsWithControllers() {
+			ControlState contL = GetControllerState(SteamControllers.left);
+			ControlState contR = GetControllerState(SteamControllers.right);
 
-			for ( int i = 0 ; i < objectCount ; i++ ) {
-				GameObject deviceGo = SteamControllers.objects[i];
+			UpdateCursorWithController(contL, LeftPalm,    CursorType.LeftPalm);
+			UpdateCursorWithController(contL, LeftThumb,   CursorType.LeftThumb);
+			UpdateCursorWithController(contL, LeftIndex,   CursorType.LeftIndex);
+			UpdateCursorWithController(contL, LeftMiddle,  CursorType.LeftMiddle);
+			UpdateCursorWithController(contL, LeftRing,    CursorType.LeftRing);
+			UpdateCursorWithController(contL, LeftPinky,   CursorType.LeftPinky);
 
-				if ( deviceGo == SteamControllers.left ) {
-					indexL = i;
-				}
-				else if ( deviceGo == SteamControllers.right ) {
-					indexR = i;
-				}
-			}
-
-			Transform deviceTxL = SteamControllers.left.transform;
-			Transform deviceTxR = SteamControllers.right.transform;
-
-			SteamVR_Controller.Device deviceL = SteamVR_Controller.Input(indexL);
-			SteamVR_Controller.Device deviceR = SteamVR_Controller.Input(indexR);
-
-			UpdateCursorWithDevice(deviceTxL, deviceL, LeftPalm,    CursorType.LeftPalm);
-			UpdateCursorWithDevice(deviceTxL, deviceL, LeftThumb,   CursorType.LeftThumb);
-			UpdateCursorWithDevice(deviceTxL, deviceL, LeftIndex,   CursorType.LeftIndex);
-			UpdateCursorWithDevice(deviceTxL, deviceL, LeftMiddle,  CursorType.LeftMiddle);
-			UpdateCursorWithDevice(deviceTxL, deviceL, LeftRing,    CursorType.LeftRing);
-			UpdateCursorWithDevice(deviceTxL, deviceL, LeftPinky,   CursorType.LeftPinky);
-
-			UpdateCursorWithDevice(deviceTxR, deviceR, RightPalm,   CursorType.RightPalm);
-			UpdateCursorWithDevice(deviceTxR, deviceR, RightThumb,  CursorType.RightThumb);
-			UpdateCursorWithDevice(deviceTxR, deviceR, RightIndex,  CursorType.RightIndex);
-			UpdateCursorWithDevice(deviceTxR, deviceR, RightMiddle, CursorType.RightMiddle);
-			UpdateCursorWithDevice(deviceTxR, deviceR, RightRing,   CursorType.RightRing);
-			UpdateCursorWithDevice(deviceTxR, deviceR, RightPinky,  CursorType.RightPinky);
+			UpdateCursorWithController(contR, RightPalm,   CursorType.RightPalm);
+			UpdateCursorWithController(contR, RightThumb,  CursorType.RightThumb);
+			UpdateCursorWithController(contR, RightIndex,  CursorType.RightIndex);
+			UpdateCursorWithController(contR, RightMiddle, CursorType.RightMiddle);
+			UpdateCursorWithController(contR, RightRing,   CursorType.RightRing);
+			UpdateCursorWithController(contR, RightPinky,  CursorType.RightPinky);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateCursorWithDevice(Transform pDeviceTx, SteamVR_Controller.Device pDevice,
-															Info pInfo, CursorType pCursorType) {
-			if ( !CursorDataProvider.HasCursorData(pCursorType) ) {
+		private ControlState GetControllerState(GameObject pControlGo) {
+			SteamVR_TrackedObject control = pControlGo.GetComponent<SteamVR_TrackedObject>();
+
+			var state = new ControlState();
+			state.Tx = control.transform;
+			state.IsValid = control.isValid;
+			SteamVR_Controller.Device input = null;
+
+			if ( control.index < 0 ) {
+				state.IsValid = false;
+			}
+			else {
+				input = SteamVR_Controller.Input((int)control.index);
+				state.IsValid = (state.IsValid && input.valid);
+			}
+
+			if ( state.IsValid ) {
+				state.IsTouchpadTouched = input.GetTouch(EVRButtonId.k_EButton_SteamVR_Touchpad);
+				state.TouchpadAxis = input.GetAxis(EVRButtonId.k_EButton_SteamVR_Touchpad);
+				state.TriggerAxis = input.GetAxis(EVRButtonId.k_EButton_SteamVR_Trigger);
+			}
+
+			return state;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private void UpdateCursorWithController(ControlState pState, Info pInfo, CursorType pType) {
+			if ( !CursorDataProvider.HasCursorData(pType) ) {
 				return;
 			}
 
-			ICursorDataForInput data = CursorDataProvider.GetCursorDataForInput(pCursorType);
+			ICursorDataForInput data = CursorDataProvider.GetCursorDataForInput(pType);
 
-			data.SetUsedByInput(pDevice.valid);
+			data.SetUsedByInput(pState.IsValid);
 
-			if ( !pDevice.valid ) {
+			if ( !pState.IsValid ) {
 				return;
 			}
 
-			Vector2 touchAxis = pDevice.GetAxis(EVRButtonId.k_EButton_SteamVR_Touchpad);
-			Vector2 triggerAxis = pDevice.GetAxis(EVRButtonId.k_EButton_SteamVR_Trigger);
-			bool isTouch = pDevice.GetTouch(EVRButtonId.k_EButton_SteamVR_Touchpad);
-			float sizeProg = (isTouch ? touchAxis.x*2+1 : 0.5f);
-			Vector3 worldOffset = pDeviceTx.TransformVector(pInfo.LocalPosition);
+			float sizeProg = (pState.IsTouchpadTouched ? pState.TouchpadAxis.x*2+1 : 0.5f);
+			Vector3 worldOffset = pState.Tx.TransformVector(pInfo.LocalPosition);
 
-			data.SetWorldPosition(pDeviceTx.position+worldOffset);
-			data.SetWorldRotation(pDeviceTx.rotation*Quaternion.Euler(pInfo.LocalRotation));
+			data.SetWorldPosition(pState.Tx.position+worldOffset);
+			data.SetWorldRotation(pState.Tx.rotation*Quaternion.Euler(pInfo.LocalRotation));
 			data.SetSize(Mathf.Lerp(pInfo.MinSize, pInfo.MaxSize, sizeProg));
-			data.SetTriggerStrength(triggerAxis.x);
+			data.SetTriggerStrength(pState.TriggerAxis.x);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
