@@ -12,9 +12,6 @@ namespace Hover.Core.Renderers.Cursors {
 	public class HoverFillIdle : HoverFill {
 
 		[DisableWhenControlled(DisplaySpecials=true)]
-		public HoverMesh Background;
-
-		[DisableWhenControlled]
 		public HoverMesh Timer;
 
 		[DisableWhenControlled]
@@ -24,15 +21,14 @@ namespace Hover.Core.Renderers.Cursors {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public override int GetChildMeshCount() {
-			return 2;
+			return 1;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public override HoverMesh GetChildMesh(int pIndex) {
 			switch ( pIndex ) {
-				case 0: return Background;
-				case 1: return Timer;
-				//case 2: return ItemPointer;
+				case 0: return Timer;
+				//case 1: return ItemPointer;
 			}
 
 			throw new ArgumentOutOfRangeException();
@@ -50,10 +46,6 @@ namespace Hover.Core.Renderers.Cursors {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateMeshes() {
-			if ( Background != null ) {
-				UpdateMesh(Background);
-			}
-
 			if ( Timer != null ) {
 				UpdateMesh(Timer);
 			}

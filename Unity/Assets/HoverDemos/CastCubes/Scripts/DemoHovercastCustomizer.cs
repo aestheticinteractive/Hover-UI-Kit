@@ -21,14 +21,14 @@ namespace HoverDemos.CastCubes {
 		public class Theme {
 			public Color TextColor = new Color(1, 1, 1);
 			public Color IconColor = new Color(1, 1, 1);
-			public Color BackgroundColor = new Color(0.1f, 0.1f, 0.1f, 0.5f);
-			public Color HighlightColor = new Color(0.25f, 0.25f, 0.25f, 0.43f);
-			public Color SelectionColor = new Color(0.5f, 0.5f, 0.5f, 1);
-			public Color EdgeColor = new Color(0.5f, 0.5f, 0.5f, 1);
-			public Color FlashColor = new Color(1, 1, 1, 1);
-			public Color SliderTrackColor = new Color(0.1f, 0.1f, 0.1f, 0.25f);
-			public Color SliderFillColor = new Color(0.5f, 0.5f, 0.5f, 0.25f);
-			public Color SliderTickColor = new Color(1, 1, 1, 0.25f);
+			public Color BackgroundColor = new Color(0.03f, 0.03f, 0.03f, 0.7f);
+			public Color HighlightColor = new Color(0.14f, 0.14f, 0.14f, 0.7f);
+			public Color SelectionColor = new Color(0.3f, 0.3f, 0.3f, 0.7f);
+			public Color EdgeColor = new Color(0.7f, 0.7f, 0.7f, 1);
+			public Color FlashColor = new Color(0.7f, 0.7f, 0.7f, 1);
+			public Color SliderTrackColor = new Color(0.03f, 0.03f, 0.03f, 0.35f);
+			public Color SliderFillColor = new Color(0.14f, 0.14f, 0.14f, 0.5f);
+			public Color SliderTickColor = new Color(1, 1, 1, 0.15f);
 		}
 
 		public Theme DarkTheme = new Theme();
@@ -72,7 +72,7 @@ namespace HoverDemos.CastCubes {
 		/*--------------------------------------------------------------------------------------------*/
 		public DemoHovercastCustomizer() {
 			vCurrTheme = DarkTheme;
-			vCurrBgAlpha = DarkTheme.BackgroundColor.a;
+			vCurrBgAlpha = 1;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

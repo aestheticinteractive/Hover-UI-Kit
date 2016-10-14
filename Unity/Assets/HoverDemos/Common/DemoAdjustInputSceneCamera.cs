@@ -30,7 +30,7 @@ namespace HoverDemos.Common {
 			if ( UseBloom && cam.GetComponent<BloomOptimized>() == null ) {
 				BloomOptimized bloom = cam.gameObject.AddComponent<BloomOptimized>();
 				bloom.threshold = 0.35f;
-				bloom.intensity = 1;
+				bloom.intensity = 0.6f;
 				bloom.blurSize = 1;
 				bloom.blurIterations = 2;
 				bloom.blurType = BloomOptimized.BlurType.Standard;

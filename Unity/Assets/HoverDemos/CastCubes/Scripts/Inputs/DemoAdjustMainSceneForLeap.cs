@@ -1,6 +1,5 @@
 ﻿using Hover.Core.Utils;
 using Hover.InterfaceModules.Cast;
-using UnityEngine;
 
 namespace HoverDemos.CastCubes.Inputs {
 
@@ -16,7 +15,7 @@ namespace HoverDemos.CastCubes.Inputs {
 
 		/*--------------------------------------------------------------------------------------------*/
 		protected override void PerformAdjustments() {
-			Deactivate(UnityUtil.FindComponentAll<Camera>("MainCamera").gameObject);
+			//do nothing, for now...
 		}
 
 	}
