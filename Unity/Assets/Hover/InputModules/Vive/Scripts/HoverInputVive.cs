@@ -65,7 +65,7 @@ namespace Hover.InputModules.Vive {
 
 		public Info LeftPinky = new Info {
 			LocalPosition = new Vector3(0.08f, 0, -0.06f),
-			LocalRotation = new Vector3(90, 0, -90)
+			LocalRotation = new Vector3(-90, -180, 80)
 		};
 
 		////
@@ -97,7 +97,7 @@ namespace Hover.InputModules.Vive {
 
 		public Info RightPinky = new Info {
 			LocalPosition = new Vector3(-0.08f, 0, -0.06f),
-			LocalRotation = new Vector3(90, 0, 90)
+			LocalRotation = new Vector3(-90, 180, -80)
 		};
 
 
