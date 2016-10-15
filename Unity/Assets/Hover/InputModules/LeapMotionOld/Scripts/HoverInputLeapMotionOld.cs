@@ -31,6 +31,11 @@ namespace Hover.InputModules.LeapMotionOld {
 			if ( LeapControl == null ) {
 				LeapControl = FindObjectOfType<HandController>();
 			}
+
+			if ( LookCursorTransform == null ) {
+				GameObject lookGo = GameObject.Find("CenterEyeAnchor");
+				LookCursorTransform = (lookGo == null ? null : lookGo.transform);
+			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/

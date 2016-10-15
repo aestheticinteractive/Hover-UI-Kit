@@ -33,6 +33,11 @@ namespace Hover.InputModules.LeapMotion {
 			if ( LeapServiceProvider == null ) {
 				LeapServiceProvider = FindObjectOfType<LeapServiceProvider>();
 			}
+
+			if ( LookCursorTransform == null ) {
+				GameObject lookGo = GameObject.Find("CenterEyeAnchor");
+				LookCursorTransform = (lookGo == null ? null : lookGo.transform);
+			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
