@@ -39,6 +39,7 @@ namespace Hover.InputModules.Vive {
 		////
 
 		public Info LeftPalm = new Info {
+			LocalPosition = new Vector3(0, 0.01f, 0),
 			MinSize = 0.04f,
 			MaxSize = 0.06f
 		};
@@ -71,6 +72,7 @@ namespace Hover.InputModules.Vive {
 		////
 
 		public Info RightPalm = new Info {
+			LocalPosition = new Vector3(0, 0.01f, 0),
 			MinSize = 0.04f,
 			MaxSize = 0.06f
 		};
@@ -193,7 +195,7 @@ namespace Hover.InputModules.Vive {
 				return;
 			}
 
-			float sizeProg = (pState.IsTouchpadTouched ? pState.TouchpadAxis.x*2+1 : 0.5f);
+			float sizeProg = 0.5f+(pState.IsTouchpadTouched ? pState.TouchpadAxis.x/2 : 0);
 			Vector3 worldOffset = pState.Tx.TransformVector(pInfo.LocalPosition);
 
 			data.SetWorldPosition(pState.Tx.position+worldOffset);
