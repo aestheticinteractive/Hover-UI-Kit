@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['refreshkeylists',['RefreshKeyLists',['../class_hover_1_1_interface_modules_1_1_key_1_1_hoverkey_interface.html#a52ca82de30c7e1144eac45138f05d114',1,'Hover::InterfaceModules::Key::HoverkeyInterface']]],
   ['relsize',['RelSize',['../struct_hover_1_1_interface_modules_1_1_key_1_1_hoverkey_builder_key_info.html#a9840a7d5361e2821a039c97c7971b65b',1,'Hover::InterfaceModules::Key::HoverkeyBuilderKeyInfo']]],
   ['removeitem',['RemoveItem',['../class_hover_1_1_core_1_1_items_1_1_managers_1_1_hover_items_manager.html#a87334ff9622e25e1de7505e2fc7bb561',1,'Hover::Core::Items::Managers::HoverItemsManager']]],
   ['resetallneareststates',['ResetAllNearestStates',['../class_hover_1_1_core_1_1_items_1_1_managers_1_1_hover_item_highlight_state.html#a29480affbdbc23c0b1fde3124357649c',1,'Hover::Core::Items::Managers::HoverItemHighlightState']]],

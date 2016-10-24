@@ -22,7 +22,7 @@ var searchData=
   ['iitemdata',['IItemData',['../interface_hover_1_1_core_1_1_items_1_1_i_item_data.html',1,'Hover::Core::Items']]],
   ['iitemdatacheckbox',['IItemDataCheckbox',['../interface_hover_1_1_core_1_1_items_1_1_types_1_1_i_item_data_checkbox.html',1,'Hover::Core::Items::Types']]],
   ['iitemdataradio',['IItemDataRadio',['../interface_hover_1_1_core_1_1_items_1_1_types_1_1_i_item_data_radio.html',1,'Hover::Core::Items::Types']]],
-  ['iitemdataselectable',['IItemDataSelectable',['../interface_hover_1_1_core_1_1_items_1_1_types_1_1_i_item_data_selectable.html',1,'Hover.Core.Items.Types.IItemDataSelectable&lt; T &gt;'],['../interface_hover_1_1_core_1_1_items_1_1_types_1_1_i_item_data_selectable.html',1,'Hover.Core.Items.Types.IItemDataSelectable']]],
+  ['iitemdataselectable',['IItemDataSelectable',['../interface_hover_1_1_core_1_1_items_1_1_types_1_1_i_item_data_selectable.html',1,'Hover.Core.Items.Types.IItemDataSelectable'],['../interface_hover_1_1_core_1_1_items_1_1_types_1_1_i_item_data_selectable.html',1,'Hover.Core.Items.Types.IItemDataSelectable&lt; T &gt;']]],
   ['iitemdataselectable_3c_20bool_20_3e',['IItemDataSelectable&lt; bool &gt;',['../interface_hover_1_1_core_1_1_items_1_1_types_1_1_i_item_data_selectable.html',1,'Hover::Core::Items::Types']]],
   ['iitemdataselectable_3c_20float_20_3e',['IItemDataSelectable&lt; float &gt;',['../interface_hover_1_1_core_1_1_items_1_1_types_1_1_i_item_data_selectable.html',1,'Hover::Core::Items::Types']]],
   ['iitemdataselector',['IItemDataSelector',['../interface_hover_1_1_core_1_1_items_1_1_types_1_1_i_item_data_selector.html',1,'Hover::Core::Items::Types']]],

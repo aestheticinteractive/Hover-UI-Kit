@@ -259,6 +259,7 @@ var hierarchy =
       [ "Hover.Core.Renderers.Shapes.Arc.HoverRendererIdleArcUpdater", "class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_renderer_idle_arc_updater.html", null ],
       [ "Hover.Core.Renderers.Shapes.HoverShape", "class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_hover_shape.html", null ],
       [ "Hover.Core.Renderers.Shapes.Rect.HoverFillButtonRectUpdater", "class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_rect_1_1_hover_fill_button_rect_updater.html", null ],
+      [ "Hover.Core.Utils.HoverInputMissing", "class_hover_1_1_core_1_1_utils_1_1_hover_input_missing.html", null ],
       [ "Hover.Core.Utils.HoverSceneAdjust", "class_hover_1_1_core_1_1_utils_1_1_hover_scene_adjust.html", null ],
       [ "Hover.Core.Utils.HoverSceneLoader", "class_hover_1_1_core_1_1_utils_1_1_hover_scene_loader.html", null ],
       [ "Hover.Core.Utils.TreeUpdater", "class_hover_1_1_core_1_1_utils_1_1_tree_updater.html", null ],

@@ -1,6 +1,5 @@
 var NAVTREEINDEX2 =
 {
-"class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_cursor.html#a0777c7e3800b5c093f41fcf46756a9cf":[1,0,0,0,3,1,3,4],
 "class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_cursor.html#a08a15b6d8f460f2f7f658b8117f7ff13":[1,0,0,0,3,1,3,2],
 "class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_cursor.html#a0a5f6520b389734795546fd73ba305a7":[1,0,0,0,3,1,3,14],
 "class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_cursor.html#a1b69c8a55a68aea614625b061de10a28":[1,0,0,0,3,1,3,6],
@@ -249,5 +248,6 @@ var NAVTREEINDEX2 =
 "class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_renderer_idle_arc_updater.html#a74d9f1c182e88c3f00ed5abcc657a46d":[1,0,0,0,3,3,0,3,1],
 "class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_renderer_idle_arc_updater.html#ac3fa8996b53ded9f0414235dbaf5ecf6":[1,0,0,0,3,3,0,3,0],
 "class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_renderer_slider_arc_updater.html":[1,0,0,0,3,3,0,4],
-"class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_renderer_slider_arc_updater.html#a7cd6aff5ff65c0d08a1509b8d42d0e3f":[1,0,0,0,3,3,0,4,0]
+"class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_renderer_slider_arc_updater.html#a7cd6aff5ff65c0d08a1509b8d42d0e3f":[1,0,0,0,3,3,0,4,0],
+"class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_renderer_slider_segments_arc.html":[1,0,0,0,3,3,0,5]
 };

@@ -5,6 +5,7 @@ var class_hover_1_1_interface_modules_1_1_key_1_1_hoverkey_interface =
     [ "HandleItemDeselected", "class_hover_1_1_interface_modules_1_1_key_1_1_hoverkey_interface.html#a03db95663a52a1e412b1680465713fbc", null ],
     [ "HandleItemSelected", "class_hover_1_1_interface_modules_1_1_key_1_1_hoverkey_interface.html#a2c3963cef68d6aa025c548d56f12184f", null ],
     [ "HandleItemValueChanged", "class_hover_1_1_interface_modules_1_1_key_1_1_hoverkey_interface.html#a5624474cfb2c42d72d8a4df41a50ed0a", null ],
+    [ "RefreshKeyLists", "class_hover_1_1_interface_modules_1_1_key_1_1_hoverkey_interface.html#a52ca82de30c7e1144eac45138f05d114", null ],
     [ "Start", "class_hover_1_1_interface_modules_1_1_key_1_1_hoverkey_interface.html#a84bdeea034baab9ad37147eb704e9d26", null ],
     [ "Update", "class_hover_1_1_interface_modules_1_1_key_1_1_hoverkey_interface.html#a43990fe4cc53f4d501dfdb777d3cf150", null ],
     [ "OnItemDeselectedEvent", "class_hover_1_1_interface_modules_1_1_key_1_1_hoverkey_interface.html#a5205e8b9b34d68a81e4beac20bbbdfea", null ],
