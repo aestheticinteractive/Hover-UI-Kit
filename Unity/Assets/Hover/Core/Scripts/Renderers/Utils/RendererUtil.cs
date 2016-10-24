@@ -33,7 +33,7 @@ namespace Hover.Core.Renderers.Utils {
 					TreeUpdater treeUp = prefabRend.gameObject.GetComponent<TreeUpdater>();
 
 					if ( treeUp != null ) {
-						treeUp.Update();
+						treeUp.UpdateAtAndBelowThisLevel();
 					}
 
 					return prefabRend;

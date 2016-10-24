@@ -40,7 +40,12 @@ namespace Hover.Core.Utils {
 			
 			AscendTreeOrBegin(true);
 		}
-		
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void UpdateAtAndBelowThisLevel() {
+			BeginAtThisTreeLevel();
+		}
+
 		/*--------------------------------------------------------------------------------------------*/
 		public void LateUpdate() {
 			DidTreeUpdateThisFrame = false;

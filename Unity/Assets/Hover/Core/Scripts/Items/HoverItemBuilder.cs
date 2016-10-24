@@ -47,7 +47,7 @@ namespace Hover.Core.Items {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void PerformBuild() {
-			gameObject.AddComponent<TreeUpdater>();
+			TreeUpdater treeUp = gameObject.AddComponent<TreeUpdater>();
 
 			HoverItem item = gameObject.AddComponent<HoverItem>();
 			item.ItemType = ItemType;
@@ -61,7 +61,7 @@ namespace Hover.Core.Items {
 			rendUp.SliderRendererPrefab = SliderRendererPrefab;
 			highState.ProximityProvider = rendUp;
 
-			rendUp.TreeUpdate(); //forces the renderer prefab to load
+			treeUp.Update(); //forces the entire item to update
 		}
 
 	}
