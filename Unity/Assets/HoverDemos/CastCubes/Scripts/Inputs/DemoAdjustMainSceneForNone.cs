@@ -1,13 +1,11 @@
 ﻿using Hover.Core.Cursors;
-using Hover.Core.Items.Types;
 using Hover.Core.Utils;
 using Hover.InterfaceModules.Cast;
-using UnityEngine;
 
 namespace HoverDemos.CastCubes.Inputs {
 
 	/*================================================================================================*/
-	public class DemoAdjustMainSceneForVive : HoverSceneAdjust {
+	public class DemoAdjustMainSceneForNone : HoverSceneAdjust {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -21,13 +19,10 @@ namespace HoverDemos.CastCubes.Inputs {
 			HovercastInterface cast = FindObjectOfType<HovercastInterface>();
 			DemoHovercastCustomizer castCustom = cast.GetComponent<DemoHovercastCustomizer>();
 
-			Deactivate(UnityUtil.FindComponentAll<Camera>("MainCamera").gameObject);
-			Deactivate(UnityUtil.FindComponentAll<HoverItemDataSelector>("Re-orient"));
-
-			castCustom.StandardFollowCursor = CursorType.LeftPinky;
-			castCustom.SwitchedFollowCursor = CursorType.RightPinky;
-			castCustom.StandardInteractionCursor = CursorType.RightMiddle;
-			castCustom.SwitchedInteractionCursor = CursorType.LeftMiddle;
+			castCustom.StandardFollowCursor = CursorType.LeftPalm;
+			castCustom.SwitchedFollowCursor = CursorType.RightPalm;
+			castCustom.StandardInteractionCursor = CursorType.RightIndex;
+			castCustom.SwitchedInteractionCursor = CursorType.LeftIndex;
 		}
 
 	}

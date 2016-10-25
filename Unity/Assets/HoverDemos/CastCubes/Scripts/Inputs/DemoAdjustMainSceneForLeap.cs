@@ -1,4 +1,5 @@
-﻿using Hover.Core.Utils;
+﻿using Hover.Core.Cursors;
+using Hover.Core.Utils;
 using Hover.InterfaceModules.Cast;
 
 namespace HoverDemos.CastCubes.Inputs {
@@ -15,7 +16,13 @@ namespace HoverDemos.CastCubes.Inputs {
 
 		/*--------------------------------------------------------------------------------------------*/
 		protected override void PerformAdjustments() {
-			//do nothing, for now...
+			HovercastInterface cast = FindObjectOfType<HovercastInterface>();
+			DemoHovercastCustomizer castCustom = cast.GetComponent<DemoHovercastCustomizer>();
+
+			castCustom.StandardFollowCursor = CursorType.LeftPalm;
+			castCustom.SwitchedFollowCursor = CursorType.RightPalm;
+			castCustom.StandardInteractionCursor = CursorType.RightIndex;
+			castCustom.SwitchedInteractionCursor = CursorType.LeftIndex;
 		}
 
 	}

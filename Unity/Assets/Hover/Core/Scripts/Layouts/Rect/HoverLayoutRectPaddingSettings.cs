@@ -17,6 +17,10 @@ namespace Hover.Core.Layouts.Rect {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void ClampValues(HoverLayoutRectRow pRectRow) {
+			if ( pRectRow.ChildCount <= 0 ) {
+				return;
+			}
+
 			Top = Mathf.Clamp(Top, 0, pRectRow.SizeY);
 			Bottom = Mathf.Clamp(Bottom, 0, pRectRow.SizeY-Top);
 			Left = Mathf.Clamp(Left, 0, pRectRow.SizeX);

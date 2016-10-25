@@ -22,6 +22,10 @@ namespace Hover.Core.Layouts.Arc {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void ClampValues(HoverLayoutArcRow pArcRow) {
+			if ( pArcRow.ChildCount <= 0 ) {
+				return;
+			}
+
 			float radThick = Mathf.Abs(pArcRow.OuterRadius-pArcRow.InnerRadius);
 			ClampValues(pArcRow.ArcDegrees, radThick);
 			Between = Mathf.Clamp(Between, 0,
@@ -30,6 +34,10 @@ namespace Hover.Core.Layouts.Arc {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void ClampValues(HoverLayoutArcStack pArcStack) {
+			if ( pArcStack.ChildCount <= 0 ) {
+				return;
+			}
+
 			float radThick = Mathf.Abs(pArcStack.OuterRadius-pArcStack.InnerRadius);
 			ClampValues(pArcStack.ArcDegrees, radThick);
 			Between = Mathf.Clamp(Between, 0,
