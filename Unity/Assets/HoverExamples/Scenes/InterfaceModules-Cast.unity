@@ -154,6 +154,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37c1b1430e522db41a4fb21de2f62517, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnEnabledChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Core.Items.HoverItemData+EnabledChangedEventHandler, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Id: Row1-ItemC
   _Label: AC
   _IsEnabled: 1
@@ -170,7 +175,7 @@ MonoBehaviour:
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Core.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+    m_TypeName: Hover.Core.Items.Types.HoverItemDataSelectableBool+BoolValueChangedEventHandler,
       Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
   _DefaultGroupId: Group-Instance-48640
@@ -350,7 +355,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 23784689}
-  m_LocalRotation: {x: 0, y: 0, z: -0.09801714, w: 0.9951847}
+  m_LocalRotation: {x: 0, y: 0, z: -0.09817999, w: 0.9951687}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -372,7 +377,7 @@ MonoBehaviour:
   ControlChildShapes: 1
   OuterRadius: 0.17999999
   InnerRadius: 0.12
-  ArcDegrees: 22.5
+  ArcDegrees: 22.3875
   OuterOffset: {x: 0, y: 0, z: 0}
   InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &23784692
@@ -427,6 +432,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6aef538aa024b043ae8182f3aeee109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnEnabledChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Core.Items.HoverItemData+EnabledChangedEventHandler, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Id: Row0-ItemC
   _Label: C
   _IsEnabled: 1
@@ -875,6 +885,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c4e701053d89d74abdbe9308269ffd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnEnabledChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Core.Items.HoverItemData+EnabledChangedEventHandler, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Id: Row2-ItemA
   _Label: BA
   _IsEnabled: 1
@@ -891,7 +906,7 @@ MonoBehaviour:
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Core.Items.Types.HoverItemDataSelectableFloat+ValueChangedEventHandler,
+    m_TypeName: Hover.Core.Items.Types.HoverItemDataSelectableFloat+FloatValueChangedEventHandler,
       Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0.825
   _LabelFormat: '{0}: {1:N1}'
@@ -1041,6 +1056,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37c1b1430e522db41a4fb21de2f62517, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnEnabledChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Core.Items.HoverItemData+EnabledChangedEventHandler, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Id: Row1-ItemA
   _Label: AA
   _IsEnabled: 1
@@ -1057,7 +1077,7 @@ MonoBehaviour:
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Core.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+    m_TypeName: Hover.Core.Items.Types.HoverItemDataSelectableBool+BoolValueChangedEventHandler,
       Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
   _DefaultGroupId: Group-Instance-48640
@@ -1576,6 +1596,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37c1b1430e522db41a4fb21de2f62517, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnEnabledChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Core.Items.HoverItemData+EnabledChangedEventHandler, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Id: Row1-ItemE
   _Label: AE
   _IsEnabled: 1
@@ -1592,7 +1617,7 @@ MonoBehaviour:
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Core.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+    m_TypeName: Hover.Core.Items.Types.HoverItemDataSelectableBool+BoolValueChangedEventHandler,
       Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
   _DefaultGroupId: Group-Instance-48640
@@ -2183,7 +2208,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ac88c06ba026b84cb0ae1c03c972f60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BackTriggerCursorType: 0
+  UseFollowedCursorType: 1
+  CursorType: 0
   TriggerAgainThreshold: 0.5
 --- !u!114 &388379346
 MonoBehaviour:
@@ -2672,6 +2698,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37c1b1430e522db41a4fb21de2f62517, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnEnabledChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Core.Items.HoverItemData+EnabledChangedEventHandler, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Id: Row1-ItemB
   _Label: AB
   _IsEnabled: 1
@@ -2688,7 +2719,7 @@ MonoBehaviour:
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Core.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+    m_TypeName: Hover.Core.Items.Types.HoverItemDataSelectableBool+BoolValueChangedEventHandler,
       Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
   _DefaultGroupId: Group-Instance-48640
@@ -3207,7 +3238,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22455446, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 20
+      value: 29.999996
       objectReference: {fileID: 0}
     - target: {fileID: 11422692, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: SizeX
@@ -4210,7 +4241,7 @@ MonoBehaviour:
     InnerRadius: 0
     StartDegree: 0
     EndDegree: 0
-    Between: 0
+    Between: 0.15
   StartingDegree: 0
   RectAnchor: 4
 --- !u!114 &770322433
@@ -4360,6 +4391,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6aef538aa024b043ae8182f3aeee109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnEnabledChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Core.Items.HoverItemData+EnabledChangedEventHandler, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Id: Row2-ItemBack
   _Label: Back
   _IsEnabled: 1
@@ -4529,6 +4565,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6aef538aa024b043ae8182f3aeee109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnEnabledChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Core.Items.HoverItemData+EnabledChangedEventHandler, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Id: Row1-ItemBack
   _Label: Back
   _IsEnabled: 1
@@ -4713,7 +4754,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22447854, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 245.00002
+      value: 255.00002
       objectReference: {fileID: 0}
     - target: {fileID: 11408750, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: SizeX
@@ -5243,6 +5284,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37c1b1430e522db41a4fb21de2f62517, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnEnabledChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Core.Items.HoverItemData+EnabledChangedEventHandler, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Id: Row1-ItemD
   _Label: AD
   _IsEnabled: 1
@@ -5259,7 +5305,7 @@ MonoBehaviour:
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Core.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+    m_TypeName: Hover.Core.Items.Types.HoverItemDataSelectableBool+BoolValueChangedEventHandler,
       Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
   _DefaultGroupId: Group-Instance-48640
@@ -5496,7 +5542,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22447854, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 245.00002
+      value: 254.99997
       objectReference: {fileID: 0}
     - target: {fileID: 11408750, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: SizeX
@@ -5916,7 +5962,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22455446, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 45
+      value: 54.999996
       objectReference: {fileID: 0}
     - target: {fileID: 11422692, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: SizeX
@@ -6223,7 +6269,7 @@ MonoBehaviour:
     InnerRadius: 0
     StartDegree: 0
     EndDegree: 0
-    Between: 0
+    Between: 0.15
   StartingDegree: 0
   RectAnchor: 4
 --- !u!114 &1203484121
@@ -6697,7 +6743,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1279707697}
-  m_LocalRotation: {x: -0, y: -0, z: 0.09801714, w: 0.9951847}
+  m_LocalRotation: {x: -0, y: -0, z: 0.098179966, w: 0.9951687}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6733,7 +6779,7 @@ MonoBehaviour:
   ControlChildShapes: 1
   OuterRadius: 0.17999999
   InnerRadius: 0.12
-  ArcDegrees: 22.5
+  ArcDegrees: 22.3875
   OuterOffset: {x: 0, y: 0, z: 0}
   InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &1279707701
@@ -6788,6 +6834,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6aef538aa024b043ae8182f3aeee109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnEnabledChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Core.Items.HoverItemData+EnabledChangedEventHandler, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Id: Row0-ItemB
   _Label: B
   _IsEnabled: 1
@@ -7067,6 +7118,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37c1b1430e522db41a4fb21de2f62517, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnEnabledChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Core.Items.HoverItemData+EnabledChangedEventHandler, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Id: Row1-ItemF
   _Label: AF
   _IsEnabled: 1
@@ -7083,7 +7139,7 @@ MonoBehaviour:
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Core.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+    m_TypeName: Hover.Core.Items.Types.HoverItemDataSelectableBool+BoolValueChangedEventHandler,
       Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
   _DefaultGroupId: Group-Instance-48640
@@ -7417,6 +7473,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6aef538aa024b043ae8182f3aeee109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnEnabledChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Core.Items.HoverItemData+EnabledChangedEventHandler, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Id: HovercastBackItem
   _Label: 
   _IsEnabled: 0
@@ -8464,7 +8525,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22447854, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 245.00002
+      value: 254.99997
       objectReference: {fileID: 0}
     - target: {fileID: 11408750, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: SizeX
@@ -8789,19 +8850,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22406602, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 102.50001
+      value: 111.49999
       objectReference: {fileID: 0}
     - target: {fileID: 22465374, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 102.50001
+      value: 111.49999
       objectReference: {fileID: 0}
     - target: {fileID: 22465374, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -6.9999995
+      value: -5.5999994
       objectReference: {fileID: 0}
     - target: {fileID: 22447854, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -24
+      value: -19.199993
       objectReference: {fileID: 0}
     - target: {fileID: 11408750, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: SizeX
@@ -8984,6 +9045,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneFolderPath: Hover/InputModules/LeapMotion/Scenes/
   SceneName: HoverInputModule-LeapMotion
+  AutoLoadInEditor: 0
+  OnSceneLoadedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Core.Utils.HoverSceneLoader+SceneLoadedEventHandler, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   ClickToReloadScene: 0
 --- !u!1 &1527325223
 GameObject:
@@ -9049,6 +9116,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50249914f4d91a445b81cce7e37c3ab9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnEnabledChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Core.Items.HoverItemData+EnabledChangedEventHandler, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Id: HovercastTitleItem
   _Label: Hovercast
   _IsEnabled: 1
@@ -9398,6 +9470,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6aef538aa024b043ae8182f3aeee109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnEnabledChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Core.Items.HoverItemData+EnabledChangedEventHandler, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Id: HovercastOpenItem
   _Label: 
   _IsEnabled: 1
@@ -9548,19 +9625,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22406602, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 102.50001
+      value: 111.49999
       objectReference: {fileID: 0}
     - target: {fileID: 22465374, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 102.50001
+      value: 111.49999
       objectReference: {fileID: 0}
     - target: {fileID: 22465374, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -6.9999995
+      value: -5.5999994
       objectReference: {fileID: 0}
     - target: {fileID: 22447854, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -24
+      value: -19.199993
       objectReference: {fileID: 0}
     - target: {fileID: 11408750, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: SizeX
@@ -10656,6 +10733,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3f3ece0ff27e1b4693f42bbfd1404be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnEnabledChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Core.Items.HoverItemData+EnabledChangedEventHandler, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Id: Row2-ItemC
   _Label: BC
   _IsEnabled: 1
@@ -10672,7 +10754,7 @@ MonoBehaviour:
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Core.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+    m_TypeName: Hover.Core.Items.Types.HoverItemDataSelectableBool+BoolValueChangedEventHandler,
       Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &1815604630
@@ -10804,6 +10886,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3f3ece0ff27e1b4693f42bbfd1404be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnEnabledChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Core.Items.HoverItemData+EnabledChangedEventHandler, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Id: Row2-ItemB
   _Label: BB
   _IsEnabled: 1
@@ -10820,7 +10907,7 @@ MonoBehaviour:
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Core.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+    m_TypeName: Hover.Core.Items.Types.HoverItemDataSelectableBool+BoolValueChangedEventHandler,
       Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &1829735252
@@ -11330,7 +11417,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1892491378}
-  m_LocalRotation: {x: 0, y: 0, z: -0.29028466, w: 0.95694035}
+  m_LocalRotation: {x: 0, y: 0, z: -0.2907544, w: 0.9567977}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11352,7 +11439,7 @@ MonoBehaviour:
   ControlChildShapes: 1
   OuterRadius: 0.17999999
   InnerRadius: 0.12
-  ArcDegrees: 22.5
+  ArcDegrees: 22.3875
   OuterOffset: {x: 0, y: 0, z: 0}
   InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &1892491381
@@ -11407,6 +11494,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6aef538aa024b043ae8182f3aeee109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnEnabledChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Core.Items.HoverItemData+EnabledChangedEventHandler, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Id: Row0-ItemD
   _Label: D
   _IsEnabled: 1
@@ -11640,7 +11732,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1928021244}
-  m_LocalRotation: {x: -0, y: -0, z: 0.29028466, w: 0.95694035}
+  m_LocalRotation: {x: -0, y: -0, z: 0.2907544, w: 0.9567977}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11676,7 +11768,7 @@ MonoBehaviour:
   ControlChildShapes: 1
   OuterRadius: 0.17999999
   InnerRadius: 0.12
-  ArcDegrees: 22.5
+  ArcDegrees: 22.3875
   OuterOffset: {x: 0, y: 0, z: 0}
   InnerOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &1928021248
@@ -11731,6 +11823,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6aef538aa024b043ae8182f3aeee109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnEnabledChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Core.Items.HoverItemData+EnabledChangedEventHandler, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Id: Row0-ItemA
   _Label: A
   _IsEnabled: 1
@@ -11850,7 +11947,7 @@ MonoBehaviour:
     InnerRadius: 0
     StartDegree: 0
     EndDegree: 0
-    Between: 0
+    Between: 0.15
   StartingDegree: 0
   RectAnchor: 4
 --- !u!114 &1932771515

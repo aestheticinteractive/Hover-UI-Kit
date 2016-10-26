@@ -126,8 +126,7 @@ namespace Hover.InterfaceModules.Cast {
 
 			gameObject.AddComponent<HovercastHighlightPreventer>();
 
-			HovercastBackCursorTrigger backTrig = gameObject.AddComponent<HovercastBackCursorTrigger>();
-			backTrig.BackTriggerCursorType = follow.CursorType;
+			gameObject.AddComponent<HovercastBackCursorTrigger>();
 
 			HovercastActiveDirection actDir = gameObject.AddComponent<HovercastActiveDirection>();
 			actDir.ChildForActivation = adjustGo;
@@ -324,7 +323,7 @@ namespace Hover.InterfaceModules.Cast {
 
 			HoverLayoutArcRow layoutArc = pRowGo.AddComponent<HoverLayoutArcRow>();
 			layoutArc.ArcDegrees = 90;
-			layoutArc.Padding.Between = 0.2f;
+			layoutArc.Padding.Between = 0.15f;
 
 			HovercastRowTitle title = pRowGo.AddComponent<HovercastRowTitle>();
 			title.RowTitle = pRowTitle;

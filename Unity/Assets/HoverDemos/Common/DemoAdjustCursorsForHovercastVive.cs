@@ -23,7 +23,6 @@ namespace HoverDemos.Common {
 			ICursorDataForInput look = cursProv.GetCursorDataForInput(CursorType.Look);
 			HovercastInterface cast = FindObjectOfType<HovercastInterface>();
 			HoverCursorFollower castFollow = cast.GetComponent<HoverCursorFollower>();
-			HovercastBackCursorTrigger castTrig = cast.GetComponent<HovercastBackCursorTrigger>();
 			HoverCursorRendererUpdater[] cursorRendUps =
 				Resources.FindObjectsOfTypeAll<HoverCursorRendererUpdater>();
 
@@ -43,7 +42,6 @@ namespace HoverDemos.Common {
 
 			cast.transform.GetChild(0).localPosition = Vector3.zero; //moves "TransformAdjuster"
 			castFollow.CursorType = pinL.Type;
-			castTrig.BackTriggerCursorType = pinL.Type;
 
 			//for non-playing editor...
 

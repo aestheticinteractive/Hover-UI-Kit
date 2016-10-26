@@ -128,7 +128,6 @@ namespace HoverDemos.CastCubes {
 			ICursorDataForInput stdInt = curProv.GetCursorDataForInput(StandardInteractionCursor);
 			ICursorDataForInput swiInt = curProv.GetCursorDataForInput(SwitchedInteractionCursor);
 			HovercastMirrorSwitcher mirror = GetComponent<HovercastMirrorSwitcher>();
-			HovercastBackCursorTrigger backTrig = GetComponent<HovercastBackCursorTrigger>();
 			bool isMirror = !mirror.UseMirrorLayout;
 
 			if ( isMirror ) {
@@ -159,8 +158,6 @@ namespace HoverDemos.CastCubes {
 				stdFol.gameObject.SetActive(true);
 				stdInt.gameObject.SetActive(true);
 			}
-
-			backTrig.BackTriggerCursorType = follow.CursorType;
 		}
 
 
