@@ -1,5 +1,9 @@
 var NAVTREEINDEX5 =
 {
+"class_hover_1_1_renderer_modules_1_1_alpha_1_1_hover_alpha_mesh_updater.html#a10f4f18dfd2dd4463d702ccdc65df5df":[1,0,0,3,0,2,2],
+"class_hover_1_1_renderer_modules_1_1_alpha_1_1_hover_alpha_mesh_updater.html#a23868017e189666ba2f098a89c296a93":[1,0,0,3,0,2,6],
+"class_hover_1_1_renderer_modules_1_1_alpha_1_1_hover_alpha_mesh_updater.html#a310671d90ee932629b2cac5646681f27":[1,0,0,3,0,2,7],
+"class_hover_1_1_renderer_modules_1_1_alpha_1_1_hover_alpha_mesh_updater.html#a3b589546f7ba605d8eec03912ef1f38a":[1,0,0,3,0,2,14],
 "class_hover_1_1_renderer_modules_1_1_alpha_1_1_hover_alpha_mesh_updater.html#a4f754e5bd53cfbe9f278f9cdc8f3c30c":[1,0,0,3,0,2,8],
 "class_hover_1_1_renderer_modules_1_1_alpha_1_1_hover_alpha_mesh_updater.html#a7dd9077cf5805642571c9ce64d9dda97":[1,0,0,3,0,2,11],
 "class_hover_1_1_renderer_modules_1_1_alpha_1_1_hover_alpha_mesh_updater.html#a8d14dd8c015445b5bd42a11017f5feae":[1,0,0,3,0,2,9],
@@ -79,8 +83,8 @@ var NAVTREEINDEX5 =
 "functions_n.html":[1,3,0,14],
 "functions_o.html":[1,3,0,15],
 "functions_p.html":[1,3,0,16],
-"functions_prop.html":[1,3,4,0],
 "functions_prop.html":[1,3,4],
+"functions_prop.html":[1,3,4,0],
 "functions_prop_b.html":[1,3,4,1],
 "functions_prop_c.html":[1,3,4,2],
 "functions_prop_d.html":[1,3,4,3],
@@ -105,8 +109,8 @@ var NAVTREEINDEX5 =
 "functions_t.html":[1,3,0,19],
 "functions_u.html":[1,3,0,20],
 "functions_v.html":[1,3,0,21],
-"functions_vars.html":[1,3,2,0],
 "functions_vars.html":[1,3,2],
+"functions_vars.html":[1,3,2,0],
 "functions_vars_a.html":[1,3,2,1],
 "functions_vars_b.html":[1,3,2,2],
 "functions_vars_c.html":[1,3,2,3],
@@ -243,11 +247,7 @@ var NAVTREEINDEX5 =
 "namespace_hover_1_1_core_1_1_cursors.html":[0,0,0,0,0],
 "namespace_hover_1_1_core_1_1_items.html":[1,0,0,0,1],
 "namespace_hover_1_1_core_1_1_items.html":[0,0,0,0,1],
-"namespace_hover_1_1_core_1_1_items_1_1_helpers.html":[0,0,0,0,1,0],
 "namespace_hover_1_1_core_1_1_items_1_1_helpers.html":[1,0,0,0,1,0],
-"namespace_hover_1_1_core_1_1_items_1_1_managers.html":[0,0,0,0,1,1],
-"namespace_hover_1_1_core_1_1_items_1_1_managers.html":[1,0,0,0,1,1],
-"namespace_hover_1_1_core_1_1_items_1_1_types.html":[1,0,0,0,1,2],
-"namespace_hover_1_1_core_1_1_items_1_1_types.html":[0,0,0,0,1,2],
-"namespace_hover_1_1_core_1_1_layouts.html":[1,0,0,0,2]
+"namespace_hover_1_1_core_1_1_items_1_1_helpers.html":[0,0,0,0,1,0],
+"namespace_hover_1_1_core_1_1_items_1_1_managers.html":[0,0,0,0,1,1]
 };

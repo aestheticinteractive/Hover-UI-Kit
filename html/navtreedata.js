@@ -31,8 +31,8 @@ var NAVTREEINDEX =
 "class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_cursor.html#a08a15b6d8f460f2f7f658b8117f7ff13",
 "class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_arc_1_1_hover_renderer_slider_segments_arc.html#a5cf0ede93defadd26149a86cee472905",
 "class_hover_1_1_input_modules_1_1_vive_1_1_hover_input_vive.html#a76410f13e3b034f3080c78cb868ca192",
-"class_hover_1_1_renderer_modules_1_1_alpha_1_1_hover_alpha_mesh_updater.html#a4f754e5bd53cfbe9f278f9cdc8f3c30c",
-"namespace_hover_1_1_core_1_1_layouts.html"
+"class_hover_1_1_renderer_modules_1_1_alpha_1_1_hover_alpha_mesh_updater.html#a10f4f18dfd2dd4463d702ccdc65df5df",
+"namespace_hover_1_1_core_1_1_items_1_1_managers.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
