@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44692498, g: 0.496787, b: 0.57508546, a: 1}
+  m_IndirectSpecularColor: {r: 0.18053626, g: 0.2260185, b: 0.30718803, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -3346,6 +3346,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c4e701053d89d74abdbe9308269ffd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnEnabledChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Core.Items.HoverItemData+EnabledChangedEventHandler, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Id: Item-4
   _Label: Item B
   _IsEnabled: 1
@@ -3362,7 +3367,7 @@ MonoBehaviour:
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Core.Items.Types.HoverItemDataSelectableFloat+ValueChangedEventHandler,
+    m_TypeName: Hover.Core.Items.Types.HoverItemDataSelectableFloat+FloatValueChangedEventHandler,
       Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0.5
   _LabelFormat: '{0}: {1:N1}'
@@ -3731,6 +3736,22 @@ Prefab:
       propertyPath: SelectionProgress
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 484742, guid: 81b9003e7ea5fba4480b8c1fe50dd3dc, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0.0348995
+      objectReference: {fileID: 0}
+    - target: {fileID: 484742, guid: 81b9003e7ea5fba4480b8c1fe50dd3dc, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.99939084
+      objectReference: {fileID: 0}
+    - target: {fileID: 176952, guid: 81b9003e7ea5fba4480b8c1fe50dd3dc, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 197262, guid: 81b9003e7ea5fba4480b8c1fe50dd3dc, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 81b9003e7ea5fba4480b8c1fe50dd3dc, type: 2}
   m_IsPrefabParent: 0
@@ -4026,6 +4047,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3f3ece0ff27e1b4693f42bbfd1404be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnEnabledChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Core.Items.HoverItemData+EnabledChangedEventHandler, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Id: Item-1
   _Label: Item A
   _IsEnabled: 1
@@ -4042,7 +4068,7 @@ MonoBehaviour:
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Core.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+    m_TypeName: Hover.Core.Items.Types.HoverItemDataSelectableBool+BoolValueChangedEventHandler,
       Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!114 &1688562648
@@ -4247,6 +4273,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3f3ece0ff27e1b4693f42bbfd1404be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnEnabledChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Core.Items.HoverItemData+EnabledChangedEventHandler, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Id: Item-2
   _Label: Item A
   _IsEnabled: 1
@@ -4263,7 +4294,7 @@ MonoBehaviour:
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Core.Items.Types.HoverItemDataSelectableBool+ValueChangedEventHandler,
+    m_TypeName: Hover.Core.Items.Types.HoverItemDataSelectableBool+BoolValueChangedEventHandler,
       Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0
 --- !u!4 &1743628189
@@ -4935,6 +4966,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c4e701053d89d74abdbe9308269ffd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnEnabledChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Core.Items.HoverItemData+EnabledChangedEventHandler, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Id: Item-3
   _Label: Item B
   _IsEnabled: 1
@@ -4951,7 +4987,7 @@ MonoBehaviour:
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Hover.Core.Items.Types.HoverItemDataSelectableFloat+ValueChangedEventHandler,
+    m_TypeName: Hover.Core.Items.Types.HoverItemDataSelectableFloat+FloatValueChangedEventHandler,
       Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _Value: 0.5
   _LabelFormat: '{0}: {1:N1}'
@@ -5097,7 +5133,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1000013476867260, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11495430, guid: 737b901aecdb514459be83a6eb717f65, type: 2}
       propertyPath: HighlightProgress
