@@ -22,3 +22,5 @@
 
 ![LeapMotion](https://github.com/aestheticinteractive/Hover-UI-Kit/wiki/Images/InputModule-LeapMotion-Cursor.gif)
 <br/>:camera: _Cursors attached to specific points on the LeapMotion hands_
+
+### [Continue to the project wiki>](https://github.com/aestheticinteractive/Hover-UI-Kit/wiki)
