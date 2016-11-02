@@ -1,6 +1,7 @@
 var namespace_hover_1_1_interface_modules_1_1_cast =
 [
     [ "HovercastActiveDirection", "class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_active_direction.html", "class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_active_direction" ],
+    [ "HovercastAlphaUpdater", "class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_alpha_updater.html", "class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_alpha_updater" ],
     [ "HovercastBackCursorTrigger", "class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_back_cursor_trigger.html", "class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_back_cursor_trigger" ],
     [ "HovercastBuilder", "class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_builder.html", "class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_builder" ],
     [ "HovercastHighlightPreventer", "class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_highlight_preventer.html", "class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_highlight_preventer" ],

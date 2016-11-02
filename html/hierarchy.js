@@ -141,11 +141,13 @@ var hierarchy =
       ] ],
       [ "Hover.Core.Renderers.Shapes.Rect.HoverFillButtonRectUpdater", "class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_rect_1_1_hover_fill_button_rect_updater.html", null ],
       [ "Hover.InterfaceModules.Cast.HovercastActiveDirection", "class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_active_direction.html", null ],
+      [ "Hover.InterfaceModules.Cast.HovercastAlphaUpdater", "class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_alpha_updater.html", null ],
       [ "Hover.InterfaceModules.Cast.HovercastBackCursorTrigger", "class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_back_cursor_trigger.html", null ],
       [ "Hover.InterfaceModules.Cast.HovercastMirrorSwitcher", "class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_mirror_switcher.html", null ],
       [ "Hover.InterfaceModules.Cast.HovercastOpenTransitioner", "class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_open_transitioner.html", null ],
       [ "Hover.InterfaceModules.Cast.HovercastRowTransitioner", "class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_row_transitioner.html", null ],
       [ "Hover.InterfaceModules.Panel.HoverpanelActiveDirection", "class_hover_1_1_interface_modules_1_1_panel_1_1_hoverpanel_active_direction.html", null ],
+      [ "Hover.InterfaceModules.Panel.HoverpanelAlphaUpdater", "class_hover_1_1_interface_modules_1_1_panel_1_1_hoverpanel_alpha_updater.html", null ],
       [ "Hover.InterfaceModules.Panel.HoverpanelRowSizer", "class_hover_1_1_interface_modules_1_1_panel_1_1_hoverpanel_row_sizer.html", null ],
       [ "Hover.InterfaceModules.Panel.HoverpanelRowTransitioner", "class_hover_1_1_interface_modules_1_1_panel_1_1_hoverpanel_row_transitioner.html", null ],
       [ "Hover.RendererModules.Alpha.HoverAlphaFillUpdater", "class_hover_1_1_renderer_modules_1_1_alpha_1_1_hover_alpha_fill_updater.html", null ],
@@ -153,8 +155,6 @@ var hierarchy =
       [ "Hover.RendererModules.Alpha.HoverAlphaRendererUpdater", "class_hover_1_1_renderer_modules_1_1_alpha_1_1_hover_alpha_renderer_updater.html", [
         [ "Hover.RendererModules.Alpha.HoverAlphaIdleRendererUpdater", "class_hover_1_1_renderer_modules_1_1_alpha_1_1_hover_alpha_idle_renderer_updater.html", null ]
       ] ],
-      [ "Hover.RendererModules.Alpha.HovercastAlphaUpdater", "class_hover_1_1_renderer_modules_1_1_alpha_1_1_hovercast_alpha_updater.html", null ],
-      [ "Hover.RendererModules.Alpha.HoverpanelAlphaUpdater", "class_hover_1_1_renderer_modules_1_1_alpha_1_1_hoverpanel_alpha_updater.html", null ],
       [ "Hover.RendererModules.Opaque.HoverOpaqueMeshUpdater", "class_hover_1_1_renderer_modules_1_1_opaque_1_1_hover_opaque_mesh_updater.html", null ]
     ] ],
     [ "Hover.Core.Utils.ISettingsControllerMap", "interface_hover_1_1_core_1_1_utils_1_1_i_settings_controller_map.html", [
@@ -193,6 +193,7 @@ var hierarchy =
       [ "Hover.Core.Renderers.Shapes.HoverShape", "class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_hover_shape.html", null ],
       [ "Hover.Core.Renderers.Shapes.Rect.HoverFillButtonRectUpdater", "class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_rect_1_1_hover_fill_button_rect_updater.html", null ],
       [ "Hover.InterfaceModules.Cast.HovercastActiveDirection", "class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_active_direction.html", null ],
+      [ "Hover.InterfaceModules.Cast.HovercastAlphaUpdater", "class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_alpha_updater.html", null ],
       [ "Hover.InterfaceModules.Cast.HovercastBackCursorTrigger", "class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_back_cursor_trigger.html", null ],
       [ "Hover.InterfaceModules.Cast.HovercastHighlightPreventer", "class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_highlight_preventer.html", null ],
       [ "Hover.InterfaceModules.Cast.HovercastInterface", "class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_interface.html", null ],
@@ -200,6 +201,7 @@ var hierarchy =
       [ "Hover.InterfaceModules.Cast.HovercastOpenTransitioner", "class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_open_transitioner.html", null ],
       [ "Hover.InterfaceModules.Cast.HovercastRowTransitioner", "class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_row_transitioner.html", null ],
       [ "Hover.InterfaceModules.Panel.HoverpanelActiveDirection", "class_hover_1_1_interface_modules_1_1_panel_1_1_hoverpanel_active_direction.html", null ],
+      [ "Hover.InterfaceModules.Panel.HoverpanelAlphaUpdater", "class_hover_1_1_interface_modules_1_1_panel_1_1_hoverpanel_alpha_updater.html", null ],
       [ "Hover.InterfaceModules.Panel.HoverpanelHighlightPreventer", "class_hover_1_1_interface_modules_1_1_panel_1_1_hoverpanel_highlight_preventer.html", null ],
       [ "Hover.InterfaceModules.Panel.HoverpanelInterface", "class_hover_1_1_interface_modules_1_1_panel_1_1_hoverpanel_interface.html", null ],
       [ "Hover.InterfaceModules.Panel.HoverpanelRowSizer", "class_hover_1_1_interface_modules_1_1_panel_1_1_hoverpanel_row_sizer.html", null ],
@@ -207,8 +209,6 @@ var hierarchy =
       [ "Hover.RendererModules.Alpha.HoverAlphaFillUpdater", "class_hover_1_1_renderer_modules_1_1_alpha_1_1_hover_alpha_fill_updater.html", null ],
       [ "Hover.RendererModules.Alpha.HoverAlphaMeshUpdater", "class_hover_1_1_renderer_modules_1_1_alpha_1_1_hover_alpha_mesh_updater.html", null ],
       [ "Hover.RendererModules.Alpha.HoverAlphaRendererUpdater", "class_hover_1_1_renderer_modules_1_1_alpha_1_1_hover_alpha_renderer_updater.html", null ],
-      [ "Hover.RendererModules.Alpha.HovercastAlphaUpdater", "class_hover_1_1_renderer_modules_1_1_alpha_1_1_hovercast_alpha_updater.html", null ],
-      [ "Hover.RendererModules.Alpha.HoverpanelAlphaUpdater", "class_hover_1_1_renderer_modules_1_1_alpha_1_1_hoverpanel_alpha_updater.html", null ],
       [ "Hover.RendererModules.Opaque.HoverOpaqueMeshUpdater", "class_hover_1_1_renderer_modules_1_1_opaque_1_1_hover_opaque_mesh_updater.html", null ]
     ] ],
     [ "Hover.Core.Utils.MeshBuilder", "class_hover_1_1_core_1_1_utils_1_1_mesh_builder.html", null ],
@@ -267,6 +267,7 @@ var hierarchy =
       [ "Hover.InputModules.LeapMotionOld.HoverInputLeapMotionOld", "class_hover_1_1_input_modules_1_1_leap_motion_old_1_1_hover_input_leap_motion_old.html", null ],
       [ "Hover.InputModules.Vive.HoverInputVive", "class_hover_1_1_input_modules_1_1_vive_1_1_hover_input_vive.html", null ],
       [ "Hover.InterfaceModules.Cast.HovercastActiveDirection", "class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_active_direction.html", null ],
+      [ "Hover.InterfaceModules.Cast.HovercastAlphaUpdater", "class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_alpha_updater.html", null ],
       [ "Hover.InterfaceModules.Cast.HovercastBackCursorTrigger", "class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_back_cursor_trigger.html", null ],
       [ "Hover.InterfaceModules.Cast.HovercastBuilder", "class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_builder.html", null ],
       [ "Hover.InterfaceModules.Cast.HovercastHighlightPreventer", "class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_highlight_preventer.html", null ],
@@ -282,6 +283,7 @@ var hierarchy =
       [ "Hover.InterfaceModules.Key.HoverkeyItemLabels", "class_hover_1_1_interface_modules_1_1_key_1_1_hoverkey_item_labels.html", null ],
       [ "Hover.InterfaceModules.Key.HoverkeyTextInput", "class_hover_1_1_interface_modules_1_1_key_1_1_hoverkey_text_input.html", null ],
       [ "Hover.InterfaceModules.Panel.HoverpanelActiveDirection", "class_hover_1_1_interface_modules_1_1_panel_1_1_hoverpanel_active_direction.html", null ],
+      [ "Hover.InterfaceModules.Panel.HoverpanelAlphaUpdater", "class_hover_1_1_interface_modules_1_1_panel_1_1_hoverpanel_alpha_updater.html", null ],
       [ "Hover.InterfaceModules.Panel.HoverpanelBuilder", "class_hover_1_1_interface_modules_1_1_panel_1_1_hoverpanel_builder.html", null ],
       [ "Hover.InterfaceModules.Panel.HoverpanelHighlightPreventer", "class_hover_1_1_interface_modules_1_1_panel_1_1_hoverpanel_highlight_preventer.html", null ],
       [ "Hover.InterfaceModules.Panel.HoverpanelInterface", "class_hover_1_1_interface_modules_1_1_panel_1_1_hoverpanel_interface.html", null ],
@@ -291,8 +293,6 @@ var hierarchy =
       [ "Hover.RendererModules.Alpha.HoverAlphaFillUpdater", "class_hover_1_1_renderer_modules_1_1_alpha_1_1_hover_alpha_fill_updater.html", null ],
       [ "Hover.RendererModules.Alpha.HoverAlphaMeshUpdater", "class_hover_1_1_renderer_modules_1_1_alpha_1_1_hover_alpha_mesh_updater.html", null ],
       [ "Hover.RendererModules.Alpha.HoverAlphaRendererUpdater", "class_hover_1_1_renderer_modules_1_1_alpha_1_1_hover_alpha_renderer_updater.html", null ],
-      [ "Hover.RendererModules.Alpha.HovercastAlphaUpdater", "class_hover_1_1_renderer_modules_1_1_alpha_1_1_hovercast_alpha_updater.html", null ],
-      [ "Hover.RendererModules.Alpha.HoverpanelAlphaUpdater", "class_hover_1_1_renderer_modules_1_1_alpha_1_1_hoverpanel_alpha_updater.html", null ],
       [ "Hover.RendererModules.Opaque.HoverOpaqueMeshUpdater", "class_hover_1_1_renderer_modules_1_1_opaque_1_1_hover_opaque_mesh_updater.html", null ]
     ] ],
     [ "PropertyAttribute", null, [
