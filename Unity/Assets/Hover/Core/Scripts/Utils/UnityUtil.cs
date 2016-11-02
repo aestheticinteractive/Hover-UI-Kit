@@ -27,9 +27,9 @@ namespace Hover.Core.Utils {
 				return itemsMan.gameObject;
 			}
 
-			GameObject managerPrefab = Resources.Load<GameObject>("Prefabs/HoverManagers");
+			GameObject managerPrefab = Resources.Load<GameObject>("Prefabs/HoverKit");
 			BuildPrefab(managerPrefab);
-			Debug.Log("Added the 'HoverManagers' prefab to the scene.", managerPrefab);
+			Debug.Log("Added the 'HoverKit' prefab to the scene.", managerPrefab);
 			return managerPrefab;
 		}
 
