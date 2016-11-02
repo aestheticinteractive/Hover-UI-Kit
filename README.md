@@ -1,4 +1,4 @@
-**Hover UI Kit** is a tool creating beautiful, customizable, dynamic user interfaces. All interface interactions utilize a simple and consistent mechanism -- the "hover" -- which users can perform with any 3D input device. These interfaces are designed specifically for VR/AR applications, addressing the complex UX challenges of these immersive environments.
+**Hover UI Kit** is a tool for creating beautiful, customizable, dynamic user interfaces. All interface interactions utilize a simple and consistent mechanism -- the "hover" -- which users can perform with any 3D input device. These interfaces are designed specifically for VR/AR applications, addressing the complex UX challenges of these immersive environments.
 
 ### [Continue to the project wiki>](https://github.com/aestheticinteractive/Hover-UI-Kit/wiki)
 
