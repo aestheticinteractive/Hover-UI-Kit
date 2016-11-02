@@ -1,28 +1,25 @@
 using System.Collections.Generic;
 using Hover.Core.Items;
-using Hover.Core.Layouts.Arc;
+using Hover.Core.Layouts.Rect;
 using Hover.Core.Utils;
-using Hover.InterfaceModules.Cast;
+using Hover.RendererModules.Alpha;
 using UnityEngine;
 
-namespace Hover.RendererModules.Alpha {
+namespace Hover.InterfaceModules.Panel {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
-	[RequireComponent(typeof(HovercastInterface))]
-	[RequireComponent(typeof(HovercastOpenTransitioner))]
-	[RequireComponent(typeof(HovercastRowTransitioner))]
-	[RequireComponent(typeof(HovercastActiveDirection))]
-	public class HovercastAlphaUpdater : MonoBehaviour, ITreeUpdateable, ISettingsController {
+	[RequireComponent(typeof(HoverpanelInterface))]
+	[RequireComponent(typeof(HoverpanelRowTransitioner))]
+	public class HoverpanelAlphaUpdater : MonoBehaviour, ITreeUpdateable, ISettingsController {
 
 		private readonly List<IItemData> vItemDataResults;
-		private float vDirectionAlpha;
 		
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public HovercastAlphaUpdater() {
+		public HoverpanelAlphaUpdater() {
 			vItemDataResults = new List<IItemData>();
 		}
 
@@ -35,40 +32,22 @@ namespace Hover.RendererModules.Alpha {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void TreeUpdate() {
-			UpdateDirectionAlpha();
 			UpdateWithTransitions();
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateDirectionAlpha() {
-			HovercastActiveDirection activeDir = gameObject.GetComponent<HovercastActiveDirection>();
-
-			vDirectionAlpha = Mathf.InverseLerp(activeDir.InactiveOutsideDegree,
-				activeDir.FullyActiveWithinDegree, activeDir.CurrentDegree);
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateWithTransitions() {
-			HovercastOpenTransitioner open = gameObject.GetComponent<HovercastOpenTransitioner>();
-			HovercastRowTransitioner row = gameObject.GetComponent<HovercastRowTransitioner>();
-			HovercastInterface cast = gameObject.GetComponent<HovercastInterface>();
+			HoverpanelRowTransitioner row = gameObject.GetComponent<HoverpanelRowTransitioner>();
+			HoverpanelInterface panel = gameObject.GetComponent<HoverpanelInterface>();
 
-			float openProg = open.TransitionProgressCurved;
-			float openAlpha = (cast.IsOpen ? openProg : 1-openProg);
-			float prevAlpha = openAlpha*(1-row.TransitionProgressCurved);
-			float activeAlpha = openAlpha*row.TransitionProgressCurved;
-			
-			FadeItem(cast.OpenItem, 1);
-			FadeItem(cast.BackItem, openAlpha);
-			FadeItem(cast.TitleItem, openAlpha);
-			FadeRow(cast.PreviousRow, prevAlpha);
-			FadeRow(cast.ActiveRow, activeAlpha);
+			FadeRow(panel.PreviousRow, 1-row.TransitionProgressCurved);
+			FadeRow(panel.ActiveRow, row.TransitionProgressCurved);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void FadeRow(HoverLayoutArcRow pRow, float pAlpha) {
+		private void FadeRow(HoverLayoutRectRow pRow, float pAlpha) {
 			if ( pRow == null || !pRow.gameObject.activeSelf ) {
 				return;
 			}
@@ -92,7 +71,7 @@ namespace Hover.RendererModules.Alpha {
 			float currAlpha = (pItemData.IsEnabled ? rendUp.EnabledAlpha : rendUp.DisabledAlpha);
 
 			rendUp.Controllers.Set(HoverAlphaRendererUpdater.MasterAlphaName, this);
-			rendUp.MasterAlpha = vDirectionAlpha*Mathf.Lerp(0, currAlpha, pAlpha);
+			rendUp.MasterAlpha = Mathf.Lerp(0, currAlpha, pAlpha);
 		}
 
 	}
