@@ -18,7 +18,6 @@ namespace Hover.Core.Utils {
 		public const string CanvasGroupAlpha = SpecialPrefix+"canvasGroup.alpha";
 		public const string TextText = SpecialPrefix+"Text.text"; 
 		public const string TextAlignment = SpecialPrefix+"Text.alignment";
-		public const string TextMaterialRenderQueue = SpecialPrefix+"Text.material.renderQueue";
 		public const string MeshRendererSortingLayer = SpecialPrefix+"MeshRenderer.sortingLayer";
 		public const string MeshRendererSortingOrder = SpecialPrefix+"MeshRenderer.sortingOrder";
 		public const string MeshColors = SpecialPrefix+"Mesh.colors";

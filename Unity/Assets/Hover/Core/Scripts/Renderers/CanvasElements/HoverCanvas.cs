@@ -14,8 +14,6 @@ namespace Hover.Core.Renderers.CanvasElements {
 		
 		public const string SizeXName = "SizeX";
 		public const string SizeYName = "SizeY";
-		public const string AlphaName = "Alpha";
-		public const string RenderQueueName = "RenderQueue";
 
 		public enum CanvasAlignmentType {
 			Left,
@@ -116,7 +114,7 @@ namespace Hover.Core.Renderers.CanvasElements {
 		/*--------------------------------------------------------------------------------------------*/
 		public void TreeUpdate() {
 			UpdateCanvasComponent();
-			UpdateGeneralSettings();
+			UpdateScale();
 			UpdateActiveStates();
 			UpdateIconSizeSettings();
 			UpdateCanvasAlignmentSettings();
@@ -168,24 +166,10 @@ namespace Hover.Core.Renderers.CanvasElements {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateGeneralSettings() {
-			Label.Controllers.Set(SettingsControllerMap.GameObjectActiveSelf, this);
-			Label.Controllers.Set(SettingsControllerMap.TransformLocalScale+".x", this);
+		private void UpdateScale() {
 			Label.Controllers.Set(HoverLabel.CanvasScaleName, this);
-			Label.Controllers.Set(HoverLabel.SizeXName, this);
-			Label.Controllers.Set(HoverLabel.SizeYName, this);
-			Label.Controllers.Set(SettingsControllerMap.TextAlignment, this);
-			Label.Controllers.Set(SettingsControllerMap.TextMaterialRenderQueue, this);
-			
-			IconOuter.Controllers.Set(SettingsControllerMap.GameObjectActiveSelf, this);
 			IconOuter.Controllers.Set(HoverIcon.CanvasScaleName, this);
-			IconOuter.Controllers.Set(HoverIcon.SizeXName, this);
-			IconOuter.Controllers.Set(HoverIcon.SizeYName, this);
-			
-			IconInner.Controllers.Set(SettingsControllerMap.GameObjectActiveSelf, this);
 			IconInner.Controllers.Set(HoverIcon.CanvasScaleName, this);
-			IconInner.Controllers.Set(HoverIcon.SizeXName, this);
-			IconInner.Controllers.Set(HoverIcon.SizeYName, this);
 			
 			Label.CanvasScale = Scale;
 			IconOuter.CanvasScale = Scale;
@@ -198,6 +182,10 @@ namespace Hover.Core.Renderers.CanvasElements {
 			bool isIconOuterActive = (IconOuter.IconType != HoverIcon.IconOffset.None);
 			bool isIconInnerActive = (IconInner.IconType != HoverIcon.IconOffset.None);
 
+			Label.Controllers.Set(SettingsControllerMap.GameObjectActiveSelf, this);
+			IconOuter.Controllers.Set(SettingsControllerMap.GameObjectActiveSelf, this);
+			IconInner.Controllers.Set(SettingsControllerMap.GameObjectActiveSelf, this);
+
 			RendererUtil.SetActiveWithUpdate(Label, isLabelActive);
 			RendererUtil.SetActiveWithUpdate(IconOuter, isIconOuterActive);
 			RendererUtil.SetActiveWithUpdate(IconInner, isIconInnerActive);
@@ -208,7 +196,12 @@ namespace Hover.Core.Renderers.CanvasElements {
 			if ( IconSize == IconSizeType.Custom ) {
 				return;
 			}
-			
+
+			IconOuter.Controllers.Set(HoverIcon.SizeXName, this);
+			IconOuter.Controllers.Set(HoverIcon.SizeYName, this);
+			IconInner.Controllers.Set(HoverIcon.SizeXName, this);
+			IconInner.Controllers.Set(HoverIcon.SizeYName, this);
+
 			float fontSize = Label.TextComponent.fontSize*Label.CanvasScale;
 			
 			switch ( IconSize ) {
@@ -295,7 +288,15 @@ namespace Hover.Core.Renderers.CanvasElements {
 				default:
 					throw new Exception("Unhandled alignment: "+Alignment);
 			}
-			
+
+			Label.Controllers.Set(SettingsControllerMap.TransformLocalPosition, this);
+			Label.Controllers.Set(SettingsControllerMap.TransformLocalScale+".x", this);
+			Label.Controllers.Set(HoverLabel.SizeXName, this);
+			Label.Controllers.Set(HoverLabel.SizeYName, this);
+			Label.Controllers.Set(SettingsControllerMap.TextAlignment, this);
+			IconOuter.Controllers.Set(SettingsControllerMap.TransformLocalPosition, this);
+			IconInner.Controllers.Set(SettingsControllerMap.TransformLocalPosition, this);
+
 			labelLocalScale.x = (UseMirrorLayout ? -1 : 1);
 			Label.transform.localScale = labelLocalScale;
 
