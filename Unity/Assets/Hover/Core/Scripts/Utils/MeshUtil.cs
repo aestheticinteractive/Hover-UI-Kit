@@ -6,6 +6,24 @@ namespace Hover.Core.Utils {
 	/*================================================================================================*/
 	public static class MeshUtil {
 
+		/*[Flags]
+		public enum TabDir : uint {
+			N  = 0x01,
+			NE = 0x02,
+			E  = 0x04,
+			SE = 0x08,
+			S  = 0x10,
+			SW = 0x20,
+			W  = 0x40,
+			NW = 0x80
+		}
+
+		private static readonly MeshBuilder TabRectBuilder = new MeshBuilder();
+		private static readonly List<Vector3> TabEdgePoints = new List<Vector3>();
+		private static readonly List<Vector3> PathSegmentDirs = new List<Vector3>();
+		private static readonly List<Vector3> PathSegmentTangents = new List<Vector3>();
+		private static readonly List<Vector3> PathVertexTangents = new List<Vector3>();*/
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -103,7 +121,7 @@ namespace Hover.Core.Utils {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		/*--------------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------* /
 		public static void BuildBorderMesh(MeshBuilder pMeshBuild, float pWidth, float pHeight, 
 																					float pThickness) {
 			float innerW = pWidth/2-pThickness;
@@ -113,7 +131,7 @@ namespace Hover.Core.Utils {
 			
 			BuildHollowRectangleMesh(pMeshBuild, outerW, outerH, innerW, innerH);
 		}
-		
+
 		/*--------------------------------------------------------------------------------------------*/
 		public static void BuildHollowRectangleMesh(MeshBuilder pMeshBuild,
 										float pOuterW, float pOuterH, float pInnerW, float pInnerH) {
@@ -155,6 +173,84 @@ namespace Hover.Core.Utils {
 			pMeshBuild.AddTriangle(3, 7, 6);
 			pMeshBuild.AddTriangle(3, 4, 7);
 			pMeshBuild.AddTriangle(3, 0, 4);
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public static void BuildHollowRectangleTabMesh(MeshBuilder pMeshBuild, float pOuterW, 
+				float pOuterH, float pInnerW, float pInnerH, float pOuterTabPush, float pOuterTabThick, 
+				bool pShowTabN, bool pShowTabE, bool pShowTabS, bool pShowTabW) {
+			float halfOuterW = pOuterW/2;
+			float halfOuterH = pOuterH/2;
+			float halfOuterT = pOuterTabThick/2;
+			float outerToInnerW = pInnerW/pOuterW;
+			float outerToInnerH = pInnerH/pOuterH;
+
+			pMeshBuild.Resize(32, 32*3);
+			pMeshBuild.ResetIndices();
+			
+			pMeshBuild.AddVertex(new Vector3(          0,  halfOuterH)); //V0 (N)
+			pMeshBuild.AddVertex(new Vector3( halfOuterT,  halfOuterH));
+			pMeshBuild.AddVertex(new Vector3( halfOuterW,  halfOuterH)); //V2 (NE)
+			pMeshBuild.AddVertex(new Vector3( halfOuterW,  halfOuterT));
+			pMeshBuild.AddVertex(new Vector3( halfOuterW,           0)); //V4 (E)
+			pMeshBuild.AddVertex(new Vector3( halfOuterW, -halfOuterT));
+			pMeshBuild.AddVertex(new Vector3( halfOuterW, -halfOuterH)); //V6 (SE)
+			pMeshBuild.AddVertex(new Vector3( halfOuterT, -halfOuterH));
+			pMeshBuild.AddVertex(new Vector3(          0, -halfOuterH)); //V8 (S)
+			pMeshBuild.AddVertex(new Vector3(-halfOuterT, -halfOuterH));
+			pMeshBuild.AddVertex(new Vector3(-halfOuterW, -halfOuterH)); //V10 (SW)
+			pMeshBuild.AddVertex(new Vector3(-halfOuterW, -halfOuterT));
+			pMeshBuild.AddVertex(new Vector3(-halfOuterW,           0)); //V12 (W)
+			pMeshBuild.AddVertex(new Vector3(-halfOuterW,  halfOuterT));
+			pMeshBuild.AddVertex(new Vector3(-halfOuterW,  halfOuterH)); //V14 (NW)
+			pMeshBuild.AddVertex(new Vector3(-halfOuterT,  halfOuterH));
+
+			if ( pShowTabN ) {
+				pMeshBuild.Vertices[0] += new Vector3(0, pOuterTabPush);
+				//pMeshBuild.Vertices[16] += new Vector3(0, innerTabPush);
+			}
+
+			if ( pShowTabE ) {
+				pMeshBuild.Vertices[4] += new Vector3(pOuterTabPush, 0);
+				//pMeshBuild.Vertices[20] += new Vector3(innerTabPush, 0);
+			}
+
+			if ( pShowTabS ) {
+				pMeshBuild.Vertices[8] -= new Vector3(0, pOuterTabPush);
+				//pMeshBuild.Vertices[24] -= new Vector3(0, innerTabPush);
+			}
+
+			if ( pShowTabW ) {
+				pMeshBuild.Vertices[12] -= new Vector3(pOuterTabPush, 0);
+				//pMeshBuild.Vertices[28] -= new Vector3(innerTabPush, 0);
+			}
+
+			for ( int i = 0 ; i < 16 ; i++ ) {
+				Vector3 vert = pMeshBuild.Vertices[i];
+
+				pMeshBuild.AddVertex(new Vector3(
+					vert.x*outerToInnerW,
+					vert.y*outerToInnerH
+				));
+			}
+
+			for ( int i = 0 ; i < 32 ; i++ ) {
+				Vector3 vert = pMeshBuild.Vertices[i];
+
+				pMeshBuild.AddUv(new Vector2(
+					vert.x/pOuterW + 0.5f,
+					vert.y/pOuterH + 0.5f
+				));
+			}
+
+			for ( int i = 0 ; i < 16 ; i++ ) {
+				int i2 = (i+1)%16;
+				int i3 = i+16;
+				pMeshBuild.AddTriangle(i, i2, i3);
+				pMeshBuild.AddTriangle(i2, i2+16, i3);
+			}
 		}
 
 	}

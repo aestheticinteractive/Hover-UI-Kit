@@ -147,8 +147,8 @@ namespace Hover.Core.Renderers.Shapes.Rect {
 		protected void UpdateMeshUvAndColors() {
 			for ( int i = 0 ; i < vMeshBuild.Uvs.Length ; i++ ) {
 				Vector2 uv = vMeshBuild.Uvs[i];
-				uv.x = Mathf.Lerp(UvLeft, UvRight, uv.x);
-				uv.y = Mathf.Lerp(UvTop, UvBottom, uv.y);
+				uv.x = Mathf.LerpUnclamped(UvLeft, UvRight, uv.x);
+				uv.y = Mathf.LerpUnclamped(UvTop, UvBottom, uv.y);
 				vMeshBuild.Uvs[i] = uv;
 				vMeshBuild.Colors[i] = Color.white;
 			}
