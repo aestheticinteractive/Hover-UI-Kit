@@ -3,6 +3,7 @@
 namespace Hover.Core.Renderers.Helpers {
 
 	/*================================================================================================*/
+	[ExecuteInEditMode]
 	[RequireComponent(typeof(MeshRenderer))]
 	public class ColorViaIndicator : MonoBehaviour {
 
@@ -14,7 +15,18 @@ namespace Hover.Core.Renderers.Helpers {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
+		public void Awake() {
+			if ( Indicator == null ) {
+				Indicator = GetComponentInParent<HoverIndicator>();
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
+			if ( !Application.isPlaying ) {
+				return;
+			}
+
 			Material mat = GetComponent<MeshRenderer>().material;
 
 			if ( Indicator.SelectionProgress > 0 ) {

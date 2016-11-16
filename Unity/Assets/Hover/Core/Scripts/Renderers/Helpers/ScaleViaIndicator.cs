@@ -14,6 +14,13 @@ namespace Hover.Core.Renderers.Helpers {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
+		public void Awake() {
+			if ( Indicator == null ) {
+				Indicator = GetComponentInParent<HoverIndicator>();
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
 			if ( Indicator.SelectionProgress > 0 ) {
 				transform.localScale = Vector3.Lerp(
