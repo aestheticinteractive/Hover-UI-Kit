@@ -1,7 +1,6 @@
-﻿using Hover.Core.Renderers;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace HoverDemos.Common {
+namespace Hover.Core.Renderers.Helpers {
 
 	/*================================================================================================*/
 	[RequireComponent(typeof(MeshRenderer))]
@@ -9,8 +8,8 @@ namespace HoverDemos.Common {
 
 		public HoverIndicator Indicator;
 		public Color StartColor = new Color(1, 1, 1);
-		public Color HighlightColor = new Color(0, 1, 0);
-		public Color SelectionColor = new Color(0, 1, 1);
+		public Color HighlightColor = new Color(0, 0.5f, 1);
+		public Color SelectionColor = new Color(0, 1, 0);
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

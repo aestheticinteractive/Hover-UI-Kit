@@ -1,7 +1,7 @@
 ﻿using Hover.Core.Items.Types;
 using UnityEngine;
 
-namespace HoverDemos.Common {
+namespace Hover.Core.Renderers.Helpers {
 
 	/*================================================================================================*/
 	[RequireComponent(typeof(MeshRenderer))]
