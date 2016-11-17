@@ -8,12 +8,31 @@ namespace Hover.Core.Renderers.Shapes.Rect {
 	[RequireComponent(typeof(HoverShapeRect))]
 	public class HoverMeshRectHollowTab : HoverMeshRect {
 
+		public const string TabOutwardName = "TabOutward";
+		public const string TabThicknessName = "TabThickness";
+		public const string ShowTabNName = "ShowTabN";
+		public const string ShowTabEName = "ShowTabE";
+		public const string ShowTabSName = "ShowTabS";
+		public const string ShowTabWName = "ShowTabW";
+
 		public SizeType InnerSizeType = SizeType.Min;
+
+		[DisableWhenControlled]
 		public float TabOutward = 0.01f;
+
+		[DisableWhenControlled]
 		public float TabThickness = 0.025f;
+
+		[DisableWhenControlled]
 		public bool ShowTabN = true;
+
+		[DisableWhenControlled]
 		public bool ShowTabE = false;
+
+		[DisableWhenControlled]
 		public bool ShowTabS = false;
+
+		[DisableWhenControlled]
 		public bool ShowTabW = false;
 
 		private SizeType vPrevInnerType;
@@ -88,7 +107,8 @@ namespace Hover.Core.Renderers.Shapes.Rect {
 			}
 
 			MeshUtil.BuildHollowRectangleTabMesh(vMeshBuild, outerW, outerH, innerW, innerH,
-				TabOutward*outerProg, TabThickness*outerProg, ShowTabN, ShowTabE, ShowTabS, ShowTabW);
+				TabOutward*outerProg, TabThickness*outerProg, innerProg/outerProg,
+				ShowTabN, ShowTabE, ShowTabS, ShowTabW);
 
 			UpdateAutoUv(shape, outerW, outerH);
 			UpdateMeshUvAndColors();

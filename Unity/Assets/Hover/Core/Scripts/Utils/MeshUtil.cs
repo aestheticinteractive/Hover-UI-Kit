@@ -180,12 +180,14 @@ namespace Hover.Core.Utils {
 		/*--------------------------------------------------------------------------------------------*/
 		public static void BuildHollowRectangleTabMesh(MeshBuilder pMeshBuild, float pOuterW, 
 				float pOuterH, float pInnerW, float pInnerH, float pOuterTabPush, float pOuterTabThick, 
-				bool pShowTabN, bool pShowTabE, bool pShowTabS, bool pShowTabW) {
+				float pInnerRatio, bool pShowTabN, bool pShowTabE, bool pShowTabS, bool pShowTabW) {
 			float halfOuterW = pOuterW/2;
 			float halfOuterH = pOuterH/2;
 			float halfOuterT = pOuterTabThick/2;
 			float outerToInnerW = pInnerW/pOuterW;
 			float outerToInnerH = pInnerH/pOuterH;
+			float innerTabPush = pOuterTabPush*pInnerRatio;
+			float halfInnerT = pOuterTabThick*pInnerRatio/2;
 
 			pMeshBuild.Resize(32, 32*3);
 			pMeshBuild.ResetIndices();
@@ -207,26 +209,6 @@ namespace Hover.Core.Utils {
 			pMeshBuild.AddVertex(new Vector3(-halfOuterW,  halfOuterH)); //V14 (NW)
 			pMeshBuild.AddVertex(new Vector3(-halfOuterT,  halfOuterH));
 
-			if ( pShowTabN ) {
-				pMeshBuild.Vertices[0] += new Vector3(0, pOuterTabPush);
-				//pMeshBuild.Vertices[16] += new Vector3(0, innerTabPush);
-			}
-
-			if ( pShowTabE ) {
-				pMeshBuild.Vertices[4] += new Vector3(pOuterTabPush, 0);
-				//pMeshBuild.Vertices[20] += new Vector3(innerTabPush, 0);
-			}
-
-			if ( pShowTabS ) {
-				pMeshBuild.Vertices[8] -= new Vector3(0, pOuterTabPush);
-				//pMeshBuild.Vertices[24] -= new Vector3(0, innerTabPush);
-			}
-
-			if ( pShowTabW ) {
-				pMeshBuild.Vertices[12] -= new Vector3(pOuterTabPush, 0);
-				//pMeshBuild.Vertices[28] -= new Vector3(innerTabPush, 0);
-			}
-
 			for ( int i = 0 ; i < 16 ; i++ ) {
 				Vector3 vert = pMeshBuild.Vertices[i];
 
@@ -234,6 +216,34 @@ namespace Hover.Core.Utils {
 					vert.x*outerToInnerW,
 					vert.y*outerToInnerH
 				));
+			}
+
+			if ( pShowTabN ) {
+				pMeshBuild.Vertices[ 0].y += pOuterTabPush;
+				pMeshBuild.Vertices[16].y += innerTabPush;
+				pMeshBuild.Vertices[31].x = -halfInnerT;
+				pMeshBuild.Vertices[17].x =  halfInnerT;
+			}
+
+			if ( pShowTabE ) {
+				pMeshBuild.Vertices[ 4].x += pOuterTabPush;
+				pMeshBuild.Vertices[20].x += innerTabPush;
+				pMeshBuild.Vertices[19].y =  halfInnerT;
+				pMeshBuild.Vertices[21].y = -halfInnerT;
+			}
+
+			if ( pShowTabS ) {
+				pMeshBuild.Vertices[ 8].y -= pOuterTabPush;
+				pMeshBuild.Vertices[24].y -= innerTabPush;
+				pMeshBuild.Vertices[23].x =  halfInnerT;
+				pMeshBuild.Vertices[25].x = -halfInnerT;
+			}
+
+			if ( pShowTabW ) {
+				pMeshBuild.Vertices[12].x -= pOuterTabPush;
+				pMeshBuild.Vertices[28].x -= innerTabPush;
+				pMeshBuild.Vertices[27].y = -halfInnerT;
+				pMeshBuild.Vertices[29].y =  halfInnerT;
 			}
 
 			for ( int i = 0 ; i < 32 ; i++ ) {

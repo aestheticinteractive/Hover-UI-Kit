@@ -135,7 +135,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1000012251294648
 GameObject:
   m_ObjectHideFlags: 0
@@ -168,6 +168,7 @@ GameObject:
   - 114: {fileID: 114000011642205950}
   - 114: {fileID: 114000013190366840}
   - 114: {fileID: 114000011132827692}
+  - 114: {fileID: 114000014017877466}
   - 114: {fileID: 114000012700330130}
   - 114: {fileID: 114000012882861782}
   m_Layer: 0
@@ -471,8 +472,8 @@ MonoBehaviour:
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 3
-    m_MaxSize: 40
-    m_Alignment: 3
+    m_MaxSize: 80
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -564,8 +565,8 @@ MonoBehaviour:
   SizeY: 0.098000005
   PaddingX: 0.004
   PaddingY: 0.004
-  Alignment: 0
-  IconSize: 0
+  Alignment: 1
+  IconSize: 4
   UseMirrorLayout: 0
   _IsBuilt: 1
 --- !u!114 &114000010651158544
@@ -619,7 +620,7 @@ MonoBehaviour:
   SortingOrder: 0
   Alpha: 1
   StandardColor: {r: 1, g: 1, b: 1, a: 1}
-  SliderFillColor: {r: 1, g: 1, b: 1, a: 1}
+  SliderFillColor: {r: 0.3, g: 0.3, b: 0.3, a: 1}
   FlashColor: {r: 1, g: 1, b: 1, a: 1}
   FlashColorMilliseconds: 0
 --- !u!114 &114000010875811166
@@ -637,7 +638,7 @@ MonoBehaviour:
   SortingOrder: 0
   Alpha: 1
   StandardColor: {r: 0.15686275, g: 0.50918126, b: 0.7058824, a: 0.6666667}
-  SliderFillColor: {r: 1, g: 1, b: 1, a: 1}
+  SliderFillColor: {r: 0.101960786, g: 0.101960786, b: 0.101960786, a: 1}
   FlashColor: {r: 1, g: 1, b: 1, a: 1}
   FlashColorMilliseconds: 400
 --- !u!114 &114000010896813680
@@ -699,7 +700,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LabelText: Label
-  IconType: 4
+  IconType: 3
 --- !u!114 &114000011132827692
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -728,7 +729,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CanvasScale: 0.0002
-  SizeX: 0.082320005
+  SizeX: 0.09
   SizeY: 0.09
   _IsBuilt: 1
 --- !u!114 &114000011422401252
@@ -744,8 +745,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IconType: 3
   CanvasScale: 0.0002
-  SizeX: 0.0064
-  SizeY: 0.0064
+  SizeX: 0
+  SizeY: 0
   UvInset: 0.002
   _IsBuilt: 1
 --- !u!114 &114000011488480302
@@ -852,7 +853,7 @@ MonoBehaviour:
   SortingOrder: 0
   Alpha: 1
   StandardColor: {r: 0.101960786, g: 0.101960786, b: 0.101960786, a: 0.666}
-  SliderFillColor: {r: 1, g: 1, b: 1, a: 1}
+  SliderFillColor: {r: 0.101960786, g: 0.101960786, b: 0.101960786, a: 1}
   FlashColor: {r: 1, g: 1, b: 1, a: 1}
   FlashColorMilliseconds: 400
 --- !u!114 &114000011989250218
@@ -915,10 +916,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183cc9071f0132c4db3d2a9607a5a8db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IconType: 4
+  IconType: 0
   CanvasScale: 0.0002
-  SizeX: 0.0064
-  SizeY: 0.0064
+  SizeX: 0
+  SizeY: 0
   UvInset: 0.002
   _IsBuilt: 1
 --- !u!114 &114000012325163288
@@ -1038,7 +1039,7 @@ MonoBehaviour:
   SortingOrder: 0
   Alpha: 1
   StandardColor: {r: 0.27450982, g: 0.78431374, b: 0.11894465, a: 1}
-  SliderFillColor: {r: 1, g: 1, b: 1, a: 1}
+  SliderFillColor: {r: 0.101960786, g: 0.101960786, b: 0.101960786, a: 1}
   FlashColor: {r: 1, g: 1, b: 1, a: 1}
   FlashColorMilliseconds: 400
 --- !u!114 &114000013146750450
@@ -1103,6 +1104,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Shape: {fileID: 114000014073621040}
+--- !u!114 &114000014017877466
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013284710308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b61105e0d4859d41abab7376aae0ca8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CanvasUpdater: {fileID: 114000011112653810}
+  TabOutward: 0.01
+  TabThickness: 0.025
+  ShowTabN: 1
+  ShowTabE: 0
+  ShowTabS: 0
+  ShowTabW: 0
 --- !u!114 &114000014073621040
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1194,8 +1213,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 19.199997, y: 0}
-  m_SizeDelta: {x: 411.60004, y: 450.00003}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 450.00003, y: 450.00003}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224000013538354854
 RectTransform:
@@ -1233,8 +1252,8 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -209.00002, y: -5.6000004}
-  m_SizeDelta: {x: 32, y: 32}
+  m_AnchoredPosition: {x: 0, y: 8}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224000013631223024
 RectTransform:
@@ -1251,8 +1270,8 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -209.00002, y: -5.6000004}
-  m_SizeDelta: {x: 32, y: 32}
+  m_AnchoredPosition: {x: 0, y: 8}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &225000012664616262
 CanvasGroup:
