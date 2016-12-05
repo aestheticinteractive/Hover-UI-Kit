@@ -22,7 +22,7 @@ namespace Hover.Core.Items.Managers {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Start() {
-			vItems = FindObjectsOfType<HoverItem>().ToList();
+			vItems = Resources.FindObjectsOfTypeAll<HoverItem>().ToList();
 			OnItemListInitialized.Invoke();
 		}
 
@@ -35,7 +35,7 @@ namespace Hover.Core.Items.Managers {
 			}
 
 			if ( vItems.Contains(pItem) ) {
-				Debug.LogWarning("Cannot add duplicate item '"+pItem.name+"'.", pItem);
+				//Debug.LogWarning("Cannot add duplicate item '"+pItem.name+"'.", pItem);
 				return;
 			}
 		
