@@ -14,7 +14,6 @@ namespace Hover.Core.Cursors {
 			public Vector3 WorldPosition;
 		}
 
-		public bool IsActive { get; private set; }
 		public float Progress { get; private set; }
 		public Vector3 WorldPosition { get; private set; }
 		public float DistanceThreshold { get; private set; }
@@ -25,12 +24,18 @@ namespace Hover.Core.Cursors {
 		public float DriftStrength = 1;
 
 		private readonly List<HistoryRecord> vHistory;
+		private bool vIsActive;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected HoverCursorIdleState() {
 			vHistory = new List<HistoryRecord>();
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool IsActive {
+			get { return (vIsActive && isActiveAndEnabled); }
 		}
 
 
@@ -53,7 +58,7 @@ namespace Hover.Core.Cursors {
 			Vector3 worldPos = (data.BestRaycastResult == null ?
 				data.WorldPosition : data.BestRaycastResult.Value.WorldPosition);
 
-			IsActive = (data.ActiveStickySelections.Count > 0);
+			vIsActive = (data.ActiveStickySelections.Count > 0);
 			DistanceThreshold = InteractionSettings.IdleDistanceThreshold;
 
 			if ( !Application.isPlaying ) {
@@ -62,7 +67,7 @@ namespace Hover.Core.Cursors {
 				return;
 			}
 
-			if ( !IsActive ) {
+			if ( !vIsActive ) {
 				vHistory.Clear();
 				Progress = 0;
 				WorldPosition = worldPos;
