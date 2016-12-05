@@ -10,6 +10,7 @@ namespace Hover.RendererModules.Alpha {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
+	[RequireComponent(typeof(HoverShapeRect))]
 	[RequireComponent(typeof(HoverFillButton))]
 	[RequireComponent(typeof(HoverFillButtonRectUpdater))]
 	public class HoverAlphaFillTabUpdater : MonoBehaviour, ITreeUpdateable, ISettingsController {
@@ -42,6 +43,14 @@ namespace Hover.RendererModules.Alpha {
 
 			HoverMesh.DisplayModeType dispMode = (isSelected ?
 				HoverMesh.DisplayModeType.SliderFill : HoverMesh.DisplayModeType.Standard);
+
+			////
+
+			HoverShapeRect shapeRect = GetComponent<HoverShapeRect>();
+			float minOutward = -Mathf.Min(shapeRect.SizeX, shapeRect.SizeY)/2;
+
+			TabOutward = Mathf.Max(TabOutward, minOutward);
+			TabThickness = Mathf.Max(TabThickness, 0);
 
 			////
 

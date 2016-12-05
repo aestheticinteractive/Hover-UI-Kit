@@ -183,31 +183,33 @@ namespace Hover.Core.Utils {
 				float pInnerRatio, bool pShowTabN, bool pShowTabE, bool pShowTabS, bool pShowTabW) {
 			float halfOuterW = pOuterW/2;
 			float halfOuterH = pOuterH/2;
-			float halfOuterT = pOuterTabThick/2;
+			float halfOuterTw = Mathf.Min(pOuterTabThick, pOuterW)/2;
+			float halfOuterTh = Mathf.Min(pOuterTabThick, pOuterH)/2;
 			float outerToInnerW = pInnerW/pOuterW;
 			float outerToInnerH = pInnerH/pOuterH;
 			float innerTabPush = pOuterTabPush*pInnerRatio;
-			float halfInnerT = pOuterTabThick*pInnerRatio/2;
+			float halfInnerTw = halfOuterTw*pInnerRatio;
+			float halfInnerTh = halfOuterTh*pInnerRatio;
 
 			pMeshBuild.Resize(32, 32*3);
 			pMeshBuild.ResetIndices();
 			
 			pMeshBuild.AddVertex(new Vector3(          0,  halfOuterH)); //V0 (N)
-			pMeshBuild.AddVertex(new Vector3( halfOuterT,  halfOuterH));
+			pMeshBuild.AddVertex(new Vector3( halfOuterTw, halfOuterH));
 			pMeshBuild.AddVertex(new Vector3( halfOuterW,  halfOuterH)); //V2 (NE)
-			pMeshBuild.AddVertex(new Vector3( halfOuterW,  halfOuterT));
+			pMeshBuild.AddVertex(new Vector3( halfOuterW,  halfOuterTh));
 			pMeshBuild.AddVertex(new Vector3( halfOuterW,           0)); //V4 (E)
-			pMeshBuild.AddVertex(new Vector3( halfOuterW, -halfOuterT));
+			pMeshBuild.AddVertex(new Vector3( halfOuterW, -halfOuterTh));
 			pMeshBuild.AddVertex(new Vector3( halfOuterW, -halfOuterH)); //V6 (SE)
-			pMeshBuild.AddVertex(new Vector3( halfOuterT, -halfOuterH));
+			pMeshBuild.AddVertex(new Vector3( halfOuterTw,-halfOuterH));
 			pMeshBuild.AddVertex(new Vector3(          0, -halfOuterH)); //V8 (S)
-			pMeshBuild.AddVertex(new Vector3(-halfOuterT, -halfOuterH));
+			pMeshBuild.AddVertex(new Vector3(-halfOuterTw,-halfOuterH));
 			pMeshBuild.AddVertex(new Vector3(-halfOuterW, -halfOuterH)); //V10 (SW)
-			pMeshBuild.AddVertex(new Vector3(-halfOuterW, -halfOuterT));
+			pMeshBuild.AddVertex(new Vector3(-halfOuterW, -halfOuterTh));
 			pMeshBuild.AddVertex(new Vector3(-halfOuterW,           0)); //V12 (W)
-			pMeshBuild.AddVertex(new Vector3(-halfOuterW,  halfOuterT));
+			pMeshBuild.AddVertex(new Vector3(-halfOuterW,  halfOuterTh));
 			pMeshBuild.AddVertex(new Vector3(-halfOuterW,  halfOuterH)); //V14 (NW)
-			pMeshBuild.AddVertex(new Vector3(-halfOuterT,  halfOuterH));
+			pMeshBuild.AddVertex(new Vector3(-halfOuterTw, halfOuterH));
 
 			for ( int i = 0 ; i < 16 ; i++ ) {
 				Vector3 vert = pMeshBuild.Vertices[i];
@@ -221,29 +223,29 @@ namespace Hover.Core.Utils {
 			if ( pShowTabN ) {
 				pMeshBuild.Vertices[ 0].y += pOuterTabPush;
 				pMeshBuild.Vertices[16].y += innerTabPush;
-				pMeshBuild.Vertices[31].x = -halfInnerT;
-				pMeshBuild.Vertices[17].x =  halfInnerT;
+				pMeshBuild.Vertices[31].x = -halfInnerTw;
+				pMeshBuild.Vertices[17].x =  halfInnerTw;
 			}
 
 			if ( pShowTabE ) {
 				pMeshBuild.Vertices[ 4].x += pOuterTabPush;
 				pMeshBuild.Vertices[20].x += innerTabPush;
-				pMeshBuild.Vertices[19].y =  halfInnerT;
-				pMeshBuild.Vertices[21].y = -halfInnerT;
+				pMeshBuild.Vertices[19].y =  halfInnerTh;
+				pMeshBuild.Vertices[21].y = -halfInnerTh;
 			}
 
 			if ( pShowTabS ) {
 				pMeshBuild.Vertices[ 8].y -= pOuterTabPush;
 				pMeshBuild.Vertices[24].y -= innerTabPush;
-				pMeshBuild.Vertices[23].x =  halfInnerT;
-				pMeshBuild.Vertices[25].x = -halfInnerT;
+				pMeshBuild.Vertices[23].x =  halfInnerTw;
+				pMeshBuild.Vertices[25].x = -halfInnerTw;
 			}
 
 			if ( pShowTabW ) {
 				pMeshBuild.Vertices[12].x -= pOuterTabPush;
 				pMeshBuild.Vertices[28].x -= innerTabPush;
-				pMeshBuild.Vertices[27].y = -halfInnerT;
-				pMeshBuild.Vertices[29].y =  halfInnerT;
+				pMeshBuild.Vertices[27].y = -halfInnerTh;
+				pMeshBuild.Vertices[29].y =  halfInnerTh;
 			}
 
 			for ( int i = 0 ; i < 32 ; i++ ) {
