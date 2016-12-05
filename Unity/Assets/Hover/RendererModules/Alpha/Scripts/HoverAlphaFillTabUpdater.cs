@@ -18,6 +18,7 @@ namespace Hover.RendererModules.Alpha {
 
 		public float TabOutward = 0.01f;
 		public float TabThickness = 0.025f;
+		public bool UseItemSelectionState = true;
 
 		public bool ShowTabN = true;
 		public bool ShowTabE = false;
@@ -34,6 +35,7 @@ namespace Hover.RendererModules.Alpha {
 		/*--------------------------------------------------------------------------------------------*/
 		public void TreeUpdate() {
 			bool isSelected = (
+				!UseItemSelectionState ||
 				CanvasUpdater.IconType == HoverCanvasDataUpdater.IconPairType.RadioOn ||
 				CanvasUpdater.IconType == HoverCanvasDataUpdater.IconPairType.CheckboxOn
 			);
