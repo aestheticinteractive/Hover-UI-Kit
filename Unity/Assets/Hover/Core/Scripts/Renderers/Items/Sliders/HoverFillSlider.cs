@@ -101,6 +101,8 @@ namespace Hover.Core.Renderers.Items.Sliders {
 					Destroy(tick.gameObject);
 				}
 				else {
+					tick.gameObject.SetActive(false);
+					tick.GetComponent<TreeUpdater>().enabled = false;
 					DestroyImmediate(tick.gameObject);
 				}
 			}
