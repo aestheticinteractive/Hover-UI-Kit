@@ -17,9 +17,12 @@ namespace Hover.Core.Renderers.Shapes.Rect {
 		[DisableWhenControlled(RangeMin=0)]
 		public float SizeY = 0.1f;
 
+		public bool FlipLayoutDimensions = false;
+
 		private Plane vWorldPlane;
 		private float vPrevSizeX;
 		private float vPrevSizeY;
+		private bool vPrevFlip;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -75,8 +78,8 @@ namespace Hover.Core.Renderers.Shapes.Rect {
 			Controllers.Set(SizeXName, pController);
 			Controllers.Set(SizeYName, pController);
 
-			SizeX = pSizeX;
-			SizeY = pSizeY;
+			SizeX = (FlipLayoutDimensions ? pSizeY : pSizeX);
+			SizeY = (FlipLayoutDimensions ? pSizeX : pSizeY);
 		}
 
 
@@ -90,13 +93,15 @@ namespace Hover.Core.Renderers.Shapes.Rect {
 			DidSettingsChange = (
 				DidSettingsChange ||
 				SizeX != vPrevSizeX ||
-				SizeY != vPrevSizeY
+				SizeY != vPrevSizeY ||
+				FlipLayoutDimensions != vPrevFlip
 			);
 
 			UpdateShapeRectChildren();
 
 			vPrevSizeX = SizeX;
 			vPrevSizeY = SizeY;
+			vPrevFlip = FlipLayoutDimensions;
 		}
 
 
