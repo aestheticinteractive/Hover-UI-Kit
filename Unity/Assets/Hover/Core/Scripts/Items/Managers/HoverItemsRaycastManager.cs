@@ -73,6 +73,11 @@ namespace Hover.Core.Items.Managers {
 
 			for ( int i = 0 ; i < vHighStates.Count ; i++ ) {
 				HoverItemHighlightState item = vHighStates[i];
+
+				if ( item.IsHighlightPreventedViaAnyDisplay() ) {
+					continue;
+				}
+
 				RaycastResult raycast;
 				Vector3 nearHighWorldPos = item.ProximityProvider
 					.GetNearestWorldPosition(worldRay, out raycast);
