@@ -2222,11 +2222,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22465374, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -5.600001
+      value: -5.6000004
       objectReference: {fileID: 0}
     - target: {fileID: 22447854, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -19.200005
+      value: -19.2
       objectReference: {fileID: 0}
     - target: {fileID: 22447854, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: m_SizeDelta.x
@@ -2975,7 +2975,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActiveWhenFacingMainCamera: 1
-  ActiveWhenFacingTransform: {fileID: 1856391582}
+  ActiveWhenFacingTransform: {fileID: 219862113}
   ChildForActivation: {fileID: 894873303}
   LocalFacingDirection: {x: 0, y: 0, z: 1}
   FullyActiveWithinDegree: 30
@@ -4030,7 +4030,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 338353869}
-  m_LocalRotation: {x: 0.64239603, y: 0.76557785, z: 0.022432983, w: 0.02673462}
+  m_LocalRotation: {x: 0.6330222, y: 0.75440645, z: 0.11161892, w: 0.13302226}
   m_LocalPosition: {x: -0.2, y: 0, z: 0.3}
   m_LocalScale: {x: 0.025, y: 0.025, z: 0.025}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5063,11 +5063,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22465374, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -5.600001
+      value: -5.6000004
       objectReference: {fileID: 0}
     - target: {fileID: 22447854, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -19.200005
+      value: -19.2
       objectReference: {fileID: 0}
     - target: {fileID: 22447854, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: m_SizeDelta.x
@@ -6723,11 +6723,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22465374, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -5.600001
+      value: -5.6000004
       objectReference: {fileID: 0}
     - target: {fileID: 22447854, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -19.200005
+      value: -19.2
       objectReference: {fileID: 0}
     - target: {fileID: 22447854, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: m_SizeDelta.x
@@ -12122,7 +12122,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &894873304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23962,6 +23962,7 @@ Transform:
   - {fileID: 2052787453}
   - {fileID: 1036460614}
   - {fileID: 1608485486}
+  - {fileID: 2103330303}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!1 &1644081052
@@ -27288,7 +27289,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!81 &1856391578
 AudioListener:
   m_ObjectHideFlags: 0
@@ -29122,6 +29123,94 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 2095409008}
   m_Script: {fileID: 11500000, guid: 9fb39235ee652e542bc7048cdd377f75, type: 3}
+--- !u!1 &2103330302
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 2103330303}
+  - 114: {fileID: 2103330307}
+  - 114: {fileID: 2103330306}
+  - 114: {fileID: 2103330305}
+  - 114: {fileID: 2103330304}
+  m_Layer: 0
+  m_Name: OculusTouch
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &2103330303
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2103330302}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 1642920381}
+  m_RootOrder: 4
+--- !u!114 &2103330304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2103330302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 441fcd2ab69229e418e055e96721db81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CameraName: CenterEyeAnchor
+  MainSceneCameraName: MainCamera
+  UseBloom: 1
+--- !u!114 &2103330305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2103330302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22fabda7c7233ce488f96dfb8517934c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2103330306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2103330302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9fbcaeabe1adcd49895444066f040a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2103330307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2103330302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e99608d8c38bad4f9ab31f2fc415523, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SceneFolderPath: Hover/InputModules/OculusTouch/Scenes/
+  SceneName: HoverInputModule-OculusTouch
+  AutoLoadInEditor: 0
+  OnSceneLoadedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Core.Utils.HoverSceneLoader+SceneLoadedEventHandler, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  ClickToReloadScene: 1
 --- !u!1 &2107826687
 GameObject:
   m_ObjectHideFlags: 0

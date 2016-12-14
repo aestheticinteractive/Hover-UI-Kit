@@ -1208,6 +1208,70 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 293280249}
   m_Script: {fileID: 11500000, guid: 9fb39235ee652e542bc7048cdd377f75, type: 3}
+--- !u!1 &317395688
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 317395689}
+  - 114: {fileID: 317395691}
+  - 114: {fileID: 317395690}
+  m_Layer: 0
+  m_Name: OculusTouch
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &317395689
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 317395688}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 1062575131}
+  m_RootOrder: 4
+--- !u!114 &317395690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 317395688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 441fcd2ab69229e418e055e96721db81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CameraName: CenterEyeAnchor
+  MainSceneCameraName: MainCamera
+  UseBloom: 0
+--- !u!114 &317395691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 317395688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e99608d8c38bad4f9ab31f2fc415523, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SceneFolderPath: Hover/InputModules/OculusTouch/Scenes/
+  SceneName: HoverInputModule-OculusTouch
+  AutoLoadInEditor: 0
+  OnSceneLoadedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Hover.Core.Utils.HoverSceneLoader+SceneLoadedEventHandler, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  ClickToReloadScene: 1
 --- !u!1001 &332005620
 Prefab:
   m_ObjectHideFlags: 0
@@ -2421,7 +2485,6 @@ GameObject:
   - 4: {fileID: 639844527}
   - 114: {fileID: 639844529}
   - 114: {fileID: 639844528}
-  - 114: {fileID: 639844530}
   m_Layer: 0
   m_Name: LeapMotion
   m_TagString: Untagged
@@ -2476,17 +2539,6 @@ MonoBehaviour:
     m_TypeName: Hover.Core.Utils.HoverSceneLoader+SceneLoadedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   ClickToReloadScene: 1
---- !u!114 &639844530
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 639844526}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 484cac84052705d46bc546ca0fde37d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &654845832
 GameObject:
   m_ObjectHideFlags: 0
@@ -2537,6 +2589,7 @@ MonoBehaviour:
   ControlChildShapes: 1
   SizeX: 0.057142857
   SizeY: 0.08
+  FlipLayoutDimensions: 0
 --- !u!114 &654845835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2952,6 +3005,7 @@ MonoBehaviour:
   ControlChildShapes: 1
   SizeX: 0.0875
   SizeY: 0.15
+  FlipLayoutDimensions: 0
 --- !u!114 &740240619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3394,6 +3448,7 @@ MonoBehaviour:
   ControlChildShapes: 1
   SizeX: 0.0875
   SizeY: 0.15
+  FlipLayoutDimensions: 0
 --- !u!114 &820811839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3950,6 +4005,7 @@ MonoBehaviour:
   ControlChildShapes: 1
   SizeX: 0.1
   SizeY: 0.08
+  FlipLayoutDimensions: 0
 --- !u!114 &858054456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4064,7 +4120,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 889564477}
-  - 114: {fileID: 889564478}
   m_Layer: 0
   m_Name: None
   m_TagString: Untagged
@@ -4086,17 +4141,6 @@ Transform:
   - {fileID: 1531265179}
   m_Father: {fileID: 1062575131}
   m_RootOrder: 0
---- !u!114 &889564478
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 889564476}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 484cac84052705d46bc546ca0fde37d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &921370532
 GameObject:
   m_ObjectHideFlags: 0
@@ -4147,6 +4191,7 @@ MonoBehaviour:
   ControlChildShapes: 1
   SizeX: 0.1
   SizeY: 0.08
+  FlipLayoutDimensions: 0
 --- !u!114 &921370535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4313,6 +4358,7 @@ MonoBehaviour:
   ControlChildShapes: 1
   SizeX: 0.1
   SizeY: 0.08
+  FlipLayoutDimensions: 0
 --- !u!114 &945206890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4936,6 +4982,7 @@ MonoBehaviour:
   ControlChildShapes: 1
   SizeX: 0.35
   SizeY: 0.15
+  FlipLayoutDimensions: 0
 --- !u!114 &1004385426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5035,6 +5082,7 @@ MonoBehaviour:
   ControlChildShapes: 1
   SizeX: 0.057142857
   SizeY: 0.08
+  FlipLayoutDimensions: 0
 --- !u!114 &1053600435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5411,6 +5459,7 @@ Transform:
   - {fileID: 639844527}
   - {fileID: 1846613565}
   - {fileID: 1132398137}
+  - {fileID: 317395689}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!1 &1115742194
@@ -5463,6 +5512,7 @@ MonoBehaviour:
   ControlChildShapes: 1
   SizeX: 0.057142857
   SizeY: 0.08
+  FlipLayoutDimensions: 0
 --- !u!114 &1115742197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5779,7 +5829,6 @@ GameObject:
   - 4: {fileID: 1132398137}
   - 114: {fileID: 1132398139}
   - 114: {fileID: 1132398138}
-  - 114: {fileID: 1132398140}
   m_Layer: 0
   m_Name: Vive
   m_TagString: Untagged
@@ -5834,17 +5883,6 @@ MonoBehaviour:
     m_TypeName: Hover.Core.Utils.HoverSceneLoader+SceneLoadedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   ClickToReloadScene: 1
---- !u!114 &1132398140
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1132398136}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ce9080505e48b148b03c32e7aa001ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1188268423
 GameObject:
   m_ObjectHideFlags: 0
@@ -5976,6 +6014,7 @@ MonoBehaviour:
   ControlChildShapes: 1
   SizeX: 0.1
   SizeY: 0.08
+  FlipLayoutDimensions: 0
 --- !u!114 &1218152671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7897,6 +7936,7 @@ MonoBehaviour:
   ControlChildShapes: 1
   SizeX: 0.1
   SizeY: 0.08
+  FlipLayoutDimensions: 0
 --- !u!114 &1653834757
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8469,6 +8509,7 @@ MonoBehaviour:
   ControlChildShapes: 1
   SizeX: 0.0875
   SizeY: 0.15
+  FlipLayoutDimensions: 0
 --- !u!114 &1715673504
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8705,6 +8746,7 @@ MonoBehaviour:
   ControlChildShapes: 1
   SizeX: 0.057142857
   SizeY: 0.08
+  FlipLayoutDimensions: 0
 --- !u!114 &1761748211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9070,6 +9112,7 @@ MonoBehaviour:
   ControlChildShapes: 1
   SizeX: 0.057142857
   SizeY: 0.08
+  FlipLayoutDimensions: 0
 --- !u!114 &1801572765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9694,7 +9737,6 @@ GameObject:
   - 4: {fileID: 1846613565}
   - 114: {fileID: 1846613567}
   - 114: {fileID: 1846613566}
-  - 114: {fileID: 1846613568}
   m_Layer: 0
   m_Name: LeapMotionOld
   m_TagString: Untagged
@@ -9749,17 +9791,6 @@ MonoBehaviour:
     m_TypeName: Hover.Core.Utils.HoverSceneLoader+SceneLoadedEventHandler, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   ClickToReloadScene: 1
---- !u!114 &1846613568
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1846613564}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 484cac84052705d46bc546ca0fde37d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1853626201
 GameObject:
   m_ObjectHideFlags: 0
@@ -9810,6 +9841,7 @@ MonoBehaviour:
   ControlChildShapes: 1
   SizeX: 0.0875
   SizeY: 0.15
+  FlipLayoutDimensions: 0
 --- !u!114 &1853626204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10814,6 +10846,7 @@ MonoBehaviour:
   ControlChildShapes: 1
   SizeX: 0.057142857
   SizeY: 0.08
+  FlipLayoutDimensions: 0
 --- !u!114 &2085264286
 MonoBehaviour:
   m_ObjectHideFlags: 0
