@@ -17,7 +17,7 @@ namespace HoverDemos.Common {
 			}
 			else {
 				Rand = new System.Random(pSeed);
-				UnityEngine.Random.seed = pSeed;
+				UnityEngine.Random.InitState(pSeed);
 			}
 		}
 
