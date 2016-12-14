@@ -141,6 +141,11 @@ namespace Hover.Core.Items.Managers {
 			}
 			
 			Highlight highForCursor = Highlights[highForCursorI];
+
+			if ( highForCursor.Progress <= 0 ) {
+				return;
+			}
+
 			highForCursor.IsNearestAcrossAllItems = true;
 			Highlights[highForCursorI] = highForCursor;
 			
