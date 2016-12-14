@@ -9,7 +9,7 @@ namespace Hover.Core.Utils {
 
 		public Vector3[] Vertices { get; private set; }
 		public Vector2[] Uvs { get; private set; }
-		public Color32[] Colors { get; private set; }
+		public Color[] Colors { get; private set; }
 		public int[] Triangles { get; private set; }
 
 		public int VertexIndex { get; private set; }
@@ -26,11 +26,11 @@ namespace Hover.Core.Utils {
 			if ( pMesh != null ) {
 				Vertices = pMesh.vertices;
 				Uvs = pMesh.uv;
-				Colors = pMesh.colors32;
+				Colors = pMesh.colors;
 				Triangles = pMesh.triangles;
 
 				if ( Colors.Length != Vertices.Length ) {
-					Colors = new Color32[Vertices.Length];
+					Colors = new Color[Vertices.Length];
 					CommitColors(Color.white);
 				}
 			}
@@ -43,7 +43,7 @@ namespace Hover.Core.Utils {
 			if ( Vertices == null || pVertexCount != Vertices.Length ) {
 				Vertices = new Vector3[pVertexCount];
 				Uvs = new Vector2[pVertexCount];
-				Colors = new Color32[pVertexCount];
+				Colors = new Color[pVertexCount];
 				Mesh.Clear();
 			}
 
@@ -107,16 +107,16 @@ namespace Hover.Core.Utils {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void CommitColors() {
-			Mesh.colors32 = Colors;
+			Mesh.colors = Colors;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void CommitColors(Color32 pColor) {
+		public void CommitColors(Color pColor) {
 			for ( int i = 0 ; i < Colors.Length ; i++ ) {
 				Colors[i] = pColor;
 			}
 
-			Mesh.colors32 = Colors;
+			Mesh.colors = Colors;
 		}
 
 	}
