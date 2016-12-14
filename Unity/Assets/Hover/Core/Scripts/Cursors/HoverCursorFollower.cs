@@ -71,6 +71,10 @@ namespace Hover.Core.Cursors {
 
 			if ( FollowCursorActive ) {
 				foreach ( GameObject go in ObjectsToActivate ) {
+					if ( go == null ) {
+						continue;
+					}
+
 					go.SetActive(cursor.IsActive);
 				}
 			}
