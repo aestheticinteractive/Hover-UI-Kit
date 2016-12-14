@@ -26,8 +26,6 @@ namespace HoverDemos.CastCubes.Inputs {
 
 			castCustom.StandardFollowCursor = CursorType.LeftPinky;
 			castCustom.SwitchedFollowCursor = CursorType.RightPinky;
-			//castCustom.StandardInteractionCursor = CursorType.RightMiddle;
-			//castCustom.SwitchedInteractionCursor = CursorType.LeftMiddle;
 		}
 
 	}
