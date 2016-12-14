@@ -195,7 +195,7 @@ namespace Hover.InputModules.Vive {
 				return;
 			}
 
-			float sizeProg = 0.5f+(pState.IsTouchpadTouched ? pState.TouchpadAxis.x/2 : 0);
+			float sizeProg = 0.5f; //+(pState.IsTouchpadTouched ? pState.TouchpadAxis.x/2 : 0);
 			Vector3 worldOffset = pState.Tx.TransformVector(pInfo.LocalPosition);
 
 			data.SetWorldPosition(pState.Tx.position+worldOffset);
