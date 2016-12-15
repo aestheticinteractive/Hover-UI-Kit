@@ -72,11 +72,13 @@ namespace Hover.Core.Renderers.Items.Sliders {
 
 			int newTickCount = SegmentInfo.TickInfoList.Count;
 
+			if ( Ticks.Count == newTickCount ) {
+				return;
+			}
+
 #if UNITY_EDITOR
 			//ticks are often added within a prefab; this forces serialization of the "Ticks" list
-			if ( Ticks.Count != newTickCount ) {
-				UnityEditor.EditorUtility.SetDirty(this);
-			}
+			UnityEditor.EditorUtility.SetDirty(this);
 #endif
 
 			if ( TickPrefab == null ) {
@@ -106,6 +108,8 @@ namespace Hover.Core.Renderers.Items.Sliders {
 					DestroyImmediate(tick.gameObject);
 				}
 			}
+
+			GetComponent<TreeUpdater>().ImmediateReloadTreeChildren();
 		}
 
 	}

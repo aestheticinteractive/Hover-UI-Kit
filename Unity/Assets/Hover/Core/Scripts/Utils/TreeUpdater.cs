@@ -55,12 +55,21 @@ namespace Hover.Core.Utils {
 		public void OnDestroy() {
 			vIsDestroyed = true;
 		}
-		
-		
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void ImmediateReloadTreeChildren() {
+			//int before = TreeChildrenThisFrame.Count;
+			FindTreeChildren();
+			//int after = TreeChildrenThisFrame.Count;
+			//Debug.Log("ImmediateReloadTreeChildren: "+name+" / "+before+" => "+after, gameObject);
+		}
+
+
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void AscendTreeOrBegin(bool pFromUpdate) {
-			//Debug.Log("AscendTreeOrBegin: "+gameObject.name, gameObject);
+			//if ( pFromUpdate ) { Debug.Log("AscendTreeOrBegin: "+gameObject.name, gameObject); }
+
 			Transform parTx = transform.parent;
 			TreeUpdater parTreeUp = (parTx == null ? null : parTx.GetComponent<TreeUpdater>());
 			
