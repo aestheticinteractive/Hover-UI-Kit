@@ -6,7 +6,6 @@ using Hover.Core.Renderers;
 using Hover.Core.Renderers.CanvasElements;
 using Hover.Core.Renderers.Shapes.Arc;
 using Hover.Core.Utils;
-using Hover.RendererModules.Alpha;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -175,6 +174,10 @@ namespace Hover.InterfaceModules.Cast {
 			data.OnSelectedEvent.AddListener(inter.OnRowSwitched);
 #endif
 
+			HoverFillButtonArcUpdater fillArcUp = 
+				pItemGo.GetComponentInChildren<HoverFillButtonArcUpdater>();
+			fillArcUp.EdgePosition = HoverFillButtonArcUpdater.EdgePositionType.Outer;
+
 			HoverCanvas can = pItemGo.GetComponentInChildren<HoverCanvas>();
 
 			var iconPivotGo = new GameObject("IconPivot");
@@ -234,6 +237,10 @@ namespace Hover.InterfaceModules.Cast {
 
 			////
 
+			HoverFillButtonArcUpdater fillArcUp =
+				pItemGo.GetComponentInChildren<HoverFillButtonArcUpdater>();
+			fillArcUp.EdgePosition = HoverFillButtonArcUpdater.EdgePositionType.Outer;
+
 			HoverItemDataText data = pItemGo.GetComponent<HoverItemDataText>();
 			data.Id = "HovercastTitleItem";
 			data.Label = "Hovercast";
@@ -267,6 +274,10 @@ namespace Hover.InterfaceModules.Cast {
 #else
 			data.OnSelectedEvent.AddListener(inter.OnRowSwitched);
 #endif
+
+			HoverFillButtonArcUpdater fillArcUp =
+				pItemGo.GetComponentInChildren<HoverFillButtonArcUpdater>();
+			fillArcUp.EdgePosition = HoverFillButtonArcUpdater.EdgePositionType.Outer;
 
 			HoverCanvas can = pItemGo.GetComponentInChildren<HoverCanvas>();
 			can.Alignment = HoverCanvas.CanvasAlignmentType.Custom;
