@@ -91,8 +91,11 @@ namespace Hover.Editor.Items {
 					sliderData.RangeMin, sliderData.RangeMax, sliderData.Value);
 				rangeValue = EditorGUILayout.Slider(
 					"Slider Range Value", rangeValue, sliderData.RangeMin, sliderData.RangeMax);
-				serializedObject.FindProperty("_Value").floatValue = 
-					Mathf.InverseLerp(sliderData.RangeMin, sliderData.RangeMax, rangeValue);
+
+				if ( sliderData.RangeValue != rangeValue ) {
+					serializedObject.FindProperty("_Value").floatValue =
+						Mathf.InverseLerp(sliderData.RangeMin, sliderData.RangeMax, rangeValue);
+				}
 
 				EditorGUILayout.PropertyField(serializedObject.FindProperty("_Ticks"),
 					new GUIContent("Slider Ticks"));
