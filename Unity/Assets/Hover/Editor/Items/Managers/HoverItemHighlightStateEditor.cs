@@ -73,6 +73,7 @@ namespace Hover.Editor.Items.Managers {
 				GUI.enabled = false;
 				EditorGUILayout.ObjectField("Data", (Object)high.Cursor, high.Cursor.GetType(), true);
 				EditorGUILayout.Vector3Field("Nearest Position", high.NearestWorldPos);
+				EditorGUILayout.Toggle("Is Nearest Across All Items", high.IsNearestAcrossAllItems);
 				EditorGUILayout.FloatField("Distance", high.Distance);
 				EditorGUILayout.Slider("Progress", high.Progress, 0, 1);
 				GUI.enabled = true;

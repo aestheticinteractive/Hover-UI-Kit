@@ -84,18 +84,28 @@ namespace Hover.Core.Items.Managers {
 			////
 
 			HoverItemHighlightState highState = GetComponent<HoverItemHighlightState>();
-			
-			bool canSelect = (
-				!highState.IsHighlightPrevented && 
-				highState.IsNearestAcrossAllItemsForAnyCursor &&
-				selData.AllowSelection
+			bool hasNearestCursorWithFullHigh = false;
+
+			bool canDeselect = (
+				highState.IsHighlightPrevented ||
+				!highState.IsNearestAcrossAllItemsForAnyCursor ||
+				!selData.AllowSelection
 			);
-			
-			if ( SelectionProgress <= 0 || !canSelect ) {
+
+			for ( int i = 0 ; i < highState.Highlights.Count ; i++ ) {
+				HoverItemHighlightState.Highlight high = highState.Highlights[i];
+
+				if ( high.IsNearestAcrossAllItems && high.Progress >= 1 ) {
+					hasNearestCursorWithFullHigh = true;
+					break;
+				}
+			}
+
+			if ( SelectionProgress <= 0 || canDeselect ) {
 				selData.DeselectStickySelections();
 			}
 
-			if ( !canSelect || highState.MaxHighlightProgress < 1 ) {
+			if ( canDeselect || !hasNearestCursorWithFullHigh ) {
 				IsSelectionPrevented = false;
 				vSelectionStart = null;
 				return false;

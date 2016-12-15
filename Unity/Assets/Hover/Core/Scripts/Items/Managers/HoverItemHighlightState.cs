@@ -29,6 +29,7 @@ namespace Hover.Core.Items.Managers {
 		public HoverInteractionSettings InteractionSettings;
 
 		private readonly HashSet<string> vPreventHighlightMap;
+		private readonly HashSet<CursorType> vIsNearestForCursorTypeMap;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -36,6 +37,7 @@ namespace Hover.Core.Items.Managers {
 		public HoverItemHighlightState() {
 			Highlights = new List<Highlight>();
 			vPreventHighlightMap = new HashSet<string>();
+			vIsNearestForCursorTypeMap = new HashSet<CursorType>();
 		}
 
 
@@ -114,42 +116,12 @@ namespace Hover.Core.Items.Managers {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void ResetAllNearestStates() {
-			for ( int i = 0 ; i < Highlights.Count ; i++ ) {
-				Highlight high = Highlights[i];
-				high.IsNearestAcrossAllItems = false;
-				Highlights[i] = high;
-			}
-			
-			IsNearestAcrossAllItemsForAnyCursor = false;
+			vIsNearestForCursorTypeMap.Clear();
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void SetNearestAcrossAllItemsForCursor(CursorType pType) {
-			int highForCursorI = -1;
-		
-			for ( int i = 0 ; i < Highlights.Count ; i++ ) {
-				Highlight high = Highlights[i];
-				
-				if ( high.Cursor.Type == pType ) {
-					highForCursorI = i;
-					break;
-				}
-			}
-			
-			if ( highForCursorI == -1 ) {
-				throw new Exception("No highlight found for type '"+pType+"'.");
-			}
-			
-			Highlight highForCursor = Highlights[highForCursorI];
-
-			if ( highForCursor.Progress <= 0 ) {
-				return;
-			}
-
-			highForCursor.IsNearestAcrossAllItems = true;
-			Highlights[highForCursorI] = highForCursor;
-			
-			IsNearestAcrossAllItemsForAnyCursor = true;
+			vIsNearestForCursorTypeMap.Add(pType);
 		}
 		
 		
@@ -207,6 +179,7 @@ namespace Hover.Core.Items.Managers {
 				}
 
 				Highlight high = CalculateHighlight(cursor);
+				high.IsNearestAcrossAllItems = vIsNearestForCursorTypeMap.Contains(cursor.Type);
 				Highlights.Add(high);
 
 				if ( high.Distance >= minDist ) {
@@ -216,6 +189,8 @@ namespace Hover.Core.Items.Managers {
 				minDist = high.Distance;
 				NearestHighlight = high;
 			}
+
+			IsNearestAcrossAllItemsForAnyCursor = (vIsNearestForCursorTypeMap.Count > 0);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
