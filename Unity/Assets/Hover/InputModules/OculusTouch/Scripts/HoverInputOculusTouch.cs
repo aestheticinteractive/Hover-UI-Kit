@@ -13,7 +13,7 @@ namespace Hover.InputModules.OculusTouch {
 
 		private static readonly Vector3 FingerLocalPosFix = new Vector3(0, -0.008f, 0);
 		private static readonly Quaternion FingerLocalLeftRotFix = Quaternion.Euler(90, 0, 90);
-		private static readonly Quaternion FingerLocalRightRotFix = Quaternion.Euler(90, 0, -90);
+		private static readonly Quaternion FingerLocalRightRotFix = Quaternion.Euler(-90, 0, -90);
 
 		[Serializable]
 		public class Info {
@@ -48,6 +48,7 @@ namespace Hover.InputModules.OculusTouch {
 
 		public Info LeftPalm = new Info {
 			LocalPosition = new Vector3(0, 0.01f, 0),
+			LocalRotation = new Vector3(-90, 0, 180),
 			MinSize = 0.04f,
 			MaxSize = 0.06f
 		};
@@ -59,17 +60,17 @@ namespace Hover.InputModules.OculusTouch {
 
 		public Info LeftIndex = new Info {
 			LocalPosition = new Vector3(-0.06f, 0, 0.02f),
-			LocalRotation = new Vector3(90, -40, 0)
+			LocalRotation = new Vector3(-90, -40, 180)
 		};
 
 		public Info LeftMiddle = new Info {
 			LocalPosition = new Vector3(0, 0, 0.08f),
-			LocalRotation = new Vector3(90, 0, 0)
+			LocalRotation = new Vector3(-90, 0, 180)
 		};
 
 		public Info LeftRing = new Info {
 			LocalPosition = new Vector3(0.06f, 0, 0.02f),
-			LocalRotation = new Vector3(90, 40, 0)
+			LocalRotation = new Vector3(-90, 40, 180)
 		};
 
 		public Info LeftPinky = new Info {
@@ -81,6 +82,7 @@ namespace Hover.InputModules.OculusTouch {
 
 		public Info RightPalm = new Info {
 			LocalPosition = new Vector3(0, 0.01f, 0),
+			LocalRotation = new Vector3(-90, 0, 180),
 			MinSize = 0.04f,
 			MaxSize = 0.06f
 		};
@@ -92,17 +94,17 @@ namespace Hover.InputModules.OculusTouch {
 
 		public Info RightIndex = new Info {
 			LocalPosition = new Vector3(0.06f, 0, 0.02f),
-			LocalRotation = new Vector3(90, 40, 0)
+			LocalRotation = new Vector3(-90, 40, 180)
 		};
 
 		public Info RightMiddle = new Info {
 			LocalPosition = new Vector3(0, 0, 0.08f),
-			LocalRotation = new Vector3(90, 0, 0)
+			LocalRotation = new Vector3(-90, 0, 180)
 		};
 
 		public Info RightRing = new Info {
 			LocalPosition = new Vector3(-0.06f, 0, 0.02f),
-			LocalRotation = new Vector3(90, -40, 0)
+			LocalRotation = new Vector3(-90, -40, 180)
 		};
 
 		public Info RightPinky = new Info {
@@ -161,9 +163,9 @@ namespace Hover.InputModules.OculusTouch {
 			vLeftThumbTx = FindAvatarTransform(Avatar.transform, AvatarLeftThumbName);
 			vRightThumbTx = FindAvatarTransform(Avatar.transform, AvatarRightThumbName);
 		}
-		
+
 		/*--------------------------------------------------------------------------------------------*/
-		private Transform FindAvatarTransform(Transform pParentTx, string pName) {
+		public static Transform FindAvatarTransform(Transform pParentTx, string pName) {
 			foreach ( Transform childTx in pParentTx ) {
 				if ( childTx.name == pName ) {
 					return childTx;
@@ -244,7 +246,7 @@ namespace Hover.InputModules.OculusTouch {
 				Matrix4x4 txRotMat = txMat*Matrix4x4.TRS(Vector3.zero, pState.LocalRot, Vector3.one);
 
 				data.SetWorldPosition(txMat.MultiplyPoint3x4(pState.LocalPos)+
-					txRotMat.MultiplyPoint3x4(pInfo.LocalPosition));
+					txRotMat.MultiplyVector(pInfo.LocalPosition));
 				data.SetWorldRotation(txRotMat.GetRotation()*Quaternion.Euler(pInfo.LocalRotation));
 			}
 
