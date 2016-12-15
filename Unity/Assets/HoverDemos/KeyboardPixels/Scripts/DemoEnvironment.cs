@@ -4,7 +4,6 @@ using HoverDemos.Common;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.VR;
-using Random = UnityEngine.Random;
 
 namespace HoverDemos.KeyboardPixels {
 
