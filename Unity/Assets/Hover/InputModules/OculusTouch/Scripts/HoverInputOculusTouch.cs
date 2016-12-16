@@ -1,6 +1,5 @@
 ﻿#if HOVER_INPUT_OCULUSTOUCH
 
-using System;
 using Hover.Core.Cursors;
 using Hover.Core.Utils;
 using UnityEngine;
@@ -11,111 +10,106 @@ namespace Hover.InputModules.OculusTouch {
 	[ExecuteInEditMode]
 	public class HoverInputOculusTouch : MonoBehaviour {
 
-		private static readonly Vector3 FingerLocalPosFix = new Vector3(0, -0.008f, 0);
-		private static readonly Quaternion FingerLocalLeftRotFix = Quaternion.Euler(90, 0, 90);
-		private static readonly Quaternion FingerLocalRightRotFix = Quaternion.Euler(-90, 0, -90);
-
-		[Serializable]
-		public class Info {
-			public Vector3 LocalPosition = Vector3.zero;
-			public Vector3 LocalRotation = new Vector3(90, 0, 0);
-
-			[Range(0.01f, 0.1f)]
-			public float MinSize = 0.01f;
-
-			[Range(0.02f, 0.2f)]
-			public float MaxSize = 0.03f;
-		}
-
-		private struct ControlState {
+		public struct ControlState {
+			public OVRInput.Controller ControllerType;
 			public bool IsValid;
 			public Vector3 LocalPos;
 			public Quaternion LocalRot;
-			public Vector2 TouchpadAxis;
-			public float TriggerStrength;
+			public Vector2 ThumbstickAxis;
+			public float IndexTrigger;
+			public float HandTrigger;
+			public bool Button1Press;
+			public bool Button2Press;
+			public bool StartPress;
+			public bool ThumbstickPress;
 		}
+
+		public ControlState StateLeft { get; private set; }
+		public ControlState StateRight { get; private set; }
 
 		public HoverCursorDataProvider CursorDataProvider;
 		public OvrAvatar Avatar;
 		public Transform LookCursorTransform;
-		public bool UseHandTransforms = true;
-		public string AvatarLeftIndexName = "hands:b_l_index_ignore";
-		public string AvatarRightIndexName = "hands:b_r_index_ignore";
-		public string AvatarLeftThumbName = "hands:b_l_thumb_ignore";
-		public string AvatarRightThumbName = "hands:b_r_thumb_ignore";
 
-		////
+		[Space(12)]
 
-		public Info LeftPalm = new Info {
+		public OculusTouchCursor LeftPalm = new OculusTouchCursor(CursorType.LeftPalm) {
 			LocalPosition = new Vector3(0, 0.01f, 0),
 			LocalRotation = new Vector3(-90, 0, 180),
+			CursorSizeInput = OculusTouchCursor.InputSourceType.ThumbstickX,
 			MinSize = 0.04f,
 			MaxSize = 0.06f
 		};
 
-		public Info LeftThumb = new Info {
+		public OculusTouchCursor LeftThumb = new OculusTouchCursor(CursorType.LeftThumb) {
 			LocalPosition = new Vector3(0, 0, -0.09f),
-			LocalRotation = new Vector3(-90, 0, 0)
+			LocalRotation = new Vector3(-90, 0, 0),
+			ShouldFollowAvatarElement = true,
+			AvatarElementName = "hands:b_l_thumb_ignore"
 		};
 
-		public Info LeftIndex = new Info {
-			LocalPosition = new Vector3(-0.06f, 0, 0.02f),
-			LocalRotation = new Vector3(-90, -40, 180)
+		public OculusTouchCursor LeftIndex = new OculusTouchCursor(CursorType.LeftIndex) {
+			LocalPosition = new Vector3(-0.06f, 0, 0.05f),
+			LocalRotation = new Vector3(-90, -40, 180),
+			ShouldFollowAvatarElement = true,
+			AvatarElementName = "hands:b_l_index_ignore"
 		};
 
-		public Info LeftMiddle = new Info {
+		public OculusTouchCursor LeftMiddle = new OculusTouchCursor(CursorType.LeftMiddle) {
 			LocalPosition = new Vector3(0, 0, 0.08f),
 			LocalRotation = new Vector3(-90, 0, 180)
 		};
 
-		public Info LeftRing = new Info {
+		public OculusTouchCursor LeftRing = new OculusTouchCursor(CursorType.LeftRing) {
 			LocalPosition = new Vector3(0.06f, 0, 0.02f),
 			LocalRotation = new Vector3(-90, 40, 180)
 		};
 
-		public Info LeftPinky = new Info {
+		public OculusTouchCursor LeftPinky = new OculusTouchCursor(CursorType.LeftPinky) {
 			LocalPosition = new Vector3(0.05f, 0, -0.05f),
-			LocalRotation = new Vector3(-90, -180, 80)
+			LocalRotation = new Vector3(-90, -180, 80),
+			TriggerStrengthInput = OculusTouchCursor.InputSourceType.ThumbstickLeft //for Hovercast
 		};
 
-		////
+		[Space(12)]
 
-		public Info RightPalm = new Info {
+		public OculusTouchCursor RightPalm = new OculusTouchCursor(CursorType.RightPalm) {
 			LocalPosition = new Vector3(0, 0.01f, 0),
 			LocalRotation = new Vector3(-90, 0, 180),
+			CursorSizeInput = OculusTouchCursor.InputSourceType.ThumbstickX,
 			MinSize = 0.04f,
 			MaxSize = 0.06f
 		};
 
-		public Info RightThumb = new Info {
+		public OculusTouchCursor RightThumb = new OculusTouchCursor(CursorType.RightThumb) {
 			LocalPosition = new Vector3(0, 0, -0.09f),
-			LocalRotation = new Vector3(-90, 0, 0)
+			LocalRotation = new Vector3(-90, 0, 0),
+			ShouldFollowAvatarElement = true,
+			AvatarElementName = "hands:b_r_thumb_ignore"
 		};
 
-		public Info RightIndex = new Info {
-			LocalPosition = new Vector3(0.06f, 0, 0.02f),
-			LocalRotation = new Vector3(-90, 40, 180)
+		public OculusTouchCursor RightIndex = new OculusTouchCursor(CursorType.RightIndex) {
+			LocalPosition = new Vector3(0.06f, 0, 0.05f),
+			LocalRotation = new Vector3(-90, 40, 180),
+			ShouldFollowAvatarElement = true,
+			AvatarElementName = "hands:b_r_index_ignore"
 		};
 
-		public Info RightMiddle = new Info {
+		public OculusTouchCursor RightMiddle = new OculusTouchCursor(CursorType.RightMiddle) {
 			LocalPosition = new Vector3(0, 0, 0.08f),
 			LocalRotation = new Vector3(-90, 0, 180)
 		};
 
-		public Info RightRing = new Info {
+		public OculusTouchCursor RightRing = new OculusTouchCursor(CursorType.RightRing) {
 			LocalPosition = new Vector3(-0.06f, 0, 0.02f),
 			LocalRotation = new Vector3(-90, -40, 180)
 		};
 
-		public Info RightPinky = new Info {
+		public OculusTouchCursor RightPinky = new OculusTouchCursor(CursorType.RightPinky) {
 			LocalPosition = new Vector3(-0.05f, 0, -0.05f),
-			LocalRotation = new Vector3(-90, 180, -80)
+			LocalRotation = new Vector3(-90, 180, -80),
+			TriggerStrengthInput = OculusTouchCursor.InputSourceType.ThumbstickRight //for Hovercast
 		};
-
-		private Transform vLeftIndexTx;
-		private Transform vRightIndexTx;
-		private Transform vLeftThumbTx;
-		private Transform vRightThumbTx;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -130,6 +124,20 @@ namespace Hover.InputModules.OculusTouch {
 			if ( LookCursorTransform == null ) {
 				LookCursorTransform = Camera.main.transform;
 			}
+
+			LeftPalm.OriginTransform = transform;
+			LeftThumb.OriginTransform = transform;
+			LeftIndex.OriginTransform = transform;
+			LeftMiddle.OriginTransform = transform;
+			LeftRing.OriginTransform = transform;
+			LeftPinky.OriginTransform = transform;
+
+			RightPalm.OriginTransform = transform;
+			RightThumb.OriginTransform = transform;
+			RightIndex.OriginTransform = transform;
+			RightMiddle.OriginTransform = transform;
+			RightRing.OriginTransform = transform;
+			RightPinky.OriginTransform = transform;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -142,7 +150,6 @@ namespace Hover.InputModules.OculusTouch {
 				return;
 			}
 
-			FindAvatarTransforms();
 			CursorDataProvider.MarkAllCursorsUnused();
 			UpdateCursorsWithControllers();
 			UpdateCursorWithCamera();
@@ -152,20 +159,9 @@ namespace Hover.InputModules.OculusTouch {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void FindAvatarTransforms() {
-			if ( !UseHandTransforms || vLeftIndexTx != null ) {
-				return;
-			}
-
-			//TODO: find a better way to obtain the "hand bones"
-			vLeftIndexTx = FindAvatarTransform(Avatar.transform, AvatarLeftIndexName);
-			vRightIndexTx = FindAvatarTransform(Avatar.transform, AvatarRightIndexName);
-			vLeftThumbTx = FindAvatarTransform(Avatar.transform, AvatarLeftThumbName);
-			vRightThumbTx = FindAvatarTransform(Avatar.transform, AvatarRightThumbName);
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
 		public static Transform FindAvatarTransform(Transform pParentTx, string pName) {
+			//TODO: find a better way to obtain the "hand bones"
+
 			foreach ( Transform childTx in pParentTx ) {
 				if ( childTx.name == pName ) {
 					return childTx;
@@ -183,77 +179,48 @@ namespace Hover.InputModules.OculusTouch {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateCursorsWithControllers() {
-			ControlState contL = GetControllerState(OVRInput.Controller.LTouch);
-			ControlState contR = GetControllerState(OVRInput.Controller.RTouch);
+			StateLeft = GetControllerState(OVRInput.Controller.LTouch);
+			StateRight = GetControllerState(OVRInput.Controller.RTouch);
 
-			UpdateCursorWithController(contL, LeftPalm,    CursorType.LeftPalm);
-			UpdateCursorWithController(contL, LeftThumb,   CursorType.LeftThumb, vLeftThumbTx);
-			UpdateCursorWithController(contL, LeftIndex,   CursorType.LeftIndex, vLeftIndexTx);
-			UpdateCursorWithController(contL, LeftMiddle,  CursorType.LeftMiddle);
-			UpdateCursorWithController(contL, LeftRing,    CursorType.LeftRing);
-			UpdateCursorWithController(contL, LeftPinky,   CursorType.LeftPinky);
+			LeftPalm.UpdateData(CursorDataProvider, StateLeft, Avatar);
+			LeftThumb.UpdateData(CursorDataProvider, StateLeft, Avatar);
+			LeftIndex.UpdateData(CursorDataProvider, StateLeft, Avatar);
+			LeftMiddle.UpdateData(CursorDataProvider, StateLeft, Avatar);
+			LeftRing.UpdateData(CursorDataProvider, StateLeft, Avatar);
+			LeftPinky.UpdateData(CursorDataProvider, StateLeft, Avatar);
 
-			UpdateCursorWithController(contR, RightPalm,   CursorType.RightPalm);
-			UpdateCursorWithController(contR, RightThumb,  CursorType.RightThumb, vRightThumbTx);
-			UpdateCursorWithController(contR, RightIndex,  CursorType.RightIndex, vRightIndexTx);
-			UpdateCursorWithController(contR, RightMiddle, CursorType.RightMiddle);
-			UpdateCursorWithController(contR, RightRing,   CursorType.RightRing);
-			UpdateCursorWithController(contR, RightPinky,  CursorType.RightPinky);
+			RightPalm.UpdateData(CursorDataProvider, StateRight, Avatar);
+			RightThumb.UpdateData(CursorDataProvider, StateRight, Avatar);
+			RightIndex.UpdateData(CursorDataProvider, StateRight, Avatar);
+			RightMiddle.UpdateData(CursorDataProvider, StateRight, Avatar);
+			RightRing.UpdateData(CursorDataProvider, StateRight, Avatar);
+			RightPinky.UpdateData(CursorDataProvider, StateRight, Avatar);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private ControlState GetControllerState(OVRInput.Controller pControlType) {
+		private ControlState GetControllerState(OVRInput.Controller pType) {
 			OVRInput.Controller contTypes = OVRInput.GetConnectedControllers();
-			bool isValid = ((contTypes & pControlType) != 0);
+			bool isValid = ((contTypes & pType) != 0);
 
 			var state = new ControlState();
+			state.ControllerType = pType;
 			state.IsValid = isValid;
 
-			if ( state.IsValid ) {
-				state.LocalPos = OVRInput.GetLocalControllerPosition(pControlType);
-				state.LocalRot = OVRInput.GetLocalControllerRotation(pControlType);
-				state.TouchpadAxis = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, pControlType);
-				state.TriggerStrength = OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, pControlType);
+			if ( !state.IsValid ) {
+				return state;
 			}
+
+			state.LocalPos = OVRInput.GetLocalControllerPosition(pType);
+			state.LocalRot = OVRInput.GetLocalControllerRotation(pType);
+			state.ThumbstickAxis = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, pType);
+			state.IndexTrigger = OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, pType);
+			state.HandTrigger = OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, pType);
+			state.Button1Press = OVRInput.Get(OVRInput.Button.One, pType);
+			state.Button2Press = OVRInput.Get(OVRInput.Button.Two, pType);
+			state.StartPress = OVRInput.Get(OVRInput.Button.Start, pType);
+			state.ThumbstickPress = OVRInput.Get(OVRInput.Button.PrimaryThumbstick, pType);
 
 			return state;
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateCursorWithController(ControlState pState, Info pInfo, CursorType pType, 
-																		Transform pHandBoneTx=null) {
-			if ( !CursorDataProvider.HasCursorData(pType) ) {
-				return;
-			}
-
-			ICursorDataForInput data = CursorDataProvider.GetCursorDataForInput(pType);
-
-			data.SetUsedByInput(pState.IsValid);
-
-			if ( !pState.IsValid ) {
-				return;
-			}
-
-			if ( UseHandTransforms && pHandBoneTx != null ) {
-				Quaternion sidedLocalRotFix = (pType < CursorType.RightPalm ? 
-					FingerLocalLeftRotFix : FingerLocalRightRotFix);
-
-				data.SetWorldRotation(pHandBoneTx.rotation*sidedLocalRotFix);
-				data.SetWorldPosition(pHandBoneTx.position+data.WorldRotation*FingerLocalPosFix);
-			}
-			else {
-				Matrix4x4 txMat = transform.localToWorldMatrix;
-				Matrix4x4 txRotMat = txMat*Matrix4x4.TRS(Vector3.zero, pState.LocalRot, Vector3.one);
-
-				data.SetWorldPosition(txMat.MultiplyPoint3x4(pState.LocalPos)+
-					txRotMat.MultiplyVector(pInfo.LocalPosition));
-				data.SetWorldRotation(txRotMat.GetRotation()*Quaternion.Euler(pInfo.LocalRotation));
-			}
-
-			float sizeProg = 0.5f; //+pState.TouchpadAxis.x/2;
-
-			data.SetSize(Mathf.Lerp(pInfo.MinSize, pInfo.MaxSize, sizeProg));
-			data.SetTriggerStrength(pState.TriggerStrength);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
