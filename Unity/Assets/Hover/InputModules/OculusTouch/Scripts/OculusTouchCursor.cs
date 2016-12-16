@@ -2,7 +2,6 @@
 
 using System;
 using Hover.Core.Cursors;
-using Hover.Core.Utils;
 using UnityEngine;
 
 namespace Hover.InputModules.OculusTouch {
@@ -35,7 +34,6 @@ namespace Hover.InputModules.OculusTouch {
 			ThumbstickRight
 		}
 
-		public SettingsControllerMap Controllers { get; private set; }
 		public CursorType Type { get; private set; }
 		public Transform OriginTransform { get; internal set; }
 		public Transform AvatarElementTransform { get; private set; }
@@ -58,7 +56,6 @@ namespace Hover.InputModules.OculusTouch {
 		/*--------------------------------------------------------------------------------------------*/
 		public OculusTouchCursor(CursorType pType) {
 			Type = pType;
-			Controllers = new SettingsControllerMap();
 		}
 
 

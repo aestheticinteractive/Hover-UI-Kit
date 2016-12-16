@@ -1,6 +1,5 @@
 ﻿#if HOVER_INPUT_VIVE
 
-using System;
 using Hover.Core.Cursors;
 using Hover.Core.Utils;
 using UnityEngine;
@@ -12,94 +11,95 @@ namespace Hover.InputModules.Vive {
 	[ExecuteInEditMode]
 	public class HoverInputVive : MonoBehaviour {
 
-		[Serializable]
-		public class Info {
-			public Vector3 LocalPosition = Vector3.zero;
-			public Vector3 LocalRotation = new Vector3(90, 0, 0);
-
-			[Range(0.01f, 0.1f)]
-			public float MinSize = 0.01f;
-
-			[Range(0.02f, 0.2f)]
-			public float MaxSize = 0.03f;
-		}
-
-		private struct ControlState {
+		public struct ControlState {
+			public SteamVR_TrackedObject Controller;
 			public Transform Tx;
 			public bool IsValid;
-			public bool IsTouchpadTouched;
 			public Vector2 TouchpadAxis;
 			public Vector2 TriggerAxis;
+			public bool TouchpadTouch;
+			public bool TouchpadPress;
+			public bool GripPress;
+			public bool MenuPress;
 		}
+
+		public ControlState StateLeft { get; private set; }
+		public ControlState StateRight { get; private set; }
 
 		public HoverCursorDataProvider CursorDataProvider;
 		public SteamVR_ControllerManager SteamControllers;
 		public Transform LookCursorTransform;
 
-		////
+		[Space(12)]
 
-		public Info LeftPalm = new Info {
+		public ViveCursor LeftPalm = new ViveCursor(CursorType.LeftPalm) {
 			LocalPosition = new Vector3(0, 0.01f, 0),
+			LocalRotation = new Vector3(90, 0, 0),
+			CursorSizeInput = ViveCursor.InputSourceType.TouchpadX,
 			MinSize = 0.04f,
 			MaxSize = 0.06f
 		};
 
-		public Info LeftThumb = new Info {
+		public ViveCursor LeftThumb = new ViveCursor(CursorType.LeftThumb) {
 			LocalPosition = new Vector3(0, 0, -0.17f),
 			LocalRotation = new Vector3(-90, 0, 0)
 		};
 
-		public Info LeftIndex = new Info {
+		public ViveCursor LeftIndex = new ViveCursor(CursorType.LeftIndex) {
 			LocalPosition = new Vector3(-0.05f, 0, 0.03f),
 			LocalRotation = new Vector3(90, -40, 0)
 		};
 
-		public Info LeftMiddle = new Info {
+		public ViveCursor LeftMiddle = new ViveCursor(CursorType.LeftMiddle) {
 			LocalPosition = new Vector3(0, 0, 0.06f),
 			LocalRotation = new Vector3(90, 0, 0)
 		};
 
-		public Info LeftRing = new Info {
+		public ViveCursor LeftRing = new ViveCursor(CursorType.LeftRing) {
 			LocalPosition = new Vector3(0.05f, 0, 0.03f),
 			LocalRotation = new Vector3(90, 40, 0)
 		};
 
-		public Info LeftPinky = new Info {
+		public ViveCursor LeftPinky = new ViveCursor(CursorType.LeftPinky) {
 			LocalPosition = new Vector3(0.08f, 0, -0.06f),
-			LocalRotation = new Vector3(-90, -180, 80)
+			LocalRotation = new Vector3(-90, -180, 80),
+			TriggerStrengthInput = ViveCursor.InputSourceType.TouchpadLeft //for Hovercast
 		};
 
-		////
+		[Space(12)]
 
-		public Info RightPalm = new Info {
+		public ViveCursor RightPalm = new ViveCursor(CursorType.RightPalm) {
 			LocalPosition = new Vector3(0, 0.01f, 0),
+			LocalRotation = new Vector3(90, 0, 0),
+			CursorSizeInput = ViveCursor.InputSourceType.TouchpadX,
 			MinSize = 0.04f,
 			MaxSize = 0.06f
 		};
 
-		public Info RightThumb = new Info {
+		public ViveCursor RightThumb = new ViveCursor(CursorType.RightThumb) {
 			LocalPosition = new Vector3(0, 0, -0.17f),
 			LocalRotation = new Vector3(-90, 0, 0)
 		};
 
-		public Info RightIndex = new Info {
+		public ViveCursor RightIndex = new ViveCursor(CursorType.RightIndex) {
 			LocalPosition = new Vector3(0.05f, 0, 0.03f),
 			LocalRotation = new Vector3(90, 40, 0)
 		};
 
-		public Info RightMiddle = new Info {
+		public ViveCursor RightMiddle = new ViveCursor(CursorType.RightMiddle) {
 			LocalPosition = new Vector3(0, 0, 0.06f),
 			LocalRotation = new Vector3(90, 0, 0)
 		};
 
-		public Info RightRing = new Info {
+		public ViveCursor RightRing = new ViveCursor(CursorType.RightRing) {
 			LocalPosition = new Vector3(-0.05f, 0, 0.03f),
 			LocalRotation = new Vector3(90, -40, 0)
 		};
 
-		public Info RightPinky = new Info {
+		public ViveCursor RightPinky = new ViveCursor(CursorType.RightPinky) {
 			LocalPosition = new Vector3(-0.08f, 0, -0.06f),
-			LocalRotation = new Vector3(-90, 180, -80)
+			LocalRotation = new Vector3(-90, 180, -80),
+			TriggerStrengthInput = ViveCursor.InputSourceType.TouchpadRight //for Hovercast
 		};
 
 
@@ -137,32 +137,33 @@ namespace Hover.InputModules.Vive {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateCursorsWithControllers() {
-			ControlState contL = GetControllerState(SteamControllers.left);
-			ControlState contR = GetControllerState(SteamControllers.right);
+			StateLeft = GetControllerState(SteamControllers.left);
+			StateRight = GetControllerState(SteamControllers.right);
 
-			UpdateCursorWithController(contL, LeftPalm,    CursorType.LeftPalm);
-			UpdateCursorWithController(contL, LeftThumb,   CursorType.LeftThumb);
-			UpdateCursorWithController(contL, LeftIndex,   CursorType.LeftIndex);
-			UpdateCursorWithController(contL, LeftMiddle,  CursorType.LeftMiddle);
-			UpdateCursorWithController(contL, LeftRing,    CursorType.LeftRing);
-			UpdateCursorWithController(contL, LeftPinky,   CursorType.LeftPinky);
+			LeftPalm.UpdateData(CursorDataProvider, StateLeft);
+			LeftThumb.UpdateData(CursorDataProvider, StateLeft);
+			LeftIndex.UpdateData(CursorDataProvider, StateLeft);
+			LeftMiddle.UpdateData(CursorDataProvider, StateLeft);
+			LeftRing.UpdateData(CursorDataProvider, StateLeft);
+			LeftPinky.UpdateData(CursorDataProvider, StateLeft);
 
-			UpdateCursorWithController(contR, RightPalm,   CursorType.RightPalm);
-			UpdateCursorWithController(contR, RightThumb,  CursorType.RightThumb);
-			UpdateCursorWithController(contR, RightIndex,  CursorType.RightIndex);
-			UpdateCursorWithController(contR, RightMiddle, CursorType.RightMiddle);
-			UpdateCursorWithController(contR, RightRing,   CursorType.RightRing);
-			UpdateCursorWithController(contR, RightPinky,  CursorType.RightPinky);
+			RightPalm.UpdateData(CursorDataProvider, StateRight);
+			RightThumb.UpdateData(CursorDataProvider, StateRight);
+			RightIndex.UpdateData(CursorDataProvider, StateRight);
+			RightMiddle.UpdateData(CursorDataProvider, StateRight);
+			RightRing.UpdateData(CursorDataProvider, StateRight);
+			RightPinky.UpdateData(CursorDataProvider, StateRight);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		private ControlState GetControllerState(GameObject pControlGo) {
 			SteamVR_TrackedObject control = pControlGo.GetComponent<SteamVR_TrackedObject>();
+			SteamVR_Controller.Device input = null;
 
 			var state = new ControlState();
+			state.Controller = control;
 			state.Tx = control.transform;
 			state.IsValid = control.isValid;
-			SteamVR_Controller.Device input = null;
 
 			if ( control.index < 0 ) {
 				state.IsValid = false;
@@ -173,35 +174,15 @@ namespace Hover.InputModules.Vive {
 			}
 
 			if ( state.IsValid ) {
-				state.IsTouchpadTouched = input.GetTouch(EVRButtonId.k_EButton_SteamVR_Touchpad);
 				state.TouchpadAxis = input.GetAxis(EVRButtonId.k_EButton_SteamVR_Touchpad);
 				state.TriggerAxis = input.GetAxis(EVRButtonId.k_EButton_SteamVR_Trigger);
+				state.TouchpadTouch = input.GetTouch(EVRButtonId.k_EButton_SteamVR_Touchpad);
+				state.TouchpadPress = input.GetPress(EVRButtonId.k_EButton_SteamVR_Touchpad);
+				state.GripPress = input.GetPress(EVRButtonId.k_EButton_Grip);
+				state.MenuPress = input.GetPress(EVRButtonId.k_EButton_ApplicationMenu);
 			}
 
 			return state;
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateCursorWithController(ControlState pState, Info pInfo, CursorType pType) {
-			if ( !CursorDataProvider.HasCursorData(pType) ) {
-				return;
-			}
-
-			ICursorDataForInput data = CursorDataProvider.GetCursorDataForInput(pType);
-
-			data.SetUsedByInput(pState.IsValid);
-
-			if ( !pState.IsValid ) {
-				return;
-			}
-
-			float sizeProg = 0.5f; //+(pState.IsTouchpadTouched ? pState.TouchpadAxis.x/2 : 0);
-			Vector3 worldOffset = pState.Tx.TransformVector(pInfo.LocalPosition);
-
-			data.SetWorldPosition(pState.Tx.position+worldOffset);
-			data.SetWorldRotation(pState.Tx.rotation*Quaternion.Euler(pInfo.LocalRotation));
-			data.SetSize(Mathf.Lerp(pInfo.MinSize, pInfo.MaxSize, sizeProg));
-			data.SetTriggerStrength(pState.TriggerAxis.x);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
