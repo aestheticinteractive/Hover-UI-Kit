@@ -77,7 +77,7 @@ namespace Hover.Core.Items.Managers {
 
 			WasSelectedThisFrame = false;
 
-			if ( selData == null ) {
+			if ( selData == null || selData.IgnoreSelection ) {
 				return false;
 			}
 
@@ -89,7 +89,7 @@ namespace Hover.Core.Items.Managers {
 			bool canDeselect = (
 				highState.IsHighlightPrevented ||
 				!highState.IsNearestAcrossAllItemsForAnyCursor ||
-				!selData.AllowSelection
+				!selData.IsEnabled
 			);
 
 			for ( int i = 0 ; i < highState.Highlights.Count ; i++ ) {

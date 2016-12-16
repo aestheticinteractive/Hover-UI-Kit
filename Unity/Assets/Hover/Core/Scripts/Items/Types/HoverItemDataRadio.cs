@@ -56,9 +56,9 @@ namespace Hover.Core.Items.Types {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public override bool AllowSelection {
+		public override bool IgnoreSelection {
 			get {
-				return (!Value && base.AllowSelection);
+				return (Value || base.IgnoreSelection);
 			}
 		}
 

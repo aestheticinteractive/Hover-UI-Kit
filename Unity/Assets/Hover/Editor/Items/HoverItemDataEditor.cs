@@ -181,7 +181,7 @@ namespace Hover.Editor.Items {
 			}
 
 			EditorGUILayout.Toggle("Is Sticky-Selected", selectableData.IsStickySelected);
-			EditorGUILayout.Toggle("Allow Selection", selectableData.AllowSelection);
+			EditorGUILayout.Toggle("Ignore Selection", selectableData.IgnoreSelection);
 
 			IItemDataRadio radioData = (vData as IItemDataRadio);
 			IItemDataSlider sliderData = (vData as IItemDataSlider);

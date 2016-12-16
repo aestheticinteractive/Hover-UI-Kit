@@ -7,7 +7,7 @@
 		event ItemEvents.DeselectedHandler OnDeselected;
 
 		bool IsStickySelected { get; }
-		bool AllowSelection { get; }
+		bool IgnoreSelection { get; }
 		bool AllowIdleDeselection { get; set;  }
 
 

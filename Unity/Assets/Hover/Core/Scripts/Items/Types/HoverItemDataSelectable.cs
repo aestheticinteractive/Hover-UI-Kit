@@ -46,9 +46,9 @@ namespace Hover.Core.Items.Types {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual bool AllowSelection {
+		public virtual bool IgnoreSelection {
 			get {
-				return IsEnabled;
+				return false;
 			}
 		}
 
