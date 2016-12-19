@@ -1,5 +1,4 @@
-﻿using Hover.Core.Items.Managers;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Hover.Core.Utils {
 
@@ -15,20 +14,6 @@ namespace Hover.Core.Utils {
 #else
 			return UnityEngine.Object.Instantiate(pPrefab);
 #endif
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		public static GameObject FindOrAddHoverManagerPrefab() {
-			HoverItemsManager itemsMan = Object.FindObjectOfType<HoverItemsManager>();
-
-			if ( itemsMan != null ) {
-				return itemsMan.gameObject;
-			}
-
-			GameObject managerPrefab = Resources.Load<GameObject>("Prefabs/HoverKit");
-			BuildPrefab(managerPrefab);
-			Debug.Log("Added the 'HoverKit' prefab to the scene.", managerPrefab);
-			return managerPrefab;
 		}
 
 

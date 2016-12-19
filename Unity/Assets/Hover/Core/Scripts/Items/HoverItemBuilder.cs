@@ -32,7 +32,7 @@ namespace Hover.Core.Items {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void OnEditorTriggerButtonSelected() {
-			UnityUtil.FindOrAddHoverManagerPrefab();
+			HoverKitUtil.FindOrAddHoverKitPrefab();
 			PerformBuild();
 		}
 
