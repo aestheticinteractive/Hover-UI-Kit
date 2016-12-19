@@ -1,9 +1,9 @@
 ﻿using Hover.Core.Cursors;
 using Hover.Core.Items;
+using Hover.Core.Items.Helpers;
 using Hover.Core.Items.Managers;
 using Hover.Core.Items.Types;
 using Hover.Core.Layouts.Arc;
-using Hover.Core.Renderers;
 using Hover.Core.Renderers.CanvasElements;
 using Hover.Core.Renderers.Shapes.Arc;
 using Hover.Core.Utils;
@@ -293,7 +293,7 @@ namespace Hover.InterfaceModules.Cast {
 			rowSwitch.NavigateBack = true;
 			rowSwitch.RowEntryTransition = HovercastRowSwitchingInfo.RowEntryType.FromInside;
 
-			pItemGo.AddComponent<HoverRendererIndicatorOverrider>();
+			pItemGo.AddComponent<HoverIndicatorOverrider>();
 		}
 
 

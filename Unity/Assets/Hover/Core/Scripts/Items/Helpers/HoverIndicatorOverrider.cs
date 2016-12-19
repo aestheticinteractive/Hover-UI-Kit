@@ -1,14 +1,14 @@
-using Hover.Core.Items;
+using Hover.Core.Renderers;
 using Hover.Core.Utils;
 using UnityEngine;
 
-namespace Hover.Core.Renderers {
+namespace Hover.Core.Items.Helpers {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
 	[RequireComponent(typeof(HoverItemRendererUpdater))]
-	public class HoverRendererIndicatorOverrider : MonoBehaviour, ITreeUpdateable, ISettingsController {
+	public class HoverIndicatorOverrider : MonoBehaviour, ITreeUpdateable, ISettingsController {
 
 		public const string MinHightlightProgressName = "MinHightlightProgress";
 		public const string MinSelectionProgressName = "MinSelectionProgress";
@@ -24,7 +24,7 @@ namespace Hover.Core.Renderers {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		protected HoverRendererIndicatorOverrider() {
+		protected HoverIndicatorOverrider() {
 			Controllers = new SettingsControllerMap();
 		}
 

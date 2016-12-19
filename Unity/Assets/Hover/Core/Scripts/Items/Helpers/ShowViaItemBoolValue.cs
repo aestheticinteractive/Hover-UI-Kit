@@ -1,7 +1,7 @@
 ﻿using Hover.Core.Items.Types;
 using UnityEngine;
 
-namespace Hover.Core.Renderers.Helpers {
+namespace Hover.Core.Items.Helpers {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]

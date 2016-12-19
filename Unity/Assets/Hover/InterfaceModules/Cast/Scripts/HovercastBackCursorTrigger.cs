@@ -1,6 +1,6 @@
 ﻿using Hover.Core.Cursors;
+using Hover.Core.Items.Helpers;
 using Hover.Core.Items.Types;
-using Hover.Core.Renderers;
 using Hover.Core.Utils;
 using UnityEngine;
 
@@ -83,21 +83,20 @@ namespace Hover.InterfaceModules.Cast {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateOverrider(HoverItemDataSelector pBackItem, float pTriggerStrength) {
-			HoverRendererIndicatorOverrider rendInd =
-				pBackItem.GetComponent<HoverRendererIndicatorOverrider>();
+			HoverIndicatorOverrider indOver = pBackItem.GetComponent<HoverIndicatorOverrider>();
 
-			if ( rendInd == null ) {
+			if ( indOver == null ) {
 				return;
 			}
 
 			float minStren = (vIsTriggered ? TriggerAgainThreshold : 0);
 			float stren = pTriggerStrength;
 
-			rendInd.Controllers.Set(HoverRendererIndicatorOverrider.MinHightlightProgressName, this);
-			rendInd.Controllers.Set(HoverRendererIndicatorOverrider.MinSelectionProgressName, this);
+			indOver.Controllers.Set(HoverIndicatorOverrider.MinHightlightProgressName, this);
+			indOver.Controllers.Set(HoverIndicatorOverrider.MinSelectionProgressName, this);
 
-			rendInd.MinHightlightProgress = stren;
-			rendInd.MinSelectionProgress = Mathf.InverseLerp(minStren, 1, stren);
+			indOver.MinHightlightProgress = stren;
+			indOver.MinSelectionProgress = Mathf.InverseLerp(minStren, 1, stren);
 		}
 
 	}
