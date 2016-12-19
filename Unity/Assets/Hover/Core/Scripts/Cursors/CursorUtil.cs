@@ -1,10 +1,9 @@
-﻿using Hover.Core.Cursors;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Hover.Core.Utils {
+namespace Hover.Core.Cursors {
 
 	/*================================================================================================*/
-	public static class InputModuleUtil {
+	public static class CursorUtil {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

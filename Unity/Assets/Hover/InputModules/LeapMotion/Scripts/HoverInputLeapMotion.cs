@@ -31,7 +31,7 @@ namespace Hover.InputModules.LeapMotion {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
-			InputModuleUtil.FindCursorReference(this, ref CursorDataProvider, false);
+			CursorUtil.FindCursorReference(this, ref CursorDataProvider, false);
 
 			if ( LeapServiceProvider == null ) {
 				LeapServiceProvider = FindObjectOfType<LeapServiceProvider>();
@@ -45,7 +45,7 @@ namespace Hover.InputModules.LeapMotion {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			if ( !InputModuleUtil.FindCursorReference(this, ref CursorDataProvider, true) ) {
+			if ( !CursorUtil.FindCursorReference(this, ref CursorDataProvider, true) ) {
 				return;
 			}
 

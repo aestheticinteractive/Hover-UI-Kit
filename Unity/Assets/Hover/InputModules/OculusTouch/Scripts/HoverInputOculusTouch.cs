@@ -118,7 +118,7 @@ namespace Hover.InputModules.OculusTouch {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
-			InputModuleUtil.FindCursorReference(this, ref CursorDataProvider, false);
+			CursorUtil.FindCursorReference(this, ref CursorDataProvider, false);
 
 			if ( Avatar == null ) {
 				Avatar = FindObjectOfType<OvrAvatar>();
@@ -145,7 +145,7 @@ namespace Hover.InputModules.OculusTouch {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			if ( !InputModuleUtil.FindCursorReference(this, ref CursorDataProvider, true) ) {
+			if ( !CursorUtil.FindCursorReference(this, ref CursorDataProvider, true) ) {
 				return;
 			}
 
