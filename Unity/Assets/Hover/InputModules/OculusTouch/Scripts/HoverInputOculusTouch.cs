@@ -1,7 +1,6 @@
 ﻿#if HOVER_INPUT_OCULUSTOUCH
 
 using Hover.Core.Cursors;
-using Hover.Core.Utils;
 using UnityEngine;
 
 namespace Hover.InputModules.OculusTouch {

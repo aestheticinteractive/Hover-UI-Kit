@@ -1,5 +1,4 @@
 using System;
-using Hover.Core.Items;
 using Hover.Core.Renderers.CanvasElements;
 using Hover.Core.Renderers.Items.Buttons;
 using Hover.Core.Renderers.Shapes;
