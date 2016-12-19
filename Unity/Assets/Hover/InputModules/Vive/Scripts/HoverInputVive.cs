@@ -2,7 +2,6 @@
 
 using Hover.Core.Cursors;
 using Hover.Core.Utils;
-using Hover.InputModules.Follow;
 using UnityEngine;
 using Valve.VR;
 

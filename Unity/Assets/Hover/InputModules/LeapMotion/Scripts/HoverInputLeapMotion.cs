@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using Hover.Core.Cursors;
 using Hover.Core.Utils;
-using Hover.InputModules.Follow;
 using Leap;
 using Leap.Unity;
 using UnityEngine;

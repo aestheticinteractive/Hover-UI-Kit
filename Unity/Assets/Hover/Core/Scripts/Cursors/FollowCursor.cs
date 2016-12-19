@@ -1,8 +1,7 @@
 ﻿using System;
-using Hover.Core.Cursors;
 using UnityEngine;
 
-namespace Hover.InputModules.Follow {
+namespace Hover.Core.Cursors {
 
 	/*================================================================================================*/
 	[Serializable]
