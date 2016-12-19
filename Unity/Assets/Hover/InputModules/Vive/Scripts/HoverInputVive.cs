@@ -2,6 +2,7 @@
 
 using Hover.Core.Cursors;
 using Hover.Core.Utils;
+using Hover.InputModules.Follow;
 using UnityEngine;
 using Valve.VR;
 
@@ -28,7 +29,10 @@ namespace Hover.InputModules.Vive {
 
 		public HoverCursorDataProvider CursorDataProvider;
 		public SteamVR_ControllerManager SteamControllers;
-		public Transform LookCursorTransform;
+
+		[Space(12)]
+
+		public FollowCursor Look = new FollowCursor(CursorType.Look);
 
 		[Space(12)]
 
@@ -108,8 +112,8 @@ namespace Hover.InputModules.Vive {
 		public void Awake() {
 			InputModuleUtil.FindCursorReference(this, ref CursorDataProvider, false);
 
-			if ( LookCursorTransform == null ) {
-				LookCursorTransform = Camera.main.transform;
+			if ( Look.FollowTransform == null ) {
+				Look.FollowTransform = Camera.main.transform;
 			}
 
 			if ( SteamControllers == null ) {
@@ -129,7 +133,7 @@ namespace Hover.InputModules.Vive {
 
 			CursorDataProvider.MarkAllCursorsUnused();
 			UpdateCursorsWithControllers();
-			UpdateCursorWithCamera();
+			Look.UpdateData(CursorDataProvider);
 			CursorDataProvider.ActivateAllCursorsBasedOnUsage();
 		}
 
@@ -183,18 +187,6 @@ namespace Hover.InputModules.Vive {
 			}
 
 			return state;
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateCursorWithCamera() {
-			if ( !CursorDataProvider.HasCursorData(CursorType.Look) ) {
-				return;
-			}
-
-			ICursorDataForInput data = CursorDataProvider.GetCursorDataForInput(CursorType.Look);
-			data.SetWorldPosition(LookCursorTransform.position);
-			data.SetWorldRotation(LookCursorTransform.rotation);
-			data.SetUsedByInput(true);
 		}
 
 	}

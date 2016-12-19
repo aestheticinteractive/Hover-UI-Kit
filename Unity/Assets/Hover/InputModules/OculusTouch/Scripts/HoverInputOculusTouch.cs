@@ -2,6 +2,7 @@
 
 using Hover.Core.Cursors;
 using Hover.Core.Utils;
+using Hover.InputModules.Follow;
 using UnityEngine;
 
 namespace Hover.InputModules.OculusTouch {
@@ -29,7 +30,10 @@ namespace Hover.InputModules.OculusTouch {
 
 		public HoverCursorDataProvider CursorDataProvider;
 		public OvrAvatar Avatar;
-		public Transform LookCursorTransform;
+
+		[Space(12)]
+
+		public FollowCursor Look = new FollowCursor(CursorType.Look);
 
 		[Space(12)]
 
@@ -121,8 +125,8 @@ namespace Hover.InputModules.OculusTouch {
 				Avatar = FindObjectOfType<OvrAvatar>();
 			}
 
-			if ( LookCursorTransform == null ) {
-				LookCursorTransform = Camera.main.transform;
+			if ( Look.FollowTransform == null ) {
+				Look.FollowTransform = Camera.main.transform;
 			}
 
 			LeftPalm.OriginTransform = transform;
@@ -152,7 +156,7 @@ namespace Hover.InputModules.OculusTouch {
 
 			CursorDataProvider.MarkAllCursorsUnused();
 			UpdateCursorsWithControllers();
-			UpdateCursorWithCamera();
+			Look.UpdateData(CursorDataProvider);
 			CursorDataProvider.ActivateAllCursorsBasedOnUsage();
 		}
 
@@ -221,18 +225,6 @@ namespace Hover.InputModules.OculusTouch {
 			state.ThumbstickPress = OVRInput.Get(OVRInput.Button.PrimaryThumbstick, pType);
 
 			return state;
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateCursorWithCamera() {
-			if ( !CursorDataProvider.HasCursorData(CursorType.Look) ) {
-				return;
-			}
-
-			ICursorDataForInput data = CursorDataProvider.GetCursorDataForInput(CursorType.Look);
-			data.SetWorldPosition(LookCursorTransform.position);
-			data.SetWorldRotation(LookCursorTransform.rotation);
-			data.SetUsedByInput(true);
 		}
 
 	}

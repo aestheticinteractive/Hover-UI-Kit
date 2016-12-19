@@ -3,6 +3,7 @@
 using System;
 using Hover.Core.Cursors;
 using Hover.Core.Utils;
+using Hover.InputModules.Follow;
 using Leap;
 using UnityEngine;
 
@@ -16,11 +17,14 @@ namespace Hover.InputModules.LeapMotionOld {
 
 		public HoverCursorDataProvider CursorDataProvider;
 		public HandController LeapControl;
-		public Transform LookCursorTransform;
 		public bool UseStabilizedPositions = false;
 
 		[Range(0, 0.04f)]
 		public float ExtendFingertipDistance = 0;
+
+		[Space(12)]
+
+		public FollowCursor Look = new FollowCursor(CursorType.Look);
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -32,9 +36,9 @@ namespace Hover.InputModules.LeapMotionOld {
 				LeapControl = FindObjectOfType<HandController>();
 			}
 
-			if ( LookCursorTransform == null ) {
+			if ( Look.FollowTransform == null ) {
 				GameObject lookGo = GameObject.Find("CenterEyeAnchor");
-				LookCursorTransform = (lookGo == null ? null : lookGo.transform);
+				Look.FollowTransform = (lookGo == null ? null : lookGo.transform);
 			}
 		}
 
@@ -50,7 +54,7 @@ namespace Hover.InputModules.LeapMotionOld {
 
 			CursorDataProvider.MarkAllCursorsUnused();
 			UpdateCursorsWithHands(LeapControl.GetFrame().Hands);
-			UpdateCursorWithCamera();
+			Look.UpdateData(CursorDataProvider);
 			CursorDataProvider.ActivateAllCursorsBasedOnUsage();
 		}
 
@@ -116,18 +120,6 @@ namespace Hover.InputModules.LeapMotionOld {
 			data.SetWorldPosition(extendedWorldPos);
 			data.SetWorldRotation(leapTx.rotation*distalBone.Basis.Rotation()*RotationFix);
 			data.SetSize(pLeapFinger.Width*UnityVectorExtension.INPUT_SCALE);
-			data.SetUsedByInput(true);
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateCursorWithCamera() {
-			if ( !CursorDataProvider.HasCursorData(CursorType.Look) ) {
-				return;
-			}
-
-			ICursorDataForInput data = CursorDataProvider.GetCursorDataForInput(CursorType.Look);
-			data.SetWorldPosition(LookCursorTransform.position);
-			data.SetWorldRotation(LookCursorTransform.rotation);
 			data.SetUsedByInput(true);
 		}
 
