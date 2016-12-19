@@ -22,7 +22,13 @@
 ![Vive](https://github.com/aestheticinteractive/Hover-UI-Kit/wiki/Images/InputModule-Vive-Cursor.gif)
 <br/>:camera: _Default cursor positions for the Vive controllers_
 
+![OculusTouch](https://github.com/aestheticinteractive/Hover-UI-Kit/wiki/Images/InputModule-OculusTouch-Cursor.gif)
+<br/>:camera: _Default cursor positions for the Oculus Touch controllers_
+
 ![LeapMotion](https://github.com/aestheticinteractive/Hover-UI-Kit/wiki/Images/InputModule-LeapMotion-Cursor.gif)
 <br/>:camera: _Cursors attached to specific points on the LeapMotion hands_
+
+![Follow](https://github.com/aestheticinteractive/Hover-UI-Kit/wiki/Images/InputModule-Follow-Cursor.gif)
+<br/>:camera: _The "Look" cursor mapped to the headset's Unity transform._
 
 ### [Continue to the project wiki>](https://github.com/aestheticinteractive/Hover-UI-Kit/wiki)
