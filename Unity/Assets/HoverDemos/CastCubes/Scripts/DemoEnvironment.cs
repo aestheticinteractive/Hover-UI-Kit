@@ -96,6 +96,7 @@ namespace HoverDemos.CastCubes {
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
 			RandomUtil.Init(RandomSeed);
+			VRSettings.renderScale = 2;
 
 			vCubesObj = new GameObject("Cubes");
 			vCubesObj.transform.SetParent(gameObject.transform, false);
