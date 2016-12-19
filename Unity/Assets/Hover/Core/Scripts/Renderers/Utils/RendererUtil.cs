@@ -98,23 +98,6 @@ namespace Hover.Core.Renderers.Utils {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public static Vector2 GetRelativeAnchorPosition(AnchorType pAnchor) {
-			return GetRelativeAnchorPosition((AnchorTypeWithCustom)pAnchor);
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public static Vector2 GetRelativeAnchorPosition(AnchorTypeWithCustom pAnchor) {
-			if ( pAnchor == AnchorTypeWithCustom.Custom ) {
-				throw new Exception("There is no pre-set position for the '"+pAnchor+"' type.");
-			}
-			
-			int ai = (int)pAnchor;
-			float x = (ai%3)/2f - 0.5f;
-			float y = (ai/3)/2f - 0.5f;
-			return new Vector2(-x, y);
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
 		public static void SetActiveWithUpdate(MonoBehaviour pBehaviour, bool pIsActive) {
 			SetActiveWithUpdate(pBehaviour.gameObject, pIsActive);
 		}

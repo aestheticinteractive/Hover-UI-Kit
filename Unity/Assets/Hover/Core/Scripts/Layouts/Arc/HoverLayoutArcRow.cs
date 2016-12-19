@@ -1,5 +1,4 @@
 ﻿using Hover.Core.Layouts.Rect;
-using Hover.Core.Renderers.Utils;
 using Hover.Core.Utils;
 using UnityEngine;
 
@@ -97,7 +96,7 @@ namespace Hover.Core.Layouts.Arc {
 			float availDeg = paddedDeg-Padding.Between*(itemCount-1);
 			float deg = StartingDegree - paddedDeg/2 + (Padding.StartDegree-Padding.EndDegree)/2;
 
-			Vector2 anchorPos = RendererUtil.GetRelativeAnchorPosition(RectAnchor);
+			Vector2 anchorPos = LayoutUtil.GetRelativeAnchorPosition(RectAnchor);
 			anchorPos.x *= (vRectSize == null ? OuterRadius*2 : ((Vector2)vRectSize).x);
 			anchorPos.y *= (vRectSize == null ? OuterRadius*2 : ((Vector2)vRectSize).y);
 			

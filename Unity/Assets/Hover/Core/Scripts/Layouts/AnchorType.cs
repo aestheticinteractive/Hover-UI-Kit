@@ -1,7 +1,7 @@
-﻿namespace Hover.Core.Utils {
+﻿namespace Hover.Core.Layouts {
 
 	/*================================================================================================*/
-	public enum AnchorTypeWithCustom {
+	public enum AnchorType {
 		UpperLeft,
 		UpperCenter,
 		UpperRight,
@@ -10,8 +10,7 @@
 		MiddleRight,
 		LowerLeft,
 		LowerCenter,
-		LowerRight,
-		Custom
+		LowerRight
 	}
 
 }

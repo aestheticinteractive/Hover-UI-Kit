@@ -1,5 +1,4 @@
-﻿using Hover.Core.Renderers.Utils;
-using Hover.Core.Utils;
+﻿using Hover.Core.Utils;
 using UnityEngine;
 
 namespace Hover.Core.Layouts.Rect {
@@ -79,7 +78,7 @@ namespace Hover.Core.Layouts.Rect {
 
 			bool isHoriz = IsHorizontal;
 			bool isRev = IsReversed;
-			Vector2 anchorPos = RendererUtil.GetRelativeAnchorPosition(Anchor);
+			Vector2 anchorPos = LayoutUtil.GetRelativeAnchorPosition(Anchor);
 			float anchorStartX = anchorPos.x*SizeX;
 			float anchorStartY = anchorPos.y*SizeY;
 			float horizOuterPad = Padding.Left+Padding.Right;
