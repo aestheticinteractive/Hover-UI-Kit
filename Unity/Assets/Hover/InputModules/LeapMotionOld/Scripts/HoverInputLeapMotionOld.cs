@@ -2,7 +2,6 @@
 
 using System;
 using Hover.Core.Cursors;
-using Hover.Core.Utils;
 using Hover.InputModules.Follow;
 using Leap;
 using UnityEngine;

@@ -1,7 +1,6 @@
 ﻿#if HOVER_INPUT_VIVE
 
 using Hover.Core.Cursors;
-using Hover.Core.Utils;
 using UnityEngine;
 using Valve.VR;
 

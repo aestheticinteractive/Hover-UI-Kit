@@ -1,7 +1,6 @@
 ﻿using Hover.Core.Cursors;
 using Hover.Core.Items;
 using Hover.Core.Items.Helpers;
-using Hover.Core.Items.Managers;
 using Hover.Core.Items.Types;
 using Hover.Core.Layouts.Arc;
 using Hover.Core.Renderers.CanvasElements;
@@ -42,7 +41,7 @@ namespace Hover.InterfaceModules.Cast {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void OnEditorTriggerButtonSelected() {
-			HoverKitUtil.FindOrAddHoverKitPrefab();
+			UnityUtil.FindOrAddHoverKitPrefab();
 			PerformBuild();
 		}
 

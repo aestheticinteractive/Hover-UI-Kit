@@ -19,6 +19,22 @@ namespace Hover.Core.Utils {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
+		public static GameObject FindOrAddHoverKitPrefab() {
+			GameObject hoverKitGo = GameObject.Find("HoverKit");
+
+			if ( hoverKitGo != null ) {
+				return hoverKitGo;
+			}
+
+			GameObject managerPrefab = Resources.Load<GameObject>("Prefabs/HoverKit");
+			BuildPrefab(managerPrefab);
+			Debug.Log("Added the 'HoverKit' prefab to the scene.", managerPrefab);
+			return managerPrefab;
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
 		public static T FindNearbyComponent<T>(GameObject pGameObj) where T : Component {
 			T sibling = pGameObj.GetComponent<T>();
 

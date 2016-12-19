@@ -1,5 +1,4 @@
 ﻿using Hover.Core.Items;
-using Hover.Core.Items.Managers;
 using Hover.Core.Items.Types;
 using Hover.Core.Layouts.Rect;
 using Hover.Core.Renderers.CanvasElements;
@@ -36,7 +35,7 @@ namespace Hover.InterfaceModules.Key {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void OnEditorTriggerButtonSelected() {
-			HoverKitUtil.FindOrAddHoverKitPrefab();
+			UnityUtil.FindOrAddHoverKitPrefab();
 			PerformBuild();
 		}
 

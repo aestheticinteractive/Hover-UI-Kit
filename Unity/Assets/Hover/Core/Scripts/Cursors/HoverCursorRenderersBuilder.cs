@@ -1,5 +1,4 @@
-﻿using Hover.Core.Items.Managers;
-using Hover.Core.Utils;
+﻿using Hover.Core.Utils;
 using UnityEngine;
 
 namespace Hover.Core.Cursors {
@@ -32,7 +31,7 @@ namespace Hover.Core.Cursors {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void OnEditorTriggerButtonSelected() {
-			HoverKitUtil.FindOrAddHoverKitPrefab();
+			UnityUtil.FindOrAddHoverKitPrefab();
 			PerformBuild();
 		}
 
