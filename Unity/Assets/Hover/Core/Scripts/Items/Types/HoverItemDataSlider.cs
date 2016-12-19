@@ -32,7 +32,7 @@ namespace Hover.Core.Items.Types {
 		private SliderFillType _FillStartingPoint = SliderFillType.MinimumValue;
 
 		[SerializeField]
-		private bool _AllowIdleDeselection = true;
+		private bool _AllowIdleDeselection = false;
 
 		private float? vHoverValue;
 		private string vPrevLabel;
