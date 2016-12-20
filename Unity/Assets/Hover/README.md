@@ -1,11 +1,11 @@
-HOVER UI KIT
-v2.0.0A (alpha)
+## Hover UI Kit
 
-Wiki, documentation, and software license:
-http://HoverVR.com
+Latest version: `v2.0.0B (beta)`
 
-by Zach Kinstner / Aesthetic Interactive:
-http://twitter.com/zachkinstner
-http://aestheticinteractive.com
+Source code, project documentation, and software license: http://HoverVR.com
 
-Copyright (c) 2014-2016 Zach Kinstner
+Author: Zach Kinstner (Aesthetic Interactive)
+- http://twitter.com/zachkinstner
+- http://medium.com/@zachkinstner
+- http://youtube.com/aestheticinteractive/videos
+- http://aestheticinteractive.com
