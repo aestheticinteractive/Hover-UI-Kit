@@ -6,7 +6,7 @@ namespace Hover.Core.Items.Helpers {
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(MeshRenderer))]
-	public class ShowViaItemBoolValue : MonoBehaviour {
+	public class ShowViaHoverItemBoolValue : MonoBehaviour {
 
 		public HoverItemDataSelectableBool Data;
 

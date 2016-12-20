@@ -4,12 +4,13 @@ namespace Hover.Core.Renderers.Helpers {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
-	public class ScaleViaIndicator : MonoBehaviour {
+	[RequireComponent(typeof(MeshRenderer))]
+	public class ColorViaHoverIndicator : MonoBehaviour {
 
 		public HoverIndicator Indicator;
-		public Vector3 StartLocalScale = new Vector3(1, 1, 1);
-		public Vector3 HighlightLocalScale = new Vector3(2, 2, 2);
-		public Vector3 SelectionLocalScale = new Vector3(2, 2, 2);
+		public Color StartColor = new Color(1, 1, 1);
+		public Color HighlightColor = new Color(0, 0.5f, 1);
+		public Color SelectionColor = new Color(0, 1, 0);
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -22,13 +23,17 @@ namespace Hover.Core.Renderers.Helpers {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
+			if ( !Application.isPlaying ) {
+				return;
+			}
+
+			Material mat = GetComponent<MeshRenderer>().material;
+
 			if ( Indicator.SelectionProgress > 0 ) {
-				transform.localScale = Vector3.Lerp(
-					HighlightLocalScale, SelectionLocalScale, Indicator.SelectionProgress);
+				mat.color = Color.Lerp(HighlightColor, SelectionColor, Indicator.SelectionProgress);
 			}
 			else {
-				transform.localScale = Vector3.Lerp(
-					StartLocalScale, HighlightLocalScale, Indicator.HighlightProgress);
+				mat.color = Color.Lerp(StartColor, HighlightColor, Indicator.HighlightProgress);
 			}
 		}
 
