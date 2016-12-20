@@ -4,6 +4,7 @@ var namespace_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_rect =
     [ "HoverFillSliderRectUpdater", "class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_rect_1_1_hover_fill_slider_rect_updater.html", "class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_rect_1_1_hover_fill_slider_rect_updater" ],
     [ "HoverMeshRect", "class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_rect_1_1_hover_mesh_rect.html", "class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_rect_1_1_hover_mesh_rect" ],
     [ "HoverMeshRectHollow", "class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_rect_1_1_hover_mesh_rect_hollow.html", "class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_rect_1_1_hover_mesh_rect_hollow" ],
+    [ "HoverMeshRectHollowTab", "class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_rect_1_1_hover_mesh_rect_hollow_tab.html", "class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_rect_1_1_hover_mesh_rect_hollow_tab" ],
     [ "HoverRendererSliderRectUpdater", "class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_rect_1_1_hover_renderer_slider_rect_updater.html", "class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_rect_1_1_hover_renderer_slider_rect_updater" ],
     [ "HoverRendererSliderSegmentsRect", "class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_rect_1_1_hover_renderer_slider_segments_rect.html", "class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_rect_1_1_hover_renderer_slider_segments_rect" ],
     [ "HoverShapeRect", "class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_rect_1_1_hover_shape_rect.html", "class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_rect_1_1_hover_shape_rect" ]

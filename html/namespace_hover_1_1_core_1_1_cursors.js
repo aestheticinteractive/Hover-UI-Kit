@@ -1,6 +1,8 @@
 var namespace_hover_1_1_core_1_1_cursors =
 [
     [ "CursorTypeComparer", "struct_hover_1_1_core_1_1_cursors_1_1_cursor_type_comparer.html", "struct_hover_1_1_core_1_1_cursors_1_1_cursor_type_comparer" ],
+    [ "CursorUtil", "class_hover_1_1_core_1_1_cursors_1_1_cursor_util.html", "class_hover_1_1_core_1_1_cursors_1_1_cursor_util" ],
+    [ "FollowCursor", "class_hover_1_1_core_1_1_cursors_1_1_follow_cursor.html", "class_hover_1_1_core_1_1_cursors_1_1_follow_cursor" ],
     [ "HoverCursorData", "class_hover_1_1_core_1_1_cursors_1_1_hover_cursor_data.html", "class_hover_1_1_core_1_1_cursors_1_1_hover_cursor_data" ],
     [ "HoverCursorDataProvider", "class_hover_1_1_core_1_1_cursors_1_1_hover_cursor_data_provider.html", "class_hover_1_1_core_1_1_cursors_1_1_hover_cursor_data_provider" ],
     [ "HoverCursorFollower", "class_hover_1_1_core_1_1_cursors_1_1_hover_cursor_follower.html", "class_hover_1_1_core_1_1_cursors_1_1_hover_cursor_follower" ],

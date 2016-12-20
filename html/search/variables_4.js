@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['data',['Data',['../class_hover_1_1_core_1_1_items_1_1_helpers_1_1_show_via_hover_item_bool_value.html#a63d6cf410b749c3d0655d202fbe79455',1,'Hover::Core::Items::Helpers::ShowViaHoverItemBoolValue']]],
   ['defaultkey',['DefaultKey',['../struct_hover_1_1_interface_modules_1_1_key_1_1_hoverkey_builder_key_info.html#a78d31a4daf42288a3549bae5b506b221',1,'Hover.InterfaceModules.Key.HoverkeyBuilderKeyInfo.DefaultKey()'],['../class_hover_1_1_interface_modules_1_1_key_1_1_hoverkey_item_labels.html#a7470e7272f231da1d475945e09529119',1,'Hover.InterfaceModules.Key.HoverkeyItemLabels.DefaultKey()']]],
   ['defaultlabel',['DefaultLabel',['../struct_hover_1_1_interface_modules_1_1_key_1_1_hoverkey_builder_key_info.html#adb01f859db4c307fa3fd9840cfb2e920',1,'Hover.InterfaceModules.Key.HoverkeyBuilderKeyInfo.DefaultLabel()'],['../class_hover_1_1_interface_modules_1_1_key_1_1_hoverkey_item_labels.html#a17aaeda2432134d30143ed7103d71820',1,'Hover.InterfaceModules.Key.HoverkeyItemLabels.DefaultLabel()']]],
   ['depthdistance',['DepthDistance',['../class_hover_1_1_interface_modules_1_1_panel_1_1_hoverpanel_row_transitioner.html#a61a868cf6c36b47a76003e7ee727ee7b',1,'Hover::InterfaceModules::Panel::HoverpanelRowTransitioner']]],

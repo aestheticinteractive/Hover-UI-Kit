@@ -8,7 +8,7 @@ var class_hover_1_1_core_1_1_items_1_1_types_1_1_hover_item_data_selectable =
     [ "OnDeselectedEvent", "class_hover_1_1_core_1_1_items_1_1_types_1_1_hover_item_data_selectable.html#ab16fc57eeec96544d2278881cda254dc", null ],
     [ "OnSelectedEvent", "class_hover_1_1_core_1_1_items_1_1_types_1_1_hover_item_data_selectable.html#ac16db19fc7bcaa0c65123ba8b528fa78", null ],
     [ "AllowIdleDeselection", "class_hover_1_1_core_1_1_items_1_1_types_1_1_hover_item_data_selectable.html#a023cefea23c3df4c29b1b7d58dd15465", null ],
-    [ "AllowSelection", "class_hover_1_1_core_1_1_items_1_1_types_1_1_hover_item_data_selectable.html#a2bac155e87f0835a7dc321dd4b464c43", null ],
+    [ "IgnoreSelection", "class_hover_1_1_core_1_1_items_1_1_types_1_1_hover_item_data_selectable.html#a7000c066ca69532f76eaea46f5932e51", null ],
     [ "IsStickySelected", "class_hover_1_1_core_1_1_items_1_1_types_1_1_hover_item_data_selectable.html#a94edb81d6b39de554663fd03ae03b76a", null ],
     [ "OnDeselected", "class_hover_1_1_core_1_1_items_1_1_types_1_1_hover_item_data_selectable.html#a7df6efd6c2cf1158b3090b78e0cbfbf9", null ],
     [ "OnSelected", "class_hover_1_1_core_1_1_items_1_1_types_1_1_hover_item_data_selectable.html#a3560a4ace81875452222888ff194ce80", null ]

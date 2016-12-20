@@ -21,8 +21,10 @@ var searchData=
   ['hovercursorfollower',['HoverCursorFollower',['../class_hover_1_1_core_1_1_cursors_1_1_hover_cursor_follower.html#a7f6ec0a2f2948c2e66d63ba3948f6ddd',1,'Hover::Core::Cursors::HoverCursorFollower']]],
   ['hovercursoridlestate',['HoverCursorIdleState',['../class_hover_1_1_core_1_1_cursors_1_1_hover_cursor_idle_state.html#a7840f9c81f9a6506227b6aa341bd102c',1,'Hover::Core::Cursors::HoverCursorIdleState']]],
   ['hoverfill',['HoverFill',['../class_hover_1_1_core_1_1_renderers_1_1_hover_fill.html#a2b7d5bd72dc44b3400addb439799174f',1,'Hover::Core::Renderers::HoverFill']]],
+  ['hoverfillsliderupdater',['HoverFillSliderUpdater',['../class_hover_1_1_core_1_1_renderers_1_1_items_1_1_sliders_1_1_hover_fill_slider_updater.html#aaf4a11383ebdd4e457803e92cf475c18',1,'Hover::Core::Renderers::Items::Sliders::HoverFillSliderUpdater']]],
   ['hovericon',['HoverIcon',['../class_hover_1_1_core_1_1_renderers_1_1_canvas_elements_1_1_hover_icon.html#a54cef0ad642d171539236546ef3d4c00',1,'Hover::Core::Renderers::CanvasElements::HoverIcon']]],
   ['hoverindicator',['HoverIndicator',['../class_hover_1_1_core_1_1_renderers_1_1_hover_indicator.html#a3f59592c8a2acbb45bb4ceeeaa2b4472',1,'Hover::Core::Renderers::HoverIndicator']]],
+  ['hoverindicatoroverrider',['HoverIndicatorOverrider',['../class_hover_1_1_core_1_1_items_1_1_helpers_1_1_hover_indicator_overrider.html#ac5b52912ac5713d88123ddacf32fa26c',1,'Hover::Core::Items::Helpers::HoverIndicatorOverrider']]],
   ['hoveritem',['HoverItem',['../class_hover_1_1_core_1_1_items_1_1_hover_item.html#a1431ad202e0354f88c5d0871b1b2a759',1,'Hover::Core::Items::HoverItem']]],
   ['hoveritemdata',['HoverItemData',['../class_hover_1_1_core_1_1_items_1_1_hover_item_data.html#ad881a45f6cede1f2719c2bbd595ba345',1,'Hover::Core::Items::HoverItemData']]],
   ['hoveritemdataselectable',['HoverItemDataSelectable',['../class_hover_1_1_core_1_1_items_1_1_types_1_1_hover_item_data_selectable.html#aebe68e050f7e14b0cfdd0ba66b0c04dd',1,'Hover::Core::Items::Types::HoverItemDataSelectable']]],
@@ -45,7 +47,6 @@ var searchData=
   ['hoverpanelinterface',['HoverpanelInterface',['../class_hover_1_1_interface_modules_1_1_panel_1_1_hoverpanel_interface.html#a8c99429fe13867bb526373c7577b44ff',1,'Hover::InterfaceModules::Panel::HoverpanelInterface']]],
   ['hoverraycastline',['HoverRaycastLine',['../class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_raycast_line.html#a0bbba0b2b6f7f0e0e55c2ed702d04ae9',1,'Hover::Core::Renderers::Cursors::HoverRaycastLine']]],
   ['hoverrenderer',['HoverRenderer',['../class_hover_1_1_core_1_1_renderers_1_1_hover_renderer.html#a5d790c16601760623bc17aaf6c1db43e',1,'Hover::Core::Renderers::HoverRenderer']]],
-  ['hoverrendererindicatoroverrider',['HoverRendererIndicatorOverrider',['../class_hover_1_1_core_1_1_renderers_1_1_hover_renderer_indicator_overrider.html#aac3deea9e2d8d56a02c9dfca52ebf6e4',1,'Hover::Core::Renderers::HoverRendererIndicatorOverrider']]],
   ['hovershape',['HoverShape',['../class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_hover_shape.html#a3456329bc9b2ee229f17088833f9280e',1,'Hover::Core::Renderers::Shapes::HoverShape']]],
   ['hsvtocolor',['HsvToColor',['../class_hover_1_1_core_1_1_utils_1_1_display_util.html#a33b07e017c24ea63ac1ad5b345b9056d',1,'Hover::Core::Utils::DisplayUtil']]]
 ];

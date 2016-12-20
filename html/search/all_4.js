@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['data',['Data',['../class_hover_1_1_core_1_1_items_1_1_hover_item.html#aba683c577f5a19ed99b2c361a00d28c1',1,'Hover::Core::Items::HoverItem']]],
+  ['data',['Data',['../class_hover_1_1_core_1_1_items_1_1_helpers_1_1_show_via_hover_item_bool_value.html#a63d6cf410b749c3d0655d202fbe79455',1,'Hover.Core.Items.Helpers.ShowViaHoverItemBoolValue.Data()'],['../class_hover_1_1_core_1_1_items_1_1_hover_item.html#aba683c577f5a19ed99b2c361a00d28c1',1,'Hover.Core.Items.HoverItem.Data()']]],
   ['deactivate',['Deactivate',['../class_hover_1_1_core_1_1_utils_1_1_hover_scene_adjust.html#af98d948ed133d309a3da35ac8e157fe2',1,'Hover.Core.Utils.HoverSceneAdjust.Deactivate(GameObject pObj)'],['../class_hover_1_1_core_1_1_utils_1_1_hover_scene_adjust.html#af522e8132e3887889f770bbaa6c601c1',1,'Hover.Core.Utils.HoverSceneAdjust.Deactivate(MonoBehaviour pComp)']]],
   ['default',['Default',['../namespace_hover_1_1_core_1_1_items.html#a54ec6146f080689d2faeb450af1b24a1a7a1920d61156abc05a60135aefe8bc67',1,'Hover::Core::Items']]],
   ['defaultgroupid',['DefaultGroupId',['../class_hover_1_1_core_1_1_items_1_1_types_1_1_hover_item_data_radio.html#a7bec8ff6ae5345fba1f6d0be655a1c7f',1,'Hover.Core.Items.Types.HoverItemDataRadio.DefaultGroupId()'],['../interface_hover_1_1_core_1_1_items_1_1_types_1_1_i_item_data_radio.html#a17bb2bb482e5563a54804e720f2b82d2',1,'Hover.Core.Items.Types.IItemDataRadio.DefaultGroupId()']]],

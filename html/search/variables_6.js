@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['farcolor',['FarColor',['../class_hover_1_1_core_1_1_renderers_1_1_hover_renderer_proximity_debugger.html#ab6c62c6941d3f2139b4a674395096061',1,'Hover::Core::Renderers::HoverRendererProximityDebugger']]],
+  ['farcolor',['FarColor',['../class_hover_1_1_core_1_1_items_1_1_helpers_1_1_hover_renderer_proximity_debugger.html#af403f767c8271d6dcd08f08e84c8e4f9',1,'Hover::Core::Items::Helpers::HoverRendererProximityDebugger']]],
   ['fill',['Fill',['../class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_cursor.html#a22cb2b4f65ddbf408fcd91efd835246d',1,'Hover.Core.Renderers.Cursors.HoverRendererCursor.Fill()'],['../class_hover_1_1_core_1_1_renderers_1_1_cursors_1_1_hover_renderer_idle.html#acff2e1f28636bb47eeb7fd8419ccd50d',1,'Hover.Core.Renderers.Cursors.HoverRendererIdle.Fill()'],['../class_hover_1_1_core_1_1_renderers_1_1_items_1_1_buttons_1_1_hover_renderer_button.html#adb255834155de9039425b0b817005398',1,'Hover.Core.Renderers.Items.Buttons.HoverRendererButton.Fill()']]],
   ['fillstartingpoint',['FillStartingPoint',['../class_hover_1_1_core_1_1_renderers_1_1_items_1_1_sliders_1_1_hover_renderer_slider.html#a6aa69f4b166ada0bf40963f5395d29f1',1,'Hover::Core::Renderers::Items::Sliders::HoverRendererSlider']]],
   ['fillstartingpointname',['FillStartingPointName',['../class_hover_1_1_core_1_1_renderers_1_1_items_1_1_sliders_1_1_hover_renderer_slider.html#ac536f7099665d13e8bd397e7dc73ab1c',1,'Hover::Core::Renderers::Items::Sliders::HoverRendererSlider']]],
@@ -8,11 +8,13 @@ var searchData=
   ['findonlyimmediatechildren',['FindOnlyImmediateChildren',['../class_hover_1_1_core_1_1_items_1_1_helpers_1_1_hover_child_items_finder.html#a31558604e8e4bbc8ab6fdf8036070e1a',1,'Hover::Core::Items::Helpers::HoverChildItemsFinder']]],
   ['flashcolor',['FlashColor',['../class_hover_1_1_renderer_modules_1_1_alpha_1_1_hover_alpha_mesh_updater.html#a310671d90ee932629b2cac5646681f27',1,'Hover::RendererModules::Alpha::HoverAlphaMeshUpdater']]],
   ['flashcolormilliseconds',['FlashColorMilliseconds',['../class_hover_1_1_renderer_modules_1_1_alpha_1_1_hover_alpha_mesh_updater.html#a4f754e5bd53cfbe9f278f9cdc8f3c30c',1,'Hover::RendererModules::Alpha::HoverAlphaMeshUpdater']]],
+  ['fliplayoutdimensions',['FlipLayoutDimensions',['../class_hover_1_1_core_1_1_renderers_1_1_shapes_1_1_rect_1_1_hover_shape_rect.html#a86f1548de74ea0bdc0f4ccebdd958ffa',1,'Hover::Core::Renderers::Shapes::Rect::HoverShapeRect']]],
   ['followcursoractive',['FollowCursorActive',['../class_hover_1_1_core_1_1_cursors_1_1_hover_cursor_follower.html#aec9a8f46cda946fc66963f2d287cd3a5',1,'Hover::Core::Cursors::HoverCursorFollower']]],
   ['followcursorposition',['FollowCursorPosition',['../class_hover_1_1_core_1_1_cursors_1_1_hover_cursor_follower.html#a981c0964882917c8e2351319671a52a8',1,'Hover::Core::Cursors::HoverCursorFollower']]],
   ['followcursorrotation',['FollowCursorRotation',['../class_hover_1_1_core_1_1_cursors_1_1_hover_cursor_follower.html#a4f4080583bfcb28e44678172a8f79faf',1,'Hover::Core::Cursors::HoverCursorFollower']]],
+  ['followtransform',['FollowTransform',['../class_hover_1_1_core_1_1_cursors_1_1_follow_cursor.html#a36a5836db1ea95556a7a4e5d0f304562',1,'Hover::Core::Cursors::FollowCursor']]],
   ['forceupdate',['ForceUpdate',['../class_hover_1_1_core_1_1_items_1_1_helpers_1_1_hover_child_items_finder.html#a8a1c6ed46105459b4545a6d2d33983b6',1,'Hover::Core::Items::Helpers::HoverChildItemsFinder']]],
-  ['fullcolor',['FullColor',['../class_hover_1_1_core_1_1_renderers_1_1_hover_renderer_proximity_debugger.html#af2794e96fc547c039e8dabc45089e23c',1,'Hover::Core::Renderers::HoverRendererProximityDebugger']]],
+  ['fullcolor',['FullColor',['../class_hover_1_1_core_1_1_items_1_1_helpers_1_1_hover_renderer_proximity_debugger.html#a56af3974797b86e70181bc1fa2d8abd3',1,'Hover::Core::Items::Helpers::HoverRendererProximityDebugger']]],
   ['fullyactivewithindegree',['FullyActiveWithinDegree',['../class_hover_1_1_interface_modules_1_1_cast_1_1_hovercast_active_direction.html#aacba324bace82a266531c9ef2a213436',1,'Hover::InterfaceModules::Cast::HovercastActiveDirection']]],
   ['funcrow',['FuncRow',['../class_hover_1_1_interface_modules_1_1_key_1_1_hoverkey_builder_data.html#a6fe0bce02eff0b5e1953a5850866e6c2',1,'Hover::InterfaceModules::Key::HoverkeyBuilderData']]]
 ];

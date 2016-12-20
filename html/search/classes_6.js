@@ -17,8 +17,6 @@ var searchData=
   ['iitemdatatext',['IItemDataText',['../interface_hover_1_1_core_1_1_items_1_1_types_1_1_i_item_data_text.html',1,'Hover::Core::Items::Types']]],
   ['ilayoutablearc',['ILayoutableArc',['../interface_hover_1_1_core_1_1_layouts_1_1_arc_1_1_i_layoutable_arc.html',1,'Hover::Core::Layouts::Arc']]],
   ['ilayoutablerect',['ILayoutableRect',['../interface_hover_1_1_core_1_1_layouts_1_1_rect_1_1_i_layoutable_rect.html',1,'Hover::Core::Layouts::Rect']]],
-  ['info',['Info',['../class_hover_1_1_input_modules_1_1_vive_1_1_hover_input_vive_1_1_info.html',1,'Hover::InputModules::Vive::HoverInputVive']]],
-  ['inputmoduleutil',['InputModuleUtil',['../class_hover_1_1_core_1_1_utils_1_1_input_module_util.html',1,'Hover::Core::Utils']]],
   ['iproximityprovider',['IProximityProvider',['../interface_hover_1_1_core_1_1_renderers_1_1_i_proximity_provider.html',1,'Hover::Core::Renderers']]],
   ['isettingscontroller',['ISettingsController',['../interface_hover_1_1_core_1_1_utils_1_1_i_settings_controller.html',1,'Hover::Core::Utils']]],
   ['isettingscontrollermap',['ISettingsControllerMap',['../interface_hover_1_1_core_1_1_utils_1_1_i_settings_controller_map.html',1,'Hover::Core::Utils']]],

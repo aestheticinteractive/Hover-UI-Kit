@@ -13,7 +13,6 @@ var class_hover_1_1_core_1_1_utils_1_1_settings_controller_map =
     [ "SpecialPrefix", "class_hover_1_1_core_1_1_utils_1_1_settings_controller_map.html#a22a8cf2a40cf24d274e29a679b9d50e3", null ],
     [ "SpecialPrefixChar", "class_hover_1_1_core_1_1_utils_1_1_settings_controller_map.html#a6f8a75c997a57840e334ba39fb6edc09", null ],
     [ "TextAlignment", "class_hover_1_1_core_1_1_utils_1_1_settings_controller_map.html#a7f2daed217179f12c375f5fb34ecb870", null ],
-    [ "TextMaterialRenderQueue", "class_hover_1_1_core_1_1_utils_1_1_settings_controller_map.html#a48930bf22d6c8266e4308e6dfc0fe31e", null ],
     [ "TextText", "class_hover_1_1_core_1_1_utils_1_1_settings_controller_map.html#a63a686f2fb4cd0ac7cf58ce25d426c25", null ],
     [ "TransformLocalPosition", "class_hover_1_1_core_1_1_utils_1_1_settings_controller_map.html#abe453f1c88dea3c12f136709fc0cc442", null ],
     [ "TransformLocalRotation", "class_hover_1_1_core_1_1_utils_1_1_settings_controller_map.html#a8c80076aabd5330ac28e056dd2f5d7e4", null ],

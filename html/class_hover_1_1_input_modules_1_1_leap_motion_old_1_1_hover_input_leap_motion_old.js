@@ -5,6 +5,6 @@ var class_hover_1_1_input_modules_1_1_leap_motion_old_1_1_hover_input_leap_motio
     [ "CursorDataProvider", "class_hover_1_1_input_modules_1_1_leap_motion_old_1_1_hover_input_leap_motion_old.html#a9413033d90b2643ccd8cad3f8677bee4", null ],
     [ "ExtendFingertipDistance", "class_hover_1_1_input_modules_1_1_leap_motion_old_1_1_hover_input_leap_motion_old.html#a77682ddc0991730f36a44f6c715c3557", null ],
     [ "LeapControl", "class_hover_1_1_input_modules_1_1_leap_motion_old_1_1_hover_input_leap_motion_old.html#a2434fad634be236ba13c6203e5ba48cc", null ],
-    [ "LookCursorTransform", "class_hover_1_1_input_modules_1_1_leap_motion_old_1_1_hover_input_leap_motion_old.html#aa31fe534c1dd17ed2288af3d36f4d97e", null ],
+    [ "Look", "class_hover_1_1_input_modules_1_1_leap_motion_old_1_1_hover_input_leap_motion_old.html#a8994ce80b66a4edeea7d17e4454d9b3e", null ],
     [ "UseStabilizedPositions", "class_hover_1_1_input_modules_1_1_leap_motion_old_1_1_hover_input_leap_motion_old.html#abc1c758a1b37b0b0a9e53be0330bf29c", null ]
 ];

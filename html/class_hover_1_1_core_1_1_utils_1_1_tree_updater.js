@@ -1,6 +1,7 @@
 var class_hover_1_1_core_1_1_utils_1_1_tree_updater =
 [
     [ "TreeUpdater", "class_hover_1_1_core_1_1_utils_1_1_tree_updater.html#a7599c130af2550861b0bd15a5abc4d0d", null ],
+    [ "ImmediateReloadTreeChildren", "class_hover_1_1_core_1_1_utils_1_1_tree_updater.html#a06108b9198104cdb3b2e79f1dda3d2dd", null ],
     [ "LateUpdate", "class_hover_1_1_core_1_1_utils_1_1_tree_updater.html#acdf83f4e16c5c5783e0d92627e369ce8", null ],
     [ "OnDestroy", "class_hover_1_1_core_1_1_utils_1_1_tree_updater.html#a6b888e1a888e358ed2f3506f1a4a53b8", null ],
     [ "Update", "class_hover_1_1_core_1_1_utils_1_1_tree_updater.html#a10ed43bf3696ac348dac69e056738fc3", null ],
