@@ -71,7 +71,6 @@ namespace HoverDemos.KeyboardPixels {
 			mesh.triangles = tris.ToArray();
 			mesh.RecalculateNormals();
 			mesh.RecalculateBounds();
-			mesh.Optimize();
 			return mesh;
 		}
 

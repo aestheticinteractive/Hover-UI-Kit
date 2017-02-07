@@ -89,7 +89,7 @@ namespace Hover.Core.Utils {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Commit(bool pRecalcNormals=false, bool pOptimize=false) {
+		public void Commit(bool pRecalcNormals=false) {
 			Mesh.vertices = Vertices;
 			Mesh.uv = Uvs;
 			Mesh.triangles = Triangles;
@@ -98,10 +98,6 @@ namespace Hover.Core.Utils {
 
 			if ( pRecalcNormals ) {
 				Mesh.RecalculateNormals();
-			}
-
-			if ( pOptimize ) {
-				Mesh.Optimize();
 			}
 		}
 

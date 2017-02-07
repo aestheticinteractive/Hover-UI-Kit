@@ -1,15 +1,15 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!29 &1
-SceneSettings:
+OcclusionCullingSettings:
   m_ObjectHideFlags: 0
-  m_PVSData: 
-  m_PVSObjectsArray: []
-  m_PVSPortalsArray: []
+  serializedVersion: 2
   m_OcclusionBakeSettings:
     smallestOccluder: 5
     smallestHole: 0.25
     backfaceThreshold: 100
+  m_SceneGUID: 00000000000000000000000000000000
+  m_OcclusionCullingData: {fileID: 0}
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
@@ -79,29 +79,30 @@ NavMeshSettings:
   m_ObjectHideFlags: 0
   m_BuildSettings:
     serializedVersion: 2
+    agentTypeID: 0
     agentRadius: 0.5
     agentHeight: 2
     agentSlope: 45
     agentClimb: 0.4
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
-    accuratePlacement: 0
     minRegionArea: 2
-    cellSize: 0.16666666
     manualCellSize: 0
+    cellSize: 0.16666666
+    accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
 --- !u!1 &22378837
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 22378838}
-  - 114: {fileID: 22378842}
-  - 114: {fileID: 22378841}
-  - 114: {fileID: 22378840}
-  - 114: {fileID: 22378839}
+  - component: {fileID: 22378838}
+  - component: {fileID: 22378842}
+  - component: {fileID: 22378841}
+  - component: {fileID: 22378840}
+  - component: {fileID: 22378839}
   m_Layer: 0
   m_Name: LeftThumb
   m_TagString: Untagged
@@ -118,12 +119,12 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0.25881907, w: 0.9659258}
   m_LocalPosition: {x: -0.15, y: 0.03, z: 0.3}
   m_LocalScale: {x: 0.012, y: 0.012, z: 0.012}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 68942015}
   - {fileID: 1660792040}
   m_Father: {fileID: 740704945}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &22378839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,16 +187,16 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 23542598}
-  - 114: {fileID: 23542605}
-  - 114: {fileID: 23542604}
-  - 114: {fileID: 23542603}
-  - 114: {fileID: 23542602}
-  - 114: {fileID: 23542601}
-  - 114: {fileID: 23542600}
-  - 114: {fileID: 23542599}
+  - component: {fileID: 23542598}
+  - component: {fileID: 23542605}
+  - component: {fileID: 23542604}
+  - component: {fileID: 23542603}
+  - component: {fileID: 23542602}
+  - component: {fileID: 23542601}
+  - component: {fileID: 23542600}
+  - component: {fileID: 23542599}
   m_Layer: 0
   m_Name: ItemAF
   m_TagString: Untagged
@@ -212,11 +213,11 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: -0.22300713, w: 0.97481686}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 26352525}
   m_Father: {fileID: 542389623}
   m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &23542599
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -517,13 +518,13 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 47295654}
-  - 114: {fileID: 47295658}
-  - 114: {fileID: 47295657}
-  - 114: {fileID: 47295656}
-  - 114: {fileID: 47295655}
+  - component: {fileID: 47295654}
+  - component: {fileID: 47295658}
+  - component: {fileID: 47295657}
+  - component: {fileID: 47295656}
+  - component: {fileID: 47295655}
   m_Layer: 0
   m_Name: LeftPinky
   m_TagString: Untagged
@@ -540,12 +541,12 @@ Transform:
   m_LocalRotation: {x: 0.63302225, y: 0.7544065, z: 0.11161893, w: 0.13302225}
   m_LocalPosition: {x: -0.255, y: 0.065, z: 0.3}
   m_LocalScale: {x: 0.008, y: 0.008, z: 0.008}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 960407499}
   - {fileID: 218919308}
   m_Father: {fileID: 740704945}
   m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &47295655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -680,7 +681,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22455446, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0.04449767
+      value: 0.044500783
       objectReference: {fileID: 0}
     - target: {fileID: 11447084, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: HighlightProgress
@@ -1017,16 +1018,16 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 86913424}
-  - 114: {fileID: 86913431}
-  - 114: {fileID: 86913430}
-  - 114: {fileID: 86913429}
-  - 114: {fileID: 86913428}
-  - 114: {fileID: 86913427}
-  - 114: {fileID: 86913426}
-  - 114: {fileID: 86913425}
+  - component: {fileID: 86913424}
+  - component: {fileID: 86913431}
+  - component: {fileID: 86913430}
+  - component: {fileID: 86913429}
+  - component: {fileID: 86913428}
+  - component: {fileID: 86913427}
+  - component: {fileID: 86913426}
+  - component: {fileID: 86913425}
   m_Layer: 0
   m_Name: ItemAA
   m_TagString: Untagged
@@ -1043,11 +1044,11 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: 0.33098498, w: 0.943636}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 543538324}
   m_Father: {fileID: 542389623}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &86913425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1248,17 +1249,17 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 168473571}
-  - 114: {fileID: 168473579}
-  - 114: {fileID: 168473578}
-  - 114: {fileID: 168473577}
-  - 114: {fileID: 168473576}
-  - 114: {fileID: 168473575}
-  - 114: {fileID: 168473574}
-  - 114: {fileID: 168473573}
-  - 114: {fileID: 168473572}
+  - component: {fileID: 168473571}
+  - component: {fileID: 168473579}
+  - component: {fileID: 168473578}
+  - component: {fileID: 168473577}
+  - component: {fileID: 168473576}
+  - component: {fileID: 168473575}
+  - component: {fileID: 168473574}
+  - component: {fileID: 168473573}
+  - component: {fileID: 168473572}
   m_Layer: 0
   m_Name: OpenItem
   m_TagString: Untagged
@@ -1275,11 +1276,11 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1538088074}
   m_Father: {fileID: 860356354}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &168473572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2313,13 +2314,13 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 242112698}
-  - 114: {fileID: 242112702}
-  - 114: {fileID: 242112701}
-  - 114: {fileID: 242112700}
-  - 114: {fileID: 242112699}
+  - component: {fileID: 242112698}
+  - component: {fileID: 242112702}
+  - component: {fileID: 242112701}
+  - component: {fileID: 242112700}
+  - component: {fileID: 242112699}
   m_Layer: 0
   m_Name: LeftIndex
   m_TagString: Untagged
@@ -2336,12 +2337,12 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0.21643963, w: 0.976296}
   m_LocalPosition: {x: -0.16, y: 0.09, z: 0.3}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 802820051}
   - {fileID: 2033460212}
   m_Father: {fileID: 740704945}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &242112699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2540,11 +2541,11 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 336061627}
-  - 222: {fileID: 336061629}
-  - 114: {fileID: 336061628}
+  - component: {fileID: 336061627}
+  - component: {fileID: 336061629}
+  - component: {fileID: 336061628}
   m_Layer: 0
   m_Name: IconClose
   m_TagString: Untagged
@@ -2561,10 +2562,10 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: -0.38268346, w: 0.9238795}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1215659354}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 19, y: 0}
@@ -2683,16 +2684,16 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 347066633}
-  - 114: {fileID: 347066640}
-  - 114: {fileID: 347066639}
-  - 114: {fileID: 347066638}
-  - 114: {fileID: 347066637}
-  - 114: {fileID: 347066636}
-  - 114: {fileID: 347066635}
-  - 114: {fileID: 347066634}
+  - component: {fileID: 347066633}
+  - component: {fileID: 347066640}
+  - component: {fileID: 347066639}
+  - component: {fileID: 347066638}
+  - component: {fileID: 347066637}
+  - component: {fileID: 347066636}
+  - component: {fileID: 347066635}
+  - component: {fileID: 347066634}
   m_Layer: 0
   m_Name: ItemBB
   m_TagString: Untagged
@@ -2709,11 +2710,11 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: -0.06409689, w: 0.9979437}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1156615987}
   m_Father: {fileID: 1369850840}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &347066634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2836,17 +2837,17 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 404525923}
-  - 114: {fileID: 404525931}
-  - 114: {fileID: 404525930}
-  - 114: {fileID: 404525929}
-  - 114: {fileID: 404525928}
-  - 114: {fileID: 404525927}
-  - 114: {fileID: 404525926}
-  - 114: {fileID: 404525925}
-  - 114: {fileID: 404525924}
+  - component: {fileID: 404525923}
+  - component: {fileID: 404525931}
+  - component: {fileID: 404525930}
+  - component: {fileID: 404525929}
+  - component: {fileID: 404525928}
+  - component: {fileID: 404525927}
+  - component: {fileID: 404525926}
+  - component: {fileID: 404525925}
+  - component: {fileID: 404525924}
   m_Layer: 0
   m_Name: ItemBA
   m_TagString: Untagged
@@ -2863,11 +2864,11 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: 0.196374, w: 0.98052907}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 228613507}
   m_Father: {fileID: 1369850840}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &404525924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3109,7 +3110,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22455446, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0.0069999546
+      value: 0.007000014
       objectReference: {fileID: 0}
     - target: {fileID: 22455446, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: m_SizeDelta.x
@@ -3309,16 +3310,16 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 433237315}
-  - 114: {fileID: 433237322}
-  - 114: {fileID: 433237321}
-  - 114: {fileID: 433237320}
-  - 114: {fileID: 433237319}
-  - 114: {fileID: 433237318}
-  - 114: {fileID: 433237317}
-  - 114: {fileID: 433237316}
+  - component: {fileID: 433237315}
+  - component: {fileID: 433237322}
+  - component: {fileID: 433237321}
+  - component: {fileID: 433237320}
+  - component: {fileID: 433237319}
+  - component: {fileID: 433237318}
+  - component: {fileID: 433237317}
+  - component: {fileID: 433237316}
   m_Layer: 0
   m_Name: ItemAB
   m_TagString: Untagged
@@ -3335,11 +3336,11 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: 0.22300705, w: 0.97481686}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1494922752}
   m_Father: {fileID: 542389623}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &433237316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3532,16 +3533,16 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 506172128}
-  - 114: {fileID: 506172135}
-  - 114: {fileID: 506172134}
-  - 114: {fileID: 506172133}
-  - 114: {fileID: 506172132}
-  - 114: {fileID: 506172131}
-  - 114: {fileID: 506172130}
-  - 114: {fileID: 506172129}
+  - component: {fileID: 506172128}
+  - component: {fileID: 506172135}
+  - component: {fileID: 506172134}
+  - component: {fileID: 506172133}
+  - component: {fileID: 506172132}
+  - component: {fileID: 506172131}
+  - component: {fileID: 506172130}
+  - component: {fileID: 506172129}
   m_Layer: 0
   m_Name: TitleItem
   m_TagString: Untagged
@@ -3558,11 +3559,11 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 57423682}
   m_Father: {fileID: 860356354}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &506172129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3669,16 +3670,16 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 507994888}
-  - 114: {fileID: 507994895}
-  - 114: {fileID: 507994894}
-  - 114: {fileID: 507994893}
-  - 114: {fileID: 507994892}
-  - 114: {fileID: 507994891}
-  - 114: {fileID: 507994890}
-  - 114: {fileID: 507994889}
+  - component: {fileID: 507994888}
+  - component: {fileID: 507994895}
+  - component: {fileID: 507994894}
+  - component: {fileID: 507994893}
+  - component: {fileID: 507994892}
+  - component: {fileID: 507994891}
+  - component: {fileID: 507994890}
+  - component: {fileID: 507994889}
   m_Layer: 0
   m_Name: ItemAD
   m_TagString: Untagged
@@ -3695,11 +3696,11 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: -0.000000024967138, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1344783993}
   m_Father: {fileID: 542389623}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &507994889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3892,12 +3893,12 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 542389623}
-  - 114: {fileID: 542389626}
-  - 114: {fileID: 542389625}
-  - 114: {fileID: 542389624}
+  - component: {fileID: 542389623}
+  - component: {fileID: 542389626}
+  - component: {fileID: 542389625}
+  - component: {fileID: 542389624}
   m_Layer: 0
   m_Name: RowA
   m_TagString: Untagged
@@ -3914,7 +3915,6 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 86913424}
   - {fileID: 433237315}
@@ -3925,6 +3925,7 @@ Transform:
   - {fileID: 1797947578}
   m_Father: {fileID: 1823594969}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &542389624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4152,16 +4153,16 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 559351615}
-  - 114: {fileID: 559351622}
-  - 114: {fileID: 559351621}
-  - 114: {fileID: 559351620}
-  - 114: {fileID: 559351619}
-  - 114: {fileID: 559351618}
-  - 114: {fileID: 559351617}
-  - 114: {fileID: 559351616}
+  - component: {fileID: 559351615}
+  - component: {fileID: 559351622}
+  - component: {fileID: 559351621}
+  - component: {fileID: 559351620}
+  - component: {fileID: 559351619}
+  - component: {fileID: 559351618}
+  - component: {fileID: 559351617}
+  - component: {fileID: 559351616}
   m_Layer: 0
   m_Name: ItemAC
   m_TagString: Untagged
@@ -4178,11 +4179,11 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: 0.11221222, w: 0.9936843}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1220905233}
   m_Father: {fileID: 542389623}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &559351616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4507,13 +4508,13 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 607236913}
-  - 114: {fileID: 607236917}
-  - 114: {fileID: 607236916}
-  - 114: {fileID: 607236915}
-  - 114: {fileID: 607236914}
+  - component: {fileID: 607236913}
+  - component: {fileID: 607236917}
+  - component: {fileID: 607236916}
+  - component: {fileID: 607236915}
+  - component: {fileID: 607236914}
   m_Layer: 0
   m_Name: RightIndex
   m_TagString: Untagged
@@ -4530,12 +4531,12 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: 0.21643963, w: 0.976296}
   m_LocalPosition: {x: 0.16, y: 0.09, z: 0.3}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1385687505}
   - {fileID: 293280250}
   m_Father: {fileID: 740704945}
   m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &607236914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4674,7 +4675,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22455446, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0.15049937
+      value: 0.15049687
       objectReference: {fileID: 0}
     - target: {fileID: 11447084, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: HighlightProgress
@@ -4946,18 +4947,18 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 654522948}
-  - 114: {fileID: 654522957}
-  - 114: {fileID: 654522956}
-  - 114: {fileID: 654522955}
-  - 114: {fileID: 654522954}
-  - 114: {fileID: 654522953}
-  - 114: {fileID: 654522952}
-  - 114: {fileID: 654522951}
-  - 114: {fileID: 654522950}
-  - 114: {fileID: 654522949}
+  - component: {fileID: 654522948}
+  - component: {fileID: 654522957}
+  - component: {fileID: 654522956}
+  - component: {fileID: 654522955}
+  - component: {fileID: 654522954}
+  - component: {fileID: 654522953}
+  - component: {fileID: 654522952}
+  - component: {fileID: 654522951}
+  - component: {fileID: 654522950}
+  - component: {fileID: 654522949}
   m_Layer: 0
   m_Name: BackItem
   m_TagString: Untagged
@@ -4974,11 +4975,11 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 414712979}
   m_Father: {fileID: 860356354}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &654522949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5210,7 +5211,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22455446, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0.15049937
+      value: 0.15049687
       objectReference: {fileID: 0}
     - target: {fileID: 11447084, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: HighlightProgress
@@ -5402,13 +5403,13 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 722518357}
-  - 114: {fileID: 722518361}
-  - 114: {fileID: 722518360}
-  - 114: {fileID: 722518359}
-  - 114: {fileID: 722518358}
+  - component: {fileID: 722518357}
+  - component: {fileID: 722518361}
+  - component: {fileID: 722518360}
+  - component: {fileID: 722518359}
+  - component: {fileID: 722518358}
   m_Layer: 0
   m_Name: LeftPalm
   m_TagString: Untagged
@@ -5425,12 +5426,12 @@ Transform:
   m_LocalRotation: {x: 0.6152069, y: 0.73317504, z: 0.18626966, w: 0.22198755}
   m_LocalPosition: {x: -0.2, y: 0, z: 0.3}
   m_LocalScale: {x: 0.025, y: 0.025, z: 0.025}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 598956214}
   - {fileID: 1550350454}
   m_Father: {fileID: 740704945}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &722518358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5569,7 +5570,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22455446, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0.15049937
+      value: 0.15049687
       objectReference: {fileID: 0}
     - target: {fileID: 11447084, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: HighlightProgress
@@ -5761,13 +5762,13 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 735066109}
-  - 114: {fileID: 735066113}
-  - 114: {fileID: 735066112}
-  - 114: {fileID: 735066111}
-  - 114: {fileID: 735066110}
+  - component: {fileID: 735066109}
+  - component: {fileID: 735066113}
+  - component: {fileID: 735066112}
+  - component: {fileID: 735066111}
+  - component: {fileID: 735066110}
   m_Layer: 0
   m_Name: LeftRing
   m_TagString: Untagged
@@ -5784,12 +5785,12 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: 0.17364822, w: 0.9848078}
   m_LocalPosition: {x: -0.23, y: 0.09, z: 0.3}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1910827917}
   - {fileID: 798009629}
   m_Father: {fileID: 740704945}
   m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &735066110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5852,9 +5853,9 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 740704945}
+  - component: {fileID: 740704945}
   m_Layer: 0
   m_Name: CursorRenderers
   m_TagString: Untagged
@@ -5871,7 +5872,6 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 722518357}
   - {fileID: 22378838}
@@ -5888,6 +5888,7 @@ Transform:
   - {fileID: 2007204227}
   m_Father: {fileID: 0}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &780402991 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100002, guid: 994d6d017d057254c97edc7863f80265, type: 2}
@@ -6260,10 +6261,10 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 860356354}
-  - 114: {fileID: 860356353}
+  - component: {fileID: 860356354}
+  - component: {fileID: 860356353}
   m_Layer: 0
   m_Name: TransformAdjuster
   m_TagString: Untagged
@@ -6291,7 +6292,6 @@ Transform:
   m_LocalRotation: {x: 0.64278764, y: 0.7660445, z: -0.000000028097139, w: -0.00000003348487}
   m_LocalPosition: {x: 0, y: 0, z: 0.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 168473571}
   - {fileID: 506172128}
@@ -6299,21 +6299,22 @@ Transform:
   - {fileID: 1823594969}
   m_Father: {fileID: 1795418737}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &899136126
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 899136127}
-  - 114: {fileID: 899136134}
-  - 114: {fileID: 899136133}
-  - 114: {fileID: 899136132}
-  - 114: {fileID: 899136131}
-  - 114: {fileID: 899136130}
-  - 114: {fileID: 899136129}
-  - 114: {fileID: 899136128}
+  - component: {fileID: 899136127}
+  - component: {fileID: 899136134}
+  - component: {fileID: 899136133}
+  - component: {fileID: 899136132}
+  - component: {fileID: 899136131}
+  - component: {fileID: 899136130}
+  - component: {fileID: 899136129}
+  - component: {fileID: 899136128}
   m_Layer: 0
   m_Name: ItemC
   m_TagString: Untagged
@@ -6330,11 +6331,11 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: -0.09817999, w: 0.9951687}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 720774972}
   m_Father: {fileID: 1685969764}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &899136128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6593,16 +6594,16 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 967026870}
-  - 114: {fileID: 967026877}
-  - 114: {fileID: 967026876}
-  - 114: {fileID: 967026875}
-  - 114: {fileID: 967026874}
-  - 114: {fileID: 967026873}
-  - 114: {fileID: 967026872}
-  - 114: {fileID: 967026871}
+  - component: {fileID: 967026870}
+  - component: {fileID: 967026877}
+  - component: {fileID: 967026876}
+  - component: {fileID: 967026875}
+  - component: {fileID: 967026874}
+  - component: {fileID: 967026873}
+  - component: {fileID: 967026872}
+  - component: {fileID: 967026871}
   m_Layer: 0
   m_Name: ItemD
   m_TagString: Untagged
@@ -6619,11 +6620,11 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: -0.2907544, w: 0.9567977}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1310702306}
   m_Father: {fileID: 1685969764}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &967026871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7240,17 +7241,17 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 1077880274}
-  - 114: {fileID: 1077880282}
-  - 114: {fileID: 1077880281}
-  - 114: {fileID: 1077880280}
-  - 114: {fileID: 1077880279}
-  - 114: {fileID: 1077880278}
-  - 114: {fileID: 1077880277}
-  - 114: {fileID: 1077880276}
-  - 114: {fileID: 1077880275}
+  - component: {fileID: 1077880274}
+  - component: {fileID: 1077880282}
+  - component: {fileID: 1077880281}
+  - component: {fileID: 1077880280}
+  - component: {fileID: 1077880279}
+  - component: {fileID: 1077880278}
+  - component: {fileID: 1077880277}
+  - component: {fileID: 1077880276}
+  - component: {fileID: 1077880275}
   m_Layer: 0
   m_Name: ItemA
   m_TagString: Untagged
@@ -7267,11 +7268,11 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: 0.2907544, w: 0.9567977}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 725842858}
   m_Father: {fileID: 1685969764}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1077880275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7414,17 +7415,17 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 1094801163}
-  - 114: {fileID: 1094801171}
-  - 114: {fileID: 1094801170}
-  - 114: {fileID: 1094801169}
-  - 114: {fileID: 1094801168}
-  - 114: {fileID: 1094801167}
-  - 114: {fileID: 1094801166}
-  - 114: {fileID: 1094801165}
-  - 114: {fileID: 1094801164}
+  - component: {fileID: 1094801163}
+  - component: {fileID: 1094801171}
+  - component: {fileID: 1094801170}
+  - component: {fileID: 1094801169}
+  - component: {fileID: 1094801168}
+  - component: {fileID: 1094801167}
+  - component: {fileID: 1094801166}
+  - component: {fileID: 1094801165}
+  - component: {fileID: 1094801164}
   m_Layer: 0
   m_Name: ItemB
   m_TagString: Untagged
@@ -7441,11 +7442,11 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: 0.098179966, w: 0.9951687}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 642763480}
   m_Father: {fileID: 1685969764}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1094801164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8032,9 +8033,9 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 1215659354}
+  - component: {fileID: 1215659354}
   m_Layer: 0
   m_Name: IconPivot
   m_TagString: Untagged
@@ -8051,12 +8052,12 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2.2, y: 2.2, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1981448444}
   - {fileID: 336061627}
   m_Father: {fileID: 1538088075}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -47.5, y: 0}
@@ -8460,7 +8461,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22455446, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0.15049937
+      value: 0.15049687
       objectReference: {fileID: 0}
     - target: {fileID: 11447084, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: HighlightProgress
@@ -8856,13 +8857,13 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 1333105870}
-  - 114: {fileID: 1333105874}
-  - 114: {fileID: 1333105873}
-  - 114: {fileID: 1333105872}
-  - 114: {fileID: 1333105871}
+  - component: {fileID: 1333105870}
+  - component: {fileID: 1333105874}
+  - component: {fileID: 1333105873}
+  - component: {fileID: 1333105872}
+  - component: {fileID: 1333105871}
   m_Layer: 0
   m_Name: RightMiddle
   m_TagString: Untagged
@@ -8879,12 +8880,12 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.2, y: 0.1, z: 0.3}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1537498016}
   - {fileID: 1688512282}
   m_Father: {fileID: 740704945}
   m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1333105871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9123,12 +9124,12 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 1369850840}
-  - 114: {fileID: 1369850843}
-  - 114: {fileID: 1369850842}
-  - 114: {fileID: 1369850841}
+  - component: {fileID: 1369850840}
+  - component: {fileID: 1369850843}
+  - component: {fileID: 1369850842}
+  - component: {fileID: 1369850841}
   m_Layer: 0
   m_Name: RowB
   m_TagString: Untagged
@@ -9145,7 +9146,6 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 404525923}
   - {fileID: 347066633}
@@ -9153,6 +9153,7 @@ Transform:
   - {fileID: 1374883863}
   m_Father: {fileID: 1823594969}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1369850841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9204,13 +9205,13 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 1373138821}
-  - 114: {fileID: 1373138825}
-  - 114: {fileID: 1373138824}
-  - 114: {fileID: 1373138823}
-  - 114: {fileID: 1373138822}
+  - component: {fileID: 1373138821}
+  - component: {fileID: 1373138825}
+  - component: {fileID: 1373138824}
+  - component: {fileID: 1373138823}
+  - component: {fileID: 1373138822}
   m_Layer: 0
   m_Name: RightRing
   m_TagString: Untagged
@@ -9227,12 +9228,12 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0.17364822, w: 0.9848078}
   m_LocalPosition: {x: 0.23, y: 0.09, z: 0.3}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1258358236}
   - {fileID: 2012724319}
   m_Father: {fileID: 740704945}
   m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1373138822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9295,17 +9296,17 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 1374883863}
-  - 114: {fileID: 1374883871}
-  - 114: {fileID: 1374883870}
-  - 114: {fileID: 1374883869}
-  - 114: {fileID: 1374883868}
-  - 114: {fileID: 1374883867}
-  - 114: {fileID: 1374883866}
-  - 114: {fileID: 1374883865}
-  - 114: {fileID: 1374883864}
+  - component: {fileID: 1374883863}
+  - component: {fileID: 1374883871}
+  - component: {fileID: 1374883870}
+  - component: {fileID: 1374883869}
+  - component: {fileID: 1374883868}
+  - component: {fileID: 1374883867}
+  - component: {fileID: 1374883866}
+  - component: {fileID: 1374883865}
+  - component: {fileID: 1374883864}
   m_Layer: 0
   m_Name: ItemBack
   m_TagString: Untagged
@@ -9322,11 +9323,11 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: -0.32185262, w: 0.9467898}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1021432981}
   m_Father: {fileID: 1369850840}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1374883864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10144,7 +10145,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22455446, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0.0094994195
+      value: 0.009500321
       objectReference: {fileID: 0}
     - target: {fileID: 22455446, guid: 003df84d14cfa884899f0b67d2b5578b, type: 2}
       propertyPath: m_SizeDelta.x
@@ -10593,16 +10594,16 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 1611351990}
-  - 114: {fileID: 1611351997}
-  - 114: {fileID: 1611351996}
-  - 114: {fileID: 1611351995}
-  - 114: {fileID: 1611351994}
-  - 114: {fileID: 1611351993}
-  - 114: {fileID: 1611351992}
-  - 114: {fileID: 1611351991}
+  - component: {fileID: 1611351990}
+  - component: {fileID: 1611351997}
+  - component: {fileID: 1611351996}
+  - component: {fileID: 1611351995}
+  - component: {fileID: 1611351994}
+  - component: {fileID: 1611351993}
+  - component: {fileID: 1611351992}
+  - component: {fileID: 1611351991}
   m_Layer: 0
   m_Name: ItemBC
   m_TagString: Untagged
@@ -10619,11 +10620,11 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: -0.19466238, w: 0.9808703}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1177865241}
   m_Father: {fileID: 1369850840}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1611351991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10746,13 +10747,13 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 1633783737}
-  - 114: {fileID: 1633783741}
-  - 114: {fileID: 1633783740}
-  - 114: {fileID: 1633783739}
-  - 114: {fileID: 1633783738}
+  - component: {fileID: 1633783737}
+  - component: {fileID: 1633783741}
+  - component: {fileID: 1633783740}
+  - component: {fileID: 1633783739}
+  - component: {fileID: 1633783738}
   m_Layer: 0
   m_Name: RightPalm
   m_TagString: Untagged
@@ -10769,12 +10770,12 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.2, y: 0, z: 0.3}
   m_LocalScale: {x: 0.025, y: 0.025, z: 0.025}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1317147920}
   - {fileID: 590782929}
   m_Father: {fileID: 740704945}
   m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1633783738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10905,13 +10906,13 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 1662981934}
-  - 114: {fileID: 1662981938}
-  - 114: {fileID: 1662981937}
-  - 114: {fileID: 1662981936}
-  - 114: {fileID: 1662981935}
+  - component: {fileID: 1662981934}
+  - component: {fileID: 1662981938}
+  - component: {fileID: 1662981937}
+  - component: {fileID: 1662981936}
+  - component: {fileID: 1662981935}
   m_Layer: 0
   m_Name: LeftMiddle
   m_TagString: Untagged
@@ -10928,12 +10929,12 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.2, y: 0.1, z: 0.3}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1397143759}
   - {fileID: 520768531}
   m_Father: {fileID: 740704945}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1662981935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11119,12 +11120,12 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 1685969764}
-  - 114: {fileID: 1685969767}
-  - 114: {fileID: 1685969766}
-  - 114: {fileID: 1685969765}
+  - component: {fileID: 1685969764}
+  - component: {fileID: 1685969767}
+  - component: {fileID: 1685969766}
+  - component: {fileID: 1685969765}
   m_Layer: 0
   m_Name: Root
   m_TagString: Untagged
@@ -11141,7 +11142,6 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1077880274}
   - {fileID: 1094801163}
@@ -11149,6 +11149,7 @@ Transform:
   - {fileID: 967026870}
   m_Father: {fileID: 1823594969}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1685969765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11268,13 +11269,13 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 1754784980}
-  - 114: {fileID: 1754784984}
-  - 114: {fileID: 1754784983}
-  - 114: {fileID: 1754784982}
-  - 114: {fileID: 1754784981}
+  - component: {fileID: 1754784980}
+  - component: {fileID: 1754784984}
+  - component: {fileID: 1754784983}
+  - component: {fileID: 1754784982}
+  - component: {fileID: 1754784981}
   m_Layer: 0
   m_Name: RightPinky
   m_TagString: Untagged
@@ -11291,12 +11292,12 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0.25881907, w: 0.9659258}
   m_LocalPosition: {x: 0.255, y: 0.065, z: 0.3}
   m_LocalScale: {x: 0.008, y: 0.008, z: 0.008}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 847361998}
   - {fileID: 449227156}
   m_Father: {fileID: 740704945}
   m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1754784981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11500,20 +11501,20 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 1795418737}
-  - 114: {fileID: 1795418736}
-  - 114: {fileID: 1795418735}
-  - 114: {fileID: 1795418734}
-  - 114: {fileID: 1795418733}
-  - 114: {fileID: 1795418732}
-  - 114: {fileID: 1795418731}
-  - 114: {fileID: 1795418730}
-  - 114: {fileID: 1795418729}
-  - 114: {fileID: 1795418728}
-  - 114: {fileID: 1795418727}
-  - 114: {fileID: 1795418738}
+  - component: {fileID: 1795418737}
+  - component: {fileID: 1795418736}
+  - component: {fileID: 1795418735}
+  - component: {fileID: 1795418734}
+  - component: {fileID: 1795418733}
+  - component: {fileID: 1795418732}
+  - component: {fileID: 1795418731}
+  - component: {fileID: 1795418730}
+  - component: {fileID: 1795418729}
+  - component: {fileID: 1795418728}
+  - component: {fileID: 1795418727}
+  - component: {fileID: 1795418738}
   m_Layer: 0
   m_Name: Hovercast
   m_TagString: Untagged
@@ -11710,11 +11711,11 @@ Transform:
   m_LocalRotation: {x: 0.63302225, y: 0.7544065, z: 0.11161893, w: 0.13302225}
   m_LocalPosition: {x: -0.2, y: 0, z: 0.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 860356354}
   m_Father: {fileID: 0}
   m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1795418738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11742,17 +11743,17 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 1797947578}
-  - 114: {fileID: 1797947586}
-  - 114: {fileID: 1797947585}
-  - 114: {fileID: 1797947584}
-  - 114: {fileID: 1797947583}
-  - 114: {fileID: 1797947582}
-  - 114: {fileID: 1797947581}
-  - 114: {fileID: 1797947580}
-  - 114: {fileID: 1797947579}
+  - component: {fileID: 1797947578}
+  - component: {fileID: 1797947586}
+  - component: {fileID: 1797947585}
+  - component: {fileID: 1797947584}
+  - component: {fileID: 1797947583}
+  - component: {fileID: 1797947582}
+  - component: {fileID: 1797947581}
+  - component: {fileID: 1797947580}
+  - component: {fileID: 1797947579}
   m_Layer: 0
   m_Name: ItemBack
   m_TagString: Untagged
@@ -11769,11 +11770,11 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: -0.33098504, w: 0.943636}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 969156564}
   m_Father: {fileID: 542389623}
   m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1797947579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11916,10 +11917,10 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 1823594969}
-  - 114: {fileID: 1823594970}
+  - component: {fileID: 1823594969}
+  - component: {fileID: 1823594970}
   m_Layer: 0
   m_Name: Rows
   m_TagString: Untagged
@@ -11936,13 +11937,13 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1685969764}
   - {fileID: 542389623}
   - {fileID: 1369850840}
   m_Father: {fileID: 860356354}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1823594970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12100,13 +12101,13 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 1935112730}
-  - 114: {fileID: 1935112734}
-  - 114: {fileID: 1935112733}
-  - 114: {fileID: 1935112732}
-  - 114: {fileID: 1935112731}
+  - component: {fileID: 1935112730}
+  - component: {fileID: 1935112734}
+  - component: {fileID: 1935112733}
+  - component: {fileID: 1935112732}
+  - component: {fileID: 1935112731}
   m_Layer: 0
   m_Name: RightThumb
   m_TagString: Untagged
@@ -12123,12 +12124,12 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: 0.25881907, w: 0.9659258}
   m_LocalPosition: {x: 0.15, y: 0.03, z: 0.3}
   m_LocalScale: {x: 0.012, y: 0.012, z: 0.012}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1783355826}
   - {fileID: 332005621}
   m_Father: {fileID: 740704945}
   m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1935112731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12191,11 +12192,11 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 1981448444}
-  - 222: {fileID: 1981448446}
-  - 114: {fileID: 1981448445}
+  - component: {fileID: 1981448444}
+  - component: {fileID: 1981448446}
+  - component: {fileID: 1981448445}
   m_Layer: 0
   m_Name: IconOpen
   m_TagString: Untagged
@@ -12212,10 +12213,10 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: -0.38268346, w: 0.9238795}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1215659354}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 19, y: 0}
@@ -12258,13 +12259,13 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 2007204227}
-  - 114: {fileID: 2007204231}
-  - 114: {fileID: 2007204230}
-  - 114: {fileID: 2007204229}
-  - 114: {fileID: 2007204228}
+  - component: {fileID: 2007204227}
+  - component: {fileID: 2007204231}
+  - component: {fileID: 2007204230}
+  - component: {fileID: 2007204229}
+  - component: {fileID: 2007204228}
   m_Layer: 0
   m_Name: Look
   m_TagString: Untagged
@@ -12281,12 +12282,12 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.3}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1669650174}
   - {fileID: 1325191797}
   m_Father: {fileID: 740704945}
   m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2007204228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12561,16 +12562,16 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 2099003273}
-  - 114: {fileID: 2099003280}
-  - 114: {fileID: 2099003279}
-  - 114: {fileID: 2099003278}
-  - 114: {fileID: 2099003277}
-  - 114: {fileID: 2099003276}
-  - 114: {fileID: 2099003275}
-  - 114: {fileID: 2099003274}
+  - component: {fileID: 2099003273}
+  - component: {fileID: 2099003280}
+  - component: {fileID: 2099003279}
+  - component: {fileID: 2099003278}
+  - component: {fileID: 2099003277}
+  - component: {fileID: 2099003276}
+  - component: {fileID: 2099003275}
+  - component: {fileID: 2099003274}
   m_Layer: 0
   m_Name: ItemAE
   m_TagString: Untagged
@@ -12587,11 +12588,11 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: -0.11221227, w: 0.9936843}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1600441436}
   m_Father: {fileID: 542389623}
   m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2099003274
 MonoBehaviour:
   m_ObjectHideFlags: 0
