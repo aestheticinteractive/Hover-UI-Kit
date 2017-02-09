@@ -89,10 +89,8 @@ namespace Hover.InterfaceModules.Cast {
 				return;
 			}
 
-			float currAlpha = (pItemData.IsEnabled ? rendUp.EnabledAlpha : rendUp.DisabledAlpha);
-
 			rendUp.Controllers.Set(HoverAlphaRendererUpdater.MasterAlphaName, this);
-			rendUp.MasterAlpha = vDirectionAlpha*Mathf.Lerp(0, currAlpha, pAlpha);
+			rendUp.MasterAlpha = vDirectionAlpha*pAlpha;
 		}
 
 	}
