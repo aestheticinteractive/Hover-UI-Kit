@@ -1,14 +1,14 @@
-﻿#if HOVER_INPUT_VIVE
+﻿#if HOVER_INPUT_VRTK
 
 using System;
 using Hover.Core.Cursors;
 using UnityEngine;
 
-namespace Hover.InputModules.Vive {
+namespace Hover.InputModules.VRTK {
 
 	/*================================================================================================*/
 	[Serializable]
-	public class ViveCursor {
+	public class VrtkCursor {
 
 		public static float IndexTriggerMax = 0.88f;
 		public static float TouchpadMax = 0.8f;
@@ -44,7 +44,7 @@ namespace Hover.InputModules.Vive {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public ViveCursor(CursorType pType) {
+		public VrtkCursor(CursorType pType) {
 			Type = pType;
 		}
 
@@ -52,18 +52,15 @@ namespace Hover.InputModules.Vive {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateData(HoverCursorDataProvider pCursorDataProv,
-																HoverInputVive.ControlState pState) {
+																HoverInputVrtk.ControlState pState) {
 			ICursorDataForInput data = GetData(pCursorDataProv);
 
 			if ( data == null ) {
 				return;
 			}
 
-			data.SetUsedByInput(pState.IsValid);
-
-			if ( !pState.IsValid ) {
-				return;
-			}
+			//TODO: handle "isValid" states?
+			data.SetUsedByInput(true);
 
 			UpdateDataWithLocalOffsets(data, pState);
 			UpdateDataForTrigger(data, pState);
@@ -74,7 +71,7 @@ namespace Hover.InputModules.Vive {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateDataWithLocalOffsets(ICursorDataForInput pData, 
-															HoverInputVive.ControlState pState) {
+															HoverInputVrtk.ControlState pState) {
 			Vector3 worldOffset = pState.Tx.TransformVector(LocalPosition);
 
 			pData.SetWorldPosition(pState.Tx.position+worldOffset);
@@ -83,14 +80,14 @@ namespace Hover.InputModules.Vive {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateDataForTrigger(ICursorDataForInput pData,
-															HoverInputVive.ControlState pState) {
+															HoverInputVrtk.ControlState pState) {
 			float prog = GetInputSourceProgress(TriggerStrengthInput, pState, 0);
 			pData.SetTriggerStrength(prog);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateDataForSize(ICursorDataForInput pData,
-															HoverInputVive.ControlState pState) {
+															HoverInputVrtk.ControlState pState) {
 			float prog = GetInputSourceProgress(CursorSizeInput, pState, 0.5f);
 			pData.SetSize(Mathf.Lerp(MinSize, MaxSize, prog));
 		}
@@ -108,10 +105,10 @@ namespace Hover.InputModules.Vive {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		private float GetInputSourceProgress(InputSourceType pInputSourceType,
-											HoverInputVive.ControlState pState, float pDefault) {
+											HoverInputVrtk.ControlState pState, float pDefault) {
 			switch ( pInputSourceType ) {
 				case InputSourceType.Trigger:
-					return Mathf.InverseLerp(0, IndexTriggerMax, pState.TriggerAxis.x);
+					return Mathf.InverseLerp(0, IndexTriggerMax, pState.TriggerAxis);
 
 				case InputSourceType.TouchpadY:
 					return Mathf.InverseLerp(-TouchpadMax, TouchpadMax, pState.TouchpadAxis.y);
@@ -151,4 +148,4 @@ namespace Hover.InputModules.Vive {
 
 }
 
-#endif //HOVER_INPUT_VIVE
+#endif //HOVER_INPUT_VRTK
