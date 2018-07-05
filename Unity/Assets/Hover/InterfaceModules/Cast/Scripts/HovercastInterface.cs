@@ -59,7 +59,11 @@ namespace Hover.InterfaceModules.Cast {
 			HovercastRowTitle rowTitle = ActiveRow.GetComponent<HovercastRowTitle>();
 
 			TitleItem.Label = (rowTitle == null ? "" : rowTitle.RowTitle);
-			BackItem.IsEnabled = (vRowHistory.Count > 0);
+			BackItem.IsEnabled = (IsOpen && vRowHistory.Count > 0);
+
+			if ( !IsOpen ) {
+				RowContainer.gameObject.SetActive(false);
+			}
 		}
 
 
