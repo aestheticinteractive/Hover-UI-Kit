@@ -1,6 +1,6 @@
 ## Hover UI Kit
 
-Latest version: `v2.0.0B (beta)`
+Latest version: `v2.0.1B (beta)`
 
 Source code, project documentation, and software license: http://HoverVR.com
 
