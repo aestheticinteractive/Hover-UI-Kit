@@ -1,6 +1,5 @@
 ﻿using Hover.Core.Utils;
 using UnityEngine;
-using UnityStandardAssets.ImageEffects;
 
 namespace HoverDemos.Common {
 
@@ -9,7 +8,7 @@ namespace HoverDemos.Common {
 
 		public string CameraName;
 		public string MainSceneCameraName = "MainCamera";
-		public bool UseBloom = true;
+		//public bool UseBloom = true;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -27,7 +26,7 @@ namespace HoverDemos.Common {
 			cam.clearFlags = CameraClearFlags.Color;
 			cam.backgroundColor = Color.black;
 
-			if ( UseBloom && cam.GetComponent<BloomOptimized>() == null ) {
+			/*if ( UseBloom && cam.GetComponent<BloomOptimized>() == null ) {
 				BloomOptimized bloom = cam.gameObject.AddComponent<BloomOptimized>();
 				bloom.threshold = 0.35f;
 				bloom.intensity = 0.6f;
@@ -35,7 +34,7 @@ namespace HoverDemos.Common {
 				bloom.blurIterations = 2;
 				bloom.blurType = BloomOptimized.BlurType.Standard;
 				bloom.fastBloomShader = Shader.Find("Hidden/FastBloom");
-			}
+			}*/
 		}
 
 	}
