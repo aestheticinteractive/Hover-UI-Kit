@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Hover.Core.Utils;
 using HoverDemos.Common;
 using UnityEngine;
-using UnityEngine.VR;
+using UnityEngine.XR;
 
 namespace HoverDemos.CastCubes {
 
@@ -96,7 +96,7 @@ namespace HoverDemos.CastCubes {
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
 			RandomUtil.Init(RandomSeed);
-			VRSettings.renderScale = 2;
+			XRSettings.eyeTextureResolutionScale = 2;
 
 			vCubesObj = new GameObject("Cubes");
 			vCubesObj.transform.SetParent(gameObject.transform, false);

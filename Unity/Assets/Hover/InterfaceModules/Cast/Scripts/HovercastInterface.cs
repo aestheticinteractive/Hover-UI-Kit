@@ -41,7 +41,7 @@ namespace Hover.InterfaceModules.Cast {
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
 			if ( RowContainer == null ) {
-				RowContainer = gameObject.transform.FindChild("Rows");
+				RowContainer = gameObject.transform.Find("Rows");
 			}
 
 			if ( ActiveRow == null ) {

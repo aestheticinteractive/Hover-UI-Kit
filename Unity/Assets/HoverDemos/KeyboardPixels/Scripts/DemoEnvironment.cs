@@ -3,7 +3,7 @@ using System.Linq;
 using HoverDemos.Common;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.VR;
+using UnityEngine.XR;
 
 namespace HoverDemos.KeyboardPixels {
 
