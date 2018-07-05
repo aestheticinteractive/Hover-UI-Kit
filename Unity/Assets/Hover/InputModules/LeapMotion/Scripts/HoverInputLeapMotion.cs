@@ -103,10 +103,8 @@ namespace Hover.InputModules.LeapMotion {
 				return;
 			}
 
-			Vector tipPos = (UseStabilizedPositions ? 
-				pLeapFinger.StabilizedTipPosition: pLeapFinger.TipPosition);
 			Bone distalBone = pLeapFinger.Bone(Bone.BoneType.TYPE_DISTAL);
-			Vector3 tipWorldPos = tipPos.ToVector3();
+			Vector3 tipWorldPos = pLeapFinger.TipPosition.ToVector3();
 			Vector3 boneWorldPos = distalBone.Center.ToVector3();
 			Vector3 extendedWorldPos = tipWorldPos;
 
