@@ -42,8 +42,8 @@ namespace Hover.Core.Utils {
 				return;
 			}
 
-			SceneManager.UnloadScene((Scene)vLoadedScene);
-			Debug.Log("Removed scene for editor: "+vLoadedScene, this);
+			SceneManager.UnloadSceneAsync(SceneName);
+			Debug.Log("Removing scene for editor: "+SceneName);
 #endif
 		}
 
