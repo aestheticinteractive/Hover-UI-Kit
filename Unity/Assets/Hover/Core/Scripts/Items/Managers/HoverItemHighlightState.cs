@@ -37,7 +37,7 @@ namespace Hover.Core.Items.Managers {
 		public HoverItemHighlightState() {
 			Highlights = new List<Highlight>();
 			vPreventHighlightMap = new HashSet<string>();
-			vIsNearestForCursorTypeMap = new HashSet<CursorType>();
+			vIsNearestForCursorTypeMap = new HashSet<CursorType>(new CursorTypeComparer());
 		}
 
 
@@ -116,7 +116,9 @@ namespace Hover.Core.Items.Managers {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void ResetAllNearestStates() {
-			vIsNearestForCursorTypeMap.Clear();
+			if ( vIsNearestForCursorTypeMap.Count > 0 ) {
+				vIsNearestForCursorTypeMap.Clear();
+			}
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
