@@ -5,6 +5,8 @@ namespace Hover.Core.Utils {
 	/*================================================================================================*/
 	public class MeshBuilder {
 
+		public static bool UseLinearColorSpace { get; set; }
+
 		public Mesh Mesh { get; private set; }
 
 		public Vector3[] Vertices { get; private set; }
@@ -108,8 +110,10 @@ namespace Hover.Core.Utils {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void CommitColors(Color pColor) {
+			Color col = (UseLinearColorSpace ? pColor.linear : pColor);
+
 			for ( int i = 0 ; i < Colors.Length ; i++ ) {
-				Colors[i] = pColor;
+				Colors[i] = col;
 			}
 
 			Mesh.colors = Colors;
