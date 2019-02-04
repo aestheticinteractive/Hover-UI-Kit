@@ -50,17 +50,32 @@ namespace Hover.Core.Items.Managers {
 			}
 
 			if ( !vItems.Remove(pItem) ) {
-				Debug.LogWarning("Cannot remove missing item '"+pItem.name+"'.", pItem);
+				//Debug.LogWarning("Cannot remove missing item '"+pItem.name+"'.", pItem);
 				return;
 			}
 
 			OnItemRemoved.Invoke(pItem);
 		}
 
-		
+		/*--------------------------------------------------------------------------------------------* /
+		public void RemoveDestroyedItems() {
+			if ( vItems == null ) {
+				return;
+			}
+
+			for ( int i = 0 ; i < vItems.Count ; i++ ) {
+				if ( vItems[i] == null ) {
+					Debug.LogWarning("Removing destroyed item @ "+i);
+					vItems.RemoveAt(i);
+					i--;
+				}
+			}
+		}
+
+
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void FillListWithExistingItemComponents<T>(IList<T> pComponents) where T : Component {
+		public void FillListWithActiveItemComponents<T>(IList<T> pComponents) where T : Component {
 			pComponents.Clear();
 			
 			if ( vItems == null ) {
@@ -68,6 +83,16 @@ namespace Hover.Core.Items.Managers {
 			}
 
 			for ( int i = 0 ; i < vItems.Count ; i++ ) {
+				HoverItem item = vItems[i];
+
+				if ( item == null ) {
+					continue;
+				}
+
+				if ( !item.gameObject.activeInHierarchy ) {
+					continue;
+				}
+
 				T comp = vItems[i].GetComponent<T>();
 				
 				if ( comp != null  ) {

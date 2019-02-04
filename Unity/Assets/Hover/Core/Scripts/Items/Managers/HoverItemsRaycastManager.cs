@@ -33,7 +33,7 @@ namespace Hover.Core.Items.Managers {
 		public void Update() {
 			HoverItemsManager itemsMan = GetComponent<HoverItemsManager>();
 			
-			itemsMan.FillListWithExistingItemComponents(vHighStates);
+			itemsMan.FillListWithActiveItemComponents(vHighStates);
 			CalcNearestRaycastResults();
 		}
 		

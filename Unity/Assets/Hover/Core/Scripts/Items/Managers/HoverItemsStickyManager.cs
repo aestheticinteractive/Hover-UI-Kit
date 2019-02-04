@@ -32,7 +32,7 @@ namespace Hover.Core.Items.Managers {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			GetComponent<HoverItemsManager>().FillListWithExistingItemComponents(vItemDatas);
+			GetComponent<HoverItemsManager>().FillListWithActiveItemComponents(vItemDatas);
 			ClearCursorLists();
 			FillCursorLists();
 		}
