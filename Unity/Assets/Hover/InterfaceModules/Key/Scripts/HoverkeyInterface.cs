@@ -43,21 +43,21 @@ namespace Hover.InterfaceModules.Key {
 		/*--------------------------------------------------------------------------------------------*/
 		public bool IsLeftShiftSelected {
 			get {
-				return vShiftStickyL.IsStickySelected;
+				return (vShiftStickyL != null && vShiftStickyL.IsStickySelected);
 			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public bool IsRightShiftSelected {
 			get {
-				return vShiftStickyR.IsStickySelected;
+				return (vShiftStickyR != null && vShiftStickyR.IsStickySelected);
 			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public bool IsCapsLockActive {
 			get {
-				return vCapsCheckbox.Value;
+				return (vCapsCheckbox != null && vCapsCheckbox.Value);
 			}
 		}
 
