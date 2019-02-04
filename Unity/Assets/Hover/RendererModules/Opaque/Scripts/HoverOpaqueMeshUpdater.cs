@@ -13,11 +13,11 @@ namespace Hover.RendererModules.Opaque {
 		public ISettingsControllerMap Controllers { get; private set; }
 
 		[DisableWhenControlled]
-		[ColorUsage(false, true, 0, 1000, 0, 1000)]
+		[ColorUsage(false, true)]
 		public Color StandardColor = Color.gray;
 		
 		[DisableWhenControlled]
-		[ColorUsage(false, true, 0, 1000, 0, 1000)]
+		[ColorUsage(false, true)]
 		public Color SliderFillColor = Color.white;
 
 		private Color vPrevColor;

@@ -25,13 +25,13 @@ namespace Hover.RendererModules.Alpha {
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
 		public float Alpha = 1;
 
-		[ColorUsage(true, true, 0, 1000, 0, 1000)]
+		[ColorUsage(true, true)]
 		public Color StandardColor = Color.gray;
 		
-		[ColorUsage(true, true, 0, 1000, 0, 1000)]
+		[ColorUsage(true, true)]
 		public Color SliderFillColor = Color.white;
 
-		[ColorUsage(true, true, 0, 1000, 0, 1000)]
+		[ColorUsage(true, true)]
 		public Color FlashColor = Color.white;
 
 		[Range(0, 2000)]
@@ -54,11 +54,6 @@ namespace Hover.RendererModules.Alpha {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
-			vPrevColor = GetDisplayColor(GetComponent<HoverMesh>());
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public void OnEnable() {
 			vPrevColor = GetDisplayColor(GetComponent<HoverMesh>());
 		}
 
