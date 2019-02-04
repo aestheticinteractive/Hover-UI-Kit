@@ -138,7 +138,7 @@ namespace Hover.InputModules.Vive {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateCursorsWithControllers() {
+		protected virtual void UpdateCursorsWithControllers() {
 			StateLeft = GetControllerState(SteamControllers.left);
 			StateRight = GetControllerState(SteamControllers.right);
 
@@ -158,7 +158,7 @@ namespace Hover.InputModules.Vive {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private ControlState GetControllerState(GameObject pControlGo) {
+		protected virtual ControlState GetControllerState(GameObject pControlGo) {
 			SteamVR_TrackedObject control = pControlGo.GetComponent<SteamVR_TrackedObject>();
 			SteamVR_Controller.Device input = null;
 

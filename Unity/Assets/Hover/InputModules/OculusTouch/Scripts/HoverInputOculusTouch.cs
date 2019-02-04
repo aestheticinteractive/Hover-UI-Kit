@@ -180,7 +180,7 @@ namespace Hover.InputModules.OculusTouch {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateCursorsWithControllers() {
+		protected virtual void UpdateCursorsWithControllers() {
 			StateLeft = GetControllerState(OVRInput.Controller.LTouch);
 			StateRight = GetControllerState(OVRInput.Controller.RTouch);
 
@@ -200,7 +200,7 @@ namespace Hover.InputModules.OculusTouch {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private ControlState GetControllerState(OVRInput.Controller pType) {
+		protected virtual ControlState GetControllerState(OVRInput.Controller pType) {
 			OVRInput.Controller contTypes = OVRInput.GetConnectedControllers();
 			bool isValid = ((contTypes & pType) != 0);
 

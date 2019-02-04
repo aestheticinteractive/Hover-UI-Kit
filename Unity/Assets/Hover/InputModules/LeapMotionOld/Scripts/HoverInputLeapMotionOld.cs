@@ -60,14 +60,14 @@ namespace Hover.InputModules.LeapMotionOld {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateCursorsWithHands(HandList pLeapHands) {
+		protected virtual void UpdateCursorsWithHands(HandList pLeapHands) {
 			for ( int i = 0 ; i < pLeapHands.Count ; i++ ) {
 				UpdateCursorsWithHand(pLeapHands[i]);
 			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateCursorsWithHand(Hand pLeapHand) {
+		protected virtual void UpdateCursorsWithHand(Hand pLeapHand) {
 			UpdateCursorsWithPalm(pLeapHand);
 
 			for ( int i = 0 ; i < pLeapHand.Fingers.Count ; i++ ) {
@@ -76,7 +76,7 @@ namespace Hover.InputModules.LeapMotionOld {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateCursorsWithPalm(Hand pLeapHand) {
+		protected virtual void UpdateCursorsWithPalm(Hand pLeapHand) {
 			CursorType cursorType = (pLeapHand.IsLeft ? CursorType.LeftPalm : CursorType.RightPalm);
 
 			if ( !CursorDataProvider.HasCursorData(cursorType) ) {
@@ -96,7 +96,7 @@ namespace Hover.InputModules.LeapMotionOld {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateCursorsWithFinger(Hand pLeapHand, Finger pLeapFinger) {
+		protected virtual void UpdateCursorsWithFinger(Hand pLeapHand, Finger pLeapFinger) {
 			CursorType cursorType = GetFingerCursorType(pLeapHand.IsLeft, pLeapFinger.Type);
 
 			if ( !CursorDataProvider.HasCursorData(cursorType) ) {
