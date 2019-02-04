@@ -21,6 +21,8 @@ namespace Hover.Core.Items {
 			Text
 		}
 
+		private static HoverItemsManager ItemsManagerReference;
+
 		public delegate void ItemEvent(HoverItem pItem);
 		public ItemEvent OnTypeChanged;
 
@@ -124,7 +126,12 @@ namespace Hover.Core.Items {
 				return;
 			}
 
-			vItemsMan = (vItemsMan ?? FindObjectOfType<HoverItemsManager>());
+			if ( ItemsManagerReference == null ) {
+				ItemsManagerReference = FindObjectOfType<HoverItemsManager>();
+			}
+
+			vItemsMan = (vItemsMan ?? ItemsManagerReference);
+
 
 			if ( vItemsMan == null ) {
 				return;
@@ -142,7 +149,7 @@ namespace Hover.Core.Items {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private bool FindDuplicateData() {
-			HoverItem[] items = FindObjectsOfType<HoverItem>();
+			HoverItem[] items = GetComponents<HoverItem>();
 
 			for ( int i = 0 ; i < items.Length ; i++ ) {
 				HoverItem item = items[i];
