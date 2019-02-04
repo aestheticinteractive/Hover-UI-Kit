@@ -232,9 +232,7 @@ namespace Hover.Core.Renderers.CanvasElements {
 			if ( Alignment == CanvasAlignmentType.Custom ) {
 				return;
 			}
-			
-			const float iconVertShiftMult = -0.35f;
-			
+
 			Vector3 labelLocalScale = Label.transform.localScale;
 			float fontSize = Label.TextComponent.fontSize*Label.CanvasScale/2;
 			float iconAvailW = UnscaledPaddedSizeX-IconOuter.SizeX;
@@ -250,19 +248,17 @@ namespace Hover.Core.Renderers.CanvasElements {
 				case CanvasAlignmentType.Left:
 				case CanvasAlignmentType.TextRightAndIconLeft:
 					iconShiftX = -0.5f*iconAvailW;
-					iconShiftY = iconVertShiftMult*fontSize;
 					labelInsetL = IconOuter.SizeX+iconPad;
 					break;
 					
 				case CanvasAlignmentType.Center:
-					iconShiftY = (fontSize+iconPad)/2;
-					labelInsetT = (IconOuter.SizeY+iconPad)/2;
+					iconShiftY = (Label.TextComponent.text.Length == 0 ? 0 : fontSize/2+iconPad);
+					labelInsetT = IconOuter.SizeY/2+iconPad;
 					break;
 					
 				case CanvasAlignmentType.Right:
 				case CanvasAlignmentType.TextLeftAndIconRight:
 					iconShiftX = 0.5f*iconAvailW;
-					iconShiftY = iconVertShiftMult*fontSize;
 					labelInsetR = IconOuter.SizeX+iconPad;
 					break;
 					
@@ -310,11 +306,14 @@ namespace Hover.Core.Renderers.CanvasElements {
 			
 			var labelLocalPos = new Vector3((labelInsetL-labelInsetR)/2, -labelInsetT, 0);
 			var iconLocalPos = new Vector3(iconShiftX, iconShiftY, 0);
-			
+			TextAnchor prevAlign = Label.TextComponent.alignment;
+			int prevVertAlign = (int)prevAlign/3;
+			int newHorizAlign = (int)labelAlign%3;
+
 			Label.SizeX = UnscaledPaddedSizeX-labelInsetL-labelInsetR;
 			Label.SizeY = UnscaledPaddedSizeY-labelInsetT;
 			
-			Label.TextComponent.alignment = labelAlign;
+			Label.TextComponent.alignment = (TextAnchor)(newHorizAlign+prevVertAlign*3);
 			
 			Label.transform.localPosition = labelLocalPos/Scale;
 			IconOuter.transform.localPosition = iconLocalPos/Scale;
