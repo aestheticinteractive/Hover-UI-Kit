@@ -27,17 +27,18 @@ namespace Hover.Core.Utils {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public static void BuildQuadMesh(MeshBuilder pMeshBuild, float pSizeX=1, float pSizeY=1) {
+		public static void BuildQuadMesh(MeshBuilder pMeshBuild, float pSizeX=1, float pSizeY=1,
+																float pOriginX=0, float pOriginY=0) {
 			float halfSizeX = pSizeX/2;
 			float halfSizeY = pSizeY/2;
 
 			pMeshBuild.Resize(4, 6);
 			pMeshBuild.ResetIndices();
 
-			pMeshBuild.AddVertex(new Vector3( halfSizeX,  halfSizeY, 0));
-			pMeshBuild.AddVertex(new Vector3( halfSizeX, -halfSizeY, 0));
-			pMeshBuild.AddVertex(new Vector3(-halfSizeX, -halfSizeY, 0));
-			pMeshBuild.AddVertex(new Vector3(-halfSizeX,  halfSizeY, 0));
+			pMeshBuild.AddVertex(new Vector3(pOriginX+halfSizeX, pOriginY+halfSizeY, 0));
+			pMeshBuild.AddVertex(new Vector3(pOriginX+halfSizeX, pOriginY-halfSizeY, 0));
+			pMeshBuild.AddVertex(new Vector3(pOriginX-halfSizeX, pOriginY-halfSizeY, 0));
+			pMeshBuild.AddVertex(new Vector3(pOriginX-halfSizeX, pOriginY+halfSizeY, 0));
 
 			pMeshBuild.AddUv(new Vector2(1, 1));
 			pMeshBuild.AddUv(new Vector2(1, 0));
