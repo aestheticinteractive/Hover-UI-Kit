@@ -126,8 +126,13 @@ namespace Hover.Core.Items.Types {
 				base.Value = Math.Max(0, Math.Min(1, value));
 			}
 		}
-		
-		
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void SetValueViaRangeValue(float pRangeValue) {
+			Value = Mathf.InverseLerp(RangeMin, RangeMax, pRangeValue);
+		}
+
+
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public float RangeValue {
