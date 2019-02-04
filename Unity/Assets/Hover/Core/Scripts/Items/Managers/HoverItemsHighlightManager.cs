@@ -72,7 +72,7 @@ namespace Hover.Core.Items.Managers {
 				HoverItemHighlightState.Highlight? high;
 				HoverItemHighlightState highState = FindNearestItemToCursor(cursor.Type, out high);
 
-				if ( highState == null || high == null ) {
+				if ( highState == null || high == null || high.Value.Progress <= 0 ) {
 					continue;
 				}
 
