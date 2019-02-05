@@ -29,8 +29,8 @@ namespace Hover.Core.Items.Managers {
 		public void TreeUpdate() {
 			TryResetSelection();
 			UpdateSelectionProgress();
-			UpdateState();
 			UpdateNearestCursor();
+			UpdateState();
 		}
 
 
@@ -118,8 +118,11 @@ namespace Hover.Core.Items.Managers {
 				selData.DeselectStickySelections();
 			}
 
-			if ( canDeselect || !hasNearestCursorWithFullHigh ) {
+			if ( !highState.IsNearestAcrossAllItemsForAnyCursor || !hasNearestCursorWithFullHigh ) {
 				IsSelectionPrevented = false;
+			}
+
+			if ( canDeselect || !hasNearestCursorWithFullHigh ) {
 				vSelectionStart = null;
 				return false;
 			}

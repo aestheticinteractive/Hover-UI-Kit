@@ -164,7 +164,7 @@ namespace Hover.Core.Items.Managers {
 			
 			IsHighlightPrevented = (
 				selData == null ||
-				!itemData.IsEnabled ||
+				//!itemData.IsEnabled ||
 				//!itemData.IsVisible ||
 				!itemData.IsAncestryEnabled ||
 				//!itemData.IsAncestryVisible ||
