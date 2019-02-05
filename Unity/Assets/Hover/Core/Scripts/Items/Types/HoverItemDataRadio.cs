@@ -50,6 +50,7 @@ namespace Hover.Core.Items.Types {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
+		[ContextMenu("Radio Select")]
 		public override void Select() {
 			Value = true;
 			base.Select();

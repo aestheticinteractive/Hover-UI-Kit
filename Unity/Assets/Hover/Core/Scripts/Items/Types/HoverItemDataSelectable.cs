@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 using UnityEngine.Events;
 
 namespace Hover.Core.Items.Types {
@@ -30,6 +31,7 @@ namespace Hover.Core.Items.Types {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
+		[ContextMenu("Selector Select")]
 		public virtual void Select() {
 			IsStickySelected = UsesStickySelection();
 			OnSelected(this);

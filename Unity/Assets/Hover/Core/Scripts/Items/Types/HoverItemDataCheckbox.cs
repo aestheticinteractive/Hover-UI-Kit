@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Hover.Core.Items.Types {
 
@@ -9,6 +10,7 @@ namespace Hover.Core.Items.Types {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
+		[ContextMenu("Checkbox Select")]
 		public override void Select() {
 			Value = !Value;
 			base.Select();
