@@ -116,6 +116,11 @@ namespace Hover.Core.Renderers.Shapes.Rect {
 
 			for ( int i = 0 ; i < tree.TreeChildrenThisFrame.Count ; i++ ) {
 				TreeUpdater child = tree.TreeChildrenThisFrame[i];
+
+				if ( child == null ) {
+					continue;
+				}
+
 				HoverShapeRect childRect = child.GetComponent<HoverShapeRect>();
 
 				if ( childRect == null ) {
