@@ -112,12 +112,10 @@ namespace Hover.InputModules.OculusTouch {
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateDataWithLocalOffsets(ICursorDataForInput pData, 
 															HoverInputOculusTouch.ControlState pState) {
-			Matrix4x4 txMat = OriginTransform.localToWorldMatrix;
-			Matrix4x4 txRotMat = txMat*Matrix4x4.TRS(Vector3.zero, pState.LocalRot, Vector3.one);
-
-			pData.SetWorldPosition(txMat.MultiplyPoint3x4(pState.LocalPos)+
-				txRotMat.MultiplyVector(LocalPosition));
-			pData.SetWorldRotation(txRotMat.GetRotation()*Quaternion.Euler(LocalRotation));
+			pData.SetWorldPosition(
+				OriginTransform.TransformPoint(pState.LocalPos)+pState.LocalRot*LocalPosition);
+			pData.SetWorldRotation(
+				OriginTransform.rotation*pState.LocalRot*Quaternion.Euler(LocalRotation));
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
