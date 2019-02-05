@@ -122,7 +122,7 @@ namespace Hover.InputModules.LeapMotion {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private CursorType GetFingerCursorType(bool pIsLeft, Finger.FingerType pLeapFingerType) {
+		public static CursorType GetFingerCursorType(bool pIsLeft, Finger.FingerType pLeapFingerType) {
 			switch ( pLeapFingerType ) {
 				case Finger.FingerType.TYPE_THUMB:
 					return (pIsLeft ? CursorType.LeftThumb : CursorType.RightThumb);
