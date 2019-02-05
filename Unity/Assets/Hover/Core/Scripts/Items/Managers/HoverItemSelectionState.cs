@@ -1,6 +1,7 @@
 using System;
 using Hover.Core.Cursors;
 using Hover.Core.Items.Types;
+using Hover.Core.Utils;
 using UnityEngine;
 
 namespace Hover.Core.Items.Managers {
@@ -8,7 +9,7 @@ namespace Hover.Core.Items.Managers {
 	/*================================================================================================*/
 	[RequireComponent(typeof(HoverItem))]
 	[RequireComponent(typeof(HoverItemHighlightState))]
-	public class HoverItemSelectionState : MonoBehaviour {
+	public class HoverItemSelectionState : MonoBehaviour, ITreeUpdateable {
 
 		public float SelectionProgress { get; private set; }
 		public bool IsSelectionPrevented { get; private set; }
@@ -20,7 +21,12 @@ namespace Hover.Core.Items.Managers {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Update() {
+		public void Start() {
+			//do nothing...
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void TreeUpdate() {
 			TryResetSelection();
 			UpdateSelectionProgress();
 			UpdateState();

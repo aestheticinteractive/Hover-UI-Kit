@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using Hover.Core.Cursors;
 using Hover.Core.Items.Types;
+using Hover.Core.Utils;
 using UnityEngine;
 
 namespace Hover.Core.Items.Managers {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
-	public class HoverItemHighlightState : MonoBehaviour {
+	public class HoverItemHighlightState : MonoBehaviour, ITreeUpdateable {
 
 		[Serializable]
 		public struct Highlight {
@@ -72,7 +73,12 @@ namespace Hover.Core.Items.Managers {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void Update() {
+		public void Start() {
+			//do nothing... 
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void TreeUpdate() {
 			Highlights.Clear();
 			NearestHighlight = null;
 			
