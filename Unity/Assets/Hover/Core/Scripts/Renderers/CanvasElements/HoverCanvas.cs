@@ -66,8 +66,22 @@ namespace Hover.Core.Renderers.CanvasElements {
 		[HideInInspector]
 		[SerializeField]
 		private bool _IsBuilt;
-		
-		
+
+		private Canvas vPrevCanvas;
+		private CanvasGroup vPrevCanvasGroup;
+		private HoverLabel vPrevLabel;
+		private HoverIcon vPrevIconOuter;
+		private HoverIcon vPrevIconInner;
+		private float vPrevScale;
+		private float vPrevSizeX;
+		private float vPrevSizeY;
+		private float vPrevPaddingX;
+		private float vPrevPaddingY;
+		private CanvasAlignmentType vPrevAlignment;
+		private IconSizeType vPrevIconSize;
+		private bool vPrevUseMirrorLayout;
+
+
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public HoverCanvas() {
@@ -113,12 +127,46 @@ namespace Hover.Core.Renderers.CanvasElements {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public void TreeUpdate() {
+			bool didChange = (
+				vPrevCanvas != CanvasComponent ||
+				vPrevCanvasGroup != CanvasGroupComponent ||
+				vPrevLabel != Label ||
+				vPrevIconOuter != IconOuter ||
+				vPrevIconInner != IconInner ||
+				vPrevScale != Scale ||
+				vPrevSizeX != SizeX ||
+				vPrevSizeY != SizeY ||
+				vPrevPaddingX != PaddingX ||
+				vPrevPaddingY != PaddingY ||
+				vPrevAlignment != Alignment ||
+				vPrevIconSize != IconSize ||
+				vPrevUseMirrorLayout != UseMirrorLayout
+			);
+
+			if ( !didChange ) {
+				return;
+			}
+
 			UpdateCanvasComponent();
 			UpdateScale();
 			UpdateActiveStates();
 			UpdateIconSizeSettings();
 			UpdateCanvasAlignmentSettings();
 			Controllers.TryExpireControllers();
+
+			vPrevCanvas = CanvasComponent;
+			vPrevCanvasGroup = CanvasGroupComponent;
+			vPrevLabel = Label;
+			vPrevIconOuter = IconOuter;
+			vPrevIconInner = IconInner;
+			vPrevScale = Scale;
+			vPrevSizeX = SizeX;
+			vPrevSizeY = SizeY;
+			vPrevPaddingX = PaddingX;
+			vPrevPaddingY = PaddingY;
+			vPrevAlignment = Alignment;
+			vPrevIconSize = IconSize;
+			vPrevUseMirrorLayout = UseMirrorLayout;
 		}
 		
 		

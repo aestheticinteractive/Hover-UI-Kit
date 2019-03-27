@@ -31,6 +31,8 @@ namespace Hover.Core.Renderers.Shapes.Arc {
 		public Vector3 InnerOffset = Vector3.zero;
 
 		private Plane vWorldPlane;
+		private Vector3 vPrevWorldPos;
+		private Quaternion vPrevWorldRot;
 		private float vPrevOuterRad;
 		private float vPrevInnerRad;
 		private float vPrevDegrees;
@@ -122,7 +124,12 @@ namespace Hover.Core.Renderers.Shapes.Arc {
 		public override void TreeUpdate() {
 			base.TreeUpdate();
 
-			vWorldPlane = RendererUtil.GetWorldPlane(gameObject.transform);
+			if ( transform.position != vPrevWorldPos || transform.rotation != vPrevWorldRot ) {
+				vWorldPlane = RendererUtil.GetWorldPlane(gameObject.transform);
+			}
+
+			vPrevWorldPos = transform.position;
+			vPrevWorldRot = transform.rotation;
 
 			DidSettingsChange = (
 				DidSettingsChange ||
@@ -132,6 +139,10 @@ namespace Hover.Core.Renderers.Shapes.Arc {
 				OuterOffset != vPrevOuterOff ||
 				InnerOffset != vPrevInnerOff
 			);
+
+			if ( !DidSettingsChange ) {
+				return;
+			}
 
 			UpdateShapeArcChildren();
 

@@ -20,6 +20,8 @@ namespace Hover.Core.Renderers.Shapes.Rect {
 		public bool FlipLayoutDimensions = false;
 
 		private Plane vWorldPlane;
+		private Vector3 vPrevWorldPos;
+		private Quaternion vPrevWorldRot;
 		private float vPrevSizeX;
 		private float vPrevSizeY;
 		private bool vPrevFlip;
@@ -88,7 +90,14 @@ namespace Hover.Core.Renderers.Shapes.Rect {
 		public override void TreeUpdate() {
 			base.TreeUpdate();
 
-			vWorldPlane = RendererUtil.GetWorldPlane(gameObject.transform);
+			if ( transform.position != vPrevWorldPos || transform.rotation != vPrevWorldRot ) {
+				vWorldPlane = RendererUtil.GetWorldPlane(gameObject.transform);
+			}
+
+			vPrevWorldPos = transform.position;
+			vPrevWorldRot = transform.rotation;
+
+			////
 
 			DidSettingsChange = (
 				DidSettingsChange ||
@@ -96,6 +105,10 @@ namespace Hover.Core.Renderers.Shapes.Rect {
 				SizeY != vPrevSizeY ||
 				FlipLayoutDimensions != vPrevFlip
 			);
+
+			if ( !DidSettingsChange ) {
+				return;
+			}
 
 			UpdateShapeRectChildren();
 

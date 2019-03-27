@@ -12,6 +12,8 @@ namespace Hover.Core.Layouts.Arc {
 		public ISettingsControllerMap Controllers { get; private set; }
 
 		protected readonly List<HoverLayoutArcGroupChild> vChildItems;
+		private bool vShouldRefreshChildren;
+		protected bool vDidRefreshChildren;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -19,6 +21,7 @@ namespace Hover.Core.Layouts.Arc {
 		protected HoverLayoutArcGroup() {
 			Controllers = new SettingsControllerMap();
 			vChildItems = new List<HoverLayoutArcGroupChild>();
+			vShouldRefreshChildren = true;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -34,9 +37,15 @@ namespace Hover.Core.Layouts.Arc {
 		public void Start() {
 			//do nothing...
 		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void OnTransformChildrenChanged() {
+			vShouldRefreshChildren = true;
+		}
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void TreeUpdate() {
+			vDidRefreshChildren = false;
 			FillChildItemsList();
 			Controllers.TryExpireControllers();
 		}
@@ -45,6 +54,12 @@ namespace Hover.Core.Layouts.Arc {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected virtual void FillChildItemsList() {
+			if ( !vShouldRefreshChildren ) {
+				return;
+			}
+
+			vShouldRefreshChildren = false;
+			vDidRefreshChildren = true;
 			vChildItems.Clear();
 
 			int childCount = transform.childCount;

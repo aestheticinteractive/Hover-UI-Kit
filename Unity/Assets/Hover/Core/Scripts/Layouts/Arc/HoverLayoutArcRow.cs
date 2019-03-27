@@ -39,11 +39,36 @@ namespace Hover.Core.Layouts.Arc {
 
 		private Vector2? vRectSize;
 
+		private ArrangementType vPrevArrangement;
+		private float vPrevOuterRadius;
+		private float vPrevInnerRadius;
+		private float vPrevArcDegrees;
+		private HoverLayoutArcPaddingSettings vPrevPadding;
+		private float vPrevStartingDegree;
+		private AnchorType vPrevRectAnchor;
+		private Vector2? vPrevRectSize;
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public override void TreeUpdate() {
 			base.TreeUpdate();
+
+			bool didChange = (
+				vDidRefreshChildren ||
+				vPrevArrangement != Arrangement ||
+				vPrevOuterRadius != OuterRadius ||
+				vPrevInnerRadius != InnerRadius ||
+				vPrevArcDegrees != ArcDegrees ||
+				vPrevPadding != Padding ||
+				vPrevStartingDegree != StartingDegree ||
+				vPrevRectAnchor != RectAnchor ||
+				vPrevRectSize != vRectSize
+			);
+
+			if ( !didChange ) {
+				return;
+			}
 
 			Padding.ClampValues(this);
 			UpdateLayoutWithFixedSize();
@@ -52,6 +77,15 @@ namespace Hover.Core.Layouts.Arc {
 				Controllers.Set(RectAnchorName, this);
 				RectAnchor = AnchorType.MiddleCenter;
 			}
+
+			vPrevArrangement = Arrangement;
+			vPrevOuterRadius = OuterRadius;
+			vPrevInnerRadius = InnerRadius;
+			vPrevArcDegrees = ArcDegrees;
+			vPrevPadding = Padding;
+			vPrevStartingDegree = StartingDegree;
+			vPrevRectAnchor = RectAnchor;
+			vPrevRectSize = vRectSize;
 
 			vRectSize = null;
 		}

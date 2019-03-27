@@ -30,13 +30,39 @@ namespace Hover.Core.Layouts.Rect {
 		[DisableWhenControlled]
 		public AnchorType Anchor = AnchorType.MiddleCenter;
 
+		private ArrangementType vPrevArrangement;
+		private float vPrevSizeX;
+		private float vPrevSizeY;
+		private HoverLayoutRectPaddingSettings vPrevPadding;
+		private AnchorType vPrevAnchor;
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public override void TreeUpdate() {
 			base.TreeUpdate();
+
+			bool didChange = (
+				vDidRefreshChildren ||
+				vPrevArrangement != Arrangement ||
+				vPrevSizeX != SizeX ||
+				vPrevSizeY != SizeY ||
+				vPrevPadding != Padding ||
+				vPrevAnchor != Anchor
+			);
+
+			if ( !didChange ) {
+				return;
+			}
+
 			Padding.ClampValues(this);
 			UpdateLayoutWithFixedSize();
+
+			vPrevArrangement = Arrangement;
+			vPrevSizeX = SizeX;
+			vPrevSizeY = SizeY;
+			vPrevPadding = Padding;
+			vPrevAnchor = Anchor;
 		}
 		
 
