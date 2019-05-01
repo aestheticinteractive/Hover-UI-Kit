@@ -106,7 +106,7 @@ namespace Hover.Core.Items.Managers {
 				vItemsActive.Remove(pItem);
 			}
 
-			Debug.Log(Time.frameCount+" | SetItemActiveState: "+pIsActive+" / "+vItemsActive.Count);
+			//Debug.Log(Time.frameCount+" | SetItemActiveState: "+pIsActive+" / "+vItemsActive.Count);
 		}
 
 		/*--------------------------------------------------------------------------------------------* /
