@@ -70,8 +70,8 @@ namespace Hover.Core.Renderers.CanvasElements {
 		private Canvas vPrevCanvas;
 		private CanvasGroup vPrevCanvasGroup;
 		private HoverLabel vPrevLabel;
-		private HoverIcon vPrevIconOuter;
-		private HoverIcon vPrevIconInner;
+		private HoverIcon.IconOffset vPrevIconOuter;
+		private HoverIcon.IconOffset vPrevIconInner;
 		private float vPrevScale;
 		private float vPrevSizeX;
 		private float vPrevSizeY;
@@ -131,8 +131,8 @@ namespace Hover.Core.Renderers.CanvasElements {
 				vPrevCanvas != CanvasComponent ||
 				vPrevCanvasGroup != CanvasGroupComponent ||
 				vPrevLabel != Label ||
-				vPrevIconOuter != IconOuter ||
-				vPrevIconInner != IconInner ||
+				vPrevIconOuter != IconOuter.IconType ||
+				vPrevIconInner != IconInner.IconType ||
 				vPrevScale != Scale ||
 				vPrevSizeX != SizeX ||
 				vPrevSizeY != SizeY ||
@@ -157,8 +157,8 @@ namespace Hover.Core.Renderers.CanvasElements {
 			vPrevCanvas = CanvasComponent;
 			vPrevCanvasGroup = CanvasGroupComponent;
 			vPrevLabel = Label;
-			vPrevIconOuter = IconOuter;
-			vPrevIconInner = IconInner;
+			vPrevIconOuter = IconOuter.IconType;
+			vPrevIconInner = IconInner.IconType;
 			vPrevScale = Scale;
 			vPrevSizeX = SizeX;
 			vPrevSizeY = SizeY;
