@@ -55,7 +55,7 @@ namespace Hover.Core.Items.Managers {
 
 			if ( InteractionSettings == null ) {
 				InteractionSettings = (GetComponent<HoverInteractionSettings>() ??
-					HoverItemsManager.Instance.GetComponent<HoverInteractionSettings>());
+					HoverItemsManager.Instance?.GetComponent<HoverInteractionSettings>());
 			}
 
 			if ( CursorDataProvider == null ) {
