@@ -8,13 +8,28 @@ namespace Hover.Core.Cursors {
 	[ExecuteInEditMode]
 	public class HoverCursorDataProvider : MonoBehaviour {
 
+		private static HoverCursorDataProvider InstanceRef;
+
 		public List<ICursorData> Cursors { get; private set; }
 		public List<ICursorData> ExcludedCursors { get; private set; }
 		
 		private readonly List<ICursorDataForInput> vCursorsForInput;
 		private readonly Dictionary<CursorType, ICursorDataForInput> vCursorMap;
 
-		
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public static HoverCursorDataProvider Instance {
+			get {
+				if ( InstanceRef == null ) {
+					InstanceRef = FindObjectOfType<HoverCursorDataProvider>();
+				}
+
+				return InstanceRef;
+			}
+		}
+
+
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public HoverCursorDataProvider() {

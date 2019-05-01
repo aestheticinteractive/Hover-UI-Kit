@@ -14,7 +14,7 @@ namespace Hover.Core.Cursors {
 				return true;
 			}
 
-			pProv = Object.FindObjectOfType<HoverCursorDataProvider>();
+			pProv = HoverCursorDataProvider.Instance;
 
 			if ( pShowLog ) {
 				string typeName = typeof(HoverCursorDataProvider).Name;

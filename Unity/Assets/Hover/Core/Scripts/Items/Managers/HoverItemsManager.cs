@@ -9,6 +9,8 @@ namespace Hover.Core.Items.Managers {
 	/*================================================================================================*/
 	public class HoverItemsManager : MonoBehaviour {
 
+		private static HoverItemsManager InstanceRef;
+
 		[Serializable]
 		public class ItemEvent : UnityEvent<HoverItem> {}
 
@@ -17,6 +19,19 @@ namespace Hover.Core.Items.Managers {
 		public ItemEvent OnItemRemoved;
 
 		private List<HoverItem> vItems;
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public static HoverItemsManager Instance {
+			get {
+				if ( InstanceRef == null ) {
+					InstanceRef = FindObjectOfType<HoverItemsManager>();
+				}
+
+				return InstanceRef;
+			}
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

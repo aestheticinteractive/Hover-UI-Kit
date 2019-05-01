@@ -18,7 +18,7 @@ namespace Hover.Core.Items.Managers {
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
 			if ( CursorDataProvider == null ) {
-				CursorDataProvider = FindObjectOfType<HoverCursorDataProvider>();
+				CursorDataProvider = HoverCursorDataProvider.Instance;
 			}
 
 			if ( CursorDataProvider == null ) {

@@ -46,7 +46,7 @@ namespace Hover.Core.Items.Managers {
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
 			if ( CursorDataProvider == null ) {
-				CursorDataProvider = FindObjectOfType<HoverCursorDataProvider>();
+				CursorDataProvider = HoverCursorDataProvider.Instance;
 			}
 
 			if ( ProximityProvider == null ) {
@@ -55,7 +55,7 @@ namespace Hover.Core.Items.Managers {
 
 			if ( InteractionSettings == null ) {
 				InteractionSettings = (GetComponent<HoverInteractionSettings>() ??
-					FindObjectOfType<HoverItemsManager>().GetComponent<HoverInteractionSettings>());
+					HoverItemsManager.Instance.GetComponent<HoverInteractionSettings>());
 			}
 
 			if ( CursorDataProvider == null ) {

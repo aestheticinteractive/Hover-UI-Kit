@@ -17,7 +17,7 @@ namespace HoverDemos.Common {
 
 		/*--------------------------------------------------------------------------------------------*/
 		protected override void PerformAdjustments() {
-			HoverCursorDataProvider cursProv = FindObjectOfType<HoverCursorDataProvider>();
+			HoverCursorDataProvider cursProv = HoverCursorDataProvider.Instance;
 			ICursorDataForInput palL = cursProv.GetCursorDataForInput(CursorType.LeftPalm);
 			ICursorDataForInput indR = cursProv.GetCursorDataForInput(CursorType.RightIndex);
 			ICursorDataForInput look = cursProv.GetCursorDataForInput(CursorType.Look);

@@ -136,7 +136,7 @@ namespace Hover.InterfaceModules.Cast {
 			gameObject.AddComponent<HovercastAlphaUpdater>();
 
 			if ( AutoRotateHandToFaceCamera ) {
-				HoverCursorDataProvider curDataProv = FindObjectOfType<HoverCursorDataProvider>();
+				HoverCursorDataProvider curDataProv = HoverCursorDataProvider.Instance;
 				ICursorDataForInput curData = curDataProv.GetCursorDataForInput(follow.CursorType);
 				float addRotZ = 80*(AttachToLeftHand ? 1 : -1);
 

@@ -21,8 +21,6 @@ namespace Hover.Core.Items {
 			Text
 		}
 
-		private static HoverItemsManager ItemsManagerReference;
-
 		public delegate void ItemEvent(HoverItem pItem);
 		public ItemEvent OnTypeChanged;
 
@@ -126,12 +124,7 @@ namespace Hover.Core.Items {
 				return;
 			}
 
-			if ( ItemsManagerReference == null ) {
-				ItemsManagerReference = FindObjectOfType<HoverItemsManager>();
-			}
-
-			vItemsMan = (vItemsMan ?? ItemsManagerReference);
-
+			vItemsMan = (vItemsMan ?? HoverItemsManager.Instance);
 
 			if ( vItemsMan == null ) {
 				return;

@@ -51,7 +51,7 @@ namespace Hover.Core.Cursors {
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
 			if ( CursorDataProvider == null ) {
-				CursorDataProvider = FindObjectOfType<HoverCursorDataProvider>();
+				CursorDataProvider = HoverCursorDataProvider.Instance;
 			}
 		}
 

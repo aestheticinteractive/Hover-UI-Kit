@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Hover.Core.Items.Managers;
 using UnityEngine;
 
 namespace Hover.Core.Cursors {
@@ -44,7 +45,7 @@ namespace Hover.Core.Cursors {
 		public void Awake() {
 			if ( InteractionSettings == null ) {
 				InteractionSettings = (GetComponent<HoverInteractionSettings>() ??
-					FindObjectOfType<HoverInteractionSettings>());
+					HoverItemsManager.Instance.GetComponent<HoverInteractionSettings>());
 			}
 
 			if ( InteractionSettings == null ) {

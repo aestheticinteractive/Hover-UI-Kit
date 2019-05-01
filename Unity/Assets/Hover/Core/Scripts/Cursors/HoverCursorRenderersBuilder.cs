@@ -46,7 +46,7 @@ namespace Hover.Core.Cursors {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void PerformBuild() {
-			HoverCursorDataProvider cursorProv = FindObjectOfType<HoverCursorDataProvider>();
+			HoverCursorDataProvider cursorProv = HoverCursorDataProvider.Instance;
 
 			foreach ( ICursorData cursorData in cursorProv.Cursors ) {
 				if ( cursorData.Capability < MinimumCapabilityType ) {
