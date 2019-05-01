@@ -13,7 +13,7 @@ namespace Hover.Core.Items.Managers {
 
 		public HoverCursorDataProvider CursorDataProvider;
 
-		private List<HoverItemData> vItemDatas;
+		private List<HoverItem> vItems;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -27,18 +27,30 @@ namespace Hover.Core.Items.Managers {
 				throw new ArgumentNullException("CursorDataProvider");
 			}
 
-			vItemDatas = new List<HoverItemData>();
+			vItems = new List<HoverItem>();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			GetComponent<HoverItemsManager>().FillListWithActiveItemComponents(vItemDatas);
+			GetComponent<HoverItemsManager>().FillListWithMatchingItems(vItems, FilterItems);
 			ClearCursorLists();
 			FillCursorLists();
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private bool FilterItems(HoverItem pItem) {
+			HoverItemData data = pItem.Data;
+			IItemDataSelectable selData = (data as IItemDataSelectable);
+
+			if ( selData == null || !selData.IsStickySelected || !selData.AllowIdleDeselection ) {
+				return false;
+			}
+
+			return (pItem.GetComponent<HoverItemHighlightState>().NearestHighlight != null);
+		}
+
 		/*--------------------------------------------------------------------------------------------*/
 		private void ClearCursorLists() {
 			List<ICursorData> cursors = CursorDataProvider.Cursors;
@@ -51,20 +63,10 @@ namespace Hover.Core.Items.Managers {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		private void FillCursorLists() {
-			for ( int i = 0 ; i < vItemDatas.Count ; i++ ) {
-				HoverItemData data = vItemDatas[i];
-				IItemDataSelectable selData = (data as IItemDataSelectable);
-
-				if ( selData == null || !selData.IsStickySelected || !selData.AllowIdleDeselection ) {
-					continue;
-				}
-
+			for ( int i = 0 ; i < vItems.Count ; i++ ) {
+				HoverItemData data = vItems[i].Data;
+				IItemDataSelectable selData = (IItemDataSelectable)data;
 				HoverItemHighlightState highState = data.GetComponent<HoverItemHighlightState>();
-
-				if ( highState.NearestHighlight == null ) {
-					continue;
-				}
-
 				ICursorData cursorData = highState.NearestHighlight.Value.Cursor;
 
 				if ( cursorData.Idle.Progress >= 1 ) {

@@ -31,9 +31,6 @@ namespace Hover.Core.Items.Managers {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			HoverItemsManager itemsMan = GetComponent<HoverItemsManager>();
-			
-			itemsMan.FillListWithActiveItemComponents(vHighStates);
 			CalcNearestRaycastResults();
 		}
 		
@@ -43,9 +40,20 @@ namespace Hover.Core.Items.Managers {
 		private void CalcNearestRaycastResults() {
 			List<ICursorData> cursors = CursorDataProvider.Cursors;
 			int cursorCount = cursors.Count;
+			bool didFillList = false;
 			
 			for ( int i = 0 ; i < cursorCount ; i++ ) {
 				ICursorData cursor = cursors[i];
+
+				if ( !cursor.IsRaycast || !cursor.CanCauseSelections ) {
+					continue;
+				}
+
+				if ( !didFillList ) {
+					GetComponent<HoverItemsManager>().FillListWithActiveItemComponents(vHighStates);
+					didFillList = true;
+				}
+
 				cursor.BestRaycastResult = CalcNearestRaycastResult(cursor);
 
 				/*if ( cursor.BestRaycastResult != null ) {
@@ -58,10 +66,6 @@ namespace Hover.Core.Items.Managers {
 
 		/*--------------------------------------------------------------------------------------------*/
 		private RaycastResult? CalcNearestRaycastResult(ICursorData pCursor) {
-			if ( !pCursor.IsRaycast || !pCursor.CanCauseSelections ) {
-				return null;
-			}
-
 			float minHighSqrDist = float.MaxValue;
 			float minCastSqrDist = float.MaxValue;
 			var worldRay = new Ray(pCursor.WorldPosition,
