@@ -19,6 +19,8 @@ namespace Hover.Core.Items.Managers {
 		public ItemEvent OnItemRemoved;
 
 		private List<HoverItem> vItems;
+		private List<HoverItem> vItemsActive;
+		private bool vDidStart;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -29,7 +31,7 @@ namespace Hover.Core.Items.Managers {
 					InstanceRef = FindObjectOfType<HoverItemsManager>();
 				}
 
-				return InstanceRef;
+				return (InstanceRef?.vDidStart != true ? null : InstanceRef);
 			}
 		}
 
@@ -38,7 +40,20 @@ namespace Hover.Core.Items.Managers {
 		/*--------------------------------------------------------------------------------------------*/
 		public void Start() {
 			vItems = Resources.FindObjectsOfTypeAll<HoverItem>().ToList();
+			vItemsActive = new List<HoverItem>();
+
+			for ( int i = 0 ; i < vItems.Count ; i++ ) {
+				HoverItem item = vItems[i];
+
+				if ( !item.isActiveAndEnabled || !item.gameObject.activeInHierarchy ) {
+					continue;
+				}
+
+				vItemsActive.Add(item);
+			}
+
 			OnItemListInitialized.Invoke();
+			vDidStart = true;
 		}
 
 		
@@ -72,6 +87,28 @@ namespace Hover.Core.Items.Managers {
 			OnItemRemoved.Invoke(pItem);
 		}
 
+		/*--------------------------------------------------------------------------------------------*/
+		public void SetItemActiveState(HoverItem pItem, bool pIsActive) {
+			if ( vItemsActive == null ) {
+				return;
+			}
+
+			bool wasActive = vItemsActive.Contains(pItem);
+
+			if ( pIsActive == wasActive ) {
+				return;
+			}
+
+			if ( pIsActive ) {
+				vItemsActive.Add(pItem);
+			}
+			else {
+				vItemsActive.Remove(pItem);
+			}
+
+			Debug.Log(Time.frameCount+" | SetItemActiveState: "+pIsActive+" / "+vItemsActive.Count);
+		}
+
 		/*--------------------------------------------------------------------------------------------* /
 		public void RemoveDestroyedItems() {
 			if ( vItems == null ) {
@@ -92,54 +129,60 @@ namespace Hover.Core.Items.Managers {
 		/*--------------------------------------------------------------------------------------------*/
 		public void FillListWithActiveItemComponents<T>(IList<T> pComponents) where T : Component {
 			pComponents.Clear();
-			
-			if ( vItems == null ) {
+
+			if ( vItemsActive == null ) {
 				return;
 			}
 
-			for ( int i = 0 ; i < vItems.Count ; i++ ) {
-				HoverItem item = vItems[i];
+			int itemCount = vItemsActive.Count;
+
+			for ( int i = 0 ; i < itemCount ; i++ ) {
+				HoverItem item = vItemsActive[i];
 
 				if ( item == null ) {
 					continue;
 				}
 
-				if ( !item.gameObject.activeInHierarchy ) {
-					continue;
-				}
-
-				T comp = vItems[i].GetComponent<T>();
+				T comp = item.GetComponent<T>();
 				
-				if ( comp != null  ) {
+				if ( comp != null ) {
 					pComponents.Add(comp);
 				}
 			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void FillListWithAllItems(IList<HoverItem> pItems) {
+		public void FillListWithAllItems(IList<HoverItem> pItems, bool pActiveOnly) {
 			pItems.Clear();
-			
-			if ( vItems == null ) {
+
+			List<HoverItem> items = (pActiveOnly ? vItemsActive : vItems);
+
+			if ( items == null ) {
 				return;
 			}
 
-			for ( int i = 0 ; i < vItems.Count ; i++ ) {
-				pItems.Add(vItems[i]);
+			int itemCount = vItemsActive.Count;
+
+			for ( int i = 0 ; i < itemCount ; i++ ) {
+				pItems.Add(items[i]);
 			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void FillListWithMatchingItems(IList<HoverItem> pMatches, 
+		public void FillListWithMatchingItems(IList<HoverItem> pMatches, bool pActiveOnly,
 																Func<HoverItem, bool> pFilterFunc) {
 			pMatches.Clear();
-			
-			if ( vItems == null ) {
+
+			List<HoverItem> items = (pActiveOnly ? vItemsActive : vItems);
+
+			if ( items == null ) {
 				return;
 			}
 
-			for ( int i = 0 ; i < vItems.Count ; i++ ) {
-				HoverItem item = vItems[i];
+			int itemCount = vItemsActive.Count;
+
+			for ( int i = 0 ; i < itemCount ; i++ ) {
+				HoverItem item = items[i];
 				
 				if ( pFilterFunc(item) ) {
 					pMatches.Add(item);

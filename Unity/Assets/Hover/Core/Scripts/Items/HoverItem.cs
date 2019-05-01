@@ -6,7 +6,7 @@ using Hover.Core.Utils;
 using UnityEngine;
 
 namespace Hover.Core.Items {
-	
+
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
@@ -31,7 +31,6 @@ namespace Hover.Core.Items {
 		private HoverItemData _Data;
 
 		private readonly List<HoverItemData> vDataComponentBuffer;
-		private HoverItemsManager vItemsMan;
 		private HoverItemType vPrevItemType;
 
 
@@ -62,6 +61,16 @@ namespace Hover.Core.Items {
 			
 			_Data.IsVisible = gameObject.activeSelf;
 			_Data.IsAncestryVisible = gameObject.activeInHierarchy;
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void OnEnable() {
+			HoverItemsManager.Instance?.SetItemActiveState(this, true);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void OnDisable() {
+			HoverItemsManager.Instance?.SetItemActiveState(this, false);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -124,17 +133,17 @@ namespace Hover.Core.Items {
 				return;
 			}
 
-			vItemsMan = (vItemsMan ?? HoverItemsManager.Instance);
+			HoverItemsManager itemsMan = HoverItemsManager.Instance;
 
-			if ( vItemsMan == null ) {
+			if ( itemsMan == null ) {
 				return;
 			}
 
 			if ( pAdd ) {
-				vItemsMan.AddItem(this);
+				itemsMan.AddItem(this);
 			}
 			else {
-				vItemsMan.RemoveItem(this);
+				itemsMan.RemoveItem(this);
 			}
 		}
 

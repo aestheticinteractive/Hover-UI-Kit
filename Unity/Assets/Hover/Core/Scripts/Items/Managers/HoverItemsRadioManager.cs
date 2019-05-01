@@ -30,7 +30,7 @@ namespace Hover.Core.Items.Managers {
 		private void AddAllItemListeners() {
 			HoverItemsManager itemsMan = GetComponent<HoverItemsManager>();
 
-			itemsMan.FillListWithAllItems(vItemsBuffer);
+			itemsMan.FillListWithAllItems(vItemsBuffer, false);
 
 			for ( int i = 0 ; i < vItemsBuffer.Count ; i++ ) {
 				AddItemListeners(vItemsBuffer[i]);
@@ -92,7 +92,7 @@ namespace Hover.Core.Items.Managers {
 				return (match != null && match != pRadioData && match.GroupId == groupId);
 			});
 
-			itemsMan.FillListWithMatchingItems(vItemsBuffer, filter);
+			itemsMan.FillListWithMatchingItems(vItemsBuffer, false, filter);
 
 			for ( int i = 0 ; i < vItemsBuffer.Count ; i++ ) {
 				((IItemDataRadio)vItemsBuffer[i].Data).Value = false;
