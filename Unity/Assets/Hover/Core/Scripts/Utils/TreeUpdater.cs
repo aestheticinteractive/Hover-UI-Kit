@@ -32,14 +32,14 @@ namespace Hover.Core.Utils {
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
 			ReloadTreeChildrenOnUpdate = true;
-			HandleTreeUpdatableChanged();
+			HandleTreeUpdatableChanged(true);
 			FindTreeUpdatablesAndChildren();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void OnEnable() {
 			ReloadTreeChildrenOnUpdate = true;
-			HandleTreeUpdatableChanged();
+			HandleTreeUpdatableChanged(true);
 			FindTreeUpdatablesAndChildren();
 		}
 
@@ -91,13 +91,13 @@ namespace Hover.Core.Utils {
 																			where T : MonoBehaviour {
 			//Debug.Log("TreeUpdater.SendTreeUpdatableChanged: "+pSource.GetType().Name+" / "+pNote);
 			//pSource.SendMessage("HandleTreeUpdatableChanged", SendMessageOptions.RequireReceiver);
-			pSource.GetComponent<TreeUpdater>().HandleTreeUpdatableChanged();
+			pSource.GetComponent<TreeUpdater>().HandleTreeUpdatableChanged(true);
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void HandleTreeUpdatableChanged() {
+		private void HandleTreeUpdatableChanged(bool pSendDownward) {
 			if ( vTreeUpdatablesRequireUpdateThisFrame ) {
 				return;
 			}
@@ -105,27 +105,19 @@ namespace Hover.Core.Utils {
 			//Debug.Log(Time.frameCount+" | HandleTreeUpdatableChanged: "+name+" / "+
 			//	TreeChildrenThisFrame.Count, this);
 
-			Profiler.BeginSample("Changed");
-			Profiler.BeginSample("A");
 			vTreeUpdatablesRequireUpdateThisFrame = true;
 			CheckForParent();
-			Profiler.EndSample();
-			Profiler.BeginSample("B");
-			TreeParentThisFrame?.HandleTreeUpdatableChanged();
-			Profiler.EndSample();
+			TreeParentThisFrame?.HandleTreeUpdatableChanged(false);
 
-			Profiler.BeginSample("C");
-			for ( int i = 0 ; i < TreeChildrenThisFrame.Count ; i++ ) {
+			for ( int i = 0 ; pSendDownward && i < TreeChildrenThisFrame.Count ; i++ ) {
 				TreeUpdater childTreeUp = TreeChildrenThisFrame[i];
 
 				if ( childTreeUp?.gameObject.activeSelf != true ) {
 					continue;
 				}
 
-				childTreeUp.HandleTreeUpdatableChanged();
+				childTreeUp.HandleTreeUpdatableChanged(true);
 			}
-			Profiler.EndSample();
-			Profiler.EndSample();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -154,14 +146,15 @@ namespace Hover.Core.Utils {
 			}
 
 			if ( ReloadTreeChildrenOnUpdate ) {
-				//Profiler.BeginSample("FTUaC");
 				FindTreeUpdatablesAndChildren();
 				ReloadTreeChildrenOnUpdate = false;
-				//Profiler.EndSample();
 			}
 
 			SendTreeUpdates(pDepth);
 			DescendTree(pDepth);
+
+			vTreeUpdatablesRequireUpdateThisFrame = false;
+			//Debug.DrawLine(transform.position, transform.position+Vector3.forward*0.1f, Color.red);
 		}
 
 
@@ -212,12 +205,10 @@ namespace Hover.Core.Utils {
 					continue;
 				}
 
-				Profiler.BeginSample(treeUp.GetType().Name);
+				Profiler.BeginSample(treeUp.GetType().Name, treeUp.gameObject);
 				treeUp.TreeUpdate();
 				Profiler.EndSample();
 			}
-
-			vTreeUpdatablesRequireUpdateThisFrame = false;
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
@@ -225,10 +216,6 @@ namespace Hover.Core.Utils {
 			if ( vIsDestroyed ) {
 				return;
 			}
-
-			/*if ( TreeChildrenThisFrame.Count == 0 ) {
-				FindTreeUpdatablesAndChildren();
-			}*/
 
 			int childCount = TreeChildrenThisFrame.Count;
 			int childDepth = pDepth+1;
