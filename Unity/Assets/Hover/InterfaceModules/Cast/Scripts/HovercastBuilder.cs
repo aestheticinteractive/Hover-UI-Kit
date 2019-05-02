@@ -146,7 +146,7 @@ namespace Hover.InterfaceModules.Cast {
 			}
 
 			follow.Update(); //moves interface to the correct cursor transform
-			treeUp.Update(); //forces entire interface to update
+			treeUp.UpdateAtAndBelowThisLevel();
 		}
 
 

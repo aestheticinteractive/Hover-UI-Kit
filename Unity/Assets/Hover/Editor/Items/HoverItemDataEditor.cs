@@ -173,8 +173,6 @@ namespace Hover.Editor.Items {
 			HoverItemDataSelectable selectableData = (vData as HoverItemDataSelectable);
 
 			EditorGUILayout.IntField("Auto ID", vData.AutoId);
-			EditorGUILayout.Toggle("Is Ancestry Enabled", vData.IsAncestryEnabled);
-			EditorGUILayout.Toggle("Is Ancestry Visible", vData.IsAncestryVisible);
 
 			if ( selectableData == null ) {
 				return;

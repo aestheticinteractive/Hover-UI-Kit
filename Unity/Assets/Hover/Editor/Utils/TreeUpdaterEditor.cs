@@ -25,7 +25,7 @@ namespace Hover.Editor.Utils {
 			GUI.enabled = false;
 			
 			EditorGUILayout.ObjectField("Parent", targ.TreeParentThisFrame, typeof(TreeUpdater), true);
-			EditorGUILayout.IntField("Depth Level", targ.TreeDepthLevelThisFrame);
+			//EditorGUILayout.IntField("Depth Level", targ.TreeDepthLevelThisFrame);
 			
 			vShowUpdatables = EditorGUILayout.Foldout(
 				vShowUpdatables, "Updatable Components ("+upsCount+")");
@@ -38,10 +38,10 @@ namespace Hover.Editor.Utils {
 			vShowChildren = EditorGUILayout.Foldout(
 				vShowChildren, "Children ("+childCount+")");
 			
-			for ( int i = 0 ; vShowChildren && i < childCount ; i++ ) {
+			/*for ( int i = 0 ; vShowChildren && i < childCount ; i++ ) {
 				EditorGUILayout.ObjectField("    Child "+i, 
 					targ.TreeChildrenThisFrame[i], typeof(TreeUpdater), true);
-			}
+			}*/
 			
 			GUI.enabled = true;
 		}

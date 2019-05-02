@@ -1,4 +1,5 @@
 ﻿using System;
+using Hover.Core.Utils;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,7 +11,7 @@ namespace Hover.Core.Items.Types {
 												HoverItemDataSelectable, IItemDataSelectable<float> {
 		
 		[Serializable]
-		public class FloatValueChangedEventHandler : UnityEvent<IItemDataSelectable<float>> { }
+		public class FloatValueChangedEventHandler : UnityEvent<IItemDataSelectable<float>> {}
 
 		public FloatValueChangedEventHandler OnValueChangedEvent = new FloatValueChangedEventHandler();
 
@@ -39,6 +40,7 @@ namespace Hover.Core.Items.Types {
 				}
 
 				_Value = value;
+				TreeUpdater.SendTreeUpdatableChanged(this, "Value");
 				OnValueChanged(this);
 			}
 		}

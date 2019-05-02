@@ -51,7 +51,7 @@ namespace Hover.Core.Items.Types {
 						s.SnappedRangeValue == vPrevSnappedRangeValue ) {
 					return vPrevValueToLabel;
 				}
-				
+
 				vPrevLabel = s.Label;
 				vPrevLabelFormat = s.LabelFormat;
 				vPrevSnappedRangeValue = s.SnappedRangeValue;
@@ -65,44 +65,44 @@ namespace Hover.Core.Items.Types {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public string LabelFormat {
-			get { return _LabelFormat; }
-			set { _LabelFormat = value; }
+			get => _LabelFormat;
+			set => this.UpdateValueWithTreeMessage(ref _LabelFormat, value, "LabelFormat");
 		}
-		
+
 		/*--------------------------------------------------------------------------------------------*/
 		public int Ticks {
-			get { return _Ticks; }
-			set { _Ticks = value; }
+			get => _Ticks;
+			set => this.UpdateValueWithTreeMessage(ref _Ticks, value, "Ticks");
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public int Snaps {
-			get { return _Snaps; }
-			set { _Snaps = value; }
+			get => _Snaps;
+			set => this.UpdateValueWithTreeMessage(ref _Snaps, value, "Snaps");
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public float RangeMin {
-			get { return _RangeMin; }
-			set { _RangeMin = value; }
+			get => _RangeMin;
+			set => this.UpdateValueWithTreeMessage(ref _RangeMin, value, "RangeMin");
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public float RangeMax {
-			get { return _RangeMax; }
-			set { _RangeMax = value; }
+			get => _RangeMax;
+			set => this.UpdateValueWithTreeMessage(ref _RangeMax, value, "RangeMax");
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public bool AllowJump {
-			get { return _AllowJump; }
-			set { _AllowJump = value; }
+			get => _AllowJump;
+			set => this.UpdateValueWithTreeMessage(ref _AllowJump, value, "AllowJump");
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public SliderFillType FillStartingPoint {
-			get { return _FillStartingPoint; }
-			set { _FillStartingPoint = value; }
+			get => _FillStartingPoint;
+			set => this.UpdateValueWithTreeMessage(ref _FillStartingPoint, value, "FillStartingPoint");
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
@@ -113,18 +113,15 @@ namespace Hover.Core.Items.Types {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public override bool AllowIdleDeselection {
-			get { return _AllowIdleDeselection; }
-			set { _AllowIdleDeselection = value; }
+			get => _AllowIdleDeselection;
+			set => this.UpdateValueWithTreeMessage(
+				ref _AllowIdleDeselection, value, "AllowIdleDeselection");
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public override float Value {
-			get {
-				return base.Value;
-			}
-			set {
-				base.Value = Math.Max(0, Math.Min(1, value));
-			}
+			get => base.Value;
+			set => base.Value = Mathf.Clamp01(value);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -136,37 +133,30 @@ namespace Hover.Core.Items.Types {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public float RangeValue {
-			get {
-				return Value*(RangeMax-RangeMin)+RangeMin;
-			}
+			get => Value*(RangeMax-RangeMin)+RangeMin;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public float SnappedValue {
-			get {
-				return CalcSnappedValue(Value);
-			}
+			get => CalcSnappedValue(Value);
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public float SnappedRangeValue {
-			get {
-				return SnappedValue*(RangeMax-RangeMin)+RangeMin;
-			}
+			get => SnappedValue*(RangeMax-RangeMin)+RangeMin;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public float? HoverValue {
-			get {
-				return vHoverValue;
-			}
+			get => vHoverValue;
 			set {
-				if ( value == null ) {
-					vHoverValue = null;
-					return;
+				float? newHoverValue = null;
+
+				if ( value != null ) {
+					newHoverValue = Mathf.Clamp01((float)value);
 				}
 
-				vHoverValue = Math.Max(0, Math.Min(1, (float)value));
+				this.UpdateValueWithTreeMessage(ref vHoverValue, newHoverValue, "HoverValue");
 			}
 		}
 

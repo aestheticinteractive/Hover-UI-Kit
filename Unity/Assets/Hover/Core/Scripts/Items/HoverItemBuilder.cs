@@ -61,7 +61,7 @@ namespace Hover.Core.Items {
 			rendUp.SliderRendererPrefab = SliderRendererPrefab;
 			highState.ProximityProvider = rendUp;
 
-			treeUp.Update(); //forces the entire item to update
+			treeUp.UpdateAtAndBelowThisLevel();
 		}
 
 	}

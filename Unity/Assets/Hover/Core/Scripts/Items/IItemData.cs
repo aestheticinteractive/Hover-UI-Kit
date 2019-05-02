@@ -14,9 +14,7 @@ namespace Hover.Core.Items {
 		string Label { get; }
 
 		bool IsEnabled { get; }
-		bool IsVisible { get; }
-		bool IsAncestryEnabled { get; set; }
-		bool IsAncestryVisible { get; set; }
+		object Custom { get; set; }
 
 	}
 

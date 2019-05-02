@@ -47,7 +47,7 @@ namespace HoverDemos.Common {
 
 			pinL.SetWorldRotation(Quaternion.Euler(0, 160, 80)); //face the camera (for editor)
 			castFollow.Update(); //moves interface to the correct cursor transform
-			cast.GetComponent<TreeUpdater>().Update(); //forces entire interface to update
+			cast.GetComponent<TreeUpdater>().UpdateAtAndBelowThisLevel();
 		}
 
 	}

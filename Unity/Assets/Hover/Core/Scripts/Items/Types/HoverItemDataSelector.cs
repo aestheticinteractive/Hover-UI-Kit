@@ -1,4 +1,5 @@
 ﻿using System;
+using Hover.Core.Utils;
 using UnityEngine;
 
 namespace Hover.Core.Items.Types {
@@ -14,8 +15,8 @@ namespace Hover.Core.Items.Types {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public SelectorActionType Action {
-			get { return _Action; }
-			set { _Action = value; }
+			get => _Action;
+			set => this.UpdateValueWithTreeMessage(ref _Action, value, "Action");
 		}
 
 	}

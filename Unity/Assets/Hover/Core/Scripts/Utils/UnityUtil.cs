@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Hover.Core.Items.Managers;
+using UnityEngine;
 
 namespace Hover.Core.Utils {
 
@@ -19,11 +20,25 @@ namespace Hover.Core.Utils {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public static GameObject FindOrAddHoverKitPrefab() {
-			GameObject hoverKitGo = GameObject.Find("HoverKit");
+		public static bool UpdateValueWithTreeMessage<TB, TV>(this TB pSource, ref TV pOld, TV pNew,
+																string pNote) where TB : MonoBehaviour {
+			if ( pNew.Equals(pOld) ) {
+				return false;
+			}
 
-			if ( hoverKitGo != null ) {
-				return hoverKitGo;
+			pOld = pNew;
+			TreeUpdater.SendTreeUpdatableChanged(pSource, pNote);
+			return true;
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public static GameObject FindOrAddHoverKitPrefab() {
+			HoverItemsManager itemsMan = HoverItemsManager.Instance;
+
+			if ( itemsMan != null ) {
+				return itemsMan.gameObject;
 			}
 
 			GameObject managerPrefab = Resources.Load<GameObject>("Prefabs/HoverKit");
@@ -53,6 +68,7 @@ namespace Hover.Core.Utils {
 			if ( parent != null ) {
 				return parent;
 			}
+
 			return Object.FindObjectOfType<T>();
 		}
 

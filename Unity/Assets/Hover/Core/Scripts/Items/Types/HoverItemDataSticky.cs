@@ -1,4 +1,5 @@
 ﻿using System;
+using Hover.Core.Utils;
 using UnityEngine;
 
 namespace Hover.Core.Items.Types {
@@ -19,8 +20,9 @@ namespace Hover.Core.Items.Types {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public override bool AllowIdleDeselection {
-			get { return _AllowIdleDeselection; }
-			set { _AllowIdleDeselection = value; }
+			get => _AllowIdleDeselection;
+			set => this.UpdateValueWithTreeMessage(
+				ref _AllowIdleDeselection, value, "AllowIdleDeselection");
 		}
 
 	}

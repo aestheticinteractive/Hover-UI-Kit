@@ -79,7 +79,7 @@ namespace Hover.Core.Cursors {
 			}
 
 			follow.Update(); //moves interface to the correct cursor transform
-			treeUp.Update(); //force renderer creation
+			treeUp.UpdateAtAndBelowThisLevel(); //force renderer creation
 		}
 
 	}

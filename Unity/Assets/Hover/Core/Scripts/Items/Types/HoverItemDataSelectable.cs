@@ -1,4 +1,5 @@
 ﻿using System;
+using Hover.Core.Utils;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -44,14 +45,13 @@ namespace Hover.Core.Items.Types {
 			}
 
 			IsStickySelected = false;
+			TreeUpdater.SendTreeUpdatableChanged(this, "IsStickySelected");
 			OnDeselected(this);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual bool IgnoreSelection {
-			get {
-				return false;
-			}
+			get => false;
 		}
 
 

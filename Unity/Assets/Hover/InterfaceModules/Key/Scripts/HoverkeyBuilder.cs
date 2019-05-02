@@ -61,7 +61,7 @@ namespace Hover.InterfaceModules.Key {
 			BuildNumpad();
 
 			TreeUpdater treeUp = gameObject.AddComponent<TreeUpdater>();
-			treeUp.Update(); //force entire interface update 
+			treeUp.UpdateAtAndBelowThisLevel();
 			DestroyImmediate(treeUp, false); //remove the updater
 		}
 

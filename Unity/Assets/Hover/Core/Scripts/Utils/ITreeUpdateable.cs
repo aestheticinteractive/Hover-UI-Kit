@@ -1,15 +1,17 @@
-﻿namespace Hover.Core.Utils {
+﻿using UnityEngine;
+
+namespace Hover.Core.Utils {
 
 	/*================================================================================================*/
 	public interface ITreeUpdateable {
 	
-		bool isActiveAndEnabled { get; }
-		
+		GameObject gameObject { get; }
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		void Start(); //forces Unity to show the "component enabled" checkbox in the inspector
-		
+
 		/*--------------------------------------------------------------------------------------------*/
 		void TreeUpdate();
 

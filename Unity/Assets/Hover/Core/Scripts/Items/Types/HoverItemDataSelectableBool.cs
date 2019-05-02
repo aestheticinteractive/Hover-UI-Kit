@@ -1,4 +1,5 @@
 ﻿using System;
+using Hover.Core.Utils;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -39,6 +40,7 @@ namespace Hover.Core.Items.Types {
 				}
 
 				_Value = value;
+				TreeUpdater.SendTreeUpdatableChanged(this, "Value");
 				OnValueChanged(this);
 			}
 		}

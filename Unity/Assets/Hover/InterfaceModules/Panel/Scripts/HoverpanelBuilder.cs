@@ -93,7 +93,7 @@ namespace Hover.InterfaceModules.Panel {
 			gameObject.AddComponent<HoverpanelActiveDirection>();
 			gameObject.AddComponent<HoverpanelAlphaUpdater>();
 			
-			treeUp.Update(); //forces entire interface to update
+			treeUp.UpdateAtAndBelowThisLevel();
 		}
 
 

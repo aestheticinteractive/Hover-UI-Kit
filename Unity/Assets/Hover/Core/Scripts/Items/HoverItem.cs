@@ -10,7 +10,7 @@ namespace Hover.Core.Items {
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
-	public class HoverItem : MonoBehaviour, ITreeUpdateable {
+	public class HoverItem : TreeUpdateableBehavior {
 
 		public enum HoverItemType {
 			Selector = 1,
@@ -49,27 +49,21 @@ namespace Hover.Core.Items {
 			BuildDataIfNeeded();
 			UpdateItemsManager(true);
 		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
-			//do nothing...
-		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void TreeUpdate() {
+		public override void TreeUpdate() {
 			UpdateWithLatestItemTypeIfNeeded();
-			
-			_Data.IsVisible = gameObject.activeSelf;
-			_Data.IsAncestryVisible = gameObject.activeInHierarchy;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void OnEnable() {
+		public override void OnEnable() {
+			base.OnEnable();
 			HoverItemsManager.Instance?.SetItemActiveState(this, true);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void OnDisable() {
+		public override void OnDisable() {
+			base.OnDisable();
 			HoverItemsManager.Instance?.SetItemActiveState(this, false);
 		}
 
@@ -82,13 +76,13 @@ namespace Hover.Core.Items {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public HoverItemType ItemType {
-			get { return _ItemType; }
-			set { _ItemType = value; }
+			get => _ItemType;
+			set => this.UpdateValueWithTreeMessage(ref _ItemType, value, "ItemType");
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public HoverItemData Data {
-			get { return _Data; }
+			get => _Data;
 		}
 		
 
@@ -165,27 +159,24 @@ namespace Hover.Core.Items {
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		private HoverItemData TransferData(HoverItemData pDataToFill) {
+		private void TransferData(HoverItemData pDataToFill) {
 			HoverItemData oldData = _Data;
 			HoverItemData newData = pDataToFill;
 
 			if ( oldData == null ) {
-				return newData;
+				return;
 			}
 
 			newData.AutoId = oldData.AutoId;
-			newData.IsAncestryEnabled = oldData.IsAncestryEnabled;
-			newData.IsAncestryVisible = oldData.IsAncestryVisible;
 			newData.Id = oldData.Id;
 			newData.Label = oldData.Label;
 			newData.IsEnabled = oldData.IsEnabled;
-			newData.IsVisible = oldData.IsVisible;
 
 			HoverItemDataSelectable oldSelData = (oldData as HoverItemDataSelectable);
 			HoverItemDataSelectable newSelData = (newData as HoverItemDataSelectable);
 
 			if ( oldSelData == null || newSelData == null ) {
-				return newData;
+				return;
 			}
 
 			newSelData.OnSelectedEvent = oldSelData.OnSelectedEvent;
@@ -210,8 +201,6 @@ namespace Hover.Core.Items {
 				newSelFloatData.OnValueChangedEvent = oldSelFloatData.OnValueChangedEvent;
 				//newSelFloatData.OnValueChanged += oldSelFloatData.OnValueChanged;
 			}
-
-			return newData;
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
@@ -278,7 +267,7 @@ namespace Hover.Core.Items {
 				HoverItem hni = tx.GetChild(i).GetComponent<HoverItem>();
 				IItemData item = hni.Data;
 
-				if ( !item.IsVisible ) {
+				if ( !item.gameObject.activeSelf ) {
 					continue;
 				}
 

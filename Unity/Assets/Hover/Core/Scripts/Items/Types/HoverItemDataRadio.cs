@@ -1,4 +1,5 @@
 ﻿using System;
+using Hover.Core.Utils;
 using UnityEngine;
 
 namespace Hover.Core.Items.Types {
@@ -36,17 +37,13 @@ namespace Hover.Core.Items.Types {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public string DefaultGroupId {
-			get { return _DefaultGroupId; }
+			get => _DefaultGroupId;
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
 		public string GroupId {
-			get {
-				return (string.IsNullOrEmpty(_GroupId) ? _DefaultGroupId : _GroupId);
-			}
-			set {
-				_GroupId = value;
-			}
+			get => (string.IsNullOrEmpty(_GroupId) ? _DefaultGroupId : _GroupId);
+			set => this.UpdateValueWithTreeMessage(ref _GroupId, value, "GroupId");
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -58,9 +55,7 @@ namespace Hover.Core.Items.Types {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public override bool IgnoreSelection {
-			get {
-				return (Value || base.IgnoreSelection);
-			}
+			get => (Value || base.IgnoreSelection);
 		}
 
 	}

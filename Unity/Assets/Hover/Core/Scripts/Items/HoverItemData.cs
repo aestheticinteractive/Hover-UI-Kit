@@ -1,4 +1,5 @@
 ﻿using System;
+using Hover.Core.Utils;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -13,9 +14,7 @@ namespace Hover.Core.Items {
 		public class EnabledChangedEventHandler : UnityEvent<IItemData> {}
 
 		public int AutoId { get; internal set; }
-		public bool IsVisible { get; set; }
-		public bool IsAncestryEnabled { get; set; } //TODO: move setter to an "internal" interface
-		public bool IsAncestryVisible { get; set; } //TODO: move setter to an "internal" interface
+		public object Custom { get; set; }
 
 		public EnabledChangedEventHandler OnEnabledChangedEvent = new EnabledChangedEventHandler();
 
@@ -35,9 +34,7 @@ namespace Hover.Core.Items {
 		/*--------------------------------------------------------------------------------------------*/
 		protected HoverItemData() {
 			AutoId = ++ItemCount;
-			Id = "Item-"+AutoId;
-			IsAncestryEnabled = true;
-			IsAncestryVisible = true;
+			_Id = "Item-"+AutoId;
 			OnEnabledChanged += (x => { OnEnabledChangedEvent.Invoke(x); });
 		}
 
@@ -45,14 +42,14 @@ namespace Hover.Core.Items {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public string Id {
-			get { return _Id; }
-			set { _Id = value; }
+			get => _Id;
+			set => this.UpdateValueWithTreeMessage(ref _Id, value, "Id");
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual string Label {
-			get { return _Label; }
-			set { _Label = value; }
+			get => _Label;
+			set => this.UpdateValueWithTreeMessage(ref _Label, value, "Label");
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -61,25 +58,17 @@ namespace Hover.Core.Items {
 				return _IsEnabled;
 			}
 			set {
-				if ( _IsEnabled == value ) {
-					return;
+				if ( this.UpdateValueWithTreeMessage(ref _IsEnabled, value, "IsEnabled") ) {
+					OnEnabledChanged(this);
 				}
-
-				_IsEnabled = value;
-				OnEnabledChanged(this);
 			}
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void OnEnable() {
-			OnEnabledChanged(this); //TODO: keep this?
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public void OnDisable() {
-			OnEnabledChanged(this); //TODO: keep this?
+		public void OnValidate() {
+			TreeUpdater.SendTreeUpdatableChanged(this, "OnValidate");
 		}
 
 	}
