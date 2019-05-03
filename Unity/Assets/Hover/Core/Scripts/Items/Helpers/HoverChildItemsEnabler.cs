@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.Core.Items.Helpers {
 
@@ -10,6 +11,7 @@ namespace Hover.Core.Items.Helpers {
 	[RequireComponent(typeof(HoverChildItemsFinder))]
 	public class HoverChildItemsEnabler : TreeUpdateableBehavior {
 
+		[FormerlySerializedAs("AreItemsEnabled")]
 		public bool _AreItemsEnabled = true;
 		
 

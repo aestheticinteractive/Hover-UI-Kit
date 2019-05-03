@@ -14,7 +14,7 @@ namespace Hover.Core.Items.Managers {
 		public float SelectionProgress { get; private set; }
 		public bool IsSelectionPrevented { get; private set; }
 		public bool WasSelectedThisFrame { get; private set; }
-		
+
 		private DateTime? vSelectionStart;
 		private float vDistanceUponSelection;
 
@@ -37,7 +37,10 @@ namespace Hover.Core.Items.Managers {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void ReleaseSelectionPrevention() {
-			IsSelectionPrevented = false;
+			if ( IsSelectionPrevented ) {
+				IsSelectionPrevented = false;
+				TreeUpdater.SendTreeUpdatableChanged(this, "ReleaseSelectionPrevent");
+			}
 		}
 
 
@@ -47,12 +50,12 @@ namespace Hover.Core.Items.Managers {
 			if ( !GetComponent<HoverItemHighlightState>().IsHighlightPrevented ) {
 				return;
 			}
-			
+
 			HoverItemData itemData = GetComponent<HoverItem>().Data;
 			IItemDataSelectable selData = (itemData as IItemDataSelectable);
-			
+
 			vSelectionStart = null;
-			
+
 			if ( selData != null ) {
 				selData.DeselectStickySelections();
 			}
@@ -70,7 +73,7 @@ namespace Hover.Core.Items.Managers {
 					SelectionProgress = 0;
 					return;
 				}
-					
+
 				HoverItemHighlightState.Highlight? nearestHigh = highState.NearestHighlight;
 				float nearDist = highState.InteractionSettings.StickyReleaseDistance;
 				float minHighDist = (nearestHigh == null ? float.MaxValue : nearestHigh.Value.Distance);
@@ -78,7 +81,7 @@ namespace Hover.Core.Items.Managers {
 				SelectionProgress = Mathf.InverseLerp(nearDist, vDistanceUponSelection, minHighDist);
 				return;
 			}
-				
+
 			float ms = (float)(DateTime.UtcNow-(DateTime)vSelectionStart).TotalMilliseconds;
 			SelectionProgress = Math.Min(1, ms/highState.InteractionSettings.SelectionMilliseconds);
 		}
@@ -150,7 +153,7 @@ namespace Hover.Core.Items.Managers {
 			selData.Select();
 			return true;
 		}
-		
+
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateNearestCursor() {
 			HoverItemHighlightState highState = GetComponent<HoverItemHighlightState>();

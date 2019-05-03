@@ -50,11 +50,13 @@ namespace Hover.Core.Renderers.Shapes.Rect {
 			}
 
 			if ( fillButton.Edge != null ) {
-				HoverIndicator meshInd = fillButton.Edge.GetComponent<HoverIndicator>();
-				float minSize = Mathf.Min(shapeRect.SizeX, shapeRect.SizeY);
+				if ( fillButton.ShowEdge ) {
+					HoverIndicator meshInd = fillButton.Edge.GetComponent<HoverIndicator>();
+					float minSize = Mathf.Min(shapeRect.SizeX, shapeRect.SizeY);
 
-				meshInd.Controllers.Set(HoverIndicator.HighlightProgressName, this);
-				meshInd.HighlightProgress = 1-totalEdgeThick/minSize; //TODO:  hack/workaround
+					meshInd.Controllers.Set(HoverIndicator.HighlightProgressName, this);
+					meshInd.HighlightProgress = 1-totalEdgeThick/minSize; //TODO:  hack/workaround
+				}
 
 				UpdateMeshShape(fillButton.Edge, 
 					shapeRect.SizeX, shapeRect.SizeY, fillButton.ShowEdge);

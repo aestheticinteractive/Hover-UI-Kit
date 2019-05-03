@@ -3,6 +3,7 @@ using Hover.Core.Renderers.Cursors;
 using Hover.Core.Renderers.Utils;
 using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.Core.Cursors {
 
@@ -10,10 +11,13 @@ namespace Hover.Core.Cursors {
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
 	[RequireComponent(typeof(HoverCursorFollower))]
-	public class HoverCursorRendererUpdater : MonoBehaviour, ITreeUpdateable, ISettingsController {
+	public class HoverCursorRendererUpdater : TreeUpdateableBehavior, ISettingsController {
 
-		public GameObject CursorRendererPrefab;
-		protected HoverRendererCursor CursorRenderer;
+		[FormerlySerializedAs("CursorRendererPrefab")]
+		public GameObject _CursorRendererPrefab;
+
+		[FormerlySerializedAs("CursorRenderer")]
+		protected HoverRendererCursor _CursorRenderer;
 
 		[TriggerButton("Rebuild Cursor Renderer")]
 		public bool ClickToRebuildRenderer;
@@ -23,17 +27,26 @@ namespace Hover.Core.Cursors {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
+		public HoverRendererCursor CursorRenderer {
+			get => _CursorRenderer;
+			set => this.UpdateValueWithTreeMessage(ref _CursorRenderer, value, "CursorRend");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public GameObject CursorRendererPrefab {
+			get => _CursorRendererPrefab;
+			set => this.UpdateValueWithTreeMessage(ref _CursorRendererPrefab, value, "CursorRendPref");
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
 			vPrevCursorPrefab = CursorRendererPrefab;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Start() {
-			//do nothing...
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public virtual void TreeUpdate() {
+		public override void TreeUpdate() {
 			DestroyRendererIfNecessary();
 			CursorRenderer = (CursorRenderer ?? FindOrBuildCursor());
 			UpdateRenderer(gameObject.GetComponent<HoverCursorFollower>());

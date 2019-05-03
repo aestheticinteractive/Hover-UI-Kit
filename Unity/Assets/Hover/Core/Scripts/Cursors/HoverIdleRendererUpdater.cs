@@ -2,6 +2,7 @@ using Hover.Core.Renderers.Cursors;
 using Hover.Core.Renderers.Utils;
 using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.Core.Cursors {
 
@@ -9,10 +10,13 @@ namespace Hover.Core.Cursors {
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
 	[RequireComponent(typeof(HoverCursorFollower))]
-	public class HoverIdleRendererUpdater : MonoBehaviour, ITreeUpdateable, ISettingsController {
+	public class HoverIdleRendererUpdater : TreeUpdateableBehavior, ISettingsController {
 
-		public GameObject IdleRendererPrefab;
-		public HoverRendererIdle IdleRenderer;
+		[FormerlySerializedAs("IdleRendererPrefab")]
+		public GameObject _IdleRendererPrefab;
+
+		[FormerlySerializedAs("IdleRenderer")]
+		public HoverRendererIdle _IdleRenderer;
 
 		[TriggerButton("Rebuild Idle Renderer")]
 		public bool ClickToRebuildRenderer;
@@ -22,17 +26,26 @@ namespace Hover.Core.Cursors {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
+		public HoverRendererIdle IdleRenderer {
+			get => _IdleRenderer;
+			set => this.UpdateValueWithTreeMessage(ref _IdleRenderer, value, "IdleRend");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public GameObject IdleRendererPrefab {
+			get => _IdleRendererPrefab;
+			set => this.UpdateValueWithTreeMessage(ref _IdleRendererPrefab, value, "IdleRendPref");
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
 			vPrevIdlePrefab = IdleRendererPrefab;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Start() {
-			//do nothing...
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public virtual void TreeUpdate() {
+		public override void TreeUpdate() {
 			DestroyRendererIfNecessary();
 			IdleRenderer = (IdleRenderer ?? FindOrBuildIdle());
 

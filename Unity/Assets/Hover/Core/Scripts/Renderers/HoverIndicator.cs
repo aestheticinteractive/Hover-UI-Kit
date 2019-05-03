@@ -1,6 +1,7 @@
 using System;
 using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.Core.Renderers {
 
@@ -17,10 +18,12 @@ namespace Hover.Core.Renderers {
 		public DateTime LatestSelectionTime { get; set; }
 
 		[DisableWhenControlled(RangeMin=0, RangeMax=1, DisplaySpecials=true)]
-		public float HighlightProgress = 0.7f;
+		[FormerlySerializedAs("HighlightProgress")]
+		public float _HighlightProgress = 0.7f;
 
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
-		public float SelectionProgress = 0.2f;
+		[FormerlySerializedAs("SelectionProgress")]
+		public float _SelectionProgress = 0.2f;
 
 		private float vPrevHigh;
 		private float vPrevSel;
@@ -30,6 +33,20 @@ namespace Hover.Core.Renderers {
 		/*--------------------------------------------------------------------------------------------*/
 		protected HoverIndicator() {
 			Controllers = new SettingsControllerMap();
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public float HighlightProgress {
+			get => _HighlightProgress;
+			set => this.UpdateValueWithTreeMessage(ref _HighlightProgress, value, "HighlightProg");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float SelectionProgress {
+			get => _SelectionProgress;
+			set => this.UpdateValueWithTreeMessage(ref _SelectionProgress, value, "SelectionProg");
 		}
 
 
@@ -48,9 +65,9 @@ namespace Hover.Core.Renderers {
 				SelectionProgress != vPrevSel
 			);
 
-			if ( !DidSettingsChange ) {
+			/*if ( !DidSettingsChange ) {
 				return;
-			}
+			}*/
 
 			UpdateIndicatorChildren();
 

@@ -1,6 +1,7 @@
 using Hover.Core.Renderers;
 using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.Core.Items.Helpers {
 
@@ -8,7 +9,7 @@ namespace Hover.Core.Items.Helpers {
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
 	[RequireComponent(typeof(HoverItemRendererUpdater))]
-	public class HoverIndicatorOverrider : MonoBehaviour, ITreeUpdateable, ISettingsController {
+	public class HoverIndicatorOverrider : TreeUpdateableBehavior, ISettingsController {
 
 		public const string MinHightlightProgressName = "MinHightlightProgress";
 		public const string MinSelectionProgressName = "MinSelectionProgress";
@@ -16,10 +17,12 @@ namespace Hover.Core.Items.Helpers {
 		public ISettingsControllerMap Controllers { get; private set; }
 		
 		[DisableWhenControlled(DisplaySpecials=true, RangeMin=0, RangeMax=1)]
-		public float MinHightlightProgress = 0;
+		[FormerlySerializedAs("MinHightlightProgress")]
+		public float _MinHightlightProgress = 0;
 
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
-		public float MinSelectionProgress = 0;
+		[FormerlySerializedAs("MinSelectionProgress")]
+		public float _MinSelectionProgress = 0;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -31,12 +34,21 @@ namespace Hover.Core.Items.Helpers {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Start() {
-			//do nothing...
+		public float MinHightlightProgress {
+			get => _MinHightlightProgress;
+			set => this.UpdateValueWithTreeMessage(ref _MinHightlightProgress, value, "MinHighProg");
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void TreeUpdate() {
+		public float MinSelectionProgress {
+			get => _MinSelectionProgress;
+			set => this.UpdateValueWithTreeMessage(ref _MinSelectionProgress, value, "MinSelProg");
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public override void TreeUpdate() {
 			HoverItemRendererUpdater rendUp = GetComponent<HoverItemRendererUpdater>();
 			HoverIndicator rendInd = rendUp.ActiveRenderer.GetIndicator();
 

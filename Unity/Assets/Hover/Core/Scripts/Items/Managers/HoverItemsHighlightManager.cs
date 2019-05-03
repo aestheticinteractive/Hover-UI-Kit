@@ -11,8 +11,8 @@ namespace Hover.Core.Items.Managers {
 
 		public HoverCursorDataProvider CursorDataProvider;
 
-		private List<HoverItemHighlightState> vHighStates;
-		
+		private List<HoverItemHighlightState> vActiveHighStates;
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -25,32 +25,32 @@ namespace Hover.Core.Items.Managers {
 				throw new ArgumentNullException("CursorDataProvider");
 			}
 
-			vHighStates = new List<HoverItemHighlightState>();
+			vActiveHighStates = new List<HoverItemHighlightState>();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
 			HoverItemsManager itemsMan = GetComponent<HoverItemsManager>();
-			
-			itemsMan.FillListWithActiveItemComponents(vHighStates);
+
+			itemsMan.FillListWithActiveItemComponents(vActiveHighStates);
 			ResetItems();
 			UpdateItems();
 		}
-		
-		
+
+
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void ResetItems() {
-			for ( int i = 0 ; i < vHighStates.Count ; i++ ) {
-				HoverItemHighlightState highState = vHighStates[i];
-				
+			for ( int i = 0 ; i < vActiveHighStates.Count ; i++ ) {
+				HoverItemHighlightState highState = vActiveHighStates[i];
+
 				if ( highState == null ) {
-					vHighStates.RemoveAt(i);
+					vActiveHighStates.RemoveAt(i);
 					i--;
-					Debug.LogWarning("Found and removed a null item; use RemoveItem() instead.");
+					Debug.LogError("Found and removed a null item; use RemoveItem() instead.");
 					continue;
 				}
-				
+	
 				highState.ResetAllNearestStates();
 			}
 		}
@@ -79,8 +79,12 @@ namespace Hover.Core.Items.Managers {
 				highState.SetNearestAcrossAllItemsForCursor(cursor.Type);
 				cursor.MaxItemHighlightProgress = high.Value.Progress;
 			}
+
+			for ( int i = 0 ; i < vActiveHighStates.Count ; i++ ) {
+				vActiveHighStates[i].UpdateHighlightState();
+			}
 		}
-		
+
 		/*--------------------------------------------------------------------------------------------*/
 		private HoverItemHighlightState FindNearestItemToCursor(CursorType pCursorType, 
 												out HoverItemHighlightState.Highlight? pNearestHigh) {
@@ -88,25 +92,20 @@ namespace Hover.Core.Items.Managers {
 			HoverItemHighlightState nearestItem = null;
 
 			pNearestHigh = null;
-			
-			for ( int i = 0 ; i < vHighStates.Count ; i++ ) {
-				HoverItemHighlightState item = vHighStates[i];
-				
-				if ( !item.gameObject.activeInHierarchy || item.IsHighlightPrevented ) {
-					continue;
-				}
-				
-				HoverItemHighlightState.Highlight? high = item.GetHighlight(pCursorType);
-				
+
+			for ( int i = 0 ; i < vActiveHighStates.Count ; i++ ) {
+				HoverItemHighlightState highState = vActiveHighStates[i];
+				HoverItemHighlightState.Highlight? high = highState.GetHighlight(pCursorType);
+
 				if ( high == null || high.Value.Distance >= minDist ) {
 					continue;
 				}
-				
+
 				minDist = high.Value.Distance;
-				nearestItem = item;
+				nearestItem = highState;
 				pNearestHigh = high;
 			}
-			
+
 			return nearestItem;
 		}
 
