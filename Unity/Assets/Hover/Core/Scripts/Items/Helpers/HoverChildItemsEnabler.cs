@@ -8,19 +8,22 @@ namespace Hover.Core.Items.Helpers {
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
 	[RequireComponent(typeof(HoverChildItemsFinder))]
-	public class HoverChildItemsEnabler : MonoBehaviour, ITreeUpdateable {
+	public class HoverChildItemsEnabler : TreeUpdateableBehavior {
 
-		public bool AreItemsEnabled = true;
+		public bool _AreItemsEnabled = true;
+		
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public bool AreItemsEnabled {
+			get => _AreItemsEnabled;
+			set => this.UpdateValueWithTreeMessage(ref _AreItemsEnabled, value, "AreItemsEnabled");
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
-			//do nothing...
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		public void TreeUpdate() {
+		public override void TreeUpdate() {
 			List<HoverItemData> items = GetComponent<HoverChildItemsFinder>().ChildItems;
 
 			for ( int i = 0 ; i < items.Count ; i++ ) {

@@ -204,9 +204,9 @@ namespace Hover.Core.Utils {
 			}
 
 			for ( int i = 0 ; i < TreeUpdatablesThisFrame.Count ; i++ ) {
-				ITreeUpdateable treeUp = TreeUpdatablesThisFrame[i];
+				ITreeUpdateable treeUpdateable = TreeUpdatablesThisFrame[i];
 
-				if ( treeUp == null ) {
+				if ( treeUpdateable == null ) {
 					if ( !ReloadTreeChildrenOnUpdate ) {
 						ReloadTreeChildrenOnUpdate = true;
 						Debug.LogError("Lost tree sibling, will refresh list next frame: "+i, this);
@@ -215,12 +215,12 @@ namespace Hover.Core.Utils {
 					continue;
 				}
 
-				if ( !treeUp.gameObject.activeSelf ) {
+				if ( !treeUpdateable.isActiveAndEnabled ) {
 					continue;
 				}
 
-				Profiler.BeginSample(treeUp.GetType().Name, treeUp.gameObject);
-				treeUp.TreeUpdate();
+				Profiler.BeginSample(treeUpdateable.GetType().Name);
+				treeUpdateable.TreeUpdate();
 				Profiler.EndSample();
 			}
 		}

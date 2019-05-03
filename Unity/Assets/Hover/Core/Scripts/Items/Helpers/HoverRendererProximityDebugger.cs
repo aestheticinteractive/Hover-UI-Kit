@@ -4,11 +4,12 @@ using UnityEngine;
 
 namespace Hover.Core.Items.Helpers {
 
+#if UNITY_EDITOR
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(HoverItemRendererUpdater))]
 	[RequireComponent(typeof(HoverItemHighlightState))]
-	public class HoverRendererProximityDebugger : MonoBehaviour, ITreeUpdateable {
+	public class HoverRendererProximityDebugger : TreeUpdateableBehavior {
 
 		public Color ZeroColor = new Color(1, 0, 0, 0.2f);
 		public Color NearColor = new Color(1, 1, 0, 0.2f);
@@ -18,12 +19,7 @@ namespace Hover.Core.Items.Helpers {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Start() {
-			//do nothing...
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public virtual void TreeUpdate() {
+		public override void TreeUpdate() {
 			DrawProximityDebugLines();
 		}
 
@@ -58,5 +54,9 @@ namespace Hover.Core.Items.Helpers {
 		}
 
 	}
+#else
+	/*================================================================================================*/
+	public class HoverRendererProximityDebugger : MonoBehaviour {}
+#endif
 
 }

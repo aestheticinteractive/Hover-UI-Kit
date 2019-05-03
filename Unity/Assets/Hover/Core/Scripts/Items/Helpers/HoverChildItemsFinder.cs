@@ -1,69 +1,70 @@
 ﻿using System.Collections.Generic;
 using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.Core.Items.Helpers {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
-	public class HoverChildItemsFinder : MonoBehaviour, ITreeUpdateable {
+	public class HoverChildItemsFinder : TreeUpdateableBehavior {
 
 		public List<HoverItemData> ChildItems { get; private set; }
 
-		public bool FindOnlyImmediateChildren = false;
-		public bool ForceUpdate = false;
+		[FormerlySerializedAs("FindOnlyImmediateChildren")]
+		public bool _FindOnlyImmediateChildren = false;
 
-		private bool vPrevAffectOnlyImmediateChildren;
 
-		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
-			//do nothing...
+		public bool FindOnlyImmediateChildren {
+			get => _FindOnlyImmediateChildren;
+			set => this.UpdateValueWithTreeMessage(ref _FindOnlyImmediateChildren, value, "FindImmed");
 		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		public void TreeUpdate() {
-			bool isFirst = false;
 
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public override void TreeUpdate() {
 			if ( ChildItems == null ) {
 				ChildItems = new List<HoverItemData>();
-				isFirst = true;
-			}
-
-			if ( !isFirst && !ForceUpdate && 
-					FindOnlyImmediateChildren == vPrevAffectOnlyImmediateChildren ) {
-				return;
 			}
 
 			ChildItems.Clear();
-			FillChildItemsList(gameObject.transform);
 
-			ForceUpdate = false;
-			vPrevAffectOnlyImmediateChildren = FindOnlyImmediateChildren;
+			TreeUpdater treeUp = GetComponent<TreeUpdater>();
+
+			AddChildren(treeUp, FindOnlyImmediateChildren);
 		}
 
-		
+
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void FillChildItemsList(Transform pParentTx) {
-			int childCount = pParentTx.childCount;
+		private void AddChildren(TreeUpdater pTreeUp, bool pStopAtThisLevel) {
+			List<TreeUpdater> treeUpChildren = pTreeUp.TreeChildrenThisFrame;
 
-			for ( int i = 0 ; i < childCount ; i++ ) {
-				Transform childTx = pParentTx.GetChild(i);
-				HoverItemData item = childTx.GetComponent<HoverItemData>();
+			for ( int i = 0 ; i < treeUpChildren.Count ; i++ ) {
+				TreeUpdater treeUpChild = treeUpChildren[i];
+
+				if ( treeUpChild == null ) {
+					continue;
+				}
+
+				HoverItemData item = treeUpChild.GetComponent<HoverItemData>();
 
 				if ( item != null ) {
 					ChildItems.Add(item);
+					continue; //should never be an item nested within another
 				}
 
-				if ( !FindOnlyImmediateChildren ) {
-					FillChildItemsList(childTx);
+				if ( pStopAtThisLevel ) {
+					continue;
 				}
+
+				AddChildren(treeUpChild, false);
 			}
 		}
-
 	}
 
 }

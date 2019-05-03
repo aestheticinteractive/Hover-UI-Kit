@@ -1,11 +1,10 @@
-﻿using UnityEngine;
-
-namespace Hover.Core.Utils {
+﻿namespace Hover.Core.Utils {
 
 	/*================================================================================================*/
 	public interface ITreeUpdateable {
 	
-		GameObject gameObject { get; }
+		//GameObject gameObject { get; }
+		bool isActiveAndEnabled { get; }
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
