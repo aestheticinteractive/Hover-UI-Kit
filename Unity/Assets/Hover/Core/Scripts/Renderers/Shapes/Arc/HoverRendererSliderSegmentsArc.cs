@@ -1,5 +1,7 @@
 using Hover.Core.Renderers.Items.Sliders;
+using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.Core.Renderers.Shapes.Arc {
 
@@ -7,7 +9,17 @@ namespace Hover.Core.Renderers.Shapes.Arc {
 	[RequireComponent(typeof(HoverShapeArc))]
 	public class HoverRendererSliderSegmentsArc : HoverRendererSliderSegments {
 
-		public float TickArcDegrees = 0.34f;
+		[SerializeField]
+		[FormerlySerializedAs("TickArcDegrees")]
+		private float _TickArcDegrees = 0.34f;
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public float TickArcDegrees {
+			get => _TickArcDegrees;
+			set => this.UpdateValueWithTreeMessage(ref _TickArcDegrees, value, "TickArcDegrees");
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

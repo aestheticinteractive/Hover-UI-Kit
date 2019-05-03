@@ -2,6 +2,7 @@ using Hover.Core.Renderers.Items.Buttons;
 using Hover.Core.Renderers.Utils;
 using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.Core.Renderers.Shapes.Arc {
 
@@ -9,25 +10,39 @@ namespace Hover.Core.Renderers.Shapes.Arc {
 	[RequireComponent(typeof(TreeUpdater))]
 	[RequireComponent(typeof(HoverFillButton))]
 	[RequireComponent(typeof(HoverShapeArc))]
-	public class HoverFillButtonArcUpdater : MonoBehaviour, ITreeUpdateable, ISettingsController {
+	public class HoverFillButtonArcUpdater : TreeUpdateableBehavior, ISettingsController {
 
 		public enum EdgePositionType {
 			Inner,
 			Outer
 		}
 
-		public float EdgeThickness = 0.001f;
-		public EdgePositionType EdgePosition = EdgePositionType.Inner;
-		
-		
+		[SerializeField]
+		[FormerlySerializedAs("EdgeThickness")]
+		private float _EdgeThickness = 0.001f;
+
+		[SerializeField]
+		[FormerlySerializedAs("EdgePosition")]
+		private EdgePositionType _EdgePosition = EdgePositionType.Inner;
+
+
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
-			//do nothing...
+		public float EdgeThickness {
+			get => _EdgeThickness;
+			set => this.UpdateValueWithTreeMessage(ref _EdgeThickness, value, "EdgeThickness");
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void TreeUpdate() {
+		public EdgePositionType EdgePosition {
+			get => _EdgePosition;
+			set => this.UpdateValueWithTreeMessage(ref _EdgePosition, value, "EdgePosition");
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public override void TreeUpdate() {
 			EdgeThickness = Mathf.Max(0, EdgeThickness);
 			UpdateMeshes();
 		}
@@ -38,7 +53,7 @@ namespace Hover.Core.Renderers.Shapes.Arc {
 		private void UpdateMeshes() {
 			HoverFillButton fillButton = gameObject.GetComponent<HoverFillButton>();
 			HoverShapeArc shapeArc = gameObject.GetComponent<HoverShapeArc>();
-		
+
 			bool isOuterEdge = (EdgePosition == EdgePositionType.Outer);
 			float inset = EdgeThickness*Mathf.Sign(shapeArc.OuterRadius-shapeArc.InnerRadius);
 			float insetOuterRadius = shapeArc.OuterRadius - (isOuterEdge ? inset : 0);

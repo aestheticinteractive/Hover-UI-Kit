@@ -2,6 +2,7 @@ using Hover.Core.Renderers.Items.Buttons;
 using Hover.Core.Renderers.Utils;
 using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.Core.Renderers.Shapes.Rect {
 
@@ -9,19 +10,24 @@ namespace Hover.Core.Renderers.Shapes.Rect {
 	[RequireComponent(typeof(TreeUpdater))]
 	[RequireComponent(typeof(HoverFillButton))]
 	[RequireComponent(typeof(HoverShapeRect))]
-	public class HoverFillButtonRectUpdater : MonoBehaviour, ITreeUpdateable, ISettingsController {
+	public class HoverFillButtonRectUpdater : TreeUpdateableBehavior, ISettingsController {
 
-		public float EdgeThickness = 0.001f;
-		
-		
+		[SerializeField]
+		[FormerlySerializedAs("EdgeThickness")]
+		private float _EdgeThickness = 0.001f;
+
+
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
-			//do nothing...
+		public float EdgeThickness {
+			get => _EdgeThickness;
+			set => this.UpdateValueWithTreeMessage(ref _EdgeThickness, value, "EdgeThickness");
 		}
 
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void TreeUpdate() {
+		public override void TreeUpdate() {
 			EdgeThickness = Mathf.Max(0, EdgeThickness);
 			UpdateMeshes();
 		}

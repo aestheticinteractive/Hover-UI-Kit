@@ -2,6 +2,7 @@ using Hover.Core.Renderers.Items.Sliders;
 using Hover.Core.Renderers.Utils;
 using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.Core.Renderers.Shapes.Rect {
 
@@ -9,20 +10,54 @@ namespace Hover.Core.Renderers.Shapes.Rect {
 	[RequireComponent(typeof(HoverShapeRect))]
 	public class HoverFillSliderRectUpdater : HoverFillSliderUpdater {
 
+		[SerializeField]
 		[DisableWhenControlled(RangeMin=0, DisplaySpecials=true)]
-		public float InsetLeft = 0.01f;
+		[FormerlySerializedAs("InsetLeft")]
+		private float _InsetLeft = 0.01f;
 
+		[SerializeField]
 		[DisableWhenControlled(RangeMin=0)]
-		public float InsetRight = 0.01f;
+		[FormerlySerializedAs("InsetRight")]
+		private float _InsetRight = 0.01f;
 
+		[SerializeField]
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
-		public float TickRelativeSizeX = 0.5f;
+		[FormerlySerializedAs("TickRelativeSizeX")]
+		private float _TickRelativeSizeX = 0.5f;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public bool UseTrackUv = false;
+		[FormerlySerializedAs("UseTrackUv")]
+		private bool _UseTrackUv = false;
 
 		private float vMeshSizeX;
 		private float vTickSizeX;
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public float InsetLeft {
+			get => _InsetLeft;
+			set => this.UpdateValueWithTreeMessage(ref _InsetLeft, value, "InsetLeft");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float InsetRight {
+			get => _InsetRight;
+			set => this.UpdateValueWithTreeMessage(ref _InsetRight, value, "InsetRight");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float TickRelativeSizeX {
+			get => _TickRelativeSizeX;
+			set => this.UpdateValueWithTreeMessage(ref _TickRelativeSizeX, value, "TickRelativeSizeX");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool UseTrackUv {
+			get => _UseTrackUv;
+			set => this.UpdateValueWithTreeMessage(ref _UseTrackUv, value, "UseTrackUv");
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -51,7 +86,7 @@ namespace Hover.Core.Renderers.Shapes.Rect {
 								SliderUtil.SegmentInfo pSegmentInfo, float pStartPos, float pEndPos) {
 			HoverShapeRect meshShapeRect = pSegmentMesh.GetComponent<HoverShapeRect>();
 			HoverMeshRect meshRect = (HoverMeshRect)pSegmentMesh;
-			
+
 			pSegmentMesh.Controllers.Set(SettingsControllerMap.TransformLocalPosition+".x", this);
 			pSegmentMesh.Controllers.Set(SettingsControllerMap.TransformLocalPosition+".y", this);
 			pSegmentMesh.Controllers.Set(HoverMesh.DisplayModeName, this);
@@ -65,7 +100,7 @@ namespace Hover.Core.Renderers.Shapes.Rect {
 				Mathf.InverseLerp(pStartPos, pEndPos, pSegmentInfo.StartPosition) : 0);
 			meshRect.UvBottom = (UseTrackUv ?
 				Mathf.InverseLerp(pStartPos, pEndPos, pSegmentInfo.EndPosition) : 1);
-			
+
 			Vector3 localPos = pSegmentMesh.transform.localPosition;
 			localPos.x = (InsetLeft-InsetRight)/2;
 			localPos.y = (pSegmentInfo.StartPosition+pSegmentInfo.EndPosition)/2;

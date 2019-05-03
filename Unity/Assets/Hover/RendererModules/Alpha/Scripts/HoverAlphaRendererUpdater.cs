@@ -2,13 +2,14 @@
 using Hover.Core.Renderers.CanvasElements;
 using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.RendererModules.Alpha {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(HoverRenderer))]
-	public class HoverAlphaRendererUpdater : MonoBehaviour, ITreeUpdateable, ISettingsController {
+	public class HoverAlphaRendererUpdater : TreeUpdateableBehavior, ISettingsController {
 
 		public const string SortingLayerName = "SortingLayer";
 		public const string MasterAlphaName = "MasterAlpha";
@@ -17,17 +18,25 @@ namespace Hover.RendererModules.Alpha {
 
 		public ISettingsControllerMap Controllers { get; private set; }
 
+		[SerializeField]
 		[DisableWhenControlled(DisplaySpecials=true)]
-		public string SortingLayer = "Default";
+		[FormerlySerializedAs("SortingLayer")]
+		private string _SortingLayer = "Default";
 
+		[SerializeField]
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
-		public float MasterAlpha = 1;
+		[FormerlySerializedAs("MasterAlpha")]
+		private float _MasterAlpha = 1;
 
+		[SerializeField]
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
-		public float EnabledAlpha = 1;
+		[FormerlySerializedAs("EnabledAlpha")]
+		private float _EnabledAlpha = 1;
 
+		[SerializeField]
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
-		public float DisabledAlpha = 0.35f;
+		[FormerlySerializedAs("DisabledAlpha")]
+		private float _DisabledAlpha = 0.35f;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -39,12 +48,33 @@ namespace Hover.RendererModules.Alpha {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
-			//do nothing...
+		public string SortingLayer {
+			get => _SortingLayer;
+			set => this.UpdateValueWithTreeMessage(ref _SortingLayer, value, "SortingLayer");
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void TreeUpdate() {
+		public float MasterAlpha {
+			get => _MasterAlpha;
+			set => this.UpdateValueWithTreeMessage(ref _MasterAlpha, value, "MasterAlpha");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float EnabledAlpha {
+			get => _EnabledAlpha;
+			set => this.UpdateValueWithTreeMessage(ref _EnabledAlpha, value, "EnabledAlpha");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float DisabledAlpha {
+			get => _DisabledAlpha;
+			set => this.UpdateValueWithTreeMessage(ref _DisabledAlpha, value, "DisabledAlpha");
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public override void TreeUpdate() {
 			HoverRenderer hoverRend = GetComponent<HoverRenderer>();
 			int childRendCount = hoverRend.GetChildRendererCount();
 			int childFillCount = hoverRend.GetChildFillCount();
@@ -82,7 +112,7 @@ namespace Hover.RendererModules.Alpha {
 			rendUp.EnabledAlpha = EnabledAlpha;
 			rendUp.DisabledAlpha = DisabledAlpha;
 		}
-		
+
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateChildFill(HoverFill pChildFill, float pAlpha) {
 			HoverAlphaFillUpdater fillUp = pChildFill.GetComponent<HoverAlphaFillUpdater>();

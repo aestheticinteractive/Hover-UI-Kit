@@ -2,26 +2,31 @@
 using Hover.Core.Renderers;
 using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.RendererModules.Opaque {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(HoverMesh))]
-	public class HoverOpaqueMeshUpdater : MonoBehaviour, ITreeUpdateable, ISettingsController {
-	
+	public class HoverOpaqueMeshUpdater : TreeUpdateableBehavior, ISettingsController {
+
 		public ISettingsControllerMap Controllers { get; private set; }
 
+		[SerializeField]
 		[DisableWhenControlled]
 		[ColorUsage(false, true)]
-		public Color StandardColor = Color.gray;
-		
+		[FormerlySerializedAs("StandardColor")]
+		private Color _StandardColor = Color.gray;
+
+		[SerializeField]
 		[DisableWhenControlled]
 		[ColorUsage(false, true)]
-		public Color SliderFillColor = Color.white;
+		[FormerlySerializedAs("SliderFillColor")]
+		private Color _SliderFillColor = Color.white;
 
 		private Color vPrevColor;
-		
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -32,12 +37,21 @@ namespace Hover.RendererModules.Opaque {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
-			//do nothing...
+		public Color StandardColor {
+			get => _StandardColor;
+			set => this.UpdateValueWithTreeMessage(ref _StandardColor, value, "StandardColor");
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void TreeUpdate() {
+		public Color SliderFillColor {
+			get => _SliderFillColor;
+			set => this.UpdateValueWithTreeMessage(ref _SliderFillColor, value, "SliderFillColor");
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public override void TreeUpdate() {
 			TryUpdateColor(GetComponent<HoverMesh>());
 			vPrevColor = StandardColor;
 			Controllers.TryExpireControllers();

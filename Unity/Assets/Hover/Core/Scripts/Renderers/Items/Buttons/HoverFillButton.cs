@@ -15,27 +15,27 @@ namespace Hover.Core.Renderers.Items.Buttons {
 
 		[SerializeField]
 		[DisableWhenControlled(DisplaySpecials=true)]
-		[FormerlySerializedAs("SizeY")]
+		[FormerlySerializedAs("Background")]
 		private HoverMesh _Background;
 
 		[SerializeField]
 		[DisableWhenControlled]
-		[FormerlySerializedAs("SizeY")]
+		[FormerlySerializedAs("Highlight")]
 		private HoverMesh _Highlight;
 
 		[SerializeField]
 		[DisableWhenControlled]
-		[FormerlySerializedAs("SizeY")]
+		[FormerlySerializedAs("Selection")]
 		private HoverMesh _Selection;
 
 		[SerializeField]
 		[DisableWhenControlled]
-		[FormerlySerializedAs("SizeY")]
+		[FormerlySerializedAs("Edge")]
 		private HoverMesh _Edge;
 
 		[SerializeField]
 		[DisableWhenControlled]
-		[FormerlySerializedAs("SizeY")]
+		[FormerlySerializedAs("ShowEdge")]
 		private bool _ShowEdge = true;
 
 

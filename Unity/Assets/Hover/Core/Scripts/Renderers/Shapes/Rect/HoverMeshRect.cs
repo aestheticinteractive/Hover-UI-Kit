@@ -1,6 +1,7 @@
 using System;
 using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.Core.Renderers.Shapes.Rect {
 
@@ -21,23 +22,35 @@ namespace Hover.Core.Renderers.Shapes.Rect {
 		public const string UvLeftName = "UvLeft";
 		public const string UvRightName = "UvRight";
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public SizeType OuterSizeType = SizeType.Max;
+		[FormerlySerializedAs("OuterSizeType")]
+		private SizeType _OuterSizeType = SizeType.Max;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public bool AutoUvViaSizeType = false;
+		[FormerlySerializedAs("AutoUvViaSizeType")]
+		private bool _AutoUvViaSizeType = false;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public float UvTop = 0;
+		[FormerlySerializedAs("UvTop")]
+		private float _UvTop = 0;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public float UvBottom = 1;
+		[FormerlySerializedAs("UvBottom")]
+		private float _UvBottom = 1;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public float UvLeft = 0;
+		[FormerlySerializedAs("UvLeft")]
+		private float _UvLeft = 0;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public float UvRight = 1;
+		[FormerlySerializedAs("UvRight")]
+		private float _UvRight = 1;
 
 		private SizeType vPrevOuterType;
 		private bool vPrevAutoUv;
@@ -45,6 +58,44 @@ namespace Hover.Core.Renderers.Shapes.Rect {
 		private float vPrevUvBottom;
 		private float vPrevUvLeft;
 		private float vPrevUvRight;
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public SizeType OuterSizeType {
+			get => _OuterSizeType;
+			set => this.UpdateValueWithTreeMessage(ref _OuterSizeType, value, "OuterSizeType");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool AutoUvViaSizeType {
+			get => _AutoUvViaSizeType;
+			set => this.UpdateValueWithTreeMessage(ref _AutoUvViaSizeType, value, "AutoUvViaSizeType");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float UvTop {
+			get => _UvTop;
+			set => this.UpdateValueWithTreeMessage(ref _UvTop, value, "UvTop");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float UvBottom {
+			get => _UvBottom;
+			set => this.UpdateValueWithTreeMessage(ref _UvBottom, value, "UvBottom");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float UvLeft {
+			get => _UvLeft;
+			set => this.UpdateValueWithTreeMessage(ref _UvLeft, value, "UvLeft");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float UvRight {
+			get => _UvRight;
+			set => this.UpdateValueWithTreeMessage(ref _UvRight, value, "UvRight");
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

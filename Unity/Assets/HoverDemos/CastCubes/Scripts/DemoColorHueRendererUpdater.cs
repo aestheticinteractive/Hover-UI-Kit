@@ -11,17 +11,12 @@ namespace HoverDemos.CastCubes {
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(HoverItemDataSlider))]
-	public class DemoColorHueRendererUpdater : MonoBehaviour, ITreeUpdateable {
+	public class DemoColorHueRendererUpdater : TreeUpdateableBehavior {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
-			//do nothing...
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public void TreeUpdate() {
+		public override void TreeUpdate() {
 			HoverItemDataSlider slider = GetComponent<HoverItemDataSlider>();
 			Color col = DisplayUtil.HsvToColor(slider.RangeValue, 1, 0.666f);
 

@@ -8,17 +8,12 @@ namespace Hover.Core.Renderers.Shapes.Arc {
 	[RequireComponent(typeof(TreeUpdater))]
 	[RequireComponent(typeof(HoverShapeArc))]
 	[RequireComponent(typeof(HoverRendererIdle))]
-	public class HoverRendererIdleArcUpdater : MonoBehaviour, ITreeUpdateable, ISettingsController {
+	public class HoverRendererIdleArcUpdater : TreeUpdateableBehavior, ISettingsController {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
-			//do nothing...
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public void TreeUpdate() {
+		public override void TreeUpdate() {
 			HoverShapeArc shape = GetComponent<HoverShapeArc>();
 			HoverRendererIdle rend = GetComponent<HoverRendererIdle>();
 			float thickness = rend.DistanceThreshold/gameObject.transform.lossyScale.x;

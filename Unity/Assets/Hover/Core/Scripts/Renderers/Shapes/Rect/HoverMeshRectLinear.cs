@@ -1,5 +1,6 @@
 using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.Core.Renderers.Shapes.Rect {
 
@@ -8,12 +9,22 @@ namespace Hover.Core.Renderers.Shapes.Rect {
 	[RequireComponent(typeof(HoverShapeRect))]
 	public class HoverMeshRectLinear : HoverMeshRect {
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public SizeType InnerSizeType = SizeType.Min;
+		[FormerlySerializedAs("InnerSizeType")]
+		private SizeType _InnerSizeType = SizeType.Min;
 
 		public bool IsVertical = false;
 
 		private SizeType vPrevInnerType;
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public SizeType InnerSizeType {
+			get => _InnerSizeType;
+			set => this.UpdateValueWithTreeMessage(ref _InnerSizeType, value, "InnerSizeType");
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

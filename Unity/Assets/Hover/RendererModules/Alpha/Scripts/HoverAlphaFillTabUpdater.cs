@@ -5,6 +5,7 @@ using Hover.Core.Renderers.Shapes.Rect;
 using Hover.Core.Renderers.Utils;
 using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.RendererModules.Alpha {
 
@@ -13,28 +14,94 @@ namespace Hover.RendererModules.Alpha {
 	[RequireComponent(typeof(HoverShapeRect))]
 	[RequireComponent(typeof(HoverFillButton))]
 	[RequireComponent(typeof(HoverFillButtonRectUpdater))]
-	public class HoverAlphaFillTabUpdater : MonoBehaviour, ITreeUpdateable, ISettingsController {
+	public class HoverAlphaFillTabUpdater : TreeUpdateableBehavior, ISettingsController {
 
-		public HoverCanvasDataUpdater CanvasUpdater;
+		[SerializeField]
+		[FormerlySerializedAs("CanvasUpdater")]
+		private HoverCanvasDataUpdater _CanvasUpdater;
 
-		public float TabOutward = 0.01f;
-		public float TabThickness = 0.025f;
-		public bool UseItemSelectionState = true;
+		[SerializeField]
+		[FormerlySerializedAs("TabOutward")]
+		private float _TabOutward = 0.01f;
 
-		public bool ShowTabN = true;
-		public bool ShowTabE = false;
-		public bool ShowTabS = false;
-		public bool ShowTabW = false;
+		[SerializeField]
+		[FormerlySerializedAs("TabThickness")]
+		private float _TabThickness = 0.025f;
+		
+		[SerializeField]
+		[FormerlySerializedAs("UseItemSelectionState")]
+		private bool _UseItemSelectionState = true;
+
+		[SerializeField]
+		[FormerlySerializedAs("ShowTabN")]
+		private bool _ShowTabN = true;
+
+		[SerializeField]
+		[FormerlySerializedAs("ShowTabE")]
+		private bool _ShowTabE = false;
+
+		[SerializeField]
+		[FormerlySerializedAs("ShowTabS")]
+		private bool _ShowTabS = false;
+
+		[SerializeField]
+		[FormerlySerializedAs("ShowTabW")]
+		private bool _ShowTabW = false;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
-			//do nothing...
+		public HoverCanvasDataUpdater CanvasUpdater {
+			get => _CanvasUpdater;
+			set => this.UpdateValueWithTreeMessage(ref _CanvasUpdater, value, "CanvasUpdater");
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void TreeUpdate() {
+		public float TabOutward {
+			get => _TabOutward;
+			set => this.UpdateValueWithTreeMessage(ref _TabOutward, value, "TabOutward");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float TabThickness {
+			get => _TabThickness;
+			set => this.UpdateValueWithTreeMessage(ref _TabThickness, value, "TabThickness");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool UseItemSelectionState {
+			get => _UseItemSelectionState;
+			set => this.UpdateValueWithTreeMessage(ref _UseItemSelectionState, value, "UseItemSel");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool ShowTabN {
+			get => _ShowTabN;
+			set => this.UpdateValueWithTreeMessage(ref _ShowTabN, value, "ShowTabN");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool ShowTabE {
+			get => _ShowTabE;
+			set => this.UpdateValueWithTreeMessage(ref _ShowTabE, value, "ShowTabE");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool ShowTabS {
+			get => _ShowTabS;
+			set => this.UpdateValueWithTreeMessage(ref _ShowTabS, value, "ShowTabS");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool ShowTabW {
+			get => _ShowTabW;
+			set => this.UpdateValueWithTreeMessage(ref _ShowTabW, value, "ShowTabW");
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public override void TreeUpdate() {
 			bool isSelected = (
 				!UseItemSelectionState ||
 				CanvasUpdater.IconType == HoverCanvasDataUpdater.IconPairType.RadioOn ||

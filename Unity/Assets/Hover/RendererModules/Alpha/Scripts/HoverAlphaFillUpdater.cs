@@ -1,25 +1,30 @@
 ﻿using Hover.Core.Renderers;
 using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.RendererModules.Alpha {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(HoverFill))]
-	public class HoverAlphaFillUpdater : MonoBehaviour, ITreeUpdateable, ISettingsController {
+	public class HoverAlphaFillUpdater : TreeUpdateableBehavior, ISettingsController {
 
 		public const string SortingLayerName = "SortingLayer";
 		public const string AlphaName = "Alpha";
 
 		public ISettingsControllerMap Controllers { get; private set; }
 
+		[SerializeField]
 		[DisableWhenControlled(DisplaySpecials=true)]
-		public string SortingLayer = "Default";
+		[FormerlySerializedAs("SortingLayer")]
+		private string _SortingLayer = "Default";
 
+		[SerializeField]
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
-		public float Alpha = 1;
-		
+		[FormerlySerializedAs("Alpha")]
+		private float _Alpha = 1;
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -30,12 +35,21 @@ namespace Hover.RendererModules.Alpha {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
-			//do nothing...
+		public string SortingLayer {
+			get => _SortingLayer;
+			set => this.UpdateValueWithTreeMessage(ref _SortingLayer, value, "SortingLayer");
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void TreeUpdate() {
+		public float Alpha {
+			get => _Alpha;
+			set => this.UpdateValueWithTreeMessage(ref _Alpha, value, "Alpha");
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public override void TreeUpdate() {
 			HoverFill hoverFill = GetComponent<HoverFill>();
 			int meshCount = hoverFill.GetChildMeshCount();
 

@@ -1,5 +1,6 @@
 using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.Core.Renderers.Shapes.Rect {
 
@@ -15,25 +16,39 @@ namespace Hover.Core.Renderers.Shapes.Rect {
 		public const string ShowTabSName = "ShowTabS";
 		public const string ShowTabWName = "ShowTabW";
 
-		public SizeType InnerSizeType = SizeType.Min;
+		[SerializeField]
+		[FormerlySerializedAs("InnerSizeType")]
+		private SizeType _InnerSizeType = SizeType.Min;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public float TabOutward = 0.01f;
+		[FormerlySerializedAs("TabOutward")]
+		private float _TabOutward = 0.01f;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public float TabThickness = 0.025f;
+		[FormerlySerializedAs("TabThickness")]
+		private float _TabThickness = 0.025f;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public bool ShowTabN = true;
+		[FormerlySerializedAs("ShowTabN")]
+		private bool _ShowTabN = true;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public bool ShowTabE = false;
+		[FormerlySerializedAs("ShowTabE")]
+		private bool _ShowTabE = false;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public bool ShowTabS = false;
+		[FormerlySerializedAs("ShowTabS")]
+		private bool _ShowTabS = false;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public bool ShowTabW = false;
+		[FormerlySerializedAs("ShowTabW")]
+		private bool _ShowTabW = false;
 
 		private SizeType vPrevInnerType;
 		private float vPrevTabOut;
@@ -42,6 +57,50 @@ namespace Hover.Core.Renderers.Shapes.Rect {
 		private bool vPrevTabE;
 		private bool vPrevTabS;
 		private bool vPrevTabW;
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public SizeType InnerSizeType {
+			get => _InnerSizeType;
+			set => this.UpdateValueWithTreeMessage(ref _InnerSizeType, value, "InnerSizeType");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float TabOutward {
+			get => _TabOutward;
+			set => this.UpdateValueWithTreeMessage(ref _TabOutward, value, "TabOutward");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float TabThickness {
+			get => _TabThickness;
+			set => this.UpdateValueWithTreeMessage(ref _TabThickness, value, "TabThickness");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool ShowTabN {
+			get => _ShowTabN;
+			set => this.UpdateValueWithTreeMessage(ref _ShowTabN, value, "ShowTabN");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool ShowTabE {
+			get => _ShowTabE;
+			set => this.UpdateValueWithTreeMessage(ref _ShowTabE, value, "ShowTabE");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool ShowTabS {
+			get => _ShowTabS;
+			set => this.UpdateValueWithTreeMessage(ref _ShowTabS, value, "ShowTabS");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool ShowTabW {
+			get => _ShowTabW;
+			set => this.UpdateValueWithTreeMessage(ref _ShowTabW, value, "ShowTabW");
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

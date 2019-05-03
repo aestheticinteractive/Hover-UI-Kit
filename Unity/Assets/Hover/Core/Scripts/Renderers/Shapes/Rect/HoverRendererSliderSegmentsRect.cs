@@ -1,5 +1,7 @@
 using Hover.Core.Renderers.Items.Sliders;
+using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.Core.Renderers.Shapes.Rect {
 
@@ -7,7 +9,17 @@ namespace Hover.Core.Renderers.Shapes.Rect {
 	[RequireComponent(typeof(HoverShapeRect))]
 	public class HoverRendererSliderSegmentsRect : HoverRendererSliderSegments {
 
-		public float TickSizeY = 0.001f;
+		[SerializeField]
+		[FormerlySerializedAs("TickSizeY")]
+		private float _TickSizeY = 0.001f;
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public float TickSizeY {
+			get => _TickSizeY;
+			set => this.UpdateValueWithTreeMessage(ref _TickSizeY, value, "TickSizeY");
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

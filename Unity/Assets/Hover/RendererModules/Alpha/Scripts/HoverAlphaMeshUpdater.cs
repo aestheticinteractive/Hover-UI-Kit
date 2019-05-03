@@ -2,6 +2,7 @@
 using Hover.Core.Renderers;
 using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.RendererModules.Alpha {
 
@@ -9,33 +10,47 @@ namespace Hover.RendererModules.Alpha {
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(HoverIndicator))]
 	[RequireComponent(typeof(HoverMesh))]
-	public class HoverAlphaMeshUpdater : MonoBehaviour, ITreeUpdateable, ISettingsController {
+	public class HoverAlphaMeshUpdater : TreeUpdateableBehavior, ISettingsController {
 	
 		public const string SortingLayerName = "SortingLayer";
 		public const string AlphaName = "Alpha";
 		
 		public ISettingsControllerMap Controllers { get; private set; }
 
+		[SerializeField]
 		[DisableWhenControlled(DisplaySpecials=true)]
-		public string SortingLayer = "Default";
-		
+		[FormerlySerializedAs("SortingLayer")]
+		private string _SortingLayer = "Default";
+
+		[SerializeField]
 		[DisableWhenControlled]
-		public int SortingOrder = 0;
+		[FormerlySerializedAs("SortingOrder")]
+		private int _SortingOrder = 0;
 
+		[SerializeField]
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
-		public float Alpha = 1;
+		[FormerlySerializedAs("Alpha")]
+		private float _Alpha = 1;
 
+		[SerializeField]
 		[ColorUsage(true, true)]
-		public Color StandardColor = Color.gray;
-		
-		[ColorUsage(true, true)]
-		public Color SliderFillColor = Color.white;
+		[FormerlySerializedAs("StandardColor")]
+		private Color _StandardColor = Color.gray;
 
+		[SerializeField]
 		[ColorUsage(true, true)]
-		public Color FlashColor = Color.white;
+		[FormerlySerializedAs("SliderFillColor")]
+		private Color _SliderFillColor = Color.white;
 
+		[SerializeField]
+		[ColorUsage(true, true)]
+		[FormerlySerializedAs("FlashColor")]
+		private Color _FlashColor = Color.white;
+
+		[SerializeField]
 		[Range(0, 2000)]
-		public float FlashColorMilliseconds = 400;
+		[FormerlySerializedAs("FlashColorMilliseconds")]
+		private float _FlashColorMilliseconds = 400;
 
 		private string vPrevLayer;
 		private int vPrevOrder;
@@ -53,17 +68,56 @@ namespace Hover.RendererModules.Alpha {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
+		public string SortingLayer {
+			get => _SortingLayer;
+			set => this.UpdateValueWithTreeMessage(ref _SortingLayer, value, "SortingLayer");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public int SortingOrder {
+			get => _SortingOrder;
+			set => this.UpdateValueWithTreeMessage(ref _SortingOrder, value, "SortingOrder");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float Alpha {
+			get => _Alpha;
+			set => this.UpdateValueWithTreeMessage(ref _Alpha, value, "Alpha");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public Color StandardColor {
+			get => _StandardColor;
+			set => this.UpdateValueWithTreeMessage(ref _StandardColor, value, "StandardColor");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public Color SliderFillColor {
+			get => _SliderFillColor;
+			set => this.UpdateValueWithTreeMessage(ref _SliderFillColor, value, "SliderFillColor");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public Color FlashColor {
+			get => _FlashColor;
+			set => this.UpdateValueWithTreeMessage(ref _FlashColor, value, "FlashColor");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float FlashColorMilliseconds {
+			get => _FlashColorMilliseconds;
+			set => this.UpdateValueWithTreeMessage(ref _FlashColorMilliseconds, value, "FlashColorMs");
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
 			vPrevColor = GetDisplayColor(GetComponent<HoverMesh>());
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
-			//do nothing...
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public void TreeUpdate() {
+		public override void TreeUpdate() {
 			HoverMesh hoverMesh = GetComponent<HoverMesh>();
 
 			TryUpdateLayer(hoverMesh);

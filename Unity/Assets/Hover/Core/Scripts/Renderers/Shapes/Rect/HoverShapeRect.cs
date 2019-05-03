@@ -2,22 +2,29 @@ using Hover.Core.Layouts.Rect;
 using Hover.Core.Renderers.Utils;
 using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.Core.Renderers.Shapes.Rect {
 
 	/*================================================================================================*/
 	public class HoverShapeRect : HoverShape, ILayoutableRect {
-		
+
 		public const string SizeXName = "SizeX";
 		public const string SizeYName = "SizeY";
 
+		[SerializeField]
 		[DisableWhenControlled(RangeMin=0)]
-		public float SizeX = 0.1f;
+		[FormerlySerializedAs("SizeX")]
+		private float _SizeX = 0.1f;
 		
+		[SerializeField]
 		[DisableWhenControlled(RangeMin=0)]
-		public float SizeY = 0.1f;
+		[FormerlySerializedAs("SizeY")]
+		private float _SizeY = 0.1f;
 
-		public bool FlipLayoutDimensions = false;
+		[SerializeField]
+		[FormerlySerializedAs("FlipLayoutDimensions")]
+		private bool _FlipLayoutDimensions = false;
 
 		private Plane vWorldPlane;
 		private Vector3 vPrevWorldPos;
@@ -25,6 +32,26 @@ namespace Hover.Core.Renderers.Shapes.Rect {
 		private float vPrevSizeX;
 		private float vPrevSizeY;
 		private bool vPrevFlip;
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public float SizeX {
+			get => _SizeX;
+			set => this.UpdateValueWithTreeMessage(ref _SizeX, value, "SizeX");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float SizeY {
+			get => _SizeY;
+			set => this.UpdateValueWithTreeMessage(ref _SizeY, value, "SizeY");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool FlipLayoutDimensions {
+			get => _FlipLayoutDimensions;
+			set => this.UpdateValueWithTreeMessage(ref _FlipLayoutDimensions, value, "FlipLayoutDims");
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -67,7 +94,7 @@ namespace Hover.Core.Renderers.Shapes.Rect {
 					"' component attached to it.", this);
 				return 0;
 			}
-			
+
 			Vector3 nearLocalPos = pSliderContainerTx.InverseTransformPoint(pNearestWorldPosition);
 			float halfTrackSizeY = (SizeY-buttonShapeRect.SizeY)/2;
 			return Mathf.InverseLerp(-halfTrackSizeY, halfTrackSizeY, nearLocalPos.y);

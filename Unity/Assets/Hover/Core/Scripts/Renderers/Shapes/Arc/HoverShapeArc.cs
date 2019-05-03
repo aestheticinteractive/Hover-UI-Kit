@@ -3,32 +3,43 @@ using Hover.Core.Layouts.Rect;
 using Hover.Core.Renderers.Utils;
 using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.Core.Renderers.Shapes.Arc {
 
 	/*================================================================================================*/
 	public class HoverShapeArc : HoverShape, ILayoutableArc, ILayoutableRect {
-		
+
 		public const string OuterRadiusName = "OuterRadius";
 		public const string InnerRadiusName = "InnerRadius";
 		public const string ArcDegreesName = "ArcDegrees";
 		public const string OuterOffsetName = "OuterOffset";
 		public const string InnerOffsetName = "InnerOffset";
 
+		[SerializeField]
 		[DisableWhenControlled(RangeMin=0)]
-		public float OuterRadius = 0.1f;
+		[FormerlySerializedAs("OuterRadius")]
+		private float _OuterRadius = 0.1f;
 
+		[SerializeField]
 		[DisableWhenControlled(RangeMin=0)]
-		public float InnerRadius = 0.04f;
+		[FormerlySerializedAs("InnerRadius")]
+		private float _InnerRadius = 0.04f;
 
+		[SerializeField]
 		[DisableWhenControlled(RangeMin=0, RangeMax=360)]
-		public float ArcDegrees = 60;
+		[FormerlySerializedAs("ArcDegrees")]
+		private float _ArcDegrees = 60;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public Vector3 OuterOffset = Vector3.zero;
+		[FormerlySerializedAs("OuterOffset")]
+		private Vector3 _OuterOffset = Vector3.zero;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public Vector3 InnerOffset = Vector3.zero;
+		[FormerlySerializedAs("InnerOffset")]
+		private Vector3 _InnerOffset = Vector3.zero;
 
 		private Plane vWorldPlane;
 		private Vector3 vPrevWorldPos;
@@ -38,6 +49,38 @@ namespace Hover.Core.Renderers.Shapes.Arc {
 		private float vPrevDegrees;
 		private Vector3 vPrevOuterOff;
 		private Vector3 vPrevInnerOff;
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public float OuterRadius {
+			get => _OuterRadius;
+			set => this.UpdateValueWithTreeMessage(ref _OuterRadius, value, "OuterRadius");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float InnerRadius {
+			get => _InnerRadius;
+			set => this.UpdateValueWithTreeMessage(ref _InnerRadius, value, "InnerRadius");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float ArcDegrees {
+			get => _ArcDegrees;
+			set => this.UpdateValueWithTreeMessage(ref _ArcDegrees, value, "ArcDegrees");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public Vector3 OuterOffset {
+			get => _OuterOffset;
+			set => this.UpdateValueWithTreeMessage(ref _OuterOffset, value, "OuterOffset");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public Vector3 InnerOffset {
+			get => _InnerOffset;
+			set => this.UpdateValueWithTreeMessage(ref _InnerOffset, value, "InnerOffset");
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

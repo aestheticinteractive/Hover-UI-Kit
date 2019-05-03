@@ -8,7 +8,7 @@ namespace Hover.Core.Renderers {
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
-	public class HoverIndicator : MonoBehaviour, ITreeUpdateable, ISettingsController {
+	public class HoverIndicator : TreeUpdateableBehavior, ISettingsController {
 		
 		public const string HighlightProgressName = "HighlightProgress";
 		public const string SelectionProgressName = "SelectionProgress";
@@ -54,12 +54,7 @@ namespace Hover.Core.Renderers {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
-			//do nothing...
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public void TreeUpdate() {
+		public override void TreeUpdate() {
 			SelectionProgress = Mathf.Min(SelectionProgress, HighlightProgress);
 
 			DidSettingsChange = (

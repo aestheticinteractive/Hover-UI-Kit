@@ -1,6 +1,7 @@
 using System;
 using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.Core.Renderers.Shapes.Arc {
 
@@ -21,29 +22,45 @@ namespace Hover.Core.Renderers.Shapes.Arc {
 		public const string UvMinArcDegreeName = "UvMinArcDegree";
 		public const string UvMaxArcDegreeName = "UvMaxArcDegree";
 
+		[SerializeField]
 		[DisableWhenControlled(RangeMin=0.05f, RangeMax=10)]
-		public float ArcSegmentsPerDegree = 0.5f;
+		[FormerlySerializedAs("ArcSegmentsPerDegree")]
+		private float _ArcSegmentsPerDegree = 0.5f;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public RadiusType InnerRadiusType = RadiusType.Min;
+		[FormerlySerializedAs("InnerRadiusType")]
+		private RadiusType _InnerRadiusType = RadiusType.Min;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public RadiusType OuterRadiusType = RadiusType.Max;
+		[FormerlySerializedAs("OuterRadiusType")]
+		private RadiusType _OuterRadiusType = RadiusType.Max;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public bool AutoUvViaRadiusType = false;
+		[FormerlySerializedAs("AutoUvViaRadiusType")]
+		private bool _AutoUvViaRadiusType = false;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public float UvInnerRadius = 0;
+		[FormerlySerializedAs("UvInnerRadius")]
+		private float _UvInnerRadius = 0;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public float UvOuterRadius = 1;
+		[FormerlySerializedAs("UvOuterRadius")]
+		private float _UvOuterRadius = 1;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public float UvMinArcDegree = 1;
+		[FormerlySerializedAs("UvMinArcDegree")]
+		private float _UvMinArcDegree = 1;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public float UvMaxArcDegree = 0;
+		[FormerlySerializedAs("UvMaxArcDegree")]
+		private float _UvMaxArcDegree = 0;
 
 		private int vArcSteps;
 		private float vPrevArcSegs;
@@ -54,6 +71,56 @@ namespace Hover.Core.Renderers.Shapes.Arc {
 		private float vPrevUvOuter;
 		private float vPrevUvMinDeg;
 		private float vPrevUvMaxDeg;
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public float ArcSegmentsPerDegree {
+			get => _ArcSegmentsPerDegree;
+			set => this.UpdateValueWithTreeMessage(ref _ArcSegmentsPerDegree, value, "ArcSegsPerDeg");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public RadiusType InnerRadiusType {
+			get => _InnerRadiusType;
+			set => this.UpdateValueWithTreeMessage(ref _InnerRadiusType, value, "InnerRadiusType");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public RadiusType OuterRadiusType {
+			get => _OuterRadiusType;
+			set => this.UpdateValueWithTreeMessage(ref _OuterRadiusType, value, "OuterRadiusType");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool AutoUvViaRadiusType {
+			get => _AutoUvViaRadiusType;
+			set => this.UpdateValueWithTreeMessage(ref _AutoUvViaRadiusType, value, "AutoUvViaRadType");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float UvInnerRadius {
+			get => _UvInnerRadius;
+			set => this.UpdateValueWithTreeMessage(ref _UvInnerRadius, value, "UvInnerRadius");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float UvOuterRadius {
+			get => _UvOuterRadius;
+			set => this.UpdateValueWithTreeMessage(ref _UvOuterRadius, value, "UvOuterRadius");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float UvMinArcDegree {
+			get => _UvMinArcDegree;
+			set => this.UpdateValueWithTreeMessage(ref _UvMinArcDegree, value, "UvMinArcDegree");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float UvMaxArcDegree {
+			get => _UvMaxArcDegree;
+			set => this.UpdateValueWithTreeMessage(ref _UvMaxArcDegree, value, "UvMaxArcDegree");
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

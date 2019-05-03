@@ -2,6 +2,7 @@ using Hover.Core.Renderers.Items.Sliders;
 using Hover.Core.Renderers.Utils;
 using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.Core.Renderers.Shapes.Arc {
 
@@ -9,22 +10,56 @@ namespace Hover.Core.Renderers.Shapes.Arc {
 	[RequireComponent(typeof(HoverShapeArc))]
 	public class HoverFillSliderArcUpdater : HoverFillSliderUpdater {
 
+		[SerializeField]
 		[DisableWhenControlled(RangeMin=0, DisplaySpecials=true)]
-		public float InsetOuter = 0.01f;
+		[FormerlySerializedAs("InsetOuter")]
+		private float _InsetOuter = 0.01f;
 
+		[SerializeField]
 		[DisableWhenControlled(RangeMin=0)]
-		public float InsetInner = 0.01f;
+		[FormerlySerializedAs("InsetInner")]
+		private float _InsetInner = 0.01f;
 
+		[SerializeField]
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
-		public float TickRelativeSizeX = 0.5f;
+		[FormerlySerializedAs("TickRelativeSizeX")]
+		private float _TickRelativeSizeX = 0.5f;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public bool UseTrackUv = false;
+		[FormerlySerializedAs("UseTrackUv")]
+		private bool _UseTrackUv = false;
 
 		private float vMeshOuterRadius;
 		private float vMeshInnerRadius;
 		private float vTickOuterRadius;
 		private float vTickInnerRadius;
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public float InsetOuter {
+			get => _InsetOuter;
+			set => this.UpdateValueWithTreeMessage(ref _InsetOuter, value, "InsetOuter");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float InsetInner {
+			get => _InsetInner;
+			set => this.UpdateValueWithTreeMessage(ref _InsetInner, value, "InsetInner");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float TickRelativeSizeX {
+			get => _TickRelativeSizeX;
+			set => this.UpdateValueWithTreeMessage(ref _TickRelativeSizeX, value, "TickRelativeSizeX");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool UseTrackUv {
+			get => _UseTrackUv;
+			set => this.UpdateValueWithTreeMessage(ref _UseTrackUv, value, "UseTrackUv");
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -90,7 +125,7 @@ namespace Hover.Core.Renderers.Shapes.Arc {
 			HoverShapeArc shapeArc = gameObject.GetComponent<HoverShapeArc>();
 			float inset = (shapeArc.OuterRadius-shapeArc.InnerRadius-InsetOuter-InsetInner)*
 				(1-TickRelativeSizeX)/2;
-			
+
 			vTickOuterRadius = shapeArc.OuterRadius-InsetOuter-inset;
 			vTickInnerRadius = shapeArc.InnerRadius+InsetInner+inset;
 
@@ -110,7 +145,7 @@ namespace Hover.Core.Renderers.Shapes.Arc {
 			meshShapeArc.OuterRadius = vTickOuterRadius;
 			meshShapeArc.InnerRadius = vTickInnerRadius;
 			meshShapeArc.ArcDegrees = pTickInfo.EndPosition-pTickInfo.StartPosition;
-			
+
 			pTickMesh.transform.localRotation = Quaternion.AngleAxis(
 				(pTickInfo.StartPosition+pTickInfo.EndPosition)/2, Vector3.forward);
 
