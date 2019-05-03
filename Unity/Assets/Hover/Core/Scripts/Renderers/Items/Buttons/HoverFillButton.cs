@@ -2,6 +2,7 @@ using System;
 using Hover.Core.Renderers.Shapes;
 using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.Core.Renderers.Items.Buttons {
 
@@ -12,20 +13,62 @@ namespace Hover.Core.Renderers.Items.Buttons {
 
 		public const string ShowEdgeName = "ShowEdge";
 
+		[SerializeField]
 		[DisableWhenControlled(DisplaySpecials=true)]
-		public HoverMesh Background;
+		[FormerlySerializedAs("SizeY")]
+		private HoverMesh _Background;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public HoverMesh Highlight;
+		[FormerlySerializedAs("SizeY")]
+		private HoverMesh _Highlight;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public HoverMesh Selection;
+		[FormerlySerializedAs("SizeY")]
+		private HoverMesh _Selection;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public HoverMesh Edge;
-		
+		[FormerlySerializedAs("SizeY")]
+		private HoverMesh _Edge;
+
+		[SerializeField]
 		[DisableWhenControlled]
-		public bool ShowEdge = true;
+		[FormerlySerializedAs("SizeY")]
+		private bool _ShowEdge = true;
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverMesh Background {
+			get => _Background;
+			set => this.UpdateValueWithTreeMessage(ref _Background, value, "Background");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverMesh Highlight {
+			get => _Highlight;
+			set => this.UpdateValueWithTreeMessage(ref _Highlight, value, "Highlight");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverMesh Selection {
+			get => _Selection;
+			set => this.UpdateValueWithTreeMessage(ref _Selection, value, "Selection");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverMesh Edge {
+			get => _Edge;
+			set => this.UpdateValueWithTreeMessage(ref _Edge, value, "Edge");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool ShowEdge {
+			get => _ShowEdge;
+			set => this.UpdateValueWithTreeMessage(ref _ShowEdge, value, "ShowEdge");
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

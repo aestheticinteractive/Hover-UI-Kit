@@ -3,17 +3,36 @@ using Hover.Core.Renderers.CanvasElements;
 using Hover.Core.Renderers.Shapes;
 using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.Core.Renderers.Items.Buttons {
 
 	/*================================================================================================*/
 	public class HoverRendererButton : HoverRenderer {
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public HoverFillButton Fill;
+		[FormerlySerializedAs("Fill")]
+		private HoverFillButton _Fill;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public HoverCanvas Canvas;
+		[FormerlySerializedAs("Canvas")]
+		private HoverCanvas _Canvas;
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverFillButton Fill {
+			get => _Fill;
+			set => this.UpdateValueWithTreeMessage(ref _Fill, value, "Fill");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverCanvas Canvas {
+			get => _Canvas;
+			set => this.UpdateValueWithTreeMessage(ref _Canvas, value, "Canvas");
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -30,7 +49,7 @@ namespace Hover.Core.Renderers.Items.Buttons {
 
 			throw new ArgumentOutOfRangeException();
 		}
-		
+
 		/*--------------------------------------------------------------------------------------------*/
 		public override int GetChildRendererCount() {
 			return 0;

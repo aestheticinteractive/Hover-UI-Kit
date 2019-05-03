@@ -3,6 +3,7 @@ using Hover.Core.Renderers.Shapes;
 using Hover.Core.Renderers.Utils;
 using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.Core.Renderers.Items.Sliders {
 
@@ -14,26 +15,76 @@ namespace Hover.Core.Renderers.Items.Sliders {
 		public const string SegmentInfoName = "SegmentInfo";
 		public const int SegmentCount = 4;
 
+		[SerializeField]
 		[DisableWhenControlled(DisplaySpecials=true)]
-		public HoverRendererSliderSegments SegmentInfo;
-		
-		[DisableWhenControlled]
-		public GameObject TickPrefab;
+		[FormerlySerializedAs("SegmentInfo")]
+		private HoverRendererSliderSegments _SegmentInfo;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public HoverMesh SegmentA;
+		[FormerlySerializedAs("TickPrefab")]
+		private GameObject _TickPrefab;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public HoverMesh SegmentB;
+		[FormerlySerializedAs("SegmentA")]
+		private HoverMesh _SegmentA;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public HoverMesh SegmentC;
+		[FormerlySerializedAs("SegmentB")]
+		private HoverMesh _SegmentB;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public HoverMesh SegmentD;
-		
+		[FormerlySerializedAs("SegmentC")]
+		private HoverMesh _SegmentC;
+
+		[SerializeField]
+		[DisableWhenControlled]
+		[FormerlySerializedAs("SegmentD")]
+		private HoverMesh _SegmentD;
+
 		[DisableWhenControlled]
 		public List<HoverMesh> Ticks;
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverRendererSliderSegments SegmentInfo {
+			get => _SegmentInfo;
+			set => this.UpdateValueWithTreeMessage(ref _SegmentInfo, value, "SegmentInfo");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public GameObject TickPrefab {
+			get => _TickPrefab;
+			set => this.UpdateValueWithTreeMessage(ref _TickPrefab, value, "TickPrefab");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverMesh SegmentA {
+			get => _SegmentA;
+			set => this.UpdateValueWithTreeMessage(ref _SegmentA, value, "SegmentA");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverMesh SegmentB {
+			get => _SegmentB;
+			set => this.UpdateValueWithTreeMessage(ref _SegmentB, value, "SegmentB");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverMesh SegmentC {
+			get => _SegmentC;
+			set => this.UpdateValueWithTreeMessage(ref _SegmentC, value, "SegmentC");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverMesh SegmentD {
+			get => _SegmentD;
+			set => this.UpdateValueWithTreeMessage(ref _SegmentD, value, "SegmentD");
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

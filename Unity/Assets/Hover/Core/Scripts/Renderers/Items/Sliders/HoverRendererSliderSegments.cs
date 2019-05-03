@@ -11,7 +11,7 @@ namespace Hover.Core.Renderers.Items.Sliders {
 	[RequireComponent(typeof(TreeUpdater))]
 	[RequireComponent(typeof(HoverRendererSlider))]
 	[RequireComponent(typeof(HoverShape))]
-	public abstract class HoverRendererSliderSegments : MonoBehaviour, ITreeUpdateable {
+	public abstract class HoverRendererSliderSegments : TreeUpdateableBehavior {
 
 		public bool IsJumpVisible { get; private set; }
 
@@ -23,12 +23,7 @@ namespace Hover.Core.Renderers.Items.Sliders {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
-			//do nothing...
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public void TreeUpdate() {
+		public override void TreeUpdate() {
 			UpdateInfo();
 			UpdateInfoWithShape();
 			BuildSegments();

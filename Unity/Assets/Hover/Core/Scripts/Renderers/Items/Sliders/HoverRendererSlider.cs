@@ -5,6 +5,7 @@ using Hover.Core.Renderers.Shapes;
 using Hover.Core.Renderers.Utils;
 using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.Core.Renderers.Items.Sliders {
 
@@ -19,39 +20,129 @@ namespace Hover.Core.Renderers.Items.Sliders {
 		public const string TickCountName = "TickCount";
 		public const string FillStartingPointName = "FillStartingPoint";
 		public const string ShowButtonEdgesName = "ShowButtonEdges";
-		
-		[DisableWhenControlled]
-		public GameObject Container;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public HoverFillSlider Track;
+		[FormerlySerializedAs("Container")]
+		private GameObject _Container;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public HoverRendererButton HandleButton;
+		[FormerlySerializedAs("Track")]
+		private HoverFillSlider _Track;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public HoverRendererButton JumpButton;
+		[FormerlySerializedAs("HandleButton")]
+		private HoverRendererButton _HandleButton;
 
+		[SerializeField]
+		[DisableWhenControlled]
+		[FormerlySerializedAs("JumpButton")]
+		private HoverRendererButton _JumpButton;
+
+		[SerializeField]
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
-		public float ZeroValue = 0.5f;
+		[FormerlySerializedAs("ZeroValue")]
+		private float _ZeroValue = 0.5f;
 
+		[SerializeField]
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
-		public float HandleValue = 0.5f;
+		[FormerlySerializedAs("HandleValue")]
+		private float _HandleValue = 0.5f;
 
+		[SerializeField]
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
-		public float JumpValue = 0;
+		[FormerlySerializedAs("JumpValue")]
+		private float _JumpValue = 0;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public bool AllowJump = false;
+		[FormerlySerializedAs("AllowJump")]
+		private bool _AllowJump = false;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public int TickCount = 0;
+		[FormerlySerializedAs("TickCount")]
+		private int _TickCount = 0;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public SliderFillType FillStartingPoint = SliderFillType.MinimumValue;
-		
+		[FormerlySerializedAs("FillStartingPoint")]
+		private SliderFillType _FillStartingPoint = SliderFillType.MinimumValue;
+
+		[SerializeField]
 		[DisableWhenControlled]
-		public bool ShowButtonEdges = false;
+		[FormerlySerializedAs("ShowButtonEdges")]
+		private bool _ShowButtonEdges = false;
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public GameObject Container {
+			get => _Container;
+			set => this.UpdateValueWithTreeMessage(ref _Container, value, "Container");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverFillSlider Track {
+			get => _Track;
+			set => this.UpdateValueWithTreeMessage(ref _Track, value, "Track");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverRendererButton HandleButton {
+			get => _HandleButton;
+			set => this.UpdateValueWithTreeMessage(ref _HandleButton, value, "HandleButton");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverRendererButton JumpButton {
+			get => _JumpButton;
+			set => this.UpdateValueWithTreeMessage(ref _JumpButton, value, "JumpButton");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float ZeroValue {
+			get => _ZeroValue;
+			set => this.UpdateValueWithTreeMessage(ref _ZeroValue, value, "ZeroValue");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float HandleValue {
+			get => _HandleValue;
+			set => this.UpdateValueWithTreeMessage(ref _HandleValue, value, "HandleValue");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float JumpValue {
+			get => _JumpValue;
+			set => this.UpdateValueWithTreeMessage(ref _JumpValue, value, "JumpValue");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool AllowJump {
+			get => _AllowJump;
+			set => this.UpdateValueWithTreeMessage(ref _AllowJump, value, "AllowJump");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public int TickCount {
+			get => _TickCount;
+			set => this.UpdateValueWithTreeMessage(ref _TickCount, value, "TickCount");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public SliderFillType FillStartingPoint {
+			get => _FillStartingPoint;
+			set => this.UpdateValueWithTreeMessage(ref _FillStartingPoint, value, "FillStartingPoint");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool ShowButtonEdges {
+			get => _ShowButtonEdges;
+			set => this.UpdateValueWithTreeMessage(ref _ShowButtonEdges, value, "ShowButtonEdges");
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -68,7 +159,7 @@ namespace Hover.Core.Renderers.Items.Sliders {
 
 			throw new ArgumentOutOfRangeException();
 		}
-		
+
 		/*--------------------------------------------------------------------------------------------*/
 		public override int GetChildRendererCount() {
 			return 2;
@@ -158,6 +249,7 @@ namespace Hover.Core.Renderers.Items.Sliders {
 
 			RendererUtil.SetActiveWithUpdate(JumpButton, (AllowJump && segs.IsJumpVisible));
 		}
+
 	}
 
 }
