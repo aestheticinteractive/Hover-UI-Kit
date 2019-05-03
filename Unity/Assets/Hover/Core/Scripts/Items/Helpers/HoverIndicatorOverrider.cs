@@ -16,13 +16,15 @@ namespace Hover.Core.Items.Helpers {
 
 		public ISettingsControllerMap Controllers { get; private set; }
 		
+		[SerializeField]
 		[DisableWhenControlled(DisplaySpecials=true, RangeMin=0, RangeMax=1)]
 		[FormerlySerializedAs("MinHightlightProgress")]
-		public float _MinHightlightProgress = 0;
+		private float _MinHightlightProgress = 0;
 
+		[SerializeField]
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
 		[FormerlySerializedAs("MinSelectionProgress")]
-		public float _MinSelectionProgress = 0;
+		private float _MinSelectionProgress = 0;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

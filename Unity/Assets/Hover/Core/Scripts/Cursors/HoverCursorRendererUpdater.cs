@@ -13,11 +13,13 @@ namespace Hover.Core.Cursors {
 	[RequireComponent(typeof(HoverCursorFollower))]
 	public class HoverCursorRendererUpdater : TreeUpdateableBehavior, ISettingsController {
 
+		[SerializeField]
 		[FormerlySerializedAs("CursorRendererPrefab")]
-		public GameObject _CursorRendererPrefab;
+		private GameObject _CursorRendererPrefab;
 
+		[SerializeField]
 		[FormerlySerializedAs("CursorRenderer")]
-		protected HoverRendererCursor _CursorRenderer;
+		private HoverRendererCursor _CursorRenderer;
 
 		[TriggerButton("Rebuild Cursor Renderer")]
 		public bool ClickToRebuildRenderer;

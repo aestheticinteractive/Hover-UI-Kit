@@ -28,14 +28,17 @@ namespace Hover.Core.Items {
 		public bool IsNearestAcrossAllItemsForAnyCursor { get; private set; }
 		public bool HasCursorInProximity { get; private set; }
 
+		[SerializeField]
 		[FormerlySerializedAs("CursorDataProvider")]
-		public HoverCursorDataProvider _CursorDataProvider;
+		private HoverCursorDataProvider _CursorDataProvider;
 
+		[SerializeField]
 		[FormerlySerializedAs("ProximityProvider")]
-		public HoverItemRendererUpdater _ProximityProvider;
+		private HoverItemRendererUpdater _ProximityProvider;
 
+		[SerializeField]
 		[FormerlySerializedAs("InteractionSettings")]
-		public HoverInteractionSettings _InteractionSettings;
+		private HoverInteractionSettings _InteractionSettings;
 
 		private readonly HashSet<string> vPreventHighlightMap;
 		private readonly HashSet<CursorType> vIsNearestForCursorTypeMap;

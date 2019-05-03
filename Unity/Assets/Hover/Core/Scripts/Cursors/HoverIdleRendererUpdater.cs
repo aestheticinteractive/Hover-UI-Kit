@@ -12,11 +12,13 @@ namespace Hover.Core.Cursors {
 	[RequireComponent(typeof(HoverCursorFollower))]
 	public class HoverIdleRendererUpdater : TreeUpdateableBehavior, ISettingsController {
 
+		[SerializeField]
 		[FormerlySerializedAs("IdleRendererPrefab")]
-		public GameObject _IdleRendererPrefab;
+		private GameObject _IdleRendererPrefab;
 
+		[SerializeField]
 		[FormerlySerializedAs("IdleRenderer")]
-		public HoverRendererIdle _IdleRenderer;
+		private HoverRendererIdle _IdleRenderer;
 
 		[TriggerButton("Rebuild Idle Renderer")]
 		public bool ClickToRebuildRenderer;

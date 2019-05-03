@@ -11,8 +11,9 @@ namespace Hover.Core.Items.Helpers {
 	[RequireComponent(typeof(HoverChildItemsFinder))]
 	public class HoverChildItemsEnabler : TreeUpdateableBehavior {
 
+		[SerializeField]
 		[FormerlySerializedAs("AreItemsEnabled")]
-		public bool _AreItemsEnabled = true;
+		private bool _AreItemsEnabled = true;
 		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

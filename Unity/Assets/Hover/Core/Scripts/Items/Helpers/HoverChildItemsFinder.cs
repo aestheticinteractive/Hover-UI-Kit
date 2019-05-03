@@ -12,8 +12,9 @@ namespace Hover.Core.Items.Helpers {
 
 		public List<HoverItemData> ChildItems { get; private set; }
 
+		[SerializeField]
 		[FormerlySerializedAs("FindOnlyImmediateChildren")]
-		public bool _FindOnlyImmediateChildren = false;
+		private bool _FindOnlyImmediateChildren = false;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

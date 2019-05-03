@@ -27,13 +27,15 @@ namespace Hover.Core.Items {
 		
 		public bool IsButtonRendererType { get; protected set; }
 
+		[SerializeField]
 		[DisableWhenControlled(DisplaySpecials=true)]
 		[FormerlySerializedAs("ButtonRendererPrefab")]
-		public GameObject _ButtonRendererPrefab;
+		private GameObject _ButtonRendererPrefab;
 
+		[SerializeField]
 		[DisableWhenControlled]
 		[FormerlySerializedAs("SliderRendererPrefab")]
-		public GameObject _SliderRendererPrefab;
+		private GameObject _SliderRendererPrefab;
 
 		[SerializeField]
 		[DisableWhenControlled]

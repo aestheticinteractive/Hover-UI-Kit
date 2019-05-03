@@ -17,10 +17,12 @@ namespace Hover.Core.Renderers {
 		public bool DidSettingsChange { get; protected set; }
 		public DateTime LatestSelectionTime { get; set; }
 
+		[SerializeField]
 		[DisableWhenControlled(RangeMin=0, RangeMax=1, DisplaySpecials=true)]
 		[FormerlySerializedAs("HighlightProgress")]
 		public float _HighlightProgress = 0.7f;
 
+		[SerializeField]
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
 		[FormerlySerializedAs("SelectionProgress")]
 		public float _SelectionProgress = 0.2f;
