@@ -1,19 +1,22 @@
 using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.Core.Renderers.Cursors {
 
 	/*================================================================================================*/
 	[RequireComponent(typeof(TreeUpdater))]
 	[RequireComponent(typeof(LineRenderer))]
-	public class HoverRaycastLine : MonoBehaviour, ITreeUpdateable {
+	public class HoverRaycastLine : TreeUpdateableBehavior {
 
 		public const string RaycastWorldOriginName = "RaycastWorldOrigin";
 
 		public ISettingsControllerMap Controllers { get; private set; }
 
+		[SerializeField]
 		[DisableWhenControlled(DisplaySpecials=true)]
-		public Vector3 RaycastWorldOrigin;
+		[FormerlySerializedAs("RaycastWorldOrigin")]
+		private Vector3 _RaycastWorldOrigin;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -25,12 +28,15 @@ namespace Hover.Core.Renderers.Cursors {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
-			//do nothing...
+		public Vector3 RaycastWorldOrigin {
+			get => _RaycastWorldOrigin;
+			set => this.UpdateValueWithTreeMessage(ref _RaycastWorldOrigin, value, "RaycastWorldOrig");
 		}
-		
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void TreeUpdate() {
+		public override void TreeUpdate() {
 			LineRenderer line = GetComponent<LineRenderer>();
 			line.useWorldSpace = true;
 			line.SetPosition(0, transform.position);

@@ -3,6 +3,7 @@ using Hover.Core.Renderers.CanvasElements;
 using Hover.Core.Renderers.Shapes;
 using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.Core.Renderers.Cursors {
 
@@ -14,23 +15,73 @@ namespace Hover.Core.Renderers.Cursors {
 		public const string TimerProgressName = "TimerProgress";
 		public const string IsRaycastName = "IsRaycast";
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public HoverFillIdle Fill;
+		[FormerlySerializedAs("Fill")]
+		private HoverFillIdle _Fill;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public Vector3 CenterOffset;
+		[FormerlySerializedAs("CenterOffset")]
+		private Vector3 _CenterOffset;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public float DistanceThreshold;
+		[FormerlySerializedAs("DistanceThreshold")]
+		private float _DistanceThreshold;
 
+		[SerializeField]
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
-		public float TimerProgress;
+		[FormerlySerializedAs("TimerProgress")]
+		private float _TimerProgress;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public bool IsRaycast;
+		[FormerlySerializedAs("IsRaycast")]
+		private bool _IsRaycast;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public float RaycastOffsetZ = -0.001f;
+		[FormerlySerializedAs("RaycastOffsetZ")]
+		private float _RaycastOffsetZ = -0.001f;
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverFillIdle Fill {
+			get => _Fill;
+			set => this.UpdateValueWithTreeMessage(ref _Fill, value, "Fill");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public Vector3 CenterOffset {
+			get => _CenterOffset;
+			set => this.UpdateValueWithTreeMessage(ref _CenterOffset, value, "CenterOffset");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float DistanceThreshold {
+			get => _DistanceThreshold;
+			set => this.UpdateValueWithTreeMessage(ref _DistanceThreshold, value, "DistanceThreshold");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float TimerProgress {
+			get => _TimerProgress;
+			set => this.UpdateValueWithTreeMessage(ref _TimerProgress, value, "TimerProgress");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool IsRaycast {
+			get => _IsRaycast;
+			set => this.UpdateValueWithTreeMessage(ref _IsRaycast, value, "IsRaycast");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float RaycastOffsetZ {
+			get => _RaycastOffsetZ;
+			set => this.UpdateValueWithTreeMessage(ref _RaycastOffsetZ, value, "RaycastOffsetZ");
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

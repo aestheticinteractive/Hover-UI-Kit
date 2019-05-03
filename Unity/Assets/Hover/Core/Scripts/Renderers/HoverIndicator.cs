@@ -20,16 +20,16 @@ namespace Hover.Core.Renderers {
 		[SerializeField]
 		[DisableWhenControlled(RangeMin=0, RangeMax=1, DisplaySpecials=true)]
 		[FormerlySerializedAs("HighlightProgress")]
-		public float _HighlightProgress = 0.7f;
+		private float _HighlightProgress = 0.7f;
 
 		[SerializeField]
 		[DisableWhenControlled(RangeMin=0, RangeMax=1)]
 		[FormerlySerializedAs("SelectionProgress")]
-		public float _SelectionProgress = 0.2f;
+		private float _SelectionProgress = 0.2f;
 
 		private float vPrevHigh;
 		private float vPrevSel;
-		
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/

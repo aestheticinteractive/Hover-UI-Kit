@@ -3,6 +3,7 @@ using Hover.Core.Renderers.Shapes;
 using Hover.Core.Renderers.Utils;
 using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.Core.Renderers.Cursors {
 
@@ -11,14 +12,40 @@ namespace Hover.Core.Renderers.Cursors {
 	[RequireComponent(typeof(HoverShape))]
 	public class HoverFillCursor : HoverFill {
 
+		[SerializeField]
 		[DisableWhenControlled(DisplaySpecials=true)]
-		public HoverMesh Background;
+		[FormerlySerializedAs("Background")]
+		private HoverMesh _Background;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public HoverMesh Highlight;
+		[FormerlySerializedAs("Highlight")]
+		private HoverMesh _Highlight;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public HoverMesh Selection;
+		[FormerlySerializedAs("Selection")]
+		private HoverMesh _Selection;
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverMesh Background {
+			get => _Background;
+			set => this.UpdateValueWithTreeMessage(ref _Background, value, "Background");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverMesh Highlight {
+			get => _Highlight;
+			set => this.UpdateValueWithTreeMessage(ref _Highlight, value, "Highlight");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverMesh Selection {
+			get => _Selection;
+			set => this.UpdateValueWithTreeMessage(ref _Selection, value, "Selection");
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -53,16 +80,16 @@ namespace Hover.Core.Renderers.Cursors {
 			if ( Background != null ) {
 				UpdateMesh(Background);
 			}
-			
+
 			if ( Highlight != null ) {
 				UpdateMesh(Highlight);
 			}
-			
+
 			if ( Selection != null ) {
 				UpdateMesh(Selection);
 			}
 		}
-		
+
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateMesh(HoverMesh pMesh) {
 			pMesh.Controllers.Set(SettingsControllerMap.GameObjectActiveSelf, this);

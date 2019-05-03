@@ -3,6 +3,7 @@ using Hover.Core.Renderers.CanvasElements;
 using Hover.Core.Renderers.Utils;
 using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.Core.Renderers.Cursors {
 
@@ -13,23 +14,73 @@ namespace Hover.Core.Renderers.Cursors {
 		public const string ShowRaycastLineName = "ShowRaycastLine";
 		public const string RaycastWorldOriginName = "RaycastWorldOrigin";
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public HoverFillCursor Fill;
+		[FormerlySerializedAs("Fill")]
+		private HoverFillCursor _Fill;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public HoverRaycastLine RaycastLine;
+		[FormerlySerializedAs("RaycastLine")]
+		private HoverRaycastLine _RaycastLine;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public bool IsRaycast;
+		[FormerlySerializedAs("IsRaycast")]
+		private bool _IsRaycast;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public bool ShowRaycastLine;
+		[FormerlySerializedAs("ShowRaycastLine")]
+		private bool _ShowRaycastLine;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public Vector3 RaycastWorldOrigin;
+		[FormerlySerializedAs("RaycastWorldOrigin")]
+		private Vector3 _RaycastWorldOrigin;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public float RaycastOffsetZ = -0.001f;
+		[FormerlySerializedAs("RaycastOffsetZ")]
+		private float _RaycastOffsetZ = -0.001f;
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverFillCursor Fill {
+			get => _Fill;
+			set => this.UpdateValueWithTreeMessage(ref _Fill, value, "Fill");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverRaycastLine RaycastLine {
+			get => _RaycastLine;
+			set => this.UpdateValueWithTreeMessage(ref _RaycastLine, value, "RaycastLine");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool IsRaycast {
+			get => _IsRaycast;
+			set => this.UpdateValueWithTreeMessage(ref _IsRaycast, value, "IsRaycast");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool ShowRaycastLine {
+			get => _ShowRaycastLine;
+			set => this.UpdateValueWithTreeMessage(ref _ShowRaycastLine, value, "ShowRaycastLine");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public Vector3 RaycastWorldOrigin {
+			get => _RaycastWorldOrigin;
+			set => this.UpdateValueWithTreeMessage(ref _RaycastWorldOrigin, value, "RaycastWorldOrig");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float RaycastOffsetZ {
+			get => _RaycastOffsetZ;
+			set => this.UpdateValueWithTreeMessage(ref _RaycastOffsetZ, value, "RaycastOffsetZ");
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

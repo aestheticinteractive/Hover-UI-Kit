@@ -1,5 +1,6 @@
 ﻿using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.Core.Renderers {
 
@@ -8,7 +9,7 @@ namespace Hover.Core.Renderers {
 	[RequireComponent(typeof(TreeUpdater))]
 	[RequireComponent(typeof(MeshRenderer))]
 	[RequireComponent(typeof(MeshFilter))]
-	public abstract class HoverMesh : MonoBehaviour, ITreeUpdateable, ISettingsController {
+	public abstract class HoverMesh : TreeUpdateableBehavior, ISettingsController {
 
 		public enum DisplayModeType {
 			Standard,
@@ -22,8 +23,10 @@ namespace Hover.Core.Renderers {
 		public bool DidRebuildMesh { get; private set; }
 		public abstract bool IsMeshVisible { get; }
 
+		[SerializeField]
 		[DisableWhenControlled(DisplaySpecials=true)]
-		public DisplayModeType DisplayMode = DisplayModeType.Standard;
+		[FormerlySerializedAs("DisplayMode")]
+		private DisplayModeType _DisplayMode = DisplayModeType.Standard;
 
 		protected MeshBuilder vMeshBuild;
 		protected bool vForceUpdates;
@@ -35,7 +38,15 @@ namespace Hover.Core.Renderers {
 			Controllers = new SettingsControllerMap();
 		}
 
-		
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public DisplayModeType DisplayMode {
+			get => _DisplayMode;
+			set => this.UpdateValueWithTreeMessage(ref _DisplayMode, value, "DisplayMode");
+		}
+
+
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public virtual void Awake() {
@@ -43,14 +54,9 @@ namespace Hover.Core.Renderers {
 			CreateMesh();
 			CreateMeshBuilder();
 		}
-		
+
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Start() {
-			//do nothing...
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		public virtual void TreeUpdate() {
+		public override void TreeUpdate() {
 			vForceUpdates = UpdateNullScenarios();
 			DidRebuildMesh = false;
 
@@ -66,8 +72,8 @@ namespace Hover.Core.Renderers {
 		public virtual void OnDestroy() {
 			DestroyImmediate(gameObject.GetComponent<MeshFilter>().sharedMesh);
 		}
-		
-		
+
+
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected virtual void CreateMaterial() {
@@ -79,7 +85,7 @@ namespace Hover.Core.Renderers {
 				meshRend.sortingOrder = 0;
 			}
 		}
-		
+
 		/*--------------------------------------------------------------------------------------------*/
 		protected virtual void CreateMesh() {
 			Mesh mesh = new Mesh();
@@ -120,15 +126,15 @@ namespace Hover.Core.Renderers {
 
 			return false;
 		}
-		
+
 		/*--------------------------------------------------------------------------------------------*/
 		protected virtual bool ShouldUpdateMesh() {
 			return vForceUpdates;
 		}
-		
+
 		/*--------------------------------------------------------------------------------------------*/
 		protected abstract void UpdateMesh();
-		
+
 	}
 
 }

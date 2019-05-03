@@ -3,6 +3,7 @@ using Hover.Core.Renderers.Shapes;
 using Hover.Core.Renderers.Utils;
 using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.Core.Renderers.Cursors {
 
@@ -11,11 +12,29 @@ namespace Hover.Core.Renderers.Cursors {
 	[RequireComponent(typeof(HoverShape))]
 	public class HoverFillIdle : HoverFill {
 
+		[SerializeField]
 		[DisableWhenControlled(DisplaySpecials=true)]
-		public HoverMesh Timer;
+		[FormerlySerializedAs("Timer")]
+		private HoverMesh _Timer;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public HoverMesh ItemPointer;
+		[FormerlySerializedAs("ItemPointer")]
+		private HoverMesh _ItemPointer;
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverMesh Timer {
+			get => _Timer;
+			set => this.UpdateValueWithTreeMessage(ref _Timer, value, "Timer");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverMesh ItemPointer {
+			get => _ItemPointer;
+			set => this.UpdateValueWithTreeMessage(ref _ItemPointer, value, "ItemPointer");
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -50,7 +69,7 @@ namespace Hover.Core.Renderers.Cursors {
 				UpdateMesh(Timer);
 			}
 		}
-		
+
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateMesh(HoverMesh pMesh, bool pShowMesh=true) {
 			pMesh.Controllers.Set(SettingsControllerMap.GameObjectActiveSelf, this);

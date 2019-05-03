@@ -2,6 +2,7 @@ using Hover.Core.Renderers.CanvasElements;
 using Hover.Core.Renderers.Shapes;
 using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.Core.Renderers {
 
@@ -10,21 +11,31 @@ namespace Hover.Core.Renderers {
 	[RequireComponent(typeof(TreeUpdater))]
 	[RequireComponent(typeof(HoverIndicator))]
 	[RequireComponent(typeof(HoverShape))]
-	public abstract class HoverRenderer : MonoBehaviour, ITreeUpdateable, 
+	public abstract class HoverRenderer : TreeUpdateableBehavior,
 															ISettingsController, IGameObjectProvider {
 
 		public const string IsEnabledName = "IsEnabled";
 
 		public ISettingsControllerMap Controllers { get; private set; }
-		
+
+		[SerializeField]
 		[DisableWhenControlled(DisplaySpecials=true)]
-		public bool IsEnabled = true;
+		[FormerlySerializedAs("IsEnabled")]
+		private bool _IsEnabled = true;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		protected HoverRenderer() {
 			Controllers = new SettingsControllerMap();
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public bool IsEnabled {
+			get => _IsEnabled;
+			set => this.UpdateValueWithTreeMessage(ref _IsEnabled, value, "IsEnabled");
 		}
 
 
@@ -71,12 +82,7 @@ namespace Hover.Core.Renderers {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Start() {
-			//do nothing...
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public virtual void TreeUpdate() {
+		public override void TreeUpdate() {
 			Controllers.TryExpireControllers();
 		}
 
