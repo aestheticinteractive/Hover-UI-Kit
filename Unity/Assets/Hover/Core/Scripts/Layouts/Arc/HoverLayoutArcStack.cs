@@ -1,6 +1,7 @@
 ﻿using Hover.Core.Layouts.Rect;
 using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.Core.Layouts.Arc {
 
@@ -16,59 +17,92 @@ namespace Hover.Core.Layouts.Arc {
 			InnerToOuter,
 			OuterToInner
 		}
-		
+
+		[SerializeField]
 		[DisableWhenControlled(DisplaySpecials=true)]
-		public ArrangementType Arrangement = ArrangementType.InnerToOuter;
-		
-		[DisableWhenControlled(RangeMin=0)]
-		public float OuterRadius = 0.1f;
-		
-		[DisableWhenControlled(RangeMin=0)]
-		public float InnerRadius = 0.04f;
+		[FormerlySerializedAs("Arrangement")]
+		public ArrangementType _Arrangement = ArrangementType.InnerToOuter;
 
+		[SerializeField]
+		[DisableWhenControlled(RangeMin=0)]
+		[FormerlySerializedAs("OuterRadius")]
+		public float _OuterRadius = 0.1f;
+
+		[SerializeField]
+		[DisableWhenControlled(RangeMin=0)]
+		[FormerlySerializedAs("InnerRadius")]
+		public float _InnerRadius = 0.04f;
+
+		[SerializeField]
 		[DisableWhenControlled(RangeMin=0, RangeMax=360)]
-		public float ArcDegrees = 135;
+		[FormerlySerializedAs("ArcDegrees")]
+		public float _ArcDegrees = 135;
 
-		public HoverLayoutArcPaddingSettings Padding = new HoverLayoutArcPaddingSettings();
+		[SerializeField]
+		[FormerlySerializedAs("Padding")]
+		public HoverLayoutArcPaddingSettings _Padding;
 
+		[SerializeField]
 		[DisableWhenControlled(RangeMin=-180, RangeMax=180)]
-		public float StartingDegree = 0;
+		[FormerlySerializedAs("StartingDegree")]
+		public float _StartingDegree = 0;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public AnchorType RectAnchor = AnchorType.MiddleCenter;
+		[FormerlySerializedAs("RectAnchor")]
+		public AnchorType _RectAnchor = AnchorType.MiddleCenter;
 
 		private Vector2? vRectSize;
 
-		private ArrangementType vPrevArrangement;
-		private float vPrevOuterRadius;
-		private float vPrevInnerRadius;
-		private float vPrevArcDegrees;
-		private HoverLayoutArcPaddingSettings vPrevPadding;
-		private float vPrevStartingDegree;
-		private AnchorType vPrevRectAnchor;
-		private Vector2? vPrevRectSize;
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public ArrangementType Arrangement {
+			get => _Arrangement;
+			set => this.UpdateValueWithTreeMessage(ref _Arrangement, value, "Arrangement");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float OuterRadius {
+			get => _OuterRadius;
+			set => this.UpdateValueWithTreeMessage(ref _OuterRadius, value, "OuterRadius");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float InnerRadius {
+			get => _InnerRadius;
+			set => this.UpdateValueWithTreeMessage(ref _InnerRadius, value, "InnerRadius");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float ArcDegrees {
+			get => _ArcDegrees;
+			set => this.UpdateValueWithTreeMessage(ref _ArcDegrees, value, "ArcDegrees");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverLayoutArcPaddingSettings Padding {
+			get => _Padding;
+			set => this.UpdateValueWithTreeMessage(ref _Padding, value, "Padding");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float StartingDegree {
+			get => _StartingDegree;
+			set => this.UpdateValueWithTreeMessage(ref _StartingDegree, value, "StartingDegree");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public AnchorType RectAnchor {
+			get => _RectAnchor;
+			set => this.UpdateValueWithTreeMessage(ref _RectAnchor, value, "RectAnchor");
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public override void TreeUpdate() {
 			base.TreeUpdate();
-
-			bool didChange = (
-				vDidRefreshChildren ||
-				vPrevArrangement != Arrangement ||
-				vPrevOuterRadius != OuterRadius ||
-				vPrevInnerRadius != InnerRadius ||
-				vPrevArcDegrees != ArcDegrees ||
-				vPrevPadding != Padding ||
-				vPrevStartingDegree != StartingDegree ||
-				vPrevRectAnchor != RectAnchor ||
-				vPrevRectSize != vRectSize
-			);
-
-			if ( !didChange ) {
-				return;
-			}
 
 			Padding.ClampValues(this);
 			UpdateLayoutWithFixedSize();
@@ -77,15 +111,6 @@ namespace Hover.Core.Layouts.Arc {
 				Controllers.Set(RectAnchorName, this);
 				RectAnchor = AnchorType.MiddleCenter;
 			}
-
-			vPrevArrangement = Arrangement;
-			vPrevOuterRadius = OuterRadius;
-			vPrevInnerRadius = InnerRadius;
-			vPrevArcDegrees = ArcDegrees;
-			vPrevPadding = Padding;
-			vPrevStartingDegree = StartingDegree;
-			vPrevRectAnchor = RectAnchor;
-			vPrevRectSize = vRectSize;
 
 			vRectSize = null;
 		}
@@ -155,7 +180,7 @@ namespace Hover.Core.Layouts.Arc {
 					elemRelArcDeg,
 					this
 				);
-				
+
 				elem.Controllers.Set(SettingsControllerMap.TransformLocalPosition+".x", this);
 				elem.Controllers.Set(SettingsControllerMap.TransformLocalPosition+".y", this);
 				elem.Controllers.Set(SettingsControllerMap.TransformLocalRotation, this);

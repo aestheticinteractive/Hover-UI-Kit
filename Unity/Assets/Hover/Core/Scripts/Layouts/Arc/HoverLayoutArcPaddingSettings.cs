@@ -3,20 +3,20 @@ using UnityEngine;
 
 namespace Hover.Core.Layouts.Arc {
 
-    /*================================================================================================*/
-    [Serializable]
-	public class HoverLayoutArcPaddingSettings {
+	/*================================================================================================*/
+	[Serializable]
+	public struct HoverLayoutArcPaddingSettings {
 
-		public float OuterRadius = 0;
-		public float InnerRadius = 0;
-
-		[Range(0, 180)]
-		public float StartDegree = 0;
+		public float OuterRadius;
+		public float InnerRadius;
 
 		[Range(0, 180)]
-		public float EndDegree = 0;
+		public float StartDegree;
 
-		public float Between = 0;
+		[Range(0, 180)]
+		public float EndDegree;
+
+		public float Between;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

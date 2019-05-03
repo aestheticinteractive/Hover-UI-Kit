@@ -7,7 +7,7 @@ namespace Hover.Core.Layouts.Rect {
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
-	public abstract class HoverLayoutRectGroup : MonoBehaviour, ISettingsController, ITreeUpdateable {
+	public abstract class HoverLayoutRectGroup : TreeUpdateableBehavior, ISettingsController {
 
 		public ISettingsControllerMap Controllers { get; private set; }
 		
@@ -34,17 +34,12 @@ namespace Hover.Core.Layouts.Rect {
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
-			//do nothing...
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
 		public void OnTransformChildrenChanged() {
 			vShouldRefreshChildren = true;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void TreeUpdate() {
+		public override void TreeUpdate() {
 			vDidRefreshChildren = false;
 			FillChildItemsList();
 			Controllers.TryExpireControllers();
@@ -68,13 +63,7 @@ namespace Hover.Core.Layouts.Rect {
 				Transform childTx = transform.GetChild(i);
 				ILayoutableRect elem = childTx.GetComponent<ILayoutableRect>();
 
-				if ( elem == null ) {
-					//Debug.LogWarning("Item '"+childTx.name+"' does not have a renderer "+
-					//	"that implements '"+typeof(IRectangleLayoutElement).Name+"'.");
-					continue;
-				}
-
-				if ( !elem.isActiveAndEnabled ) {
+				if ( elem == null || !elem.isActiveAndEnabled ) {
 					continue;
 				}
 

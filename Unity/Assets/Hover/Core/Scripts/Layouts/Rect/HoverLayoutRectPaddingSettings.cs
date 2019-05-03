@@ -3,15 +3,15 @@ using UnityEngine;
 
 namespace Hover.Core.Layouts.Rect {
 
-    /*================================================================================================*/
-    [Serializable]
-	public class HoverLayoutRectPaddingSettings {
+	/*================================================================================================*/
+	[Serializable]
+	public struct HoverLayoutRectPaddingSettings {
 
-		public float Top = 0;
-		public float Bottom = 0;
-		public float Left = 0;
-		public float Right = 0;
-		public float Between = 0;
+		public float Top;
+		public float Bottom;
+		public float Left;
+		public float Right;
+		public float Between;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////

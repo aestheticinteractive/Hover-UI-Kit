@@ -1,5 +1,6 @@
 ﻿using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.Core.Layouts.Rect {
 
@@ -15,26 +16,62 @@ namespace Hover.Core.Layouts.Rect {
 			TopToBottom,
 			BottomToTop
 		}
-		
+
+		[SerializeField]
 		[DisableWhenControlled(DisplaySpecials=true)]
-		public ArrangementType Arrangement = ArrangementType.LeftToRight;
+		[FormerlySerializedAs("Arrangement")]
+		private ArrangementType _Arrangement = ArrangementType.LeftToRight;
 
+		[SerializeField]
 		[DisableWhenControlled(RangeMin=0)]
-		public float SizeX = 0.4f;
-		
-		[DisableWhenControlled(RangeMin=0)]
-		public float SizeY = 0.08f;
-		
-		public HoverLayoutRectPaddingSettings Padding = new HoverLayoutRectPaddingSettings();
+		[FormerlySerializedAs("SizeX")]
+		private float _SizeX = 0.4f;
 
+		[SerializeField]
+		[DisableWhenControlled(RangeMin=0)]
+		[FormerlySerializedAs("SizeY")]
+		private float _SizeY = 0.08f;
+
+		[SerializeField]
+		[FormerlySerializedAs("Padding")]
+		private HoverLayoutRectPaddingSettings _Padding;
+
+		[SerializeField]
 		[DisableWhenControlled]
-		public AnchorType Anchor = AnchorType.MiddleCenter;
+		[FormerlySerializedAs("Anchor")]
+		private AnchorType _Anchor = AnchorType.MiddleCenter;
 
-		private ArrangementType vPrevArrangement;
-		private float vPrevSizeX;
-		private float vPrevSizeY;
-		private HoverLayoutRectPaddingSettings vPrevPadding;
-		private AnchorType vPrevAnchor;
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public ArrangementType Arrangement {
+			get => _Arrangement;
+			set => this.UpdateValueWithTreeMessage(ref _Arrangement, value, "Arrangement");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float SizeX {
+			get => _SizeX;
+			set => this.UpdateValueWithTreeMessage(ref _SizeX, value, "SizeX");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float SizeY {
+			get => _SizeY;
+			set => this.UpdateValueWithTreeMessage(ref _SizeY, value, "SizeY");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverLayoutRectPaddingSettings Padding {
+			get => _Padding;
+			set => this.UpdateValueWithTreeMessage(ref _Padding, value, "Padding");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public AnchorType Anchor {
+			get => _Anchor;
+			set => this.UpdateValueWithTreeMessage(ref _Anchor, value, "Anchor");
+		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -42,29 +79,10 @@ namespace Hover.Core.Layouts.Rect {
 		public override void TreeUpdate() {
 			base.TreeUpdate();
 
-			bool didChange = (
-				vDidRefreshChildren ||
-				vPrevArrangement != Arrangement ||
-				vPrevSizeX != SizeX ||
-				vPrevSizeY != SizeY ||
-				vPrevPadding != Padding ||
-				vPrevAnchor != Anchor
-			);
-
-			if ( !didChange ) {
-				return;
-			}
-
 			Padding.ClampValues(this);
 			UpdateLayoutWithFixedSize();
-
-			vPrevArrangement = Arrangement;
-			vPrevSizeX = SizeX;
-			vPrevSizeY = SizeY;
-			vPrevPadding = Padding;
-			vPrevAnchor = Anchor;
 		}
-		
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -93,7 +111,7 @@ namespace Hover.Core.Layouts.Rect {
 					Arrangement == ArrangementType.TopToBottom);
 			}
 		}
-		
+
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateLayoutWithFixedSize() {
 			int itemCount = vChildItems.Count;
@@ -129,7 +147,7 @@ namespace Hover.Core.Layouts.Rect {
 				cellAvailSizeX = elemAvailSizeX;
 				cellAvailSizeY = SizeY-vertOuterPad;
 			}
-			
+
 			for ( int i = 0 ; i < itemCount ; i++ ) {
 				HoverLayoutRectGroupChild item = vChildItems[i];
 				relSumX += item.RelativeSizeX;
@@ -154,10 +172,10 @@ namespace Hover.Core.Layouts.Rect {
 					elemRelSizeX*item.RelativePositionOffsetX;
 				localPos.y = posY+(isHoriz ? 0 : elemRelSizeY/2)+
 					elemRelSizeY*item.RelativePositionOffsetY;
-				
+
 				posX += (isHoriz ? elemRelSizeX+Padding.Between : 0);
 				posY += (isHoriz ? 0 : elemRelSizeY+Padding.Between);
-				
+
 				elem.Controllers.Set(
 					SettingsControllerMap.SpecialPrefix+"Transform.localPosition.x", this);
 				elem.Controllers.Set(

@@ -7,7 +7,7 @@ namespace Hover.Core.Layouts.Arc {
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
-	public abstract class HoverLayoutArcGroup : MonoBehaviour, ISettingsController, ITreeUpdateable {
+	public abstract class HoverLayoutArcGroup : TreeUpdateableBehavior, ISettingsController {
 		
 		public ISettingsControllerMap Controllers { get; private set; }
 
@@ -34,17 +34,12 @@ namespace Hover.Core.Layouts.Arc {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
-			//do nothing...
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
 		public void OnTransformChildrenChanged() {
 			vShouldRefreshChildren = true;
 		}
 		
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void TreeUpdate() {
+		public override void TreeUpdate() {
 			vDidRefreshChildren = false;
 			FillChildItemsList();
 			Controllers.TryExpireControllers();
@@ -68,13 +63,7 @@ namespace Hover.Core.Layouts.Arc {
 				Transform childTx = transform.GetChild(i);
 				ILayoutableArc elem = childTx.GetComponent<ILayoutableArc>();
 
-				if ( elem == null ) {
-					//Debug.LogWarning("Item '"+childTx.name+"' does not have a renderer "+
-					//	"that implements '"+typeof(IArcLayoutable).Name+"'.");
-					continue;
-				}
-
-				if ( !elem.isActiveAndEnabled ) {
+				if ( elem == null || !elem.isActiveAndEnabled ) {
 					continue;
 				}
 

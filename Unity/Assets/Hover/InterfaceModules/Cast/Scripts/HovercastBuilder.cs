@@ -334,7 +334,10 @@ namespace Hover.InterfaceModules.Cast {
 
 			HoverLayoutArcRow layoutArc = pRowGo.AddComponent<HoverLayoutArcRow>();
 			layoutArc.ArcDegrees = 90;
-			layoutArc.Padding.Between = 0.15f;
+
+			HoverLayoutArcPaddingSettings layoutArcPad = layoutArc.Padding;
+			layoutArcPad.Between = 0.15f;
+			layoutArc.Padding = layoutArcPad;
 
 			HovercastRowTitle title = pRowGo.AddComponent<HovercastRowTitle>();
 			title.RowTitle = pRowTitle;
