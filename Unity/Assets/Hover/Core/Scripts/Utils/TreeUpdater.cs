@@ -17,7 +17,7 @@ namespace Hover.Core.Utils {
 		public bool ReloadTreeChildrenOnUpdate { get; set; }
 
 		private bool vIsDestroyed;
-		private bool vTreeUpdatablesRequireUpdateThisFrame;
+		private int vTreeUpdatablesRequireUpdateUntilFrame;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -32,14 +32,14 @@ namespace Hover.Core.Utils {
 		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
 			ReloadTreeChildrenOnUpdate = true;
-			HandleTreeUpdatableChanged(true);
+			HandleTreeUpdatableChanged();
 			FindTreeUpdatablesAndChildren();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void OnEnable() {
 			ReloadTreeChildrenOnUpdate = true;
-			HandleTreeUpdatableChanged(true);
+			HandleTreeUpdatableChanged();
 			FindTreeUpdatablesAndChildren();
 		}
 
@@ -51,13 +51,22 @@ namespace Hover.Core.Utils {
 				return;
 			}
 
+			//Debug.Log(Time.frameCount+" | ############# LateUpdate: "+transform.ToDebugPath(), this);
 			UpdateThisLevelAndDescend(0);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void OnTransformParentChanged() {
-			Debug.LogWarning("ParentChanged", this);
+			Debug.Log(Time.frameCount+" | ParentChanged: "+transform.ToDebugPath(), this);
 			CheckForParent();
+			HandleTreeUpdatableChanged();
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public void OnTransformChildrenChanged() {
+			Debug.Log(Time.frameCount+" | ChildrenChanged: "+transform.ToDebugPath(), this);
+			ReloadTreeChildrenOnUpdate = true;
+			HandleTreeUpdatableChanged();
 		}
 
 		/*--------------------------------------------------------------------------------------------* /
@@ -87,9 +96,10 @@ namespace Hover.Core.Utils {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public static void SendTreeUpdatableChanged<T>(T pSource, string pNote=null)
-																			where T : MonoBehaviour {
-			//Debug.Log("TreeUpdater.SendTreeUpdatableChanged: "+pSource.GetType().Name+" / "+pNote);
+		public static void SendTreeUpdatableChanged<T>(T pSource, string pNote) where T : MonoBehaviour{
+			Debug.Log(Time.frameCount+" | TreeUpdater.SendTreeUpdatableChanged: "+
+				pSource.GetType().Name+" / '"+pNote+"' / "+
+				pSource.transform.ToDebugPath(), pSource);
 			//pSource.SendMessage("HandleTreeUpdatableChanged", SendMessageOptions.RequireReceiver);
 			pSource.GetComponent<TreeUpdater>().HandleTreeUpdatableChanged(true);
 		}
@@ -97,26 +107,28 @@ namespace Hover.Core.Utils {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void HandleTreeUpdatableChanged(bool pSendDownward) {
-			if ( vTreeUpdatablesRequireUpdateThisFrame ) {
+		private void HandleTreeUpdatableChanged(bool pSendDownward=true, int pDepth=0) {
+			int untilFrame = Time.frameCount+1;
+
+			if ( vTreeUpdatablesRequireUpdateUntilFrame >= untilFrame ) {
 				return;
 			}
 
-			//Debug.Log(Time.frameCount+" | HandleTreeUpdatableChanged: "+name+" / "+
-			//	TreeChildrenThisFrame.Count, this);
+			//Debug.Log(Time.frameCount+" | HandleTreeUpdatableChanged: "+pDepth+" / "+untilFrame+" / "+
+			//	pSendDownward+" / "+transform.ToDebugPath(), this);
 
-			vTreeUpdatablesRequireUpdateThisFrame = true;
+			vTreeUpdatablesRequireUpdateUntilFrame = untilFrame;
 			CheckForParent();
-			TreeParentThisFrame?.HandleTreeUpdatableChanged(false);
+			TreeParentThisFrame?.HandleTreeUpdatableChanged(false, pDepth-1);
 
 			for ( int i = 0 ; pSendDownward && i < TreeChildrenThisFrame.Count ; i++ ) {
 				TreeUpdater childTreeUp = TreeChildrenThisFrame[i];
 
-				if ( childTreeUp?.gameObject.activeSelf != true ) {
+				if ( childTreeUp == null || childTreeUp.gameObject.activeSelf != true ) {
 					continue;
 				}
 
-				childTreeUp.HandleTreeUpdatableChanged(true);
+				childTreeUp.HandleTreeUpdatableChanged(true, pDepth+1);
 			}
 		}
 
@@ -137,11 +149,14 @@ namespace Hover.Core.Utils {
 		
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateThisLevelAndDescend(int pDepth) {
+			//Debug.LogWarning(Time.frameCount+" | UpdateThisLevelAndDescend: "+pDepth+" / "+
+			//	vTreeUpdatablesRequireUpdateUntilFrame+" / "+transform.ToDebugPath(), this);
+
 			if ( vIsDestroyed ) {
 				return;
 			}
 
-			if ( Application.isPlaying && !vTreeUpdatablesRequireUpdateThisFrame ) {
+			if ( vTreeUpdatablesRequireUpdateUntilFrame < Time.frameCount ) {
 				return;
 			}
 
@@ -153,8 +168,7 @@ namespace Hover.Core.Utils {
 			SendTreeUpdates(pDepth);
 			DescendTree(pDepth);
 
-			vTreeUpdatablesRequireUpdateThisFrame = false;
-			//Debug.DrawLine(transform.position, transform.position+Vector3.forward*0.1f, Color.red);
+			Debug.DrawLine(transform.position, transform.position+Vector3.forward*0.1f, Color.red);
 		}
 
 
@@ -179,7 +193,7 @@ namespace Hover.Core.Utils {
 				TreeChildrenThisFrame.Add(childTreeUp);
 			}
 
-			//Debug.Log(Time.frameCount+" | CHILDREN: "+gameObject.name+" / "+
+			//Debug.Log(Time.frameCount+" | FindTreeUpdatablesAndChildren: "+childCount+" / "+
 			//	TreeChildrenThisFrame.Count, this);
 		}
 		
@@ -195,7 +209,7 @@ namespace Hover.Core.Utils {
 				if ( treeUp == null ) {
 					if ( !ReloadTreeChildrenOnUpdate ) {
 						ReloadTreeChildrenOnUpdate = true;
-						Debug.Log("Lost tree sibling, will refresh list next frame: "+i, this);
+						Debug.LogError("Lost tree sibling, will refresh list next frame: "+i, this);
 					}
 
 					continue;
@@ -226,7 +240,7 @@ namespace Hover.Core.Utils {
 				if ( childTreeUp == null ) {
 					if ( !ReloadTreeChildrenOnUpdate ) {
 						ReloadTreeChildrenOnUpdate = true;
-						Debug.Log("Lost tree child, will refresh list next frame: "+i, this);
+						Debug.LogError("Lost tree child, will refresh list next frame: "+i, this);
 					}
 
 					continue;

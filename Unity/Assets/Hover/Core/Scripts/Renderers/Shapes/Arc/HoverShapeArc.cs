@@ -140,9 +140,9 @@ namespace Hover.Core.Renderers.Shapes.Arc {
 				InnerOffset != vPrevInnerOff
 			);
 
-			if ( !DidSettingsChange ) {
+			/*if ( !DidSettingsChange ) {
 				return;
-			}
+			}*/
 
 			UpdateShapeArcChildren();
 

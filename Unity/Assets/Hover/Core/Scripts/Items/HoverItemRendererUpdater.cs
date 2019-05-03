@@ -8,6 +8,7 @@ using Hover.Core.Renderers.Items.Sliders;
 using Hover.Core.Renderers.Utils;
 using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.Core.Items {
 
@@ -17,7 +18,7 @@ namespace Hover.Core.Items {
 	[RequireComponent(typeof(HoverItem))]
 	[RequireComponent(typeof(HoverItemHighlightState))]
 	[RequireComponent(typeof(HoverItemSelectionState))]
-	public class HoverItemRendererUpdater : MonoBehaviour, ITreeUpdateable, 
+	public class HoverItemRendererUpdater : TreeUpdateableBehavior, 
 															ISettingsController, IProximityProvider {
 
 		public const string ButtonRendererName = "_ButtonRenderer";
@@ -28,10 +29,12 @@ namespace Hover.Core.Items {
 		public bool IsButtonRendererType { get; protected set; }
 
 		[DisableWhenControlled(DisplaySpecials=true)]
-		public GameObject ButtonRendererPrefab;
+		[FormerlySerializedAs("ButtonRendererPrefab")]
+		public GameObject _ButtonRendererPrefab;
 
 		[DisableWhenControlled]
-		public GameObject SliderRendererPrefab;
+		[FormerlySerializedAs("SliderRendererPrefab")]
+		public GameObject _SliderRendererPrefab;
 
 		[SerializeField]
 		[DisableWhenControlled]
@@ -54,21 +57,35 @@ namespace Hover.Core.Items {
 			Controllers = new SettingsControllerMap();
 		}
 
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public HoverRendererButton ButtonRenderer {
-			get { return (_ButtonRenderer as HoverRendererButton); }
-			set { _ButtonRenderer = value; }
+			get => (_ButtonRenderer as HoverRendererButton);
+			set => this.UpdateValueWithTreeMessage(ref _ButtonRenderer, value, "ButtonRend");
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public HoverRendererSlider SliderRenderer {
-			get { return (_SliderRenderer as HoverRendererSlider); }
-			set { _SliderRenderer = value; }
+			get => (_SliderRenderer as HoverRendererSlider);
+			set => this.UpdateValueWithTreeMessage(ref _SliderRenderer, value, "SliderRend");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public GameObject ButtonRendererPrefab {
+			get => _ButtonRendererPrefab;
+			set => this.UpdateValueWithTreeMessage(ref _ButtonRendererPrefab, value, "ButtonRendPref");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public GameObject SliderRendererPrefab {
+			get => _SliderRendererPrefab;
+			set => this.UpdateValueWithTreeMessage(ref _SliderRendererPrefab, value, "SliderRendPref");
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public HoverRenderer ActiveRenderer {
-			get { return ((HoverRenderer)ButtonRenderer ?? SliderRenderer); }
+			get => ((HoverRenderer)ButtonRenderer ?? SliderRenderer);
 		}
 
 
@@ -85,12 +102,7 @@ namespace Hover.Core.Items {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Start() {
-			//do nothing...
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public virtual void TreeUpdate() {
+		public override void TreeUpdate() {
 			HoverItem hoverItem = GetComponent<HoverItem>();
 
 			DestroyRenderersIfNecessary();

@@ -106,9 +106,9 @@ namespace Hover.Core.Renderers.Shapes.Rect {
 				FlipLayoutDimensions != vPrevFlip
 			);
 
-			if ( !DidSettingsChange ) {
+			/*if ( !DidSettingsChange ) {
 				return;
-			}
+			}*/
 
 			UpdateShapeRectChildren();
 

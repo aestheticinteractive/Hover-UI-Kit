@@ -22,7 +22,11 @@ namespace Hover.Core.Utils {
 		/*--------------------------------------------------------------------------------------------*/
 		public static bool UpdateValueWithTreeMessage<TB, TV>(this TB pSource, ref TV pOld, TV pNew,
 																string pNote) where TB : MonoBehaviour {
-			if ( pNew.Equals(pOld) ) {
+			if ( pNew == null && pOld == null ) {
+				return false;
+			}
+
+			if ( pNew?.Equals(pOld) == true ) {
 				return false;
 			}
 
@@ -98,6 +102,21 @@ namespace Hover.Core.Utils {
 
 			Debug.LogError("Could not find a "+typeof(T).Name+" with name '"+pName+"'.");
 			return default(T);
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public static string ToDebugPath(this Transform pTx) {
+			string path = pTx.name;
+			Transform pathTx = pTx;
+
+			while ( pathTx.parent != null ) {
+				pathTx = pathTx.parent;
+				path = pathTx.name+"/"+path;
+			}
+
+			return path;
 		}
 
 	}

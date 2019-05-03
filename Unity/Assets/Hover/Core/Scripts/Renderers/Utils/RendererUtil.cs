@@ -33,7 +33,7 @@ namespace Hover.Core.Renderers.Utils {
 					TreeUpdater treeUp = prefabRend.gameObject.GetComponent<TreeUpdater>();
 
 					if ( treeUp != null ) {
-						treeUp.UpdateAtAndBelowThisLevel();
+						TreeUpdater.SendTreeUpdatableChanged(treeUp, "BuildRenderer");
 					}
 
 					return prefabRend;
@@ -67,11 +67,8 @@ namespace Hover.Core.Renderers.Utils {
 				return;
 			}
 
-#if UNITY_EDITOR
-			UnityEditor.PrefabUtility.DisconnectPrefabInstance(pRenderer.gameObject);
-#endif
-
 			if ( Application.isPlaying ) {
+				pRenderer.gameObject.transform.SetParent(null);
 				UnityEngine.Object.Destroy(pRenderer.gameObject);
 			}
 			else {

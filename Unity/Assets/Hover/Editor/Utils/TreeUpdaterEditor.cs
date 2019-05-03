@@ -38,10 +38,10 @@ namespace Hover.Editor.Utils {
 			vShowChildren = EditorGUILayout.Foldout(
 				vShowChildren, "Children ("+childCount+")");
 			
-			/*for ( int i = 0 ; vShowChildren && i < childCount ; i++ ) {
+			for ( int i = 0 ; vShowChildren && i < childCount ; i++ ) {
 				EditorGUILayout.ObjectField("    Child "+i, 
 					targ.TreeChildrenThisFrame[i], typeof(TreeUpdater), true);
-			}*/
+			}
 			
 			GUI.enabled = true;
 		}
