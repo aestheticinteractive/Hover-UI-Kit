@@ -4,24 +4,30 @@ using Hover.Core.Renderers.Shapes.Arc;
 using Hover.Core.Renderers.Shapes.Rect;
 using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.Core.Renderers.CanvasElements {
 
 	/*================================================================================================*/
 	[RequireComponent(typeof(HoverCanvas))]
-	public class HoverCanvasSizeUpdater : MonoBehaviour, ITreeUpdateable, ISettingsController {
+	public class HoverCanvasSizeUpdater : TreeUpdateableBehavior, ISettingsController {
 
-		public HoverShape Shape;
+		[SerializeField]
+		[FormerlySerializedAs("Shape")]
+		private HoverShape _Shape;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
-			//do nothing...
+		public HoverShape Shape {
+			get => _Shape;
+			set => this.UpdateValueWithTreeMessage(ref _Shape, value, "Shape");
 		}
 
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void TreeUpdate() {
+		public override void TreeUpdate() {
 			if ( Shape == null ) {
 				Debug.LogWarning("No '"+typeof(HoverShape).Name+"' reference provided.");
 				return;
@@ -52,7 +58,7 @@ namespace Hover.Core.Renderers.CanvasElements {
 			pHoverCanvas.SizeX = pShapeRect.SizeX;
 			pHoverCanvas.SizeY = pShapeRect.SizeY;
 		}
-		
+
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateWithArc(HoverCanvas pHoverCanvas, HoverShapeArc pShapeArc) {
 			pHoverCanvas.Controllers.Set(SettingsControllerMap.TransformLocalPosition+".x", this);

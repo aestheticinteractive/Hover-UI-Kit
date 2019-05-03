@@ -1,5 +1,6 @@
 using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Hover.Core.Renderers.CanvasElements {
@@ -8,8 +9,8 @@ namespace Hover.Core.Renderers.CanvasElements {
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
 	[RequireComponent(typeof(RawImage))]
-	public class HoverIcon : MonoBehaviour, ITreeUpdateable {
-		
+	public class HoverIcon : TreeUpdateableBehavior {
+
 		public const string IconTypeName = "IconType";
 		public const string CanvasScaleName = "CanvasScale";
 		public const string SizeXName = "SizeX";
@@ -28,27 +29,69 @@ namespace Hover.Core.Renderers.CanvasElements {
 		}
 
 		public ISettingsControllerMap Controllers { get; private set; }
-		
+
+		[SerializeField]
 		[DisableWhenControlled(DisplaySpecials=true)]
-		public IconOffset IconType = IconOffset.CheckOuter;
+		[FormerlySerializedAs("IconType")]
+		private IconOffset _IconType = IconOffset.CheckOuter;
 
+		[SerializeField]
 		[DisableWhenControlled(RangeMin=0.0001f, RangeMax=1)]
-		public float CanvasScale = 0.0002f;
-		
-		[DisableWhenControlled(RangeMin=0)]
-		public float SizeX = 0.1f;
+		[FormerlySerializedAs("CanvasScale")]
+		private float _CanvasScale = 0.0002f;
 
+		[SerializeField]
 		[DisableWhenControlled(RangeMin=0)]
-		public float SizeY = 0.1f;
-		
+		[FormerlySerializedAs("SizeX")]
+		private float _SizeX = 0.1f;
+
+		[SerializeField]
+		[DisableWhenControlled(RangeMin=0)]
+		[FormerlySerializedAs("SizeY")]
+		private float _SizeY = 0.1f;
+
+		[SerializeField]
 		[DisableWhenControlled(RangeMin=0, RangeMax=0.01f)]
-		public float UvInset = 0.002f;
+		[FormerlySerializedAs("UvInset")]
+		private float _UvInset = 0.002f;
 
 		[HideInInspector]
 		[SerializeField]
 		private bool _IsBuilt;
-		
-		
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public IconOffset IconType {
+			get => _IconType;
+			set => this.UpdateValueWithTreeMessage(ref _IconType, value, "IconType");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float CanvasScale {
+			get => _CanvasScale;
+			set => this.UpdateValueWithTreeMessage(ref _CanvasScale, value, "CanvasScale");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float SizeX {
+			get => _SizeX;
+			set => this.UpdateValueWithTreeMessage(ref _SizeX, value, "SizeX");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float SizeY {
+			get => _SizeY;
+			set => this.UpdateValueWithTreeMessage(ref _SizeY, value, "SizeY");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float UvInset {
+			get => _UvInset;
+			set => this.UpdateValueWithTreeMessage(ref _UvInset, value, "UvInset");
+		}
+
+
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public HoverIcon() {
@@ -71,14 +114,9 @@ namespace Hover.Core.Renderers.CanvasElements {
 				_IsBuilt = true;
 			}
 		}
-		
+
 		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Start() {
-			//do nothing...
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		public void TreeUpdate() {
+		public override void TreeUpdate() {
 			RawImage icon = ImageComponent;
 			RectTransform rectTx = icon.rectTransform;
 			const float w = 1f/9;
@@ -90,7 +128,7 @@ namespace Hover.Core.Renderers.CanvasElements {
 			rectTx.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, SizeY/CanvasScale);
 			Controllers.TryExpireControllers();
 		}
-		
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/

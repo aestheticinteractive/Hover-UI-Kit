@@ -1,12 +1,13 @@
 using System;
 using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.Core.Renderers.CanvasElements {
 
 	/*================================================================================================*/
 	[RequireComponent(typeof(HoverCanvas))]
-	public class HoverCanvasDataUpdater : MonoBehaviour, ITreeUpdateable, ISettingsController {
+	public class HoverCanvasDataUpdater : TreeUpdateableBehavior, ISettingsController {
 
 		public enum IconPairType {
 			Unspecified,
@@ -25,12 +26,16 @@ namespace Hover.Core.Renderers.CanvasElements {
 
 		public ISettingsControllerMap Controllers { get; private set; }
 
+		[SerializeField]
 		[DisableWhenControlled(DisplaySpecials=true)]
-		public string LabelText;
+		[FormerlySerializedAs("LabelText")]
+		private string _LabelText;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public IconPairType IconType;
-		
+		[FormerlySerializedAs("IconType")]
+		private IconPairType _IconType;
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -41,12 +46,21 @@ namespace Hover.Core.Renderers.CanvasElements {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
-			//do nothing...
+		public string LabelText {
+			get => _LabelText;
+			set => this.UpdateValueWithTreeMessage(ref _LabelText, value, "LabelText");
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void TreeUpdate() {
+		public IconPairType IconType {
+			get => _IconType;
+			set => this.UpdateValueWithTreeMessage(ref _IconType, value, "IconType");
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public override void TreeUpdate() {
 			HoverCanvas hoverCanvas = gameObject.GetComponent<HoverCanvas>();
 
 			UpdateLabel(hoverCanvas);

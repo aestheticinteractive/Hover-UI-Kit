@@ -2,6 +2,7 @@
 using Hover.Core.Renderers.Utils;
 using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.Core.Renderers.CanvasElements {
 
@@ -10,8 +11,8 @@ namespace Hover.Core.Renderers.CanvasElements {
 	[RequireComponent(typeof(TreeUpdater))]
 	[RequireComponent(typeof(Canvas))]
 	[RequireComponent(typeof(CanvasGroup))]
-	public class HoverCanvas : MonoBehaviour, ISettingsController, ITreeUpdateable {
-		
+	public class HoverCanvas : TreeUpdateableBehavior, ISettingsController {
+
 		public const string SizeXName = "SizeX";
 		public const string SizeYName = "SizeY";
 
@@ -23,7 +24,7 @@ namespace Hover.Core.Renderers.CanvasElements {
 			TextRightAndIconLeft,
 			Custom
 		}
-		
+
 		public enum IconSizeType {
 			FontSize,
 			ThreeQuartersFontSize,
@@ -31,61 +32,139 @@ namespace Hover.Core.Renderers.CanvasElements {
 			DoubleFontSize,
 			Custom
 		}
-		
+
 		public ISettingsControllerMap Controllers { get; private set; }
-		
+
+		[SerializeField]
 		[DisableWhenControlled(DisplaySpecials=true)]
-		public HoverLabel Label;
-		public HoverIcon IconOuter;
-		public HoverIcon IconInner;
-		
+		[FormerlySerializedAs("Label")]
+		private HoverLabel _Label;
+
+		[SerializeField]
+		[FormerlySerializedAs("IconOuter")]
+		private HoverIcon _IconOuter;
+
+		[SerializeField]
+		[FormerlySerializedAs("IconInner")]
+		private HoverIcon _IconInner;
+
+		[SerializeField]
 		[DisableWhenControlled(RangeMin=0.0001f)]
-		public float Scale = 0.0002f;
-		
-		[DisableWhenControlled(RangeMin=0)]
-		public float SizeX = 0.1f;
+		[FormerlySerializedAs("Scale")]
+		private float _Scale = 0.0002f;
 
+		[SerializeField]
 		[DisableWhenControlled(RangeMin=0)]
-		public float SizeY = 0.1f;
-		
-		[DisableWhenControlled(RangeMin=0)]
-		public float PaddingX = 0.005f;
-		
-		[DisableWhenControlled(RangeMin=0)]
-		public float PaddingY = 0.005f;
-		
-		[DisableWhenControlled]
-		public CanvasAlignmentType Alignment = CanvasAlignmentType.Left;
+		[FormerlySerializedAs("SizeX")]
+		private float _SizeX = 0.1f;
 
-		[DisableWhenControlled]
-		public IconSizeType IconSize = IconSizeType.FontSize;
+		[SerializeField]
+		[DisableWhenControlled(RangeMin=0)]
+		[FormerlySerializedAs("SizeY")]
+		private float _SizeY = 0.1f;
 
+		[SerializeField]
+		[DisableWhenControlled(RangeMin=0)]
+		[FormerlySerializedAs("PaddingX")]
+		private float _PaddingX = 0.005f;
+		
+		[SerializeField]
+		[DisableWhenControlled(RangeMin=0)]
+		[FormerlySerializedAs("PaddingY")]
+		private float _PaddingY = 0.005f;
+
+		[SerializeField]
 		[DisableWhenControlled]
-		public bool UseMirrorLayout = false;
+		[FormerlySerializedAs("Alignment")]
+		private CanvasAlignmentType _Alignment = CanvasAlignmentType.Left;
+
+		[SerializeField]
+		[DisableWhenControlled]
+		[FormerlySerializedAs("IconSize")]
+		private IconSizeType _IconSize = IconSizeType.FontSize;
+
+		[SerializeField]
+		[DisableWhenControlled]
+		[FormerlySerializedAs("UseMirrorLayout")]
+		private bool _UseMirrorLayout = false;
 
 		[HideInInspector]
 		[SerializeField]
 		private bool _IsBuilt;
-
-		private Canvas vPrevCanvas;
-		private CanvasGroup vPrevCanvasGroup;
-		private HoverLabel vPrevLabel;
-		private HoverIcon.IconOffset vPrevIconOuter;
-		private HoverIcon.IconOffset vPrevIconInner;
-		private float vPrevScale;
-		private float vPrevSizeX;
-		private float vPrevSizeY;
-		private float vPrevPaddingX;
-		private float vPrevPaddingY;
-		private CanvasAlignmentType vPrevAlignment;
-		private IconSizeType vPrevIconSize;
-		private bool vPrevUseMirrorLayout;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public HoverCanvas() {
 			Controllers = new SettingsControllerMap();
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverLabel Label {
+			get => _Label;
+			set => this.UpdateValueWithTreeMessage(ref _Label, value, "Label");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverIcon IconOuter {
+			get => _IconOuter;
+			set => this.UpdateValueWithTreeMessage(ref _IconOuter, value, "IconOuter");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverIcon IconInner {
+			get => _IconInner;
+			set => this.UpdateValueWithTreeMessage(ref _IconInner, value, "IconInner");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float Scale {
+			get => _Scale;
+			set => this.UpdateValueWithTreeMessage(ref _Scale, value, "Scale");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float SizeX {
+			get => _SizeX;
+			set => this.UpdateValueWithTreeMessage(ref _SizeX, value, "SizeX");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float SizeY {
+			get => _SizeY;
+			set => this.UpdateValueWithTreeMessage(ref _SizeY, value, "SizeY");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float PaddingX {
+			get => _PaddingX;
+			set => this.UpdateValueWithTreeMessage(ref _PaddingX, value, "PaddingX");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float PaddingY {
+			get => _PaddingY;
+			set => this.UpdateValueWithTreeMessage(ref _PaddingY, value, "PaddingY");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public CanvasAlignmentType Alignment {
+			get => _Alignment;
+			set => this.UpdateValueWithTreeMessage(ref _Alignment, value, "Alignment");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public IconSizeType IconSize {
+			get => _IconSize;
+			set => this.UpdateValueWithTreeMessage(ref _IconSize, value, "IconSize");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool UseMirrorLayout {
+			get => _UseMirrorLayout;
+			set => this.UpdateValueWithTreeMessage(ref _UseMirrorLayout, value, "UseMirrorLayout");
 		}
 
 
@@ -119,87 +198,48 @@ namespace Hover.Core.Renderers.CanvasElements {
 				_IsBuilt = true;
 			}
 		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		public virtual void Start() {
-			//do nothing...
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		public void TreeUpdate() {
-			bool didChange = (
-				vPrevCanvas != CanvasComponent ||
-				vPrevCanvasGroup != CanvasGroupComponent ||
-				vPrevLabel != Label ||
-				vPrevIconOuter != IconOuter.IconType ||
-				vPrevIconInner != IconInner.IconType ||
-				vPrevScale != Scale ||
-				vPrevSizeX != SizeX ||
-				vPrevSizeY != SizeY ||
-				vPrevPaddingX != PaddingX ||
-				vPrevPaddingY != PaddingY ||
-				vPrevAlignment != Alignment ||
-				vPrevIconSize != IconSize ||
-				vPrevUseMirrorLayout != UseMirrorLayout
-			);
 
-			if ( !didChange ) {
-				return;
-			}
-
+		/*--------------------------------------------------------------------------------------------*/
+		public override void TreeUpdate() {
 			UpdateCanvasComponent();
 			UpdateScale();
 			UpdateActiveStates();
 			UpdateIconSizeSettings();
 			UpdateCanvasAlignmentSettings();
 			Controllers.TryExpireControllers();
-
-			vPrevCanvas = CanvasComponent;
-			vPrevCanvasGroup = CanvasGroupComponent;
-			vPrevLabel = Label;
-			vPrevIconOuter = IconOuter.IconType;
-			vPrevIconInner = IconInner.IconType;
-			vPrevScale = Scale;
-			vPrevSizeX = SizeX;
-			vPrevSizeY = SizeY;
-			vPrevPaddingX = PaddingX;
-			vPrevPaddingY = PaddingY;
-			vPrevAlignment = Alignment;
-			vPrevIconSize = IconSize;
-			vPrevUseMirrorLayout = UseMirrorLayout;
 		}
-		
-		
+
+
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void BuildElements() {
 			CanvasComponent.renderMode = RenderMode.WorldSpace;
 			CanvasComponent.sortingOrder = 1;
-			
+
 			Label = BuildLabel();
 			IconOuter = BuildIcon("IconOuter");
 			IconInner = BuildIcon("IconInner");
-			
+
 			IconOuter.IconType = HoverIcon.IconOffset.RadioOuter;
 			IconInner.IconType = HoverIcon.IconOffset.RadioInner;
 
 			IconInner.ImageComponent.color = new Color(1, 1, 1, 0.7f);
 		}
-		
+
 		/*--------------------------------------------------------------------------------------------*/
 		private HoverLabel BuildLabel() {
 			var labelGo = new GameObject("Label");
 			labelGo.transform.SetParent(gameObject.transform, false);
 			return labelGo.AddComponent<HoverLabel>();
 		}
-		
+
 		/*--------------------------------------------------------------------------------------------*/
 		private HoverIcon BuildIcon(string pName) {
 			var iconGo = new GameObject(pName);
 			iconGo.transform.SetParent(gameObject.transform, false);
 			return iconGo.AddComponent<HoverIcon>();
 		}
-		
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -212,18 +252,18 @@ namespace Hover.Core.Renderers.CanvasElements {
 			rectTx.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, UnscaledPaddedSizeX/Scale);
 			rectTx.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, UnscaledPaddedSizeY/Scale);
 		}
-		
+
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateScale() {
 			Label.Controllers.Set(HoverLabel.CanvasScaleName, this);
 			IconOuter.Controllers.Set(HoverIcon.CanvasScaleName, this);
 			IconInner.Controllers.Set(HoverIcon.CanvasScaleName, this);
-			
+
 			Label.CanvasScale = Scale;
 			IconOuter.CanvasScale = Scale;
 			IconInner.CanvasScale = Scale;
 		}
-		
+
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateActiveStates() {
 			bool isLabelActive = (!string.IsNullOrEmpty(Label.TextComponent.text));
@@ -238,7 +278,7 @@ namespace Hover.Core.Renderers.CanvasElements {
 			RendererUtil.SetActiveWithUpdate(IconOuter, isIconOuterActive);
 			RendererUtil.SetActiveWithUpdate(IconInner, isIconInnerActive);
 		}
-				
+
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateIconSizeSettings() {
 			if ( IconSize == IconSizeType.Custom ) {
@@ -256,25 +296,25 @@ namespace Hover.Core.Renderers.CanvasElements {
 				case IconSizeType.FontSize:
 					IconOuter.SizeX = fontSize;
 					break;
-					
+
 				case IconSizeType.ThreeQuartersFontSize:
 					IconOuter.SizeX = fontSize*0.75f;
 					break;
-					
+
 				case IconSizeType.OneAndHalfFontSize:
 					IconOuter.SizeX = fontSize*1.5f;
 					break;
-					
+
 				case IconSizeType.DoubleFontSize:
 					IconOuter.SizeX = fontSize*2;
 					break;
 			}
-			
+
 			IconOuter.SizeY = IconOuter.SizeX;
 			IconInner.SizeX = IconOuter.SizeX;
 			IconInner.SizeY = IconOuter.SizeY;
 		}
-		
+
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateCanvasAlignmentSettings() {
 			if ( Alignment == CanvasAlignmentType.Custom ) {
@@ -291,44 +331,44 @@ namespace Hover.Core.Renderers.CanvasElements {
 			float labelInsetR = 0;
 			float labelInsetT = 0;
 			TextAnchor labelAlign;
-			
+
 			switch ( Alignment ) { //icon
 				case CanvasAlignmentType.Left:
 				case CanvasAlignmentType.TextRightAndIconLeft:
 					iconShiftX = -0.5f*iconAvailW;
 					labelInsetL = IconOuter.SizeX+iconPad;
 					break;
-					
+
 				case CanvasAlignmentType.Center:
 					iconShiftY = (Label.TextComponent.text.Length == 0 ? 0 : fontSize/2+iconPad);
 					labelInsetT = IconOuter.SizeY/2+iconPad;
 					break;
-					
+
 				case CanvasAlignmentType.Right:
 				case CanvasAlignmentType.TextLeftAndIconRight:
 					iconShiftX = 0.5f*iconAvailW;
 					labelInsetR = IconOuter.SizeX+iconPad;
 					break;
-					
+
 				default:
 					throw new Exception("Unhandled alignment: "+Alignment);
 			}
-			
+
 			switch ( Alignment ) { //label
 				case CanvasAlignmentType.Left:
 				case CanvasAlignmentType.TextLeftAndIconRight:
 					labelAlign = (UseMirrorLayout ? TextAnchor.MiddleRight : TextAnchor.MiddleLeft);
 					break;
-					
+
 				case CanvasAlignmentType.Center:
 					labelAlign = TextAnchor.MiddleCenter;
 					break;
-					
+
 				case CanvasAlignmentType.Right:
 				case CanvasAlignmentType.TextRightAndIconLeft:
 					labelAlign = (UseMirrorLayout ? TextAnchor.MiddleLeft : TextAnchor.MiddleRight);
 					break;
-					
+
 				default:
 					throw new Exception("Unhandled alignment: "+Alignment);
 			}
@@ -351,7 +391,7 @@ namespace Hover.Core.Renderers.CanvasElements {
 				labelInsetR = 0;
 				labelInsetT = 0;
 			}
-			
+
 			var labelLocalPos = new Vector3((labelInsetL-labelInsetR)/2, -labelInsetT, 0);
 			var iconLocalPos = new Vector3(iconShiftX, iconShiftY, 0);
 			TextAnchor prevAlign = Label.TextComponent.alignment;
@@ -360,9 +400,9 @@ namespace Hover.Core.Renderers.CanvasElements {
 
 			Label.SizeX = UnscaledPaddedSizeX-labelInsetL-labelInsetR;
 			Label.SizeY = UnscaledPaddedSizeY-labelInsetT;
-			
+
 			Label.TextComponent.alignment = (TextAnchor)(newHorizAlign+prevVertAlign*3);
-			
+
 			Label.transform.localPosition = labelLocalPos/Scale;
 			IconOuter.transform.localPosition = iconLocalPos/Scale;
 			IconInner.transform.localPosition = IconOuter.transform.localPosition;
