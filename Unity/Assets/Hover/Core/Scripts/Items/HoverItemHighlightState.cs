@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using Hover.Core.Cursors;
+using Hover.Core.Items.Managers;
 using Hover.Core.Items.Types;
 using Hover.Core.Utils;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Hover.Core.Items.Managers {
+namespace Hover.Core.Items {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]

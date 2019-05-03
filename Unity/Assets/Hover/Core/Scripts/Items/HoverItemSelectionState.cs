@@ -4,7 +4,7 @@ using Hover.Core.Items.Types;
 using Hover.Core.Utils;
 using UnityEngine;
 
-namespace Hover.Core.Items.Managers {
+namespace Hover.Core.Items {
 
 	/*================================================================================================*/
 	[RequireComponent(typeof(HoverItem))]

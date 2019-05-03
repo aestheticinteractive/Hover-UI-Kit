@@ -1,8 +1,8 @@
-using Hover.Core.Items.Managers;
+using Hover.Core.Items;
 using UnityEditor;
 using UnityEngine;
 
-namespace Hover.Editor.Items.Managers {
+namespace Hover.Editor.Items {
 
 	/*================================================================================================*/
 	[CanEditMultipleObjects]
