@@ -45,6 +45,23 @@ namespace Hover.Core.Cursors {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
+		public void Update() {
+			ICursorData cursorData = GetComponent<HoverCursorFollower>().GetCursorData();
+
+			bool didChange = ( //this should match the usages in UpdateRenderer()
+				IdleRenderer.CenterOffset != GetCenterOffset(cursorData) ||
+				IdleRenderer.DistanceThreshold != cursorData.Idle.DistanceThreshold ||
+				IdleRenderer.TimerProgress != cursorData.Idle.Progress ||
+				IdleRenderer.IsRaycast != cursorData.IsRaycast ||
+				IdleRenderer.gameObject.activeSelf != cursorData.Idle.IsActive
+			);
+
+			if ( didChange ) {
+				TreeUpdater.SendTreeUpdatableChanged(this, "DataChange");
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
 		public override void TreeUpdate() {
 			DestroyRendererIfNecessary();
 			IdleRenderer = (IdleRenderer ?? FindOrBuildIdle());
@@ -88,8 +105,7 @@ namespace Hover.Core.Cursors {
 			IdleRenderer.Controllers.Set(HoverRendererIdle.IsRaycastName, this);
 			IdleRenderer.Controllers.Set(SettingsControllerMap.GameObjectActiveSelf, this);
 
-			IdleRenderer.CenterOffset =
-				transform.InverseTransformPoint(pCursorData.Idle.WorldPosition);
+			IdleRenderer.CenterOffset = GetCenterOffset(pCursorData);
 			IdleRenderer.DistanceThreshold = pCursorData.Idle.DistanceThreshold;
 			IdleRenderer.TimerProgress = pCursorData.Idle.Progress;
 			IdleRenderer.IsRaycast = pCursorData.IsRaycast;
@@ -107,6 +123,13 @@ namespace Hover.Core.Cursors {
 
 			itemPointHold.localRotation = Quaternion.FromToRotation(Vector3.right, itemCenterLocalPos);
 			cursPointHold.localRotation = Quaternion.FromToRotation(Vector3.right, cursorLocalPos);*/
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private Vector3 GetCenterOffset(ICursorData pData) {
+			return transform.InverseTransformPoint(pData.Idle.WorldPosition);
 		}
 
 	}

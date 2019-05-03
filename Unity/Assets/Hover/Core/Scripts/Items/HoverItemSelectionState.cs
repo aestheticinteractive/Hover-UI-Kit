@@ -9,7 +9,7 @@ namespace Hover.Core.Items {
 	/*================================================================================================*/
 	[RequireComponent(typeof(HoverItem))]
 	[RequireComponent(typeof(HoverItemHighlightState))]
-	public class HoverItemSelectionState : MonoBehaviour, ITreeUpdateable {
+	public class HoverItemSelectionState : MonoBehaviour {
 
 		public float SelectionProgress { get; private set; }
 		public bool IsSelectionPrevented { get; private set; }
@@ -21,20 +21,13 @@ namespace Hover.Core.Items {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
-			//do nothing...
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public void TreeUpdate() {
+		public void UpdateViaManager() {
 			TryResetSelection();
 			UpdateSelectionProgress();
 			UpdateNearestCursor();
 			UpdateState();
 		}
 
-
-		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void ReleaseSelectionPrevention() {
 			if ( IsSelectionPrevented ) {

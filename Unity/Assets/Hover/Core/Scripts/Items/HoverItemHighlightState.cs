@@ -168,7 +168,7 @@ namespace Hover.Core.Items {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void UpdateHighlightState() {
+		public void UpdateViaManager() {
 			bool hadCursorInProx = HasCursorInProximity;
 
 			HasCursorInProximity = false;

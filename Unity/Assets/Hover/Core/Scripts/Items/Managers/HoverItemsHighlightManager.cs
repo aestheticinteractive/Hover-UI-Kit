@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Hover.Core.Cursors;
+using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Hover.Core.Items.Managers {
 
@@ -9,7 +11,11 @@ namespace Hover.Core.Items.Managers {
 	[RequireComponent(typeof(HoverItemsManager))]
 	public class HoverItemsHighlightManager : MonoBehaviour {
 
+		[Serializable]
+		public class ItemSelectedEvent : UnityEvent<HoverItem, ICursorData> {}
+
 		public HoverCursorDataProvider CursorDataProvider;
+		public ItemSelectedEvent OnItemSelected;
 
 		private List<HoverItemHighlightState> vActiveHighStates;
 
@@ -81,7 +87,23 @@ namespace Hover.Core.Items.Managers {
 			}
 
 			for ( int i = 0 ; i < vActiveHighStates.Count ; i++ ) {
-				vActiveHighStates[i].UpdateHighlightState();
+				HoverItemHighlightState highState = vActiveHighStates[i];
+				HoverItemSelectionState selState = highState.GetComponent<HoverItemSelectionState>();
+
+				highState.UpdateViaManager();
+
+				if ( selState == null ) {
+					continue;
+				}
+
+				selState.UpdateViaManager();
+
+				if ( selState.WasSelectedThisFrame ) {
+					ICursorData selCursor = highState.NearestHighlight?.Cursor;
+					//Debug.Log("Item selected: "+selState.transform.ToDebugPath()+" / "+
+					//	selCursor?.Type, selState);
+					OnItemSelected.Invoke(highState.GetComponent<HoverItem>(), selCursor);
+				}
 			}
 		}
 

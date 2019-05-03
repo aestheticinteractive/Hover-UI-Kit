@@ -46,10 +46,33 @@ namespace Hover.Core.Cursors {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
+		public void Update() {
+			if ( CursorRenderer == null ) {
+				return;
+			}
+
+			ICursorData cursorData = GetComponent<HoverCursorFollower>().GetCursorData();
+			HoverIndicator cursorInd = CursorRenderer.GetIndicator();
+
+			bool didChange = ( //this should match the usages in UpdateRenderer()
+				CursorRenderer.gameObject.activeSelf != IsCursorActive(cursorData) ||
+				CursorRenderer.IsRaycast != cursorData.IsRaycast ||
+				CursorRenderer.ShowRaycastLine != ShowCursorRaycast(cursorData) ||
+				CursorRenderer.RaycastWorldOrigin != cursorData.WorldPosition ||
+				cursorInd.HighlightProgress != cursorData.MaxItemHighlightProgress ||
+				cursorInd.SelectionProgress != cursorData.MaxItemSelectionProgress
+			);
+
+			if ( didChange ) {
+				TreeUpdater.SendTreeUpdatableChanged(this, "DataChange");
+			}
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
 		public override void TreeUpdate() {
 			DestroyRendererIfNecessary();
 			CursorRenderer = (CursorRenderer ?? FindOrBuildCursor());
-			UpdateRenderer(gameObject.GetComponent<HoverCursorFollower>());
+			UpdateRenderer(GetComponent<HoverCursorFollower>());
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -88,14 +111,24 @@ namespace Hover.Core.Cursors {
 			cursorInd.Controllers.Set(HoverIndicator.HighlightProgressName, this);
 			cursorInd.Controllers.Set(HoverIndicator.SelectionProgressName, this);
 
-			RendererUtil.SetActiveWithUpdate(CursorRenderer, 
-				(cursorData.IsActive && cursorData.Capability != CursorCapabilityType.None));
+			RendererUtil.SetActiveWithUpdate(CursorRenderer, IsCursorActive(cursorData));
 			CursorRenderer.IsRaycast = cursorData.IsRaycast;
-			CursorRenderer.ShowRaycastLine = (cursorData.CanCauseSelections &&
-				cursorData.Type != CursorType.Look);
+			CursorRenderer.ShowRaycastLine = ShowCursorRaycast(cursorData);
 			CursorRenderer.RaycastWorldOrigin = cursorData.WorldPosition;
 			cursorInd.HighlightProgress = cursorData.MaxItemHighlightProgress;
 			cursorInd.SelectionProgress = cursorData.MaxItemSelectionProgress;
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		private static bool IsCursorActive(ICursorData pData) {
+			return (pData.IsActive && pData.Capability != CursorCapabilityType.None);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		private static bool ShowCursorRaycast(ICursorData pData) {
+			return (pData.CanCauseSelections && pData.Type != CursorType.Look);
 		}
 
 	}

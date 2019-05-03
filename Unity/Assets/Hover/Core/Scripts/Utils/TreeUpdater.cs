@@ -97,9 +97,9 @@ namespace Hover.Core.Utils {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public static void SendTreeUpdatableChanged<T>(T pSource, string pNote) where T : MonoBehaviour{
-			Debug.Log(Time.frameCount+" | TreeUpdater.SendTreeUpdatableChanged: "+
-				pSource.GetType().Name+" / '"+pNote+"' / "+
-				pSource.transform.ToDebugPath(), pSource);
+			//Debug.Log(Time.frameCount+" | TreeUpdater.SendTreeUpdatableChanged: "+
+			//	pSource.GetType().Name+" / '"+pNote+"' / "+
+			//	pSource.transform.ToDebugPath(), pSource);
 			//pSource.SendMessage("HandleTreeUpdatableChanged", SendMessageOptions.RequireReceiver);
 			pSource.GetComponent<TreeUpdater>().HandleTreeUpdatableChanged(true);
 		}
