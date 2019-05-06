@@ -60,37 +60,40 @@ namespace Hover.Core.Renderers.Shapes.Arc {
 			float insetInnerRadius = shapeArc.InnerRadius + (isOuterEdge ? 0 : inset);
 			float edgeOuterRadius = (isOuterEdge ? shapeArc.OuterRadius : insetInnerRadius);
 			float edgeInnerRadius = (isOuterEdge ? insetOuterRadius : shapeArc.InnerRadius);
-		
+			float arcDegrees = shapeArc.ArcDegrees;
+
 			if ( fillButton.Background != null ) {
-				UpdateMeshShape(fillButton.Background, insetOuterRadius, insetInnerRadius);
+				UpdateMeshShape(fillButton.Background, insetOuterRadius, insetInnerRadius, arcDegrees);
 			}
 
 			if ( fillButton.Highlight != null ) {
-				UpdateMeshShape(fillButton.Highlight, insetOuterRadius, insetInnerRadius);
+				UpdateMeshShape(fillButton.Highlight, insetOuterRadius, insetInnerRadius, arcDegrees);
 			}
 
 			if ( fillButton.Selection != null ) {
-				UpdateMeshShape(fillButton.Selection, insetOuterRadius, insetInnerRadius);
+				UpdateMeshShape(fillButton.Selection, insetOuterRadius, insetInnerRadius, arcDegrees);
 			}
 
 			if ( fillButton.Edge != null ) {
 				UpdateMeshShape(fillButton.Edge, 
-					edgeOuterRadius, edgeInnerRadius, fillButton.ShowEdge);
+					edgeOuterRadius, edgeInnerRadius, arcDegrees, fillButton.ShowEdge);
 			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		protected virtual void UpdateMeshShape(HoverMesh pMesh, float pOuterRad, float pInnerRad,
-																				bool pShowMesh=true) {
+															float pArcDegrees, bool pShowMesh=true) {
 			HoverShapeArc meshShape = pMesh.GetComponent<HoverShapeArc>();
 
 			pMesh.Controllers.Set(SettingsControllerMap.GameObjectActiveSelf, this);
 			meshShape.Controllers.Set(HoverShapeArc.OuterRadiusName, this);
 			meshShape.Controllers.Set(HoverShapeArc.InnerRadiusName, this);
+			meshShape.Controllers.Set(HoverShapeArc.ArcDegreesName, this);
 
 			RendererUtil.SetActiveWithUpdate(pMesh, (pShowMesh && pMesh.IsMeshVisible));
 			meshShape.OuterRadius = pOuterRad;
 			meshShape.InnerRadius = pInnerRad;
+			meshShape.ArcDegrees = pArcDegrees;
 		}
 
 	}

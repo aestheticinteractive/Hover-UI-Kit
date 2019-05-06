@@ -46,10 +46,6 @@ namespace Hover.Core.Renderers.Items.Sliders {
 			float startPos = segInfoList[0].StartPosition;
 			float endPos = segInfoList[segInfoList.Count-1].EndPosition;
 
-			for ( int i = 0 ; i < segCount ; i++ ) {
-				ResetFillMesh(fillSlider.GetChildMesh(i));
-			}
-
 			for ( int i = 0 ; i < segInfoList.Count ; i++ ) {
 				SliderUtil.SegmentInfo segInfo = segInfoList[i];
 
@@ -57,19 +53,25 @@ namespace Hover.Core.Renderers.Items.Sliders {
 					continue;
 				}
 
-				UpdateFillMesh(fillSlider.GetChildMesh(segIndex++), segInfo, startPos, endPos);
+				UpdateUsedFillMesh(fillSlider.GetChildMesh(segIndex++), segInfo, startPos, endPos);
 			}
 
 			for ( int i = 0 ; i < segCount ; i++ ) {
-				ActivateFillMesh(fillSlider.GetChildMesh(i));
+				HoverMesh segMesh = fillSlider.GetChildMesh(i);
+
+				if ( i >= segIndex ) {
+					UpdateUnusedFillMesh(segMesh);
+				}
+
+				ActivateFillMesh(segMesh);
 			}
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		protected abstract void ResetFillMesh(HoverMesh pSegmentMesh);
+		protected abstract void UpdateUnusedFillMesh(HoverMesh pSegmentMesh);
 
 		/*--------------------------------------------------------------------------------------------*/
-		protected abstract void UpdateFillMesh(HoverMesh pSegmentMesh,
+		protected abstract void UpdateUsedFillMesh(HoverMesh pSegmentMesh,
 			SliderUtil.SegmentInfo pSegmentInfo, float pStartPos, float pEndPos);
 
 		/*--------------------------------------------------------------------------------------------*/

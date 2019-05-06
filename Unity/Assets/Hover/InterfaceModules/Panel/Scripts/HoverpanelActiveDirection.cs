@@ -80,10 +80,9 @@ namespace Hover.InterfaceModules.Panel {
 		private void UpdateFacingTransform() {
 			if ( ActiveWhenFacingMainCamera ) {
 				Controllers.Set(ActiveWhenFacingTransformName, this);
-				ActiveWhenFacingTransform = null;
 			}
 
-			if ( ActiveWhenFacingTransform == null ) {
+			if ( ActiveWhenFacingMainCamera || ActiveWhenFacingTransform == null ) {
 				ActiveWhenFacingTransform = (Camera.main == null ? transform : Camera.main.transform);
 			}
 		}

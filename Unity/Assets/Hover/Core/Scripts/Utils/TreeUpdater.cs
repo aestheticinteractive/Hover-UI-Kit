@@ -168,7 +168,7 @@ namespace Hover.Core.Utils {
 			SendTreeUpdates(pDepth);
 			DescendTree(pDepth);
 
-			Debug.DrawLine(transform.position, transform.position+Vector3.forward*0.1f, Color.red);
+			//Debug.DrawLine(transform.position, transform.position+Vector3.forward*0.02f, Color.red);
 		}
 
 

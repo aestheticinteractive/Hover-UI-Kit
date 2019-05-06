@@ -71,7 +71,7 @@ namespace Hover.Core.Renderers.Shapes.Rect {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		protected override void ResetFillMesh(HoverMesh pSegmentMesh) {
+		protected override void UpdateUnusedFillMesh(HoverMesh pSegmentMesh) {
 			HoverShapeRect meshShapeRect = pSegmentMesh.GetComponent<HoverShapeRect>();
 
 			meshShapeRect.Controllers.Set(HoverShapeRect.SizeXName, this);
@@ -82,7 +82,7 @@ namespace Hover.Core.Renderers.Shapes.Rect {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		protected override void UpdateFillMesh(HoverMesh pSegmentMesh, 
+		protected override void UpdateUsedFillMesh(HoverMesh pSegmentMesh, 
 								SliderUtil.SegmentInfo pSegmentInfo, float pStartPos, float pEndPos) {
 			HoverShapeRect meshShapeRect = pSegmentMesh.GetComponent<HoverShapeRect>();
 			HoverMeshRect meshRect = (HoverMeshRect)pSegmentMesh;
@@ -90,9 +90,12 @@ namespace Hover.Core.Renderers.Shapes.Rect {
 			pSegmentMesh.Controllers.Set(SettingsControllerMap.TransformLocalPosition+".x", this);
 			pSegmentMesh.Controllers.Set(SettingsControllerMap.TransformLocalPosition+".y", this);
 			pSegmentMesh.Controllers.Set(HoverMesh.DisplayModeName, this);
+			meshShapeRect.Controllers.Set(HoverShapeRect.SizeXName, this);
+			meshShapeRect.Controllers.Set(HoverShapeRect.SizeYName, this);
 			meshRect.Controllers.Set(HoverMeshRect.UvTopName, this);
 			meshRect.Controllers.Set(HoverMeshRect.UvBottomName, this);
 
+			meshShapeRect.SizeX = vMeshSizeX;
 			meshShapeRect.SizeY = pSegmentInfo.EndPosition-pSegmentInfo.StartPosition;
 			pSegmentMesh.DisplayMode = (pSegmentInfo.IsFill ?
 				HoverMesh.DisplayModeType.SliderFill : HoverMesh.DisplayModeType.Standard);

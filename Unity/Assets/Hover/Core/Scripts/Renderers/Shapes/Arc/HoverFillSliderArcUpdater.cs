@@ -74,7 +74,7 @@ namespace Hover.Core.Renderers.Shapes.Arc {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		protected override void ResetFillMesh(HoverMesh pSegmentMesh) {
+		protected override void UpdateUnusedFillMesh(HoverMesh pSegmentMesh) {
 			HoverShapeArc meshShapeArc = pSegmentMesh.GetComponent<HoverShapeArc>();
 
 			meshShapeArc.Controllers.Set(HoverShapeArc.OuterRadiusName, this);
@@ -87,16 +87,21 @@ namespace Hover.Core.Renderers.Shapes.Arc {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		protected override void UpdateFillMesh(HoverMesh pSegmentMesh, 
+		protected override void UpdateUsedFillMesh(HoverMesh pSegmentMesh, 
 								SliderUtil.SegmentInfo pSegmentInfo, float pStartPos, float pEndPos) {
 			HoverShapeArc meshShapeArc = pSegmentMesh.GetComponent<HoverShapeArc>();
 			HoverMeshArc meshArc = (HoverMeshArc)pSegmentMesh;
-			
+
 			pSegmentMesh.Controllers.Set(SettingsControllerMap.TransformLocalRotation, this);
 			pSegmentMesh.Controllers.Set(HoverMesh.DisplayModeName, this);
+			meshShapeArc.Controllers.Set(HoverShapeArc.OuterRadiusName, this);
+			meshShapeArc.Controllers.Set(HoverShapeArc.InnerRadiusName, this);
+			meshShapeArc.Controllers.Set(HoverShapeArc.ArcDegreesName, this);
 			meshArc.Controllers.Set(HoverMeshArc.UvMinArcDegreeName, this);
 			meshArc.Controllers.Set(HoverMeshArc.UvMaxArcDegreeName, this);
 
+			meshShapeArc.OuterRadius = vMeshOuterRadius;
+			meshShapeArc.InnerRadius = vMeshInnerRadius;
 			meshShapeArc.ArcDegrees = pSegmentInfo.EndPosition-pSegmentInfo.StartPosition;
 			pSegmentMesh.DisplayMode = (pSegmentInfo.IsFill ?
 				HoverMesh.DisplayModeType.SliderFill : HoverMesh.DisplayModeType.Standard);
