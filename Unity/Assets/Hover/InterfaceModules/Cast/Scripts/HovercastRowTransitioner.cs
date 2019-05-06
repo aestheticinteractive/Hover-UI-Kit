@@ -2,6 +2,7 @@
 using Hover.Core.Layouts.Arc;
 using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.InterfaceModules.Cast {
 
@@ -9,31 +10,84 @@ namespace Hover.InterfaceModules.Cast {
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
 	[RequireComponent(typeof(HovercastInterface))]
-	public class HovercastRowTransitioner : MonoBehaviour, ITreeUpdateable, ISettingsController {
+	public class HovercastRowTransitioner : TreeUpdateableBehavior, ISettingsController {
 
 		public bool IsTransitionActive { get; private set; }
 		public float TransitionProgressCurved { get; private set; }
 
-		public float RowThickness = 0.06f;
-		public float InnerRadius = 0.12f;
+		[SerializeField]
+		[FormerlySerializedAs("RowThickness")]
+		private float _RowThickness = 0.06f;
 
+		[SerializeField]
+		[FormerlySerializedAs("InnerRadius")]
+		private float _InnerRadius = 0.12f;
+
+		[SerializeField]
 		[Range(0, 1)]
-		public float TransitionProgress = 1;
-		
+		[FormerlySerializedAs("TransitionProgress")]
+		private float _TransitionProgress = 1;
+
+		[SerializeField]
 		[Range(0.1f, 10)]
-		public float TransitionExponent = 2;
+		[FormerlySerializedAs("TransitionExponent")]
+		private float _TransitionExponent = 2;
 
+		[SerializeField]
 		[Range(1, 10000)]
-		public float TransitionMilliseconds = 500;
+		[FormerlySerializedAs("TransitionMilliseconds")]
+		private float _TransitionMilliseconds = 500;
 
-		public HovercastRowSwitchingInfo.RowEntryType RowEntryTransition;
+		[SerializeField]
+		[FormerlySerializedAs("RowEntryTransition")]
+		private HovercastRowSwitchingInfo.RowEntryType _RowEntryTransition;
 
 		private Stopwatch vTimer;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
+		public float RowThickness {
+			get => _RowThickness;
+			set => this.UpdateValueWithTreeMessage(ref _RowThickness, value, "RowThickness");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float InnerRadius {
+			get => _InnerRadius;
+			set => this.UpdateValueWithTreeMessage(ref _InnerRadius, value, "InnerRadius");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float TransitionProgress {
+			get => _TransitionProgress;
+			set => this.UpdateValueWithTreeMessage(ref _TransitionProgress, value, "TransProgress");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float TransitionExponent {
+			get => _TransitionExponent;
+			set => this.UpdateValueWithTreeMessage(ref _TransitionExponent, value, "TransExponent");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float TransitionMilliseconds {
+			get => _TransitionMilliseconds;
+			set => this.UpdateValueWithTreeMessage(ref _TransitionMilliseconds, value, "TransMs");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public HovercastRowSwitchingInfo.RowEntryType RowEntryTransition {
+			get => _RowEntryTransition;
+			set => this.UpdateValueWithTreeMessage(ref _RowEntryTransition, value, "RowEntryTrans");
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public override void Start() {
+			base.Start();
+
 			HovercastInterface cast = GetComponent<HovercastInterface>();
 
 			foreach ( Transform childTx in cast.RowContainer ) {
@@ -46,7 +100,7 @@ namespace Hover.InterfaceModules.Cast {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void TreeUpdate() {
+		public override void TreeUpdate() {
 			UpdateSettings();
 			UpdateTimedProgress();
 			UpdateRows();

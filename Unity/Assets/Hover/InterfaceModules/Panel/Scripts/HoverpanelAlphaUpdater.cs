@@ -12,11 +12,11 @@ namespace Hover.InterfaceModules.Panel {
 	[RequireComponent(typeof(TreeUpdater))]
 	[RequireComponent(typeof(HoverpanelInterface))]
 	[RequireComponent(typeof(HoverpanelRowTransitioner))]
-	public class HoverpanelAlphaUpdater : MonoBehaviour, ITreeUpdateable, ISettingsController {
+	public class HoverpanelAlphaUpdater : TreeUpdateableBehavior, ISettingsController {
 
 		private readonly List<IItemData> vItemDataResults;
-		
-		
+
+
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public HoverpanelAlphaUpdater() {
@@ -26,12 +26,7 @@ namespace Hover.InterfaceModules.Panel {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
-			//do nothing...
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		public void TreeUpdate() {
+		public override void TreeUpdate() {
 			UpdateWithTransitions();
 		}
 

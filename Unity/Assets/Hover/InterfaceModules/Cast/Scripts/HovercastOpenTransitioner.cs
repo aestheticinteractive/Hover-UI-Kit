@@ -2,6 +2,7 @@
 using Hover.Core.Cursors;
 using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.InterfaceModules.Cast {
 
@@ -10,33 +11,61 @@ namespace Hover.InterfaceModules.Cast {
 	[RequireComponent(typeof(TreeUpdater))]
 	[RequireComponent(typeof(HovercastInterface))]
 	[RequireComponent(typeof(HoverCursorFollower))]
-	public class HovercastOpenTransitioner : MonoBehaviour, ITreeUpdateable, ISettingsController {
+	public class HovercastOpenTransitioner : TreeUpdateableBehavior, ISettingsController {
 
 		public bool IsTransitionActive { get; private set; }
 		public float TransitionProgressCurved { get; private set; }
 
+		[SerializeField]
 		[Range(0, 1)]
-		public float TransitionProgress = 1;
-		
-		[Range(0.1f, 10)]
-		public float TransitionExponent = 4;
+		[FormerlySerializedAs("TransitionProgress")]
+		private float _TransitionProgress = 1;
 
+		[SerializeField]
+		[Range(0.1f, 10)]
+		[FormerlySerializedAs("TransitionExponent")]
+		private float _TransitionExponent = 4;
+
+		[SerializeField]
 		[Range(1, 10000)]
-		public float TransitionMilliseconds = 500;
+		[FormerlySerializedAs("TransitionMilliseconds")]
+		private float _TransitionMilliseconds = 500;
 
 		private Stopwatch vTimer;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
+		public float TransitionProgress {
+			get => _TransitionProgress;
+			set => this.UpdateValueWithTreeMessage(ref _TransitionProgress, value, "TransProgress");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float TransitionExponent {
+			get => _TransitionExponent;
+			set => this.UpdateValueWithTreeMessage(ref _TransitionExponent, value, "TransExponent");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float TransitionMilliseconds {
+			get => _TransitionMilliseconds;
+			set => this.UpdateValueWithTreeMessage(ref _TransitionMilliseconds, value, "TransMs");
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public override void Start() {
+			base.Start();
+
 			HovercastInterface cast = GetComponent<HovercastInterface>();
 			SetScale(cast.IsOpen ? 1 : 0);
 			UpdateIcons(cast);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void TreeUpdate() {
+		public override void TreeUpdate() {
 			HovercastInterface cast = GetComponent<HovercastInterface>();
 
 			UpdateTimedProgress();

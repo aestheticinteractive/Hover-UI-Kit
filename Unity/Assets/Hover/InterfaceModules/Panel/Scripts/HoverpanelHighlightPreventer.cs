@@ -9,13 +9,13 @@ namespace Hover.InterfaceModules.Panel {
 	/*================================================================================================*/
 	[RequireComponent(typeof(HoverpanelInterface))]
 	[RequireComponent(typeof(HoverpanelRowTransitioner))]
-	public class HoverpanelHighlightPreventer : MonoBehaviour, ITreeUpdateable {
+	public class HoverpanelHighlightPreventer : TreeUpdateableBehavior {
 
 		private const string PreventKey = "HoverpanelTransition";
 
 		private readonly List<HoverItemHighlightState> vItemHighStateResults;
-		
-		
+
+
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public HoverpanelHighlightPreventer() {
@@ -25,16 +25,11 @@ namespace Hover.InterfaceModules.Panel {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
-			//do nothing...
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		public void TreeUpdate() {
+		public override void TreeUpdate() {
 			HoverpanelRowTransitioner row = gameObject.GetComponent<HoverpanelRowTransitioner>();
 			HoverpanelInterface panel = gameObject.GetComponent<HoverpanelInterface>();
 			bool preventHigh = (row.IsTransitionActive);
-			
+
 			UpdateRow(panel.PreviousRow, preventHigh);
 			UpdateRow(panel.ActiveRow, preventHigh);
 		}

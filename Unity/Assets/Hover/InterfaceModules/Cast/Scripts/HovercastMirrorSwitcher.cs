@@ -2,6 +2,7 @@
 using Hover.Core.Renderers.CanvasElements;
 using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.InterfaceModules.Cast {
 
@@ -9,9 +10,11 @@ namespace Hover.InterfaceModules.Cast {
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
 	[RequireComponent(typeof(HovercastInterface))]
-	public class HovercastMirrorSwitcher : MonoBehaviour, ITreeUpdateable, ISettingsController {
+	public class HovercastMirrorSwitcher : TreeUpdateableBehavior, ISettingsController {
 
-		public bool UseMirrorLayout = false;
+		[SerializeField]
+		[FormerlySerializedAs("UseMirrorLayout")]
+		private bool _UseMirrorLayout = false;
 
 		private readonly List<HoverCanvas> vHoverCanvases;
 		private bool vWasMirror;
@@ -27,17 +30,20 @@ namespace Hover.InterfaceModules.Cast {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
+		public bool UseMirrorLayout {
+			get => _UseMirrorLayout;
+			set => this.UpdateValueWithTreeMessage(ref _UseMirrorLayout, value, "UseMirrorLayout");
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
 			vWasMirror = UseMirrorLayout;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
-			//do nothing...
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public void TreeUpdate() {
+		public override void TreeUpdate() {
 			TrySwitch();
 		}
 

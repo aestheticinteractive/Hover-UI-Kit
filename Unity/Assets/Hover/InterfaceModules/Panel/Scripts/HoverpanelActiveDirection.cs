@@ -1,6 +1,7 @@
 ﻿using Hover.Core.Layouts.Rect;
 using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.InterfaceModules.Panel {
 
@@ -9,18 +10,24 @@ namespace Hover.InterfaceModules.Panel {
 	[RequireComponent(typeof(TreeUpdater))]
 	[RequireComponent(typeof(HoverpanelInterface))]
 	[RequireComponent(typeof(HoverpanelRowTransitioner))]
-	public class HoverpanelActiveDirection : MonoBehaviour, ITreeUpdateable, ISettingsController {
+	public class HoverpanelActiveDirection : TreeUpdateableBehavior, ISettingsController {
 
 		public const string ActiveWhenFacingTransformName = "ActiveWhenFacingTransform";
 
 		public ISettingsControllerMap Controllers { get; private set; }
 
-		public bool ActiveWhenFacingMainCamera = true;
+		[SerializeField]
+		[FormerlySerializedAs("ActiveWhenFacingMainCamera")]
+		private bool _ActiveWhenFacingMainCamera = true;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public Transform ActiveWhenFacingTransform;
+		[FormerlySerializedAs("ActiveWhenFacingTransform")]
+		private Transform _ActiveWhenFacingTransform;
 
-		public bool OnlyDuringTransitions = true;
+		[SerializeField]
+		[FormerlySerializedAs("OnlyDuringTransitions")]
+		private bool _OnlyDuringTransitions = true;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -32,12 +39,27 @@ namespace Hover.InterfaceModules.Panel {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
-			//do nothing...
+		public bool ActiveWhenFacingMainCamera {
+			get => _ActiveWhenFacingMainCamera;
+			set => this.UpdateValueWithTreeMessage(ref _ActiveWhenFacingMainCamera, value, "ActFaceMc");
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void TreeUpdate() {
+		public Transform ActiveWhenFacingTransform {
+			get => _ActiveWhenFacingTransform;
+			set => this.UpdateValueWithTreeMessage(ref _ActiveWhenFacingTransform, value, "ActFaceTx");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool OnlyDuringTransitions {
+			get => _OnlyDuringTransitions;
+			set => this.UpdateValueWithTreeMessage(ref _OnlyDuringTransitions, value, "OnlyDurTrans");
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public override void TreeUpdate() {
 			UpdateFacingTransform();
 
 			HoverpanelInterface panel = GetComponent<HoverpanelInterface>();
@@ -65,7 +87,7 @@ namespace Hover.InterfaceModules.Panel {
 				ActiveWhenFacingTransform = (Camera.main == null ? transform : Camera.main.transform);
 			}
 		}
-		
+
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateRow(HoverLayoutRectRow pRow) {
 			if ( pRow == null || !pRow.gameObject.activeSelf ) {

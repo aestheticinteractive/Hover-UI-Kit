@@ -1,5 +1,6 @@
 ﻿using Hover.Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hover.InterfaceModules.Cast {
 
@@ -7,27 +8,39 @@ namespace Hover.InterfaceModules.Cast {
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
 	[RequireComponent(typeof(HovercastInterface))]
-	public class HovercastActiveDirection : MonoBehaviour, ITreeUpdateable, ISettingsController {
+	public class HovercastActiveDirection : TreeUpdateableBehavior, ISettingsController {
 
 		public const string ActiveWhenFacingTransformName = "ActiveWhenFacingTransform";
 
 		public ISettingsControllerMap Controllers { get; private set; }
 		public float CurrentDegree { get; private set; }
 
-		public bool ActiveWhenFacingMainCamera = true;
+		[SerializeField]
+		[FormerlySerializedAs("ActiveWhenFacingMainCamera")]
+		private bool _ActiveWhenFacingMainCamera = true;
 
+		[SerializeField]
 		[DisableWhenControlled]
-		public Transform ActiveWhenFacingTransform;
+		[FormerlySerializedAs("ActiveWhenFacingTransform")]
+		private Transform _ActiveWhenFacingTransform;
 
-		public GameObject ChildForActivation;
+		[SerializeField]
+		[FormerlySerializedAs("ChildForActivation")]
+		private GameObject _ChildForActivation;
 
-		public Vector3 LocalFacingDirection = Vector3.forward;
+		[SerializeField]
+		[FormerlySerializedAs("LocalFacingDirection")]
+		private Vector3 _LocalFacingDirection = Vector3.forward;
 
+		[SerializeField]
 		[Range(10, 180)]
-		public float FullyActiveWithinDegree = 30;
+		[FormerlySerializedAs("FullyActiveWithinDegree")]
+		private float _FullyActiveWithinDegree = 30;
 
+		[SerializeField]
 		[Range(10, 180)]
-		public float InactiveOutsideDegree = 55;
+		[FormerlySerializedAs("InactiveOutsideDegree")]
+		private float _InactiveOutsideDegree = 55;
 
 		//TODO: events for active, inactive, fully-active
 
@@ -41,6 +54,44 @@ namespace Hover.InterfaceModules.Cast {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
+		public bool ActiveWhenFacingMainCamera {
+			get => _ActiveWhenFacingMainCamera;
+			set => this.UpdateValueWithTreeMessage(ref _ActiveWhenFacingMainCamera, value, "ActFaceMc");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public Transform ActiveWhenFacingTransform {
+			get => _ActiveWhenFacingTransform;
+			set => this.UpdateValueWithTreeMessage(ref _ActiveWhenFacingTransform, value, "ActFaceTx");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public GameObject ChildForActivation {
+			get => _ChildForActivation;
+			set => this.UpdateValueWithTreeMessage(ref _ChildForActivation, value, "ChildForActiv");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public Vector3 LocalFacingDirection {
+			get => _LocalFacingDirection;
+			set => this.UpdateValueWithTreeMessage(ref _LocalFacingDirection, value, "LocalFacingDir");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float FullyActiveWithinDegree {
+			get => _FullyActiveWithinDegree;
+			set => this.UpdateValueWithTreeMessage(ref _FullyActiveWithinDegree, value, "FullyActDeg");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public float InactiveOutsideDegree {
+			get => _InactiveOutsideDegree;
+			set => this.UpdateValueWithTreeMessage(ref _InactiveOutsideDegree, value, "InactOutDeg");
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
 		public void Awake() {
 			if ( ChildForActivation == null ) {
 				ChildForActivation = gameObject.transform.GetChild(0).gameObject;
@@ -48,12 +99,7 @@ namespace Hover.InterfaceModules.Cast {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
-			//do nothing...
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public void TreeUpdate() {
+		public override void TreeUpdate() {
 			UpdateFacingTransform();
 			UpdateDegree();
 			Controllers.TryExpireControllers();
@@ -72,7 +118,7 @@ namespace Hover.InterfaceModules.Cast {
 				ActiveWhenFacingTransform = (Camera.main == null ? transform : Camera.main.transform);
 			}
 		}
-	
+
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateDegree() {
 			HovercastInterface cast = GetComponent<HovercastInterface>();

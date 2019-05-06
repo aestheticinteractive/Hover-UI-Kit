@@ -5,35 +5,100 @@ using Hover.Core.Layouts.Arc;
 using Hover.Core.Utils;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace Hover.InterfaceModules.Cast {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
-	public class HovercastInterface : MonoBehaviour, ITreeUpdateable {
-		
+	public class HovercastInterface : TreeUpdateableBehavior {
+
 		[Serializable]
 		public class HovercastRowEvent : UnityEvent<HovercastRowSwitchingInfo.RowEntryType> {}
 
-		public Transform RowContainer;
-		public HoverLayoutArcRow ActiveRow;
-		public HoverLayoutArcRow PreviousRow;
-		public HoverItemDataSelector OpenItem;
-		public HoverItemDataText TitleItem;
-		public HoverItemDataSelector BackItem;
-		public bool IsOpen = true;
+		[SerializeField]
+		[FormerlySerializedAs("RowContainer")]
+		private Transform _RowContainer;
+
+		[SerializeField]
+		[FormerlySerializedAs("ActiveRow")]
+		private HoverLayoutArcRow _ActiveRow;
+
+		[SerializeField]
+		[FormerlySerializedAs("PreviousRow")]
+		private HoverLayoutArcRow _PreviousRow;
+
+		[SerializeField]
+		[FormerlySerializedAs("OpenItem")]
+		private HoverItemDataSelector _OpenItem;
+
+		[SerializeField]
+		[FormerlySerializedAs("TitleItem")]
+		private HoverItemDataText _TitleItem;
+
+		[SerializeField]
+		[FormerlySerializedAs("BackItem")]
+		private HoverItemDataSelector _BackItem;
+
+		[SerializeField]
+		[FormerlySerializedAs("IsOpen")]
+		private bool _IsOpen = true;
 
 		public UnityEvent OnOpenToggledEvent = new UnityEvent();
 		public HovercastRowEvent OnRowSwitchedEvent = new HovercastRowEvent();
 
-		public readonly Stack<HoverLayoutArcRow> vRowHistory;
+		private readonly Stack<HoverLayoutArcRow> vRowHistory;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public HovercastInterface() {
 			vRowHistory = new Stack<HoverLayoutArcRow>();
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public Transform RowContainer {
+			get => _RowContainer;
+			set => this.UpdateValueWithTreeMessage(ref _RowContainer, value, "RowContainer");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverLayoutArcRow ActiveRow {
+			get => _ActiveRow;
+			set => this.UpdateValueWithTreeMessage(ref _ActiveRow, value, "ActiveRow");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverLayoutArcRow PreviousRow {
+			get => _PreviousRow;
+			set => this.UpdateValueWithTreeMessage(ref _PreviousRow, value, "PreviousRow");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverItemDataSelector OpenItem {
+			get => _OpenItem;
+			set => this.UpdateValueWithTreeMessage(ref _OpenItem, value, "OpenItem");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverItemDataText TitleItem {
+			get => _TitleItem;
+			set => this.UpdateValueWithTreeMessage(ref _TitleItem, value, "TitleItem");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverItemDataSelector BackItem {
+			get => _BackItem;
+			set => this.UpdateValueWithTreeMessage(ref _BackItem, value, "BackItem");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public bool IsOpen {
+			get => _IsOpen;
+			set => this.UpdateValueWithTreeMessage(ref _IsOpen, value, "IsOpen");
 		}
 
 
@@ -50,12 +115,13 @@ namespace Hover.InterfaceModules.Cast {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
+		public override void Start() {
+			base.Start();
 			PreviousRow = null;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void TreeUpdate() {
+		public override void TreeUpdate() {
 			HovercastRowTitle rowTitle = ActiveRow.GetComponent<HovercastRowTitle>();
 
 			TitleItem.Label = (rowTitle == null ? "" : rowTitle.RowTitle);

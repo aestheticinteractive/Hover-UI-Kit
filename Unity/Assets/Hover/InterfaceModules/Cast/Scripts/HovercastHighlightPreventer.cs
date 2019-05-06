@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Hover.Core.Items;
-using Hover.Core.Items.Managers;
 using Hover.Core.Layouts.Arc;
 using Hover.Core.Utils;
 using UnityEngine;
@@ -11,13 +10,13 @@ namespace Hover.InterfaceModules.Cast {
 	[RequireComponent(typeof(HovercastInterface))]
 	[RequireComponent(typeof(HovercastOpenTransitioner))]
 	[RequireComponent(typeof(HovercastRowTransitioner))]
-	public class HovercastHighlightPreventer : MonoBehaviour, ITreeUpdateable {
+	public class HovercastHighlightPreventer : TreeUpdateableBehavior {
 
 		private const string PreventKey = "HovercastTransition";
 
 		private readonly List<HoverItemHighlightState> vItemHighStateResults;
-		
-		
+
+
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public HovercastHighlightPreventer() {
@@ -27,17 +26,12 @@ namespace Hover.InterfaceModules.Cast {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
-			//do nothing...
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		public void TreeUpdate() {
+		public override void TreeUpdate() {
 			HovercastOpenTransitioner open = gameObject.GetComponent<HovercastOpenTransitioner>();
 			HovercastRowTransitioner row = gameObject.GetComponent<HovercastRowTransitioner>();
 			HovercastInterface cast = gameObject.GetComponent<HovercastInterface>();
 			bool preventHigh = (open.IsTransitionActive || row.IsTransitionActive);
-			
+
 			UpdateItem(cast.OpenItem, row.IsTransitionActive);
 			UpdateItem(cast.BackItem, preventHigh);
 			UpdateItem(cast.TitleItem, preventHigh);

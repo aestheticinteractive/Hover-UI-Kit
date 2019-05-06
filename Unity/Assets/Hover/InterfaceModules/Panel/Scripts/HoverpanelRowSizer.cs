@@ -10,17 +10,12 @@ namespace Hover.InterfaceModules.Panel {
 	[RequireComponent(typeof(TreeUpdater))]
 	[RequireComponent(typeof(HoverShapeRect))]
 	[RequireComponent(typeof(HoverpanelInterface))]
-	public class HoverpanelRowSizer : MonoBehaviour, ITreeUpdateable, ISettingsController {
+	public class HoverpanelRowSizer : TreeUpdateableBehavior, ISettingsController {
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
-			//do nothing...
-		}
-
-		/*--------------------------------------------------------------------------------------------*/
-		public void TreeUpdate() {
+		public override void TreeUpdate() {
 			HoverpanelInterface panel = GetComponent<HoverpanelInterface>();
 			HoverShapeRect shape = GetComponent<HoverShapeRect>();
 

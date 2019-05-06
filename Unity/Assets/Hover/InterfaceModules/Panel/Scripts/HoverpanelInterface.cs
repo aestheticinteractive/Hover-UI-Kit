@@ -5,29 +5,49 @@ using Hover.Core.Layouts.Rect;
 using Hover.Core.Utils;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace Hover.InterfaceModules.Panel {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TreeUpdater))]
-	public class HoverpanelInterface : MonoBehaviour, ITreeUpdateable {
-		
+	public class HoverpanelInterface : TreeUpdateableBehavior {
+
 		[Serializable]
 		public class HoverpanelRowEvent : UnityEvent<HoverpanelRowSwitchingInfo.RowEntryType> {}
 
-		public HoverLayoutRectRow ActiveRow;
-		public HoverLayoutRectRow PreviousRow;
+		[SerializeField]
+		[FormerlySerializedAs("ActiveRow")]
+		private HoverLayoutRectRow _ActiveRow;
+
+		[SerializeField]
+		[FormerlySerializedAs("PreviousRow")]
+		private HoverLayoutRectRow _PreviousRow;
 
 		public HoverpanelRowEvent OnRowSwitchedEvent = new HoverpanelRowEvent();
 
-		public readonly Stack<HoverLayoutRectRow> vRowHistory;
+		private readonly Stack<HoverLayoutRectRow> vRowHistory;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public HoverpanelInterface() {
 			vRowHistory = new Stack<HoverLayoutRectRow>();
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverLayoutRectRow ActiveRow {
+			get => _ActiveRow;
+			set => this.UpdateValueWithTreeMessage(ref _ActiveRow, value, "ActiveRow");
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		public HoverLayoutRectRow PreviousRow {
+			get => _PreviousRow;
+			set => this.UpdateValueWithTreeMessage(ref _PreviousRow, value, "PreviousRow");
 		}
 
 
@@ -40,12 +60,14 @@ namespace Hover.InterfaceModules.Panel {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
+		public override void Start() {
+			base.Start();
 			PreviousRow = null;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		public void TreeUpdate() {
+		public override void TreeUpdate() {
+			//do nothing...
 		}
 
 

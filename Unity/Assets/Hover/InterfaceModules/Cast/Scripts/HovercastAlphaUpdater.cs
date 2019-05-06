@@ -14,12 +14,12 @@ namespace Hover.InterfaceModules.Cast {
 	[RequireComponent(typeof(HovercastOpenTransitioner))]
 	[RequireComponent(typeof(HovercastRowTransitioner))]
 	[RequireComponent(typeof(HovercastActiveDirection))]
-	public class HovercastAlphaUpdater : MonoBehaviour, ITreeUpdateable, ISettingsController {
+	public class HovercastAlphaUpdater : TreeUpdateableBehavior, ISettingsController {
 
 		private readonly List<IItemData> vItemDataResults;
 		private float vDirectionAlpha;
-		
-		
+
+
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public HovercastAlphaUpdater() {
@@ -29,12 +29,7 @@ namespace Hover.InterfaceModules.Cast {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		public void Start() {
-			//do nothing...
-		}
-		
-		/*--------------------------------------------------------------------------------------------*/
-		public void TreeUpdate() {
+		public override void TreeUpdate() {
 			UpdateDirectionAlpha();
 			UpdateWithTransitions();
 		}
@@ -59,7 +54,7 @@ namespace Hover.InterfaceModules.Cast {
 			float openAlpha = (cast.IsOpen ? openProg : 1-openProg);
 			float prevAlpha = openAlpha*(1-row.TransitionProgressCurved);
 			float activeAlpha = openAlpha*row.TransitionProgressCurved;
-			
+
 			FadeItem(cast.OpenItem, 1);
 			FadeItem(cast.BackItem, openAlpha);
 			FadeItem(cast.TitleItem, openAlpha);
