@@ -62,10 +62,6 @@ namespace Hover.Core.Renderers {
 				SelectionProgress != vPrevSel
 			);
 
-			/*if ( !DidSettingsChange ) {
-				return;
-			}*/
-
 			UpdateIndicatorChildren();
 
 			vPrevHigh = HighlightProgress;

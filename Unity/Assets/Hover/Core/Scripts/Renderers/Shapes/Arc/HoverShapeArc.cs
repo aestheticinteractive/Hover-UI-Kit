@@ -183,10 +183,6 @@ namespace Hover.Core.Renderers.Shapes.Arc {
 				InnerOffset != vPrevInnerOff
 			);
 
-			/*if ( !DidSettingsChange ) {
-				return;
-			}*/
-
 			UpdateShapeArcChildren();
 
 			vPrevOuterRad = OuterRadius;
