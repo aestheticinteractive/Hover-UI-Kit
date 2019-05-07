@@ -74,10 +74,10 @@ namespace Hover.Core.Items.Managers {
 					continue;
 				}
 
-				HoverItemHighlightState.Highlight? high;
-				HoverItemHighlightState highState = FindNearestItemToCursor(cursor.Type, out high);
+				HoverItemHighlightState highState = FindNearestItemWithinProxOfCursor(
+					cursor.Type, out HoverItemHighlightState.Highlight? high);
 
-				if ( highState == null || high == null || high.Value.Progress <= 0 ) {
+				if ( highState == null || high == null ) {
 					continue;
 				}
 
@@ -107,7 +107,7 @@ namespace Hover.Core.Items.Managers {
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private HoverItemHighlightState FindNearestItemToCursor(CursorType pCursorType, 
+		private HoverItemHighlightState FindNearestItemWithinProxOfCursor(CursorType pCursorType, 
 												out HoverItemHighlightState.Highlight? pNearestHigh) {
 			float minDist = float.MaxValue;
 			HoverItemHighlightState nearestItem = null;
@@ -118,7 +118,7 @@ namespace Hover.Core.Items.Managers {
 				HoverItemHighlightState highState = vActiveHighStates[i];
 				HoverItemHighlightState.Highlight? high = highState.GetHighlight(pCursorType);
 
-				if ( high == null || high.Value.Distance >= minDist ) {
+				if ( high == null || high.Value.Progress <= 0 || high.Value.Distance >= minDist ) {
 					continue;
 				}
 

@@ -133,10 +133,12 @@ namespace Hover.Core.Renderers.Utils {
 		public static Vector3 GetNearestWorldPositionOnRectangle(Vector3 pFromWorldPosition, 
 													Transform pRectTx, float pSizeX, float pSizeY) {
 			Vector3 fromLocalPos = pRectTx.InverseTransformPoint(pFromWorldPosition);
+			float halfSizeX = pSizeX/2;
+			float halfSizeY = pSizeY/2;
 
 			var nearLocalPos = new Vector3(
-				Mathf.Clamp(fromLocalPos.x, -pSizeX/2, pSizeX/2),
-				Mathf.Clamp(fromLocalPos.y, -pSizeY/2, pSizeY/2),
+				Mathf.Clamp(fromLocalPos.x, -halfSizeX, halfSizeX),
+				Mathf.Clamp(fromLocalPos.y, -halfSizeY, halfSizeY),
 				0
 			);
 

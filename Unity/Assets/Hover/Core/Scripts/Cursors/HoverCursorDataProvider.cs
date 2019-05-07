@@ -11,6 +11,7 @@ namespace Hover.Core.Cursors {
 		private static HoverCursorDataProvider InstanceRef;
 
 		public List<ICursorData> Cursors { get; private set; }
+		public List<ICursorData> SelectableCursors { get; private set; }
 		public List<ICursorData> ExcludedCursors { get; private set; }
 
 		private readonly List<ICursorDataForInput> vCursorsForInput;
@@ -34,6 +35,7 @@ namespace Hover.Core.Cursors {
 		/*--------------------------------------------------------------------------------------------*/
 		public HoverCursorDataProvider() {
 			Cursors = new List<ICursorData>();
+			SelectableCursors = new List<ICursorData>();
 			ExcludedCursors = new List<ICursorData>();
 
 			vCursorsForInput = new List<ICursorDataForInput>();
@@ -52,6 +54,7 @@ namespace Hover.Core.Cursors {
 			gameObject.GetComponentsInChildren(true, vCursorsForInput);
 
 			Cursors.Clear();
+			SelectableCursors.Clear();
 			ExcludedCursors.Clear();
 			vCursorMap.Clear();
 			
@@ -65,6 +68,10 @@ namespace Hover.Core.Cursors {
 
 				Cursors.Add(cursor);
 				vCursorMap.Add(cursor.Type, cursor);
+
+				if ( cursor.CanCauseSelections ) {
+					SelectableCursors.Add(cursor);
+				}
 			}
 		}
 

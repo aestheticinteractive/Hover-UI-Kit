@@ -38,14 +38,14 @@ namespace Hover.Core.Items.Managers {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private void CalcNearestRaycastResults() {
-			List<ICursorData> cursors = CursorDataProvider.Cursors;
+			List<ICursorData> cursors = CursorDataProvider.SelectableCursors;
 			int cursorCount = cursors.Count;
 			bool didFillList = false;
 			
 			for ( int i = 0 ; i < cursorCount ; i++ ) {
 				ICursorData cursor = cursors[i];
 
-				if ( !cursor.IsRaycast || !cursor.CanCauseSelections ) {
+				if ( !cursor.IsRaycast ) {
 					continue;
 				}
 

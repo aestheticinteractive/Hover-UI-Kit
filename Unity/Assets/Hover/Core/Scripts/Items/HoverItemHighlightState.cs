@@ -25,6 +25,7 @@ namespace Hover.Core.Items {
 		public bool IsHighlightPrevented { get; private set; }
 		public Highlight? NearestHighlight { get; private set; }
 		public List<Highlight> Highlights { get; private set; }
+		public Dictionary<CursorType, Highlight> HighlightMap { get; private set; }
 		public bool IsNearestAcrossAllItemsForAnyCursor { get; private set; }
 		public bool HasCursorInProximity { get; private set; }
 
@@ -43,16 +44,12 @@ namespace Hover.Core.Items {
 		private readonly HashSet<string> vPreventHighlightMap;
 		private readonly HashSet<CursorType> vIsNearestForCursorTypeMap;
 
-		/*private bool _IsHighPrevented;
-		private Highlight? _NearestHighlight;
-		private List<Highlight> _Highlights;
-		private bool _IsNearestAcrossAllItemsForAnyCursor;*/
-
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public HoverItemHighlightState() {
 			Highlights = new List<Highlight>();
+			HighlightMap = new Dictionary<CursorType, Highlight>();
 			vPreventHighlightMap = new HashSet<string>();
 			vIsNearestForCursorTypeMap = new HashSet<CursorType>(new CursorTypeComparer());
 		}
@@ -132,15 +129,7 @@ namespace Hover.Core.Items {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public Highlight? GetHighlight(CursorType pType) {
-			for ( int i = 0 ; i < Highlights.Count ; i++ ) {
-				Highlight high = Highlights[i];
-
-				if ( high.Cursor.Type == pType ) {
-					return high;
-				}
-			}
-
-			return null;
+			return (HighlightMap.TryGetValue(pType, out Highlight high) ? high : (Highlight?)null);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -176,6 +165,7 @@ namespace Hover.Core.Items {
 
 			HasCursorInProximity = false;
 			Highlights.Clear();
+			HighlightMap.Clear();
 
 			NearestHighlight = null;
 			UpdateIsHighlightPrevented();
@@ -243,20 +233,17 @@ namespace Hover.Core.Items {
 				return;
 			}
 
-			float minDist = float.MaxValue;
-			List<ICursorData> cursors = CursorDataProvider.Cursors;
+			List<ICursorData> cursors = CursorDataProvider.SelectableCursors;
 			int cursorCount = cursors.Count;
-			
+			float minDist = float.MaxValue;
+
 			for ( int i = 0 ; i < cursorCount ; i++ ) {
 				ICursorData cursor = cursors[i];
-
-				if ( !cursor.CanCauseSelections ) {
-					continue;
-				}
 
 				Highlight high = CalculateHighlight(cursor);
 				high.IsNearestAcrossAllItems = vIsNearestForCursorTypeMap.Contains(cursor.Type);
 				Highlights.Add(high);
+				HighlightMap.Add(cursor.Type, high);
 
 				if ( high.Distance >= minDist ) {
 					continue;

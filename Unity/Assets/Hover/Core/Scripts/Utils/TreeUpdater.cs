@@ -97,7 +97,7 @@ namespace Hover.Core.Utils {
 			//	pSource.GetType().Name+" / '"+pNote+"' / "+
 			//	pSource.transform.ToDebugPath(), pSource);
 			//pSource.SendMessage("HandleTreeUpdatableChanged", SendMessageOptions.RequireReceiver);
-			pSource.GetComponent<TreeUpdater>().HandleTreeUpdatableChanged(true);
+			pSource.GetComponent<TreeUpdater>().HandleTreeUpdatableChanged();
 		}
 
 
