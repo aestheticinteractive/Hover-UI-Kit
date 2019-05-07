@@ -14,6 +14,7 @@ namespace Hover.Core.Items.Managers {
 		public HoverCursorDataProvider CursorDataProvider;
 
 		private List<HoverItem> vItems;
+		private Func<HoverItem, bool> vItemFilterFunc;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -28,11 +29,12 @@ namespace Hover.Core.Items.Managers {
 			}
 
 			vItems = new List<HoverItem>();
+			vItemFilterFunc = FilterItems;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void Update() {
-			GetComponent<HoverItemsManager>().FillListWithMatchingItems(vItems, true, FilterItems);
+			GetComponent<HoverItemsManager>().FillListWithMatchingItems(vItems, true, vItemFilterFunc);
 			ClearCursorLists();
 			FillCursorLists();
 		}
@@ -41,8 +43,7 @@ namespace Hover.Core.Items.Managers {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		private bool FilterItems(HoverItem pItem) {
-			HoverItemData data = pItem.Data;
-			IItemDataSelectable selData = (data as IItemDataSelectable);
+			IItemDataSelectable selData = (pItem.Data as IItemDataSelectable);
 
 			if ( selData == null || !selData.IsStickySelected || !selData.AllowIdleDeselection ) {
 				return false;

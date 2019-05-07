@@ -1,15 +1,11 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Profiling;
 
 namespace Hover.Core.Utils {
 
 	/*================================================================================================*/
 	[ExecuteInEditMode]
 	public class TreeUpdater : MonoBehaviour {
-
-		//TODO:BUG: move tree child out of parent's hierarchy, the child's "TreeParentThisFrame" 
-		//... does not get reset until/unless disable-then-reabling the former parent
 
 		public TreeUpdater TreeParentThisFrame { get; private set; }
 		public List<ITreeUpdateable> TreeUpdatablesThisFrame { get; private set; }
@@ -57,14 +53,14 @@ namespace Hover.Core.Utils {
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void OnTransformParentChanged() {
-			Debug.Log(Time.frameCount+" | ParentChanged: "+transform.ToDebugPath(), this);
+			//Debug.Log(Time.frameCount+" | ParentChanged: "+transform.ToDebugPath(), this);
 			CheckForParent();
 			HandleTreeUpdatableChanged();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
 		public void OnTransformChildrenChanged() {
-			Debug.Log(Time.frameCount+" | ChildrenChanged: "+transform.ToDebugPath(), this);
+			//Debug.Log(Time.frameCount+" | ChildrenChanged: "+transform.ToDebugPath(), this);
 			ReloadTreeChildrenOnUpdate = true;
 			HandleTreeUpdatableChanged();
 		}
@@ -219,9 +215,9 @@ namespace Hover.Core.Utils {
 					continue;
 				}
 
-				Profiler.BeginSample(treeUpdateable.GetType().Name);
+				//Profiler.BeginSample(treeUpdateable.TypeName ?? "TreeUpdate");
 				treeUpdateable.TreeUpdate();
-				Profiler.EndSample();
+				//Profiler.EndSample();
 			}
 		}
 		

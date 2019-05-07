@@ -1,4 +1,5 @@
-﻿using Hover.Core.Items.Managers;
+﻿using System.Collections.Generic;
+using Hover.Core.Items.Managers;
 using UnityEngine;
 
 namespace Hover.Core.Utils {
@@ -26,7 +27,7 @@ namespace Hover.Core.Utils {
 				return false;
 			}
 
-			if ( pNew?.Equals(pOld) == true ) {
+			if ( EqualityComparer<TV>.Default.Equals(pNew, pOld) ) {
 				return false;
 			}
 

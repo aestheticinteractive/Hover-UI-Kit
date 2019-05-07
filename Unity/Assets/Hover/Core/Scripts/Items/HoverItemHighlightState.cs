@@ -148,11 +148,11 @@ namespace Hover.Core.Items {
 			get {
 				IItemDataSelectable selData = (GetComponent<HoverItemData>() as IItemDataSelectable);
 
-				if ( selData != null && selData.IsStickySelected ) {
+				if ( selData?.IsStickySelected == true ) {
 					return 1;
 				}
 
-				return (NearestHighlight == null ? 0 : NearestHighlight.Value.Progress);
+				return (NearestHighlight?.Progress ?? 0);
 			}
 		}
 
@@ -222,8 +222,7 @@ namespace Hover.Core.Items {
 		/*--------------------------------------------------------------------------------------------*/
 		private void UpdateIsHighlightPrevented() {
 			HoverItem hoverItem = GetComponent<HoverItem>();
-			HoverItemData itemData = GetComponent<HoverItem>().Data;
-			IItemDataSelectable selData = (itemData as IItemDataSelectable);
+			IItemDataSelectable selData = (hoverItem.Data as IItemDataSelectable);
 			bool prevIsPrevented = IsHighlightPrevented;
 
 			IsHighlightPrevented = (
