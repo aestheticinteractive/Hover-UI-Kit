@@ -110,16 +110,16 @@ namespace Hover.Core.Items {
 			}
 
 			if ( CursorDataProvider == null ) {
-				Debug.LogWarning("Could not find 'CursorDataProvider'.");
+				Debug.LogWarning("Could not find 'CursorDataProvider'.", this);
 			}
 
 			if ( ProximityProvider == null ) {
 				//TODO: show warning elsewhere? the renderer is typically added *after* this
-				//Debug.LogWarning("Could not find 'ProximityProvider'.");
+				//Debug.LogWarning("Could not find 'ProximityProvider'.", this);
 			}
 
 			if ( InteractionSettings == null ) {
-				Debug.LogWarning("Could not find 'InteractionSettings'.");
+				Debug.LogWarning("Could not find 'InteractionSettings'.", this);
 			}
 		}
 

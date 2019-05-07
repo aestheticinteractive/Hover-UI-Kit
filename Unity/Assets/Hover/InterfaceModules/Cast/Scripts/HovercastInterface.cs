@@ -169,7 +169,7 @@ namespace Hover.InterfaceModules.Cast {
 		public void NavigateBack(HovercastRowSwitchingInfo.RowEntryType pRowEntry=
 													HovercastRowSwitchingInfo.RowEntryType.FromInside) {
 			if ( vRowHistory.Count == 0 ) {
-				Debug.LogWarning("Can't navigate back. No rows left in history.");
+				Debug.LogWarning("Can't navigate back. No rows left in history.", this);
 				return;
 			}
 
@@ -183,7 +183,7 @@ namespace Hover.InterfaceModules.Cast {
 		public void NavigateToRow(HoverLayoutArcRow pRow, 
 													HovercastRowSwitchingInfo.RowEntryType pRowEntry) {
 			if ( pRow == null ) {
-				Debug.LogError("Could not navigate to null/missing row.");
+				Debug.LogError("Could not navigate to null/missing row.", this);
 				return;
 			}
 

@@ -20,7 +20,6 @@ namespace Hover.Core.Items.Managers {
 
 		private List<HoverItem> vItems;
 		private List<HoverItem> vItemsActive;
-		private bool vDidStart;
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -31,7 +30,7 @@ namespace Hover.Core.Items.Managers {
 					InstanceRef = FindObjectOfType<HoverItemsManager>();
 				}
 
-				return (InstanceRef?.vDidStart != true ? null : InstanceRef);
+				return InstanceRef;
 			}
 		}
 
@@ -53,10 +52,9 @@ namespace Hover.Core.Items.Managers {
 			}
 
 			OnItemListInitialized.Invoke();
-			vDidStart = true;
 		}
 
-		
+
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void AddItem(HoverItem pItem) {

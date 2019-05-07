@@ -29,7 +29,7 @@ namespace Hover.Core.Renderers.CanvasElements {
 		/*--------------------------------------------------------------------------------------------*/
 		public override void TreeUpdate() {
 			if ( Shape == null ) {
-				Debug.LogWarning("No '"+typeof(HoverShape).Name+"' reference provided.");
+				Debug.LogWarning("No '"+typeof(HoverShape).Name+"' reference provided.", this);
 				return;
 			}
 

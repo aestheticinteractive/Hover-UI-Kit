@@ -193,7 +193,7 @@ namespace Hover.Core.Utils {
 		private void UpgradeScenes() {
 			string[] scenePaths = Directory.EnumerateFiles(
 				ScenesRootDir, "*.unity", SearchOption.AllDirectories).ToArray();
-			Debug.Log("Upgrader found "+scenePaths.Length+" scenes...");
+			Debug.Log("Upgrader found "+scenePaths.Length+" scenes...", this);
 
 			foreach ( string scenePath in scenePaths ) {
 				string text = File.ReadAllText(scenePath);
@@ -221,7 +221,7 @@ namespace Hover.Core.Utils {
 				Debug.Log("Upgraded scene: "+scenePath+
 					"\nFrom size "+textLen+" to "+text.Length+
 					"\nScene changes..."+
-					"\n"+string.Join("\n", scenePropMap));
+					"\n"+(scenePropMap.Count == 0 ? "<none> " : string.Join("\n", scenePropMap)));
 			}
 		}
 #endif

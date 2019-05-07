@@ -49,7 +49,7 @@ namespace Hover.Core.Cursors {
 			}
 
 			if ( InteractionSettings == null ) {
-				Debug.LogWarning("Could not find 'InteractionSettings'.");
+				Debug.LogWarning("Could not find 'InteractionSettings'.", this);
 			}
 		}
 
