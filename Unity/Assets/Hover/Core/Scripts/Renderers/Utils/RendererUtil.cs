@@ -103,7 +103,9 @@ namespace Hover.Core.Renderers.Utils {
 		public static void SetActiveWithUpdate(GameObject pGameObj, bool pIsActive) {
 			bool wasActive = pGameObj.activeSelf;
 
-			pGameObj.SetActive(pIsActive);
+			if ( pIsActive != wasActive ) {
+				pGameObj.SetActive(pIsActive);
+			}
 
 			if ( pIsActive && !wasActive ) {
 				pGameObj.SendMessage("TreeUpdate", SendMessageOptions.DontRequireReceiver);
