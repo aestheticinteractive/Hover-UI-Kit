@@ -260,7 +260,7 @@ namespace Hover.Core.Items {
 		private Highlight CalculateHighlight(ICursorData pCursor) {
 			var high = new Highlight();
 			high.Cursor = pCursor;
-			
+
 			if ( !Application.isPlaying ) {
 				return high;
 			}

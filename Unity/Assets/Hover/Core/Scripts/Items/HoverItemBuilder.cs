@@ -1,5 +1,4 @@
-﻿using Hover.Core.Items.Managers;
-using Hover.Core.Utils;
+﻿using Hover.Core.Utils;
 using UnityEngine;
 
 namespace Hover.Core.Items {
