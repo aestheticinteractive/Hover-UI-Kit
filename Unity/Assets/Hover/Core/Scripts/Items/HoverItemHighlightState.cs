@@ -22,6 +22,8 @@ namespace Hover.Core.Items {
 			public float Progress;
 		}
 
+		public static float CullDistanceSqr = -1;
+
 		public bool IsHighlightPrevented { get; private set; }
 		public Highlight? NearestHighlight { get; private set; }
 		public List<Highlight> Highlights { get; private set; }
@@ -267,6 +269,14 @@ namespace Hover.Core.Items {
 
 			Vector3 cursorWorldPos = (pCursor.BestRaycastResult == null ?
 				pCursor.WorldPosition : pCursor.BestRaycastResult.Value.WorldPosition);
+
+			if ( CullDistanceSqr > 0 ) {
+				float distSqr = (cursorWorldPos-transform.position).sqrMagnitude;
+
+				if ( distSqr >= CullDistanceSqr ) {
+					return high;
+				}
+			}
 
 			high.NearestWorldPos = ProximityProvider.GetNearestWorldPosition(cursorWorldPos);
 			high.Distance = (cursorWorldPos-high.NearestWorldPos).magnitude;

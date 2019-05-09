@@ -22,10 +22,14 @@ namespace Hover.Core.Items {
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
 		public void UpdateViaManager() {
-			TryResetSelection();
-			UpdateSelectionProgress();
-			UpdateNearestCursor();
-			UpdateState();
+			HoverItemHighlightState highState = GetComponent<HoverItemHighlightState>();
+			HoverItemData itemData = GetComponent<HoverItem>().Data;
+			IItemDataSelectable selData = (itemData as IItemDataSelectable);
+
+			TryResetSelection(highState, selData);
+			UpdateSelectionProgress(highState, selData);
+			UpdateNearestCursor(highState);
+			UpdateState(selData);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
@@ -39,54 +43,42 @@ namespace Hover.Core.Items {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
-		private void TryResetSelection() {
-			if ( !GetComponent<HoverItemHighlightState>().IsHighlightPrevented ) {
+		private void TryResetSelection(HoverItemHighlightState pHighState,
+																		IItemDataSelectable pSelData) {
+			if ( !pHighState.IsHighlightPrevented ) {
 				return;
 			}
 
-			HoverItemData itemData = GetComponent<HoverItem>().Data;
-			IItemDataSelectable selData = (itemData as IItemDataSelectable);
-
 			vSelectionStart = null;
-
-			if ( selData != null ) {
-				selData.DeselectStickySelections();
-			}
+			pSelData?.DeselectStickySelections();
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateSelectionProgress() {
-			HoverItemHighlightState highState = GetComponent<HoverItemHighlightState>();
-
+		private void UpdateSelectionProgress(HoverItemHighlightState pHighState,
+																		IItemDataSelectable pSelData) {
 			if ( vSelectionStart == null ) {
-				HoverItemData itemData = GetComponent<HoverItem>().Data;
-				IItemDataSelectable selData = (itemData as IItemDataSelectable);
-
-				if ( selData == null || !selData.IsStickySelected ) {
+				if ( pSelData == null || !pSelData.IsStickySelected ) {
 					SelectionProgress = 0;
 					return;
 				}
 
-				HoverItemHighlightState.Highlight? nearestHigh = highState.NearestHighlight;
-				float nearDist = highState.InteractionSettings.StickyReleaseDistance;
-				float minHighDist = (nearestHigh == null ? float.MaxValue : nearestHigh.Value.Distance);
+				HoverItemHighlightState.Highlight? nearestHigh = pHighState.NearestHighlight;
+				float nearDist = pHighState.InteractionSettings.StickyReleaseDistance;
+				float minHighDist = nearestHigh?.Distance ?? float.MaxValue;
 
 				SelectionProgress = Mathf.InverseLerp(nearDist, vDistanceUponSelection, minHighDist);
 				return;
 			}
 
 			float ms = (float)(DateTime.UtcNow-(DateTime)vSelectionStart).TotalMilliseconds;
-			SelectionProgress = Math.Min(1, ms/highState.InteractionSettings.SelectionMilliseconds);
+			SelectionProgress = Math.Min(1, ms/pHighState.InteractionSettings.SelectionMilliseconds);
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private bool UpdateState() {
-			HoverItemData itemData = GetComponent<HoverItem>().Data;
-			IItemDataSelectable selData = (itemData as IItemDataSelectable);
-
+		private bool UpdateState(IItemDataSelectable pSelData) {
 			WasSelectedThisFrame = false;
 
-			if ( selData == null || selData.IgnoreSelection ) {
+			if ( pSelData == null || pSelData.IgnoreSelection ) {
 				return false;
 			}
 
@@ -98,7 +90,7 @@ namespace Hover.Core.Items {
 			bool canDeselect = (
 				highState.IsHighlightPrevented ||
 				!highState.IsNearestAcrossAllItemsForAnyCursor ||
-				!selData.IsEnabled
+				!pSelData.IsEnabled
 			);
 
 			for ( int i = 0 ; i < highState.Highlights.Count ; i++ ) {
@@ -111,7 +103,7 @@ namespace Hover.Core.Items {
 			}
 
 			if ( SelectionProgress <= 0 || canDeselect ) {
-				selData.DeselectStickySelections();
+				pSelData.DeselectStickySelections();
 			}
 
 			if ( !highState.IsNearestAcrossAllItemsForAnyCursor || !hasNearestCursorWithFullHigh ) {
@@ -143,14 +135,13 @@ namespace Hover.Core.Items {
 			IsSelectionPrevented = true;
 			WasSelectedThisFrame = true;
 			vDistanceUponSelection = highState.NearestHighlight.Value.Distance;
-			selData.Select();
+			pSelData.Select();
 			return true;
 		}
 
 		/*--------------------------------------------------------------------------------------------*/
-		private void UpdateNearestCursor() {
-			HoverItemHighlightState highState = GetComponent<HoverItemHighlightState>();
-			HoverItemHighlightState.Highlight? nearestHigh = highState.NearestHighlight;
+		private void UpdateNearestCursor(HoverItemHighlightState pHighState) {
+			HoverItemHighlightState.Highlight? nearestHigh = pHighState.NearestHighlight;
 
 			if ( nearestHigh == null ) {
 				return;
