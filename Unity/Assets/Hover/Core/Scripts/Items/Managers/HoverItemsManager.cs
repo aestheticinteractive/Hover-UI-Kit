@@ -159,7 +159,7 @@ namespace Hover.Core.Items.Managers {
 				return;
 			}
 
-			int itemCount = vItemsActive.Count;
+			int itemCount = items.Count;
 
 			for ( int i = 0 ; i < itemCount ; i++ ) {
 				pItems.Add(items[i]);
@@ -177,7 +177,7 @@ namespace Hover.Core.Items.Managers {
 				return;
 			}
 
-			int itemCount = vItemsActive.Count;
+			int itemCount = items.Count;
 
 			for ( int i = 0 ; i < itemCount ; i++ ) {
 				HoverItem item = items[i];
