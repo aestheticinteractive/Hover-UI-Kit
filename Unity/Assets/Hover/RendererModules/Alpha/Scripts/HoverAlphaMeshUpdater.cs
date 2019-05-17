@@ -14,7 +14,7 @@ namespace Hover.RendererModules.Alpha {
 	
 		public const string SortingLayerName = "SortingLayer";
 		public const string AlphaName = "Alpha";
-		
+
 		public ISettingsControllerMap Controllers { get; private set; }
 
 		[SerializeField]
@@ -57,7 +57,7 @@ namespace Hover.RendererModules.Alpha {
 		private float vPrevAlpha;
 		private Color vPrevColor;
 		private Color vCurrColor;
-		
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -160,6 +160,7 @@ namespace Hover.RendererModules.Alpha {
 				if ( test.TotalMilliseconds < FlashColorMilliseconds ) {
 					vCurrColor = Color.Lerp(FlashColor, vCurrColor, 
 						(float)test.TotalMilliseconds/FlashColorMilliseconds);
+					TreeUpdater.SendTreeUpdatableChanged(this, "Flash");
 				}
 			}
 
