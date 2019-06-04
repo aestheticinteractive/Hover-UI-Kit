@@ -274,6 +274,7 @@ namespace Hover.Core.Items {
 				float distSqr = (cursorWorldPos-transform.position).sqrMagnitude;
 
 				if ( distSqr >= CullDistanceSqr ) {
+					high.Distance = float.MaxValue;
 					return high;
 				}
 			}
