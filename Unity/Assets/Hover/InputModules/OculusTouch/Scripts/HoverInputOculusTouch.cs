@@ -1,6 +1,8 @@
 ﻿#if HOVER_INPUT_OCULUSTOUCH
 
+using System;
 using Hover.Core.Cursors;
+using OculusSampleFramework;
 using UnityEngine;
 
 namespace Hover.InputModules.OculusTouch {
@@ -28,12 +30,13 @@ namespace Hover.InputModules.OculusTouch {
 
 		public HoverCursorDataProvider CursorDataProvider;
 		public OvrAvatar Avatar;
+		public HandsManager HandsManager;
 
 		[Space(12)]
 
 		public FollowCursor Look = new FollowCursor(CursorType.Look);
 
-		[Space(12)]
+		[Header("Left Controller")]
 
 		public OculusTouchCursor LeftPalm = new OculusTouchCursor(CursorType.LeftPalm) {
 			LocalPosition = new Vector3(0, 0.01f, 0),
@@ -73,7 +76,7 @@ namespace Hover.InputModules.OculusTouch {
 			TriggerStrengthInput = OculusTouchCursor.InputSourceType.ThumbstickLeft //for Hovercast
 		};
 
-		[Space(12)]
+		[Header("Right Controller")]
 
 		public OculusTouchCursor RightPalm = new OculusTouchCursor(CursorType.RightPalm) {
 			LocalPosition = new Vector3(0, 0.01f, 0),
@@ -113,6 +116,13 @@ namespace Hover.InputModules.OculusTouch {
 			TriggerStrengthInput = OculusTouchCursor.InputSourceType.ThumbstickRight //for Hovercast
 		};
 
+		[Header("Hands")]
+
+		public bool RequireHighHandConfidence = true;
+
+		[Range(0, 0.04f)]
+		public float ExtendFingertipDistance = 0;
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/*--------------------------------------------------------------------------------------------*/
@@ -121,6 +131,10 @@ namespace Hover.InputModules.OculusTouch {
 
 			if ( Avatar == null ) {
 				Avatar = FindObjectOfType<OvrAvatar>();
+			}
+
+			if ( HandsManager == null ) {
+				HandsManager = FindObjectOfType<HandsManager>();
 			}
 
 			if ( Look.FollowTransform == null ) {
@@ -153,9 +167,113 @@ namespace Hover.InputModules.OculusTouch {
 			}
 
 			CursorDataProvider.MarkAllCursorsUnused();
-			UpdateCursorsWithControllers();
+
+			if ( HandsManager == null || 
+					(!HandsManager.LeftHand.IsTracked && !HandsManager.RightHand.IsTracked) ) {
+				UpdateCursorsWithControllers();
+			}
+			else {
+				UpdateCursorsWithHand(HandsManager.LeftHand, HandsManager.LeftHandSkeleton);
+				UpdateCursorsWithHand(HandsManager.RightHand, HandsManager.RightHandSkeleton);
+			}
+
 			Look.UpdateData(CursorDataProvider);
 			CursorDataProvider.ActivateAllCursorsBasedOnUsage();
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		protected virtual void UpdateCursorsWithHand(OVRHand pHand, OVRSkeleton pSkeleton) {
+			if ( !pHand.IsTracked || !pHand.IsDataValid ) {
+				return;
+			}
+
+			if ( RequireHighHandConfidence && !pHand.IsDataHighConfidence ) {
+				return;
+			}
+
+			UpdateCursorsWithPalm(pHand, pSkeleton);
+
+			UpdateCursorsWithFinger(pSkeleton,
+				OVRHand.HandFinger.Thumb, OVRSkeleton.BoneId.Hand_ThumbTip);
+			UpdateCursorsWithFinger(pSkeleton,
+				OVRHand.HandFinger.Index, OVRSkeleton.BoneId.Hand_IndexTip);
+			UpdateCursorsWithFinger(pSkeleton,
+				OVRHand.HandFinger.Middle, OVRSkeleton.BoneId.Hand_MiddleTip);
+			UpdateCursorsWithFinger(pSkeleton,
+				OVRHand.HandFinger.Ring, OVRSkeleton.BoneId.Hand_RingTip);
+			UpdateCursorsWithFinger(pSkeleton,
+				OVRHand.HandFinger.Pinky, OVRSkeleton.BoneId.Hand_PinkyTip);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		protected virtual void UpdateCursorsWithPalm(OVRHand pHand, OVRSkeleton pSkeleton) {
+			bool isLeft = (pSkeleton.GetSkeletonType() == OVRSkeleton.SkeletonType.HandLeft);
+			CursorType cursorType = (isLeft ? CursorType.LeftPalm : CursorType.RightPalm);
+
+			if ( !CursorDataProvider.HasCursorData(cursorType) ) {
+				return;
+			}
+
+			ICursorDataForInput data = CursorDataProvider.GetCursorDataForInput(cursorType);
+			data.SetWorldPosition(pSkeleton.transform.position);
+			data.SetWorldRotation(pSkeleton.transform.rotation);
+			data.SetSize(pHand.HandScale);
+			data.SetTriggerStrength(pHand.GetFingerPinchStrength(OVRHand.HandFinger.Index));
+			data.SetUsedByInput(true);
+		}
+
+		/*--------------------------------------------------------------------------------------------*/
+		protected virtual void UpdateCursorsWithFinger(OVRSkeleton pSkeleton, 
+										OVRHand.HandFinger pFingerType, OVRSkeleton.BoneId pBoneId) {
+			bool isLeft = (pSkeleton.GetSkeletonType() == OVRSkeleton.SkeletonType.HandLeft);
+			CursorType cursorType = GetFingerCursorType(isLeft, pFingerType);
+
+			if ( !CursorDataProvider.HasCursorData(cursorType) ) {
+				return;
+			}
+
+			OVRBone bone = pSkeleton.Bones[(int)pBoneId];
+			Vector3 extendedWorldPos;
+
+			if ( ExtendFingertipDistance == 0 ) {
+				extendedWorldPos = bone.Transform.position;
+			}
+			else {
+				extendedWorldPos = bone.Transform.TransformPoint(
+					new Vector3(0, 0, ExtendFingertipDistance));
+			}
+
+			ICursorDataForInput data = CursorDataProvider.GetCursorDataForInput(cursorType);
+			data.SetWorldPosition(extendedWorldPos);
+			data.SetWorldRotation(bone.Transform.rotation);
+			//data.SetSize(1);
+			data.SetUsedByInput(true);
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		/*--------------------------------------------------------------------------------------------*/
+		public static CursorType GetFingerCursorType(bool pIsLeft, OVRHand.HandFinger pFingerType) {
+			switch ( pFingerType ) {
+				case OVRHand.HandFinger.Thumb:
+					return (pIsLeft ? CursorType.LeftThumb : CursorType.RightThumb);
+					
+				case OVRHand.HandFinger.Index:
+					return (pIsLeft ? CursorType.LeftIndex : CursorType.RightIndex);
+					
+				case OVRHand.HandFinger.Middle:
+					return (pIsLeft ? CursorType.LeftMiddle : CursorType.RightMiddle);
+					
+				case OVRHand.HandFinger.Ring:
+					return (pIsLeft ? CursorType.LeftRing : CursorType.RightRing);
+					
+				case OVRHand.HandFinger.Pinky:
+					return (pIsLeft ? CursorType.LeftPinky : CursorType.RightPinky);
+			}
+
+			throw new Exception("Unhandled cursor combination: "+pIsLeft+" / "+pFingerType);
 		}
 
 
